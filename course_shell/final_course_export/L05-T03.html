@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L05-T03: Signaling & Communication</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              orange: '#E87522',
+              'orange-dark': '#C65D12',
+              'orange-light': '#FDF3EB',
+              dark: '#111827',
+              gray: '#6B7280',
+              border: '#E5E7EB',
+              canvas: '#F6F7F5',
+              surface: '#FFFFFF',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #111827;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Flashing blinker keyframes */
+    @keyframes blinkerFlash {
+      0%, 100% {
+        opacity: 0.15;
+        box-shadow: 0 0 0 rgba(232, 117, 34, 0);
+      }
+      50% {
+        opacity: 1;
+        box-shadow: 0 0 16px 4px rgba(232, 117, 34, 0.95);
+      }
+    }
+
+    .blinker-active {
+      animation: blinkerFlash 0.75s infinite ease-in-out;
+      background-color: #E87522 !important;
+    }
+
+    /* Subtle grid pattern */
+    .blueprint-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+    }
+
+    /* Road dash animation */
+    @keyframes roadMove {
+      from { background-position: 0 0; }
+      to { background-position: 0 40px; }
+    }
+
+    .road-scrolling {
+      animation: roadMove 0.8s linear infinite;
+    }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      accent-color: #E87522;
+    }
+  </style>
+</head>
+<body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8 selection:bg-orange-100 selection:text-orange-900">
+
+  <!-- Main Standalone Container -->
+  <main class="max-w-4xl mx-auto space-y-12">
+
+    <!-- Pedagogical Header & Statutory Context -->
+    <header class="border-b border-brand-border pb-8">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-brand-orange mb-3">
+        <span class="inline-block w-2 h-2 rounded-full bg-brand-orange"></span>
+        <span>Module 05 · Speed Management & Traffic Flow</span>
+        <span class="text-gray-400">/</span>
+        <span class="text-gray-600">Topic L05-T03</span>
+      </div>
+      
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-brand-dark mb-4">
+        Signaling &amp; Communication
+      </h1>
+      
+      <p class="text-lg text-gray-600 leading-relaxed max-w-3xl">
+        Intent is the cornerstone of collision prevention. On public thoroughfares, safe trajectory execution requires broadcasting your planned velocity changes and path alterations before physical deceleration or turning begins.
+      </p>
+
+      <!-- Statutory Mandate Callout -->
+      <div class="mt-6 bg-white border-l-4 border-brand-orange rounded-r-lg p-4 shadow-sm flex items-start gap-4">
+        <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center flex-shrink-0 text-brand-orange font-mono text-sm font-bold">
+          §
+        </div>
+        <div>
+          <div class="text-xs font-mono font-medium text-brand-orange tracking-wide uppercase">
+            Texas Transportation Code § 545.104 · Signaling Turns
+          </div>
+          <p class="text-sm text-gray-700 mt-1 italic">
+            "An operator intending to turn a vehicle right or left shall signal continuously for not less than the last 100 feet of movement of the vehicle before the turn."
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- MODULE 1: THE PREDICTABILITY ENGINE -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-2">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-gray-400">Section 01 // Visual Comparison</span>
+          <h2 class="text-2xl font-bold text-brand-dark">The Power of Intent</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2.5 py-1 rounded">Interactive Model</span>
+      </div>
+
+      <p class="text-sm text-gray-600">
+        Observe how broadcasting operational intent transforms downstream traffic reaction times. Toggle between silent maneuvers and active signaling to compare roadway risk profiles.
+      </p>
+
+      <div class="bg-white rounded-xl border border-brand-border p-6 shadow-sm space-y-6">
+        <!-- Control Toggles -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-4">
+          <div class="text-sm font-medium text-gray-700">Select Signaling Mode:</div>
+          <div class="inline-flex rounded-lg bg-gray-100 p-1 border border-gray-200" role="group">
+            <button id="btn-no-signal" type="button" class="px-4 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-md transition-all duration-200 bg-white text-brand-dark shadow-sm">
+              [ No Signal ]
+            </button>
+            <button id="btn-active-signal" type="button" class="px-4 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-md transition-all duration-200 text-gray-600 hover:text-brand-dark">
+              [ Active Signal ]
+            </button>
+          </div>
+        </div>
+
+        <!-- Visual Scene (Rear-view car on road) -->
+        <div class="relative w-full h-72 rounded-lg overflow-hidden bg-slate-900 border border-gray-800 flex items-center justify-center blueprint-grid">
+          <!-- Sky / Horizon -->
+          <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800 flex items-center justify-between px-6">
+            <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Downstream Observer View</span>
+            <span id="env-telemetry" class="text-[10px] font-mono text-red-400">Kinetic Risk: ELEVATED</span>
+          </div>
+
+          <!-- Road Surface Perspective -->
+          <div class="absolute inset-x-0 bottom-0 top-16 bg-zinc-800 flex justify-center overflow-hidden">
+            <!-- Road shoulders -->
+            <div class="w-full max-w-md h-full bg-zinc-800 relative border-x-4 border-dashed border-zinc-600">
+              <!-- Center dashed line -->
+              <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-1 border-r-2 border-dashed border-amber-400/80"></div>
+
+              <!-- Trajectory Indicator Arrows (Hidden by default, shown on active signal) -->
+              <div id="trajectory-overlay" class="absolute bottom-28 left-6 transition-opacity duration-300 opacity-0 pointer-events-none flex flex-col items-center">
+                <span class="text-[10px] font-mono text-brand-orange uppercase font-semibold">Anticipated Path</span>
+                <svg class="w-6 h-6 text-brand-orange animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+              </div>
+
+              <!-- Stylized CSS Car (Rear View) -->
+              <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-48 transition-transform duration-300">
+                <!-- Vehicle Roof & Cabin -->
+                <div class="relative mx-auto w-32 h-14 bg-zinc-700 rounded-t-2xl border-t-2 border-x-2 border-zinc-500 shadow-md">
+                  <!-- Rear Windshield glass -->
+                  <div class="absolute inset-x-2 top-2 bottom-1 bg-sky-950/70 rounded-t-lg border border-sky-600/30 overflow-hidden">
+                    <div class="w-full h-full bg-gradient-to-tr from-sky-900/40 to-transparent"></div>
+                  </div>
+                </div>
+
+                <!-- Vehicle Body Shell -->
+                <div class="relative w-48 h-16 bg-zinc-900 rounded-lg border-2 border-zinc-600 shadow-2xl flex items-center justify-between px-3">
+                  <!-- Left Tail Light Assembly (Contains Blinker) -->
+                  <div class="relative flex items-center gap-1.5">
+                    <!-- Amber Blinker Indicator -->
+                    <div id="rear-blinker-left" class="w-4 h-6 rounded bg-amber-900/40 border border-amber-700/60 transition-colors"></div>
+                    <!-- Red Brake Lamp -->
+                    <div class="w-5 h-6 rounded bg-red-700 border border-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></div>
+                  </div>
+
+                  <!-- License Plate Area & Exhaust -->
+                  <div class="flex flex-col items-center">
+                    <div class="bg-white text-zinc-900 font-mono text-[9px] font-bold px-2 py-0.5 rounded border border-gray-400 tracking-wider">
+                      TEXAS · ADE
+                    </div>
+                    <div class="text-[8px] font-mono text-zinc-400 mt-1 uppercase">TTC § 545.104</div>
+                  </div>
+
+                  <!-- Right Tail Light Assembly -->
+                  <div class="relative flex items-center gap-1.5">
+                    <!-- Red Brake Lamp -->
+                    <div class="w-5 h-6 rounded bg-red-700 border border-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></div>
+                    <!-- Right Blinker Indicator -->
+                    <div class="w-4 h-6 rounded bg-amber-900/40 border border-amber-700/60"></div>
+                  </div>
+                </div>
+
+                <!-- Tires -->
+                <div class="flex justify-between px-3 -mt-1">
+                  <div class="w-8 h-3 bg-zinc-950 rounded-b"></div>
+                  <div class="w-8 h-3 bg-zinc-950 rounded-b"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Statutory Feedback Card -->
+        <div id="predictability-feedback-card" class="rounded-lg p-4 border transition-colors duration-200 bg-red-50/70 border-red-200">
+          <div class="flex items-start gap-3">
+            <div id="feedback-icon" class="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+              !
+            </div>
+            <div>
+              <h4 id="feedback-status-title" class="text-sm font-semibold text-red-900">
+                Unpredictable Operation
+              </h4>
+              <p id="predictability-text" class="text-sm text-gray-700 mt-1 leading-relaxed">
+                Unpredictable. High risk of rear-end or side-swipe collisions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 2: THE 100-FOOT RULE -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-2">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-gray-400">Section 02 // Spatial Awareness</span>
+          <h2 class="text-2xl font-bold text-brand-dark">Timing Your Signal</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2.5 py-1 rounded">Kinetic Simulation</span>
+      </div>
+
+      <p class="text-sm text-gray-600">
+        Texas statute requires proactive distance broadcasting. Signaling while already in the turn or tapping the indicator 20 feet out violates statutory compliance and invites collision.
+      </p>
+
+      <div class="bg-white rounded-xl border border-brand-border p-6 shadow-sm space-y-6">
+        <!-- Interactive Header & Action Buttons -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-4">
+          <div>
+            <div class="text-sm font-semibold text-brand-dark">Approach Corridor: 150 FT Threshold</div>
+            <div class="text-xs text-gray-500">Watch the blinker trigger automatically at 100 FT mark.</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-play-scenario" type="button" class="px-5 py-2.5 rounded-lg bg-brand-orange hover:bg-brand-orange-dark text-white font-medium text-xs font-mono uppercase tracking-wider shadow-sm transition-all duration-150 active:scale-95 flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span>Play Scenario</span>
+            </button>
+            <button id="btn-reset-scenario" type="button" class="px-3 py-2.5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs font-mono uppercase tracking-wider transition-all">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Top-Down Intersection Visual Simulator -->
+        <div class="relative w-full h-80 rounded-lg overflow-hidden bg-slate-900 border border-gray-800 blueprint-grid flex">
+          
+          <!-- Distance Scale Ruler (Left margin) -->
+          <div class="w-24 bg-slate-950 border-r border-slate-800 h-full flex flex-col justify-between py-4 px-2 font-mono text-[10px] text-gray-400 select-none z-10">
+            <div class="flex items-center gap-1.5 text-brand-orange font-bold">
+              <span class="w-2 h-0.5 bg-brand-orange"></span>
+              <span>0 FT (Turn)</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-gray-500">
+              <span class="w-1.5 h-0.5 bg-gray-700"></span>
+              <span>50 FT</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-amber-400 font-bold bg-amber-950/40 py-1 px-1 rounded border border-amber-800/60">
+              <span class="w-2 h-0.5 bg-amber-400"></span>
+              <span>100 FT (Law)</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-gray-400">
+              <span class="w-2 h-0.5 bg-gray-600"></span>
+              <span>150 FT (Start)</span>
+            </div>
+          </div>
+
+          <!-- Top-down Road Track -->
+          <div class="relative flex-1 h-full bg-zinc-800 overflow-hidden">
+            <!-- Intersecting Cross Street at top (0 FT marker) -->
+            <div class="absolute top-0 inset-x-0 h-16 bg-zinc-850 border-b-2 border-zinc-700 flex items-center justify-between px-4">
+              <div class="text-[9px] font-mono text-zinc-500 uppercase tracking-widest">Cross Street // Intersecting Arterial</div>
+              <!-- Turn Target Indicator -->
+              <div class="flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-2 py-0.5 rounded">
+                <span>Left Turn Corridor</span>
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              </div>
+            </div>
+
+            <!-- Road Center Line -->
+            <div class="absolute inset-y-16 left-1/2 -translate-x-1/2 w-1 border-r-2 border-dashed border-amber-400/70"></div>
+
+            <!-- Statutory 100 FT Demarcation Marker Line -->
+            <div class="absolute top-[38%] inset-x-0 border-t-2 border-dashed border-amber-500/80 flex items-center justify-end pr-4 pointer-events-none z-10">
+              <span class="text-[9px] font-mono bg-amber-950/90 text-amber-300 border border-amber-600/80 px-2 py-0.5 rounded shadow">
+                ▼ MANDATORY 100-FT SIGNAL TRIGGER LINE (TTC § 545.104)
+              </span>
+            </div>
+
+            <!-- Stylized Top-Down Vehicle -->
+            <div id="sim-car" class="absolute left-1/4 -translate-x-1/2 w-14 h-24 bg-white rounded-lg shadow-2xl border-2 border-zinc-300 transition-none z-20 flex flex-col justify-between p-1.5"
+                 style="top: calc(100% - 108px);">
+              <!-- Front Windshield & Headlights -->
+              <div class="flex justify-between items-center px-0.5">
+                <!-- Front-left turn signal -->
+                <div id="sim-front-blinker" class="w-2 h-2 rounded-full bg-amber-900/30 border border-amber-700"></div>
+                <div class="w-6 h-2 bg-sky-200/80 rounded-t"></div>
+                <div class="w-2 h-2 rounded-full bg-slate-200"></div>
+              </div>
+
+              <!-- Car Cabin / Roof -->
+              <div class="w-full h-8 bg-zinc-100 rounded border border-zinc-200 flex items-center justify-center">
+                <span class="text-[8px] font-mono font-bold text-zinc-600">YOU</span>
+              </div>
+
+              <!-- Rear Windshield & Taillights -->
+              <div class="flex justify-between items-center px-0.5">
+                <!-- Rear-left turn signal -->
+                <div id="sim-rear-blinker" class="w-2 h-2 rounded-full bg-amber-900/30 border border-amber-700"></div>
+                <div class="w-6 h-1.5 bg-red-400/80 rounded-b"></div>
+                <div class="w-2 h-2 rounded-full bg-red-600"></div>
+              </div>
+            </div>
+
+            <!-- Real-time HUD Telemetry overlay -->
+            <div class="absolute bottom-3 right-3 bg-slate-950/90 border border-slate-700 rounded-lg p-2.5 font-mono text-[11px] text-gray-300 space-y-1 pointer-events-none z-30">
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-500">DISTANCE TO TURN:</span>
+                <span id="hud-distance" class="text-brand-orange font-bold">150 FT</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-500">SIGNAL STATUS:</span>
+                <span id="hud-signal" class="text-gray-400">INACTIVE</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-500">STATUTORY DUTY:</span>
+                <span id="hud-duty" class="text-amber-400">APPROACHING THRESHOLD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statutory Explanation Box -->
+        <div class="rounded-lg p-4 bg-orange-50/60 border border-orange-200 text-sm text-gray-800 space-y-1">
+          <div class="font-semibold text-brand-dark flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
+            Statutory Rule &amp; Post-Maneuver Cancellation:
+          </div>
+          <p class="leading-relaxed text-gray-700">
+            By law, you must signal continuously for at least 100 feet before turning or stopping. Turn the signal off immediately after completing the maneuver.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 3: HAND & ARM SIGNALS -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-2">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-gray-400">Section 03 // Manual Communication</span>
+          <h2 class="text-2xl font-bold text-brand-dark">Hand &amp; Arm Signals</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2.5 py-1 rounded">Driver Perspective Lab</span>
+      </div>
+
+      <p class="text-sm text-gray-600">
+        Under Texas Transportation Code § 545.106, if electrical turn signal lamps are inoperative, obscured by bright sunlight, or absent, the driver is mandated by law to communicate using standardized left-hand signals.
+      </p>
+
+      <div class="bg-white rounded-xl border border-brand-border p-6 shadow-sm space-y-6">
+        <!-- Interactive Mode Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button id="btn-hand-left" type="button" class="hand-btn px-4 py-3 rounded-lg border-2 border-brand-orange bg-orange-50/50 text-brand-dark font-medium text-xs font-mono uppercase tracking-wider transition-all text-center flex flex-col items-center justify-center gap-1 shadow-sm">
+            <span class="font-bold text-sm text-brand-orange">[ Left Turn ]</span>
+            <span class="text-[10px] text-gray-500 font-sans normal-case">Straight Horizontal (180°)</span>
+          </button>
+          
+          <button id="btn-hand-right" type="button" class="hand-btn px-4 py-3 rounded-lg border border-gray-200 hover:border-gray-300 text-gray-700 font-medium text-xs font-mono uppercase tracking-wider transition-all text-center flex flex-col items-center justify-center gap-1">
+            <span class="font-bold text-sm">[ Right Turn ]</span>
+            <span class="text-[10px] text-gray-500 font-sans normal-case">Bent Upward 90°</span>
+          </button>
+          
+          <button id="btn-hand-stop" type="button" class="hand-btn px-4 py-3 rounded-lg border border-gray-200 hover:border-gray-300 text-gray-700 font-medium text-xs font-mono uppercase tracking-wider transition-all text-center flex flex-col items-center justify-center gap-1">
+            <span class="font-bold text-sm">[ Stop / Slow Down ]</span>
+            <span class="text-[10px] text-gray-500 font-sans normal-case">Bent Downward 90°</span>
+          </button>
+        </div>
+
+        <!-- Visual Illustration of Driver Window & Articulated Arm -->
+        <div class="relative w-full h-80 rounded-lg overflow-hidden bg-slate-900 border border-gray-800 blueprint-grid flex items-center justify-center p-6">
+          
+          <!-- Car Left Side Exterior Mockup with Open Window -->
+          <div class="relative w-full max-w-lg h-60 bg-zinc-800 rounded-xl border-2 border-zinc-600 shadow-2xl flex items-center justify-between p-6 overflow-visible">
+            
+            <!-- Exterior Door Panel Styling -->
+            <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-zinc-900 to-zinc-800 border-t-4 border-zinc-700 flex items-end justify-between px-6 pb-3">
+              <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Driver Side Door Frame</span>
+              <!-- Door handle -->
+              <div class="w-12 h-3 bg-zinc-950 rounded border border-zinc-600 shadow-inner"></div>
+            </div>
+
+            <!-- Left Side Mirror -->
+            <div class="absolute -left-6 top-16 w-8 h-14 bg-zinc-900 border-2 border-zinc-500 rounded-l-lg shadow-xl flex items-center justify-center">
+              <div class="w-2 h-10 bg-sky-200/40 rounded-l"></div>
+            </div>
+
+            <!-- Open Window Aperture -->
+            <div class="relative w-64 h-32 bg-slate-950/90 rounded-lg border-2 border-zinc-500 shadow-inner mx-auto flex items-center justify-center overflow-visible">
+              
+              <!-- Silhouette of driver interior -->
+              <div class="absolute right-6 top-4 w-16 h-20 bg-zinc-800/80 rounded-full border border-zinc-700"></div>
+
+              <!-- SVG Interactive Articulated Hand & Arm Component -->
+              <svg id="hand-arm-svg" class="w-full h-full overflow-visible" viewBox="0 0 260 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Static Shoulder & Upper Arm Origin Point (Inside cabin) -->
+                <circle cx="210" cy="70" r="10" fill="#374151" stroke="#4B5563" stroke-width="2"/>
+                
+                <!-- Dynamic Arm Group (controlled via JavaScript) -->
+                <g id="dynamic-arm-group" class="transition-all duration-300 ease-out">
+                  <!-- The SVG path is replaced dynamically based on selection -->
+                  <!-- Default: Left Turn (Horizontal) -->
+                  <path id="arm-upper" d="M210 70 L110 70" stroke="#E87522" stroke-width="14" stroke-linecap="round"/>
+                  <path id="arm-forearm" d="M110 70 L20 70" stroke="#E87522" stroke-width="12" stroke-linecap="round"/>
+                  <!-- Hand & Fingers (Open palm, thumb up) -->
+                  <circle cx="16" cy="70" r="8" fill="#E87522" />
+                  <path d="M16 66 L6 70 L16 74 Z" fill="#E87522" />
+                </g>
+              </svg>
+
+              <!-- Window Glass Threshold Guide -->
+              <div class="absolute left-0 inset-y-0 w-1 bg-sky-400/40 shadow-[0_0_8px_rgba(56,189,248,0.5)]"></div>
+            </div>
+
+            <!-- Exterior Angle Readout Tag -->
+            <div class="absolute top-4 right-4 bg-zinc-950/80 border border-zinc-700 px-3 py-1.5 rounded font-mono text-xs">
+              <span class="text-gray-400">GESTURE:</span>
+              <span id="arm-angle-label" class="text-brand-orange font-bold ml-1">HORIZONTAL (180°)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gesture Breakdown Card -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div id="card-left-desc" class="p-3.5 rounded-lg border-2 border-brand-orange bg-orange-50/30 transition-all">
+            <div class="font-mono font-bold text-brand-orange uppercase mb-1">Left Turn Protocol</div>
+            <p class="text-gray-600 leading-relaxed">
+              Arm extends straight out horizontally through window. Fully visible to both leading and trailing operators.
+            </p>
+          </div>
+          <div id="card-right-desc" class="p-3.5 rounded-lg border border-gray-200 bg-gray-50/50 transition-all">
+            <div class="font-mono font-bold text-gray-700 uppercase mb-1">Right Turn Protocol</div>
+            <p class="text-gray-600 leading-relaxed">
+              Arm extends outward and bends upward at a precise 90-degree angle with open palm facing forward.
+            </p>
+          </div>
+          <div id="card-stop-desc" class="p-3.5 rounded-lg border border-gray-200 bg-gray-50/50 transition-all">
+            <div class="font-mono font-bold text-gray-700 uppercase mb-1">Stop / Deceleration</div>
+            <p class="text-gray-600 leading-relaxed">
+              Arm extends outward and bends downward at a 90-degree angle with palm facing to the rear.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Synthesis & Knowledge Verification Checkpoint -->
+    <section class="bg-white rounded-xl border border-brand-border p-6 shadow-sm space-y-4">
+      <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+        <h3 class="text-base font-bold text-brand-dark">Statutory Knowledge Verification</h3>
+        <span class="text-xs font-mono text-brand-orange font-medium">TTC § 545.104 Evaluation</span>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-sm text-gray-700 font-medium">
+          Under Texas law, when is a driver required to activate their turn signal prior to executing a turn?
+        </p>
+
+        <div class="grid grid-cols-1 gap-2.5">
+          <button type="button" class="quiz-btn text-left p-3 rounded-lg border border-gray-200 hover:border-gray-300 text-xs text-gray-700 transition flex items-center justify-between">
+            <span>A. At least 50 feet prior to commencing the turn.</span>
+            <span class="text-gray-300 font-mono">○</span>
+          </button>
+          <button type="button" class="quiz-btn text-left p-3 rounded-lg border border-gray-200 hover:border-gray-300 text-xs text-gray-700 transition flex items-center justify-between">
+            <span>B. Continuously for not less than the last 100 feet before the turn.</span>
+            <span class="text-gray-300 font-mono">○</span>
+          </button>
+          <button type="button" class="quiz-btn text-left p-3 rounded-lg border border-gray-200 hover:border-gray-300 text-xs text-gray-700 transition flex items-center justify-between">
+            <span>C. Only when other vehicles are visibly trailing within 200 feet.</span>
+            <span class="text-gray-300 font-mono">○</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page Footer & Lesson Navigation -->
+    <footer class="pt-6 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500">
+      <div>
+        <span>Texas Adult Driver Education · TDLR Approved Provider ADE-1042</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 text-gray-700 transition">
+          ← Previous: L05-T02 Traffic Flow
+        </a>
+        <a href="#" class="px-4 py-2 rounded-lg bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold transition">
+          Complete Topic &amp; Proceed to L05-T04 →
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Logic (Vanilla JavaScript) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* ==========================================================================
+         MODULE 1: THE PREDICTABILITY ENGINE (Visual Comparison)
+         ========================================================================== */
+      const btnNoSignal = document.getElementById('btn-no-signal');
+      const btnActiveSignal = document.getElementById('btn-active-signal');
+      const rearBlinkerLeft = document.getElementById('rear-blinker-left');
+      const trajectoryOverlay = document.getElementById('trajectory-overlay');
+      const envTelemetry = document.getElementById('env-telemetry');
+      const feedbackCard = document.getElementById('predictability-feedback-card');
+      const feedbackTitle = document.getElementById('feedback-status-title');
+      const feedbackText = document.getElementById('predictability-text');
+      const feedbackIcon = document.getElementById('feedback-icon');
+
+      function setSignalingMode(isActive) {
+        if (isActive) {
+          // Button active styles
+          btnActiveSignal.className = 'px-4 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-md transition-all duration-200 bg-brand-orange text-white shadow-sm';
+          btnNoSignal.className = 'px-4 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-md transition-all duration-200 text-gray-600 hover:text-brand-dark';
+
+          // CSS Blinker Active
+          rearBlinkerLeft.classList.add('blinker-active');
+          trajectoryOverlay.classList.remove('opacity-0');
+          trajectoryOverlay.classList.add('opacity-100');
+
+          // Telemetry
+          envTelemetry.textContent = 'Kinetic Risk: CONTROLLED (Predictable)';
+          envTelemetry.className = 'text-[10px] font-mono text-emerald-400 font-bold';
+
+          // Card feedback
+          feedbackCard.className = 'rounded-lg p-4 border transition-colors duration-200 bg-emerald-50/70 border-emerald-200';
+          feedbackIcon.className = 'w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5';
+          feedbackIcon.textContent = '✓';
+          feedbackTitle.className = 'text-sm font-semibold text-emerald-950';
+          feedbackTitle.textContent = 'Predictable Operation';
+          feedbackText.textContent = 'Predictable. Surrounding drivers can anticipate your maneuver and adjust their own speed.';
+        } else {
+          // Button inactive styles
+          btnNoSignal.className = 'px-4 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-md transition-all duration-200 bg-white text-brand-dark shadow-sm';
+          btnActiveSignal.className = 'px-4 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-md transition-all duration-200 text-gray-600 hover:text-brand-dark';
+
+          // CSS Blinker Off
+          rearBlinkerLeft.classList.remove('blinker-active');
+          trajectoryOverlay.classList.remove('opacity-100');
+          trajectoryOverlay.classList.add('opacity-0');
+
+          // Telemetry
+          envTelemetry.textContent = 'Kinetic Risk: ELEVATED (Unpredictable)';
+          envTelemetry.className = 'text-[10px] font-mono text-red-400';
+
+          // Card feedback
+          feedbackCard.className = 'rounded-lg p-4 border transition-colors duration-200 bg-red-50/70 border-red-200';
+          feedbackIcon.className = 'w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5';
+          feedbackIcon.textContent = '!';
+          feedbackTitle.className = 'text-sm font-semibold text-red-900';
+          feedbackTitle.textContent = 'Unpredictable Operation';
+          feedbackText.textContent = 'Unpredictable. High risk of rear-end or side-swipe collisions.';
+        }
+      }
+
+      btnNoSignal.addEventListener('click', () => setSignalingMode(false));
+      btnActiveSignal.addEventListener('click', () => setSignalingMode(true));
+
+
+      /* ==========================================================================
+         MODULE 2: THE 100-FOOT RULE (Spatial Awareness Simulator)
+         ========================================================================== */
+      const btnPlayScenario = document.getElementById('btn-play-scenario');
+      const btnResetScenario = document.getElementById('btn-reset-scenario');
+      const simCar = document.getElementById('sim-car');
+      const simFrontBlinker = document.getElementById('sim-front-blinker');
+      const simRearBlinker = document.getElementById('sim-rear-blinker');
+      const hudDistance = document.getElementById('hud-distance');
+      const hudSignal = document.getElementById('hud-signal');
+      const hudDuty = document.getElementById('hud-duty');
+
+      let animationFrameId = null;
+      let isAnimating = false;
+
+      // Position bounds:
+      // Start at 150 FT (bottom): percentage = 100% (minus height offset)
+      // End at 0 FT (intersection top): percentage = 12%
+      function resetScenario() {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        isAnimating = false;
+        simCar.style.top = 'calc(100% - 108px)';
+        simFrontBlinker.classList.remove('blinker-active');
+        simRearBlinker.classList.remove('blinker-active');
+        hudDistance.textContent = '150 FT';
+        hudSignal.textContent = 'INACTIVE';
+        hudSignal.className = 'text-gray-400';
+        hudDuty.textContent = 'APPROACHING THRESHOLD';
+        hudDuty.className = 'text-amber-400';
+        btnPlayScenario.disabled = false;
+        btnPlayScenario.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+
+      function runScenario() {
+        if (isAnimating) return;
+        isAnimating = true;
+        btnPlayScenario.disabled = true;
+        btnPlayScenario.classList.add('opacity-50', 'cursor-not-allowed');
+
+        const duration = 4000; // 4 seconds total drive
+        const startTime = performance.now();
+
+        // Start distance: 150, end distance: 0
+        function step(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          // Current distance calculation (150 down to 0)
+          const currentDistance = Math.round(150 - (progress * 150));
+          hudDistance.textContent = `${currentDistance} FT`;
+
+          // Interpolate car top position from 150ft mark to 0ft mark
+          // Top position range: from (containerHeight - 108) down to 24px
+          const containerHeight = simCar.parentElement.clientHeight;
+          const startTop = containerHeight - 108;
+          const endTop = 24;
+          const currentTop = startTop - (progress * (startTop - endTop));
+          simCar.style.top = `${currentTop}px`;
+
+          // Check if crossed the 100 FT threshold
+          if (currentDistance <= 100 && currentDistance > 0) {
+            simFrontBlinker.classList.add('blinker-active');
+            simRearBlinker.classList.add('blinker-active');
+            hudSignal.textContent = 'ACTIVE (FLASHING)';
+            hudSignal.className = 'text-brand-orange font-bold';
+            hudDuty.textContent = 'STATUTORY SIGNAL ENGAGED';
+            hudDuty.className = 'text-emerald-400 font-bold';
+          } else if (currentDistance <= 0) {
+            // Reached intersection, turn completed: by rule, deactivate immediately
+            simFrontBlinker.classList.remove('blinker-active');
+            simRearBlinker.classList.remove('blinker-active');
+            hudSignal.textContent = 'OFF (TURN COMPLETED)';
+            hudSignal.className = 'text-emerald-400';
+            hudDuty.textContent = 'MANEUVER EXECUTED LAWFULLY';
+            hudDuty.className = 'text-emerald-400 font-bold';
+          } else {
+            simFrontBlinker.classList.remove('blinker-active');
+            simRearBlinker.classList.remove('blinker-active');
+            hudSignal.textContent = 'INACTIVE';
+            hudSignal.className = 'text-gray-400';
+          }
+
+          if (progress < 1) {
+            animationFrameId = requestAnimationFrame(step);
+          } else {
+            isAnimating = false;
+            btnPlayScenario.disabled = false;
+            btnPlayScenario.classList.remove('opacity-50', 'cursor-not-allowed');
+          }
+        }
+
+        animationFrameId = requestAnimationFrame(step);
+      }
+
+      btnPlayScenario.addEventListener('click', runScenario);
+      btnResetScenario.addEventListener('click', resetScenario);
+
+
+      /* ==========================================================================
+         MODULE 3: HAND & ARM SIGNALS (Manual Communication)
+         ========================================================================== */
+      const btnHandLeft = document.getElementById('btn-hand-left');
+      const btnHandRight = document.getElementById('btn-hand-right');
+      const btnHandStop = document.getElementById('btn-hand-stop');
+      const armAngleLabel = document.getElementById('arm-angle-label');
+      const dynamicArmGroup = document.getElementById('dynamic-arm-group');
+      
+      const cardLeftDesc = document.getElementById('card-left-desc');
+      const cardRightDesc = document.getElementById('card-right-desc');
+      const cardStopDesc = document.getElementById('card-stop-desc');
+      const handButtons = [btnHandLeft, btnHandRight, btnHandStop];
+
+      function setActiveHandButton(activeBtn) {
+        handButtons.forEach(btn => {
+          btn.className = 'hand-btn px-4 py-3 rounded-lg border border-gray-200 hover:border-gray-300 text-gray-700 font-medium text-xs font-mono uppercase tracking-wider transition-all text-center flex flex-col items-center justify-center gap-1';
+          btn.querySelector('span:first-child').className = 'font-bold text-sm';
+        });
+
+        activeBtn.className = 'hand-btn px-4 py-3 rounded-lg border-2 border-brand-orange bg-orange-50/50 text-brand-dark font-medium text-xs font-mono uppercase tracking-wider transition-all text-center flex flex-col items-center justify-center gap-1 shadow-sm';
+        activeBtn.querySelector('span:first-child').className = 'font-bold text-sm text-brand-orange';
+      }
+
+      function updateCardHighlights(mode) {
+        [cardLeftDesc, cardRightDesc, cardStopDesc].forEach(card => {
+          card.className = 'p-3.5 rounded-lg border border-gray-200 bg-gray-50/50 transition-all';
+          card.querySelector('div').className = 'font-mono font-bold text-gray-700 uppercase mb-1';
+        });
+
+        if (mode === 'left') {
+          cardLeftDesc.className = 'p-3.5 rounded-lg border-2 border-brand-orange bg-orange-50/30 transition-all shadow-sm';
+          cardLeftDesc.querySelector('div').className = 'font-mono font-bold text-brand-orange uppercase mb-1';
+        } else if (mode === 'right') {
+          cardRightDesc.className = 'p-3.5 rounded-lg border-2 border-brand-orange bg-orange-50/30 transition-all shadow-sm';
+          cardRightDesc.querySelector('div').className = 'font-mono font-bold text-brand-orange uppercase mb-1';
+        } else if (mode === 'stop') {
+          cardStopDesc.className = 'p-3.5 rounded-lg border-2 border-brand-orange bg-orange-50/30 transition-all shadow-sm';
+          cardStopDesc.querySelector('div').className = 'font-mono font-bold text-brand-orange uppercase mb-1';
+        }
+      }
+
+      // Render hand positions inside SVG
+      function renderArmPosition(mode) {
+        if (mode === 'left') {
+          // Horizontal Straight (180 deg)
+          dynamicArmGroup.innerHTML = `
+            <!-- Left Turn: Straight out horizontally -->
+            <path d="M210 70 L110 70" stroke="#E87522" stroke-width="14" stroke-linecap="round"/>
+            <path d="M110 70 L20 70" stroke="#E87522" stroke-width="12" stroke-linecap="round"/>
+            <circle cx="16" cy="70" r="8" fill="#E87522" />
+            <path d="M16 66 L6 70 L16 74 Z" fill="#E87522" />
+          `;
+          armAngleLabel.textContent = 'HORIZONTAL (180°) · LEFT TURN';
+          setActiveHandButton(btnHandLeft);
+          updateCardHighlights('left');
+        } else if (mode === 'right') {
+          // Bends Upward at 90° angle
+          dynamicArmGroup.innerHTML = `
+            <!-- Right Turn: Upper arm horizontal, forearm bent straight up 90° -->
+            <path d="M210 70 L110 70" stroke="#E87522" stroke-width="14" stroke-linecap="round"/>
+            <path d="M110 70 L110 16" stroke="#E87522" stroke-width="12" stroke-linecap="round"/>
+            <!-- Hand pointing up with fingers extended -->
+            <circle cx="110" cy="14" r="8" fill="#E87522" />
+            <path d="M106 14 L110 4 L114 14 Z" fill="#E87522" />
+          `;
+          armAngleLabel.textContent = 'BENT UPWARD 90° · RIGHT TURN';
+          setActiveHandButton(btnHandRight);
+          updateCardHighlights('right');
+        } else if (mode === 'stop') {
+          // Bends Downward at 90° angle
+          dynamicArmGroup.innerHTML = `
+            <!-- Stop / Slow: Upper arm horizontal, forearm bent straight down 90° -->
+            <path d="M210 70 L110 70" stroke="#E87522" stroke-width="14" stroke-linecap="round"/>
+            <path d="M110 70 L110 124" stroke="#E87522" stroke-width="12" stroke-linecap="round"/>
+            <!-- Hand pointing down with palm facing rear -->
+            <circle cx="110" cy="126" r="8" fill="#E87522" />
+            <path d="M106 126 L110 136 L114 126 Z" fill="#E87522" />
+          `;
+          armAngleLabel.textContent = 'BENT DOWNWARD 90° · STOP / SLOW';
+          setActiveHandButton(btnHandStop);
+          updateCardHighlights('stop');
+        }
+      }
+
+      btnHandLeft.addEventListener('click', () => renderArmPosition('left'));
+      btnHandRight.addEventListener('click', () => renderArmPosition('right'));
+      btnHandStop.addEventListener('click', () => renderArmPosition('stop'));
+
+      // Initial state
+      renderArmPosition('left');
+
+      // Formative Quiz Evaluation Logic
+      const quizBtns = document.querySelectorAll('.quiz-btn');
+      quizBtns.forEach((btn, idx) => {
+        btn.addEventListener('click', () => {
+          quizBtns.forEach(b => {
+            b.className = 'quiz-btn text-left p-3 rounded-lg border border-gray-200 hover:border-gray-300 text-xs text-gray-700 transition flex items-center justify-between cursor-pointer';
+            const spanIcon = b.querySelector('span:last-child');
+            if (spanIcon) {
+              spanIcon.className = 'text-gray-400 font-mono text-xs';
+              spanIcon.textContent = '○';
+            }
+          });
+
+          if (idx === 1) { // B is correct
+            btn.className = 'quiz-btn text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-50 text-xs text-emerald-900 font-semibold transition flex items-center justify-between shadow-sm cursor-pointer';
+            const icon = btn.querySelector('span:last-child');
+            if (icon) {
+              icon.className = 'text-emerald-700 font-bold font-mono text-xs';
+              icon.textContent = '✓ CORRECT: TTC § 545.104(b) (100 FT MINIMUM)';
+            }
+          } else {
+            btn.className = 'quiz-btn text-left p-3 rounded-lg border-2 border-red-400 bg-red-50 text-xs text-red-900 font-medium transition flex items-center justify-between shadow-sm cursor-pointer';
+            const icon = btn.querySelector('span:last-child');
+            if (icon) {
+              icon.className = 'text-red-600 font-bold font-mono text-xs';
+              icon.textContent = idx === 0 ? '✗ INCORRECT (Too late: Texas requires 100 ft minimum)' : '✗ INCORRECT (Signaling is mandatory regardless of trailing traffic)';
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T03';
+  const nextTopicId = 'L05-T04';
+  const prevTopicId = 'L05-T02';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

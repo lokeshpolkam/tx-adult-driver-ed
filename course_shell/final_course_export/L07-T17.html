@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TX Adult Driver Ed // L07-T17: Vehicle Registration TLETS</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-tertiary-fixed-variant": "#424940",
+            "inverse-surface": "#2e3130",
+            "error": "#ba1a1a",
+            "inverse-primary": "#ffb68c",
+            "surface-container-highest": "#e2e3e1",
+            "background": "#1a1a1a",
+            "surface-container-high": "#242424",
+            "on-primary-fixed": "#321200",
+            "tertiary": "#596057",
+            "surface-container-lowest": "#111111",
+            "surface-container": "#1e1e1e",
+            "primary": "#e87522",
+            "surface-dim": "#151515",
+            "on-surface-variant": "#a6a8a5",
+            "primary-fixed": "#ffdbc9",
+            "surface-bright": "#2c2d2c",
+            "on-primary-fixed-variant": "#753400",
+            "on-error-container": "#93000a",
+            "surface-tint": "#e87522",
+            "on-primary-container": "#ffffff",
+            "secondary": "#8c8e8b",
+            "primary-fixed-dim": "#ffb68c",
+            "secondary-container": "#2a2c2b",
+            "on-background": "#f6f7f5",
+            "tertiary-container": "#90978d",
+            "on-primary": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#dee5d9",
+            "outline-variant": "#333634",
+            "secondary-fixed": "#e5e2e1",
+            "on-tertiary-container": "#292f28",
+            "on-tertiary-fixed": "#171d16",
+            "on-secondary-fixed-variant": "#474646",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#c2c9be",
+            "on-secondary-fixed": "#1c1b1b",
+            "outline": "#4a4d4b",
+            "on-error": "#ffffff",
+            "on-surface": "#f6f7f5",
+            "on-secondary-container": "#c8c6c5",
+            "inverse-on-surface": "#191c1b",
+            "surface-variant": "#2a2b29",
+            "surface-container-low": "#161716",
+            "surface": "#1a1a1a",
+            "primary-container": "#e87522"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "3rem",
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "1rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem"
+          },
+          fontFamily: {
+            "headline-sm": ["Geist", "sans-serif"],
+            "label-lg": ["JetBrains Mono", "monospace"],
+            "display-mobile": ["Geist", "sans-serif"],
+            "label-sm": ["JetBrains Mono", "monospace"],
+            "headline-lg-mobile": ["Geist", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "headline-lg": ["Geist", "sans-serif"],
+            "body-sm": ["Geist", "sans-serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "display": ["Geist", "sans-serif"],
+            "label-md": ["JetBrains Mono", "monospace"],
+            "headline-md": ["Geist", "sans-serif"]
+          },
+          fontSize: {
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "display-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "display": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(1000%); }
+    }
+    .scanner-line {
+      animation: scanline 2.2s linear infinite;
+    }
+    .crt-grid {
+      background-size: 100% 3px;
+      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.25) 50%, transparent 50%);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-primary selection:text-white">
+<!-- TDLR Statutory Accredited Header Strip -->
+<header class="w-full bg-surface-container-lowest border-b border-outline-variant py-space-sm px-gutter-mobile md:px-gutter">
+<div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-y-2">
+<div class="flex items-center space-x-space-md">
+<span class="inline-flex items-center px-space-sm py-0.5 border border-outline bg-surface text-primary font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 bg-primary mr-1.5"></span>
+          TDLR CURRICULUM #C3140
+        </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider hidden sm:inline">
+          TEXAS TRANSP. CODE § 502.061 // SAMUEL ALLEN LAW
+        </span>
+</div>
+<div class="flex items-center space-x-space-md font-label-sm text-label-sm text-on-surface-variant">
+<span>TOPIC: <strong class="text-on-surface">L07-T17</strong></span>
+<span class="text-outline">|</span>
+<span>FORM: <strong class="text-primary">VTR-216</strong></span>
+<span class="text-outline">|</span>
+<span class="text-green-500 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> TLETS FEED ONLINE
+        </span>
+</div>
+</div>
+</header>
+<!-- Main Standalone Content Canvas -->
+<main class="flex-1 w-full max-w-6xl mx-auto px-gutter-mobile md:px-gutter py-space-lg md:py-space-xl flex flex-col gap-space-lg">
+<!-- Lesson Header -->
+<section class="border-b border-outline-variant pb-space-lg">
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md uppercase mb-space-xs tracking-wider">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>STATUTORY PROTOCOL MANDATE</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-space-xs">
+        Vehicle Registration TLETS Verification
+      </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+        Texas Law Enforcement Telecommunications System (TLETS) links Texas DMV registration with patrol cruiser Mobile Data Terminals (MDT). Form VTR-216 flags a communication impediment <em class="text-on-surface font-semibold not-italic">prior to physical contact</em>, neutralizing misunderstandings before an officer exits their vehicle.
+      </p>
+</section>
+<!-- Asymmetric Technical Interface Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT: MDT Terminal Simulation (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Terminal Container -->
+<div class="bg-surface-container-lowest border border-outline-variant relative overflow-hidden crt-grid">
+<!-- Terminal Upper Bar -->
+<div class="bg-surface-container-high border-b border-outline-variant px-space-md py-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="inline-block w-2.5 h-2.5 bg-primary"></span>
+<span class="font-label-md text-label-md uppercase text-on-surface tracking-wider">
+                DPS-TLETS // ONBOARD CONSOLE v4.19.2
+              </span>
+</div>
+<div class="flex items-center gap-3 font-label-sm text-label-sm text-on-surface-variant">
+<span>UNIT: <strong>TX-DPS-744</strong></span>
+<span class="text-outline">/</span>
+<span class="text-primary font-semibold" id="terminal-clock">14:28:04 CST</span>
+</div>
+</div>
+<!-- Terminal Canvas Screen -->
+<div class="p-space-md md:p-space-lg space-y-space-md relative">
+<!-- Terminal Query Bar & Inputs -->
+<div class="bg-surface border border-outline-variant p-space-md flex flex-col md:flex-row md:items-end gap-space-md">
+<div class="flex-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1" for="plate-input">
+                  QUERY LICENSE PLATE (TX DMV DATABASE)
+                </label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-label-md text-label-md text-primary font-bold">TX</span>
+<input class="w-full pl-10 pr-3 py-2 bg-surface-container-lowest border border-outline text-on-surface font-label-md text-label-md uppercase focus:outline-none focus:border-primary tracking-widest" id="plate-input" spellcheck="false" type="text" value="J83-B921"/>
+</div>
+</div>
+<div class="w-full md:w-48">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">
+                  DISPATCH CHANNEL
+                </label>
+<div class="py-2 px-3 bg-surface-container-lowest border border-outline text-on-surface font-label-sm text-label-sm">
+                  DPS-CENTRAL // D10-AUSTIN
+                </div>
+</div>
+<!-- Action Query Button -->
+<button class="bg-primary hover:bg-[#cf6417] text-white px-space-lg py-2.5 font-label-md text-label-md uppercase font-semibold flex items-center justify-center gap-2 border border-primary transition-all active:scale-[0.98] w-full md:w-auto" id="query-btn" onclick="runTletsQuery()" type="button">
+<span class="material-symbols-outlined text-[18px]">search</span>
+<span id="btn-label">QUERY TLETS DATABASE</span>
+</button>
+</div>
+<!-- Terminal Telemetry Data Readout -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs font-label-sm text-label-sm border border-outline-variant bg-surface-container-lowest p-space-sm">
+<div class="p-2 border-r border-outline-variant">
+<span class="text-on-surface-variant block">MAKE / MODEL</span>
+<span class="text-on-surface font-semibold">2022 SILVER SEDAN</span>
+</div>
+<div class="p-2 border-r border-outline-variant">
+<span class="text-on-surface-variant block">REGISTERED COUNTY</span>
+<span class="text-on-surface font-semibold">TRAVIS (AUSTIN, TX)</span>
+</div>
+<div class="p-2 border-r border-outline-variant">
+<span class="text-on-surface-variant block">REG STATUS</span>
+<span class="text-green-500 font-semibold">VALID // 10-25</span>
+</div>
+<div class="p-2">
+<span class="text-on-surface-variant block">WARRANTS / STOLEN</span>
+<span class="text-on-surface font-semibold">NEGATIVE (0)</span>
+</div>
+</div>
+<!-- Scanning State Animation Layer (Hidden by default) -->
+<div class="hidden border border-primary bg-primary/5 p-space-lg text-center relative overflow-hidden" id="scan-state">
+<div class="absolute inset-x-0 h-[2px] bg-primary scanner-line opacity-80"></div>
+<div class="flex items-center justify-center gap-3">
+<span class="material-symbols-outlined text-primary animate-spin">refresh</span>
+<span class="font-label-md text-label-md text-primary font-semibold tracking-wider uppercase">
+                  CROSS-REFERENCING TX-DMV WITH TLETS REPOSITORY...
+                </span>
+</div>
+</div>
+<!-- HIGH VISIBILITY TLETS ALERT MODAL / BANNER (Dynamically Revealed) -->
+<div class="border-2 border-primary bg-surface-container-lowest p-space-md md:p-space-lg relative" id="tlets-alert">
+<!-- Priority Header Strip -->
+<div class="flex flex-wrap items-center justify-between gap-2 border-b border-primary/40 pb-space-sm mb-space-md">
+<div class="flex items-center gap-2">
+<span class="bg-primary text-white font-label-sm text-label-sm px-2 py-0.5 font-bold uppercase tracking-wider">
+                    PRIORITY ADVISORY
+                  </span>
+<span class="font-label-md text-label-md text-on-surface uppercase font-semibold">
+                    TLETS FLAG: CODE-IMPD
+                  </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+                  STATUTORY AUTHORITY: TTC § 502.061
+                </span>
+</div>
+<!-- High Contrast Alert Message -->
+<div class="flex items-start gap-space-md">
+<div class="p-2 bg-primary/20 text-primary border border-primary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[28px]">warning</span>
+</div>
+<div class="space-y-1">
+<h2 class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">
+                    NOTICE: Communication Impediment — Approach with awareness.
+                  </h2>
+<p class="font-body-md text-body-md text-on-surface">
+                    Registered owner or customary operator has a medically diagnosed condition that may impede verbal/expressive interaction (Autism Spectrum, PTSD, Deaf/Hard of Hearing, Speech Limitation).
+                  </p>
+</div>
+</div>
+<!-- ANCHORED CALLOUT TOOLTIP -->
+<div class="mt-space-md p-space-md bg-surface border border-outline-variant flex items-start gap-3 relative">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">info</span>
+<div class="flex-1">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold block mb-0.5">
+                    CRITICAL OFFICER TACTICAL PRE-CHECK
+                  </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface">This TLETS alert informs officers BEFORE they approach the vehicle.</strong> Unlike a physical driver's license code, which is only inspected after physical contact at the window, the vehicle registration flag prepares law enforcement prior to leaving the patrol cruiser.
+                  </p>
+</div>
+</div>
+<!-- Tactical Console Actions Inside Terminal -->
+<div class="mt-space-md pt-space-sm border-t border-outline-variant flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface border border-outline hover:border-on-surface text-on-surface font-label-sm text-label-sm uppercase transition-colors" id="btn-protocol" onclick="toggleDetail('protocol')" type="button">
+                    INSPECT PROTOCOL
+                  </button>
+<button class="px-3 py-1.5 bg-surface border border-outline hover:border-on-surface text-on-surface font-label-sm text-label-sm uppercase transition-colors" id="btn-statute" onclick="toggleDetail('statute')" type="button">
+                    VIEW STATUTORY BACKING (TTC § 502.061)
+                  </button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+                  STATUS: <span class="text-green-500 font-semibold">RECORD SECURED</span>
+</span>
+</div>
+<!-- Secondary Expandable Drawer Content -->
+<div class="mt-space-sm p-space-md bg-surface-container-high border border-outline text-body-sm text-on-surface-variant space-y-2" id="drawer-protocol">
+<div class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">
+                  OFFICER PROTOCOL // DE-ESCALATION STANDARD
+                </div>
+<p>
+                  1. Allow extra latency for response to verbal commands without interpreting hesitation as non-compliance.<br/>
+                  2. Refrain from interpreting avoidance of eye contact or repetitive motor stimming as suspicious or threatening gestures.<br/>
+                  3. Utilize visual writing cards or mobile text prompt if speech cannot be processed.
+                </p>
+</div>
+<div class="hidden mt-space-sm p-space-md bg-surface-container-high border border-outline text-body-sm text-on-surface-variant space-y-2" id="drawer-statute">
+<div class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">
+                  STATUTORY REASONING // TEXAS TRANSPORTATION CODE § 502.061
+                </div>
+<p>
+                  Enacted under the landmark <strong class="text-on-surface">Samuel Allen Law</strong> (Texas SB 976, 86th Legislature). Vehicle owners may voluntarily submit TxDMV Form VTR-216 signed by a licensed physician. The information is confidential and strictly accessible via TLETS to state and local law enforcement during traffic stops.
+                </p>
+</div>
+</div>
+</div>
+<!-- Terminal Lower Status Strip -->
+<div class="bg-surface-container-high border-t border-outline-variant px-space-md py-2 flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 bg-green-500 rounded-none"></span> 
+              TLETS SERVER: DPS-AUSTIN-PRI
+            </span>
+<span class="hidden sm:inline">DATA ENCRYPTION: CJIS LEVEL 4</span>
+</div>
+</div>
+</div>
+<!-- RIGHT: Formative Assessment & Tactical Comparison Rail (4 cols) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Comparative Statutory Breakdown Box -->
+<div class="bg-surface-container-lowest border border-outline-variant p-space-md">
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-space-xs flex items-center justify-between">
+<span>01 // DUAL-REGISTRY MECHANISM</span>
+<span class="text-primary font-bold">COMPARISON</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-space-sm">
+            Timing of Notification
+          </h3>
+<div class="space-y-space-sm text-body-sm">
+<!-- VTR-216 (This Topic) -->
+<div class="p-space-sm border-l-2 border-primary bg-surface">
+<div class="flex items-center justify-between font-label-sm text-label-sm mb-1">
+<strong class="text-primary">FORM VTR-216 (VEHICLE)</strong>
+<span class="text-primary text-[10px] uppercase font-bold">PRE-APPROACH</span>
+</div>
+<p class="text-on-surface-variant">
+                Transmitted instantly via TLETS upon running the plate. Officer knows <em class="text-on-surface not-italic">before exiting cruiser</em>.
+              </p>
+</div>
+<!-- DL-101 (Previous Topic) -->
+<div class="p-space-sm border-l-2 border-outline bg-surface">
+<div class="flex items-center justify-between font-label-sm text-label-sm mb-1">
+<strong class="text-on-surface">FORM DL-101 (LICENSE RESTRICTION)</strong>
+<span class="text-on-surface-variant text-[10px] uppercase">AT WINDOW</span>
+</div>
+<p class="text-on-surface-variant">
+                Restriction Code <strong class="text-on-surface">08</strong> printed directly on plastic card. Checked only during hand-to-hand document inspection.
+              </p>
+</div>
+</div>
+</div>
+<!-- Formative Knowledge Verification Gate -->
+<div class="bg-surface-container-lowest border border-outline-variant p-space-md">
+<div class="font-label-sm text-label-sm text-primary uppercase tracking-wider mb-space-xs flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">quiz</span>
+<span>MANDATORY KNOWLEDGE CHECK</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-space-xs">
+            Form VTR-216 Verification Gate
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+            Under Texas Transportation Code § 502.061, when does a law enforcement officer receive notification of a registered communication impediment via TLETS?
+          </p>
+<form class="space-y-space-sm" id="quiz-form" onsubmit="event.preventDefault(); verifyAnswer();">
+<label class="flex items-start gap-3 p-2.5 border border-outline hover:border-primary cursor-pointer transition-colors bg-surface">
+<input class="mt-1 accent-primary focus:ring-primary text-primary" name="knowledge_check" required="" type="radio" value="A"/>
+<span class="font-body-sm text-body-sm text-on-surface">
+<strong>(A)</strong> Only after the driver is ordered out of the vehicle and frisked for weapons.
+              </span>
+</label>
+<label class="flex items-start gap-3 p-2.5 border border-outline hover:border-primary cursor-pointer transition-colors bg-surface">
+<input class="mt-1 accent-primary focus:ring-primary text-primary" name="knowledge_check" type="radio" value="B"/>
+<span class="font-body-sm text-body-sm text-on-surface">
+<strong>(B)</strong> Before approaching the vehicle, directly upon querying the license plate in TLETS.
+              </span>
+</label>
+<label class="flex items-start gap-3 p-2.5 border border-outline hover:border-primary cursor-pointer transition-colors bg-surface">
+<input class="mt-1 accent-primary focus:ring-primary text-primary" name="knowledge_check" type="radio" value="C"/>
+<span class="font-body-sm text-body-sm text-on-surface">
+<strong>(C)</strong> Only after the driver presents physical Form VTR-216 from the glove compartment.
+              </span>
+</label>
+<button class="w-full mt-space-sm bg-surface-container-high hover:bg-surface text-on-surface border border-outline hover:border-on-surface py-2 font-label-md text-label-md uppercase font-semibold transition-colors flex items-center justify-center gap-2" id="verify-btn" type="submit">
+<span>SUBMIT VERIFICATION</span>
+</button>
+</form>
+<!-- Feedback Box -->
+<div class="hidden mt-space-sm p-space-sm border font-label-sm text-label-sm" id="quiz-feedback"></div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Bottom Navigation Shell Bar -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant py-space-md px-gutter-mobile md:px-gutter mt-auto">
+<div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<!-- Back Navigation Button -->
+<a class="inline-flex items-center gap-2 px-space-md py-2.5 border border-outline hover:border-on-surface text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-colors w-full sm:w-auto justify-center" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>← Previous: L07-T16 Form DL-101 Verification</span>
+</a>
+<!-- Module Mastery Marker -->
+<div class="text-center font-label-sm text-label-sm text-on-surface-variant hidden md:block">
+        TOPIC 17 OF 17 • <span class="text-primary font-bold">MODULE 07 FINAL TOPIC</span>
+</div>
+<!-- Forward / Completion Action Button -->
+<a class="inline-flex items-center gap-2 px-space-lg py-2.5 bg-primary hover:bg-[#cf6417] text-white border border-primary font-label-md text-label-md font-semibold uppercase tracking-wider transition-all active:scale-[0.98] w-full sm:w-auto justify-center" href="#" id="complete-topic-btn">
+<span>Complete Topic 17 &amp; Complete Module 07 →</span>
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+</a>
+</div>
+</footer>
+<!-- Terminal State & Micro-Interaction Script -->
+<script>
+    // Live Terminal Clock Simulation
+    function updateClock() {
+      const now = new Date();
+      const hrs = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const secs = String(now.getSeconds()).padStart(2, '0');
+      const clockEl = document.getElementById('terminal-clock');
+      if (clockEl) {
+        clockEl.textContent = `${hrs}:${mins}:${secs} CST`;
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // TLETS Query Simulation Logic
+    function runTletsQuery() {
+      const scanState = document.getElementById('scan-state');
+      const alertBox = document.getElementById('tlets-alert');
+      const queryBtn = document.getElementById('query-btn');
+      const btnLabel = document.getElementById('btn-label');
+      const plateVal = document.getElementById('plate-input').value.trim() || 'TEXAS // REG: J83-B921';
+
+      // Visual scan state
+      alertBox.classList.add('opacity-40');
+      scanState.classList.remove('hidden');
+      queryBtn.disabled = true;
+      btnLabel.textContent = 'SCANNING TLETS...';
+
+      setTimeout(() => {
+        scanState.classList.add('hidden');
+        alertBox.classList.remove('opacity-40');
+        queryBtn.disabled = false;
+        btnLabel.textContent = 'QUERY TLETS DATABASE';
+        
+        // Flash confirmation
+        alertBox.classList.remove('border-primary');
+        alertBox.classList.add('border-white');
+        setTimeout(() => {
+          alertBox.classList.remove('border-white');
+          alertBox.classList.add('border-primary');
+        }, 300);
+      }, 900);
+    }
+
+    // Toggle Drawer Panels
+    function toggleDetail(type) {
+      const protocolDrawer = document.getElementById('drawer-protocol');
+      const statuteDrawer = document.getElementById('drawer-statute');
+      const protocolBtn = document.getElementById('btn-protocol');
+      const statuteBtn = document.getElementById('btn-statute');
+
+      if (type === 'protocol') {
+        const isClosed = protocolDrawer.classList.contains('hidden');
+        if (isClosed) {
+          protocolDrawer.classList.remove('hidden');
+          statuteDrawer.classList.add('hidden');
+          protocolBtn.classList.add('border-primary', 'text-primary');
+          statuteBtn.classList.remove('border-primary', 'text-primary');
+        } else {
+          protocolDrawer.classList.add('hidden');
+          protocolBtn.classList.remove('border-primary', 'text-primary');
+        }
+      } else {
+        const isClosed = statuteDrawer.classList.contains('hidden');
+        if (isClosed) {
+          statuteDrawer.classList.remove('hidden');
+          protocolDrawer.classList.add('hidden');
+          statuteBtn.classList.add('border-primary', 'text-primary');
+          protocolBtn.classList.remove('border-primary', 'text-primary');
+        } else {
+          statuteDrawer.classList.add('hidden');
+          statuteBtn.classList.remove('border-primary', 'text-primary');
+        }
+      }
+    }
+
+    // Formative Quiz Verification
+    function verifyAnswer() {
+      const selected = document.querySelector('input[name="knowledge_check"]:checked');
+      const feedback = document.getElementById('quiz-feedback');
+      const completeBtn = document.getElementById('complete-topic-btn');
+
+      if (!selected) return;
+
+      feedback.classList.remove('hidden');
+
+      if (selected.value === 'B') {
+        feedback.className = 'mt-space-sm p-space-sm border border-green-500 bg-green-500/10 text-green-400 font-label-sm text-label-sm';
+        feedback.innerHTML = '<strong>CORRECT // VERIFICATION CONFIRMED:</strong> Form VTR-216 connects directly to the vehicle registration database. Officers receive this alert in the cruiser BEFORE exiting, eliminating dangerous assumptions before physical contact.';
+        completeBtn.classList.remove('opacity-60');
+        completeBtn.classList.add('ring-2', 'ring-primary');
+      } else {
+        feedback.className = 'mt-space-sm p-space-sm border border-red-500 bg-red-500/10 text-red-400 font-label-sm text-label-sm';
+        feedback.innerHTML = '<strong>INCORRECT:</strong> The distinct tactical advantage of Form VTR-216 is that TLETS broadcasts this flag to the cruiser console <em>before</em> the officer walks up to the vehicle, unlike physical driver license checks.';
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L07-T17';
+  const nextTopicId = 'L07-T18';
+  const prevTopicId = 'L07-T16';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body></html>

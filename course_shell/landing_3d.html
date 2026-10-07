@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texas Adult Driver Education // Official TDLR Approved Course ADE-1317</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tx-amber': '#e87522',
+            'tx-dark-amber': '#9a4600',
+            'tx-navy': '#070a10',
+            'tx-surface': '#111726',
+            'tx-glass': 'rgba(17, 23, 38, 0.78)',
+            'tx-cyan': '#38bdf8',
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Three.js (3D WebGL Engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #070a10; color: #f3f4f6; overflow-x: hidden; }
+    
+    .glass-card {
+      background: rgba(13, 19, 33, 0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+    }
+    
+    .glass-card-hover {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(232, 117, 34, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 25px 60px rgba(232, 117, 34, 0.18);
+    }
+
+    .glow-amber {
+      text-shadow: 0 0 24px rgba(232, 117, 34, 0.7);
+    }
+    .glow-cyan {
+      text-shadow: 0 0 24px rgba(56, 189, 248, 0.7);
+    }
+
+    .scanlines::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    .cert-container {
+      perspective: 1000px;
+    }
+    .cert-card {
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cert-container:hover .cert-card {
+      transform: rotateY(-12deg) rotateX(8deg);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-tx-amber selection:text-white">
+
+  <!-- ========================================================================= -->
+  <!-- 1. OFFICIAL STATE NAVIGATION HEADER -->
+  <!-- ========================================================================= -->
+  <header class="fixed top-0 left-0 w-full z-50 glass-card border-b border-white/10 px-6 py-3.5 flex items-center justify-between transition-all duration-300">
+    <!-- Brand -->
+    <div class="flex items-center space-x-3.5">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-tx-amber to-amber-700 flex items-center justify-center font-black text-white text-base shadow-lg shadow-tx-amber/30">
+        TX
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-sm tracking-tight text-white uppercase">TEXAS ADULT DRIVER ED</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold uppercase">TDLR APPROVED</span>
+        </div>
+        <p class="text-[11px] font-mono text-gray-400">State Approved Course ADE-1317 · School License #C3284</p>
+      </div>
+    </div>
+
+    <!-- Center Navigation Links -->
+    <nav class="hidden lg:flex items-center space-x-8 text-xs font-semibold tracking-wider text-gray-300 uppercase">
+      <a href="#overview" class="hover:text-tx-amber transition-colors">How It Works</a>
+      <a href="#curriculum" class="hover:text-tx-amber transition-colors">Curriculum</a>
+      <a href="#certificate" class="hover:text-tx-amber transition-colors">Certificate</a>
+      <a href="#pricing" class="hover:text-tx-amber transition-colors">Pricing ($38)</a>
+      <a href="#faq" class="hover:text-tx-amber transition-colors">FAQ</a>
+    </nav>
+
+    <!-- Right: Authentication & Course Entry Actions -->
+    <div class="flex items-center space-x-3">
+      <!-- Google Sign In Button Container -->
+      <div id="header-google-signin" class="shrink-0"></div>
+      
+      <!-- Student profile badge (shown when signed in) -->
+      <div id="header-user-badge" class="hidden items-center gap-2 pl-2">
+        <div id="header-user-avatar" class="w-8 h-8 rounded-full border border-tx-amber overflow-hidden bg-tx-surface flex items-center justify-center text-xs font-bold text-tx-amber"></div>
+        <span id="header-user-name" class="text-xs font-mono text-gray-200 hidden sm:inline font-semibold"></span>
+        <button onclick="handleLogout()" class="text-[11px] font-mono text-gray-400 hover:text-white px-2.5 py-1 bg-white/5 hover:bg-white/10 rounded border border-white/10 transition-colors">LOG OUT</button>
+      </div>
+
+      <!-- Enter Virtual Classroom CTA -->
+      <a href="player.html" class="px-4 py-2.5 rounded-lg bg-tx-amber hover:bg-tx-dark-amber text-white font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-tx-amber/25 hover:shadow-tx-amber/40 flex items-center gap-1.5">
+        <span>CLASSROOM</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. FULLSCREEN 3D WEBGL HERO CANVAS -->
+  <!-- ========================================================================= -->
+  <section id="hero" class="relative w-full min-h-screen overflow-hidden scanlines flex items-center justify-center pt-24 pb-16">
+    <!-- WebGL Canvas Mount -->
+    <canvas id="webgl-canvas" class="absolute inset-0 w-full h-full z-0 cursor-grab active:cursor-grabbing"></canvas>
+
+    <!-- Vignette Shadows -->
+    <div class="absolute inset-0 bg-gradient-to-t from-tx-navy via-transparent to-tx-navy/70 pointer-events-none z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-tx-navy/85 via-transparent to-tx-navy/85 pointer-events-none z-10"></div>
+
+    <!-- Center Hero Typography & Interactive Portal -->
+    <div class="relative z-20 max-w-5xl mx-auto px-6 text-center pointer-events-none flex flex-col items-center justify-center h-full">
+      
+      <!-- Official State License Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-tx-amber/10 border border-tx-amber/30 text-tx-amber font-mono text-xs font-bold uppercase tracking-widest mb-6">
+        <span class="material-symbols-outlined text-[16px]">verified</span>
+        <span>OFFICIAL TEXAS STATE APPROVED COURSE ADE-1317</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white uppercase leading-[1.08] mb-4">
+        TEXAS ADULT DRIVER ED. <br/>
+        <span class="bg-gradient-to-r from-tx-amber via-orange-400 to-amber-200 bg-clip-text text-transparent glow-amber">
+          COMPLETE 100% ONLINE.
+        </span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl font-normal leading-relaxed mb-6">
+        Mandatory 6-hour certification course for Texas drivers ages 18–24 (and adults 25+). Skip the written exam at DPS and get your official <strong>Form ADE-1317</strong> certificate.
+      </p>
+
+      <!-- Integrated Google Sign-In & Enrollment Console (Pointer Events Re-enabled) -->
+      <div class="pointer-events-auto w-full max-w-lg glass-card p-6 sm:p-7 rounded-2xl border border-white/10 shadow-2xl mb-4 text-left">
+        
+        <!-- Google Sign In Row in Hero -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-5 border-b border-white/10">
+          <div>
+            <div class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-tx-amber text-[18px]">account_circle</span>
+              <span>Student Account</span>
+            </div>
+            <div id="hero-auth-status" class="text-xs text-gray-400 mt-0.5">Sign in with Google to start course</div>
+          </div>
+          <div id="hero-google-signin" class="shrink-0"></div>
+        </div>
+
+        <!-- Coupon / Tuition Voucher Bar -->
+        <div class="mt-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-xs font-mono font-bold text-gray-300 uppercase flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-tx-amber text-[16px]">confirmation_number</span>
+              <span>Promo / Tuition Waiver Code</span>
+            </label>
+            <span id="coupon-badge" class="text-xs font-mono text-gray-400 font-semibold">Standard Tuition: $38.00</span>
+          </div>
+
+          <div class="flex gap-2">
+            <input 
+              type="text" 
+              id="coupon-input" 
+              placeholder="Enter promo code: TEXAS100" 
+              class="flex-1 bg-black/60 border border-white/15 rounded-lg px-3.5 py-2.5 text-xs font-mono text-white placeholder-gray-500 focus:outline-none focus:border-tx-amber uppercase tracking-wider"
+            />
+            <button 
+              id="apply-coupon-btn" 
+              onclick="applyCouponCode()" 
+              class="px-4 py-2.5 bg-white/10 hover:bg-tx-amber hover:text-white rounded-lg text-xs font-mono font-bold text-gray-200 transition-colors uppercase cursor-pointer"
+            >
+              Apply
+            </button>
+          </div>
+
+          <!-- Quick Promo Chip & Free Preview Note -->
+          <div class="flex flex-wrap items-center gap-2 mt-2 text-[11px] font-mono text-gray-400">
+            <span>100% Off Code:</span>
+            <button 
+              type="button" 
+              onclick="document.getElementById('coupon-input').value='TEXAS100'; applyCouponCode();" 
+              class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 font-bold transition-all cursor-pointer flex items-center gap-1"
+            >
+              <span>TEXAS100</span>
+              <span class="text-[9px] uppercase tracking-wider text-emerald-400">(Click to Apply 100% Off)</span>
+            </button>
+            <span class="text-gray-500 text-[10px]">· Module 1 is Free</span>
+          </div>
+
+          <!-- Coupon message feedback -->
+          <div id="coupon-feedback" class="text-xs font-mono mt-2 hidden"></div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-5 flex flex-col sm:flex-row gap-3">
+          <button 
+            id="enroll-action-btn"
+            onclick="handleMainEnrollment()" 
+            class="flex-1 px-6 py-3.5 rounded-xl bg-gradient-to-r from-tx-amber to-amber-600 hover:from-amber-600 hover:to-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span id="enroll-btn-text">START COURSE ($38)</span>
+            <span class="material-symbols-outlined text-[18px]">bolt</span>
+          </button>
+          
+          <a 
+            href="player.html" 
+            class="px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-mono text-xs tracking-wider uppercase transition-all border border-white/10 flex items-center justify-center gap-1.5"
+          >
+            <span>FREE PREVIEW (MOD 1)</span>
+            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Driving Controls Tip -->
+      <div class="flex items-center gap-3 text-xs font-mono text-gray-400 bg-black/50 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm pointer-events-auto">
+        <span class="material-symbols-outlined text-tx-amber text-[18px]">sports_esports</span>
+        <span><strong>Interactive 3D:</strong> Move mouse to steer · <strong>Click & Hold</strong> to accelerate</span>
+        <button id="sound-toggle-btn" class="ml-2 text-tx-amber hover:text-white flex items-center gap-1 font-bold cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">volume_up</span>
+          <span id="sound-state-text">AUDIO ON</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Live Trust Telemetry HUD (Bottom) -->
+    <div class="absolute bottom-6 left-6 z-20 hidden lg:flex items-center gap-4 pointer-events-none">
+      <div class="glass-card px-4 py-3 rounded-xl border border-white/10 font-mono">
+        <div class="text-[10px] text-gray-400 uppercase tracking-wider">SPEEDOMETER</div>
+        <div class="text-2xl font-extrabold text-tx-amber flex items-baseline gap-1">
+          <span id="hud-speed">65</span>
+          <span class="text-xs text-gray-400 font-normal">MPH</span>
+        </div>
+      </div>
+      <div class="glass-card px-4 py-3 rounded-xl border border-white/10 font-mono">
+        <div class="text-[10px] text-gray-400 uppercase tracking-wider">FREE TRIAL</div>
+        <div class="text-2xl font-extrabold text-emerald-400">MODULE 1 UNLOCKED</div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-6 right-6 z-20 hidden lg:flex items-center gap-4 pointer-events-none">
+      <div class="glass-card px-4 py-3 rounded-xl border border-white/10 font-mono text-right pointer-events-auto">
+        <div class="text-[10px] text-tx-amber uppercase tracking-wider font-bold">100% OFF PROMO CODE</div>
+        <div class="text-2xl font-extrabold text-emerald-400 tracking-wider flex items-center justify-end gap-1.5">
+          <span>TEXAS100</span>
+          <button onclick="document.getElementById('coupon-input').value='TEXAS100'; applyCouponCode();" title="Apply code TEXAS100" class="material-symbols-outlined text-sm text-gray-400 hover:text-white cursor-pointer">bolt</button>
+        </div>
+      </div>
+      <div class="glass-card px-4 py-3 rounded-xl border border-white/10 font-mono text-right">
+        <div class="text-[10px] text-gray-400 uppercase tracking-wider">STATE REGISTRY STATUS</div>
+        <div class="text-2xl font-extrabold text-tx-cyan">ONLINE & ACTIVE</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 3. HOW IT WORKS IN 3 STEPS -->
+  <!-- ========================================================================= -->
+  <section id="overview" class="py-24 bg-tx-navy border-t border-b border-white/5 relative z-20">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-block text-xs font-mono text-tx-amber uppercase tracking-widest bg-tx-amber/10 px-3.5 py-1 rounded-full mb-3">
+          SIMPLE 3-STEP PROCESS
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+          HOW TEXAS ADULT DRIVER ED WORKS
+        </h2>
+        <p class="text-base text-gray-400 mt-3 font-sans">
+          Fast, flexible, and completely online. Designed for busy schedules.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Step 1 -->
+        <div class="glass-card p-8 rounded-2xl glass-card-hover border-t-2 border-t-tx-amber">
+          <div class="w-12 h-12 rounded-xl bg-tx-amber/15 text-tx-amber flex items-center justify-center text-xl font-black font-mono mb-6">
+            01
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 uppercase">1-Click Registration</h3>
+          <p class="text-sm text-gray-400 leading-relaxed font-sans">
+            Sign in with Google in seconds. No long paper forms. Complete your quick identity verification and unlock your first lesson immediately.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-card p-8 rounded-2xl glass-card-hover border-t-2 border-t-tx-cyan">
+          <div class="w-12 h-12 rounded-xl bg-tx-cyan/15 text-tx-cyan flex items-center justify-center text-xl font-black font-mono mb-6">
+            02
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 uppercase">Complete at Your Own Pace</h3>
+          <p class="text-sm text-gray-400 leading-relaxed font-sans">
+            Complete the 6 mandatory clock hours on your smartphone, tablet, or laptop. Log in and out anytime—your exact progress and time are saved automatically.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-card p-8 rounded-2xl glass-card-hover border-t-2 border-t-emerald-400">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl font-black font-mono mb-6">
+            03
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 uppercase">Download State Certificate</h3>
+          <p class="text-sm text-gray-400 leading-relaxed font-sans">
+            Pass the built-in final knowledge test (70% required) and instantly receive your official <strong>Form ADE-1317</strong> certificate with DPS digital verification.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. 9-MODULE CURRICULUM SYLLABUS -->
+  <!-- ========================================================================= -->
+  <section id="curriculum" class="py-24 bg-[#070A10] relative z-20">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+        <div>
+          <div class="text-xs font-mono text-tx-amber uppercase tracking-widest bg-tx-amber/10 px-3.5 py-1 rounded-full inline-block mb-3">
+            75 TOPICS // 9 MODULES
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight uppercase">
+            COMPREHENSIVE STATE CURRICULUM
+          </h2>
+        </div>
+        <p class="text-sm text-gray-400 max-w-md mt-4 md:mt-0 font-sans">
+          Fully compliant with Texas Administrative Code 16 TAC § 84.500 and the September 1, 2026 Work Zone Safety Mandate (HB 1884).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-tx-amber">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-tx-amber font-bold">MODULE 01</span>
+            <span class="text-gray-400">3 Topics · 70 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Course Intro & Safety</h4>
+          <p class="text-xs text-gray-400 mb-4">Value of Adult Driver Education, statutory bounds, privilege covenant, and driver responsibilities.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-emerald-400 font-semibold">Unlocked at Start</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-tx-cyan">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-tx-cyan font-bold">MODULE 02</span>
+            <span class="text-gray-400">7 Topics · 105 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Your License to Drive</h4>
+          <p class="text-xs text-gray-400 mb-4">Obtaining a Texas DL, license classes, Safety Responsibility Act, inspection, and TLETS stops.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-gray-400">Sequential Lock</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-emerald-500">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-emerald-400 font-bold">MODULE 03</span>
+            <span class="text-gray-400">7 Topics · 110 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Right-of-Way Rules</h4>
+          <p class="text-xs text-gray-400 mb-4">Intersections, Move Over / Slow Down Act, emergency vehicles, and defensive right-of-way.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-gray-400">Sequential Lock</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-purple-500">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-purple-400 font-bold">MODULE 04</span>
+            <span class="text-gray-400">4 Topics · 50 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Traffic Control Devices</h4>
+          <p class="text-xs text-gray-400 mb-4">Texas MUTCD standards, regulatory and warning signs, highway markings, and signals.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-gray-400">Sequential Lock</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-amber-500">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-amber-400 font-bold">MODULE 05</span>
+            <span class="text-gray-400">18 Topics · 210 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Special Roadway & Weather</h4>
+          <p class="text-xs text-gray-400 mb-4">Texas summer heat, flash floods, black ice, fatigue, wildlife, and construction corridor safety.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-gray-400">Sequential Lock</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-rose-500">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-rose-400 font-bold">MODULE 06</span>
+            <span class="text-gray-400">7 Topics · 85 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Alcohol & Drug Impairment</h4>
+          <p class="text-xs text-gray-400 mb-4">BAC physiological degradation, Implied Consent law, Zero Tolerance for minors, and penalties.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-gray-400">Sequential Lock</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-blue-500">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-blue-400 font-bold">MODULE 07</span>
+            <span class="text-gray-400">18 Topics · 190 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Shared Roadway & Traffic Stops</h4>
+          <p class="text-xs text-gray-400 mb-4">Commercial blind spots (No-Zone), pedestrian rights, bicycle safety, and Community Safety Education Act (SB 30).</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-gray-400">Sequential Lock</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-orange-500">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-orange-400 font-bold">MODULE 08</span>
+            <span class="text-gray-400">10 Topics · 110 Min</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">Distractions & Modern Tech</h4>
+          <p class="text-xs text-gray-400 mb-4">Cell phone statutes, cognitive tunneling, safety belt physics, night vision, and autonomous vehicle safety.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 border-t border-white/5 pt-3">
+            <span>Quiz: 10 Questions (70%)</span>
+            <span class="text-gray-400">Sequential Lock</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-2 border-t-emerald-400 bg-gradient-to-b from-emerald-950/20 to-transparent">
+          <div class="flex items-center justify-between text-xs font-mono mb-3">
+            <span class="text-emerald-400 font-bold">MODULE 09 // FINAL EXAM</span>
+            <span class="text-gray-400">30 Questions</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2 uppercase">DPS Knowledge Test</h4>
+          <p class="text-xs text-gray-400 mb-4">15 Highway Signs + 15 Traffic Laws. Score 70%+ (21/30) to pass and immediately unlock your certificate.</p>
+          <div class="flex items-center justify-between text-xs font-mono text-emerald-400 font-semibold border-t border-white/5 pt-3">
+            <span>Form ADE-1317 Issued</span>
+            <span class="material-symbols-outlined text-[16px]">verified</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. 3D HOLOGRAPHIC CERTIFICATE SHOWCASE -->
+  <!-- ========================================================================= -->
+  <section id="certificate" class="py-24 bg-tx-navy relative z-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <div>
+          <div class="text-xs font-mono text-tx-amber uppercase tracking-widest bg-tx-amber/10 px-3.5 py-1 rounded-full inline-block mb-3">
+            OFFICIAL DPS DOCUMENTATION
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight uppercase leading-tight mb-6">
+            OFFICIAL STATE FORM ADE-1317
+          </h2>
+          <p class="text-base text-gray-300 leading-relaxed mb-6 font-sans">
+            Upon passing your final exam and completing the mandatory 6 clock hours, your official <strong>TDLR Form ADE-1317</strong> is issued instantly. Take this certificate to your DPS appointment to waive the written exam and get your license.
+          </p>
+
+          <div class="space-y-3 font-mono text-xs text-gray-300 mb-8">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-tx-amber text-[18px]">qr_code_scanner</span>
+              <span><strong>DPS Instant Scan:</strong> QR Code allows DPS officers to verify completion online</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-tx-amber text-[18px]">fingerprint</span>
+              <span><strong>Cryptographic Signature:</strong> SHA-256 state seal protects against tampering</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-tx-amber text-[18px]">mark_email_read</span>
+              <span><strong>Instant Electronic Delivery:</strong> Download PDF immediately and print or save to phone</span>
+            </div>
+          </div>
+
+          <a href="#hero" class="inline-flex px-8 py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/25 items-center gap-2">
+            <span>ENROLL NOW ($38)</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="cert-container flex justify-center">
+          <div class="cert-card w-full max-w-lg bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-3xl border-2 border-amber-500/40 shadow-2xl shadow-amber-500/10 text-white font-sans relative overflow-hidden">
+            
+            <div class="absolute top-6 right-6 w-16 h-16 rounded-full border-2 border-amber-400 bg-amber-500/10 flex flex-col items-center justify-center text-amber-300 text-[9px] font-mono font-bold leading-tight text-center">
+              <span>TDLR</span>
+              <span class="text-[7px]">APPROVED</span>
+              <span>C3284</span>
+            </div>
+
+            <div class="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">STATE OF TEXAS // OFFICIAL RECORD</div>
+            <h3 class="text-xl font-black mt-1 uppercase tracking-tight">ADULT DRIVER EDUCATION</h3>
+            <p class="text-xs text-gray-400 font-mono mt-0.5">Form ADE-1317 · 16 TAC § 84.500</p>
+
+            <div class="my-6 py-4 border-t border-b border-white/10 space-y-2">
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-400 font-mono">STUDENT NAME:</span>
+                <span id="cert-preview-name" class="font-bold text-white uppercase">LOKESH POLKAM</span>
+              </div>
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-400 font-mono">SERIAL NUMBER:</span>
+                <span class="font-mono text-amber-400 font-bold">ADE1317-2026-00001</span>
+              </div>
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-400 font-mono">INSTRUCTIONAL TIME:</span>
+                <span class="font-mono text-emerald-400 font-bold">6.00 CLOCK HOURS</span>
+              </div>
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-400 font-mono">EXAM SCORE:</span>
+                <span class="font-mono text-white font-bold">96.7% (PASSED)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <div class="text-[9px] font-mono text-gray-400 max-w-[280px]">
+                DIGITAL SHA-256 HASH:<br/>
+                <span class="text-amber-400/80 break-all">fc99be304ea9647688681efb9512cf38206b3683...</span>
+              </div>
+              <div class="w-14 h-14 bg-white p-1 rounded-lg">
+                <svg viewBox="0 0 100 100" class="w-full h-full fill-black">
+                  <path d="M0,0 h30 v30 h-30 z M10,10 h10 v10 h-10 z M70,0 h30 v30 h-30 z M80,10 h10 v10 h-10 z M0,70 h30 v30 h-30 z M10,80 h10 v10 h-10 z M40,10 h10 v10 h-10 z M50,40 h10 v20 h-10 z M70,70 h10 v10 h-10 z M80,80 h20 v20 h-20 z"/>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. TRANSPARENT PRICING SECTION -->
+  <!-- ========================================================================= -->
+  <section id="pricing" class="py-24 bg-[#070A10] border-t border-white/5 relative z-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      
+      <div class="inline-block text-xs font-mono text-tx-amber uppercase tracking-widest bg-tx-amber/10 px-3.5 py-1 rounded-full mb-3">
+        TRANSPARENT STATE TUITION
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight uppercase mb-4">
+        ONE FLAT PRICE. ZERO HIDDEN FEES.
+      </h2>
+      <p class="text-base text-gray-400 max-w-xl mx-auto mb-16 font-sans">
+        Everything you need to satisfy Texas state requirements and claim your driver license.
+      </p>
+
+      <div class="max-w-md mx-auto glass-card p-8 rounded-3xl border-2 border-tx-amber/40 shadow-2xl relative">
+        <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 bg-tx-amber text-white text-[11px] font-mono font-bold uppercase px-4 py-1 rounded-full">
+          MOST POPULAR
+        </div>
+
+        <div class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-2">COMPLETE STATE COURSE</div>
+        <div class="text-5xl font-black text-white flex items-baseline justify-center gap-1 my-4">
+          <span class="text-3xl text-tx-amber">$</span>38<span class="text-base text-gray-400 font-normal">.00</span>
+        </div>
+        <p class="text-xs text-gray-400 mb-6 font-mono">Approved for ages 18–24 · Valid for adults 25+</p>
+
+        <ul class="text-left space-y-3.5 text-xs text-gray-300 border-t border-b border-white/10 py-6 mb-8 font-sans">
+          <li class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+            <span>Complete 6-Hour TDLR Approved Curriculum (ADE-1317)</span>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+            <span>Official DPS Written Knowledge Exam Included (Waives DPS Test)</span>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+            <span>Official Certificate of Completion (Form ADE-1317)</span>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+            <span>Instant Electronic Delivery</span>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+            <span>Self-Paced · Complete on Smartphone, Tablet, or PC</span>
+          </li>
+        </ul>
+
+        <a href="#hero" class="w-full py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2">
+          <span>ENROLL FOR $38.00</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 7. FREQUENTLY ASKED QUESTIONS (FAQ) -->
+  <!-- ========================================================================= -->
+  <section id="faq" class="py-24 bg-tx-navy border-t border-white/5 relative z-20">
+    <div class="max-w-4xl mx-auto px-6">
+      
+      <div class="text-center mb-16">
+        <div class="inline-block text-xs font-mono text-tx-amber uppercase tracking-widest bg-tx-amber/10 px-3.5 py-1 rounded-full mb-3">
+          CLEAR ANSWERS
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+          FREQUENTLY ASKED QUESTIONS
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        
+        <div class="glass-card p-6 rounded-2xl">
+          <h4 class="font-bold text-white text-base mb-2">Who is required to take Texas Adult Driver Education?</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            Under Texas Transportation Code § 521.1601, anyone between the ages of 18 and 24 applying for their first Texas Driver License must complete this 6-hour adult driver education course. Adults 25 and older are not required by law, but are highly encouraged to take it to waive the written test at DPS.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl">
+          <h4 class="font-bold text-white text-base mb-2">Do I have to take the written test at the DPS office?</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            No! The official written knowledge test is included directly within this course (Module 9). Once you pass it here with 70% or higher, your official Form ADE-1317 certificate proves you passed, completely waiving the DPS written test.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl">
+          <h4 class="font-bold text-white text-base mb-2">Can I take breaks and finish later?</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            Yes, absolutely. The course is 100% self-paced. Every 30 seconds, your verified instructional time and progress are recorded to our secure state registry database. You can log out anytime and resume on any device right where you left off.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl">
+          <h4 class="font-bold text-white text-base mb-2">How do I receive my Form ADE-1317 certificate?</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            As soon as you finish your 6 clock hours and pass the final exam, your official certificate is generated immediately in PDF format. You can download and print it right away, or present the digital document at your Texas DPS appointment.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 8. OFFICIAL STATE FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="py-16 bg-black border-t border-white/10 text-gray-400 text-xs font-mono relative z-20">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-white/10">
+        
+        <div class="md:col-span-2">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-tx-amber flex items-center justify-center font-black text-white text-sm">TX</div>
+            <span class="font-bold text-sm text-white uppercase">TEXAS ADULT DRIVER EDUCATION</span>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed max-w-md font-sans">
+            Texas Department of Licensing and Regulation (TDLR) Licensed School #C3284. Approved under Texas Administrative Code 16 TAC § 84.500 and Texas Transportation Code § 521.1601.
+          </p>
+          <div class="mt-4 flex items-center gap-2 text-emerald-400 font-mono text-[11px]">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>State Registry Gateway: Operational & Encrypted</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="font-bold text-white uppercase mb-3">Quick Navigation</div>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#overview" class="hover:text-tx-amber">How It Works</a></li>
+            <li><a href="#curriculum" class="hover:text-tx-amber">Course Curriculum</a></li>
+            <li><a href="#certificate" class="hover:text-tx-amber">Form ADE-1317 Info</a></li>
+            <li><a href="player.html" class="hover:text-tx-amber">Virtual Classroom</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="font-bold text-white uppercase mb-3">Student Support</div>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="mailto:support@texasade.org" class="hover:text-tx-amber">support@texasade.org</a></li>
+            <li><span>Mon–Fri 8:00 AM – 6:00 PM CST</span></li>
+            <li><span class="text-gray-500">Austin, Texas</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-gray-500">
+        <p>© 2026 Texas Adult Driver Education. All Rights Reserved. TDLR School #C3284.</p>
+        <div class="flex items-center space-x-6">
+          <a href="#" class="hover:text-gray-400">Privacy Policy</a>
+          <a href="#" class="hover:text-gray-400">Terms of Service</a>
+          <a href="#" class="hover:text-gray-400">State Regulatory Standards</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 9. THREE.JS 3D HIGHWAY SCENE ENGINE -->
+  <!-- ========================================================================= -->
+  <script>
+    const API_BASE_URL = 'https://tx-ade-api-1004296326114.us-central1.run.app';
+    const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
+
+    let scene, camera, renderer;
+    let vehicleGroup, roadGroup, starsGroup;
+    let roadSegments = [];
+    let speed = 0.8;
+    let targetSpeed = 0.8;
+    let isAccelerating = false;
+    let mouseX = 0, mouseY = 0;
+    let soundEnabled = true;
+    let audioCtx, engineOsc, engineGain;
+
+    let currentUser = null;
+    let currentCoupon = null;
+
+    // Initialize 3D Scene
+    function init3DScene() {
+      const canvas = document.getElementById('webgl-canvas');
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x070A10);
+      scene.fog = new THREE.FogExp2(0x070A10, 0.015);
+
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(0, 3.2, 7.5);
+      camera.lookAt(0, 1.2, -15);
+
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+
+      const ambientLight = new THREE.AmbientLight(0x223344, 0.85);
+      scene.add(ambientLight);
+
+      const skyLight = new THREE.DirectionalLight(0xE87522, 1.3);
+      skyLight.position.set(5, 10, -10);
+      scene.add(skyLight);
+
+      buildHighway();
+      buildVehicle();
+      buildStarfield();
+
+      window.addEventListener('resize', onWindowResize);
+      window.addEventListener('mousemove', onMouseMove);
+      
+      window.addEventListener('mousedown', () => { isAccelerating = true; });
+      window.addEventListener('mouseup', () => { isAccelerating = false; });
+      window.addEventListener('touchstart', () => { isAccelerating = true; });
+      window.addEventListener('touchend', () => { isAccelerating = false; });
+
+      initAudioEngine();
+      animate();
+    }
+
+    function buildHighway() {
+      roadGroup = new THREE.Group();
+      scene.add(roadGroup);
+
+      const segmentLength = 20;
+      const roadWidth = 14;
+
+      const asphaltMat = new THREE.MeshStandardMaterial({ color: 0x12161F, roughness: 0.8, metalness: 0.1 });
+      const railMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8, roughness: 0.3 });
+      const dashMat = new THREE.MeshBasicMaterial({ color: 0xF8FAFC });
+      const edgeMat = new THREE.MeshBasicMaterial({ color: 0xE87522 });
+
+      for (let i = 0; i < 20; i++) {
+        const seg = new THREE.Group();
+        seg.position.z = -i * segmentLength;
+
+        const roadGeo = new THREE.PlaneGeometry(roadWidth, segmentLength);
+        const roadMesh = new THREE.Mesh(roadGeo, asphaltMat);
+        roadMesh.rotation.x = -Math.PI / 2;
+        seg.add(roadMesh);
+
+        for (let l of [-2.3, 2.3]) {
+          const dashGeo = new THREE.PlaneGeometry(0.18, 5);
+          const dashMesh = new THREE.Mesh(dashGeo, dashMat);
+          dashMesh.rotation.x = -Math.PI / 2;
+          dashMesh.position.set(l, 0.02, 0);
+          seg.add(dashMesh);
+        }
+
+        for (let side of [-6.5, 6.5]) {
+          const edgeGeo = new THREE.PlaneGeometry(0.25, segmentLength);
+          const edgeMesh = new THREE.Mesh(edgeGeo, edgeMat);
+          edgeMesh.rotation.x = -Math.PI / 2;
+          edgeMesh.position.set(side, 0.02, 0);
+          seg.add(edgeMesh);
+
+          const railGeo = new THREE.BoxGeometry(0.2, 0.6, segmentLength);
+          const railMesh = new THREE.Mesh(railGeo, railMat);
+          railMesh.position.set(side + (side > 0 ? 0.3 : -0.3), 0.3, 0);
+          seg.add(railMesh);
+        }
+
+        for (let studZ = -8; studZ <= 8; studZ += 4) {
+          const studGeo = new THREE.SphereGeometry(0.08, 8, 8);
+          const studMat = new THREE.MeshBasicMaterial({ color: 0xE87522 });
+          const studLeft = new THREE.Mesh(studGeo, studMat);
+          studLeft.position.set(-6.5, 0.1, studZ);
+          seg.add(studLeft);
+
+          const studRight = new THREE.Mesh(studGeo, studMat);
+          studRight.position.set(6.5, 0.1, studZ);
+          seg.add(studRight);
+        }
+
+        roadSegments.push(seg);
+        roadGroup.add(seg);
+      }
+    }
+
+    function buildVehicle() {
+      vehicleGroup = new THREE.Group();
+      vehicleGroup.position.set(0, 0.5, 0);
+      scene.add(vehicleGroup);
+
+      const paintMat = new THREE.MeshStandardMaterial({ color: 0xE87522, metalness: 0.8, roughness: 0.2 });
+      const glassMat = new THREE.MeshStandardMaterial({ color: 0x0A0F1D, metalness: 0.9, roughness: 0.1 });
+      const chromeMat = new THREE.MeshStandardMaterial({ color: 0xE2E8F0, metalness: 0.95, roughness: 0.1 });
+      const tireMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9 });
+
+      const chassisGeo = new THREE.BoxGeometry(2.0, 0.5, 4.2);
+      const chassis = new THREE.Mesh(chassisGeo, paintMat);
+      chassis.position.y = 0.3;
+      vehicleGroup.add(chassis);
+
+      const cabinGeo = new THREE.BoxGeometry(1.6, 0.45, 2.2);
+      const cabin = new THREE.Mesh(cabinGeo, glassMat);
+      cabin.position.set(0, 0.72, -0.2);
+      vehicleGroup.add(cabin);
+
+      const wheelGeo = new THREE.CylinderGeometry(0.38, 0.38, 0.3, 16);
+      wheelGeo.rotateZ(Math.PI / 2);
+
+      const wheelPositions = [
+        [-1.05, 0.2, 1.4],
+        [1.05, 0.2, 1.4],
+        [-1.05, 0.2, -1.4],
+        [1.05, 0.2, -1.4],
+      ];
+
+      wheelPositions.forEach(pos => {
+        const wheel = new THREE.Mesh(wheelGeo, tireMat);
+        wheel.position.set(...pos);
+        vehicleGroup.add(wheel);
+
+        const capGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.32, 12);
+        capGeo.rotateZ(Math.PI / 2);
+        const cap = new THREE.Mesh(capGeo, chromeMat);
+        cap.position.set(...pos);
+        vehicleGroup.add(cap);
+      });
+
+      const rearLightGeo = new THREE.BoxGeometry(1.8, 0.08, 0.1);
+      const rearLightMat = new THREE.MeshBasicMaterial({ color: 0xEF4444 });
+      const rearLight = new THREE.Mesh(rearLightGeo, rearLightMat);
+      rearLight.position.set(0, 0.45, 2.11);
+      vehicleGroup.add(rearLight);
+
+      const headLightGeo = new THREE.BoxGeometry(0.35, 0.08, 0.1);
+      const headLightMat = new THREE.MeshBasicMaterial({ color: 0xE0F2FE });
+
+      const leftHead = new THREE.Mesh(headLightGeo, headLightMat);
+      leftHead.position.set(-0.7, 0.45, -2.11);
+      vehicleGroup.add(leftHead);
+
+      const rightHead = new THREE.Mesh(headLightGeo, headLightMat);
+      rightHead.position.set(0.7, 0.45, -2.11);
+      vehicleGroup.add(rightHead);
+
+      for (let side of [-0.7, 0.7]) {
+        const beamGeo = new THREE.ConeGeometry(1.6, 18, 16, 1, true);
+        beamGeo.rotateX(Math.PI / 2);
+        const beamMat = new THREE.MeshBasicMaterial({
+          color: 0x38BDF8,
+          transparent: true,
+          opacity: 0.18,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        });
+        const beam = new THREE.Mesh(beamGeo, beamMat);
+        beam.position.set(side, 0.4, -9.5);
+        vehicleGroup.add(beam);
+
+        const spotLight = new THREE.SpotLight(0xE0F2FE, 2, 35, Math.PI / 8, 0.5, 1);
+        spotLight.position.set(side, 0.5, -2);
+        spotLight.target.position.set(side, 0, -20);
+        scene.add(spotLight.target);
+        vehicleGroup.add(spotLight);
+      }
+    }
+
+    function buildStarfield() {
+      const starGeo = new THREE.BufferGeometry();
+      const starCount = 800;
+      const starPositions = new Float32Array(starCount * 3);
+
+      for (let i = 0; i < starCount * 3; i += 3) {
+        starPositions[i] = (Math.random() - 0.5) * 300;
+        starPositions[i + 1] = Math.random() * 80 + 5;
+        starPositions[i + 2] = -Math.random() * 250;
+      }
+
+      starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+      const starMat = new THREE.PointsMaterial({ color: 0xFFD8A8, size: 0.8, transparent: true, opacity: 0.8 });
+      starsGroup = new THREE.Points(starGeo, starMat);
+      scene.add(starsGroup);
+    }
+
+    function initAudioEngine() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+
+        engineOsc = audioCtx.createOscillator();
+        engineGain = audioCtx.createGain();
+
+        engineOsc.type = 'sawtooth';
+        engineOsc.frequency.setValueAtTime(55, audioCtx.currentTime);
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(180, audioCtx.currentTime);
+
+        engineGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+
+        engineOsc.connect(filter);
+        filter.connect(engineGain);
+        engineGain.connect(audioCtx.destination);
+        engineOsc.start();
+      } catch (err) {}
+    }
+
+    function onMouseMove(e) {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (isAccelerating) {
+        targetSpeed = 1.8;
+      } else {
+        targetSpeed = 0.8;
+      }
+      speed += (targetSpeed - speed) * 0.05;
+
+      const mph = Math.round(speed * 60);
+      const hudEl = document.getElementById('hud-speed');
+      if (hudEl) hudEl.textContent = mph;
+
+      if (audioCtx && soundEnabled && engineOsc) {
+        engineOsc.frequency.setTargetAtTime(45 + speed * 40, audioCtx.currentTime, 0.1);
+      }
+
+      roadSegments.forEach(seg => {
+        seg.position.z += speed;
+        if (seg.position.z > 20) {
+          seg.position.z -= 20 * 20;
+        }
+      });
+
+      const targetCarX = mouseX * 4.2;
+      vehicleGroup.position.x += (targetCarX - vehicleGroup.position.x) * 0.08;
+
+      const targetRoll = -(targetCarX - vehicleGroup.position.x) * 0.2;
+      vehicleGroup.rotation.z += (targetRoll - vehicleGroup.rotation.z) * 0.1;
+      vehicleGroup.rotation.y = -(targetCarX - vehicleGroup.position.x) * 0.15;
+      vehicleGroup.position.y = 0.5 + Math.sin(Date.now() * 0.02) * 0.015 * (speed / 0.8);
+
+      camera.position.x += (vehicleGroup.position.x * 0.5 - camera.position.x) * 0.05;
+      camera.fov = 60 + (speed - 0.8) * 12;
+      camera.updateProjectionMatrix();
+
+      renderer.render(scene, camera);
+    }
+
+    document.getElementById('sound-toggle-btn').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      const textEl = document.getElementById('sound-state-text');
+      if (soundEnabled) {
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        if (engineGain) engineGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        textEl.textContent = 'AUDIO ON';
+      } else {
+        if (engineGain) engineGain.gain.setValueAtTime(0.0, audioCtx.currentTime);
+        textEl.textContent = 'AUDIO MUTED';
+      }
+    });
+
+    // =========================================================================
+    // 10. GOOGLE IDENTITY SERVICES & AUTH LOGIC
+    // =========================================================================
+    async function initAuth() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/auth/me`, { credentials: 'include' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.user) {
+            currentUser = data.user;
+            renderLoggedInUser(data.user);
+            return;
+          }
+        }
+      } catch (err) {}
+
+      if (window.google && window.google.accounts) {
+        window.google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleAuthResponse,
+        });
+
+        // Header button
+        window.google.accounts.id.renderButton(
+          document.getElementById('header-google-signin'),
+          { theme: 'outline', size: 'medium', shape: 'pill', text: 'signin_with' }
+        );
+
+        // Hero card button
+        const heroContainer = document.getElementById('hero-google-signin');
+        if (heroContainer) {
+          window.google.accounts.id.renderButton(
+            heroContainer,
+            { theme: 'filled_black', size: 'large', shape: 'rectangular', text: 'continue_with' }
+          );
+        }
+      }
+    }
+
+    async function handleGoogleAuthResponse(response) {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ id_token: response.credential }),
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          currentUser = data.user;
+          renderLoggedInUser(data.user);
+          
+          if (data.user.enrollmentStatus === 'ACTIVE') {
+            alert(`Welcome back, ${data.user.fullName}! Your enrollment is active. Opening virtual classroom...`);
+            window.location.href = 'player.html';
+            return;
+          }
+
+          const codeInput = document.getElementById('coupon-input');
+          const code = (codeInput?.value || '').trim();
+          if (code) {
+            applyCouponCode();
+          }
+        }
+      } catch (err) {
+        alert('Google Sign-In failed: ' + err.message);
+      }
+    }
+
+    function renderLoggedInUser(user) {
+      const hG = document.getElementById('header-google-signin');
+      if (hG) hG.style.display = 'none';
+      const heroG = document.getElementById('hero-google-signin');
+      if (heroG) heroG.style.display = 'none';
+
+      const statusEl = document.getElementById('hero-auth-status');
+      if (statusEl) {
+        statusEl.innerHTML = `<span class="text-emerald-400 font-bold">✓ Signed in:</span> ${user.email}`;
+      }
+
+      const badge = document.getElementById('header-user-badge');
+      if (badge) {
+        badge.classList.remove('hidden');
+        badge.classList.add('flex');
+      }
+      const nameEl = document.getElementById('header-user-name');
+      if (nameEl) nameEl.textContent = user.fullName || user.email;
+      
+      const avatar = document.getElementById('header-user-avatar');
+      if (avatar) {
+        if (user.profileImage) {
+          avatar.innerHTML = `<img src="${user.profileImage}" class="w-full h-full object-cover">`;
+        } else {
+          avatar.textContent = (user.fullName || user.email).slice(0, 2).toUpperCase();
+        }
+      }
+
+      const certName = document.getElementById('cert-preview-name');
+      if (certName) certName.textContent = (user.fullName || 'STUDENT').toUpperCase();
+
+      if (user.enrollmentStatus === 'ACTIVE') {
+        const btnText = document.getElementById('enroll-btn-text');
+        if (btnText) btnText.textContent = 'ENTER VIRTUAL CLASSROOM';
+        const couponBadge = document.getElementById('coupon-badge');
+        if (couponBadge) couponBadge.innerHTML = `<span class="text-emerald-400 font-bold">ENROLLMENT ACTIVE</span>`;
+      }
+    }
+
+    // Bulletproof Log Out Handler
+    async function handleLogout() {
+      try {
+        await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({})
+        });
+      } catch (err) {}
+
+      if (window.google && window.google.accounts && window.google.accounts.id) {
+        window.google.accounts.id.disableAutoSelect();
+      }
+
+      currentUser = null;
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Immediately reset UI
+      const badge = document.getElementById('header-user-badge');
+      if (badge) {
+        badge.classList.remove('flex');
+        badge.classList.add('hidden');
+      }
+      const hG = document.getElementById('header-google-signin');
+      if (hG) hG.style.display = 'block';
+      const heroG = document.getElementById('hero-google-signin');
+      if (heroG) heroG.style.display = 'block';
+
+      const statusEl = document.getElementById('hero-auth-status');
+      if (statusEl) statusEl.textContent = 'Sign in with Google to start course';
+
+      const btnText = document.getElementById('enroll-btn-text');
+      if (btnText) btnText.textContent = 'START COURSE ($38)';
+
+      window.location.reload();
+    }
+
+    // =========================================================================
+    // 11. COUPON CODE LOGIC & ADMIN PASS OVERRIDE
+    // =========================================================================
+    async function applyCouponCode() {
+      const codeInput = document.getElementById('coupon-input');
+      const feedback = document.getElementById('coupon-feedback');
+      const badge = document.getElementById('coupon-badge');
+      const btnText = document.getElementById('enroll-btn-text');
+
+      const code = (codeInput.value || '').trim().toUpperCase();
+      if (!code) {
+        feedback.className = 'text-xs font-mono mt-2 text-rose-400 block';
+        feedback.textContent = 'Please enter a coupon or promo code.';
+        return;
+      }
+
+      feedback.className = 'text-xs font-mono mt-2 text-gray-300 block';
+      feedback.textContent = 'Verifying with Texas State Registry...';
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/billing/validate-coupon`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ code }),
+        });
+
+        const data = await res.json();
+        if (data.success && data.valid) {
+          currentCoupon = { code, ...data };
+
+          if (data.isAdmin) {
+            // ADMIN VIP PASS (100% OFF)
+            if (data.requiresAuth || !currentUser) {
+              feedback.className = 'text-xs font-mono mt-2 text-emerald-400 font-bold block animate-pulse';
+              feedback.innerHTML = `★ ${data.label}: Valid! Please sign in with Google above to activate your access.`;
+              badge.innerHTML = `<span class="text-emerald-400 font-bold">100% WAIVED (${data.finalPriceFormatted})</span>`;
+              btnText.textContent = 'SIGN IN WITH GOOGLE TO UNLOCK';
+              return;
+            }
+
+            feedback.className = 'text-xs font-mono mt-2 text-emerald-400 font-bold block animate-pulse';
+            feedback.innerHTML = `★ ${data.message} Opening classroom...`;
+            badge.innerHTML = `<span class="text-emerald-400 font-bold">100% WAIVED (${data.finalPriceFormatted})</span>`;
+            btnText.textContent = 'ACCESS UNLOCKED — OPENING CLASSROOM';
+
+            // Auto-redirect directly to player.html
+            setTimeout(() => {
+              window.location.href = 'player.html?access=admin_vip_granted';
+            }, 1000);
+            return;
+          }
+
+          feedback.className = 'text-xs font-mono mt-2 text-emerald-400 block';
+          feedback.textContent = `Promo code applied! ${data.label}: New tuition ${data.finalPriceFormatted}`;
+          badge.innerHTML = `<span class="text-emerald-400 font-bold">${data.finalPriceFormatted} (DISCOUNTED)</span>`;
+          btnText.textContent = `ENROLL NOW (${data.finalPriceFormatted})`;
+        } else {
+          feedback.className = 'text-xs font-mono mt-2 text-rose-400 block';
+          feedback.textContent = data.message || 'Invalid promo code.';
+        }
+      } catch (err) {
+        feedback.className = 'text-xs font-mono mt-2 text-rose-400 block';
+        feedback.textContent = 'Network error verifying code: ' + err.message;
+      }
+    }
+
+    async function handleMainEnrollment() {
+      if (currentUser && currentUser.enrollmentStatus === 'ACTIVE') {
+        window.location.href = 'player.html';
+        return;
+      }
+
+      if (!currentUser) {
+        alert('Please sign in with Google first.');
+        return;
+      }
+
+      const codeInput = document.getElementById('coupon-input');
+      const couponCode = (codeInput?.value || '').trim();
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/billing/create-checkout-session`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            tier: 'STANDARD',
+            couponCode,
+            clientOrigin: window.location.origin
+          }),
+        });
+
+        const data = await res.json();
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+        } else {
+          window.location.href = 'player.html';
+        }
+      } catch (err) {
+        window.location.href = 'player.html';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      init3DScene();
+      initAuth();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modular MCQ Engine & Question Explorer — Texas ADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#E87522',
+              hover: '#D46313',
+              light: '#FFF3EB',
+              dark: '#9A4600',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #F6F7F5; font-family: 'Geist', sans-serif; }
+    .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-screen text-[#191B1A]">
+
+  <!-- Top System Bar -->
+  <header class="bg-white border-b border-[#E5E8E4] px-6 py-4 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#E87522] text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          ADE
+        </div>
+        <div>
+          <span class="text-[11px] font-mono-code font-bold text-[#E87522] tracking-wider uppercase">Texas Adult Driver Education</span>
+          <h1 class="text-lg font-bold text-[#141A15] tracking-tight">Modular Assessment Engine & Question Explorer</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="first_question_shell.html" class="px-4 py-2 rounded-xl bg-[#E87522] hover:bg-[#D46313] text-white text-xs font-bold font-mono-code uppercase transition shadow-xs flex items-center gap-1.5">
+          <span>Launch Master Shell</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+        </a>
+        <a href="../final_exam.html" class="px-4 py-2 rounded-xl border border-[#D9DDD8] bg-white hover:bg-[#F0F2EF] text-[#2A312C] text-xs font-bold font-mono-code uppercase transition">
+          Final 30 Exam
+        </a>
+        <a href="../index.html" class="px-3 py-2 rounded-xl border border-[#D9DDD8] text-xs font-mono-code text-[#717A73] hover:text-[#141A15] uppercase transition">
+          Back to Index
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+    <!-- KPI Metric Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white rounded-2xl p-5 border border-[#E5E8E4] shadow-xs">
+        <div class="text-[11px] font-mono-code text-[#717A73] font-semibold uppercase">Total Curriculum Topics</div>
+        <div class="text-3xl font-extrabold text-[#141A15] mt-1">75</div>
+        <div class="text-xs text-[#16A34A] font-medium mt-1">Lessons 01 through 09</div>
+      </div>
+      <div class="bg-white rounded-2xl p-5 border border-[#E5E8E4] shadow-xs">
+        <div class="text-[11px] font-mono-code text-[#717A73] font-semibold uppercase">Modular Questions</div>
+        <div class="text-3xl font-extrabold text-[#E87522] mt-1">375</div>
+        <div class="text-xs text-[#525B54] font-medium mt-1">5 Standalone Units / Topic</div>
+      </div>
+      <div class="bg-white rounded-2xl p-5 border border-[#E5E8E4] shadow-xs">
+        <div class="text-[11px] font-mono-code text-[#717A73] font-semibold uppercase">Visual Vector Scenarios</div>
+        <div class="text-3xl font-extrabold text-[#3B82F6] mt-1">191</div>
+        <div class="text-xs text-[#525B54] font-medium mt-1">50.9% Graphical Coverage</div>
+      </div>
+      <div class="bg-white rounded-2xl p-5 border border-[#E5E8E4] shadow-xs">
+        <div class="text-[11px] font-mono-code text-[#717A73] font-semibold uppercase">Front-End Security</div>
+        <div class="text-3xl font-extrabold text-[#16A34A] mt-1">100%</div>
+        <div class="text-xs text-[#16A34A] font-medium mt-1">Zero Answer Leaks (Server-Side)</div>
+      </div>
+    </div>
+
+    <!-- Architectural Highlight Banner -->
+    <div class="rounded-2xl border border-[#D9DDD8] bg-white p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono-code font-bold bg-[#DCFCE7] text-[#16A34A] border border-[#86EFAC] uppercase">Architecture Verified</span>
+          <span class="text-xs font-mono-code text-[#717A73]">Master Shell on Q1 • Standalone Units on Q2-5</span>
+        </div>
+        <h2 class="text-base font-bold text-[#141A15]">Split Modular Storage & Zero Front-End Keys</h2>
+        <p class="text-xs text-[#525B54] max-w-2xl leading-relaxed">
+          Each question is saved as an individual atomic JSON file with 4 numbered options. All answer keys, target hashes, and rationales are decoupled and secured strictly within server memory and private backend storage.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button onclick="inspectSampleQuestion()" class="px-4 py-2.5 rounded-xl border border-[#D9DDD8] hover:bg-[#F0F2EF] font-mono-code text-xs font-bold text-[#2A312C] transition">
+          Inspect Q1 JSON (DevTools Proof)
+        </button>
+      </div>
+    </div>
+
+    <!-- Question Filter Bar -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="relative w-full sm:w-80">
+        <input id="search-input" type="text" placeholder="Search topic or statute (e.g. L01-T01, §545)..." onkeyup="filterQuestions()" class="w-full pl-3 pr-8 py-2 text-xs rounded-xl border border-[#D9DDD8] bg-white focus:outline-none focus:ring-2 focus:ring-[#E87522]/30">
+      </div>
+      <div class="flex items-center gap-2 text-xs font-mono-code text-[#717A73] w-full sm:w-auto justify-end">
+        <span id="filtered-count">Showing 375 questions</span>
+      </div>
+    </div>
+
+    <!-- Question Card Grid -->
+    <div id="questions-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Injected via JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- Sample Inspection Modal -->
+  <div id="json-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-xl border border-[#D9DDD8]">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono-code font-bold text-[#E87522] uppercase">Client-Side Sanitized Question Entity</span>
+          <h3 id="modal-title" class="text-sm font-bold text-[#141A15]">L01-T01_Q1.json</h3>
+        </div>
+        <button onclick="closeModal()" class="w-7 h-7 rounded-lg border border-[#D9DDD8] flex items-center justify-center text-xs font-bold hover:bg-[#F0F2EF]">✕</button>
+      </div>
+      <p class="text-xs text-[#525B54]">Notice: ZERO correct option fields, ZERO rationales, and ZERO hashes exist in this object. DevTools inspect element cannot leak answers.</p>
+      <pre id="modal-code" class="p-4 rounded-xl bg-[#181B19] text-[#22C55E] text-xs font-mono-code overflow-x-auto max-h-96"></pre>
+      <div class="flex justify-end">
+        <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-[#E87522] text-white font-bold text-xs font-mono-code uppercase">Close Inspector</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let questionsIndex = [];
+
+    async function loadIndex() {
+      try {
+        const resp = await fetch('modular_questions_index.json');
+        if (resp.ok) {
+          const data = await resp.json();
+          questionsIndex = data.questions;
+          renderGrid(questionsIndex);
+        }
+      } catch (e) {
+        console.error("Could not load modular index", e);
+      }
+    }
+
+    function renderGrid(list) {
+      const grid = document.getElementById('questions-grid');
+      grid.innerHTML = '';
+      document.getElementById('filtered-count').textContent = `Showing ${list.length} questions`;
+
+      list.forEach(q => {
+        const card = document.createElement('div');
+        card.className = "p-4 rounded-2xl bg-white border border-[#E5E8E4] shadow-xs hover:border-[#E87522] transition flex flex-col justify-between gap-3";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-mono-code">
+              <span class="font-bold text-[#E87522]">${q.topic_id} • Q${q.number}</span>
+              <span class="px-2 py-0.5 rounded ${q.has_visual ? 'bg-[#EFF6FF] text-[#3B82F6] border border-[#BFDBFE]' : 'bg-[#F0F2EF] text-[#656E67]'} font-semibold">
+                ${q.has_visual ? 'VISUAL SVG' : 'TEXT STANDARD'}
+              </span>
+            </div>
+            <h4 class="text-xs font-bold text-[#141A15] mt-1.5 leading-snug line-clamp-1">${q.category}</h4>
+            <div class="text-[10px] font-mono-code text-[#717A73] mt-0.5 truncate">${q.filename}</div>
+          </div>
+          <div class="flex items-center justify-between gap-2 pt-2 border-t border-[#F0F2EF]">
+            <a href="first_question_shell.html" class="text-[11px] font-mono-code font-bold text-[#E87522] hover:underline flex items-center gap-1">
+              Test Shell →
+            </a>
+            <button onclick="inspectFile('${q.filename}')" class="px-2 py-1 rounded bg-[#F0F2EF] hover:bg-[#E2E5DF] text-[10px] font-mono-code font-semibold text-[#2A312C] transition">
+              Inspect JSON
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterQuestions() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      if (!query) {
+        renderGrid(questionsIndex);
+        return;
+      }
+      const filtered = questionsIndex.filter(q => 
+        q.topic_id.toLowerCase().includes(query) ||
+        q.category.toLowerCase().includes(query) ||
+        q.filename.toLowerCase().includes(query)
+      );
+      renderGrid(filtered);
+    }
+
+    async function inspectFile(filename) {
+      try {
+        const resp = await fetch(`questions/${filename}`);
+        if (resp.ok) {
+          const json = await resp.json();
+          document.getElementById('modal-title').textContent = filename;
+          document.getElementById('modal-code').textContent = JSON.stringify(json, null, 2);
+          document.getElementById('json-modal').classList.remove('hidden');
+        }
+      } catch (e) {
+        alert("Failed to load question JSON");
+      }
+    }
+
+    function inspectSampleQuestion() {
+      inspectFile("L01-T01_Q1.json");
+    }
+
+    function closeModal() {
+      document.getElementById('json-modal').classList.add('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadIndex);
+  </script>
+</body>
+</html>

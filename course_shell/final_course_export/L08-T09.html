@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L08-T09: Safe Driving Practices (Defensive Driver Dashboard)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              bg: '#1A1A1A',
+              card: '#222222',
+              cardBorder: '#333333',
+              border: '#D9DDD8',
+              orange: '#E87522',
+              text: '#F6F7F5',
+              muted: '#A1A1A1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #1A1A1A;
+      color: #F6F7F5;
+      font-family: 'Geist', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle pulsing glow for hotspots */
+    @keyframes hotspot-pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(232, 117, 34, 0.7);
+      }
+      70% {
+        transform: scale(1.15);
+        box-shadow: 0 0 0 14px rgba(232, 117, 34, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(232, 117, 34, 0);
+      }
+    }
+
+    .pulse-ring {
+      animation: hotspot-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .cockpit-viewport {
+      perspective: 1000px;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: center center;
+    }
+
+    /* Hotspot hover cue (jitter-free) */
+    .hotspot-node:hover .hotspot-tag {
+      opacity: 1;
+      border-color: #FFA057;
+    }
+
+    /* Subtle roadway dash motion */
+    @keyframes road-flow {
+      0% { stroke-dashoffset: 60; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .road-lines {
+      stroke-dasharray: 20, 20;
+      animation: road-flow 1.2s linear infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center justify-start selection:bg-[#E87522] selection:text-white">
+
+  <!-- Main Container -->
+  <main class="w-full max-w-5xl mx-auto flex flex-col space-y-8">
+    
+    <!-- Top Meta & Title (Standalone Lesson Body: No Global Shell) -->
+    <header class="border-b border-[#333333] pb-6 pt-2">
+      <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono uppercase tracking-wider text-[#A1A1A1] mb-3">
+        <div class="flex items-center space-x-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-[#E87522]"></span>
+          <span class="text-[#E87522] font-semibold">Module 08 // Topic L08-T09</span>
+          <span>&bull;</span>
+          <span>Texas Transportation Code &sect; 545</span>
+        </div>
+        <div class="px-2.5 py-1 rounded border border-[#333333] bg-[#222222] text-[#F6F7F5] font-mono">
+          TDLR Certified // Defensive Protocol
+        </div>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[#F6F7F5]">
+        Safe Driving Practices
+      </h1>
+      <p class="text-base text-[#A1A1A1] mt-2 max-w-3xl leading-relaxed">
+        Defensive driving requires systematic situational vigilance across four physical zones. Interact with the cockpit telemetry nodes below to inspect statutory compliance and risk-mitigation strategies.
+      </p>
+    </header>
+
+    <!-- Interactive Defensive Driver Dashboard Display -->
+    <section class="border border-[#D9DDD8]/20 rounded-xl bg-[#222222] p-4 md:p-6 overflow-hidden relative shadow-2xl">
+      
+      <!-- Cockpit Viewport Header Bar -->
+      <div class="flex flex-wrap items-center justify-between border-b border-[#333333] pb-3 mb-4 text-xs font-mono text-[#A1A1A1]">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs uppercase text-[#E87522] font-bold tracking-wide">Dynamic Viewport:</span>
+          <span id="viewport-state-title" class="text-[#F6F7F5] font-medium tracking-tight">Panoramic Operational View (Cockpit Ready)</span>
+        </div>
+        <div class="flex items-center space-x-3">
+          <span class="hidden sm:inline text-[#A1A1A1]">Click any pulsing node to zoom & focus</span>
+          <button id="reset-viewport-btn" onclick="resetFocus()" class="px-2.5 py-1 rounded border border-[#D9DDD8]/30 hover:border-[#E87522] text-[#F6F7F5] hover:text-[#E87522] transition-colors text-[11px] font-mono">
+            Reset Camera [ Esc ]
+          </button>
+        </div>
+      </div>
+
+      <!-- Cockpit Visual Canvas (SVG + HTML Interactive Elements) -->
+      <div class="relative w-full aspect-[16/9] md:aspect-[21/9] min-h-[380px] rounded-lg overflow-hidden border border-[#333333] bg-[#141414] select-none">
+        
+        <!-- Scalable Viewport Container for Zoom/Pan FX -->
+        <div id="cockpit-camera" class="cockpit-viewport w-full h-full relative">
+          
+          <!-- Vector Artwork Layer: Road, Windshield, Dashboard, Wheel, Mirrors -->
+          <svg viewBox="0 0 1000 480" class="w-full h-full object-cover pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Road linear gradient -->
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0f141c" />
+                <stop offset="60%" stop-color="#192231" />
+                <stop offset="100%" stop-color="#2a3b4c" />
+              </linearGradient>
+              <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1f2421" />
+                <stop offset="100%" stop-color="#0d0e0d" />
+              </linearGradient>
+              <linearGradient id="dashGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#252525" />
+                <stop offset="100%" stop-color="#121212" />
+              </linearGradient>
+              <!-- Subtle vignette on glass -->
+              <radialGradient id="glassReflection" cx="50%" cy="30%" r="60%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.06)" />
+                <stop offset="100%" stop-color="rgba(0,0,0,0.35)" />
+              </radialGradient>
+            </defs>
+
+            <!-- Sky & Horizon -->
+            <rect x="0" y="0" width="1000" height="230" fill="url(#skyGrad)" />
+            
+            <!-- Distant Road Horizon Line & Texas Landscape Silhouettes -->
+            <path d="M 0 210 L 1000 210 L 1000 230 L 0 230 Z" fill="#141a22" />
+            <polygon points="0,210 180,195 290,210 420,200 500,210 680,198 830,210 1000,205 1000,210 0,210" fill="#0d131a" opacity="0.6" />
+
+            <!-- Paved Road Highway Surface (Perspective) -->
+            <polygon points="460,210 540,210 820,380 180,380" fill="url(#roadGrad)" />
+            
+            <!-- Road Shoulders -->
+            <polygon points="440,210 460,210 180,380 100,380" fill="#1a1c18" opacity="0.8" />
+            <polygon points="540,210 560,210 900,380 820,380" fill="#1a1c18" opacity="0.8" />
+
+            <!-- Animated Center Dashed Line (Yellow TTC Standard) -->
+            <line x1="500" y1="210" x2="500" y2="380" stroke="#E87522" stroke-width="4" stroke-opacity="0.85" class="road-lines" />
+            
+            <!-- Side Road Guide Lines (Solid White) -->
+            <line x1="460" y1="210" x2="185" y2="380" stroke="#D9DDD8" stroke-width="2" stroke-opacity="0.4" />
+            <line x1="540" y1="210" x2="815" y2="380" stroke="#D9DDD8" stroke-width="2" stroke-opacity="0.4" />
+
+            <!-- Ahead Vehicle Silhouette (Illustrating Safe 3-Second Lead Cushion) -->
+            <g transform="translate(482, 192) scale(0.45)">
+              <rect x="0" y="8" width="80" height="34" rx="6" fill="#1a1a1a" stroke="#444" stroke-width="2" />
+              <!-- Taillights -->
+              <rect x="6" y="24" width="16" height="6" rx="2" fill="#ff3b30" />
+              <rect x="58" y="24" width="16" height="6" rx="2" fill="#ff3b30" />
+              <!-- Rear windshield -->
+              <polygon points="12,12 68,12 60,22 20,22" fill="#2c3437" />
+            </g>
+
+            <!-- Windshield Glass Layer & A-Pillars -->
+            <rect x="0" y="0" width="1000" height="380" fill="url(#glassReflection)" />
+            
+            <!-- Left A-Pillar -->
+            <polygon points="0,0 70,0 120,380 0,380" fill="#181818" stroke="#252525" stroke-width="1" />
+            <!-- Right A-Pillar -->
+            <polygon points="930,0 1000,0 1000,380 880,380" fill="#181818" stroke="#252525" stroke-width="1" />
+            <!-- Windshield Top Header -->
+            <rect x="0" y="0" width="1000" height="26" fill="#151515" />
+
+            <!-- Rearview Mirror (Center Top) -->
+            <g id="svg-rearview-mirror">
+              <path d="M 495,24 L 495,50" stroke="#333" stroke-width="8" stroke-linecap="round" />
+              <rect x="420" y="46" width="160" height="44" rx="8" fill="#1b1f24" stroke="#444444" stroke-width="2.5" />
+              <!-- Mirror reflection horizon -->
+              <rect x="424" y="50" width="152" height="36" rx="6" fill="#161c22" />
+              <line x1="424" y1="70" x2="576" y2="70" stroke="#293440" stroke-width="1" />
+              <ellipse cx="500" cy="74" rx="14" ry="7" fill="#0d1116" stroke="#242e3a" />
+            </g>
+
+            <!-- Left Side Mirror (Mounted onto Driver Door Frame) -->
+            <g id="svg-side-mirror">
+              <polygon points="90,165 145,150 145,215 90,205" fill="#151515" stroke="#333" stroke-width="2" />
+              <polygon points="94,168 141,154 141,211 94,202" fill="#18222d" stroke="#283545" stroke-width="1.5" />
+              <!-- Blind Spot indicator light in glass (dormant) -->
+              <circle cx="102" cy="176" r="3" fill="#E87522" opacity="0.75" />
+            </g>
+
+            <!-- Dashboard Sculpted Base Console -->
+            <path d="M 0,330 Q 300,280 500,285 Q 700,280 1000,330 L 1000,480 L 0,480 Z" fill="url(#dashGrad)" stroke="#2d2d2d" stroke-width="1.5" />
+
+            <!-- Instrument Cluster Hood (Speedometer Arch Behind Wheel) -->
+            <path d="M 240,340 C 240,265 440,265 440,340 Z" fill="#161616" stroke="#2b2b2b" stroke-width="2" />
+            
+            <!-- Speedometer Dial Arc & Display -->
+            <g id="svg-speedometer">
+              <path d="M 285,340 A 55 55 0 0 1 395,340" fill="none" stroke="#2a2a2a" stroke-width="7" stroke-linecap="round" />
+              <path d="M 285,340 A 55 55 0 0 1 350,290" fill="none" stroke="#E87522" stroke-width="7" stroke-linecap="round" />
+              <!-- Digital Speed Reading readout -->
+              <text x="340" y="332" fill="#F6F7F5" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700" text-anchor="middle">55</text>
+              <text x="340" y="342" fill="#A1A1A1" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">MPH</text>
+            </g>
+
+            <!-- Center Console Infotainment / Warning Beacon -->
+            <rect x="490" y="320" width="130" height="90" rx="8" fill="#171717" stroke="#2c2c2c" stroke-width="2" />
+            <text x="555" y="350" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" text-anchor="middle">SAFE TRANSIT</text>
+            <text x="555" y="368" fill="#A1A1A1" font-family="'Geist', sans-serif" font-size="9" text-anchor="middle">Radar Cushion: Optimal</text>
+
+            <!-- Steering Wheel Assembly (Modern Ergonomic Texas Operator Cockpit) -->
+            <g id="svg-steering-wheel">
+              <!-- Outer Wheel Rim Ring -->
+              <ellipse cx="340" cy="415" rx="145" ry="120" fill="none" stroke="#282828" stroke-width="24" />
+              <ellipse cx="340" cy="415" rx="145" ry="120" fill="none" stroke="#1c1c1c" stroke-width="18" />
+              <!-- Hand grip contours at 9-and-3 posture -->
+              <path d="M 195,405 C 190,390 195,370 205,355" fill="none" stroke="#383838" stroke-width="8" stroke-linecap="round" />
+              <path d="M 485,405 C 490,390 485,370 475,355" fill="none" stroke="#383838" stroke-width="8" stroke-linecap="round" />
+              <!-- Center Hub & Spokes -->
+              <ellipse cx="340" cy="415" rx="42" ry="34" fill="#1f1f1f" stroke="#333333" stroke-width="2" />
+              <!-- Turn Signal Lever (Left Column) -->
+              <line x1="205" y1="365" x2="160" y2="340" stroke="#2e2e2e" stroke-width="9" stroke-linecap="round" />
+              <circle cx="160" cy="340" r="5.5" fill="#E87522" opacity="0.9" />
+              <!-- Steering Wheel Horn/Boss Emblem -->
+              <polygon points="340,405 344,414 353,414 346,420 349,429 340,423 331,429 334,420 327,414 336,414" fill="#E87522" opacity="0.85" />
+            </g>
+          </svg>
+
+          <!-- INTERACTIVE HOTSPOTS (4 SPECIFIED FOCUS NODES) -->
+
+          <!-- 1. Road Ahead Hotspot: "Defensive Plan" -->
+          <div id="hotspot-road" onclick="triggerFocus('road')" role="button" tabindex="0" aria-label="Inspect Road Ahead Strategy" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();triggerFocus('road');}" class="hotspot-node absolute left-[50%] top-[40%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group outline-none">
+            <div class="relative flex items-center justify-center p-2">
+              <span class="pulse-ring absolute w-8 h-8 rounded-full bg-[#E87522]/30 pointer-events-none"></span>
+              <span id="dot-road" class="w-4 h-4 rounded-full bg-[#E87522] border-2 border-[#1A1A1A] shadow-md group-hover:border-[#FFA057] transition-all"></span>
+            </div>
+            <!-- Floating Monospace Label -->
+            <div id="tag-road" class="hotspot-tag opacity-80 group-hover:opacity-100 transition-all duration-200 mt-1 px-2.5 py-0.5 rounded bg-[#1A1A1A]/90 border border-[#D9DDD8]/40 text-[10px] font-mono whitespace-nowrap text-[#F6F7F5] shadow-lg flex items-center space-x-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#E87522]"></span>
+              <span>[ 01 // ROAD AHEAD ]</span>
+            </div>
+          </div>
+
+          <!-- 2. Rearview & Side Mirrors Hotspot: "Visibility" -->
+          <div id="hotspot-mirrors" onclick="triggerFocus('mirrors')" role="button" tabindex="0" aria-label="Inspect Mirrors Strategy" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();triggerFocus('mirrors');}" class="hotspot-node absolute left-[50%] top-[14%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group outline-none">
+            <div class="relative flex items-center justify-center p-2">
+              <span class="pulse-ring absolute w-8 h-8 rounded-full bg-[#E87522]/30 pointer-events-none"></span>
+              <span id="dot-mirrors" class="w-4 h-4 rounded-full bg-[#E87522] border-2 border-[#1A1A1A] shadow-md group-hover:border-[#FFA057] transition-all"></span>
+            </div>
+            <div id="tag-mirrors" class="hotspot-tag opacity-80 group-hover:opacity-100 transition-all duration-200 mt-1 px-2.5 py-0.5 rounded bg-[#1A1A1A]/90 border border-[#D9DDD8]/40 text-[10px] font-mono whitespace-nowrap text-[#F6F7F5] shadow-lg flex items-center space-x-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#E87522]"></span>
+              <span>[ 02 // MIRRORS & BLIND SPOTS ]</span>
+            </div>
+          </div>
+
+          <!-- 3. Speedometer Hotspot: "Speed Management" -->
+          <div id="hotspot-speedometer" onclick="triggerFocus('speedometer')" role="button" tabindex="0" aria-label="Inspect Speedometer Strategy" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();triggerFocus('speedometer');}" class="hotspot-node absolute left-[34%] top-[65%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group outline-none">
+            <div class="relative flex items-center justify-center p-2">
+              <span class="pulse-ring absolute w-8 h-8 rounded-full bg-[#E87522]/30 pointer-events-none"></span>
+              <span id="dot-speedometer" class="w-4 h-4 rounded-full bg-[#E87522] border-2 border-[#1A1A1A] shadow-md group-hover:border-[#FFA057] transition-all"></span>
+            </div>
+            <div id="tag-speedometer" class="hotspot-tag opacity-80 group-hover:opacity-100 transition-all duration-200 mt-1 px-2.5 py-0.5 rounded bg-[#1A1A1A]/90 border border-[#D9DDD8]/40 text-[10px] font-mono whitespace-nowrap text-[#F6F7F5] shadow-lg flex items-center space-x-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#E87522]"></span>
+              <span>[ 03 // SPEEDOMETER ]</span>
+            </div>
+          </div>
+
+          <!-- 4. Steering Wheel Hotspot: "Communication" -->
+          <div id="hotspot-steering" onclick="triggerFocus('steering')" role="button" tabindex="0" aria-label="Inspect Steering Strategy" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();triggerFocus('steering');}" class="hotspot-node absolute left-[21%] top-[77%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group outline-none">
+            <div class="relative flex items-center justify-center p-2">
+              <span class="pulse-ring absolute w-8 h-8 rounded-full bg-[#E87522]/30 pointer-events-none"></span>
+              <span id="dot-steering" class="w-4 h-4 rounded-full bg-[#E87522] border-2 border-[#1A1A1A] shadow-md group-hover:border-[#FFA057] transition-all"></span>
+            </div>
+            <div id="tag-steering" class="hotspot-tag opacity-80 group-hover:opacity-100 transition-all duration-200 mt-1 px-2.5 py-0.5 rounded bg-[#1A1A1A]/90 border border-[#D9DDD8]/40 text-[10px] font-mono whitespace-nowrap text-[#F6F7F5] shadow-lg flex items-center space-x-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#E87522]"></span>
+              <span>[ 04 // STEERING & SIGNALING ]</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Cockpit HUD Telemetry Footer Overlay -->
+        <div class="absolute bottom-2 right-3 z-30 flex items-center space-x-2 text-[10px] font-mono text-[#A1A1A1] bg-[#1A1A1A]/80 px-2.5 py-1 rounded border border-[#333333]">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+          <span>Cockpit Sensors: Active</span>
+          <span class="text-[#333333]">|</span>
+          <span id="active-stat-label">Select Node</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Detailed Safety Strategy Inspection Panel (Responsive Focal Display) -->
+    <section id="strategy-display-panel" class="border border-[#D9DDD8]/20 rounded-xl bg-[#222222] p-6 md:p-8 transition-all duration-500">
+      
+      <!-- Strategic Directive Header -->
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#333333] pb-4 mb-6">
+        <div>
+          <span id="directive-code" class="text-xs font-mono font-semibold uppercase text-[#E87522] tracking-wider">
+            SAFETY STRATEGY DIRECTIVE // SELECT A COCKPIT NODE ABOVE
+          </span>
+          <h2 id="directive-title" class="text-2xl font-bold tracking-tight text-[#F6F7F5] mt-1">
+            Defensive Cockpit Operations
+          </h2>
+        </div>
+        <div id="statute-badge" class="px-3 py-1 rounded bg-[#1A1A1A] border border-[#333333] text-xs font-mono text-[#A1A1A1]">
+          TTC &sect; 545 Mandate
+        </div>
+      </div>
+
+      <!-- Core Strategy Text Banner (High Emphasis) -->
+      <div id="core-strategy-box" class="p-4 md:p-5 rounded-lg border-l-4 border-[#E87522] bg-[#1A1A1A] mb-6">
+        <p class="text-xs font-mono text-[#E87522] uppercase tracking-wide mb-1 font-semibold">Immediate Operational Rule</p>
+        <p id="core-strategy-text" class="text-lg md:text-xl font-medium text-[#F6F7F5] leading-relaxed">
+          Click any of the 4 pulsing hotspots in the vehicle cockpit above to inspect its verified Texas defensive driving protocol.
+        </p>
+      </div>
+
+      <!-- Tactical Details Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="strategy-details-grid">
+        
+        <div class="p-4 rounded-lg border border-[#333333] bg-[#1c1c1c]">
+          <span class="text-[11px] font-mono text-[#E87522] block mb-1">01 // STATUTORY STANDARD</span>
+          <h3 id="detail-title-1" class="text-sm font-semibold text-[#F6F7F5] mb-1">Texas Universal Standard</h3>
+          <p id="detail-desc-1" class="text-xs text-[#A1A1A1] leading-relaxed">
+            Every licensed operator carries an affirmative statutory duty to maintain conscious control, safe headway, and active hazard recognition.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-lg border border-[#333333] bg-[#1c1c1c]">
+          <span class="text-[11px] font-mono text-[#E87522] block mb-1">02 // KINETIC METRIC</span>
+          <h3 id="detail-title-2" class="text-sm font-semibold text-[#F6F7F5] mb-1">Reaction vs. Stopping Margin</h3>
+          <p id="detail-desc-2" class="text-xs text-[#A1A1A1] leading-relaxed">
+            Physical perception-reaction time is 1.5 seconds. At 60 MPH, your vehicle travels 132 feet before mechanical braking begins.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-lg border border-[#333333] bg-[#1c1c1c]">
+          <span class="text-[11px] font-mono text-[#E87522] block mb-1">03 // DEFENSIVE HABIT</span>
+          <h3 id="detail-title-3" class="text-sm font-semibold text-[#F6F7F5] mb-1">Preserve An Escape Route</h3>
+          <p id="detail-desc-3" class="text-xs text-[#A1A1A1] leading-relaxed">
+            Always leave an open space buffer to at least one side. Never allow your passenger car to be boxed in by adjacent commercial traffic.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Quick Selector Buttons (Direct Hotspot Trigger Alternates) -->
+      <div class="mt-8 pt-6 border-t border-[#333333] flex flex-wrap items-center justify-between gap-3">
+        <span class="text-xs font-mono text-[#A1A1A1]">Tactical Jump Selector:</span>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="triggerFocus('speedometer')" class="px-3 py-1.5 rounded border border-[#333333] bg-[#1A1A1A] hover:border-[#E87522] text-xs font-mono text-[#F6F7F5] transition-colors">
+            1. Speedometer
+          </button>
+          <button onclick="triggerFocus('mirrors')" class="px-3 py-1.5 rounded border border-[#333333] bg-[#1A1A1A] hover:border-[#E87522] text-xs font-mono text-[#F6F7F5] transition-colors">
+            2. Mirrors
+          </button>
+          <button onclick="triggerFocus('steering')" class="px-3 py-1.5 rounded border border-[#333333] bg-[#1A1A1A] hover:border-[#E87522] text-xs font-mono text-[#F6F7F5] transition-colors">
+            3. Steering Wheel
+          </button>
+          <button onclick="triggerFocus('road')" class="px-3 py-1.5 rounded border border-[#333333] bg-[#1A1A1A] hover:border-[#E87522] text-xs font-mono text-[#F6F7F5] transition-colors">
+            4. Road Ahead
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Statutory Knowledge Verification Gateway -->
+    <section class="border border-[#D9DDD8]/20 rounded-xl bg-[#222222] p-6 md:p-8">
+      <div class="flex items-center justify-between border-b border-[#333333] pb-3 mb-5">
+        <span class="text-xs font-mono uppercase text-[#E87522] font-semibold tracking-wider">
+          Formative Assessment // Statutory Verification
+        </span>
+        <span class="text-xs font-mono text-[#A1A1A1]">Topic 09 Gate</span>
+      </div>
+
+      <div class="space-y-4">
+        <p class="text-base font-medium text-[#F6F7F5]">
+          Under Texas Transportation Code Chapter 545, what is the mandatory minimum continuous distance an operator must signal before turning or executing a lane change?
+        </p>
+
+        <div class="grid grid-cols-1 gap-2.5 font-mono text-sm">
+          <label class="flex items-center p-3.5 rounded-lg border border-[#333333] bg-[#1A1A1A] cursor-pointer hover:border-[#E87522] transition-colors group">
+            <input type="radio" name="stat-quiz" value="A" class="accent-[#E87522] mr-3">
+            <span class="text-[#A1A1A1] group-hover:text-[#F6F7F5]">[ A ] At least 50 continuous feet</span>
+          </label>
+          <label id="correct-answer-label" class="flex items-center p-3.5 rounded-lg border border-[#333333] bg-[#1A1A1A] cursor-pointer hover:border-[#E87522] transition-colors group">
+            <input type="radio" name="stat-quiz" value="B" class="accent-[#E87522] mr-3" onchange="verifyAnswer(true)">
+            <span class="text-[#A1A1A1] group-hover:text-[#F6F7F5]">[ B ] Continuously for at least the last 100 feet before the maneuver</span>
+          </label>
+          <label class="flex items-center p-3.5 rounded-lg border border-[#333333] bg-[#1A1A1A] cursor-pointer hover:border-[#E87522] transition-colors group">
+            <input type="radio" name="stat-quiz" value="C" class="accent-[#E87522] mr-3" onchange="verifyAnswer(false)">
+            <span class="text-[#A1A1A1] group-hover:text-[#F6F7F5]">[ C ] Only when other vehicles are traveling within 200 feet</span>
+          </label>
+        </div>
+
+        <div id="quiz-feedback" class="hidden mt-4 p-4 rounded-lg text-xs font-mono leading-relaxed"></div>
+      </div>
+    </section>
+
+    <!-- Navigation & Completion Footer (No Global LMS Shell, Pure Clean Topic Navigation) -->
+    <footer class="pt-4 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#333333]">
+      <a href="#" class="px-5 py-2.5 rounded-lg border border-[#333333] bg-[#222222] hover:border-[#D9DDD8] text-xs font-mono text-[#F6F7F5] transition-colors flex items-center space-x-2">
+        <span>&larr;</span>
+        <span>Previous: L08-T08 Wireless Communications</span>
+      </a>
+      <div class="flex items-center space-x-2 text-xs font-mono text-[#A1A1A1]">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Topic L08-T09 Validated // TDLR Compliant</span>
+      </div>
+      <button class="px-6 py-2.5 rounded-lg bg-[#E87522] hover:bg-[#d66718] active:scale-[0.98] text-white font-medium text-sm transition-all shadow-md">
+        Complete Topic 9 &amp; Proceed to Module Exam &rarr;
+      </button>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Hotspot Scripting Logic -->
+  <script>
+    const camera = document.getElementById('cockpit-camera');
+    const stateTitle = document.getElementById('viewport-state-title');
+    const directiveCode = document.getElementById('directive-code');
+    const directiveTitle = document.getElementById('directive-title');
+    const statuteBadge = document.getElementById('statute-badge');
+    const strategyBox = document.getElementById('core-strategy-text');
+    const statLabel = document.getElementById('active-stat-label');
+
+    const dTitle1 = document.getElementById('detail-title-1');
+    const dDesc1 = document.getElementById('detail-desc-1');
+    const dTitle2 = document.getElementById('detail-title-2');
+    const dDesc2 = document.getElementById('detail-desc-2');
+    const dTitle3 = document.getElementById('detail-title-3');
+    const dDesc3 = document.getElementById('detail-desc-3');
+
+    // Strategic content models for the 4 required hotspots
+    const strategies = {
+      speedometer: {
+        title: "Speed Management",
+        code: "TACTICAL VECTOR 01 // KINETIC REGULATION",
+        statute: "TTC § 545.351 (Basic Speed Rule)",
+        strategyText: "Speed Management: Obey limits, maintain 2-4 second gap.",
+        cameraTransform: "scale(1.85) translate(16%, -20%)",
+        statLabel: "Focus: Speedometer HUD",
+        viewportDesc: "Focal Inspection: Primary Speed & Deceleration Gauge",
+        details: [
+          {
+            title: "Basic Speed Standard",
+            desc: "Never drive at a speed greater than is reasonable and prudent under existing roadway or atmospheric conditions, regardless of posted maximums."
+          },
+          {
+            title: "2 to 4 Second Headway",
+            desc: "Maintain a minimum 2-second buffer at urban speeds (≤30 MPH) and expand to at least 4 seconds on high-speed thoroughfares and adverse weather."
+          },
+          {
+            title: "Kinetic Stopping Trap",
+            desc: "Doubling velocity quadruples destructive kinetic energy (KE = ½mv²). At 70 MPH, total mechanical arrest requires up to 387 cumulative feet."
+          }
+        ]
+      },
+      mirrors: {
+        title: "Visibility & Sightlines",
+        code: "TACTICAL VECTOR 02 // SENSORY FIELD SCANNING",
+        statute: "TTC § 547.302 & § 545.060",
+        strategyText: "Visibility: Always check blind spots, ensure headlights are on at night.",
+        cameraTransform: "scale(1.75) translate(0%, 25%)",
+        statLabel: "Focus: Optical Horizons & Mirrors",
+        viewportDesc: "Focal Inspection: Rearview Mirrors & Optical Horizon Scan",
+        details: [
+          {
+            title: "Headlamp Illumination Mandate",
+            desc: "Texas law mandates headlamp activation from 30 minutes after sunset until 30 minutes before sunrise, or whenever visibility falls below 1,000 feet."
+          },
+          {
+            title: "Physical Chin-to-Shoulder Check",
+            desc: "Mirrors leave critical rear quarter blind spots. Texas driving standards require a physical head turn to inspect the B-pillar zone before any lane change."
+          },
+          {
+            title: "Commercial Truck No-Zones",
+            desc: "If you cannot see the commercial truck driver's face in their exterior side mirrors, the operator cannot see you. Never linger in adjacent blind cones."
+          }
+        ]
+      },
+      steering: {
+        title: "Communication & Intent",
+        code: "TACTICAL VECTOR 03 // TRAJECTORY BROADCASTING",
+        statute: "TTC § 545.104 (Signaling Mandate)",
+        strategyText: "Communication: Signal at least 100 ft before turning/changing lanes.",
+        cameraTransform: "scale(1.8) translate(30%, -30%)",
+        statLabel: "Focus: Steering Column & Signal Lever",
+        viewportDesc: "Focal Inspection: Tactile Control & Continuous Signal Stalk",
+        details: [
+          {
+            title: "Mandatory 100-Ft Broadcast",
+            desc: "Under Texas Transportation Code § 545.104, an operator must broadcast continuous turn signals for not less than the last 100 feet before moving."
+          },
+          {
+            title: "Balanced 9-and-3 Hand Posture",
+            desc: "Keep hands positioned firmly on opposite sides of the wheel rim to maximize emergency counter-steer control and avoid wrist injury during airbag deployment."
+          },
+          {
+            title: "Downstream Intent Signaling",
+            desc: "Signaling before touching the brake pedal warns following drivers early, eliminating sudden accordion shockwaves and preventing rear-end collisions."
+          }
+        ]
+      },
+      road: {
+        title: "Defensive Road Horizon",
+        code: "TACTICAL VECTOR 04 // 360° SPATIAL ANTICIPATION",
+        statute: "TTC § 545.401 (Due Care Preemption)",
+        strategyText: "Defensive Plan: Scan continuously, stay alert, avoid impatient driving.",
+        cameraTransform: "scale(1.9) translate(0%, 8%)",
+        statLabel: "Focus: 12-15s Forward Sightline",
+        viewportDesc: "Focal Inspection: Forward Sightline & Escape Buffer Corridor",
+        details: [
+          {
+            title: "12-15 Second Scanning Horizon",
+            desc: "Scan ahead a full quarter-mile down the roadway corridor. Early detection of bottleneck brake lights allows smooth, non-emergency deceleration."
+          },
+          {
+            title: "Right-of-Way Given, Never Seized",
+            desc: "Texas law never grants an absolute right to proceed; it only specifies who must yield. Always surrender precedence to aggressive or errant drivers."
+          },
+          {
+            title: "Combat Inattentional Blindness",
+            desc: "Shift your gaze every 2 to 5 seconds across mirrors, the far horizon, and instrument clusters to eliminate optical fixation and highway hypnosis."
+          }
+        ]
+      }
+    };
+
+    function triggerFocus(key) {
+      const data = strategies[key];
+      if (!data) return;
+
+      // Update hotspot active visual states
+      const hotspotKeys = ['road', 'mirrors', 'speedometer', 'steering'];
+      hotspotKeys.forEach(k => {
+        const node = document.getElementById(`hotspot-${k}`);
+        const dot = document.getElementById(`dot-${k}`);
+        const tag = document.getElementById(`tag-${k}`);
+        if (k === key) {
+          if (node) node.classList.add('hotspot-active');
+          if (dot) {
+            dot.className = "w-5 h-5 rounded-full bg-[#E87522] border-2 border-white shadow-[0_0_12px_#E87522] ring-4 ring-[#E87522]/40 transition-all";
+          }
+          if (tag) {
+            tag.className = "hotspot-tag transition-all duration-200 mt-1 px-2.5 py-0.5 rounded bg-[#E87522] border border-[#FFA057] text-[10px] font-mono whitespace-nowrap text-white font-bold shadow-xl flex items-center space-x-1.5";
+            const tagDot = tag.querySelector('span:first-child');
+            if (tagDot) tagDot.className = "w-1.5 h-1.5 rounded-full bg-white";
+          }
+        } else {
+          if (node) node.classList.remove('hotspot-active');
+          if (dot) {
+            dot.className = "w-4 h-4 rounded-full bg-[#E87522] border-2 border-[#1A1A1A] shadow-md group-hover:border-[#FFA057] transition-all";
+          }
+          if (tag) {
+            tag.className = "hotspot-tag opacity-80 group-hover:opacity-100 transition-all duration-200 mt-1 px-2.5 py-0.5 rounded bg-[#1A1A1A]/90 border border-[#D9DDD8]/40 text-[10px] font-mono whitespace-nowrap text-[#F6F7F5] shadow-lg flex items-center space-x-1";
+            const tagDot = tag.querySelector('span:first-child');
+            if (tagDot) tagDot.className = "w-1.5 h-1.5 rounded-full bg-[#E87522]";
+          }
+        }
+      });
+
+      // Smooth camera transformation
+      camera.style.transform = data.cameraTransform;
+      stateTitle.textContent = data.viewportDesc;
+      statLabel.textContent = data.statLabel;
+
+      // Update Strategy Display panel
+      directiveCode.textContent = data.code;
+      directiveTitle.textContent = data.title;
+      statuteBadge.textContent = data.statute;
+      strategyBox.textContent = data.strategyText;
+
+      // Update tactical details
+      dTitle1.textContent = data.details[0].title;
+      dDesc1.textContent = data.details[0].desc;
+      dTitle2.textContent = data.details[1].title;
+      dDesc2.textContent = data.details[1].desc;
+      dTitle3.textContent = data.details[2].title;
+      dDesc3.textContent = data.details[2].desc;
+
+      // Scroll smoothly into view if user is on mobile
+      if (window.innerWidth < 768) {
+        document.getElementById('strategy-display-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      triggerFocus('road');
+    });
+
+    function resetFocus() {
+      camera.style.transform = "scale(1) translate(0%, 0%)";
+      stateTitle.textContent = "Panoramic Operational View (Cockpit Ready)";
+      statLabel.textContent = "Select Node";
+
+      directiveCode.textContent = "SAFETY STRATEGY DIRECTIVE // PANORAMIC SUMMARY";
+      directiveTitle.textContent = "Defensive Cockpit Operations";
+      statuteBadge.textContent = "TTC § 545 Mandate";
+      strategyBox.textContent = "Click any of the 4 pulsing hotspots in the vehicle cockpit above to inspect its verified Texas defensive driving protocol.";
+
+      dTitle1.textContent = "Texas Universal Standard";
+      dDesc1.textContent = "Every licensed operator carries an affirmative statutory duty to maintain conscious control, safe headway, and active hazard recognition.";
+      dTitle2.textContent = "Reaction vs. Stopping Margin";
+      dDesc2.textContent = "Physical perception-reaction time is 1.5 seconds. At 60 MPH, your vehicle travels 132 feet before mechanical braking begins.";
+      dTitle3.textContent = "Preserve An Escape Route";
+      dDesc3.textContent = "Always leave an open space buffer to at least one side. Never allow your passenger car to be boxed in by adjacent commercial traffic.";
+    }
+
+    // Keyboard shortcut for escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') resetFocus();
+    });
+
+    // Formative Quiz validation
+    function verifyAnswer(isCorrect) {
+      const feedback = document.getElementById('quiz-feedback');
+      feedback.classList.remove('hidden');
+      if (isCorrect) {
+        feedback.className = "mt-4 p-4 rounded-lg text-xs font-mono leading-relaxed bg-emerald-950/60 border border-emerald-500/40 text-emerald-200";
+        feedback.innerHTML = "<strong>&check; CORRECT (STATUTORY STANDARD):</strong> Texas Transportation Code § 545.104 explicitly establishes that an operator intending to turn right or left, or change travel lanes, must signal continuously for not less than the last 100 feet of movement prior to the maneuver.";
+      } else {
+        feedback.className = "mt-4 p-4 rounded-lg text-xs font-mono leading-relaxed bg-red-950/60 border border-red-500/40 text-red-200";
+        feedback.innerHTML = "<strong>&cross; INCORRECT:</strong> Texas Transportation Code § 545.104 mandates continuous signaling for at least 100 feet prior to commencing the turn or lane change, regardless of traffic proximity.";
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L08-T09';
+  const nextTopicId = 'L08-T10';
+  const prevTopicId = 'L08-T08';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

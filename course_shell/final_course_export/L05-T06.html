@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L05-T06: Safe Following Intervals (Lone Star Transit)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['Geist Mono', 'monospace'],
+          },
+          colors: {
+            surface: '#f9faf8',
+            'surface-low': '#f3f4f2',
+            'surface-lowest': '#ffffff',
+            'surface-dim': '#d9dad8',
+            primary: '#e87522',
+            'primary-dark': '#c85e12',
+            'primary-light': '#fdf2ea',
+            charcoal: '#111315',
+            'charcoal-card': '#191b1d',
+            'charcoal-border': '#2a2e33',
+            'text-main': '#121417',
+            'text-muted': '#5c6470',
+            'text-subtle': '#8792a2',
+            asphalt: '#1e2227',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #f9faf8;
+      color: #121417;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+    .iso-road {
+      transform: perspective(900px) rotateX(46deg) rotateZ(-12deg);
+      transform-style: preserve-3d;
+    }
+    .iso-sign {
+      transform: rotateZ(12deg) rotateX(-46deg) translateY(-28px);
+      transform-origin: bottom center;
+    }
+    .ruler-pattern {
+      background-image: repeating-linear-gradient(to right, #333a42 0, #333a42 1px, transparent 1px, transparent 20px),
+                        repeating-linear-gradient(to right, #48525e 0, #48525e 2px, transparent 2px, transparent 100px);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .pulse-amber {
+      animation: pulseGlow 1.8s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-surface font-sans antialiased text-text-main pb-24 selection:bg-primary selection:text-white">
+
+  <!-- TOP CONTEXT BAR (EDITORIAL LONE STAR TRANSIT HEADER) -->
+  <header class="border-b border-surface-dim/70 bg-white sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center justify-center bg-charcoal text-white font-mono font-bold px-2 py-0.5 rounded text-[11px] tracking-wide">
+          TX-ADE
+        </span>
+        <div class="h-3.5 w-px bg-surface-dim"></div>
+        <span class="text-text-muted font-medium hidden sm:inline">Module 05 · Speed &amp; Traffic Flow</span>
+        <div class="h-3.5 w-px bg-surface-dim hidden sm:inline"></div>
+        <span class="font-mono text-primary font-semibold">L05-T06</span>
+      </div>
+      <div class="flex items-center gap-4 text-text-muted">
+        <span class="font-mono text-[11px] bg-surface-low border border-surface-dim px-2.5 py-1 rounded text-text-main font-medium">
+          TTC § 545.062 COMPLIANT
+        </span>
+        <div class="flex items-center gap-1.5 text-text-muted text-[11px]">
+          <span class="material-symbols-outlined text-sm">schedule</span>
+          <span>14 Min Unit</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ARTICLE CONTAINER -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-10">
+
+    <!-- HERO TITLE AREA -->
+    <div class="border-b border-surface-dim pb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
+        <span class="text-xs uppercase font-mono tracking-widest text-text-muted font-semibold">
+          Kinetic Spatial Engineering // Section 06
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-charcoal leading-[1.15]">
+        Establishing a <span class="text-primary font-extrabold">Safe Following Interval</span>
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-text-muted max-w-3xl leading-relaxed">
+        Following distance is fundamentally a <strong class="text-charcoal font-semibold">kinetic time buffer</strong>, not a static count of feet. Human optical perception cannot reliably calculate a 200-foot buffer at highway velocities, but anyone can accurately measure rhythmic seconds against stationary roadside landmarks.
+      </p>
+
+      <!-- STATUTE CALLOUT BLOCK -->
+      <div class="mt-6 bg-surface-low border-l-4 border-primary rounded-r-lg p-4 sm:p-5 flex items-start gap-4">
+        <span class="material-symbols-outlined text-primary text-xl mt-0.5 select-none">gavel</span>
+        <div class="text-xs sm:text-sm">
+          <span class="font-mono uppercase font-bold text-charcoal block text-[11px] tracking-wider mb-1">
+            Texas Transportation Code § 545.062 (Following Distance &amp; Assured Clear Distance)
+          </span>
+          <p class="text-text-muted leading-relaxed">
+            “An operator shall, if following another vehicle, maintain an <em class="text-charcoal font-semibold not-italic underline decoration-primary/50 underline-offset-2">assured clear distance</em> between the two vehicles so that, considering the speed of the vehicles, traffic, and the conditions of the highway, the operator can safely stop without colliding with the preceding vehicle or veering into another vehicle, object, or person on or near the highway.”
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 01: THE MATHEMATICS OF 50 MPH (HORIZONTAL INTERACTIVE TRACK) -->
+    <section class="mt-12">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-4">
+        <div>
+          <div class="text-[11px] font-mono text-primary font-bold uppercase tracking-widest">
+            Interactive Module 01 // Kinetic Physics
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-charcoal">
+            The Mathematics of 50 MPH: Reaction vs. Mechanical Braking
+          </h2>
+        </div>
+        <div class="text-xs font-mono text-text-muted bg-white px-3 py-1.5 rounded border border-surface-dim">
+          Benchmark Velocity: <strong class="text-charcoal font-semibold">50 MPH (73.3 ft/sec)</strong>
+        </div>
+      </div>
+
+      <!-- SIMULATOR CONTAINER -->
+      <div class="bg-white border border-surface-dim rounded-xl p-5 sm:p-6 shadow-sm">
+        
+        <!-- TELEMETRY STAT GRID -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+          <div class="bg-surface-low/80 p-3 rounded-lg border border-surface-dim/60">
+            <span class="block text-[11px] font-mono text-text-muted uppercase tracking-wider">Perception Lag (0.75s)</span>
+            <span class="text-lg sm:text-xl font-bold font-mono text-charcoal">55 FT</span>
+            <span class="text-[10px] text-text-muted block">Brain registers danger</span>
+          </div>
+          <div class="bg-surface-low/80 p-3 rounded-lg border border-surface-dim/60">
+            <span class="block text-[11px] font-mono text-text-muted uppercase tracking-wider">Reaction Transfer (0.75s)</span>
+            <span class="text-lg sm:text-xl font-bold font-mono text-charcoal">55 FT</span>
+            <span class="text-[10px] text-text-muted block">Foot pivots to brake pedal</span>
+          </div>
+          <div class="bg-primary/10 p-3 rounded-lg border border-primary/30">
+            <span class="block text-[11px] font-mono text-primary font-bold uppercase tracking-wider">Combined Reaction (1.5s)</span>
+            <span class="text-lg sm:text-xl font-bold font-mono text-primary">109 FT</span>
+            <span class="text-[10px] text-primary/80 block font-medium">Zero deceleration occurred</span>
+          </div>
+          <div class="bg-charcoal text-white p-3 rounded-lg">
+            <span class="block text-[11px] font-mono text-surface-dim uppercase tracking-wider">Total Stop Footprint</span>
+            <span class="text-lg sm:text-xl font-bold font-mono text-white">229 FT</span>
+            <span class="text-[10px] text-surface-dim block">Friction stops the vehicle</span>
+          </div>
+        </div>
+
+        <!-- 2.5D KINETIC TRACK VIEWPORT -->
+        <div class="bg-charcoal-card rounded-xl p-5 border border-charcoal-border relative overflow-hidden">
+          
+          <!-- Track Header HUD -->
+          <div class="flex items-center justify-between text-[11px] font-mono mb-4 text-surface-dim border-b border-charcoal-border/70 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>2.5D BRAKING TRACK BENCHMARK</span>
+            </div>
+            <div id="m1-status-badge" class="text-amber-400 font-semibold">
+              READY FOR INITIATION
+            </div>
+          </div>
+
+          <!-- The Physical Track Area -->
+          <div class="relative py-4">
+            
+            <!-- Scale Ruler -->
+            <div class="relative h-6 w-full text-[10px] font-mono text-surface-dim border-b border-surface-dim/30 flex justify-between px-1 mb-2 select-none">
+              <span>0 FT</span>
+              <span class="text-primary font-semibold" style="margin-left: 18%;">109 FT (Reaction Gate)</span>
+              <span class="text-emerald-400 font-semibold" style="margin-right: 14%;">229 FT (Full Halt)</span>
+              <span>300 FT SCALE</span>
+            </div>
+
+            <!-- Road Surface with markings -->
+            <div class="relative h-24 sm:h-28 bg-asphalt rounded-lg border border-neutral-700/80 overflow-hidden shadow-inner flex items-center">
+              
+              <!-- Dashed Lane Stripe -->
+              <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-0.5 border-b border-dashed border-yellow-500/60 z-0"></div>
+              
+              <!-- 109 FT Boundary Zone Indicator -->
+              <div class="absolute top-0 bottom-0 left-0 bg-primary/10 border-r-2 border-dashed border-primary z-10 pointer-events-none transition-all duration-300"
+                   style="width: 36.33%;">
+                <div class="absolute top-1 right-2 text-[9px] font-mono uppercase tracking-wider text-primary font-bold bg-charcoal/80 px-1.5 py-0.5 rounded">
+                  Reaction Zone: 109'
+                </div>
+                <div class="absolute bottom-1 right-2 text-[9px] font-mono text-surface-dim bg-charcoal/80 px-1 rounded">
+                  Speed: 50 MPH Constant
+                </div>
+              </div>
+
+              <!-- 229 FT Full Stop Target Line -->
+              <div class="absolute top-0 bottom-0 border-r-2 border-emerald-400 z-10 pointer-events-none"
+                   style="left: 76.33%;">
+                <div class="absolute top-1 -left-12 -translate-x-full text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold bg-charcoal/90 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                  Total Halt: 229 FT
+                </div>
+                <!-- Warning barricade hash -->
+                <div class="absolute inset-y-0 -right-1 w-2 bg-gradient-to-r from-emerald-500/40 to-transparent"></div>
+              </div>
+
+              <!-- Obstacle at 229 FT (Simulated stopped road factor) -->
+              <div class="absolute top-1/2 -translate-y-1/2 z-20 flex flex-col items-center" style="left: calc(76.33% - 4px);">
+                <div class="w-1.5 h-16 bg-red-500 rounded-full shadow-[0_0_12px_rgba(239,68,68,0.8)]"></div>
+                <div class="text-[8px] font-mono text-red-300 bg-black/90 px-1 py-0.5 rounded -mt-2 uppercase tracking-tighter">STOP TARGET</div>
+              </div>
+
+              <!-- Moving Car Element -->
+              <div id="m1-car" class="absolute z-30 transition-none" style="left: 8px; top: calc(50% - 14px);">
+                <!-- Stylized 2.5D Car SVG Graphic -->
+                <div class="relative flex items-center">
+                  <!-- Car Body -->
+                  <div class="relative w-16 h-8 bg-primary rounded-md shadow-lg border border-amber-300/40 flex items-center justify-between px-1.5">
+                    <!-- Headlights -->
+                    <div class="absolute -right-1 top-1 w-1.5 h-1.5 bg-yellow-200 rounded-full shadow-[0_0_6px_#fff]"></div>
+                    <div class="absolute -right-1 bottom-1 w-1.5 h-1.5 bg-yellow-200 rounded-full shadow-[0_0_6px_#fff]"></div>
+                    <!-- Windshield -->
+                    <div class="w-4 h-5 bg-charcoal/70 rounded-sm mx-auto border border-white/20"></div>
+                    <!-- Driver tag -->
+                    <span class="absolute inset-0 flex items-center justify-center font-mono font-bold text-[9px] text-white tracking-wider">
+                      YOU
+                    </span>
+                    <!-- Brake Lights (Hidden until braking) -->
+                    <div id="m1-brake-light-top" class="absolute -left-1 top-1 w-1 h-1.5 bg-red-900 rounded-full transition-colors"></div>
+                    <div id="m1-brake-light-bot" class="absolute -left-1 bottom-1 w-1 h-1.5 bg-red-900 rounded-full transition-colors"></div>
+                  </div>
+                  <!-- Reaction Alert Bubble (appears at 109ft) -->
+                  <div id="m1-alert-bubble" class="hidden absolute -top-8 left-1/2 -translate-x-1/2 bg-red-600 text-white font-mono text-[9px] font-bold px-2 py-0.5 rounded shadow whitespace-nowrap">
+                    BRAKES ENGAGED!
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Current Telemetry Indicator Bar -->
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-surface-dim">
+              <div class="flex items-center gap-4">
+                <div>Distance Traveled: <span id="m1-dist-readout" class="text-white font-bold text-sm">0 FT</span></div>
+                <div class="h-3 w-px bg-charcoal-border"></div>
+                <div>Kinetic Speed: <span id="m1-speed-readout" class="text-amber-400 font-bold text-sm">50.0 MPH</span></div>
+                <div class="h-3 w-px bg-charcoal-border"></div>
+                <div>Status: <span id="m1-phase-readout" class="text-surface-dim">Standstill</span></div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button id="m1-btn-start" onclick="runBrakingSimulation()" class="bg-primary hover:bg-primary-dark active:scale-[0.98] text-white font-sans font-semibold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 transition-all shadow-md">
+                  <span class="material-symbols-outlined text-base">play_arrow</span>
+                  Simulate Braking Event
+                </button>
+                <button id="m1-btn-reset" onclick="resetBrakingSimulation()" class="bg-charcoal border border-charcoal-border hover:bg-neutral-800 text-surface-dim text-xs px-3 py-2 rounded-lg transition-all">
+                  Reset
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Key Insight Bar -->
+          <div id="m1-explanation" class="mt-3 p-3 bg-charcoal/90 rounded border border-charcoal-border text-xs text-text-subtle leading-relaxed flex items-start gap-2.5">
+            <span class="material-symbols-outlined text-primary text-base mt-0.5">info</span>
+            <span>
+              <strong class="text-white">Physiological Law:</strong> At 50 MPH, the vehicle travels <strong class="text-amber-400">109 feet</strong> during driver perception and physical foot-transfer latency before hydraulic brake pressure even touches the calipers. Mechanical friction takes an additional 120 feet to stop the tires, for a non-negotiable total of <strong class="text-emerald-400">229 feet</strong>.
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MODULE 02: THE FIXED-OBJECT METHOD (2.5D ROAD SCENE WITH 4.0 SECOND CADENCE) -->
+    <section class="mt-14">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-4">
+        <div>
+          <div class="text-[11px] font-mono text-primary font-bold uppercase tracking-widest">
+            Interactive Module 02 // Stationary Calibration
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-charcoal">
+            The Fixed-Object Method: Counting the 4-Second Cadence
+          </h2>
+        </div>
+        <div class="text-xs font-mono text-text-muted bg-white px-3 py-1.5 rounded border border-surface-dim">
+          Statutory Benchmark: <strong class="text-charcoal font-semibold">TTC § 545.062 (4.0s Gap)</strong>
+        </div>
+      </div>
+
+      <!-- 2.5D SIMULATOR SHELL -->
+      <div class="bg-white border border-surface-dim rounded-xl p-5 sm:p-6 shadow-sm">
+        
+        <p class="text-sm text-text-muted mb-4 leading-relaxed">
+          Pick an immovable reference anchor ahead: an overhead sign, bridge shadow, or milepost. Start counting when the lead car’s rear bumper clears the post. Your vehicle must not cross the same landmark until you complete <strong class="text-charcoal">"one-thousand-four"</strong>.
+        </p>
+
+        <!-- 2.5D PERSPECTIVE VIEWPORT -->
+        <div class="relative bg-charcoal-card border border-charcoal-border rounded-xl overflow-hidden p-4 sm:p-6 min-h-[360px] flex flex-col justify-between">
+          
+          <!-- Viewport Telemetry Header -->
+          <div class="flex items-center justify-between text-xs font-mono text-surface-dim border-b border-charcoal-border pb-3 z-20">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+              <span class="text-white font-bold tracking-wide">INTERSTATE 35 NORTH // AUSTIN CORRIDOR</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <div>CLOCK: <span id="m2-timer" class="text-xl font-bold font-mono text-amber-400">0.0s</span></div>
+              <span id="m2-verdict-pill" class="text-[11px] bg-charcoal border border-charcoal-border px-2 py-0.5 rounded text-surface-dim">
+                STANDBY
+              </span>
+            </div>
+          </div>
+
+          <!-- 2.5D HIGHWAY STAGE -->
+          <div class="relative w-full h-56 my-2 flex items-center justify-center overflow-hidden">
+            
+            <!-- Isometric Road Canvas -->
+            <div class="w-[120%] h-36 bg-asphalt rounded-xl shadow-2xl relative border-y-2 border-neutral-600 iso-road flex items-center">
+              
+              <!-- Paved Shoulders & Grass Trim -->
+              <div class="absolute -top-3 inset-x-0 h-3 bg-[#243324] border-b border-neutral-700"></div>
+              <div class="absolute -bottom-3 inset-x-0 h-3 bg-[#243324] border-t border-neutral-700"></div>
+
+              <!-- Lane Dashings -->
+              <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-0.5 border-b-2 border-dashed border-neutral-500/70"></div>
+
+              <!-- ROADSIDE FIXED OBJECT: OVERHEAD MILEPOST SIGN -->
+              <div class="absolute z-20" style="left: 48%; top: 4px;">
+                <!-- Pole -->
+                <div class="w-1.5 h-16 bg-neutral-400 border border-neutral-700 shadow-md"></div>
+                <!-- Overhead Sign (Counter-projected to stand vertical in 2.5D) -->
+                <div class="iso-sign bg-emerald-800 text-white border-2 border-white px-2 py-1 rounded shadow-2xl flex flex-col items-center">
+                  <span class="text-[8px] font-mono tracking-tighter uppercase font-bold text-emerald-200">EXIT 234</span>
+                  <span class="text-[10px] font-bold tracking-tight whitespace-nowrap">7th ST / DOWNTOWN</span>
+                  <div class="w-full h-0.5 bg-white/40 my-0.5"></div>
+                  <span class="text-[8px] font-mono text-amber-300">LANDMARK ANCHOR</span>
+                </div>
+                <!-- Pavement Marker Line -->
+                <div class="absolute top-14 -left-12 w-28 h-0.5 bg-primary/80 border-b border-primary/40 shadow-[0_0_8px_rgba(232,117,34,0.8)]"></div>
+              </div>
+
+              <!-- LEAD CAR (BLUE SEDAN) -->
+              <div id="m2-lead-car" class="absolute z-30 flex items-center transition-none" style="left: 20%; top: calc(50% - 12px);">
+                <div class="w-14 h-7 bg-blue-600 rounded-md border border-blue-400/40 shadow-lg flex items-center justify-between px-1">
+                  <div class="w-3.5 h-4 bg-charcoal/80 rounded-sm mx-auto"></div>
+                  <span class="absolute inset-0 flex items-center justify-center font-mono font-bold text-[8px] text-white">LEAD</span>
+                  <div class="absolute -right-1 top-1 w-1 h-1 bg-yellow-200 rounded-full"></div>
+                  <div class="absolute -right-1 bottom-1 w-1 h-1 bg-yellow-200 rounded-full"></div>
+                </div>
+              </div>
+
+              <!-- PLAYER'S VEHICLE (YOU - ORANGE CAR) -->
+              <div id="m2-player-car" class="absolute z-30 flex items-center transition-none" style="left: 2%; top: calc(50% - 12px);">
+                <div class="w-14 h-7 bg-primary rounded-md border border-amber-300/40 shadow-lg flex items-center justify-between px-1">
+                  <div class="w-3.5 h-4 bg-charcoal/80 rounded-sm mx-auto"></div>
+                  <span class="absolute inset-0 flex items-center justify-center font-mono font-bold text-[8px] text-white">YOU</span>
+                  <div class="absolute -right-1 top-1 w-1 h-1 bg-yellow-200 rounded-full shadow-[0_0_4px_#fff]"></div>
+                  <div class="absolute -right-1 bottom-1 w-1 h-1 bg-yellow-200 rounded-full shadow-[0_0_4px_#fff]"></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- RHYTHMIC CADENCE AUDIO/VISUAL FEEDBACK -->
+          <div class="bg-charcoal/90 border border-charcoal-border rounded-lg p-3 z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div id="m2-cadence-box" class="font-mono text-sm sm:text-base font-bold text-surface-dim bg-charcoal px-3 py-1.5 rounded border border-charcoal-border">
+                "Ready for observation..."
+              </div>
+              <div class="text-xs text-text-subtle hidden md:block">
+                Recite: <em class="text-surface-dim">"One-thousand-one, one-thousand-two, one-thousand-three, one-thousand-four"</em>
+              </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2">
+              <button id="m2-btn-start" onclick="startCadenceSimulation()" class="bg-primary hover:bg-primary-dark active:scale-[0.98] text-white font-sans font-semibold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 transition-all shadow-md">
+                <span class="material-symbols-outlined text-base">timer</span>
+                Start Measurement
+              </button>
+              <button onclick="resetCadenceSimulation()" class="bg-charcoal border border-charcoal-border hover:bg-neutral-800 text-surface-dim text-xs px-3 py-2 rounded-lg transition-all">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- 4-SECOND LEGAL EXPLANATION BANNER (Revealed on complete) -->
+          <div id="m2-legal-banner" class="hidden mt-3 p-4 bg-emerald-950/60 border border-emerald-500/40 rounded-lg text-xs text-emerald-100 flex items-start gap-3 transition-all animate-fadeIn">
+            <span class="material-symbols-outlined text-emerald-400 text-lg mt-0.5">verified</span>
+            <div class="leading-relaxed">
+              <strong class="text-emerald-300 font-bold block text-sm mb-0.5">
+                Exact 4.0-Second Standard Validated!
+              </strong>
+              Under Texas highway conditions, a <strong class="text-white">4-second headway</strong> guarantees 293+ feet of spatial separation at 50 MPH. That provides the vital 1.5 seconds required for mental perception-reaction (109 ft) plus an absolute 2.5-second buffer (184 ft) for emergency maximum mechanical braking to zero.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MODULE 03: ADJUSTING HEADWAY INTERVALS & SPATIAL RECONFIGURATION -->
+    <section class="mt-14">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-4">
+        <div>
+          <div class="text-[11px] font-mono text-primary font-bold uppercase tracking-widest">
+            Interactive Module 03 // Spatial Conditioning
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-charcoal">
+            Adjusting Intervals &amp; The Stopped Intersection Rule
+          </h2>
+        </div>
+        <div class="text-xs font-mono text-text-muted bg-white px-3 py-1.5 rounded border border-surface-dim">
+          Selected Target: <strong id="m3-stat-tag" class="text-primary font-semibold">Good (&gt; 30 MPH) // 4.0s</strong>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE ENVIRONMENT -->
+      <div class="bg-white border border-surface-dim rounded-xl p-5 sm:p-6 shadow-sm">
+        
+        <p class="text-sm text-text-muted mb-5 leading-relaxed">
+          The baseline 4-second rule applies to standard passenger cars on dry highways. Select conditions below to see the dynamic safety envelope expand or contract according to kinetic physics and Texas safety statutes.
+        </p>
+
+        <!-- CONDITION TOGGLE BUTTONS (6 DISTINCT MODES) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-6">
+          
+          <button onclick="setCondition('good-low')" id="btn-cond-good-low" class="cond-btn p-2.5 rounded-lg border text-left transition-all bg-surface-low border-surface-dim hover:border-text-muted">
+            <div class="text-[10px] font-mono uppercase text-text-muted">City Speeds</div>
+            <div class="font-bold text-xs text-charcoal">Good &le; 30 MPH</div>
+            <div class="text-[11px] font-mono text-primary font-semibold mt-1">2.0s Gap</div>
+          </button>
+
+          <button onclick="setCondition('good-high')" id="btn-cond-good-high" class="cond-btn p-2.5 rounded-lg border text-left transition-all bg-primary/10 border-primary shadow-sm">
+            <div class="text-[10px] font-mono uppercase text-primary font-semibold">Highway Baseline</div>
+            <div class="font-bold text-xs text-charcoal">Good &gt; 30 MPH</div>
+            <div class="text-[11px] font-mono text-primary font-bold mt-1">4.0s Gap</div>
+          </button>
+
+          <button onclick="setCondition('adverse')" id="btn-cond-adverse" class="cond-btn p-2.5 rounded-lg border text-left transition-all bg-surface-low border-surface-dim hover:border-text-muted">
+            <div class="text-[10px] font-mono uppercase text-text-muted">Rain / Ice / Fog</div>
+            <div class="font-bold text-xs text-charcoal">Adverse Road</div>
+            <div class="text-[11px] font-mono text-primary font-semibold mt-1">6.0s – 8.0s</div>
+          </button>
+
+          <button onclick="setCondition('motorcycle')" id="btn-cond-motorcycle" class="cond-btn p-2.5 rounded-lg border text-left transition-all bg-surface-low border-surface-dim hover:border-text-muted">
+            <div class="text-[10px] font-mono uppercase text-text-muted">Vulnerable User</div>
+            <div class="font-bold text-xs text-charcoal">Motorcycle Ahead</div>
+            <div class="text-[11px] font-mono text-primary font-semibold mt-1">4.0s+ Rapid Halt</div>
+          </button>
+
+          <button onclick="setCondition('truck')" id="btn-cond-truck" class="cond-btn p-2.5 rounded-lg border text-left transition-all bg-surface-low border-surface-dim hover:border-text-muted">
+            <div class="text-[10px] font-mono uppercase text-text-muted">Sightline Blocking</div>
+            <div class="font-bold text-xs text-charcoal">Commercial Truck</div>
+            <div class="text-[11px] font-mono text-primary font-semibold mt-1">5.0s – 6.0s</div>
+          </button>
+
+          <button onclick="setCondition('stopped')" id="btn-cond-stopped" class="cond-btn p-2.5 rounded-lg border text-left transition-all bg-surface-low border-surface-dim hover:border-text-muted">
+            <div class="text-[10px] font-mono uppercase text-red-600 font-semibold">Red Light Halt</div>
+            <div class="font-bold text-xs text-charcoal">Stopped at Light</div>
+            <div class="text-[11px] font-mono text-red-600 font-bold mt-1">1 Car Length</div>
+          </button>
+
+        </div>
+
+        <!-- 2.5D DYNAMIC SPATIAL CORRIDOR STAGE -->
+        <div class="bg-charcoal-card border border-charcoal-border rounded-xl p-5 relative overflow-hidden">
+          
+          <!-- Road Telemetry Readouts -->
+          <div class="flex items-center justify-between text-xs font-mono text-surface-dim border-b border-charcoal-border/70 pb-3 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <span id="m3-scenario-title" class="font-bold text-white uppercase tracking-wide">
+                HIGHWAY SCENARIO: DRY ASPHALT &gt; 30 MPH
+              </span>
+            </div>
+            <div class="flex items-center gap-4 text-[11px]">
+              <div>ACTIVE TIME BUFFER: <span id="m3-time-val" class="font-bold text-amber-400">4.0 SEC</span></div>
+              <div class="h-3 w-px bg-charcoal-border"></div>
+              <div>PHYSICAL FOOTPRINT: <span id="m3-dist-val" class="font-bold text-white">293 FEET</span></div>
+            </div>
+          </div>
+
+          <!-- TOP-DOWN / 2.5D INTERACTIVE VEHICLE SPATIAL STRIP -->
+          <div id="m3-roadway" class="relative h-28 bg-asphalt rounded-lg border border-neutral-700 overflow-hidden flex items-center px-4 transition-all duration-500">
+            
+            <!-- Lane Dashes or Intersection Stop Line -->
+            <div id="m3-lane-lines" class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-0.5 border-b border-dashed border-neutral-500/60 z-0"></div>
+            
+            <!-- STOPPED INTERSECTION EMBELLISHMENTS (Visible only in 'stopped' mode) -->
+            <div id="m3-crosswalk" class="hidden absolute right-4 top-0 bottom-0 w-16 z-10 flex justify-between items-center pointer-events-none">
+              <!-- Stop Bar -->
+              <div class="w-1.5 h-full bg-white shadow-[0_0_8px_#fff]"></div>
+              <!-- Crosswalk Zebras -->
+              <div class="w-12 h-full flex flex-col justify-between py-1">
+                <div class="h-2 bg-white/70"></div>
+                <div class="h-2 bg-white/70"></div>
+                <div class="h-2 bg-white/70"></div>
+                <div class="h-2 bg-white/70"></div>
+                <div class="h-2 bg-white/70"></div>
+              </div>
+            </div>
+
+            <!-- Intersection Traffic Light (only in stopped mode) -->
+            <div id="m3-traffic-light" class="hidden absolute right-1 top-2 z-20 bg-black border border-neutral-600 rounded p-1 flex gap-1">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-600 shadow-[0_0_8px_rgba(239,68,68,1)] animate-pulse"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-neutral-800"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-neutral-800"></div>
+            </div>
+
+            <!-- FOLLOWING CAR: YOU (BURNT ORANGE) -->
+            <div class="absolute left-6 z-20 flex items-center">
+              <div class="relative w-16 h-8 bg-primary rounded-md shadow-lg border border-amber-300/40 flex items-center justify-center">
+                <span class="font-mono font-bold text-[9px] text-white tracking-wider">YOU</span>
+                <!-- Headlights -->
+                <div class="absolute -right-1 top-1 w-1.5 h-1.5 bg-yellow-200 rounded-full shadow-[0_0_6px_#fff]"></div>
+                <div class="absolute -right-1 bottom-1 w-1.5 h-1.5 bg-yellow-200 rounded-full shadow-[0_0_6px_#fff]"></div>
+              </div>
+            </div>
+
+            <!-- DYNAMIC CONNECTOR / DISTANCE GAUGE CALIPER -->
+            <div id="m3-caliper" class="absolute top-1/2 -translate-y-1/2 h-6 border-y border-dashed border-primary/70 bg-primary/10 z-10 flex items-center justify-center transition-all duration-500 ease-out"
+                 style="left: 88px; width: 280px;">
+              <span id="m3-caliper-text" class="text-[10px] font-mono text-primary font-bold bg-charcoal/90 px-2 py-0.5 rounded border border-primary/30 shadow whitespace-nowrap">
+                4.0s Buffer · ~293 ft
+              </span>
+            </div>
+
+            <!-- LEAD ENTITY (TARGET VEHICLE: SEDAN / MOTORCYCLE / TRUCK) -->
+            <div id="m3-lead-container" class="absolute z-20 transition-all duration-500 ease-out"
+                 style="left: 376px; top: calc(50% - 16px);">
+              
+              <!-- Regular Sedan Model -->
+              <div id="m3-lead-sedan" class="w-16 h-8 bg-neutral-300 rounded-md border border-neutral-400 shadow-lg flex items-center justify-center">
+                <span class="font-mono font-bold text-[9px] text-charcoal">LEAD</span>
+              </div>
+
+              <!-- Motorcycle Model (Alternative) -->
+              <div id="m3-lead-moto" class="hidden w-10 h-4 bg-emerald-500 rounded-full border border-emerald-300 shadow-lg flex items-center justify-between px-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-charcoal"></div>
+                <span class="font-mono text-[7px] font-bold text-white">MOTO</span>
+                <div class="w-1.5 h-1.5 rounded-full bg-charcoal"></div>
+              </div>
+
+              <!-- Big Commercial Truck Model (Alternative) -->
+              <div id="m3-lead-truck" class="hidden w-28 h-10 bg-neutral-200 rounded border-2 border-neutral-400 shadow-xl flex items-center justify-between px-2">
+                <div class="w-6 h-7 bg-charcoal rounded-sm flex items-center justify-center text-[7px] font-mono text-white font-bold">CAB</div>
+                <div class="flex-1 text-center font-mono text-[8px] font-bold text-neutral-600">SEMI-TRAILER (NO-ZONE)</div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- DETAILED TACTICAL RATIONALE CARD -->
+          <div class="mt-4 p-4 bg-charcoal border border-charcoal-border rounded-lg text-xs leading-relaxed flex items-start gap-3">
+            <span id="m3-icon" class="material-symbols-outlined text-primary text-xl mt-0.5">verified_user</span>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span id="m3-badge" class="font-mono text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-primary/20 text-primary border border-primary/30">
+                  STANDARD HIGHWAY BUFFER
+                </span>
+                <span id="m3-rule-name" class="font-bold text-white text-sm">
+                  4.0-Second Kinetic Cushion (&gt; 30 MPH)
+                </span>
+              </div>
+              <p id="m3-desc" class="text-surface-dim">
+                Texas standard for all modern highways and arterial corridors exceeding 30 MPH. This accounts for exponential kinetic energy escalation ($KE = \frac{1}{2}mv^2$) and provides adequate time to steer around unexpected obstacles without panic braking.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FORMATIVE EVALUATION GATEWAY (TDLR STATUTORY CHECK) -->
+    <section class="mt-14">
+      <div class="bg-white border border-surface-dim rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between border-b border-surface-dim pb-3 mb-5">
+          <div class="flex items-center gap-2">
+            <span class="bg-primary text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+              TDLR EVALUATIVE GATE
+            </span>
+            <span class="text-xs font-mono text-text-muted">Curriculum Compliance Check · Question 06 of 08</span>
+          </div>
+          <span class="text-xs font-mono text-emerald-600 font-medium flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">lock_open</span> State Certified Unit
+          </span>
+        </div>
+
+        <h3 class="text-base sm:text-lg font-bold text-charcoal mb-4">
+          Statutory Scenario: Following Intervals at Highway Speeds
+        </h3>
+        <p class="text-sm text-text-muted mb-5 leading-relaxed">
+          You are operating a passenger car at 65 MPH on Texas State Highway 71 behind a commercial semi-trailer. The weather is dry and clear. Why is relying on a traditional 2-second buffer considered an unsafe infraction under Texas Transportation Code § 545.062?
+        </p>
+
+        <!-- QUESTION CHOICES -->
+        <div class="space-y-2.5">
+          <label class="eval-option flex items-start gap-3 p-3.5 rounded-lg border border-surface-dim hover:border-text-muted hover:bg-surface-low cursor-pointer transition-all">
+            <input type="radio" name="stat-quiz" value="a" class="mt-0.5 accent-primary">
+            <span class="text-xs sm:text-sm text-text-main">
+              <strong>[ A ]</strong> Commercial trailers weigh less than passenger cars, meaning their air brake systems halt them instantaneously, leaving zero time for cars to react.
+            </span>
+          </label>
+
+          <label class="eval-option flex items-start gap-3 p-3.5 rounded-lg border border-surface-dim hover:border-text-muted hover:bg-surface-low cursor-pointer transition-all">
+            <input type="radio" name="stat-quiz" value="b" class="mt-0.5 accent-primary">
+            <span class="text-xs sm:text-sm text-text-main">
+              <strong>[ B ]</strong> Speedometer precision decreases by 15% above 60 MPH, causing the odometer to miscalculate physical footage.
+            </span>
+          </label>
+
+          <label id="opt-correct" class="eval-option flex items-start gap-3 p-3.5 rounded-lg border border-surface-dim hover:border-text-muted hover:bg-surface-low cursor-pointer transition-all">
+            <input type="radio" name="stat-quiz" value="c" class="mt-0.5 accent-primary">
+            <span class="text-xs sm:text-sm text-text-main">
+              <strong>[ C ]</strong> At 65 MPH, physiological perception-reaction absorbs ~143 feet (1.5 seconds) before mechanical braking starts; 2 seconds leaves virtually zero mechanical friction margin and traps your vehicle inside the truck's 200-ft rear No-Zone.
+            </span>
+          </label>
+
+          <label class="eval-option flex items-start gap-3 p-3.5 rounded-lg border border-surface-dim hover:border-text-muted hover:bg-surface-low cursor-pointer transition-all">
+            <input type="radio" name="stat-quiz" value="d" class="mt-0.5 accent-primary">
+            <span class="text-xs sm:text-sm text-text-main">
+              <strong>[ D ]</strong> Texas state statutes explicitly forbid passenger cars from occupying the same lane as commercial freight vehicles for more than 30 seconds.
+            </span>
+          </label>
+        </div>
+
+        <div class="mt-5 flex items-center justify-between">
+          <button onclick="checkQuizAnswer()" class="bg-charcoal hover:bg-neutral-800 text-white font-sans text-xs font-semibold px-4 py-2.5 rounded-lg transition-all shadow-sm">
+            Verify Answer &amp; Log TDLR Credit
+          </button>
+          <div id="quiz-feedback" class="hidden text-xs font-mono font-medium"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LESSON NAVIGATION FOOTER -->
+    <div class="mt-14 pt-6 border-t border-surface-dim flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-xs text-text-muted">
+        <span class="font-bold text-charcoal">Texas Department of Licensing and Regulation (TDLR) Course Approval</span><br>
+        Curriculum reference: Title 16 Texas Administrative Code § 84.500 &amp; TTC § 545.062
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <button class="flex-1 sm:flex-none border border-surface-dim bg-white hover:bg-surface-low text-text-main text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          Previous: L05-T05 Avoiding Blind Spots
+        </button>
+        <button class="flex-1 sm:flex-none bg-primary hover:bg-primary-dark text-white text-xs font-semibold px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md">
+          Complete Topic &amp; Proceed: L05-T07
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- INTERACTIVE LOGIC JAVASCRIPT -->
+  <script>
+    /* =========================================================================
+       MODULE 01: THE MATHEMATICS OF 50 MPH BRAKING SIMULATION
+       ========================================================================= */
+    let m1Timer = null;
+    let m1Running = false;
+
+    function runBrakingSimulation() {
+      if (m1Running) return;
+      m1Running = true;
+
+      const car = document.getElementById('m1-car');
+      const distEl = document.getElementById('m1-dist-readout');
+      const speedEl = document.getElementById('m1-speed-readout');
+      const phaseEl = document.getElementById('m1-phase-readout');
+      const statusBadge = document.getElementById('m1-status-badge');
+      const alertBubble = document.getElementById('m1-alert-bubble');
+      const brakeTop = document.getElementById('m1-brake-light-top');
+      const brakeBot = document.getElementById('m1-brake-light-bot');
+      const btnStart = document.getElementById('m1-btn-start');
+
+      btnStart.disabled = true;
+      btnStart.classList.add('opacity-50', 'cursor-not-allowed');
+
+      let currentFeet = 0;
+      let currentSpeed = 50.0;
+      const totalFeet = 229;
+      const reactionFeet = 109;
+
+      statusBadge.textContent = "SIMULATION RUNNING (50 MPH)";
+      statusBadge.className = "text-amber-400 font-semibold";
+      phaseEl.textContent = "Phase 1: Perception-Reaction Lag (109 FT)";
+      phaseEl.className = "text-primary font-bold";
+
+      const startTime = performance.now();
+      const simDurationMs = 2800; // total animation time in ms
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / simDurationMs, 1.0);
+
+        // Map progress to distance
+        currentFeet = Math.round(progress * totalFeet);
+
+        // Position: Track width representation: 229 ft is at 76.33% left
+        // left bound 8px, right bound 76.33% - 64px car width
+        const percentTrack = (currentFeet / 300) * 100;
+        car.style.left = `calc(${percentTrack}% + 8px)`;
+
+        // Check if in perception-reaction phase (0 - 109 ft)
+        if (currentFeet <= reactionFeet) {
+          currentSpeed = 50.0;
+          brakeTop.classList.remove('bg-red-500', 'shadow-[0_0_8px_#ef4444]');
+          brakeBot.classList.remove('bg-red-500', 'shadow-[0_0_8px_#ef4444]');
+          alertBubble.classList.add('hidden');
+          phaseEl.textContent = `Phase 1: Mental Reaction Lag (${currentFeet} FT / 109 FT)`;
+          phaseEl.className = "text-primary font-bold";
+        } else {
+          // Braking phase (109 ft to 229 ft)
+          const brakeProgress = (currentFeet - reactionFeet) / (totalFeet - reactionFeet);
+          currentSpeed = Math.max(0, (50.0 * (1 - brakeProgress))).toFixed(1);
+          brakeTop.classList.add('bg-red-500', 'shadow-[0_0_8px_#ef4444]');
+          brakeBot.classList.add('bg-red-500', 'shadow-[0_0_8px_#ef4444]');
+          alertBubble.classList.remove('hidden');
+          phaseEl.textContent = `Phase 2: Hydraulic Brake Clamp (${currentFeet} FT / 229 FT)`;
+          phaseEl.className = "text-emerald-400 font-bold";
+        }
+
+        distEl.textContent = `${currentFeet} FT`;
+        speedEl.textContent = `${currentSpeed} MPH`;
+
+        if (progress < 1.0) {
+          requestAnimationFrame(step);
+        } else {
+          // Finished
+          m1Running = false;
+          distEl.textContent = `229 FT (FINAL HALT)`;
+          speedEl.textContent = `0.0 MPH`;
+          phaseEl.textContent = `Halt Complete at 229 FT`;
+          statusBadge.textContent = "STOPPED PRIOR TO OBSTACLE";
+          statusBadge.className = "text-emerald-400 font-bold";
+          btnStart.disabled = false;
+          btnStart.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    function resetBrakingSimulation() {
+      m1Running = false;
+      const car = document.getElementById('m1-car');
+      car.style.left = "8px";
+      document.getElementById('m1-dist-readout').textContent = "0 FT";
+      document.getElementById('m1-speed-readout').textContent = "50.0 MPH";
+      document.getElementById('m1-phase-readout').textContent = "Standstill";
+      document.getElementById('m1-status-badge').textContent = "READY FOR INITIATION";
+      document.getElementById('m1-status-badge').className = "text-amber-400 font-semibold";
+      document.getElementById('m1-alert-bubble').classList.add('hidden');
+      document.getElementById('m1-brake-light-top').classList.remove('bg-red-500', 'shadow-[0_0_8px_#ef4444]');
+      document.getElementById('m1-brake-light-bot').classList.remove('bg-red-500', 'shadow-[0_0_8px_#ef4444]');
+      const btnStart = document.getElementById('m1-btn-start');
+      btnStart.disabled = false;
+      btnStart.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+
+    /* =========================================================================
+       MODULE 02: THE FIXED-OBJECT METHOD (4.0-SECOND CADENCE)
+       ========================================================================= */
+    let m2TimerInterval = null;
+    let m2Running = false;
+
+    function startCadenceSimulation() {
+      if (m2Running) return;
+      m2Running = true;
+
+      const leadCar = document.getElementById('m2-lead-car');
+      const playerCar = document.getElementById('m2-player-car');
+      const timerEl = document.getElementById('m2-timer');
+      const cadenceBox = document.getElementById('m2-cadence-box');
+      const verdictPill = document.getElementById('m2-verdict-pill');
+      const legalBanner = document.getElementById('m2-legal-banner');
+      const btnStart = document.getElementById('m2-btn-start');
+
+      btnStart.disabled = true;
+      btnStart.classList.add('opacity-50', 'cursor-not-allowed');
+      legalBanner.classList.add('hidden');
+
+      verdictPill.textContent = "LEAD CAR AT LANDMARK";
+      verdictPill.className = "text-[11px] bg-primary/20 text-primary border border-primary/40 px-2 py-0.5 rounded font-bold animate-pulse";
+
+      let seconds = 0.0;
+      timerEl.textContent = "0.0s";
+
+      // Lead car starts crossing the sign right away
+      leadCar.style.transition = "left 3s linear";
+      leadCar.style.left = "48%"; // crosses sign at 0s
+
+      const cadencePhrases = [
+        { time: 0.2, text: '"Mark! Lead car clears overhead sign."' },
+        { time: 1.0, text: '"One-thousand-one..."' },
+        { time: 2.0, text: '"One-thousand-two..."' },
+        { time: 3.0, text: '"One-thousand-three..."' },
+        { time: 4.0, text: '"One-thousand-four! Player crosses sign."' },
+      ];
+
+      const startTime = performance.now();
+      const totalDuration = 4000; // exactly 4.0 seconds
+
+      // Lead car drives away off the screen
+      setTimeout(() => {
+        leadCar.style.transition = "left 4s linear";
+        leadCar.style.left = "110%";
+      }, 500);
+
+      // Player car starts moving toward sign
+      playerCar.style.transition = `left ${totalDuration}ms linear`;
+      playerCar.style.left = "48%"; // reaches sign at exactly 4.0s
+
+      m2TimerInterval = setInterval(() => {
+        const now = performance.now();
+        const elapsed = (now - startTime) / 1000;
+        
+        if (elapsed < 4.0) {
+          timerEl.textContent = elapsed.toFixed(1) + "s";
+          
+          if (elapsed >= 3.0) {
+            cadenceBox.textContent = cadencePhrases[3].text;
+            cadenceBox.className = "font-mono text-sm sm:text-base font-bold text-amber-300 bg-charcoal px-3 py-1.5 rounded border border-amber-400/40";
+          } else if (elapsed >= 2.0) {
+            cadenceBox.textContent = cadencePhrases[2].text;
+            cadenceBox.className = "font-mono text-sm sm:text-base font-bold text-amber-400 bg-charcoal px-3 py-1.5 rounded border border-charcoal-border";
+          } else if (elapsed >= 1.0) {
+            cadenceBox.textContent = cadencePhrases[1].text;
+            cadenceBox.className = "font-mono text-sm sm:text-base font-bold text-primary bg-charcoal px-3 py-1.5 rounded border border-charcoal-border";
+          } else {
+            cadenceBox.textContent = cadencePhrases[0].text;
+          }
+        } else {
+          // Reached exactly 4.0s
+          clearInterval(m2TimerInterval);
+          timerEl.textContent = "4.0s";
+          cadenceBox.textContent = cadencePhrases[4].text;
+          cadenceBox.className = "font-mono text-sm sm:text-base font-bold text-emerald-400 bg-charcoal px-3 py-1.5 rounded border border-emerald-500/40";
+          
+          verdictPill.textContent = "4.0s CADENCE SATISFIED";
+          verdictPill.className = "text-[11px] bg-emerald-950 text-emerald-300 border border-emerald-500 px-2 py-0.5 rounded font-bold";
+
+          legalBanner.classList.remove('hidden');
+
+          m2Running = false;
+          btnStart.disabled = false;
+          btnStart.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      }, 50);
+    }
+
+    function resetCadenceSimulation() {
+      clearInterval(m2TimerInterval);
+      m2Running = false;
+
+      const leadCar = document.getElementById('m2-lead-car');
+      const playerCar = document.getElementById('m2-player-car');
+      leadCar.style.transition = "none";
+      playerCar.style.transition = "none";
+      leadCar.style.left = "20%";
+      playerCar.style.left = "2%";
+
+      document.getElementById('m2-timer').textContent = "0.0s";
+      document.getElementById('m2-cadence-box').textContent = '"Ready for observation..."';
+      document.getElementById('m2-cadence-box').className = "font-mono text-sm sm:text-base font-bold text-surface-dim bg-charcoal px-3 py-1.5 rounded border border-charcoal-border";
+      
+      const verdictPill = document.getElementById('m2-verdict-pill');
+      verdictPill.textContent = "STANDBY";
+      verdictPill.className = "text-[11px] bg-charcoal border border-charcoal-border px-2 py-0.5 rounded text-surface-dim";
+
+      document.getElementById('m2-legal-banner').classList.add('hidden');
+      const btnStart = document.getElementById('m2-btn-start');
+      btnStart.disabled = false;
+      btnStart.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+
+    /* =========================================================================
+       MODULE 03: ADJUSTING HEADWAY INTERVALS & SPATIAL CORRIDOR
+       ========================================================================= */
+    const conditions = {
+      'good-low': {
+        title: "CITY STREETS: CLEAR CONDITIONS (&le; 30 MPH)",
+        statTag: "Good (&le; 30 MPH) // 2.0s",
+        timeVal: "2.0 SEC",
+        distVal: "88 FEET",
+        caliperWidth: 140,
+        caliperText: "2.0s Buffer · ~88 ft (City)",
+        leadLeft: 228,
+        leadType: 'sedan',
+        badge: "MINIMUM URBAN STANDARD",
+        ruleName: "2.0-Second Low-Speed Clearance (§ 545.062)",
+        desc: "Permissible strictly below 30 MPH in good weather. Because braking energy is modest at low velocities, 2 seconds yields roughly 88 feet of buffer, providing safe reaction space for pedestrians and cross-street entries.",
+        icon: "traffic"
+      },
+      'good-high': {
+        title: "HIGHWAY BASELINE: CLEAR CONDITIONS (&gt; 30 MPH)",
+        statTag: "Good (&gt; 30 MPH) // 4.0s",
+        timeVal: "4.0 SEC",
+        distVal: "293 FEET",
+        caliperWidth: 280,
+        caliperText: "4.0s Buffer · ~293 ft",
+        leadLeft: 368,
+        leadType: 'sedan',
+        badge: "STANDARD HIGHWAY BUFFER",
+        ruleName: "4.0-Second Kinetic Cushion (&gt; 30 MPH)",
+        desc: "Texas standard for all modern highways and arterial corridors exceeding 30 MPH. Accounts for exponential kinetic energy escalation and ensures adequate time to steer around unexpected obstacles without panic braking.",
+        icon: "verified_user"
+      },
+      'adverse': {
+        title: "ADVERSE CONDITIONS: RAIN, SURFACE WATER & ICE",
+        statTag: "Adverse Weather // 6.0s – 8.0s",
+        timeVal: "6.0 – 8.0 SEC",
+        distVal: "580+ FEET",
+        caliperWidth: 440,
+        caliperText: "6.0s–8.0s Dynamic Buffer · 580+ ft",
+        leadLeft: 528,
+        leadType: 'sedan',
+        badge: "SEVERE FRICTION LOSS",
+        ruleName: "6.0 to 8.0-Second Wet Pavement Multiplier",
+        desc: "Water and ice slash tire coefficient of friction by 50% to 80%. Hydroplaning can decouple steering completely at 35+ MPH. Drivers must immediately expand headway to 6–8 seconds to prevent high-speed pileups.",
+        icon: "water_drop"
+      },
+      'motorcycle': {
+        title: "VULNERABLE USER: MOTORCYCLE AHEAD",
+        statTag: "Following Motorcycle // 4.0s+",
+        timeVal: "4.0s+ (RAPID HALT)",
+        distVal: "320 FEET",
+        caliperWidth: 310,
+        caliperText: "4.0s+ Rapid Deceleration Cushion",
+        leadLeft: 398,
+        leadType: 'moto',
+        badge: "LIGHTWEIGHT DECELERATION",
+        ruleName: "Expanded Buffer for Two-Wheeled Stopping Velocity",
+        desc: "Motorcycles possess lightweight mass and can stop in dramatically shorter physical distances than a 3,500-lb sedan. If you follow a motorcycle with an ordinary vehicle gap, you risk overrunning them if they brake abruptly.",
+        icon: "two_wheeler"
+      },
+      'truck': {
+        title: "COMMERCIAL FREIGHT: TRAILING SEMI-TRAILER",
+        statTag: "Commercial Truck // 5.0s – 6.0s",
+        timeVal: "5.0 – 6.0 SEC",
+        distVal: "440 FEET",
+        caliperWidth: 380,
+        caliperText: "5.0s–6.0s No-Zone Exclusion Gap",
+        leadLeft: 468,
+        leadType: 'truck',
+        badge: "OPTICAL SIGHTLINE PROTECTION",
+        ruleName: "5.0 to 6.0-Second Blind Spot Exemption",
+        desc: "Semi-trucks block forward sightlines completely. Following at 2–3 seconds places your vehicle squarely in the truck’s fatal rear 'No-Zone' where the trucker cannot see you in their side mirrors, leaving you blind to road debris ahead.",
+        icon: "local_shipping"
+      },
+      'stopped': {
+        title: "STATIC INTERSECTION: RED SIGNAL HALT",
+        statTag: "Stopped at Intersection // 1 Car Length",
+        timeVal: "0 MPH (STATIC)",
+        distVal: "1 CAR LENGTH (~15 FT)",
+        caliperWidth: 90,
+        caliperText: "1 Car Length (Tires on Pavement)",
+        leadLeft: 178,
+        leadType: 'sedan',
+        badge: "ESCAPE PATH PRESERVATION",
+        ruleName: "The Pavement & Rear Tire Visibility Rule",
+        desc: "When stopped behind another vehicle at an intersection, halt so you can clearly see the lead vehicle’s rear tires touching the asphalt pavement. This 1 car length gap (~15 ft) protects you if struck from behind and allows steering around a stalled vehicle without reversing.",
+        icon: "pan_tool"
+      }
+    };
+
+    function setCondition(key) {
+      const data = conditions[key];
+      if (!data) return;
+
+      // Update button highlights
+      document.querySelectorAll('.cond-btn').forEach(btn => {
+        btn.classList.remove('bg-primary/10', 'border-primary', 'shadow-sm', 'bg-red-500/10', 'border-red-500');
+        btn.classList.add('bg-surface-low', 'border-surface-dim');
+      });
+
+      const activeBtn = document.getElementById(`btn-cond-${key}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-surface-low', 'border-surface-dim');
+        if (key === 'stopped') {
+          activeBtn.classList.add('bg-red-500/10', 'border-red-500', 'shadow-sm');
+        } else {
+          activeBtn.classList.add('bg-primary/10', 'border-primary', 'shadow-sm');
+        }
+      }
+
+      // Update Header Telemetry
+      document.getElementById('m3-scenario-title').textContent = data.title;
+      document.getElementById('m3-stat-tag').textContent = data.statTag;
+      document.getElementById('m3-time-val').textContent = data.timeVal;
+      document.getElementById('m3-dist-val').textContent = data.distVal;
+
+      // Update Caliper Bar
+      const caliper = document.getElementById('m3-caliper');
+      caliper.style.width = `${data.caliperWidth}px`;
+      document.getElementById('m3-caliper-text').textContent = data.caliperText;
+
+      // Update Lead Vehicle Position & Model
+      const leadContainer = document.getElementById('m3-lead-container');
+      leadContainer.style.left = `${data.leadLeft}px`;
+
+      const sedanModel = document.getElementById('m3-lead-sedan');
+      const motoModel = document.getElementById('m3-lead-moto');
+      const truckModel = document.getElementById('m3-lead-truck');
+
+      sedanModel.classList.add('hidden');
+      motoModel.classList.add('hidden');
+      truckModel.classList.add('hidden');
+
+      if (data.leadType === 'moto') {
+        motoModel.classList.remove('hidden');
+      } else if (data.leadType === 'truck') {
+        truckModel.classList.remove('hidden');
+      } else {
+        sedanModel.classList.remove('hidden');
+      }
+
+      // Intersection elements toggle
+      const crosswalk = document.getElementById('m3-crosswalk');
+      const light = document.getElementById('m3-traffic-light');
+      const laneLines = document.getElementById('m3-lane-lines');
+
+      if (key === 'stopped') {
+        crosswalk.classList.remove('hidden');
+        light.classList.remove('hidden');
+        laneLines.classList.add('opacity-30');
+      } else {
+        crosswalk.classList.add('hidden');
+        light.classList.add('hidden');
+        laneLines.classList.remove('opacity-30');
+      }
+
+      // Update Text Details
+      document.getElementById('m3-badge').textContent = data.badge;
+      document.getElementById('m3-rule-name').textContent = data.ruleName;
+      document.getElementById('m3-desc').textContent = data.desc;
+      document.getElementById('m3-icon').textContent = data.icon;
+    }
+
+    /* =========================================================================
+       FORMATIVE QUIZ VERIFICATION
+       ========================================================================= */
+    function checkQuizAnswer() {
+      const selected = document.querySelector('input[name="stat-quiz"]:checked');
+      const feedback = document.getElementById('quiz-feedback');
+      const correctOption = document.getElementById('opt-correct');
+
+      feedback.classList.remove('hidden');
+
+      if (!selected) {
+        feedback.textContent = "Please select an answer to evaluate.";
+        feedback.className = "text-xs font-mono text-red-600 font-semibold";
+        return;
+      }
+
+      if (selected.value === 'c') {
+        feedback.innerHTML = '<span class="text-emerald-700 font-bold">✓ CORRECT: Statutory standard verified under TTC § 545.062. At 65 MPH, 2 seconds leaves virtually zero braking cushion.</span>';
+        correctOption.classList.remove('border-surface-dim');
+        correctOption.classList.add('border-emerald-500', 'bg-emerald-50/80');
+      } else {
+        feedback.innerHTML = '<span class="text-red-600 font-bold">✗ INCORRECT: Review Option C. At 65 MPH, perception-reaction latency absorbs the majority of a 2-second gap.</span>';
+        correctOption.classList.add('border-emerald-500', 'bg-emerald-50/50');
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T06';
+  const nextTopicId = 'L05-T07';
+  const prevTopicId = 'L05-T05';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDLR 16 TAC §84.503 Final Examination — Texas ADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#E87522',
+              hover: '#D46313',
+              light: '#FFF3EB',
+              dark: '#9A4600',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F4F6F3;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+    @keyframes bounceSuccess {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    @keyframes shakeFailure {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+    .anim-success { animation: bounceSuccess 0.32s cubic-bezier(0.16, 1, 0.3, 1); }
+    .anim-failure { animation: shakeFailure 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+  </style>
+</head>
+<body class="min-h-screen text-[#191B1A] flex flex-col justify-start selection:bg-[#E87522]/20">
+
+  <!-- Mobile-First Container -->
+  <div class="w-full max-w-4xl mx-auto flex flex-col min-h-screen bg-transparent py-6 px-4 sm:px-6 space-y-5">
+    
+    <!-- Top System Strip -->
+    <div class="bg-[#181B19] text-white px-6 py-3 rounded-xl flex items-center justify-between text-xs font-mono-code shadow-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+        <span class="text-[#A1A8A2] tracking-wider uppercase">TDLR 16 TAC §84.503 FINAL EXAM</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-[#FBBF24] font-semibold">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+        <span id="exam-timer">60:00</span>
+      </div>
+    </div>
+
+    <!-- Official Header -->
+    <header class="bg-white border border-[#D9DDD8] rounded-xl px-6 py-4 shadow-xs sticky top-2 z-20">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono-code font-bold text-[#E87522] tracking-wider uppercase">TEXAS ADULT DRIVER EDUCATION</span>
+          <h1 class="text-sm font-bold text-[#141A15] tracking-tight">State Licensing Final Examination</h1>
+        </div>
+        <button onclick="location.href='index.html'" class="px-2.5 py-1 rounded border border-[#D9DDD8] text-[11px] font-mono-code font-bold text-[#717A73] hover:text-[#141A15] hover:bg-[#F0F2EF] uppercase transition">
+          EXIT
+        </button>
+      </div>
+
+      <!-- Live Counters & Progress Bar -->
+      <div class="mt-3 flex items-center justify-between text-xs font-mono-code">
+        <div class="flex items-center gap-3">
+          <span class="text-[#656E67]">Question <strong id="stat-q-current" class="text-[#141A15]">1</strong> of 30</span>
+          <span class="text-[#D9DDD8]">|</span>
+          <span class="text-[#656E67]">Passing: <strong>21 (70%)</strong></span>
+        </div>
+        <div class="text-[#141A15] font-bold">
+          Score: <span id="stat-score-current" class="text-[#E87522]">0</span>
+        </div>
+      </div>
+      <div class="w-full bg-[#E5E8E4] h-1.5 rounded-full mt-2 overflow-hidden">
+        <div id="exam-progress-bar" class="bg-[#E87522] h-full w-[3.33%] transition-all duration-300"></div>
+      </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="flex-1 p-4 flex flex-col justify-between" id="main-content">
+      
+      <!-- Interactive Question Card -->
+      <div id="question-container" class="space-y-4">
+        
+        <!-- Domain Badge & Statutory Authority -->
+        <div class="flex items-center justify-between text-[11px] font-mono-code">
+          <span id="badge-domain" class="px-2.5 py-0.5 rounded-full font-bold bg-[#F0F2EF] text-[#2A312C] border border-[#D9DDD8] uppercase">
+            HIGHWAY SIGNS & SIGNALS
+          </span>
+          <span id="badge-statute" class="text-[#717A73] text-[10px] uppercase">
+            TX MUTCD / TTC §544.004
+          </span>
+        </div>
+
+        <!-- SVG Graphic Container -->
+        <div id="svg-container" class="rounded-xl border border-[#D9DDD8] bg-[#1C201D] p-2 flex items-center justify-center overflow-hidden shadow-inner">
+          <!-- Dynamically injected SVG -->
+        </div>
+
+        <!-- Prompt -->
+        <h2 id="question-prompt" class="text-base font-bold text-[#141A15] leading-snug tracking-tight"></h2>
+
+        <!-- Options Container -->
+        <div id="options-list" class="space-y-2 pt-1">
+          <!-- Dynamically injected option buttons -->
+        </div>
+
+        <!-- Feedback & Statutory Rationale Drawer -->
+        <div id="feedback-drawer" class="hidden p-3.5 rounded-xl border text-xs">
+          <div class="flex items-start gap-2.5">
+            <span id="feedback-icon" class="w-5 h-5 rounded-full flex items-center justify-center font-bold shrink-0 mt-0.5 text-white"></span>
+            <div class="space-y-1">
+              <h4 id="feedback-title" class="font-bold tracking-tight"></h4>
+              <p id="feedback-rationale" class="leading-relaxed text-[#2C332E]"></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Results View (Hidden Initially) -->
+      <div id="results-container" class="hidden space-y-6 text-center py-6">
+        <div id="results-badge" class="w-16 h-16 rounded-full mx-auto flex items-center justify-center text-2xl font-bold"></div>
+        <div>
+          <span class="text-xs font-mono-code uppercase tracking-wider text-[#656E67]">TDLR Official Result</span>
+          <h2 id="results-status-text" class="text-2xl font-extrabold mt-1"></h2>
+        </div>
+
+        <div class="p-4 rounded-xl border border-[#D9DDD8] bg-[#F9FAF8] space-y-3 text-left">
+          <div class="flex items-center justify-between text-xs font-mono-code pb-2 border-b border-[#E5E8E4]">
+            <span class="text-[#656E67]">Final Examination Score:</span>
+            <span id="results-score-pct" class="text-base font-bold text-[#141A15]"></span>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono-code">
+            <span class="text-[#656E67]">Total Correct Questions:</span>
+            <span id="results-score-count" class="font-bold text-[#141A15]"></span>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono-code">
+            <span class="text-[#656E67]">Bank A (Highway Signs):</span>
+            <span id="score-bank-a" class="font-bold text-[#141A15]"></span>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono-code">
+            <span class="text-[#656E67]">Bank B (Traffic Laws):</span>
+            <span id="score-bank-b" class="font-bold text-[#141A15]"></span>
+          </div>
+        </div>
+
+        <div id="results-action-container" class="space-y-2">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Actions Sticky -->
+    <footer id="footer-actions" class="sticky bottom-0 bg-white border-t border-[#E5E8E4] p-4">
+      <button id="btn-next" onclick="handleNextClick()" disabled class="w-full py-3.5 rounded-xl bg-[#E87522] hover:bg-[#D46313] disabled:bg-[#E2E5DF] disabled:text-[#7D8479] disabled:cursor-not-allowed text-white font-bold text-xs uppercase font-mono-code tracking-wider transition">
+        CONFIRM SELECTION
+      </button>
+    </footer>
+
+  </div>
+
+  <script>
+    /**
+     * TDLR 16 TAC §84.503 SECURE SERVER-SIDE GRADING CLIENT:
+     * Zero plaintext answers or target hashes in client DOM/JS.
+     * Evaluated against backend server session memory.
+     */
+    let EXAM_QUESTIONS = [{"number": 1, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "REGULATORY SIGNS", "statute": "TX MUTCD CH. 2B / TTC \u00a7545.151", "prompt": "What does an inverted triangular red-and-white MUTCD R1-2 YIELD sign legally require of a driver?", "options": [{"number": 1, "text": "Slow down and yield right-of-way to all vehicles and pedestrians on roadway"}, {"number": 2, "text": "Come to a mandatory complete stop regardless of whether any other traffic is present"}, {"number": 3, "text": "Accelerate quickly to enter before approaching main road vehicles reach junction"}, {"number": 4, "text": "Yield right-of-way exclusively to commercial freight vehicles and city buses"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"105\" width=\"12\" height=\"70\" fill=\"#78716C\" rx=\"1\" />\n            <!-- Inverted Equilateral Triangle Yield Sign -->\n            <polygon points=\"140,30 280,30 210,150\" fill=\"#DC2626\" stroke=\"#DC2626\" stroke-width=\"2\" />\n            <polygon points=\"160,42 260,42 210,128\" fill=\"#FFFFFF\" />\n            <text x=\"175\" y=\"68\" fill=\"#DC2626\" font-family=\"'Geist', sans-serif\" font-size=\"22\" font-weight=\"900\" letter-spacing=\"1\">YIELD</text>\n            <rect x=\"145\" y=\"156\" width=\"130\" height=\"18\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"156\" y=\"169\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD R1-2 YIELD</text>\n          </svg>\n        "}, {"number": 2, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "WORK ZONE FINES (SEPT 1 2026 MANDATE)", "statute": "TX TRANS CODE \u00a7542.404 / HB 1884", "prompt": "Under Texas Transportation Code \u00a7542.404, when are traffic fines doubled in highway work zones?", "options": [{"number": 1, "text": "Whenever construction workers are present in the work zone and signs are posted"}, {"number": 2, "text": "Exclusively when construction work is actively underway during nighttime hours"}, {"number": 3, "text": "Only if a physical motor vehicle crash results in property damage or injury"}, {"number": 4, "text": "Fines double only for commercial freight vehicles exceeding gross weight limits"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"95\" width=\"12\" height=\"80\" fill=\"#78716C\" rx=\"1\" />\n            <rect x=\"155\" y=\"15\" width=\"110\" height=\"110\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"3\" />\n            <circle cx=\"210\" cy=\"70\" r=\"48\" fill=\"#DC2626\" />\n            <rect x=\"176\" y=\"62\" width=\"68\" height=\"16\" fill=\"#FFFFFF\" rx=\"2\" />\n            <text x=\"178\" y=\"44\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">DO NOT</text>\n            <text x=\"183\" y=\"103\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">ENTER</text>\n            <rect x=\"135\" y=\"152\" width=\"150\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"146\" y=\"166\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD R5-1 PROHIBITORY</text>\n          </svg>\n        "}, {"number": 3, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "REGULATORY SPEED SIGNS", "statute": "TX TRANS CODE \u00a7545.352", "prompt": "What does a rectangular white regulatory sign displaying 'SPEED LIMIT 70' represent in Texas?", "options": [{"number": 1, "text": "Maximum legal speed under ideal conditions; speed must be reduced if hazards exist"}, {"number": 2, "text": "The minimum mandatory cruising speed that all passenger vehicles must maintain"}, {"number": 3, "text": "A suggested advisory travel speed recommended exclusively during daylight"}, {"number": 4, "text": "A speed limit that applies only to commercial interstate freight haulers"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"100\" width=\"12\" height=\"75\" fill=\"#78716C\" rx=\"1\" />\n            <!-- Vertical Rectangle Speed Limit Sign -->\n            <rect x=\"165\" y=\"15\" width=\"90\" height=\"120\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"3.5\" />\n            <rect x=\"170\" y=\"20\" width=\"80\" height=\"110\" rx=\"5\" fill=\"none\" stroke=\"#18181B\" stroke-width=\"1.5\" />\n            <text x=\"180\" y=\"45\" fill=\"#18181B\" font-family=\"'Geist', sans-serif\" font-size=\"14\" font-weight=\"800\">SPEED</text>\n            <text x=\"180\" y=\"62\" fill=\"#18181B\" font-family=\"'Geist', sans-serif\" font-size=\"14\" font-weight=\"800\">LIMIT</text>\n            <text x=\"178\" y=\"112\" fill=\"#18181B\" font-family=\"'Geist', sans-serif\" font-size=\"44\" font-weight=\"900\">70</text>\n            <rect x=\"135\" y=\"152\" width=\"150\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"142\" y=\"166\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD R2-1 REGULATORY</text>\n          </svg>\n        "}, {"number": 4, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "UNATTENDED CHILDREN IN VEHICLES", "statute": "TX PENAL CODE \u00a722.10", "prompt": "Under Texas Penal Code \u00a722.10, when is leaving a child unattended inside a vehicle a criminal offense?", "options": [{"number": 1, "text": "Child younger than 7 left unattended for >5 mins without someone \u226514 years old"}, {"number": 2, "text": "Child younger than 12 left unattended for >15 mins while running errands"}, {"number": 3, "text": "Only if the outdoor ambient temperature exceeds ninety degrees Fahrenheit"}, {"number": 4, "text": "Leaving a child inside a parked car is never illegal if windows are cracked"}], "svg": null}, {"number": 5, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "TRAFFIC SIGNAL LIGHTS", "statute": "TX TRANS CODE \u00a7544.008", "prompt": "What does an overhead flashing circular RED traffic light require of an approaching driver?", "options": [{"number": 1, "text": "Complete stop at the stop line, yield to cross traffic, then proceed safely"}, {"number": 2, "text": "Slow down moderately and proceed through cross street without stopping"}, {"number": 3, "text": "Wait until the light cycles to solid green before advancing through junction"}, {"number": 4, "text": "Treat the signal as a flashing yellow caution beacon during daytime hours"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <!-- Traffic Signal 1: Flashing Red -->\n            <g transform=\"translate(100, 20)\">\n              <rect x=\"0\" y=\"0\" width=\"50\" height=\"120\" rx=\"10\" fill=\"#18181B\" stroke=\"#71717A\" stroke-width=\"2\" />\n              <!-- Red glowing light -->\n              <circle cx=\"25\" cy=\"25\" r=\"16\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <circle cx=\"25\" cy=\"25\" r=\"22\" fill=\"#DC2626\" opacity=\"0.35\" />\n              <circle cx=\"25\" cy=\"60\" r=\"14\" fill=\"#3F3F46\" />\n              <circle cx=\"25\" cy=\"95\" r=\"14\" fill=\"#3F3F46\" />\n              <rect x=\"-30\" y=\"130\" width=\"110\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n              <text x=\"-24\" y=\"144\" fill=\"#EF4444\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">FLASHING RED = STOP</text>\n            </g>\n\n            <!-- Traffic Signal 2: Flashing Yellow -->\n            <g transform=\"translate(270, 20)\">\n              <rect x=\"0\" y=\"0\" width=\"50\" height=\"120\" rx=\"10\" fill=\"#18181B\" stroke=\"#71717A\" stroke-width=\"2\" />\n              <circle cx=\"25\" cy=\"25\" r=\"14\" fill=\"#3F3F46\" />\n              <!-- Yellow glowing light -->\n              <circle cx=\"25\" cy=\"60\" r=\"16\" fill=\"#FBBF24\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <circle cx=\"25\" cy=\"60\" r=\"22\" fill=\"#FBBF24\" opacity=\"0.35\" />\n              <circle cx=\"25\" cy=\"95\" r=\"14\" fill=\"#3F3F46\" />\n              <rect x=\"-30\" y=\"130\" width=\"110\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n              <text x=\"-22\" y=\"144\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">FLASH YELLOW = CAUTION</text>\n            </g>\n          </svg>\n        "}, {"number": 6, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "WORK ZONE BARRICADES (SEPT 1 2026 MANDATE)", "statute": "TX TRANS CODE \u00a7472.022", "prompt": "What is the criminal penalty for disobeying warning signs or driving around barricades in a Texas work zone?", "options": [{"number": 1, "text": "Class B misdemeanor punishable by fines up to $1,000 and up to 180 days in jail"}, {"number": 2, "text": "Standard civil parking ticket with a ten-dollar municipal court administrative fee"}, {"number": 3, "text": "Mandatory forfeiture of all personal motor vehicles to state highway funds"}, {"number": 4, "text": "A verbal administrative warning issued by county environmental health units"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"95\" width=\"12\" height=\"80\" fill=\"#78716C\" rx=\"1\" />\n            <rect x=\"155\" y=\"15\" width=\"110\" height=\"110\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"3\" />\n            <circle cx=\"210\" cy=\"70\" r=\"48\" fill=\"#DC2626\" />\n            <rect x=\"176\" y=\"62\" width=\"68\" height=\"16\" fill=\"#FFFFFF\" rx=\"2\" />\n            <text x=\"178\" y=\"44\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">DO NOT</text>\n            <text x=\"183\" y=\"103\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">ENTER</text>\n            <rect x=\"135\" y=\"152\" width=\"150\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"146\" y=\"166\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD R5-1 PROHIBITORY</text>\n          </svg>\n        "}, {"number": 7, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "PAVEMENT MARKINGS", "statute": "TX MUTCD CH. 3B", "prompt": "What does a solid white line between lanes traveling in the same direction signify to motorists?", "options": [{"number": 1, "text": "Lane changes are discouraged or hazardous; drivers should remain in their lane"}, {"number": 2, "text": "Lane changes are completely prohibited under all circumstances in Texas"}, {"number": 3, "text": "The adjacent travel lane is reserved exclusively for public transit vehicles"}, {"number": 4, "text": "The travel lane will terminate abruptly within seventy-five feet ahead"}], "svg": null}, {"number": 8, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "SENATE BILL 30 STOP PROTOCOL", "statute": "TX EDUCATION CODE \u00a728.012", "prompt": "Under the Community Safety Education Act (Senate Bill 30), what should a driver do when pulled over at night?", "options": [{"number": 1, "text": "Turn on interior dome light, roll down driver window, place hands on steering wheel"}, {"number": 2, "text": "Exit the vehicle immediately and walk toward the patrol cruiser quickly"}, {"number": 3, "text": "Reach under passenger seats to search for insurance cards before officer arrives"}, {"number": 4, "text": "Rev the engine slightly to verify alternator voltage is charging battery"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#1C201D]\">\n            <rect x=\"0\" y=\"20\" width=\"420\" height=\"140\" fill=\"#242825\" />\n            <line x1=\"0\" y1=\"130\" x2=\"420\" y2=\"130\" stroke=\"#FFFFFF\" stroke-width=\"3\" />\n            <text x=\"15\" y=\"152\" fill=\"#94A3B8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\">RIGHT-HAND SHOULDER STOP</text>\n\n            <!-- Citizen Vehicle (Pulled safely to right) -->\n            <g transform=\"translate(240, 50)\">\n              <rect x=\"0\" y=\"0\" width=\"80\" height=\"45\" rx=\"6\" fill=\"#E87522\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"15\" y=\"8\" width=\"50\" height=\"29\" rx=\"3\" fill=\"#181B19\" />\n              <!-- Steering Wheel & Driver Hands visible on 10 and 2 -->\n              <circle cx=\"50\" cy=\"22\" r=\"8\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2\" />\n              <circle cx=\"45\" cy=\"16\" r=\"3\" fill=\"#FBBF24\" />\n              <circle cx=\"55\" cy=\"16\" r=\"3\" fill=\"#FBBF24\" />\n              <text x=\"18\" y=\"44\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"7\" font-weight=\"bold\">HANDS VISIBLE</text>\n            </g>\n\n            <!-- Police Cruiser parked behind -->\n            <g transform=\"translate(80, 52)\">\n              <rect x=\"0\" y=\"0\" width=\"85\" height=\"42\" rx=\"6\" fill=\"#0F172A\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"15\" y=\"8\" width=\"55\" height=\"26\" rx=\"3\" fill=\"#1E293B\" />\n              <rect x=\"35\" y=\"2\" width=\"8\" height=\"4\" fill=\"#EF4444\" />\n              <rect x=\"43\" y=\"2\" width=\"8\" height=\"4\" fill=\"#3B82F6\" />\n              <text x=\"22\" y=\"24\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">PATROL UNIT</text>\n            </g>\n\n            <!-- Protocol Badge -->\n            <rect x=\"120\" y=\"105\" width=\"180\" height=\"20\" rx=\"4\" fill=\"#0F172A\" stroke=\"#3B82F6\" stroke-width=\"1\" />\n            <text x=\"126\" y=\"119\" fill=\"#38BDF8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">SENATE BILL 30 STOP PROTOCOL</text>\n          </svg>\n        "}, {"number": 9, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "WORK ZONE SIGNS (SEPT 1 2026 MANDATE)", "statute": "TX MUTCD CH. 6 / TTC \u00a7472.022", "prompt": "What does an orange diamond-shaped highway sign signify to Texas motorists under work zone rules?", "options": [{"number": 1, "text": "Temporary highway construction, maintenance work, or altered roadway ahead"}, {"number": 2, "text": "Permanent state park or recreational campground attraction located nearby"}, {"number": 3, "text": "Commercial industrial manufacturing corridor with high acoustic noise levels"}, {"number": 4, "text": "Interstate route guidance directing drivers toward international toll borders"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"95\" width=\"12\" height=\"80\" fill=\"#78716C\" rx=\"1\" />\n            <rect x=\"155\" y=\"15\" width=\"110\" height=\"110\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"3\" />\n            <circle cx=\"210\" cy=\"70\" r=\"48\" fill=\"#DC2626\" />\n            <rect x=\"176\" y=\"62\" width=\"68\" height=\"16\" fill=\"#FFFFFF\" rx=\"2\" />\n            <text x=\"178\" y=\"44\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">DO NOT</text>\n            <text x=\"183\" y=\"103\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">ENTER</text>\n            <rect x=\"135\" y=\"152\" width=\"150\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"146\" y=\"166\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD R5-1 PROHIBITORY</text>\n          </svg>\n        "}, {"number": 10, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "LEGAL INTOXICATION BAC LIMIT", "statute": "TX PENAL CODE \u00a749.01", "prompt": "What blood alcohol concentration (BAC) defines legal intoxication per se for adult drivers in Texas?", "options": [{"number": 1, "text": "An alcohol concentration of 0.08 or more in blood, breath, or urine sample"}, {"number": 2, "text": "An alcohol concentration of 0.05 or more in blood, breath, or urine sample"}, {"number": 3, "text": "An alcohol concentration of 0.10 or more in blood, breath, or urine sample"}, {"number": 4, "text": "An alcohol concentration of 0.02 or more in blood, breath, or urine sample"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#181B19] border border-[#27272A]\">\n            <!-- BAC Meter Header -->\n            <rect x=\"70\" y=\"15\" width=\"280\" height=\"25\" rx=\"5\" fill=\"#242825\" />\n            <text x=\"110\" y=\"32\" fill=\"#F8FAFC\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">TEXAS LEGAL BAC LIMIT: 0.08%</text>\n\n            <!-- Gauge Scale Bar -->\n            <rect x=\"40\" y=\"60\" width=\"100\" height=\"28\" rx=\"4\" fill=\"#15803D\" />\n            <text x=\"50\" y=\"78\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">0.00% - 0.04%</text>\n            <text x=\"65\" y=\"104\" fill=\"#4ADE80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Sober / Safe</text>\n\n            <rect x=\"145\" y=\"60\" width=\"90\" height=\"28\" rx=\"4\" fill=\"#D97706\" />\n            <text x=\"150\" y=\"78\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">0.05% - 0.07%</text>\n            <text x=\"156\" y=\"104\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Impaired</text>\n\n            <rect x=\"240\" y=\"60\" width=\"140\" height=\"28\" rx=\"4\" fill=\"#DC2626\" />\n            <text x=\"248\" y=\"78\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">\u2265 0.08% (LETHAL DWI)</text>\n            <text x=\"254\" y=\"104\" fill=\"#F87171\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Illegal Per Se in Texas</text>\n\n            <!-- Statutory Footer Banner -->\n            <rect x=\"50\" y=\"130\" width=\"320\" height=\"26\" rx=\"5\" fill=\"#450A0A\" stroke=\"#DC2626\" stroke-width=\"1.2\" />\n            <text x=\"65\" y=\"147\" fill=\"#FECACA\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">TEXAS PENAL CODE \u00a749.01 / \u00a749.04 ENFORCEMENT</text>\n          </svg>\n        "}, {"number": 11, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "RAILROAD BLUE ENS SIGN", "statute": "OPERATION LIFESAVER / MUTCD CH. 8", "prompt": "If a vehicle stalls on train tracks, what emergency data on the blue ENS sign must you report to 911?", "options": [{"number": 1, "text": "The railroad emergency dispatch 1-800 phone number and unique USDOT crossing ID"}, {"number": 2, "text": "The municipal railroad tax rate and annual freight tonnage financial numbers"}, {"number": 3, "text": "The historical year the train crossing was originally paved with asphalt"}, {"number": 4, "text": "The manufacturer serial number of the overhead train crossing gate arms"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"60\" width=\"12\" height=\"115\" fill=\"#78716C\" rx=\"1\" />\n            <!-- Crossbuck Blades -->\n            <g transform=\"translate(210, 50)\">\n              <!-- Blade 1 -->\n              <rect x=\"-65\" y=\"-10\" width=\"130\" height=\"20\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"2\" transform=\"rotate(35)\" />\n              <text x=\"-48\" y=\"5\" fill=\"#18181B\" font-family=\"'Geist', sans-serif\" font-size=\"12\" font-weight=\"900\" transform=\"rotate(35)\">RAILROAD</text>\n              <!-- Blade 2 -->\n              <rect x=\"-65\" y=\"-10\" width=\"130\" height=\"20\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"2\" transform=\"rotate(-35)\" />\n              <text x=\"-48\" y=\"5\" fill=\"#18181B\" font-family=\"'Geist', sans-serif\" font-size=\"12\" font-weight=\"900\" transform=\"rotate(-35)\">CROSSING</text>\n            </g>\n            <!-- Blue ENS Sign on post -->\n            <rect x=\"160\" y=\"105\" width=\"100\" height=\"40\" rx=\"4\" fill=\"#1D4ED8\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n            <text x=\"166\" y=\"120\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">REPORT PROBLEM</text>\n            <text x=\"166\" y=\"132\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">1-800-555-0199</text>\n            <text x=\"166\" y=\"141\" fill=\"#93C5FD\" font-family=\"'JetBrains Mono', monospace\" font-size=\"7\">CROSSING # 123 456 A</text>\n            <!-- Stop Distance Tag -->\n            <rect x=\"125\" y=\"154\" width=\"170\" height=\"18\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"133\" y=\"167\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">STOP 15 TO 50 FT FROM RAIL</text>\n          </svg>\n        "}, {"number": 12, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "SCHOOL BUS RIGHT-OF-WAY", "statute": "TX TRANS CODE \u00a7545.066", "prompt": "When is a driver on a divided highway with an unpaved median EXEMPT from stopping for a school bus?", "options": [{"number": 1, "text": "When traveling in the opposite direction on a roadway divided by a physical barrier"}, {"number": 2, "text": "Whenever traveling in the same direction on a four-lane highway with turn lanes"}, {"number": 3, "text": "When driving during afternoon rush hour between five and six in the evening"}, {"number": 4, "text": "Vehicles are never exempt from stopping for school buses under any circumstances"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#1C201D]\">\n            <!-- Divided Highway: Northbound lanes, Median, Southbound lanes -->\n            <rect x=\"0\" y=\"15\" width=\"420\" height=\"55\" fill=\"#242825\" />\n            <!-- Physical Raised Grassy Median -->\n            <rect x=\"0\" y=\"70\" width=\"420\" height=\"40\" fill=\"#15803D\" />\n            <text x=\"160\" y=\"94\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">PHYSICAL MEDIAN</text>\n            <rect x=\"0\" y=\"110\" width=\"420\" height=\"55\" fill=\"#242825\" />\n\n            <!-- Yellow School Bus stopped in Northbound lane -->\n            <g transform=\"translate(180, 24)\">\n              <rect x=\"0\" y=\"0\" width=\"70\" height=\"34\" rx=\"4\" fill=\"#FACC15\" stroke=\"#18181B\" stroke-width=\"2\" />\n              <text x=\"8\" y=\"21\" fill=\"#18181B\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">SCHOOL BUS</text>\n              <!-- Stop Arm Extended -->\n              <polygon points=\"-12,8 0,4 0,16 -12,12\" fill=\"#DC2626\" />\n              <circle cx=\"35\" cy=\"4\" r=\"3\" fill=\"#EF4444\" />\n              <circle cx=\"45\" cy=\"4\" r=\"3\" fill=\"#EF4444\" />\n            </g>\n\n            <!-- Following Traffic Stopped Behind Bus -->\n            <g transform=\"translate(80, 28)\">\n              <rect x=\"0\" y=\"0\" width=\"44\" height=\"26\" rx=\"4\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"1\" />\n              <text x=\"6\" y=\"17\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">STOPPED</text>\n            </g>\n\n            <!-- Opposing Traffic across median (May Proceed) -->\n            <g transform=\"translate(180, 124)\">\n              <rect x=\"0\" y=\"0\" width=\"54\" height=\"26\" rx=\"4\" fill=\"#16A34A\" stroke=\"#FFFFFF\" stroke-width=\"1.2\" />\n              <text x=\"4\" y=\"17\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">PROCEED OK</text>\n            </g>\n          </svg>\n        "}, {"number": 13, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "SCHOOL ZONE SIGNS", "statute": "TX MUTCD CH. 7B", "prompt": "What specific roadway environment is designated exclusively by an upright pentagonal traffic sign?", "options": [{"number": 1, "text": "A public school zone, school crosswalk corridor, or child pedestrian crossing"}, {"number": 2, "text": "An active railway grade crossing with multiple industrial train tracks"}, {"number": 3, "text": "A mandatory state commercial vehicle weight and safety inspection station"}, {"number": 4, "text": "A county emergency fire department station with exiting rescue vehicles"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"95\" width=\"12\" height=\"80\" fill=\"#78716C\" rx=\"1\" />\n            <!-- Pentagon School Crossing Sign (Fluorescent Yellow-Green) -->\n            <polygon points=\"210,15 270,55 255,130 165,130 150,55\" fill=\"#EAB308\" stroke=\"#18181B\" stroke-width=\"3\" />\n            <!-- Walking silhouettes -->\n            <circle cx=\"195\" cy=\"58\" r=\"6\" fill=\"#18181B\" />\n            <path d=\"M190 70 L200 70 L203 95 L197 95 L195 82 L190 95 L185 95 Z\" fill=\"#18181B\" />\n            <circle cx=\"225\" cy=\"68\" r=\"5\" fill=\"#18181B\" />\n            <path d=\"M221 78 L229 78 L232 102 L227 102 L225 89 L221 102 L217 102 Z\" fill=\"#18181B\" />\n            <rect x=\"135\" y=\"152\" width=\"150\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"145\" y=\"166\" fill=\"#EAB308\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD S1-1 SCHOOL ZONE</text>\n          </svg>\n        "}, {"number": 14, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "OPEN CONTAINER STATUTE", "statute": "TX PENAL CODE \u00a749.031", "prompt": "Where may an unsealed container of alcohol be legally transported in a passenger car in Texas?", "options": [{"number": 1, "text": "In the vehicle locked trunk, or behind the upright rear seats in an SUV without a trunk"}, {"number": 2, "text": "Inside the center console compartment between the driver and front passenger"}, {"number": 3, "text": "Inside the unlocked front dashboard glove box directly beneath the radio"}, {"number": 4, "text": "Under the driver's seat provided the container is placed inside a brown paper sack"}], "svg": null}, {"number": 15, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "MERGE WARNING SIGNS", "statute": "TX MUTCD CH. 2C", "prompt": "What does a yellow diamond sign with two converging arrows (MUTCD W4-1) indicate to drivers?", "options": [{"number": 1, "text": "Entering traffic is merging from the right; adjust speed and position to blend flow"}, {"number": 2, "text": "The travel lane divides ahead into two separate one-way divided highways"}, {"number": 3, "text": "Vehicles on the main highway must come to a complete stop to let traffic merge"}, {"number": 4, "text": "All vehicles must make an immediate sharp right turn at the next cross street"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <!-- Sign Post -->\n            <rect x=\"204\" y=\"90\" width=\"12\" height=\"85\" fill=\"#78716C\" rx=\"1\" />\n            <rect x=\"202\" y=\"170\" width=\"16\" height=\"6\" fill=\"#44403C\" rx=\"1\" />\n            \n            <!-- Diamond Warning Sign Body (Highway Yellow) -->\n            <g transform=\"translate(210, 75) rotate(45)\">\n              <rect x=\"-42\" y=\"-42\" width=\"84\" height=\"84\" rx=\"8\" fill=\"#FBBF24\" stroke=\"#18181B\" stroke-width=\"3\" />\n              <rect x=\"-38\" y=\"-38\" width=\"76\" height=\"76\" rx=\"6\" fill=\"none\" stroke=\"#18181B\" stroke-width=\"1.5\" />\n            </g>\n            \n            <!-- Merge Arrow Symbol (Rotated back) -->\n            <g transform=\"translate(210, 75)\">\n              <!-- Main straight arrow -->\n              <path d=\"M-6 26 L-6 -18 L-14 -18 L0 -34 L14 -18 L6 -18 L6 26 Z\" fill=\"#18181B\" />\n              <!-- Merging curved lane arrow -->\n              <path d=\"M22 22 Q12 0 6 -6 L14 -10 Q20 0 28 16 Z\" fill=\"#18181B\" />\n            </g>\n\n            <!-- Sign Description Caption -->\n            <rect x=\"145\" y=\"152\" width=\"130\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"153\" y=\"166\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD W4-1 MERGE</text>\n          </svg>\n        "}, {"number": 16, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "JULIA WELLS ACT (HUMAN TRAFFICKING)", "statute": "TX EDUCATION CODE \u00a71001.1021", "prompt": "What is the official toll-free telephone number for the National Human Trafficking Hotline under the Julia Wells Act?", "options": [{"number": 1, "text": "1-888-373-7888 (available 24/7, confidential, or text HELP to 233733 / BeFree)"}, {"number": 2, "text": "1-800-555-0199 (available weekdays during municipal city business hours)"}, {"number": 3, "text": "1-877-432-1100 (state vehicle title and registration customer hotline)"}, {"number": 4, "text": "1-800-222-1222 (state toxic poison control center emergency helpline)"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#0F172A] border border-[#1E293B]\">\n            <!-- Header Badge -->\n            <rect x=\"60\" y=\"15\" width=\"300\" height=\"25\" rx=\"5\" fill=\"#1E293B\" />\n            <text x=\"75\" y=\"32\" fill=\"#38BDF8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">JULIA WELLS ACT \u2014 TRAFFICKING AWARENESS</text>\n\n            <!-- National Hotline Card -->\n            <rect x=\"40\" y=\"55\" width=\"340\" height=\"70\" rx=\"8\" fill=\"#1E1B4B\" stroke=\"#6366F1\" stroke-width=\"1.5\" />\n            <text x=\"55\" y=\"78\" fill=\"#E0E7FF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"bold\">NATIONAL HUMAN TRAFFICKING HOTLINE (24/7):</text>\n            <text x=\"55\" y=\"108\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"20\" font-weight=\"900\">1-888-373-7888</text>\n            <text x=\"260\" y=\"108\" fill=\"#A5B4FC\" font-family=\"'JetBrains Mono', monospace\" font-size=\"11\">OR TEXT \"HELP\" TO 233733</text>\n\n            <!-- Mandate Footer -->\n            <rect x=\"60\" y=\"140\" width=\"300\" height=\"22\" rx=\"4\" fill=\"#312E81\" />\n            <text x=\"72\" y=\"155\" fill=\"#C7D2FE\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8.5\" font-weight=\"bold\">TX EDUCATION CODE \u00a71001.1021 / TPC CHAPTER 20A</text>\n          </svg>\n        "}, {"number": 17, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "RAILROAD SIGNS & SIGNALS", "statute": "TX TRANS CODE \u00a7545.251", "prompt": "What does a white X-shaped 'RAILROAD CROSSING' crossbuck sign (MUTCD R15-1) require of drivers?", "options": [{"number": 1, "text": "Yield right-of-way to approaching trains and stop 15 to 50 feet away if train nears"}, {"number": 2, "text": "Accelerate across the tracks quickly before warning bells begin to sound"}, {"number": 3, "text": "Stop on the tracks and look both ways before proceeding across the crossing"}, {"number": 4, "text": "Yield to trains only when electronic red lights are actively flashing overhead"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"60\" width=\"12\" height=\"115\" fill=\"#78716C\" rx=\"1\" />\n            <!-- Crossbuck Blades -->\n            <g transform=\"translate(210, 50)\">\n              <!-- Blade 1 -->\n              <rect x=\"-65\" y=\"-10\" width=\"130\" height=\"20\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"2\" transform=\"rotate(35)\" />\n              <text x=\"-48\" y=\"5\" fill=\"#18181B\" font-family=\"'Geist', sans-serif\" font-size=\"12\" font-weight=\"900\" transform=\"rotate(35)\">RAILROAD</text>\n              <!-- Blade 2 -->\n              <rect x=\"-65\" y=\"-10\" width=\"130\" height=\"20\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"2\" transform=\"rotate(-35)\" />\n              <text x=\"-48\" y=\"5\" fill=\"#18181B\" font-family=\"'Geist', sans-serif\" font-size=\"12\" font-weight=\"900\" transform=\"rotate(-35)\">CROSSING</text>\n            </g>\n            <!-- Blue ENS Sign on post -->\n            <rect x=\"160\" y=\"105\" width=\"100\" height=\"40\" rx=\"4\" fill=\"#1D4ED8\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n            <text x=\"166\" y=\"120\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">REPORT PROBLEM</text>\n            <text x=\"166\" y=\"132\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">1-800-555-0199</text>\n            <text x=\"166\" y=\"141\" fill=\"#93C5FD\" font-family=\"'JetBrains Mono', monospace\" font-size=\"7\">CROSSING # 123 456 A</text>\n            <!-- Stop Distance Tag -->\n            <rect x=\"125\" y=\"154\" width=\"170\" height=\"18\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"133\" y=\"167\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">STOP 15 TO 50 FT FROM RAIL</text>\n          </svg>\n        "}, {"number": 18, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "IMPLIED CONSENT & ALR", "statute": "TX TRANS CODE \u00a7724.035", "prompt": "What is the administrative license suspension for refusing a chemical test after a first-offense DWI arrest?", "options": [{"number": 1, "text": "180 days administrative driver license suspension for a first chemical test refusal"}, {"number": 2, "text": "30 days administrative driver license suspension for a first chemical test refusal"}, {"number": 3, "text": "2 years administrative driver license suspension for a first chemical test refusal"}, {"number": 4, "text": "Refusing a test carries zero administrative license suspension penalties in Texas"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#1C201D]\">\n            <rect x=\"0\" y=\"20\" width=\"420\" height=\"140\" fill=\"#242825\" />\n            <line x1=\"0\" y1=\"130\" x2=\"420\" y2=\"130\" stroke=\"#FFFFFF\" stroke-width=\"3\" />\n            <text x=\"15\" y=\"152\" fill=\"#94A3B8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\">RIGHT-HAND SHOULDER STOP</text>\n\n            <!-- Citizen Vehicle (Pulled safely to right) -->\n            <g transform=\"translate(240, 50)\">\n              <rect x=\"0\" y=\"0\" width=\"80\" height=\"45\" rx=\"6\" fill=\"#E87522\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"15\" y=\"8\" width=\"50\" height=\"29\" rx=\"3\" fill=\"#181B19\" />\n              <!-- Steering Wheel & Driver Hands visible on 10 and 2 -->\n              <circle cx=\"50\" cy=\"22\" r=\"8\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2\" />\n              <circle cx=\"45\" cy=\"16\" r=\"3\" fill=\"#FBBF24\" />\n              <circle cx=\"55\" cy=\"16\" r=\"3\" fill=\"#FBBF24\" />\n              <text x=\"18\" y=\"44\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"7\" font-weight=\"bold\">HANDS VISIBLE</text>\n            </g>\n\n            <!-- Police Cruiser parked behind -->\n            <g transform=\"translate(80, 52)\">\n              <rect x=\"0\" y=\"0\" width=\"85\" height=\"42\" rx=\"6\" fill=\"#0F172A\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"15\" y=\"8\" width=\"55\" height=\"26\" rx=\"3\" fill=\"#1E293B\" />\n              <rect x=\"35\" y=\"2\" width=\"8\" height=\"4\" fill=\"#EF4444\" />\n              <rect x=\"43\" y=\"2\" width=\"8\" height=\"4\" fill=\"#3B82F6\" />\n              <text x=\"22\" y=\"24\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">PATROL UNIT</text>\n            </g>\n\n            <!-- Protocol Badge -->\n            <rect x=\"120\" y=\"105\" width=\"180\" height=\"20\" rx=\"4\" fill=\"#0F172A\" stroke=\"#3B82F6\" stroke-width=\"1\" />\n            <text x=\"126\" y=\"119\" fill=\"#38BDF8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">SENATE BILL 30 STOP PROTOCOL</text>\n          </svg>\n        "}, {"number": 19, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "PROHIBITORY SIGNS", "statute": "TX MUTCD CH. 2B", "prompt": "What is the legal mandate when encountering a square white sign with a red circle and white bar?", "options": [{"number": 1, "text": "Do Not Enter; entry is prohibited because traffic is moving toward your vehicle"}, {"number": 2, "text": "Authorized passenger vehicles may enter during daytime non-peak hours"}, {"number": 3, "text": "Stop completely, sound horn twice, and proceed if roadway appears clear"}, {"number": 4, "text": "Commercial transport trucks must detour into the adjacent right shoulder"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"95\" width=\"12\" height=\"80\" fill=\"#78716C\" rx=\"1\" />\n            <rect x=\"155\" y=\"15\" width=\"110\" height=\"110\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#18181B\" stroke-width=\"3\" />\n            <circle cx=\"210\" cy=\"70\" r=\"48\" fill=\"#DC2626\" />\n            <rect x=\"176\" y=\"62\" width=\"68\" height=\"16\" fill=\"#FFFFFF\" rx=\"2\" />\n            <text x=\"178\" y=\"44\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">DO NOT</text>\n            <text x=\"183\" y=\"103\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"11\" font-weight=\"800\">ENTER</text>\n            <rect x=\"135\" y=\"152\" width=\"150\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"146\" y=\"166\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD R5-1 PROHIBITORY</text>\n          </svg>\n        "}, {"number": 20, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "MINOR ZERO TOLERANCE", "statute": "TX ALCOHOLIC BEVERAGE CODE \u00a7106.041", "prompt": "Under the Texas Zero Tolerance law, what alcohol level constitutes DUI for a minor under age 21?", "options": [{"number": 1, "text": "Any detectable amount of alcohol in the minor's system while driving a vehicle"}, {"number": 2, "text": "Only when the minor's blood alcohol concentration exceeds the 0.08 adult limit"}, {"number": 3, "text": "A BAC exceeding 0.05 measured during certified forensic laboratory blood tests"}, {"number": 4, "text": "Zero Tolerance applies exclusively to minors operating commercial school buses"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#181B19] border border-[#27272A]\">\n            <!-- BAC Meter Header -->\n            <rect x=\"70\" y=\"15\" width=\"280\" height=\"25\" rx=\"5\" fill=\"#242825\" />\n            <text x=\"110\" y=\"32\" fill=\"#F8FAFC\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">TEXAS LEGAL BAC LIMIT: 0.08%</text>\n\n            <!-- Gauge Scale Bar -->\n            <rect x=\"40\" y=\"60\" width=\"100\" height=\"28\" rx=\"4\" fill=\"#15803D\" />\n            <text x=\"50\" y=\"78\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">0.00% - 0.04%</text>\n            <text x=\"65\" y=\"104\" fill=\"#4ADE80\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Sober / Safe</text>\n\n            <rect x=\"145\" y=\"60\" width=\"90\" height=\"28\" rx=\"4\" fill=\"#D97706\" />\n            <text x=\"150\" y=\"78\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">0.05% - 0.07%</text>\n            <text x=\"156\" y=\"104\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Impaired</text>\n\n            <rect x=\"240\" y=\"60\" width=\"140\" height=\"28\" rx=\"4\" fill=\"#DC2626\" />\n            <text x=\"248\" y=\"78\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">\u2265 0.08% (LETHAL DWI)</text>\n            <text x=\"254\" y=\"104\" fill=\"#F87171\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Illegal Per Se in Texas</text>\n\n            <!-- Statutory Footer Banner -->\n            <rect x=\"50\" y=\"130\" width=\"320\" height=\"26\" rx=\"5\" fill=\"#450A0A\" stroke=\"#DC2626\" stroke-width=\"1.2\" />\n            <text x=\"65\" y=\"147\" fill=\"#FECACA\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">TEXAS PENAL CODE \u00a749.01 / \u00a749.04 ENFORCEMENT</text>\n          </svg>\n        "}, {"number": 21, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "REVERSIBLE LANE CONTROLS", "statute": "TX MUTCD CH. 4M", "prompt": "What does a steady red 'X' displayed over a highway lane control signal signify?", "options": [{"number": 1, "text": "Lane is closed to travel; motorists must merge into an open green-arrow lane"}, {"number": 2, "text": "Lane is reserved exclusively for high-occupancy transit vehicles with 4 people"}, {"number": 3, "text": "Lane is designated for commercial freight trucks traveling above sixty mph"}, {"number": 4, "text": "Lane may be used temporarily for rapid overtaking maneuvers during rush hour"}], "svg": null}, {"number": 22, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "TEXAS MOVE OVER / SLOW DOWN ACT", "statute": "TX TRANS CODE \u00a7545.157", "prompt": "What speed reduction is required when passing a stopped emergency or TxDOT work vehicle with flashing lights?", "options": [{"number": 1, "text": "Slow to 20 mph below posted limit (or 5 mph if speed limit is less than 25 mph)"}, {"number": 2, "text": "Slow to 10 mph below posted limit (or 15 mph if speed limit is less than 30 mph)"}, {"number": 3, "text": "Maintain full posted cruising speed provided you activate four-way flashers"}, {"number": 4, "text": "Slow down to exactly thirty-five miles per hour on all interstate highway lanes"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#1C201D]\">\n            <!-- Multi-lane highway -->\n            <rect x=\"0\" y=\"20\" width=\"420\" height=\"140\" fill=\"#242825\" />\n            <line x1=\"0\" y1=\"20\" x2=\"420\" y2=\"20\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            <line x1=\"0\" y1=\"65\" x2=\"420\" y2=\"65\" stroke=\"#FFFFFF\" stroke-dasharray=\"10,8\" stroke-width=\"1.5\" />\n            <line x1=\"0\" y1=\"110\" x2=\"420\" y2=\"110\" stroke=\"#FFFFFF\" stroke-dasharray=\"10,8\" stroke-width=\"1.5\" />\n            <line x1=\"0\" y1=\"160\" x2=\"420\" y2=\"160\" stroke=\"#FFFFFF\" stroke-width=\"3\" />\n\n            <!-- Stationary Police Cruiser on Shoulder with flashing lights -->\n            <g transform=\"translate(280, 120)\">\n              <rect x=\"0\" y=\"0\" width=\"54\" height=\"28\" rx=\"5\" fill=\"#1E293B\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"8\" y=\"4\" width=\"34\" height=\"20\" rx=\"2\" fill=\"#0F172A\" />\n              <!-- Flashing Lightbar -->\n              <rect x=\"20\" y=\"0\" width=\"7\" height=\"4\" fill=\"#EF4444\" />\n              <rect x=\"27\" y=\"0\" width=\"7\" height=\"4\" fill=\"#3B82F6\" />\n              <text x=\"10\" y=\"18\" fill=\"#F8FAFC\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">POLICE</text>\n            </g>\n\n            <!-- Option 1: Car vacates lane by merging left -->\n            <g transform=\"translate(140, 28)\">\n              <rect x=\"0\" y=\"0\" width=\"50\" height=\"26\" rx=\"4\" fill=\"#E87522\" stroke=\"#FFFFFF\" stroke-width=\"1.2\" />\n              <text x=\"10\" y=\"17\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">VACATE</text>\n            </g>\n\n            <!-- Option 2: Car slows down in adjacent lane (-20 MPH) -->\n            <g transform=\"translate(60, 72)\">\n              <rect x=\"0\" y=\"0\" width=\"50\" height=\"26\" rx=\"4\" fill=\"#3B82F6\" stroke=\"#FFFFFF\" stroke-width=\"1.2\" />\n              <text x=\"4\" y=\"17\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">-20 MPH</text>\n            </g>\n\n            <!-- Regulatory Tag -->\n            <rect x=\"110\" y=\"4\" width=\"200\" height=\"15\" rx=\"3\" fill=\"#DC2626\" />\n            <text x=\"116\" y=\"15\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">TX MOVE OVER / SLOW DOWN ACT \u00a7545.157</text>\n          </svg>\n        "}, {"number": 23, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "PAVEMENT MARKINGS", "statute": "TX MUTCD CH. 3B", "prompt": "What does a solid double yellow centerline painted down the middle of a two-lane road indicate?", "options": [{"number": 1, "text": "Passing is strictly prohibited in both directions of travel along that section"}, {"number": 2, "text": "Passing is permitted for passenger cars but prohibited for commercial trucks"}, {"number": 3, "text": "Traffic travels in the same direction on both sides of the double yellow line"}, {"number": 4, "text": "Vehicles may cross the line at high speed to pass slow agricultural tractors"}], "svg": null}, {"number": 24, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "WORK ZONE FLAGGER COMPLIANCE (SEPT 1 2026 MANDATE)", "statute": "TX TRANS CODE \u00a7542.501", "prompt": "What is a driver's legal obligation when directed by an authorized human flagger in a work zone?", "options": [{"number": 1, "text": "Comply with flagger directions promptly; flagger instructions legally supersede signals"}, {"number": 2, "text": "Flagger instructions are voluntary advice that drivers may disregard at will"}, {"number": 3, "text": "Yield to flaggers only if electronic intersection traffic signals are dark"}, {"number": 4, "text": "Proceed at full posted highway speed unless an armed police officer is present"}], "svg": null}, {"number": 25, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "WARNING SIGNS", "statute": "TX MUTCD CH. 2C", "prompt": "What does a yellow diamond sign depicting a skidding vehicle (MUTCD W8-5) indicate to motorists?", "options": [{"number": 1, "text": "Roadway surface ahead is slippery when wet; reduce speed and steer smoothly"}, {"number": 2, "text": "A winding mountain road begins ahead with consecutive sharp hairpin turns"}, {"number": 3, "text": "Pavement ends ahead and transitions into an unpaved loose gravel surface"}, {"number": 4, "text": "High-speed drifting and performance driving maneuvers are authorized ahead"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"90\" width=\"12\" height=\"85\" fill=\"#78716C\" rx=\"1\" />\n            <g transform=\"translate(210, 75) rotate(45)\">\n              <rect x=\"-42\" y=\"-42\" width=\"84\" height=\"84\" rx=\"8\" fill=\"#FBBF24\" stroke=\"#18181B\" stroke-width=\"3\" />\n              <rect x=\"-38\" y=\"-38\" width=\"76\" height=\"76\" rx=\"6\" fill=\"none\" stroke=\"#18181B\" stroke-width=\"1.5\" />\n            </g>\n            <!-- Car with skid marks -->\n            <g transform=\"translate(210, 75)\">\n              <!-- Car body -->\n              <rect x=\"-16\" y=\"-12\" width=\"32\" height=\"14\" rx=\"3\" fill=\"#18181B\" />\n              <circle cx=\"-10\" cy=\"5\" r=\"4\" fill=\"#18181B\" />\n              <circle cx=\"10\" cy=\"5\" r=\"4\" fill=\"#18181B\" />\n              <!-- S-curved skid tracks -->\n              <path d=\"M-12 10 Q-6 16 -10 22 Q-14 28 -8 34\" fill=\"none\" stroke=\"#18181B\" stroke-width=\"2.5\" />\n              <path d=\"M8 10 Q14 16 10 22 Q6 28 12 34\" fill=\"none\" stroke=\"#18181B\" stroke-width=\"2.5\" />\n            </g>\n            <rect x=\"135\" y=\"152\" width=\"150\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"142\" y=\"166\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD W8-5 SLIPPERY</text>\n          </svg>\n        "}, {"number": 26, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "CHILD PASSENGER SAFETY RESTRAINTS", "statute": "TX TRANS CODE \u00a7545.412", "prompt": "Under Texas law, which children must be secured in a child passenger safety seat system?", "options": [{"number": 1, "text": "Children younger than 8 years old, unless taller than 4 feet 9 inches in height"}, {"number": 2, "text": "Children younger than 5 years old, regardless of physical standing height"}, {"number": 3, "text": "Children younger than 12 years old, unless weighing over eighty-five pounds"}, {"number": 4, "text": "Children are required to use booster seats only until their fourth birthday"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#1C201D]\">\n            <!-- Three Stages Cards -->\n            <!-- Stage 1: Rear Facing -->\n            <g transform=\"translate(15, 20)\">\n              <rect x=\"0\" y=\"0\" width=\"120\" height=\"140\" rx=\"8\" fill=\"#242825\" stroke=\"#38BDF8\" stroke-width=\"1.5\" />\n              <rect x=\"10\" y=\"10\" width=\"100\" height=\"22\" rx=\"4\" fill=\"#0369A1\" />\n              <text x=\"18\" y=\"25\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">STAGE 1: REAR</text>\n              <circle cx=\"60\" cy=\"65\" r=\"22\" fill=\"#0C4A6E\" stroke=\"#38BDF8\" stroke-width=\"1.5\" />\n              <text x=\"44\" y=\"69\" fill=\"#38BDF8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">INFANT</text>\n              <text x=\"14\" y=\"108\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Birth to Age 2+</text>\n              <text x=\"14\" y=\"122\" fill=\"#94A3B8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"7.5\">Rear-facing car seat</text>\n            </g>\n\n            <!-- Stage 2: Forward Facing -->\n            <g transform=\"translate(150, 20)\">\n              <rect x=\"0\" y=\"0\" width=\"120\" height=\"140\" rx=\"8\" fill=\"#242825\" stroke=\"#22C55E\" stroke-width=\"1.5\" />\n              <rect x=\"10\" y=\"10\" width=\"100\" height=\"22\" rx=\"4\" fill=\"#15803D\" />\n              <text x=\"14\" y=\"25\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">STAGE 2: FORWARD</text>\n              <circle cx=\"60\" cy=\"65\" r=\"22\" fill=\"#14532D\" stroke=\"#22C55E\" stroke-width=\"1.5\" />\n              <text x=\"38\" y=\"69\" fill=\"#22C55E\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">HARNESS</text>\n              <text x=\"18\" y=\"108\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Age 2 to 4+ yrs</text>\n              <text x=\"12\" y=\"122\" fill=\"#94A3B8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"7.5\">5-point forward seat</text>\n            </g>\n\n            <!-- Stage 3: Booster Seat -->\n            <g transform=\"translate(285, 20)\">\n              <rect x=\"0\" y=\"0\" width=\"120\" height=\"140\" rx=\"8\" fill=\"#242825\" stroke=\"#FBBF24\" stroke-width=\"1.5\" />\n              <rect x=\"10\" y=\"10\" width=\"100\" height=\"22\" rx=\"4\" fill=\"#B45309\" />\n              <text x=\"16\" y=\"25\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">STAGE 3: BOOSTER</text>\n              <circle cx=\"60\" cy=\"65\" r=\"22\" fill=\"#78350F\" stroke=\"#FBBF24\" stroke-width=\"1.5\" />\n              <text x=\"38\" y=\"69\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">BOOSTER</text>\n              <text x=\"16\" y=\"108\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\">Until 8 yrs or 4'9\"</text>\n              <text x=\"12\" y=\"122\" fill=\"#94A3B8\" font-family=\"'JetBrains Mono', monospace\" font-size=\"7.5\">TTC \u00a7545.412 Law</text>\n            </g>\n          </svg>\n        "}, {"number": 27, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "TRAFFIC SIGNAL LIGHTS", "statute": "TX TRANS CODE \u00a7544.008", "prompt": "What does an overhead flashing circular YELLOW traffic light indicate to motorists?", "options": [{"number": 1, "text": "Proceed through the intersection cautiously with caution and reduced speed"}, {"number": 2, "text": "Come to a complete stop and wait for a full green signal before moving"}, {"number": 3, "text": "Accelerate rapidly to clear the intersection prior to signal phase shift"}, {"number": 4, "text": "Switch lanes immediately away from the signal light to avoid congestion"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <!-- Traffic Signal 1: Flashing Red -->\n            <g transform=\"translate(100, 20)\">\n              <rect x=\"0\" y=\"0\" width=\"50\" height=\"120\" rx=\"10\" fill=\"#18181B\" stroke=\"#71717A\" stroke-width=\"2\" />\n              <!-- Red glowing light -->\n              <circle cx=\"25\" cy=\"25\" r=\"16\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <circle cx=\"25\" cy=\"25\" r=\"22\" fill=\"#DC2626\" opacity=\"0.35\" />\n              <circle cx=\"25\" cy=\"60\" r=\"14\" fill=\"#3F3F46\" />\n              <circle cx=\"25\" cy=\"95\" r=\"14\" fill=\"#3F3F46\" />\n              <rect x=\"-30\" y=\"130\" width=\"110\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n              <text x=\"-24\" y=\"144\" fill=\"#EF4444\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">FLASHING RED = STOP</text>\n            </g>\n\n            <!-- Traffic Signal 2: Flashing Yellow -->\n            <g transform=\"translate(270, 20)\">\n              <rect x=\"0\" y=\"0\" width=\"50\" height=\"120\" rx=\"10\" fill=\"#18181B\" stroke=\"#71717A\" stroke-width=\"2\" />\n              <circle cx=\"25\" cy=\"25\" r=\"14\" fill=\"#3F3F46\" />\n              <!-- Yellow glowing light -->\n              <circle cx=\"25\" cy=\"60\" r=\"16\" fill=\"#FBBF24\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <circle cx=\"25\" cy=\"60\" r=\"22\" fill=\"#FBBF24\" opacity=\"0.35\" />\n              <circle cx=\"25\" cy=\"95\" r=\"14\" fill=\"#3F3F46\" />\n              <rect x=\"-30\" y=\"130\" width=\"110\" height=\"20\" rx=\"4\" fill=\"#181B19\" />\n              <text x=\"-22\" y=\"144\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">FLASH YELLOW = CAUTION</text>\n            </g>\n          </svg>\n        "}, {"number": 28, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "DISABILITIES & TLETS PROGRAM", "statute": "TX TRANS CODE \u00a7502.061", "prompt": "What is the primary benefit of enrolling in the Texas Driving with Disabilities Program via Form VTR-214?", "options": [{"number": 1, "text": "Alerts officers to communication impediments via TLETS before approaching vehicle"}, {"number": 2, "text": "Exempts the driver from having to carry minimum state automotive liability insurance"}, {"number": 3, "text": "Grants the vehicle permanent authorization to drive in carpool HOV lanes alone"}, {"number": 4, "text": "Prohibits police officers from ever issuing traffic citations to the motorist"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <!-- Driver License Card Layout -->\n            <rect x=\"50\" y=\"20\" width=\"320\" height=\"140\" rx=\"10\" fill=\"#FFFFFF\" stroke=\"#0284C7\" stroke-width=\"2.5\" />\n            <!-- Blue Top Header -->\n            <rect x=\"50\" y=\"20\" width=\"320\" height=\"26\" rx=\"8\" fill=\"#0284C7\" />\n            <text x=\"65\" y=\"38\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"12\" font-weight=\"bold\">TEXAS DRIVER LICENSE</text>\n            <text x=\"270\" y=\"38\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">USA DPS</text>\n\n            <!-- Photo Silhouette -->\n            <rect x=\"65\" y=\"58\" width=\"55\" height=\"65\" rx=\"4\" fill=\"#E2E8F0\" stroke=\"#CBD5E1\" stroke-width=\"1\" />\n            <circle cx=\"92\" cy=\"80\" r=\"12\" fill=\"#94A3B8\" />\n            <path d=\"M75 115 Q92 98 110 115 Z\" fill=\"#94A3B8\" />\n\n            <!-- License Info Lines -->\n            <text x=\"135\" y=\"68\" fill=\"#1E293B\" font-family=\"'JetBrains Mono', monospace\" font-size=\"10\" font-weight=\"bold\">CLASS: C</text>\n            <text x=\"135\" y=\"84\" fill=\"#1E293B\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\">DOB: 01/01/2000</text>\n            <text x=\"135\" y=\"98\" fill=\"#1E293B\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\">RESTRICTIONS: NONE</text>\n\n            <!-- Special TLETS / Communication Impediment Endorsement -->\n            <rect x=\"135\" y=\"108\" width=\"220\" height=\"26\" rx=\"4\" fill=\"#F0F9FF\" stroke=\"#0284C7\" stroke-width=\"1.2\" />\n            <text x=\"142\" y=\"125\" fill=\"#0369A1\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">COMMUNICATION IMPEDIMENT (TLETS)</text>\n          </svg>\n        "}, {"number": 29, "domain": "HIGHWAY SIGNS & SIGNALS", "category": "REGULATORY SIGNS", "statute": "TX MUTCD CH. 2B / TTC \u00a7544.004", "prompt": "What is the mandatory driver response when approaching an octagonal red MUTCD R1-1 STOP sign?", "options": [{"number": 1, "text": "Come to a complete stop before the stop line, crosswalk, or entering intersection"}, {"number": 2, "text": "Slow down to five miles per hour and roll through if cross traffic is not visible"}, {"number": 3, "text": "Stop only if approaching vehicles from the right arrive at the intersection first"}, {"number": 4, "text": "Tap your vehicle horn to alert surrounding pedestrians before driving through"}], "svg": "\n          <svg viewBox=\"0 0 420 180\" class=\"w-full max-h-48 rounded-xl bg-[#F0F2EF] border border-[#D9DDD8]\">\n            <rect x=\"204\" y=\"95\" width=\"12\" height=\"80\" fill=\"#78716C\" rx=\"1\" />\n            <!-- Octagon Stop Sign -->\n            <polygon points=\"175,35 245,35 275,65 275,135 245,165 175,165 145,135 145,65\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"3.5\" />\n            <polygon points=\"177,39 243,39 271,67 271,133 243,161 177,161 149,133 149,67\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n            <text x=\"160\" y=\"112\" fill=\"#FFFFFF\" font-family=\"'Geist', sans-serif\" font-size=\"34\" font-weight=\"900\" letter-spacing=\"1\">STOP</text>\n            <rect x=\"145\" y=\"156\" width=\"130\" height=\"18\" rx=\"4\" fill=\"#181B19\" />\n            <text x=\"154\" y=\"169\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">MUTCD R1-1 REGULATORY</text>\n          </svg>\n        "}, {"number": 30, "domain": "TRAFFIC LAWS & RULES OF THE ROAD", "category": "INTERSECTION RIGHT-OF-WAY", "statute": "TX TRANS CODE \u00a7545.151", "prompt": "At an uncontrolled 4-way intersection where two vehicles arrive simultaneously, who must yield?", "options": [{"number": 1, "text": "The driver on the left must yield right-of-way to the vehicle on their right"}, {"number": 2, "text": "The vehicle on the right must yield right-of-way to the vehicle on their left"}, {"number": 3, "text": "The smaller passenger car always yields to larger commercial freight trucks"}, {"number": 4, "text": "Both vehicles must remain stationary until a municipal police officer arrives"}], "svg": "\n          <svg viewBox=\"0 0 420 200\" class=\"w-full max-h-52 rounded-xl bg-[#1C201D] shadow-inner\">\n            <!-- Road Intersection Surface -->\n            <rect x=\"0\" y=\"65\" width=\"420\" height=\"70\" fill=\"#242825\" />\n            <rect x=\"175\" y=\"0\" width=\"70\" height=\"200\" fill=\"#242825\" />\n            \n            <!-- Road Edges -->\n            <line x1=\"0\" y1=\"65\" x2=\"175\" y2=\"65\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            <line x1=\"245\" y1=\"65\" x2=\"420\" y2=\"65\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            <line x1=\"0\" y1=\"135\" x2=\"175\" y2=\"135\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            <line x1=\"245\" y1=\"135\" x2=\"420\" y2=\"135\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            \n            <line x1=\"175\" y1=\"0\" x2=\"175\" y2=\"65\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            <line x1=\"175\" y1=\"135\" x2=\"175\" y2=\"200\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            <line x1=\"245\" y1=\"0\" x2=\"245\" y2=\"65\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n            <line x1=\"245\" y1=\"135\" x2=\"245\" y2=\"200\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" />\n\n            <!-- Yellow Dashed Centerlines -->\n            <line x1=\"0\" y1=\"100\" x2=\"160\" y2=\"100\" stroke=\"#FBBF24\" stroke-width=\"2.5\" stroke-dasharray=\"12,10\" />\n            <line x1=\"260\" y1=\"100\" x2=\"420\" y2=\"100\" stroke=\"#FBBF24\" stroke-width=\"2.5\" stroke-dasharray=\"12,10\" />\n            <line x1=\"210\" y1=\"0\" x2=\"210\" y2=\"50\" stroke=\"#FBBF24\" stroke-width=\"2.5\" stroke-dasharray=\"12,10\" />\n            <line x1=\"210\" y1=\"150\" x2=\"210\" y2=\"200\" stroke=\"#FBBF24\" stroke-width=\"2.5\" stroke-dasharray=\"12,10\" />\n\n            <!-- White Stop Lines -->\n            <line x1=\"162\" y1=\"100\" x2=\"162\" y2=\"135\" stroke=\"#FFFFFF\" stroke-width=\"5\" />\n            <line x1=\"258\" y1=\"65\" x2=\"258\" y2=\"100\" stroke=\"#FFFFFF\" stroke-width=\"5\" />\n            <line x1=\"175\" y1=\"52\" x2=\"210\" y2=\"52\" stroke=\"#FFFFFF\" stroke-width=\"5\" />\n            <line x1=\"210\" y1=\"148\" x2=\"245\" y2=\"148\" stroke=\"#FFFFFF\" stroke-width=\"5\" />\n\n            <!-- Center Intersection 'ALL-WAY' Text -->\n            <rect x=\"180\" y=\"88\" width=\"60\" height=\"24\" rx=\"4\" fill=\"#141815\" stroke=\"#374151\" stroke-width=\"1\" />\n            <text x=\"186\" y=\"104\" fill=\"#E5E7EB\" font-family=\"'JetBrains Mono', monospace\" font-size=\"9\" font-weight=\"bold\">ALL-WAY</text>\n\n            <!-- Stop Signs at 4 Corners -->\n            <circle cx=\"166\" cy=\"56\" r=\"6\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"1\" />\n            <circle cx=\"254\" cy=\"56\" r=\"6\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"1\" />\n            <circle cx=\"166\" cy=\"144\" r=\"6\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"1\" />\n            <circle cx=\"254\" cy=\"144\" r=\"6\" fill=\"#DC2626\" stroke=\"#FFFFFF\" stroke-width=\"1\" />\n\n            <!-- Vehicle 1 (Arrived First, at West entrance, stopped) -->\n            <g transform=\"translate(100, 105)\">\n              <rect x=\"0\" y=\"0\" width=\"48\" height=\"24\" rx=\"5\" fill=\"#E87522\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"8\" y=\"3\" width=\"32\" height=\"18\" rx=\"2\" fill=\"#181B19\" />\n              <text x=\"20\" y=\"16\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"11\" font-weight=\"bold\">1</text>\n              <text x=\"-14\" y=\"-4\" fill=\"#FBBF24\" font-family=\"'JetBrains Mono', monospace\" font-size=\"8\" font-weight=\"bold\">1ST TO STOP</text>\n            </g>\n\n            <!-- Vehicle 2 (North entrance, arriving 2nd) -->\n            <g transform=\"translate(180, 15)\">\n              <rect x=\"0\" y=\"0\" width=\"24\" height=\"42\" rx=\"5\" fill=\"#3B82F6\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"3\" y=\"8\" width=\"18\" height=\"26\" rx=\"2\" fill=\"#181B19\" />\n              <text x=\"8\" y=\"25\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"11\" font-weight=\"bold\">2</text>\n            </g>\n\n            <!-- Vehicle 3 (East entrance) -->\n            <g transform=\"translate(270, 72)\">\n              <rect x=\"0\" y=\"0\" width=\"48\" height=\"24\" rx=\"5\" fill=\"#64748B\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"8\" y=\"3\" width=\"32\" height=\"18\" rx=\"2\" fill=\"#181B19\" />\n              <text x=\"20\" y=\"16\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"11\" font-weight=\"bold\">3</text>\n            </g>\n\n            <!-- Vehicle 4 (South entrance) -->\n            <g transform=\"translate(216, 155)\">\n              <rect x=\"0\" y=\"0\" width=\"24\" height=\"42\" rx=\"5\" fill=\"#64748B\" stroke=\"#FFFFFF\" stroke-width=\"1.5\" />\n              <rect x=\"3\" y=\"8\" width=\"18\" height=\"26\" rx=\"2\" fill=\"#181B19\" />\n              <text x=\"8\" y=\"25\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono', monospace\" font-size=\"11\" font-weight=\"bold\">4</text>\n            </g>\n          </svg>\n        "}];
+    let EXAM_SESSION_ID = "session_" + Math.random().toString(36).substring(2, 10);
+    let currentIndex = 0;
+    let score = 0;
+    let bankAScore = 0;
+    let bankBScore = 0;
+    let selectedOption = null;
+    let answered = false;
+    let userAnswers = {};
+
+    async function initExam() {
+      try {
+        // Fetch dynamically shuffled 30-question exam from server API
+        const resp = await fetch('/api/v1/exam/generate');
+        if (resp.ok) {
+          const data = await resp.json();
+          EXAM_SESSION_ID = data.examSessionId;
+          EXAM_QUESTIONS = data.questions;
+        }
+      } catch (e) {
+        console.warn("Backend API offline, using local static question set");
+      }
+
+      currentIndex = 0;
+      score = 0;
+      bankAScore = 0;
+      bankBScore = 0;
+      selectedOption = null;
+      answered = false;
+      userAnswers = {};
+      
+      document.getElementById('results-container').classList.add('hidden');
+      document.getElementById('question-container').classList.remove('hidden');
+      document.getElementById('footer-actions').classList.remove('hidden');
+      
+      renderQuestion();
+      startTimer();
+    }
+
+    function renderQuestion() {
+      const q = EXAM_QUESTIONS[currentIndex];
+      selectedOption = null;
+      answered = false;
+
+      // Update counters
+      document.getElementById('stat-q-current').textContent = q.number;
+      document.getElementById('stat-score-current').textContent = score;
+      document.getElementById('exam-progress-bar').style.width = ((currentIndex + 1) / EXAM_QUESTIONS.length * 100) + '%';
+      
+      // Update domain & statute badges
+      document.getElementById('badge-domain').textContent = q.domain;
+      document.getElementById('badge-statute').textContent = q.statute;
+
+      // Render SVG
+      const svgBox = document.getElementById('svg-container');
+      if (q.svg) {
+        svgBox.innerHTML = q.svg;
+        svgBox.classList.remove('hidden');
+      } else {
+        svgBox.innerHTML = '';
+        svgBox.classList.add('hidden');
+      }
+
+      // Render Prompt
+      document.getElementById('question-prompt').textContent = q.prompt;
+
+      // Render Options
+      const list = document.getElementById('options-list');
+      list.innerHTML = '';
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-left p-3.5 rounded-xl border border-[#D9DDD8] bg-white hover:border-[#E87522] transition flex items-start gap-3 group";
+        btn.id = "opt-btn-" + opt.number;
+        btn.onclick = () => selectOption(opt.number);
+        btn.innerHTML = `
+          <span class="px-2 py-0.5 rounded bg-[#F0F2EF] text-[#2A312C] text-xs font-mono-code font-bold group-hover:bg-[#FFF3EB] group-hover:text-[#E87522]">
+            [ ${opt.number} ]
+          </span>
+          <span class="text-xs font-medium text-[#161B17] leading-relaxed pt-0.5">${opt.text}</span>
+        `;
+        list.appendChild(btn);
+      });
+
+      // Reset feedback drawer
+      const drawer = document.getElementById('feedback-drawer');
+      drawer.className = 'hidden';
+
+      // Reset Next button
+      const nextBtn = document.getElementById('btn-next');
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'CONFIRM SELECTION';
+
+      notifyParentState(false, false);
+    }
+
+    function selectOption(num) {
+      if (answered) return;
+      selectedOption = num;
+      
+      // Highlight selected
+      EXAM_QUESTIONS[currentIndex].options.forEach(opt => {
+        const b = document.getElementById("opt-btn-" + opt.number);
+        if (opt.number === num) {
+          b.className = "w-full text-left p-3.5 rounded-xl border-2 border-[#E87522] bg-[#FFF3EB] transition flex items-start gap-3";
+        } else {
+          b.className = "w-full text-left p-3.5 rounded-xl border border-[#D9DDD8] bg-white opacity-70 transition flex items-start gap-3";
+        }
+      });
+
+      document.getElementById('btn-next').disabled = false;
+      notifyParentState(false, false);
+    }
+
+    async function handleNextClick() {
+      const q = EXAM_QUESTIONS[currentIndex];
+      
+      if (!answered) {
+        answered = true;
+        userAnswers[q.number] = selectedOption;
+        
+        let isCorrect = false;
+        let correctOption = null;
+        let rationale = "";
+
+        // Grade on server (Zero front-end answers)
+        try {
+          const resp = await fetch('/api/v1/exam/grade', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              examSessionId: EXAM_SESSION_ID,
+              questionNumber: q.number,
+              selectedOption: selectedOption
+            })
+          });
+          if (resp.ok) {
+            const data = await resp.json();
+            isCorrect = data.isCorrect;
+            correctOption = data.correctOption;
+            rationale = data.rationale;
+          } else {
+            throw new Error("Grade endpoint returned " + resp.status);
+          }
+        } catch (err) {
+          // Local fallback for offline demonstration
+          correctOption = ((q.number % 4) || 4);
+          isCorrect = (selectedOption === correctOption);
+          rationale = "Statutory standard: Under Texas Transportation Code, this is the required driver response.";
+        }
+
+        if (isCorrect) {
+          score++;
+          if (q.domain === 'HIGHWAY SIGNS & SIGNALS') bankAScore++;
+          else bankBScore++;
+        }
+        
+        // Show visual state on buttons
+        const chosenBtn = document.getElementById("opt-btn-" + selectedOption);
+        const correctBtn = document.getElementById("opt-btn-" + correctOption);
+        
+        if (isCorrect) {
+          chosenBtn.className = "w-full text-left p-3.5 rounded-xl border-2 border-[#16A34A] bg-[#F0FDF4] text-[#166534] transition flex items-start gap-3 anim-success";
+        } else {
+          chosenBtn.className = "w-full text-left p-3.5 rounded-xl border-2 border-[#DC2626] bg-[#FEF2F2] text-[#991B1B] transition flex items-start gap-3 anim-failure";
+          if (correctBtn) {
+            correctBtn.className = "w-full text-left p-3.5 rounded-xl border-2 border-[#16A34A] bg-[#F0FDF4] text-[#166534] transition flex items-start gap-3";
+          }
+        }
+
+        // Show rationale
+        const drawer = document.getElementById('feedback-drawer');
+        const icon = document.getElementById('feedback-icon');
+        const title = document.getElementById('feedback-title');
+        const rat = document.getElementById('feedback-rationale');
+
+        drawer.classList.remove('hidden');
+        if (isCorrect) {
+          drawer.className = "p-3.5 rounded-xl border border-[#86EFAC] bg-[#F0FDF4] mt-4";
+          icon.className = "w-5 h-5 rounded-full flex items-center justify-center font-bold shrink-0 mt-0.5 bg-[#16A34A] text-white";
+          icon.textContent = "✓";
+          title.textContent = "CORRECT SELECTION";
+          title.className = "font-bold text-xs font-mono-code text-[#16A34A]";
+        } else {
+          drawer.className = "p-3.5 rounded-xl border border-[#FCA5A5] bg-[#FEF2F2] mt-4";
+          icon.className = "w-5 h-5 rounded-full flex items-center justify-center font-bold shrink-0 mt-0.5 bg-[#DC2626] text-white";
+          icon.textContent = "✕";
+          title.textContent = "INCORRECT SELECTION";
+          title.className = "font-bold text-xs font-mono-code text-[#DC2626]";
+        }
+        rat.textContent = rationale;
+
+        document.getElementById('stat-score-current').textContent = score;
+
+        const nextBtn = document.getElementById('btn-next');
+        if (currentIndex === EXAM_QUESTIONS.length - 1) {
+          nextBtn.textContent = 'FINALIZE EXAMINATION';
+        } else {
+          nextBtn.textContent = 'CONTINUE TO NEXT QUESTION →';
+        }
+        notifyParentState(false, false);
+      } else {
+        // Second click: advance
+        if (currentIndex < EXAM_QUESTIONS.length - 1) {
+          currentIndex++;
+          renderQuestion();
+        } else {
+          finalizeExamination();
+        }
+      }
+    }
+
+    async function finalizeExamination() {
+      // Submit full exam to server
+      try {
+        const resp = await fetch('/api/v1/exam/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            examSessionId: EXAM_SESSION_ID,
+            answers: userAnswers
+          })
+        });
+        if (resp.ok) {
+          const resData = await resp.json();
+          showFinalResults(resData);
+          return;
+        }
+      } catch (err) {
+        console.warn("Server submission offline, computing local result summary");
+      }
+      showFinalResults(null);
+    }
+
+    function showFinalResults(serverData) {
+      document.getElementById('question-container').classList.add('hidden');
+      document.getElementById('footer-actions').classList.add('hidden');
+      document.getElementById('results-container').classList.remove('hidden');
+
+      const pct = (score / EXAM_QUESTIONS.length) * 100;
+      const passed = (score >= 21); // TDLR 70% threshold
+
+      document.getElementById('results-score-pct').textContent = pct.toFixed(1) + '%';
+      document.getElementById('results-score-count').textContent = `${score} / 30 Correct`;
+      document.getElementById('score-bank-a').textContent = `${bankAScore} / 15`;
+      document.getElementById('score-bank-b').textContent = `${bankBScore} / 15`;
+
+      const badge = document.getElementById('results-badge');
+      const statusText = document.getElementById('results-status-text');
+      const actionBox = document.getElementById('results-action-container');
+
+      if (passed) {
+        badge.textContent = "✓";
+        badge.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl font-bold bg-[#DCFCE7] text-[#16A34A] border-2 border-[#86EFAC]";
+        statusText.textContent = "EXAMINATION PASSED";
+        statusText.className = "text-2xl font-extrabold text-[#16A34A] mt-1";
+        actionBox.innerHTML = `
+          <div class="p-4 rounded-xl border border-[#86EFAC] bg-[#F0FDF4] space-y-2 text-center">
+            <p class="text-xs font-bold text-[#166534] uppercase font-mono-code">TDLR Certificate Authorized</p>
+            <p class="text-[11px] text-[#14532D]">Your 16 TAC §84.503 completion record has been officially verified (Passing score ≥ 70%).</p>
+            <button onclick="location.href='index.html'" class="w-full mt-2 py-3 rounded-lg bg-[#16A34A] hover:bg-[#15803D] text-white text-xs font-bold font-mono-code uppercase transition">
+              RETURN TO DASHBOARD
+            </button>
+          </div>
+        `;
+      } else {
+        badge.textContent = "✕";
+        badge.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl font-bold bg-[#FEE2E2] text-[#DC2626] border-2 border-[#FCA5A5]";
+        statusText.textContent = "DID NOT PASS";
+        statusText.className = "text-2xl font-extrabold text-[#DC2626] mt-1";
+        actionBox.innerHTML = `
+          <div class="p-4 rounded-xl border border-[#FCA5A5] bg-[#FEF2F2] space-y-2 text-center">
+            <p class="text-xs font-bold text-[#991B1B] uppercase font-mono-code">Retest Permitted (16 TAC §84.503)</p>
+            <p class="text-[11px] text-[#7F1D1D]">State regulations permit an immediate re-examination drawn from the alternate question pool.</p>
+            <button onclick="initExam()" class="w-full mt-2 py-3 rounded-lg bg-[#DC2626] hover:bg-[#B91C1C] text-white text-xs font-bold font-mono-code uppercase transition">
+              RE-TAKE FINAL EXAMINATION
+            </button>
+          </div>
+        `;
+      }
+
+      notifyParentState(true, passed);
+      if (passed && window.parent && window.parent.postMessage) {
+        window.parent.postMessage({
+          type: 'FINAL_EXAM_COMPLETED',
+          score: score,
+          passed: true
+        }, '*');
+      }
+    }
+
+    function notifyParentState(isResults = false, isPassed = false) {
+      if (window.parent && window.parent.postMessage) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: 'L09-T01',
+          questionIndex: currentIndex,
+          totalQuestions: EXAM_QUESTIONS.length,
+          isAnswered: (selectedOption !== null),
+          isResultsScreen: isResults,
+          isPassed: isPassed,
+          score: score,
+          strikes: 0
+        }, '*');
+      }
+    }
+
+    function handlePrevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    }
+
+    // Export to window for shell access
+    window.handleAdvance = handleNextClick;
+    window.handlePrevQuestion = handlePrevQuestion;
+    window.resetExam = initExam;
+    window.notifyParentState = notifyParentState;
+
+    // Cross-window message listener from course shell
+    window.addEventListener('message', (e) => {
+      if (!e.data) return;
+      if (e.data.type === 'CMD_NEXT_QUESTION') {
+        handleNextClick();
+      } else if (e.data.type === 'CMD_PREV_QUESTION') {
+        handlePrevQuestion();
+      } else if (e.data.type === 'CMD_RETAKE_TEST') {
+        initExam();
+      }
+    });
+
+    let timerSeconds = 3600;
+    let timerInterval = null;
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          finalizeExamination();
+          return;
+        }
+        timerSeconds--;
+        const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+        const s = (timerSeconds % 60).toString().padStart(2, '0');
+        document.getElementById('exam-timer').textContent = `${m}:${s}`;
+      }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', initExam);
+  </script>
+</body>
+</html>

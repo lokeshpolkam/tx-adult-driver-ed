@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L03-T02: Traditional and Non-Traditional Intersections</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            primary: '#e87522',
+            'primary-dark': '#c95e13',
+            'brand-surface': '#F6F7F5',
+            'brand-dark': '#111111',
+            'brand-card': '#FFFFFF',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.35); opacity: 0.2; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-hotspot::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 9999px;
+      border: 2px solid #e87522;
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#F6F7F5] text-[#111111] font-sans antialiased selection:bg-orange-100 selection:text-[#e87522] min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+
+  <!-- Main Lesson Container: Standalone Lesson Body (No global LMS nav/sidebar) -->
+  <main class="max-w-4xl mx-auto space-y-12">
+
+    <!-- Lesson Header / Statutory Kicker -->
+    <header class="space-y-3 pb-2 border-b border-gray-200">
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-gray-500">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-orange-50 text-[#e87522] border border-orange-200 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#e87522]"></span>
+          Module 03 // Right-of-Way Rules
+        </span>
+        <span class="text-gray-300">•</span>
+        <span>Topic L03-T02</span>
+        <span class="text-gray-300">•</span>
+        <span>Texas Transp. Code § 544.007 &amp; § 545.151</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[#111111]">
+        Traditional and Non-Traditional Intersections
+      </h1>
+      <p class="text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed">
+        Intersections are the highest-risk conflict points on Texas roads. Explore how electronic signal phases, roadway geometry, and circulatory roundabouts govern legal priority.
+      </p>
+    </header>
+
+    <!-- 1. INTERACTIVE SIGNAL LAB -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-2">
+        <div>
+          <span class="text-xs font-mono font-bold tracking-wider text-[#e87522] uppercase">01 // Interactive Signal Lab</span>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900">Controlled Intersections: Signal States</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-500">TTC § 544.007</span>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Panel: Large Traffic Light with 7 Clickable States -->
+          <div class="md:col-span-5 flex flex-col items-center">
+            <span class="text-xs font-mono text-gray-400 mb-3 tracking-wide uppercase">Select Signal Aspect</span>
+            
+            <!-- Sleek Traffic Signal Housing -->
+            <div class="bg-[#191b1a] p-4 rounded-3xl shadow-xl border border-gray-800 flex flex-col items-center gap-3 w-48 relative">
+              <!-- Top Cap visor detail -->
+              <div class="w-8 h-1.5 bg-gray-700 rounded-full mb-1"></div>
+
+              <!-- 1. Steady Red -->
+              <button id="bulb-red" onclick="selectSignalAspect('red')" type="button" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-red-950/80 border-2 border-red-900/60 hover:border-red-500 transition-all focus:outline-none" title="Steady Red">
+                <span class="w-9 h-9 rounded-full bg-red-700/50 group-hover:bg-red-600 transition-colors shadow-inner"></span>
+                <span class="sr-only">Steady Red</span>
+              </button>
+
+              <!-- 2. Flashing Red -->
+              <button id="bulb-flash-red" onclick="selectSignalAspect('flash-red')" type="button" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-red-950/80 border-2 border-red-900/60 hover:border-red-500 transition-all focus:outline-none" title="Flashing Red">
+                <span class="w-9 h-9 rounded-full border border-dashed border-red-400 bg-red-800/40 group-hover:bg-red-600 transition-colors"></span>
+                <span class="sr-only">Flashing Red</span>
+              </button>
+
+              <!-- 3. Steady Yellow -->
+              <button id="bulb-yellow" onclick="selectSignalAspect('yellow')" type="button" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-amber-950/80 border-2 border-amber-900/60 hover:border-amber-400 transition-all focus:outline-none" title="Steady Yellow">
+                <span class="w-9 h-9 rounded-full bg-amber-700/40 group-hover:bg-amber-400 transition-colors"></span>
+                <span class="sr-only">Steady Yellow</span>
+              </button>
+
+              <!-- 4. Flashing Yellow -->
+              <button id="bulb-flash-yellow" onclick="selectSignalAspect('flash-yellow')" type="button" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-amber-950/80 border-2 border-amber-900/60 hover:border-amber-400 transition-all focus:outline-none" title="Flashing Yellow">
+                <span class="w-9 h-9 rounded-full border border-dashed border-amber-400 bg-amber-700/30 group-hover:bg-amber-400 transition-colors"></span>
+                <span class="sr-only">Flashing Yellow</span>
+              </button>
+
+              <!-- 5. Flashing Yellow Arrow (SELECTED / ACTIVE MOCK) -->
+              <button id="bulb-yellow-arrow" onclick="selectSignalAspect('yellow-arrow')" type="button" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#3d2c0d] border-2 border-amber-400 ring-4 ring-amber-400/30 shadow-[0_0_18px_rgba(251,191,36,0.6)] transition-all focus:outline-none" title="Flashing Yellow Arrow (Currently Active)">
+                <svg class="w-8 h-8 text-amber-400 animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]" fill="none" stroke="currentColor" stroke-width="2.75" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                </svg>
+                <span id="badge-yellow-arrow" class="absolute -right-2 top-1 flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                </span>
+                <span class="sr-only">Flashing Yellow Arrow (Active Selection)</span>
+              </button>
+
+              <!-- 6. Steady Green -->
+              <button id="bulb-green" onclick="selectSignalAspect('green')" type="button" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-emerald-950/80 border-2 border-emerald-900/60 hover:border-emerald-400 transition-all focus:outline-none" title="Steady Green">
+                <span class="w-9 h-9 rounded-full bg-emerald-800/40 group-hover:bg-emerald-500 transition-colors"></span>
+                <span class="sr-only">Steady Green</span>
+              </button>
+
+              <!-- 7. Green Arrow -->
+              <button id="bulb-green-arrow" onclick="selectSignalAspect('green-arrow')" type="button" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-emerald-950/80 border-2 border-emerald-900/60 hover:border-emerald-400 transition-all focus:outline-none" title="Green Arrow">
+                <svg class="w-7 h-7 text-emerald-800 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                </svg>
+                <span class="sr-only">Green Arrow</span>
+              </button>
+
+              <div class="w-8 h-1 bg-gray-700 rounded-full mt-1"></div>
+            </div>
+
+            <!-- Signal Selector Quick Keys -->
+            <div id="signal-pills-container" class="mt-4 flex flex-wrap justify-center gap-1.5 max-w-xs">
+              <button onclick="selectSignalAspect('red')" id="pill-red" class="cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400 transition-colors">Red</button>
+              <button onclick="selectSignalAspect('flash-red')" id="pill-flash-red" class="cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400 transition-colors">Flash Red</button>
+              <button onclick="selectSignalAspect('yellow')" id="pill-yellow" class="cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400 transition-colors">Yellow</button>
+              <button onclick="selectSignalAspect('flash-yellow')" id="pill-flash-yellow" class="cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400 transition-colors">Flash Yellow</button>
+              <button onclick="selectSignalAspect('yellow-arrow')" id="pill-yellow-arrow" class="cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold border border-amber-300">Yellow Arrow (Selected)</button>
+              <button onclick="selectSignalAspect('green')" id="pill-green" class="cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400 transition-colors">Green</button>
+              <button onclick="selectSignalAspect('green-arrow')" id="pill-green-arrow" class="cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400 transition-colors">Green Arrow</button>
+            </div>
+          </div>
+
+          <!-- Right Panel: Dynamic Feedback Area -->
+          <div class="md:col-span-7 space-y-4">
+            <div id="signal-selected-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-mono font-medium">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+              <span id="signal-selected-text">Selected Aspect: Flashing Yellow Arrow</span>
+            </div>
+
+            <div id="signal-feedback-box" class="bg-amber-50/60 border-l-4 border-amber-500 rounded-r-xl p-5 space-y-3 transition-colors">
+              <h3 id="signal-feedback-title" class="text-xl font-bold text-gray-900">
+                Allows a left turn, but yield to oncoming traffic
+              </h3>
+              <p id="signal-feedback-desc" class="text-sm text-gray-700 leading-relaxed">
+                Under Texas Transportation Code § 544.007, a flashing yellow arrow indicates a <strong>permissive left turn</strong>. Oncoming traffic has a steady green light and has unconditional right-of-way. You may cautiously enter the intersection and turn only when there is an adequate, safe gap.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+                <span class="font-mono font-semibold text-gray-500 uppercase block">Driver Legal Mandate</span>
+                <p id="signal-mandate-text" class="text-gray-800">Must yield to all oncoming motor vehicles, cyclists, and pedestrians legally in the crosswalk before turning.</p>
+              </div>
+              <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+                <span class="font-mono font-semibold text-gray-500 uppercase block">Tactical Difference</span>
+                <p id="signal-tactical-text" class="text-gray-800">Unlike a solid green arrow (protected turn), oncoming traffic is <em>not</em> stopped by a red signal.</p>
+              </div>
+            </div>
+
+            <div class="p-3 bg-gray-100/80 rounded-lg text-xs font-mono text-gray-500 flex items-center justify-between">
+              <span>Interactive Simulator Active: Click any other bulb to inspect Texas statutory mandates</span>
+              <span id="signal-citation-text" class="text-[#e87522] font-semibold">TTC § 544.007(e)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. UNCONTROLLED INTERSECTION CONFIGURATOR -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-2">
+        <div>
+          <span class="text-xs font-mono font-bold tracking-wider text-[#e87522] uppercase">02 // Uncontrolled Intersection Configurator</span>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900">Uncontrolled Intersections</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-500">TTC § 545.151 &amp; § 545.154</span>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm space-y-6">
+        
+        <!-- 2.5D Technical Container Specification (16:9 Aspect ratio) -->
+        <div class="w-full h-80 md:h-[400px] bg-[#ECEEEA] border border-gray-200 rounded-xl relative overflow-hidden flex items-center justify-center group my-2">
+          <!-- 2.5D Theme-Matched Diorama Visual Asset -->
+          <img src="./assets/2_5d/L03_T02_intersection_configurator.jpg" alt="Texas Uncontrolled Intersection Configurator 2.5D Schematic" class="w-full h-full object-cover rounded-xl" />
+
+          <!-- Subtle Vignette / Contrast Scrim -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none"></div>
+
+          <!-- Corner Technical Marks -->
+          <div class="absolute top-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">POS: 30.2672° N, 97.7431° W // AUSTIN URBAN GRID</div>
+          <div class="absolute top-3 right-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">TTC § 545.151 &amp; § 545.154</div>
+          <div class="absolute bottom-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">REF // 2.5D_CANVAS_L03T02_INTERSECTION_CONFIGURATOR</div>
+
+          <!-- Replacement Tracker Badge -->
+          <div class="absolute bottom-3 right-3 flex items-center gap-2 font-mono text-xs bg-[#E87522] text-white px-3 py-1 rounded font-semibold shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+            <span>2.5D VISUAL PREVIEW // PENDING VIDEO COMPOSITE</span>
+          </div>
+        </div>
+
+        <!-- Native Toggle Switches -->
+        <div class="space-y-3">
+          <span class="text-xs font-mono text-gray-500 uppercase tracking-wider block font-semibold">
+            Topology Modifiers &amp; Roadway Surface Rules:
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            
+            <!-- Toggle 1: Make T-Intersection -->
+            <label class="flex items-center justify-between p-3.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white hover:border-gray-300 transition-all cursor-pointer">
+              <div class="space-y-0.5">
+                <span class="text-sm font-semibold text-gray-900 block">Make T-Intersection</span>
+                <span class="text-xs text-gray-500 block">Terminating stem street</span>
+              </div>
+              <input id="toggleTIntersection" onchange="updateIntersectionConfig()" type="checkbox" class="w-5 h-5 accent-[#e87522] rounded border-gray-300 cursor-pointer">
+            </label>
+
+            <!-- Toggle 2: Make Unpaved -->
+            <label class="flex items-center justify-between p-3.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white hover:border-gray-300 transition-all cursor-pointer">
+              <div class="space-y-0.5">
+                <span class="text-sm font-semibold text-gray-900 block">Make Unpaved</span>
+                <span class="text-xs text-gray-500 block">Caliche/dirt meets asphalt</span>
+              </div>
+              <input id="toggleUnpaved" onchange="updateIntersectionConfig()" type="checkbox" class="w-5 h-5 accent-[#e87522] rounded border-gray-300 cursor-pointer">
+            </label>
+
+            <!-- Toggle 3: Make Multi-Lane -->
+            <label class="flex items-center justify-between p-3.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white hover:border-gray-300 transition-all cursor-pointer">
+              <div class="space-y-0.5">
+                <span class="text-sm font-semibold text-gray-900 block">Make Multi-Lane</span>
+                <span class="text-xs text-gray-500 block">2-Lane intersects 4-Lane</span>
+              </div>
+              <input id="toggleMultiLane" onchange="updateIntersectionConfig()" type="checkbox" class="w-5 h-5 accent-[#e87522] rounded border-gray-300 cursor-pointer">
+            </label>
+
+          </div>
+        </div>
+
+        <!-- Vehicle Right-of-Way Decision Prompt & Native Interactive Action Buttons -->
+        <div class="p-5 rounded-xl bg-orange-50/50 border border-orange-200 space-y-4">
+          <div class="space-y-1">
+            <h3 class="text-base font-bold text-gray-900 flex items-center gap-2">
+              <svg class="w-5 h-5 text-[#e87522]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+              </svg>
+              Right-of-Way Assessment
+            </h3>
+            <p id="assessmentPromptText" class="text-sm text-gray-700 font-medium">
+              Based on the active configuration, click the vehicle that has the right-of-way:
+            </p>
+          </div>
+
+          <!-- Vehicle Select Buttons -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+            
+            <!-- Option A -->
+            <button id="btnVehA" onclick="selectVehicleChoice('A')" type="button" class="flex flex-col items-start p-3.5 rounded-xl border-2 border-transparent bg-white shadow-sm hover:border-[#e87522] hover:shadow transition-all text-left group cursor-pointer">
+              <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-xs font-mono font-bold text-gray-400 group-hover:text-[#e87522]">VEHICLE A</span>
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+              </div>
+              <span id="vehATitle" class="text-sm font-bold text-gray-900">Vehicle on the Right</span>
+              <span id="vehASubtitle" class="text-xs text-gray-500 mt-1">Arrived simultaneously at standard 4-way crossroad</span>
+            </button>
+
+            <!-- Option B -->
+            <button id="btnVehB" onclick="selectVehicleChoice('B')" type="button" class="flex flex-col items-start p-3.5 rounded-xl border-2 border-transparent bg-white shadow-sm hover:border-[#e87522] hover:shadow transition-all text-left group cursor-pointer">
+              <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-xs font-mono font-bold text-gray-400 group-hover:text-[#e87522]">VEHICLE B</span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              </div>
+              <span id="vehBTitle" class="text-sm font-bold text-gray-900">Vehicle on the Left</span>
+              <span id="vehBSubtitle" class="text-xs text-gray-500 mt-1">Approaching from cross street at matched speed</span>
+            </button>
+
+            <!-- Option C -->
+            <button id="btnVehC" onclick="selectVehicleChoice('C')" type="button" class="flex flex-col items-start p-3.5 rounded-xl border-2 border-transparent bg-white shadow-sm hover:border-[#e87522] hover:shadow transition-all text-left group cursor-pointer">
+              <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-xs font-mono font-bold text-gray-400 group-hover:text-[#e87522]">VEHICLE C</span>
+                <span class="w-2.5 h-2.5 rounded-full bg-gray-600"></span>
+              </div>
+              <span id="vehCTitle" class="text-sm font-bold text-gray-900">Turning Vehicle</span>
+              <span id="vehCSubtitle" class="text-xs text-gray-500 mt-1">Executing an unprotected left across straight path</span>
+            </button>
+
+          </div>
+
+          <!-- Dynamic Assessment Feedback Box -->
+          <div id="vehFeedbackBox" class="hidden p-4 rounded-xl border transition-all text-xs sm:text-sm">
+            <div class="flex items-start gap-3">
+              <div id="vehFeedbackIcon" class="p-1.5 rounded-lg shrink-0 mt-0.5"></div>
+              <div>
+                <h4 id="vehFeedbackHeading" class="font-bold mb-1"></h4>
+                <p id="vehFeedbackText" class="leading-relaxed"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-gray-600 pt-1">
+            <span class="font-mono text-gray-500">Statutory Precept: Texas law never grants absolute right-of-way; it dictates who must yield.</span>
+            <span id="vehCitationText" class="font-mono font-semibold text-[#e87522]">TTC § 545.151(a)</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. ROUNDABOUT EXPLORER -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-2">
+        <div>
+          <span class="text-xs font-mono font-bold tracking-wider text-[#e87522] uppercase">03 // Roundabout Explorer</span>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900">Non-Traditional: Roundabouts</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-500">Continuous Vortex Flow</span>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm space-y-6">
+        
+        <!-- Top-Down SVG Multi-Lane Roundabout with Pulsing Hotspots -->
+        <div class="relative w-full aspect-[16/9] max-h-[420px] bg-[#1e2321] rounded-2xl border border-gray-800 overflow-hidden flex items-center justify-center shadow-inner">
+          
+          <!-- Background Grid Texture -->
+          <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+          <!-- SVG Graphic of Multi-Lane Roundabout -->
+          <svg class="w-full h-full max-w-[560px] p-4" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Roadway Approaches (Dark Asphalt) -->
+            <!-- South Approach -->
+            <rect x="210" y="270" width="80" height="230" fill="#2d3330" />
+            <!-- North Approach -->
+            <rect x="210" y="0" width="80" height="230" fill="#2d3330" />
+            <!-- West Approach -->
+            <rect x="0" y="210" width="230" height="80" fill="#2d3330" />
+            <!-- East Approach -->
+            <rect x="270" y="210" width="230" height="80" fill="#2d3330" />
+
+            <!-- Outer Circulatory Roadway Ring -->
+            <circle cx="250" cy="250" r="190" fill="#2d3330" stroke="#414a45" stroke-width="2" />
+            <circle cx="250" cy="250" r="140" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="8 8" opacity="0.6" />
+            
+            <!-- Concrete Truck Apron -->
+            <circle cx="250" cy="250" r="95" fill="#474f4b" stroke="#68736d" stroke-width="3" />
+            
+            <!-- Center Landscaped Island -->
+            <circle cx="250" cy="250" r="72" fill="#203a2c" stroke="#2d523e" stroke-width="4" />
+            <circle cx="250" cy="250" r="48" fill="#1b4332" />
+            <text x="250" y="254" text-anchor="middle" fill="#52b788" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="600" letter-spacing="1">ISLAND</text>
+
+            <!-- Shark's Teeth Yield Markings at South Entrance -->
+            <path d="M214 365 L220 375 L226 365 Z M230 365 L236 375 L242 365 Z M246 365 L252 375 L258 365 Z M262 365 L268 375 L274 365 Z M278 365 L284 375 L290 365 Z" fill="#ffffff" opacity="0.9" />
+
+            <!-- Directional Flow Arrows inside Circulatory Lanes (Counter-Clockwise) -->
+            <!-- South-East quadrant flowing up -->
+            <path d="M370 300 A 165 165 0 0 0 415 250" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" fill="none" marker-end="url(#arrow)" />
+            <!-- North-East quadrant flowing left -->
+            <path d="M300 90 A 165 165 0 0 0 250 85" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" fill="none" />
+            <!-- North-West quadrant flowing down -->
+            <path d="M100 200 A 165 165 0 0 0 85 250" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" fill="none" />
+
+            <!-- Splitter Islands -->
+            <path d="M245 420 L250 365 L255 420 Z" fill="#68736d" />
+            <path d="M245 80 L250 135 L255 80 Z" fill="#68736d" />
+            <path d="M80 245 L135 250 L80 255 Z" fill="#68736d" />
+            <path d="M420 245 L365 250 L420 255 Z" fill="#68736d" />
+
+            <!-- Markers -->
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" />
+              </marker>
+            </defs>
+          </svg>
+
+          <!-- Hotspot 1: The Entrance (Yielding) -->
+          <div class="absolute bottom-10 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <button id="svgHsBtn1" onclick="selectRoundaboutHotspot(1)" type="button" class="cursor-pointer relative group focus:outline-none" title="Entrance Hotspot: Yielding">
+              <span id="svgHsCircle1" class="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-[#e87522] text-white font-mono font-bold text-xs shadow-lg pulse-hotspot ring-2 ring-white/80">
+                1
+              </span>
+            </button>
+            <span id="svgHsBadge1" class="mt-1 text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-black/75 text-orange-200 border border-orange-500/40 backdrop-blur-sm cursor-pointer" onclick="selectRoundaboutHotspot(1)">
+              Entrance (Yielding)
+            </span>
+          </div>
+
+          <!-- Hotspot 2: The Center Island (Counter-clockwise flow, No lane changes) -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+            <button id="svgHsBtn2" onclick="selectRoundaboutHotspot(2)" type="button" class="cursor-pointer relative group focus:outline-none" title="Center Island Hotspot (Currently Selected)">
+              <span id="svgHsCircle2" class="relative z-10 flex items-center justify-center w-9 h-9 rounded-full bg-[#e87522] text-white font-mono font-bold text-sm shadow-xl pulse-hotspot ring-4 ring-orange-300">
+                2
+              </span>
+            </button>
+            <span id="svgHsBadge2" class="mt-1 text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-orange-600 text-white shadow-md border border-orange-400 cursor-pointer" onclick="selectRoundaboutHotspot(2)">
+              Center Island [Active]
+            </span>
+          </div>
+
+          <!-- Hotspot 3: The Exit (Right turn signal required) -->
+          <div class="absolute top-1/2 right-6 sm:right-12 -translate-y-1/2 flex flex-col items-center">
+            <button id="svgHsBtn3" onclick="selectRoundaboutHotspot(3)" type="button" class="cursor-pointer relative group focus:outline-none" title="Exit Hotspot: Right Turn Signal Required">
+              <span id="svgHsCircle3" class="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-[#e87522] text-white font-mono font-bold text-xs shadow-lg pulse-hotspot ring-2 ring-white/80">
+                3
+              </span>
+            </button>
+            <span id="svgHsBadge3" class="mt-1 text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-black/75 text-orange-200 border border-orange-500/40 backdrop-blur-sm cursor-pointer" onclick="selectRoundaboutHotspot(3)">
+              The Exit (Signal)
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Hotspot Rules Display -->
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-3">
+            <div class="flex items-center gap-2">
+              <span id="hsDetailNum" class="w-6 h-6 rounded-full bg-[#e87522] text-white font-mono font-bold text-xs flex items-center justify-center">2</span>
+              <h3 id="hsDetailTitle" class="text-lg font-bold text-gray-900">Hotspot Detail: The Center Island &amp; Circulatory Rules</h3>
+            </div>
+            <span id="hsDetailBadge" class="text-xs font-mono px-2.5 py-1 rounded bg-orange-100 text-[#e87522] font-semibold border border-orange-200">
+              Inspecting: Counter-Clockwise Circulation
+            </span>
+          </div>
+
+          <div id="hsGridCards" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-1.5 shadow-sm">
+              <div class="flex items-center gap-2 text-[#e87522] font-semibold text-xs uppercase font-mono">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path></svg>
+                Counter-Clockwise Flow
+              </div>
+              <p class="text-xs text-gray-700 leading-relaxed">
+                All vehicles circulate to the right around the central island in a counter-clockwise vortex. Entering traffic must always yield to all circulating vehicles.
+              </p>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-1.5 shadow-sm">
+              <div class="flex items-center gap-2 text-rose-600 font-semibold text-xs uppercase font-mono">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                Zero Lane Changing
+              </div>
+              <p class="text-xs text-gray-700 leading-relaxed">
+                <strong>Never change lanes within a roundabout.</strong> Select your appropriate entry lane prior to entering based on destination signage. Maintain lane discipline until exit.
+              </p>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-1.5 shadow-sm">
+              <div class="flex items-center gap-2 text-amber-600 font-semibold text-xs uppercase font-mono">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"></path></svg>
+                Emergency Vehicles &amp; Apron
+              </div>
+              <p class="text-xs text-gray-700 leading-relaxed">
+                If an emergency vehicle approaches, continue through and exit the circle before pulling to the right. The mountable truck apron is reserved for large commercial semi-trailers.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Hotspot Selection Switcher (Native Pill Buttons) -->
+          <div class="flex flex-wrap items-center gap-2 pt-2 text-xs font-mono">
+            <span class="text-gray-400">Click to switch hotspot inspection:</span>
+            <button id="pillHsBtn1" onclick="selectRoundaboutHotspot(1)" type="button" class="cursor-pointer px-3 py-1 rounded-lg border border-gray-300 bg-white hover:border-[#e87522] text-gray-700 font-medium transition-colors">
+              Hotspot 1: Entrance (Yield Lines)
+            </button>
+            <button id="pillHsBtn2" onclick="selectRoundaboutHotspot(2)" type="button" class="cursor-pointer px-3 py-1 rounded-lg border border-[#e87522] bg-orange-50 text-[#e87522] font-semibold">
+              Hotspot 2: Center Island [Active]
+            </button>
+            <button id="pillHsBtn3" onclick="selectRoundaboutHotspot(3)" type="button" class="cursor-pointer px-3 py-1 rounded-lg border border-gray-300 bg-white hover:border-[#e87522] text-gray-700 font-medium transition-colors">
+              Hotspot 3: The Exit (Signaling)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. PEDESTRIAN BEACONS (Side-by-side card layout) -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-2">
+        <div>
+          <span class="text-xs font-mono font-bold tracking-wider text-[#e87522] uppercase">04 // Special Pedestrian Controls</span>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900">Pedestrian Hybrid Beacons &amp; In-Roadway Lights</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-500">Texas MUTCD Chapter 4N</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Card 1: Pedestrian Hybrid Beacons (PHB / HAWK) -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 font-semibold border border-gray-200 uppercase">
+                MUTCD § 4F.01
+              </span>
+              <span class="text-xs font-mono text-rose-600 font-semibold">Overhead Cluster</span>
+            </div>
+
+            <!-- Optical Cluster Visual Mock -->
+            <div class="bg-[#191b1a] p-3 rounded-xl border border-gray-800 flex items-center justify-center gap-3">
+              <div class="flex flex-col items-center">
+                <span class="text-[10px] font-mono text-gray-500 mb-1">YELLOW</span>
+                <span class="w-7 h-7 rounded-full bg-amber-950 border border-amber-900/60"></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="flex flex-col items-center">
+                  <span class="text-[10px] font-mono text-gray-500 mb-1">RED 1</span>
+                  <span class="w-8 h-8 rounded-full bg-red-600 shadow-[0_0_12px_rgba(239,68,68,0.7)] animate-pulse border-2 border-red-400"></span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <span class="text-[10px] font-mono text-gray-500 mb-1">RED 2</span>
+                  <span class="w-8 h-8 rounded-full bg-red-600 shadow-[0_0_12px_rgba(239,68,68,0.7)] animate-pulse border-2 border-red-400"></span>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="text-lg font-bold text-gray-900">Pedestrian Hybrid Beacons (HAWK Signals)</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              Specialized signals activated by pedestrians at midblock crosswalks. Remains dark during free vehicle flow until activated.
+            </p>
+
+            <!-- Sequence Breakdown -->
+            <div class="space-y-2 pt-1 text-xs">
+              <div class="flex items-start gap-2">
+                <span class="font-mono font-bold text-amber-600 shrink-0">1. FLASH YELLOW:</span>
+                <span class="text-gray-700">Prepare to stop; pedestrian pressed actuator button.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="font-mono font-bold text-red-600 shrink-0">2. SOLID RED:</span>
+                <span class="text-gray-700">Full stop. Pedestrians cross the travel lanes.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="font-mono font-bold text-orange-600 shrink-0">3. ALTERNATING RED:</span>
+                <span class="text-gray-700"><strong>Stop and proceed if clear.</strong> Functions like a stop sign once pedestrians cross your half of the road.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-mono text-gray-500">
+            <span>Enforcement Standard</span>
+            <span class="font-bold text-gray-800">Full Statutory Stop</span>
+          </div>
+        </div>
+
+        <!-- Card 2: In-Roadway Warning Lights -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 font-semibold border border-gray-200 uppercase">
+                MUTCD § 4N.01
+              </span>
+              <span class="text-xs font-mono text-amber-600 font-semibold">Flush Pavement LEDs</span>
+            </div>
+
+            <!-- Roadway Pucks Visual Mock -->
+            <div class="bg-[#191b1a] p-3 rounded-xl border border-gray-800 flex items-center justify-center gap-4">
+              <div class="flex flex-col items-center">
+                <span class="w-6 h-6 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] animate-ping border border-amber-300"></span>
+                <span class="text-[9px] font-mono text-amber-400 mt-1">LED PUCK</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="w-6 h-6 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] border border-amber-300"></span>
+                <span class="text-[9px] font-mono text-amber-400 mt-1">LED PUCK</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="w-6 h-6 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] animate-ping border border-amber-300"></span>
+                <span class="text-[9px] font-mono text-amber-400 mt-1">LED PUCK</span>
+              </div>
+            </div>
+
+            <h3 class="text-lg font-bold text-gray-900">In-Roadway Warning Lights (IRWL)</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              Pavement-embedded amber LED warning fixtures installed across marked crosswalk lines. Activated by automated optical sensors or pushbuttons.
+            </p>
+
+            <!-- Operational Directives -->
+            <div class="space-y-2 pt-1 text-xs">
+              <div class="flex items-start gap-2">
+                <span class="font-mono font-bold text-gray-900 shrink-0">• Flashing Amber:</span>
+                <span class="text-gray-700">Warns motorists that a pedestrian has entered or is about to cross the roadway.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="font-mono font-bold text-gray-900 shrink-0">• Statutory Mandate:</span>
+                <span class="text-gray-700">Under Texas Transp. Code § 552.003, drivers <strong>must yield the right-of-way</strong> to a pedestrian crossing in a crosswalk.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="font-mono font-bold text-gray-900 shrink-0">• Legal Distinction:</span>
+                <span class="text-gray-700">Flashing roadway pucks are warning devices (advisory alert) — but failure to yield to the pedestrian is a punishable Class C misdemeanor.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-mono text-gray-500">
+            <span>Enforcement Standard</span>
+            <span class="font-bold text-[#e87522]">Mandatory Pedestrian Yield</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Logic Script for L03-T02 -->
+  <script>
+    // ==========================================
+    // 1. SIGNAL LAB INTERACTIVE LOGIC
+    // ==========================================
+    const signalData = {
+      'red': {
+        name: 'Steady Red',
+        title: 'Stop and Remain Stopped (Full Statutory Stop)',
+        desc: 'Under Texas Transportation Code § 544.007(d), an operator facing a steady red signal alone shall stop at a clearly marked stop line, before entering the crosswalk, or before entering the intersection. Remain stopped until an indication to proceed is shown.',
+        mandate: 'Mandatory full stop prior to crosswalk or stop line. No entering the conflict corridor.',
+        tactical: 'Right turn permitted after full stop unless prohibited by posted signage (TTC § 544.007(g)).',
+        citation: 'TTC § 544.007(d)',
+        badgeBg: 'bg-red-50 border-red-200 text-red-900',
+        dotBg: 'bg-red-500',
+        boxStyle: 'bg-red-50/60 border-red-500'
+      },
+      'flash-red': {
+        name: 'Flashing Red',
+        title: 'Full Stop Required — Functions Identically to Stop Sign',
+        desc: 'Under Texas Transportation Code § 544.008(a), an illuminated flashing red signal requires operators to stop at a clearly marked stop line or crosswalk. The driver may proceed only after yielding the right-of-way to any vehicle in the intersection or approaching closely enough to constitute an immediate hazard.',
+        mandate: 'Stop completely, yield right-of-way, proceed only when the conflict corridor is clear.',
+        tactical: 'Operates identically to a statutory stop sign; cross traffic may have continuous movement.',
+        citation: 'TTC § 544.008(a)',
+        badgeBg: 'bg-red-50 border-red-200 text-red-900',
+        dotBg: 'bg-red-500',
+        boxStyle: 'bg-red-50/60 border-red-500'
+      },
+      'yellow': {
+        name: 'Steady Yellow',
+        title: 'Clearance Warning — Prepare to Stop if Safe',
+        desc: 'Under Texas Transportation Code § 544.007(c), an operator facing a steady yellow signal is warned that the related green movement is being terminated and that a red indication will immediately follow. Drivers must stop if it is safe to do so before entering the intersection.',
+        mandate: 'Stop prior to intersection unless your vehicle is so close that stopping safely is impossible.',
+        tactical: 'Indicates impending red phase; not an invitation to accelerate through the intersection.',
+        citation: 'TTC § 544.007(c)',
+        badgeBg: 'bg-amber-50 border-amber-200 text-amber-900',
+        dotBg: 'bg-amber-500',
+        boxStyle: 'bg-amber-50/60 border-amber-500'
+      },
+      'flash-yellow': {
+        name: 'Flashing Yellow',
+        title: 'Cautionary Passage — Slow Down and Scan',
+        desc: 'Under Texas Transportation Code § 544.008(b), an illuminated flashing yellow signal permits an operator through the intersection or past the signal with caution. Full right-of-way must still be yielded to pedestrians and conflicting movements.',
+        mandate: 'Slow down, maintain heightened vigilance, scan all approaching conflict corridors.',
+        tactical: 'No full stop required unless an immediate conflict or pedestrian hazard presents.',
+        citation: 'TTC § 544.008(b)',
+        badgeBg: 'bg-amber-50 border-amber-200 text-amber-900',
+        dotBg: 'bg-amber-500',
+        boxStyle: 'bg-amber-50/60 border-amber-500'
+      },
+      'yellow-arrow': {
+        name: 'Flashing Yellow Arrow',
+        title: 'Allows a left turn, but yield to oncoming traffic',
+        desc: 'Under Texas Transportation Code § 544.007, a flashing yellow arrow indicates a permissive left turn. Oncoming traffic has a steady green light and has unconditional right-of-way. You may cautiously enter the intersection and turn only when there is an adequate, safe gap.',
+        mandate: 'Must yield to all oncoming motor vehicles, cyclists, and pedestrians legally in the crosswalk before turning.',
+        tactical: 'Unlike a solid green arrow (protected turn), oncoming traffic is not stopped by a red signal.',
+        citation: 'TTC § 544.007(e)',
+        badgeBg: 'bg-amber-50 border-amber-200 text-amber-900',
+        dotBg: 'bg-amber-500',
+        boxStyle: 'bg-amber-50/60 border-amber-500'
+      },
+      'green': {
+        name: 'Steady Green',
+        title: 'Proceed Straight or Turn (Permissive Movement)',
+        desc: 'Under Texas Transportation Code § 544.007(b), vehicular traffic facing a green signal may proceed straight or turn right or left unless a sign prohibits. Operators must yield right-of-way to other vehicles and pedestrians lawfully within the intersection.',
+        mandate: 'Proceed with caution; yield to vehicles or pedestrians lawfully cleared into the conflict zone.',
+        tactical: 'Green conveys legal right to proceed, but does not override emergency vehicles or existing intersection occupants.',
+        citation: 'TTC § 544.007(b)',
+        badgeBg: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+        dotBg: 'bg-emerald-500',
+        boxStyle: 'bg-emerald-50/60 border-emerald-500'
+      },
+      'green-arrow': {
+        name: 'Green Arrow',
+        title: 'Protected Turn — Opposing Traffic Faced with Red',
+        desc: 'Under Texas Transportation Code § 544.007(b), vehicular traffic facing a green arrow signal may cautiously enter the intersection only to make the movement indicated. Conflicting movements and opposing traffic are stopped by red indications.',
+        mandate: 'Execute indicated turn safely. Yield only to pedestrians lawfully remaining in the crosswalk.',
+        tactical: 'Opposing through traffic faces a red signal; turning vehicle has fully protected corridor priority.',
+        citation: 'TTC § 544.007(b)',
+        badgeBg: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+        dotBg: 'bg-emerald-500',
+        boxStyle: 'bg-emerald-50/60 border-emerald-500'
+      }
+    };
+
+    function selectSignalAspect(aspectKey) {
+      const data = signalData[aspectKey];
+      if (!data) return;
+
+      // Update Feedback Box
+      const badge = document.getElementById('signal-selected-badge');
+      const badgeText = document.getElementById('signal-selected-text');
+      const box = document.getElementById('signal-feedback-box');
+      const title = document.getElementById('signal-feedback-title');
+      const desc = document.getElementById('signal-feedback-desc');
+      const mandate = document.getElementById('signal-mandate-text');
+      const tactical = document.getElementById('signal-tactical-text');
+      const citation = document.getElementById('signal-citation-text');
+
+      badge.className = `inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono font-medium ${data.badgeBg}`;
+      badgeText.innerHTML = `<span class="w-2 h-2 rounded-full ${data.dotBg} animate-ping"></span> Selected Aspect: ${data.name}`;
+      box.className = `border-l-4 rounded-r-xl p-5 space-y-3 transition-colors ${data.boxStyle}`;
+      title.textContent = data.title;
+      desc.textContent = data.desc;
+      mandate.textContent = data.mandate;
+      tactical.textContent = data.tactical;
+      citation.textContent = data.citation;
+
+      // Update Bulb Glow Highlights
+      const bulbKeys = ['red', 'flash-red', 'yellow', 'flash-yellow', 'yellow-arrow', 'green', 'green-arrow'];
+      bulbKeys.forEach(k => {
+        const bulb = document.getElementById('bulb-' + k);
+        const pill = document.getElementById('pill-' + k);
+        const isSelected = (k === aspectKey);
+
+        if (pill) {
+          if (isSelected) {
+            pill.className = "cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold border border-amber-300";
+            pill.textContent = data.name + " (Selected)";
+          } else {
+            pill.className = "cursor-pointer text-[11px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400 transition-colors";
+            pill.textContent = signalData[k].name;
+          }
+        }
+
+        if (bulb) {
+          if (isSelected) {
+            bulb.classList.add('ring-4', 'ring-amber-400/40', 'scale-105');
+          } else {
+            bulb.classList.remove('ring-4', 'ring-amber-400/40', 'scale-105');
+          }
+        }
+      });
+    }
+
+    // ==========================================
+    // 2. UNCONTROLLED INTERSECTIONS CONFIGURATOR
+    // ==========================================
+    function updateIntersectionConfig() {
+      const isT = document.getElementById('toggleTIntersection').checked;
+      const isUnpaved = document.getElementById('toggleUnpaved').checked;
+      const isMulti = document.getElementById('toggleMultiLane').checked;
+
+      const subA = document.getElementById('vehASubtitle');
+      const subB = document.getElementById('vehBSubtitle');
+      const prompt = document.getElementById('assessmentPromptText');
+
+      if (isT) {
+        subA.textContent = "Vehicle on continuous cross street";
+        subB.textContent = "Vehicle on terminating stem street";
+        prompt.textContent = "T-Intersection Active: Who has legal priority when entering the crossroad?";
+      } else if (isUnpaved) {
+        subA.textContent = "Vehicle on paved asphalt roadway";
+        subB.textContent = "Vehicle on unpaved caliche/dirt street";
+        prompt.textContent = "Unpaved Intersect Active: Who has precedence between paved and unpaved roadways?";
+      } else if (isMulti) {
+        subA.textContent = "Vehicle on 4-lane divided thoroughfare";
+        subB.textContent = "Vehicle on 2-lane residential street";
+        prompt.textContent = "Multi-Lane Intersect Active: Who yields between single/two-lane and divided multi-lane roads?";
+      } else {
+        subA.textContent = "Arrived simultaneously at standard 4-way crossroad";
+        subB.textContent = "Approaching from cross street at matched speed";
+        prompt.textContent = "Standard 4-Way Crossroad: Based on the Texas yield-to-right rule, who has priority?";
+      }
+
+      // Reset feedback box
+      const fbBox = document.getElementById('vehFeedbackBox');
+      fbBox.classList.add('hidden');
+    }
+
+    function selectVehicleChoice(choice) {
+      const isT = document.getElementById('toggleTIntersection').checked;
+      const isUnpaved = document.getElementById('toggleUnpaved').checked;
+      const isMulti = document.getElementById('toggleMultiLane').checked;
+
+      const fbBox = document.getElementById('vehFeedbackBox');
+      const fbIcon = document.getElementById('vehFeedbackIcon');
+      const fbHeading = document.getElementById('vehFeedbackHeading');
+      const fbText = document.getElementById('vehFeedbackText');
+      const citation = document.getElementById('vehCitationText');
+
+      fbBox.classList.remove('hidden');
+
+      if (choice === 'C') {
+        // Vehicle C is turning
+        fbBox.className = "p-4 rounded-xl border border-red-300 bg-red-50 text-red-950 transition-all";
+        fbIcon.className = "p-1.5 rounded-lg bg-red-500 text-white shrink-0 mt-0.5";
+        fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>`;
+        fbHeading.textContent = "Violation: Turning Vehicle Must Yield (TTC § 545.152)";
+        fbText.textContent = "Under Texas law, an operator intending to turn left within an intersection must yield the right-of-way to any vehicle approaching from the opposite direction that is straight or so close as to constitute an immediate hazard.";
+        citation.textContent = "TTC § 545.152 (Vehicle Turning Left)";
+        return;
+      }
+
+      if (isT) {
+        if (choice === 'A') {
+          fbBox.className = "p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-emerald-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>`;
+          fbHeading.textContent = "Correct: Vehicle A on Continuous Thoroughfare Proceeds First";
+          fbText.textContent = "Under Texas Transportation Code § 545.152, an operator on a street that terminates at the intersection must yield right-of-way to traffic on the intersecting through street.";
+          citation.textContent = "TTC § 545.152 (T-Intersection)";
+        } else {
+          fbBox.className = "p-4 rounded-xl border border-red-300 bg-red-50 text-red-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-red-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>`;
+          fbHeading.textContent = "Incorrect: Vehicle B is on Terminating Street and Must Yield";
+          fbText.textContent = "Vehicle B cannot pull into the continuous corridor without yielding. Terminating streets have lower legal priority.";
+          citation.textContent = "TTC § 545.152";
+        }
+      } else if (isUnpaved) {
+        if (choice === 'A') {
+          fbBox.className = "p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-emerald-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>`;
+          fbHeading.textContent = "Correct: Vehicle on Paved Roadway Has Precedence";
+          fbText.textContent = "Under Texas Transportation Code § 545.154, an operator on an unpaved roadway must yield to any vehicle on an intersecting paved roadway.";
+          citation.textContent = "TTC § 545.154 (Unpaved to Paved)";
+        } else {
+          fbBox.className = "p-4 rounded-xl border border-red-300 bg-red-50 text-red-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-red-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>`;
+          fbHeading.textContent = "Incorrect: Unpaved Road Vehicle Must Yield";
+          fbText.textContent = "Vehicles coming off dirt, gravel, or caliche surfaces must yield before entering paved highways.";
+          citation.textContent = "TTC § 545.154";
+        }
+      } else if (isMulti) {
+        if (choice === 'A') {
+          fbBox.className = "p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-emerald-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>`;
+          fbHeading.textContent = "Correct: Multi-Lane Highway Traffic Has Right-of-Way";
+          fbText.textContent = "Under Texas Transportation Code § 545.153, an operator on a single-lane or two-lane road intersecting a divided or multi-lane road must yield to multi-lane traffic.";
+          citation.textContent = "TTC § 545.153 (Multi-Lane Priority)";
+        } else {
+          fbBox.className = "p-4 rounded-xl border border-red-300 bg-red-50 text-red-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-red-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>`;
+          fbHeading.textContent = "Incorrect: Lesser-Lane Roadway Must Yield";
+          fbText.textContent = "Traffic exiting minor side streets onto larger multi-lane arterials must yield before crossing or entering.";
+          citation.textContent = "TTC § 545.153";
+        }
+      } else {
+        // Standard 4-way
+        if (choice === 'A') {
+          fbBox.className = "p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-emerald-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>`;
+          fbHeading.textContent = "Correct: Driver on the Left Yields to the Driver on the Right";
+          fbText.textContent = "Under Texas Transportation Code § 545.151, when two vehicles approach an uncontrolled intersection from different highways at approximately the same time, the operator on the left shall yield to the vehicle on the immediate right.";
+          citation.textContent = "TTC § 545.151(a) (Yield to the Right)";
+        } else {
+          fbBox.className = "p-4 rounded-xl border border-red-300 bg-red-50 text-red-950 transition-all";
+          fbIcon.className = "p-1.5 rounded-lg bg-red-500 text-white shrink-0 mt-0.5";
+          fbIcon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>`;
+          fbHeading.textContent = "Incorrect: Vehicle B is on the Left and Must Yield";
+          fbText.textContent = "Texas law mandates that the vehicle on the left yields to the vehicle on the immediate right at uncontrolled intersections.";
+          citation.textContent = "TTC § 545.151(a)";
+        }
+      }
+    }
+
+    // ==========================================
+    // 3. ROUNDABOUT EXPLORER INTERACTIVE LOGIC
+    // ==========================================
+    const roundaboutHotspots = {
+      1: {
+        num: 1,
+        title: "Hotspot Detail: The Entrance & Yield Lines",
+        badge: "Inspecting: Yield to Circulating Flow",
+        cards: [
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>`,
+            iconColor: "text-[#e87522]",
+            title: "Shark's Teeth Yield Markings",
+            text: "Yield lines (white shark teeth) indicate where entering drivers must halt if circulating vehicles are present. Never enter until a safe continuous gap exists."
+          },
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>`,
+            iconColor: "text-amber-600",
+            title: "Pedestrian Crosswalk Priority",
+            text: "Pedestrians have right-of-way in the marked crosswalk at the entrance splitter island. Halt and yield before reaching the roundabout yield line."
+          },
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path></svg>`,
+            iconColor: "text-rose-600",
+            title: "Never Force an Entry",
+            text: "Entering drivers have zero legal priority. Circulating vehicles will not stop for you. Wait for a complete visual clearance buffer."
+          }
+        ]
+      },
+      2: {
+        num: 2,
+        title: "Hotspot Detail: The Center Island & Circulatory Rules",
+        badge: "Inspecting: Counter-Clockwise Circulation",
+        cards: [
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path></svg>`,
+            iconColor: "text-[#e87522]",
+            title: "Counter-Clockwise Flow",
+            text: "All vehicles circulate to the right around the central island in a counter-clockwise vortex. Entering traffic must always yield to all circulating vehicles."
+          },
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>`,
+            iconColor: "text-rose-600",
+            title: "Zero Lane Changing",
+            text: "Never change lanes within a roundabout. Select your appropriate entry lane prior to entering based on destination signage. Maintain lane discipline until exit."
+          },
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"></path></svg>`,
+            iconColor: "text-amber-600",
+            title: "Emergency Vehicles & Apron",
+            text: "If an emergency vehicle approaches, continue through and exit the circle before pulling to the right. The mountable truck apron is reserved for large commercial semi-trailers."
+          }
+        ]
+      },
+      3: {
+        num: 3,
+        title: "Hotspot Detail: The Exit & Turn Signaling",
+        badge: "Inspecting: Right-Turn Signal Mandate",
+        cards: [
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>`,
+            iconColor: "text-[#e87522]",
+            title: "Mandatory Right Turn Signal",
+            text: "Texas law and defensive driving standards require turning on your right signal immediately after passing the exit prior to yours to alert waiting traffic."
+          },
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+            iconColor: "text-emerald-600",
+            title: "Clean Exit Trajectory",
+            text: "Never cut across lanes to exit. If you miss your exit, simply loop around the roundabout again. It is safe, legal, and creates zero collision hazard."
+          },
+          {
+            icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>`,
+            iconColor: "text-amber-600",
+            title: "Exit Crosswalk Awareness",
+            text: "Scan for pedestrians crossing the exit leg at the splitter island crosswalk before accelerating onto the departing roadway."
+          }
+        ]
+      }
+    };
+
+    function selectRoundaboutHotspot(hsIndex) {
+      const data = roundaboutHotspots[hsIndex];
+      if (!data) return;
+
+      // Update Header
+      document.getElementById('hsDetailNum').textContent = data.num;
+      document.getElementById('hsDetailTitle').textContent = data.title;
+      document.getElementById('hsDetailBadge').textContent = data.badge;
+
+      // Update 3 Cards
+      const container = document.getElementById('hsGridCards');
+      container.innerHTML = data.cards.map(c => `
+        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-1.5 shadow-sm">
+          <div class="flex items-center gap-2 ${c.iconColor} font-semibold text-xs uppercase font-mono">
+            ${c.icon}
+            ${c.title}
+          </div>
+          <p class="text-xs text-gray-700 leading-relaxed">
+            ${c.text}
+          </p>
+        </div>
+      `).join('');
+
+      // Update Pill Buttons
+      [1, 2, 3].forEach(idx => {
+        const pill = document.getElementById('pillHsBtn' + idx);
+        const circle = document.getElementById('svgHsCircle' + idx);
+        const badge = document.getElementById('svgHsBadge' + idx);
+        const isSelected = (idx === hsIndex);
+
+        if (pill) {
+          if (isSelected) {
+            pill.className = "cursor-pointer px-3 py-1 rounded-lg border border-[#e87522] bg-orange-50 text-[#e87522] font-semibold";
+          } else {
+            pill.className = "cursor-pointer px-3 py-1 rounded-lg border border-gray-300 bg-white hover:border-[#e87522] text-gray-700 font-medium transition-colors";
+          }
+        }
+
+        if (circle) {
+          if (isSelected) {
+            circle.className = "relative z-10 flex items-center justify-center w-9 h-9 rounded-full bg-[#e87522] text-white font-mono font-bold text-sm shadow-xl pulse-hotspot ring-4 ring-orange-300";
+          } else {
+            circle.className = "relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-[#e87522] text-white font-mono font-bold text-xs shadow-lg pulse-hotspot ring-2 ring-white/80";
+          }
+        }
+
+        if (badge) {
+          if (isSelected) {
+            badge.className = "mt-1 text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-orange-600 text-white shadow-md border border-orange-400 cursor-pointer";
+          } else {
+            badge.className = "mt-1 text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-black/75 text-orange-200 border border-orange-500/40 backdrop-blur-sm cursor-pointer";
+          }
+        }
+      });
+    }
+
+    // Run initial setup on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      selectSignalAspect('yellow-arrow');
+      selectRoundaboutHotspot(2);
+    });
+  </script>
+
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L03-T02';
+  const nextTopicId = 'L03-T03';
+  const prevTopicId = 'L03-T01';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

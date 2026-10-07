@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L07-T16: Form DL-101 Verification</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Geist & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            appBg: '#F6F7F5',
+            appBorder: '#D9DDD8',
+            appAccent: '#E87522',
+            appDark: '#111312',
+            appMuted: '#68706B',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #111312;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Stamp animation */
+    @keyframes stampSlam {
+      0% {
+        opacity: 0;
+        transform: scale(2.2) rotate(-14deg);
+      }
+      70% {
+        opacity: 0.95;
+        transform: scale(0.96) rotate(-10deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(-11deg);
+      }
+    }
+    .animate-stamp {
+      animation: stampSlam 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    /* Subtle paper texture grid */
+    .clipboard-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="min-h-screen py-10 px-4 md:px-8 selection:bg-orange-100 selection:text-appAccent">
+
+  <!-- Main Container (Standalone Lesson Body - No Global LMS Shell) -->
+  <main class="max-w-4xl mx-auto space-y-8">
+
+    <!-- Header / Meta Module Breadcrumb -->
+    <header class="space-y-2">
+      <div class="flex items-center gap-2 font-mono text-xs text-appMuted tracking-wider uppercase">
+        <span class="inline-block w-2 h-2 rounded-full bg-appAccent"></span>
+        <span>Module 07 // Roadway Interactions</span>
+        <span class="text-appBorder">•</span>
+        <span class="text-appAccent font-semibold">Topic L07-T16</span>
+        <span class="text-appBorder">•</span>
+        <span>TTC § 521.142(h)</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-appDark">
+        Form DL-101 Verification
+      </h1>
+      <p class="text-base text-appMuted max-w-2xl leading-relaxed">
+        Texas statute authorizes confidential communication impediment indicators on credentials. Complete the 3-step statutory validation checklist to issue an authorized DPS credential endorsement.
+      </p>
+    </header>
+
+    <!-- Statutory Authority Precept Box -->
+    <div class="border border-appBorder bg-white rounded-lg p-5 flex items-start gap-4">
+      <div class="p-2 rounded bg-orange-50 text-appAccent border border-orange-200 shrink-0 mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <div class="space-y-1">
+        <div class="font-mono text-xs uppercase tracking-wider text-appAccent font-semibold">
+          § Texas Transportation Code § 521.142(h) Mandate
+        </div>
+        <p class="text-sm text-appDark leading-relaxed">
+          "The department shall provide a space on each driver's license or personal identification certificate for the applicant to indicate that the applicant has a health condition or disability that may impede effective communication with a peace officer."
+        </p>
+      </div>
+    </div>
+
+    <!-- Interactive Medical Clipboard Workspace -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="font-mono text-xs uppercase tracking-wider text-appMuted flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span>Tactile Instrument // Medical Verification Desk</span>
+        </div>
+        <div id="statusBadge" class="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-stone-200 text-stone-700">
+          STATUS: 0 OF 3 VERIFIED
+        </div>
+      </div>
+
+      <!-- Clipboard Outer Base Plate (Dark Matte Board) -->
+      <div class="relative bg-[#1A1D1C] rounded-lg p-3 md:p-6 shadow-sm border border-[#2D312E]">
+        
+        <!-- Metal Clamp Mechanism at Top -->
+        <div class="w-48 sm:w-56 mx-auto -mt-6 sm:-mt-8 mb-4 relative z-20 flex flex-col items-center">
+          <!-- Metallic Clamp Body -->
+          <div class="w-full h-8 bg-gradient-to-b from-[#8C928E] to-[#606763] rounded-t-lg border border-[#484E4A] flex items-center justify-center shadow-md">
+            <!-- Cutout hole in clip -->
+            <div class="w-10 h-2 bg-[#2D312E] rounded-full border border-stone-600"></div>
+          </div>
+          <!-- Clamp Lip onto paper -->
+          <div class="w-full h-4 bg-gradient-to-b from-[#565C58] to-[#3E4340] border-t border-stone-400 rounded-b shadow flex items-center justify-around px-4">
+            <span class="w-2 h-2 rounded-full bg-stone-400 inline-block"></span>
+            <span class="w-2 h-2 rounded-full bg-stone-400 inline-block"></span>
+          </div>
+        </div>
+
+        <!-- The Physical Paper Form (Form DL-101) -->
+        <div class="relative bg-white rounded border border-[#C5CAC5] p-6 sm:p-8 md:p-10 clipboard-grid text-appDark overflow-hidden min-h-[580px]">
+          
+          <!-- Watermark in Background -->
+          <div class="absolute right-4 bottom-8 opacity-[0.03] pointer-events-none select-none">
+            <svg class="w-96 h-96" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+          </div>
+
+          <!-- Form Header Section -->
+          <div class="border-b-2 border-stone-900 pb-4 mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div class="font-mono text-[10px] sm:text-xs text-appMuted uppercase tracking-wider">
+                State of Texas // Department of Public Safety
+              </div>
+              <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 uppercase">
+                Form DL-101 (Rev. 09/23)
+              </h2>
+              <div class="text-xs text-stone-600 font-medium">
+                Physician's Statement for Communication Impediment with Peace Officer
+              </div>
+            </div>
+            <div class="text-left sm:text-right font-mono text-xs space-y-0.5 text-stone-600">
+              <div>AUTH: <span class="text-stone-900 font-semibold">TTC § 521.142(h)</span></div>
+              <div>CLASSIFICATION: <span class="text-stone-900 font-semibold">RESTRICTION CODE 08</span></div>
+              <div class="text-appAccent font-semibold">ZERO STATE FEE MANDATE</div>
+            </div>
+          </div>
+
+          <!-- Applicant Information Block -->
+          <div class="border border-stone-300 rounded p-3 mb-6 bg-stone-50/70 font-mono text-xs grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div>
+              <span class="text-stone-400 block text-[10px] uppercase">Applicant Name</span>
+              <span class="font-semibold text-stone-800">JORDAN R. MORGAN</span>
+            </div>
+            <div>
+              <span class="text-stone-400 block text-[10px] uppercase">Texas DL / ID Number</span>
+              <span class="font-semibold text-stone-800">TX #98421065</span>
+            </div>
+            <div>
+              <span class="text-stone-400 block text-[10px] uppercase">Intended Credential</span>
+              <span class="font-semibold text-stone-800">Class C Operator</span>
+            </div>
+          </div>
+
+          <!-- Directive Instructions -->
+          <div class="mb-5">
+            <h3 class="text-xs font-mono uppercase tracking-wider text-appAccent font-bold mb-1">
+              Statutory Verification Protocol
+            </h3>
+            <p class="text-xs text-stone-600 leading-normal">
+              To ratify Form DL-101 and legally bind Code "08" onto the physical credential reverse, execute each mandatory statutory requirement below.
+            </p>
+          </div>
+
+          <!-- Interactive Checklist (The 3 Checkboxes) -->
+          <div class="space-y-3 relative z-10">
+
+            <!-- Checkbox 1: Physician Signature Obtained -->
+            <label id="label-1" class="group flex items-start gap-4 p-4 rounded border border-appBorder bg-white hover:border-appAccent/60 cursor-pointer transition-colors duration-150">
+              <input type="checkbox" id="check-1" class="sr-only peer" onchange="handleCheckChange()">
+              <div class="w-6 h-6 rounded border-2 border-stone-300 peer-checked:border-appAccent peer-checked:bg-appAccent flex items-center justify-center shrink-0 mt-0.5 transition-all">
+                <svg class="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="flex-1 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-semibold text-stone-900 group-hover:text-appAccent transition-colors">
+                    1. Physician Signature Obtained
+                  </span>
+                  <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-stone-600 uppercase border border-stone-200">
+                    M.D. / D.O. Only
+                  </span>
+                </div>
+                <p class="text-xs text-stone-500 leading-relaxed">
+                  Form must be signed by an authorized physician licensed in Texas or under federal authority. Chiropractors or non-authorized practitioners are statutorily invalid.
+                </p>
+                <div id="verified-1" class="hidden font-mono text-[10px] text-emerald-700 font-semibold pt-1 items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block"></span>
+                  Verified: Dr. R. Vance, MD (#TX-78401) on file
+                </div>
+              </div>
+            </label>
+
+            <!-- Checkbox 2: Communication Diagnosis Confirmed -->
+            <label id="label-2" class="group flex items-start gap-4 p-4 rounded border border-appBorder bg-white hover:border-appAccent/60 cursor-pointer transition-colors duration-150">
+              <input type="checkbox" id="check-2" class="sr-only peer" onchange="handleCheckChange()">
+              <div class="w-6 h-6 rounded border-2 border-stone-300 peer-checked:border-appAccent peer-checked:bg-appAccent flex items-center justify-center shrink-0 mt-0.5 transition-all">
+                <svg class="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="flex-1 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-semibold text-stone-900 group-hover:text-appAccent transition-colors">
+                    2. Communication Diagnosis Confirmed
+                  </span>
+                  <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-stone-600 uppercase border border-stone-200">
+                    37 TAC § 15.42
+                  </span>
+                </div>
+                <p class="text-xs text-stone-500 leading-relaxed">
+                  Diagnostic eligibility verified under administrative rule: Autism Spectrum Disorder, Speech Impairment / Stuttering, Severe Hearing Loss / Deafness, or PTSD.
+                </p>
+                <div id="verified-2" class="hidden font-mono text-[10px] text-emerald-700 font-semibold pt-1 items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block"></span>
+                  Verified: Qualifying statutory communication diagnosis confirmed
+                </div>
+              </div>
+            </label>
+
+            <!-- Checkbox 3: Presented at DPS Office -->
+            <label id="label-3" class="group flex items-start gap-4 p-4 rounded border border-appBorder bg-white hover:border-appAccent/60 cursor-pointer transition-colors duration-150">
+              <input type="checkbox" id="check-3" class="sr-only peer" onchange="handleCheckChange()">
+              <div class="w-6 h-6 rounded border-2 border-stone-300 peer-checked:border-appAccent peer-checked:bg-appAccent flex items-center justify-center shrink-0 mt-0.5 transition-all">
+                <svg class="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="flex-1 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-semibold text-stone-900 group-hover:text-appAccent transition-colors">
+                    3. Presented at DPS Office
+                  </span>
+                  <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-stone-600 uppercase border border-stone-200">
+                    Physical Intake
+                  </span>
+                </div>
+                <p class="text-xs text-stone-500 leading-relaxed">
+                  Applicant tenders original executed Form DL-101 at Texas Driver License Center during initial issuance, renewal, or replacement transaction.
+                </p>
+                <div id="verified-3" class="hidden font-mono text-[10px] text-emerald-700 font-semibold pt-1 items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block"></span>
+                  Verified: Austin Mega-Center intake station recorded
+                </div>
+              </div>
+            </label>
+
+          </div>
+
+          <!-- Dynamic Stamp Area (Appears and slams down when all 3 checked) -->
+          <div id="stampContainer" class="hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-30">
+            <div class="animate-stamp border-4 border-dashed border-[#E87522] rounded-lg px-8 py-5 bg-white/95 shadow-xl text-center space-y-1">
+              <div class="font-mono text-xs uppercase tracking-widest text-[#E87522] font-semibold">
+                TEXAS DPS // COMPLIANCE RATIFIED
+              </div>
+              <div class="text-4xl md:text-5xl font-black tracking-widest text-[#E87522] uppercase border-y-2 border-[#E87522] py-1">
+                APPROVED
+              </div>
+              <div class="font-mono text-[11px] text-stone-800 tracking-wider font-medium">
+                RESTRICTION CODE 08 ASSIGNED • FORM DL-101 SATISFIED
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Footer Privacy Safeguard Notice -->
+          <div class="mt-8 pt-4 border-t border-stone-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-stone-500 font-mono text-[11px]">
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-700 font-semibold">PRIVACY SAFEGUARD:</span>
+              <span>No clinical diagnosis printed on ID face</span>
+            </div>
+            <div>
+              <span>DPS Form DL-101 // Ver. 2024.1</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Takeaway & Procedural Context -->
+    <section class="border border-appBorder bg-white rounded-lg p-6 space-y-4">
+      <div class="font-mono text-xs text-appAccent uppercase tracking-wider font-semibold">
+        Statutory Procedural Directives
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-appDark leading-relaxed">
+        <div class="space-y-1 border-l-2 border-appAccent pl-3">
+          <div class="font-semibold text-stone-900">Voluntary & Fee-Exempt</div>
+          <p class="text-appMuted">
+            Adding the "08" Communication Impediment indicator to a Texas driver license or state identification card is 100% voluntary and incur zero additional state diagnostic fees.
+          </p>
+        </div>
+        <div class="space-y-1 border-l-2 border-stone-400 pl-3">
+          <div class="font-semibold text-stone-900">Roadside De-Escalation Safeguard</div>
+          <p class="text-appMuted">
+            When an officer flips the card during a roadside stop, Code 08 discreetly prompts them to calibrate questioning—preventing misinterpretation of non-responsiveness as evasion.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation & Advancement Footer -->
+    <nav class="pt-4 border-t border-appBorder flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 font-mono text-xs text-appMuted">
+        <span id="completionIndicator" class="w-2 h-2 rounded-full bg-stone-300"></span>
+        <span id="completionLabel">Topic L07-T16 In Progress // Awaiting 3 Statutory Verifications</span>
+      </div>
+
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <button onclick="resetVerification()" class="px-4 py-2.5 rounded-lg border border-appBorder text-xs font-mono text-appDark hover:bg-stone-100 transition-colors">
+          Reset Form
+        </button>
+        <button id="proceedButton" disabled class="flex-1 sm:flex-initial px-6 py-2.5 rounded-lg bg-stone-300 text-stone-500 font-semibold text-sm cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2">
+          <span>Complete Topic 16 & Proceed</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+  </main>
+
+  <script>
+    function handleCheckChange() {
+      const c1 = document.getElementById('check-1').checked;
+      const c2 = document.getElementById('check-2').checked;
+      const c3 = document.getElementById('check-3').checked;
+
+      // Toggle verified indicators
+      document.getElementById('verified-1').style.display = c1 ? 'flex' : 'none';
+      document.getElementById('verified-2').style.display = c2 ? 'flex' : 'none';
+      document.getElementById('verified-3').style.display = c3 ? 'flex' : 'none';
+
+      // Update count
+      const count = (c1 ? 1 : 0) + (c2 ? 1 : 0) + (c3 ? 1 : 0);
+      const statusBadge = document.getElementById('statusBadge');
+      statusBadge.innerText = `STATUS: ${count} OF 3 VERIFIED`;
+
+      const stampContainer = document.getElementById('stampContainer');
+      const proceedButton = document.getElementById('proceedButton');
+      const completionIndicator = document.getElementById('completionIndicator');
+      const completionLabel = document.getElementById('completionLabel');
+
+      if (count === 3) {
+        statusBadge.className = 'font-mono text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300';
+        // Show and animate stamp
+        stampContainer.classList.remove('hidden');
+
+        // Unlock CTA
+        proceedButton.disabled = false;
+        proceedButton.className = 'flex-1 sm:flex-initial px-6 py-2.5 rounded-lg bg-appAccent text-white font-semibold text-sm hover:bg-[#d6671a] cursor-pointer shadow-sm transition-all duration-200 flex items-center justify-center gap-2';
+
+        completionIndicator.className = 'w-2 h-2 rounded-full bg-emerald-500';
+        completionLabel.innerText = 'Topic L07-T16 Validated // Form DL-101 Verified & Compliant';
+      } else {
+        statusBadge.className = 'font-mono text-xs font-semibold px-2.5 py-1 rounded bg-stone-200 text-stone-700';
+        stampContainer.classList.add('hidden');
+
+        proceedButton.disabled = true;
+        proceedButton.className = 'flex-1 sm:flex-initial px-6 py-2.5 rounded-lg bg-stone-300 text-stone-500 font-semibold text-sm cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2';
+
+        completionIndicator.className = 'w-2 h-2 rounded-full bg-stone-300';
+        completionLabel.innerText = `Topic L07-T16 In Progress // Awaiting ${3 - count} Statutory Verification${(3 - count) === 1 ? '' : 's'}`;
+      }
+    }
+
+    function resetVerification() {
+      document.getElementById('check-1').checked = false;
+      document.getElementById('check-2').checked = false;
+      document.getElementById('check-3').checked = false;
+      handleCheckChange();
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L07-T16';
+  const nextTopicId = 'L07-T17';
+  const prevTopicId = 'L07-T15';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

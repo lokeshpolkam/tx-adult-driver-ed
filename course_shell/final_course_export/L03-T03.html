@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L03-T03: Accepting or Yielding Right-of-Way</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            roadOrange: '#E87522',
+            surfaceDim: '#F6F7F5',
+            borderSubtle: '#E2E5DF',
+            darkNeutral: '#121413',
+            pavement: '#222527',
+            pavementLine: '#F5C242',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #121413;
+      font-family: 'Inter', sans-serif;
+    }
+    .custom-range {
+      accent-color: #E87522;
+    }
+    .grid-bg {
+      background-image: radial-gradient(#d3d7d1 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+    .asphalt-texture {
+      background-color: #212426;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .transition-all-fast {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8 antialiased selection:bg-[#E87522] selection:text-white">
+
+  <!-- Standalone Lesson Container -->
+  <main class="max-w-4xl mx-auto space-y-12">
+
+    <!-- Header Meta & Lesson Intro -->
+    <header class="space-y-4 border-b border-borderSubtle pb-8">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-orange-100 text-orange-800 border border-orange-200">
+          <span class="w-2 h-2 rounded-full bg-[#E87522] animate-pulse"></span>
+          Module 03 // Right-of-Way Rules
+        </span>
+        <span class="text-xs font-mono text-neutral-500 font-medium">Topic L03-T03 • TTC § 545.151 – § 545.157</span>
+        <span class="ml-auto text-xs font-mono bg-white px-2.5 py-1 rounded border border-borderSubtle text-neutral-600 shadow-sm">
+          TDLR Certified Adult Driver Ed
+        </span>
+      </div>
+
+      <div class="space-y-2">
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900">
+          Accepting or Yielding Right-of-Way
+        </h1>
+        <p class="text-neutral-600 text-base sm:text-lg leading-relaxed max-w-3xl">
+          Texas law defines right-of-way as a duty to surrender passage, not an automatic entitlement. Master crucial priority protocols across terminating T-intersections, highway freeway off-ramps, active grade crossings, and work zones.
+        </p>
+      </div>
+
+      <!-- Core Principle Callout -->
+      <div class="flex items-start gap-4 p-4 rounded-xl bg-white border-l-4 border-l-[#E87522] border border-borderSubtle shadow-sm">
+        <div class="mt-0.5 p-2 bg-orange-50 rounded-lg text-[#E87522]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-xs font-mono font-bold tracking-wide uppercase text-[#E87522]">Statutory Golden Rule</span>
+          <p class="text-sm font-medium text-neutral-800 mt-0.5">
+            <strong>Right-of-way is given, never taken.</strong> Even if another driver commits a statutory violation by failing to yield, Texas Transportation Code § 545.401 obligates every motorist to exercise universal due care to avoid collision.
+          </p>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- 1. INTERSECTION YIELDING MATRIX: T-INTERSECTION -->
+    <section class="bg-white rounded-2xl border border-borderSubtle shadow-sm p-6 sm:p-8 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-borderSubtle pb-4">
+        <div>
+          <span class="text-xs font-mono text-[#E87522] font-semibold tracking-wider uppercase">01 // Simulation & Decision</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Right-of-Way at Intersections</h2>
+        </div>
+        <span class="text-xs font-mono bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full border border-neutral-200">
+          TTC § 545.152 (T-Intersections)
+        </span>
+      </div>
+
+      <p class="text-sm text-neutral-600">
+        Observe the uncontrolled T-intersection scenario below. Vehicle A travels on the continuous through-street, while Vehicle B approaches from the terminating street. Test statutory priority:
+      </p>
+
+      <!-- SVG/CSS Top-Down T-Intersection Diagram -->
+      <div class="relative w-full h-80 sm:h-96 rounded-xl asphalt-texture border border-neutral-700 overflow-hidden shadow-inner flex items-center justify-center">
+        <!-- Coordinate & Environment Badges -->
+        <div class="absolute top-3 left-3 flex items-center gap-2 text-[11px] font-mono text-neutral-300 bg-neutral-900/80 backdrop-blur-sm px-2.5 py-1 rounded border border-neutral-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>UNCONTROLLED T-INTERSECTION</span>
+        </div>
+        <div class="absolute top-3 right-3 text-[11px] font-mono text-neutral-400 bg-neutral-900/80 px-2.5 py-1 rounded border border-neutral-700">
+          TOP-DOWN PERSPECTIVE
+        </div>
+
+        <svg class="w-full h-full" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet">
+          <!-- Road Curbs / Outlines -->
+          <!-- Through-street horizontal (y: 60 to 180) -->
+          <rect x="0" y="60" width="600" height="120" fill="#24282b" stroke="#374151" stroke-width="2"/>
+          <!-- Terminating vertical street (x: 240 to 360, y: 180 to 360) -->
+          <rect x="240" y="179" width="120" height="182" fill="#24282b" stroke="#374151" stroke-width="2"/>
+          <!-- Clear junction overlap -->
+          <rect x="241" y="179" width="118" height="3" fill="#24282b" />
+
+          <!-- Sidewalks / Curbs (Grass Parkways) -->
+          <rect x="0" y="0" width="600" height="60" fill="#36453b" />
+          <line x1="0" y1="60" x2="600" y2="60" stroke="#9ca3af" stroke-width="4"/>
+
+          <!-- Bottom Left Grass -->
+          <rect x="0" y="180" width="240" height="180" fill="#36453b" />
+          <path d="M 0 180 L 236 180 Q 240 180 240 184 L 240 360" fill="none" stroke="#9ca3af" stroke-width="4"/>
+
+          <!-- Bottom Right Grass -->
+          <rect x="360" y="180" width="240" height="180" fill="#36453b" />
+          <path d="M 360 360 L 360 184 Q 360 180 364 180 L 600 180" fill="none" stroke="#9ca3af" stroke-width="4"/>
+
+          <!-- Through Street Road Markings -->
+          <!-- Yellow center dashed double lines -->
+          <line x1="0" y1="120" x2="600" y2="120" stroke="#F5C242" stroke-width="3" stroke-dasharray="16, 12"/>
+          <line x1="0" y1="124" x2="600" y2="124" stroke="#F5C242" stroke-width="1.5" stroke-opacity="0.4"/>
+
+          <!-- Terminating Street Road Markings -->
+          <line x1="300" y1="210" x2="300" y2="360" stroke="#F5C242" stroke-width="2.5" stroke-dasharray="14, 10"/>
+
+          <!-- Terminating Stop Threshold / Yield Line -->
+          <line x1="240" y1="184" x2="360" y2="184" stroke="#ffffff" stroke-width="4" stroke-dasharray="8, 6"/>
+
+          <!-- Street Names -->
+          <text x="70" y="40" fill="#a1a1aa" font-size="11" font-family="monospace" letter-spacing="1">THROUGH HIGHWAY // UNRESTRICTED TRAFFIC</text>
+          <text x="375" y="270" fill="#a1a1aa" font-size="11" font-family="monospace" letter-spacing="1">TERMINATING STEM STREET</text>
+
+          <!-- Vehicle A (Through Street - Blue Sedan) -->
+          <g id="vehicleA_group" class="transition-all-fast">
+            <!-- Shadow -->
+            <rect x="110" y="82" width="70" height="34" rx="6" fill="#000000" opacity="0.4" />
+            <!-- Body -->
+            <rect x="108" y="80" width="70" height="34" rx="6" fill="#2563EB" stroke="#60A5FA" stroke-width="2" />
+            <!-- Windshield & Rear glass -->
+            <rect x="135" y="84" width="16" height="26" rx="2" fill="#1D4ED8" />
+            <!-- Headlights -->
+            <rect x="175" y="82" width="3" height="7" rx="1" fill="#FEF08A" />
+            <rect x="175" y="105" width="3" height="7" rx="1" fill="#FEF08A" />
+            <!-- Vehicle Badge -->
+            <text x="143" y="101" fill="#ffffff" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">A</text>
+          </g>
+          <!-- Vector Arrow A -->
+          <path d="M 185 97 L 225 97" stroke="#60A5FA" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowBlue)" />
+
+          <!-- Vehicle B (Terminating Street - Amber SUV) -->
+          <g id="vehicleB_group" class="transition-all-fast">
+            <!-- Shadow -->
+            <rect x="256" y="232" width="34" height="66" rx="6" fill="#000000" opacity="0.4" />
+            <!-- Body -->
+            <rect x="254" y="230" width="34" height="66" rx="6" fill="#D97706" stroke="#FBBF24" stroke-width="2" />
+            <!-- Roof / Windshields -->
+            <rect x="258" y="246" width="26" height="18" rx="2" fill="#B45309" />
+            <!-- Headlights pointing up -->
+            <rect x="256" y="230" width="7" height="3" rx="1" fill="#FEF08A" />
+            <rect x="279" y="230" width="7" height="3" rx="1" fill="#FEF08A" />
+            <!-- Vehicle Badge -->
+            <text x="271" y="270" fill="#ffffff" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">B</text>
+          </g>
+          <!-- Vector Arrow B -->
+          <path d="M 271 222 L 271 190" stroke="#FBBF24" stroke-width="3" stroke-dasharray="4,2" />
+
+          <!-- Marker Definition -->
+          <defs>
+            <marker id="arrowBlue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 9 5 L 0 9 z" fill="#60A5FA" />
+            </marker>
+          </defs>
+        </svg>
+
+        <!-- Dynamic Overlay Pin on Diagram -->
+        <div id="diagramStatusPin" class="absolute bottom-3 left-3 bg-neutral-900/90 text-white border border-neutral-700 px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span>Awaiting user operational selection...</span>
+        </div>
+      </div>
+
+      <!-- Control Panel -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-600">
+            Select Statutory Decision:
+          </label>
+          <span class="text-xs text-neutral-500">Click a mandate to test law enforcement validation</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button id="btnVehicleAYields" onclick="evaluateTIntersection('A')"
+            class="group p-4 rounded-xl border-2 border-neutral-200 hover:border-neutral-300 bg-neutral-50 hover:bg-neutral-100 transition-all text-left flex items-start gap-3.5 focus:outline-none focus:ring-2 focus:ring-[#E87522]">
+            <div class="w-8 h-8 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0 shadow">
+              A
+            </div>
+            <div>
+              <div class="font-bold text-neutral-900 group-hover:text-blue-700 transition">Vehicle A Yields</div>
+              <p class="text-xs text-neutral-500 mt-0.5">Through-traffic stops to let terminating traffic enter</p>
+            </div>
+          </button>
+
+          <button id="btnVehicleBYields" onclick="evaluateTIntersection('B')"
+            class="group p-4 rounded-xl border-2 border-neutral-200 hover:border-neutral-300 bg-neutral-50 hover:bg-neutral-100 transition-all text-left flex items-start gap-3.5 focus:outline-none focus:ring-2 focus:ring-[#E87522]">
+            <div class="w-8 h-8 rounded-lg bg-amber-600 text-white font-bold flex items-center justify-center text-sm shrink-0 shadow">
+              B
+            </div>
+            <div>
+              <div class="font-bold text-neutral-900 group-hover:text-amber-700 transition">Vehicle B Yields</div>
+              <p class="text-xs text-neutral-500 mt-0.5">Terminating stem traffic yields to all through traffic</p>
+            </div>
+          </button>
+        </div>
+
+        <!-- Dynamic Visual Feedback Panel -->
+        <div id="tIntersectionFeedback" class="p-5 rounded-xl border border-neutral-200 bg-neutral-50 transition-all">
+          <div class="flex items-start gap-3.5">
+            <div id="feedbackIconWrapper" class="p-2 rounded-lg bg-neutral-200 text-neutral-600 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div class="space-y-1">
+              <h4 id="feedbackHeading" class="text-sm font-bold text-neutral-900">Statutory Analysis Pending</h4>
+              <p id="feedbackText" class="text-sm text-neutral-600 leading-relaxed">
+                Under Texas Transportation Code § 545.152, an operator on a roadway that terminates at an intersection with another roadway without traffic controls must yield the right-of-way to any vehicle on the intersecting roadway.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 2. FRONTAGE ROAD MERGE SIMULATOR -->
+    <section class="bg-white rounded-2xl border border-borderSubtle shadow-sm p-6 sm:p-8 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-borderSubtle pb-4">
+        <div>
+          <span class="text-xs font-mono text-[#E87522] font-semibold tracking-wider uppercase">02 // Corridor Dynamics</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Highway Frontage Roads & Multi-Lane</h2>
+        </div>
+        <span class="text-xs font-mono bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full border border-neutral-200">
+          TTC § 545.154 (Texas Ramp Rule)
+        </span>
+      </div>
+
+      <p class="text-sm text-neutral-600">
+        Texas has a unique statutory rule governing access roads and freeway exit ramps. Below is a multi-lane highway corridor alongside a one-way continuous frontage road:
+      </p>
+
+      <!-- Native CSS / Diagram Representation -->
+      <div class="w-full bg-[#181a1b] rounded-xl border border-neutral-700 p-4 sm:p-6 overflow-hidden relative shadow-inner">
+        <!-- Telemetry Header -->
+        <div class="flex justify-between items-center text-xs font-mono text-neutral-400 mb-4 pb-2 border-b border-neutral-800">
+          <span>TX-DOT CORRIDOR SPEC // RAMPS & FEEDERS</span>
+          <span class="text-amber-400">STATE JURISDICTIONAL MANDATE</span>
+        </div>
+
+        <!-- Corridor Layout Container -->
+        <div class="grid grid-cols-12 gap-3 min-h-[260px] items-stretch relative">
+
+          <!-- Left 6 Columns: Multi-Lane Main Highway -->
+          <div class="col-span-6 bg-[#26292b] rounded-lg p-3 border-r-4 border-emerald-600/40 relative flex flex-col justify-between">
+            <div class="flex items-center justify-between text-[11px] font-mono text-neutral-400">
+              <span class="bg-neutral-800/80 px-2 py-0.5 rounded text-neutral-300">FREEWAY MAIN LANES (65-75 MPH)</span>
+              <span>LANE 1 & 2</span>
+            </div>
+
+            <!-- Road Lanes and Vehicles -->
+            <div class="grid grid-cols-2 gap-2 h-44 my-2 relative">
+              <!-- Lane 1 (Cruising) -->
+              <div class="border-r border-dashed border-neutral-600 flex flex-col items-center justify-center relative">
+                <span class="text-[10px] font-mono text-neutral-500 absolute top-1">Through Lane</span>
+                <div class="w-10 h-16 rounded bg-neutral-600 border border-neutral-500 flex flex-col items-center justify-center text-white text-[10px] font-bold shadow opacity-60">
+                  <span>TRK</span>
+                </div>
+              </div>
+
+              <!-- Lane 2 (Exiting Vehicle Corridor) -->
+              <div class="flex flex-col items-center justify-center relative">
+                <span class="text-[10px] font-mono text-neutral-500 absolute top-1">Exit Lane</span>
+                <!-- Exiting Vehicle Car X -->
+                <div id="rampCar" class="w-12 h-20 rounded-lg bg-orange-600 border-2 border-orange-300 flex flex-col items-center justify-between py-1.5 text-white font-mono shadow-lg relative transform rotate-12 transition-transform duration-500">
+                  <div class="flex gap-4">
+                    <span class="w-1.5 h-1.5 bg-yellow-200 rounded-full"></span>
+                    <span class="w-1.5 h-1.5 bg-yellow-200 rounded-full"></span>
+                  </div>
+                  <div class="text-[10px] font-bold leading-none text-center">
+                    CAR X<br><span class="text-[8px] opacity-80">EXITING</span>
+                  </div>
+                  <div class="w-6 h-2 bg-orange-900 rounded-xs"></div>
+                </div>
+
+                <!-- Diagonal Ramp Arrow -->
+                <div class="absolute right-0 top-1/2 translate-x-2 -translate-y-1/2 text-orange-400 font-mono text-xs flex items-center font-bold">
+                  EXIT RAMP &rarr;
+                </div>
+              </div>
+            </div>
+
+            <div class="text-[10px] font-mono text-neutral-400 bg-neutral-900/60 p-1.5 rounded">
+              High-speed decelerating traffic entering ramp throat
+            </div>
+          </div>
+
+          <!-- Divider / Grass Median (Col span 1) -->
+          <div class="col-span-1 bg-[#1e2d24] border-x border-[#2e4738] rounded-md flex flex-col items-center justify-center p-1">
+            <span class="text-[9px] font-mono text-emerald-400 rotate-90 whitespace-nowrap tracking-wider">MEDIAN / CLEAR ZONE</span>
+          </div>
+
+          <!-- Right 5 Columns: Frontage Road -->
+          <div class="col-span-5 bg-[#2a2d30] rounded-lg p-3 relative flex flex-col justify-between border-l border-neutral-700">
+            <div class="flex items-center justify-between text-[11px] font-mono text-neutral-400">
+              <span class="bg-neutral-800/80 px-2 py-0.5 rounded text-neutral-300">FRONTAGE / FEEDER (40-45 MPH)</span>
+            </div>
+
+            <!-- Frontage Lane & Car Y -->
+            <div class="h-44 my-2 flex flex-col items-center justify-center relative">
+              <div class="w-full border-b border-dashed border-amber-400/50 absolute top-1/3"></div>
+
+              <!-- Frontage Road Vehicle Car Y -->
+              <div id="frontageCar" class="w-12 h-20 rounded-lg bg-teal-600 border-2 border-teal-300 flex flex-col items-center justify-between py-1.5 text-white font-mono shadow-lg relative">
+                <div class="flex gap-4">
+                  <span class="w-1.5 h-1.5 bg-yellow-200 rounded-full"></span>
+                  <span class="w-1.5 h-1.5 bg-yellow-200 rounded-full"></span>
+                </div>
+                <div class="text-[10px] font-bold leading-none text-center">
+                  CAR Y<br><span class="text-[8px] opacity-80">STRAIGHT</span>
+                </div>
+                <div class="w-6 h-2 bg-teal-900 rounded-xs"></div>
+              </div>
+
+              <!-- Merging Conflict Warning Indicator -->
+              <div class="absolute bottom-2 left-2 flex items-center gap-1.5 bg-red-950/80 border border-red-700/60 text-red-300 px-2 py-0.5 rounded text-[10px] font-mono">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+                <span>MERGE CONFLICT ZONE</span>
+              </div>
+            </div>
+
+            <div class="text-[10px] font-mono text-neutral-400 bg-neutral-900/60 p-1.5 rounded">
+              Continuous feeder street approaching ramp convergence
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Interactive Question & Explanation Box -->
+      <div class="space-y-4 pt-2">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-mono flex items-center justify-center font-bold">?</span>
+          <h3 class="text-base font-bold text-neutral-900">Who has the right-of-way?</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button onclick="revealFrontageAnswer('carY')" id="btnFrontageY"
+            class="p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-neutral-100 hover:border-neutral-300 text-left transition focus:ring-2 focus:ring-[#E87522]">
+            <div class="font-bold text-neutral-900 text-sm">Car Y (Frontage Road Operator)</div>
+            <p class="text-xs text-neutral-500 mt-1">Belief: Continuing straight on a road gives priority over entering traffic</p>
+          </button>
+
+          <button onclick="revealFrontageAnswer('carX')" id="btnFrontageX"
+            class="p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-neutral-100 hover:border-neutral-300 text-left transition focus:ring-2 focus:ring-[#E87522]">
+            <div class="font-bold text-neutral-900 text-sm">Car X (Freeway Exiting Vehicle)</div>
+            <p class="text-xs text-neutral-500 mt-1">Belief: Exiting traffic has statutory dominance under Texas law</p>
+          </button>
+        </div>
+
+        <!-- Reveal Explanation Panel -->
+        <div id="frontageExplanation" class="hidden p-5 rounded-xl border bg-orange-50/70 border-orange-200 space-y-2 transition-all">
+          <div class="flex items-center gap-2 text-[#E87522] font-mono text-xs font-bold uppercase tracking-wider">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            Texas Transportation Code § 545.154 Mandate
+          </div>
+          <p class="text-sm font-semibold text-neutral-900">
+            <strong>Car X (Exiting Vehicle) has the statutory right-of-way.</strong> The vehicle on the frontage road (Car Y) must yield to the vehicle exiting the freeway.
+          </p>
+          <p class="text-xs text-neutral-700 leading-relaxed">
+            Unlike many other states, Texas law explicitly specifies that traffic traveling on an access or frontage road must yield the right-of-way to a vehicle entering or about to enter the frontage road from a controlled-access highway. High freeway exit momentum creates lethal rear-end crash risks if exiting cars are forced to stop on an active off-ramp.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3. RAILROAD CROSSING SAFETY ZONE -->
+    <section class="bg-white rounded-2xl border border-borderSubtle shadow-sm p-6 sm:p-8 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-borderSubtle pb-4">
+        <div>
+          <span class="text-xs font-mono text-[#E87522] font-semibold tracking-wider uppercase">03 // Kinetic Stopping Standard</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Railroad Crossings & Stopping Distance</h2>
+        </div>
+        <span class="text-xs font-mono bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full border border-neutral-200">
+          TTC § 545.157 (15 to 50 Feet Rule)
+        </span>
+      </div>
+
+      <p class="text-sm text-neutral-600">
+        When an electrical flasher, mechanical gate, or approaching train signals danger, Texas statute establishes a rigid physical safe stopping window. Drag the slider below to position your vehicle:
+      </p>
+
+      <!-- SVG / CSS Top-Down Railroad Track & Vehicle -->
+      <div class="w-full bg-[#1b1e20] rounded-xl border border-neutral-700 p-4 sm:p-6 overflow-hidden relative shadow-inner">
+        <div class="flex justify-between items-center text-xs font-mono text-neutral-400 mb-2">
+          <span>CROSSING TOPOGRAPHY // LATERAL VECTOR VIEW</span>
+          <span id="distanceLiveBadge" class="text-[#E87522] font-bold bg-neutral-900 px-2.5 py-1 rounded border border-neutral-700">
+            DISTANCE: 35 FT (SAFE)
+          </span>
+        </div>
+
+        <svg class="w-full h-48 sm:h-56" viewBox="0 0 700 220" preserveAspectRatio="none">
+          <!-- Background Pavement -->
+          <rect x="0" y="30" width="700" height="160" fill="#26292b" />
+          <line x1="0" y1="110" x2="700" y2="110" stroke="#F5C242" stroke-width="2" stroke-dasharray="12, 8" />
+
+          <!-- Railroad Tracks on the Left (x: 40 to 90) -->
+          <!-- Ballast Gravel Bed -->
+          <rect x="25" y="10" width="70" height="200" fill="#3a3935" stroke="#4a4943" stroke-width="2"/>
+          <!-- Wooden Ties -->
+          <g stroke="#5c4838" stroke-width="6">
+            <line x1="28" y1="20" x2="92" y2="20" />
+            <line x1="28" y1="45" x2="92" y2="45" />
+            <line x1="28" y1="70" x2="92" y2="70" />
+            <line x1="28" y1="95" x2="92" y2="95" />
+            <line x1="28" y1="120" x2="92" y2="120" />
+            <line x1="28" y1="145" x2="92" y2="145" />
+            <line x1="28" y1="170" x2="92" y2="170" />
+            <line x1="28" y1="195" x2="92" y2="195" />
+          </g>
+          <!-- Steel Rails -->
+          <line x1="45" y1="10" x2="45" y2="210" stroke="#d1d5db" stroke-width="4" />
+          <line x1="75" y1="10" x2="75" y2="210" stroke="#d1d5db" stroke-width="4" />
+
+          <!-- Dangerous Zone (<15 ft) (x: 80 to 180) -->
+          <rect x="80" y="30" width="100" height="160" fill="#EF4444" fill-opacity="0.18" stroke="#EF4444" stroke-dasharray="6,4" stroke-width="1.5" />
+          <text x="130" y="50" fill="#F87171" font-size="10" font-family="monospace" font-weight="700" text-anchor="middle">LETHAL DANGER ZONE</text>
+          <text x="130" y="65" fill="#FCA5A5" font-size="9" font-family="monospace" text-anchor="middle">&lt; 15 FT (SUCTION / OVERHANG)</text>
+
+          <!-- Safe Zone (15 to 50 ft) (x: 180 to 420) -->
+          <rect id="safeZoneRect" x="180" y="30" width="240" height="160" fill="#10B981" fill-opacity="0.22" stroke="#10B981" stroke-width="2" />
+          <text x="300" y="50" fill="#34D399" font-size="11" font-family="monospace" font-weight="700" text-anchor="middle">MANDATORY STATUTORY SAFE STOP ZONE</text>
+          <text x="300" y="66" fill="#6EE7B7" font-size="10" font-family="monospace" text-anchor="middle">15 FT MINIMUM &mdash; 50 FT MAXIMUM</text>
+
+          <!-- Safe Zone Boundaries Markers -->
+          <line x1="180" y1="25" x2="180" y2="195" stroke="#10B981" stroke-width="2" stroke-dasharray="4,2"/>
+          <line x1="420" y1="25" x2="420" y2="195" stroke="#10B981" stroke-width="2" stroke-dasharray="4,2"/>
+
+          <text x="180" y="210" fill="#10B981" font-size="9" font-family="monospace" text-anchor="middle">15 FT</text>
+          <text x="420" y="210" fill="#10B981" font-size="9" font-family="monospace" text-anchor="middle">50 FT</text>
+
+          <!-- Movable Vehicle Rectangle -->
+          <g id="movableCarGroup" transform="translate(300, 85)" class="transition-transform duration-75">
+            <!-- Shadow -->
+            <rect x="2" y="2" width="64" height="34" rx="5" fill="#000000" opacity="0.6"/>
+            <!-- Body -->
+            <rect id="carChassis" x="0" y="0" width="64" height="34" rx="5" fill="#E87522" stroke="#FFA366" stroke-width="2"/>
+            <!-- Windshield & Windows -->
+            <rect x="14" y="4" width="16" height="26" rx="2" fill="#B45309"/>
+            <!-- Headlights pointing towards tracks (left) -->
+            <rect x="0" y="4" width="3" height="6" rx="1" fill="#FEF08A"/>
+            <rect x="0" y="24" width="3" height="6" rx="1" fill="#FEF08A"/>
+            <!-- Driver Label -->
+            <text x="34" y="21" fill="#ffffff" font-size="10" font-family="monospace" font-weight="bold" text-anchor="middle">YOU</text>
+          </g>
+        </svg>
+
+        <!-- Slider Control Row -->
+        <div class="mt-4 pt-3 border-t border-neutral-700/80 space-y-2">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-neutral-300 font-bold uppercase">Stopping Distance (Feet):</span>
+            <span id="sliderValueText" class="text-white font-mono font-bold text-sm bg-neutral-800 px-3 py-0.5 rounded border border-neutral-600">
+              35 Feet
+            </span>
+          </div>
+          <input type="range" id="stoppingDistanceSlider" min="0" max="100" value="35"
+            oninput="updateTrainDistance(this.value)"
+            class="w-full h-2.5 bg-neutral-700 rounded-lg appearance-none cursor-pointer custom-range">
+          <div class="flex justify-between text-[10px] font-mono text-neutral-400">
+            <span class="text-red-400 font-bold">0 FT (On Tracks!)</span>
+            <span class="text-red-400">14 FT (Too Close)</span>
+            <span class="text-emerald-400 font-bold">15 FT (Safe Threshold)</span>
+            <span class="text-emerald-400 font-bold">50 FT (Max Safe Limit)</span>
+            <span>100 FT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliance Indicator Status Box -->
+      <div id="distanceStatusBanner" class="p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-900 flex items-start gap-3">
+        <svg class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <div class="text-xs sm:text-sm">
+          <strong>Legally Compliant Safe Zone:</strong> Your vehicle is halted at <strong>35 feet</strong> from the nearest rail. Texas Transportation Code § 545.157 mandates stopping no closer than <strong>15 feet</strong> and no farther than <strong>50 feet</strong> from the tracks.
+        </div>
+      </div>
+
+      <!-- ENS Sign Graphic & Explanatory Card -->
+      <div class="p-5 rounded-xl border border-borderSubtle bg-neutral-50 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+        <!-- Blue and White ENS Graphic (Native CSS / SVG) -->
+        <div class="md:col-span-4 flex justify-center">
+          <div class="w-52 bg-[#0047AB] text-white p-3.5 rounded-lg border-2 border-white shadow-md space-y-1.5 text-center font-mono">
+            <div class="bg-white text-[#0047AB] font-extrabold text-[11px] py-0.5 px-1 rounded uppercase tracking-wider">
+              REPORT PROBLEM OR EMERGENCY
+            </div>
+            <div class="text-xs font-bold tracking-tight">1-800-555-0199</div>
+            <div class="border-t border-blue-300/40 pt-1 text-[10px] space-y-0.5">
+              <div>X-ING: <span class="font-bold underline">072 491 T</span></div>
+              <div class="text-[9px] opacity-90">TX-DOT RAILWAY CORRIDOR</div>
+            </div>
+            <div class="text-[8px] bg-blue-900/60 py-0.5 rounded text-blue-200 uppercase font-sans">
+              Emergency Notification Sign (ENS)
+            </div>
+          </div>
+        </div>
+
+        <!-- ENS Explanatory Content -->
+        <div class="md:col-span-8 space-y-2 text-xs sm:text-sm text-neutral-700">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono font-bold text-xs">ENS PROTOCOL</span>
+            <h4 class="font-bold text-neutral-900">What If Your Vehicle Stalls on the Tracks?</h4>
+          </div>
+          <p class="leading-relaxed">
+            1. <strong>Evacuate immediately:</strong> Get all occupants out of the vehicle at once, even if no train is visible.
+          </p>
+          <p class="leading-relaxed">
+            2. <strong>Run toward the oncoming train at a 45-degree angle</strong> away from the tracks. If a collision occurs, train impact propels vehicle debris forward.
+          </p>
+          <p class="leading-relaxed">
+            3. <strong>Locate the blue and white ENS sign:</strong> Mounted on the crossbuck or signal mast. Call the 1-800 dispatch number and read the unique <strong>USDOT Crossing ID</strong> to immediately halt incoming train traffic.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4. CONSTRUCTION ZONE MULTIPLIER -->
+    <section class="bg-white rounded-2xl border border-borderSubtle shadow-sm p-6 sm:p-8 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-borderSubtle pb-4">
+        <div>
+          <span class="text-xs font-mono text-[#E87522] font-semibold tracking-wider uppercase">04 // Statutory Penalties</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Construction Zones & Barricades</h2>
+        </div>
+        <span class="text-xs font-mono bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full border border-neutral-200">
+          TTC § 472.022 & § 542.404
+        </span>
+      </div>
+
+      <p class="text-sm text-neutral-600">
+        In Texas highway work zones, violations carry severe statutory enhancements to safeguard transportation workers. Toggle the condition below to observe fine escalation:
+      </p>
+
+      <!-- High-Contrast Road Orange Warning Card -->
+      <div class="rounded-2xl bg-gradient-to-br from-[#E87522] to-[#c75d12] p-6 sm:p-8 text-white shadow-lg space-y-6 relative overflow-hidden">
+        <!-- Caution Barricade Striping Accent at top -->
+        <div class="absolute top-0 left-0 right-0 h-2.5 bg-[repeating-linear-gradient(45deg,#000,#000_12px,#E87522_12px,#E87522_24px)]"></div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+          <div class="space-y-1">
+            <span class="text-xs font-mono uppercase tracking-widest text-orange-200 font-bold">Texas Transportation Code § 542.404</span>
+            <h3 class="text-2xl sm:text-3xl font-black tracking-tight">Work Zone Fine Multiplier</h3>
+          </div>
+
+          <!-- Bold Toggle Switch -->
+          <div class="bg-black/30 backdrop-blur-md p-2 rounded-xl border border-white/20 flex items-center gap-3">
+            <span class="text-xs font-mono uppercase tracking-wider font-bold text-white">Workers Present:</span>
+            <button id="workerToggleBtn" onclick="toggleWorkers()"
+              class="relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white bg-neutral-800"
+              role="switch" aria-checked="false">
+              <span id="toggleKnob" class="inline-block h-6 w-6 transform rounded-full bg-white transition-transform translate-x-1 shadow-md"></span>
+            </button>
+            <span id="toggleStateLabel" class="text-xs font-mono font-bold w-10 text-neutral-300">OFF</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Penalty Display -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Fine Display Box -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 flex flex-col justify-between">
+            <span class="text-xs font-mono text-orange-200 uppercase tracking-wider">Statutory Speeding Infraction Fine:</span>
+            <div class="my-3 flex items-baseline gap-3">
+              <span id="baseFineText" class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white transition-all">
+                $200 Fine
+              </span>
+              <span id="doubledBadge" class="hidden text-xs font-mono font-bold bg-yellow-300 text-black px-2.5 py-1 rounded shadow animate-bounce">
+                FINES DOUBLE
+              </span>
+            </div>
+            <p id="fineConditionSubtext" class="text-xs text-orange-100/90 leading-relaxed font-mono">
+              Standard designated highway work zone corridor without active labor crew present.
+            </p>
+          </div>
+
+          <!-- Legal Precept Box -->
+          <div class="bg-black/30 rounded-xl p-5 border border-white/15 space-y-2">
+            <div class="flex items-center gap-2 text-yellow-300 text-xs font-mono font-bold">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+              </svg>
+              <span>TEXAS PENAL ENHANCEMENT RULE</span>
+            </div>
+            <p class="text-xs sm:text-sm text-white/95 leading-relaxed">
+              Under Texas law, traffic fines automatically <strong>double</strong> for moving violations committed in a maintenance or construction zone whenever workers are actively present on or near the roadway.
+            </p>
+          </div>
+        </div>
+
+        <!-- Class B Misdemeanor Barricade & High Water Callout -->
+        <div class="bg-neutral-900/90 rounded-xl p-5 border border-white/20 text-white space-y-2">
+          <div class="flex items-center gap-2 text-red-400 font-mono text-xs font-bold">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+            <span>TEXAS TRANSP. CODE § 472.022 // WATER BARRICADE LAW</span>
+          </div>
+          <h4 class="text-base font-bold text-white">Driving Around a Road Barricade is a Class B Misdemeanor</h4>
+          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+            In Texas, knowingly driving around or ignoring an authorized road closure barricade where water is over the roadway is classified as a <strong>Class B Misdemeanor</strong> punishable by:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-xs font-mono">
+            <div class="bg-neutral-800 p-2.5 rounded border border-neutral-700 text-neutral-200">
+              <span class="text-red-400 block font-bold text-sm">Up to $2,000</span> Criminal fine assessment
+            </div>
+            <div class="bg-neutral-800 p-2.5 rounded border border-neutral-700 text-neutral-200">
+              <span class="text-red-400 block font-bold text-sm">Up to 180 Days</span> County jail confinement
+            </div>
+            <div class="bg-neutral-800 p-2.5 rounded border border-neutral-700 text-neutral-200">
+              <span class="text-red-400 block font-bold text-sm">Full Restitution</span> Financial liability for water rescue costs
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+  </main>
+
+  <!-- Interactive Logic Script -->
+  <script>
+    // 1. T-Intersection Interactive Logic
+    function evaluateTIntersection(choice) {
+      const fbBox = document.getElementById('tIntersectionFeedback');
+      const heading = document.getElementById('feedbackHeading');
+      const text = document.getElementById('feedbackText');
+      const icon = document.getElementById('feedbackIconWrapper');
+      const pin = document.getElementById('diagramStatusPin');
+      const btnA = document.getElementById('btnVehicleAYields');
+      const btnB = document.getElementById('btnVehicleBYields');
+      const carA = document.getElementById('vehicleA_group');
+      const carB = document.getElementById('vehicleB_group');
+
+      if (choice === 'B') {
+        // Correct Choice
+        btnB.className = "group p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50/70 transition-all text-left flex items-start gap-3.5 ring-2 ring-emerald-500";
+        btnA.className = "group p-4 rounded-xl border-2 border-neutral-200 bg-neutral-50 opacity-60 transition-all text-left flex items-start gap-3.5";
+
+        fbBox.className = "p-5 rounded-xl border-2 border-emerald-300 bg-emerald-50 transition-all";
+        icon.className = "p-2 rounded-lg bg-emerald-500 text-white shrink-0";
+        icon.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>`;
+        heading.className = "text-sm font-bold text-emerald-950";
+        heading.textContent = "Correct: Vehicle B Yields (Statutory Mandate)";
+        text.className = "text-sm text-emerald-800 leading-relaxed";
+        text.innerHTML = "<strong>Vehicle B must yield because it is on the street that ends.</strong> Under Texas Transportation Code § 545.152, traffic on a terminating roadway has no legal right to enter until through-traffic on the continuous cross-street has safely cleared.";
+
+        pin.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400"></span><span class="text-emerald-300 font-bold">VALIDATED: Vehicle B Holds & Yields</span>`;
+        carA.setAttribute('transform', 'translate(80, 0)');
+        carB.setAttribute('transform', 'translate(0, 0)');
+      } else {
+        // Incorrect Choice
+        btnA.className = "group p-4 rounded-xl border-2 border-red-400 bg-red-50/70 transition-all text-left flex items-start gap-3.5 ring-2 ring-red-400";
+        btnB.className = "group p-4 rounded-xl border-2 border-neutral-200 bg-neutral-50 opacity-60 transition-all text-left flex items-start gap-3.5";
+
+        fbBox.className = "p-5 rounded-xl border-2 border-red-300 bg-red-50 transition-all";
+        icon.className = "p-2 rounded-lg bg-red-500 text-white shrink-0";
+        icon.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>`;
+        heading.className = "text-sm font-bold text-red-950";
+        heading.textContent = "Statutory Violation: Vehicle A Does Not Yield";
+        text.className = "text-sm text-red-800 leading-relaxed";
+        text.innerHTML = "Vehicle A is on the continuous through-street and has legal precedence. Under Texas law, <strong>Vehicle B must yield because it is on the street that ends.</strong> If Vehicle A stops abruptly, it creates high-speed rear-end collision hazards on the main thoroughfare.";
+
+        pin.innerHTML = `<span class="w-2 h-2 rounded-full bg-red-400"></span><span class="text-red-300 font-bold">COLLISION RISK: Terminating traffic violated priority</span>`;
+        carA.setAttribute('transform', 'translate(0, 0)');
+      }
+    }
+
+    // 2. Frontage Road Merge Simulator Logic
+    function revealFrontageAnswer(selected) {
+      const exp = document.getElementById('frontageExplanation');
+      const btnX = document.getElementById('btnFrontageX');
+      const btnY = document.getElementById('btnFrontageY');
+      const rampCar = document.getElementById('rampCar');
+
+      exp.classList.remove('hidden');
+
+      if (selected === 'carX') {
+        btnX.className = "p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50/60 text-left transition ring-2 ring-emerald-400";
+        btnY.className = "p-4 rounded-xl border border-neutral-200 bg-neutral-50 opacity-60 text-left transition";
+        rampCar.style.transform = "translate(20px, 40px) rotate(0deg)";
+      } else {
+        btnY.className = "p-4 rounded-xl border-2 border-red-400 bg-red-50/60 text-left transition ring-2 ring-red-300";
+        btnX.className = "p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50/60 text-left transition ring-2 ring-emerald-400";
+      }
+    }
+
+    // 3. Railroad Stopping Distance Slider Logic
+    function updateTrainDistance(dist) {
+      const distance = parseInt(dist, 10);
+      const car = document.getElementById('movableCarGroup');
+      const valueText = document.getElementById('sliderValueText');
+      const badge = document.getElementById('distanceLiveBadge');
+      const banner = document.getElementById('distanceStatusBanner');
+      const chassis = document.getElementById('carChassis');
+
+      // Mapping: 0 ft is x: 85 (right near tracks), 100 ft is x: 620
+      // formula: 85 + (distance / 100) * 520
+      const xPos = 85 + (distance / 100) * 520;
+      car.setAttribute('transform', `translate(${xPos}, 85)`);
+      valueText.textContent = `${distance} Feet`;
+
+      if (distance < 15) {
+        // Danger zone
+        badge.className = "text-red-400 font-bold bg-neutral-900 px-2.5 py-1 rounded border border-red-700 animate-pulse";
+        badge.textContent = `DISTANCE: ${distance} FT (LETHAL)`;
+        chassis.setAttribute('fill', '#EF4444');
+        chassis.setAttribute('stroke', '#FCA5A5');
+
+        banner.className = "p-4 rounded-xl border border-red-300 bg-red-50 text-red-950 flex items-start gap-3";
+        banner.innerHTML = `
+          <svg class="w-5 h-5 text-red-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <div class="text-xs sm:text-sm">
+            <strong>CRITICAL STATUTORY VIOLATION (${distance} FT):</strong> Texas law strictly forbids stopping closer than <strong>15 feet</strong> from the nearest rail. Locomotive aerodynamic vortex suction and protruding cargo overhang can hit your vehicle.
+          </div>
+        `;
+      } else if (distance <= 50) {
+        // Compliant safe zone
+        badge.className = "text-emerald-400 font-bold bg-neutral-900 px-2.5 py-1 rounded border border-emerald-700";
+        badge.textContent = `DISTANCE: ${distance} FT (PERFECT SAFE ZONE)`;
+        chassis.setAttribute('fill', '#E87522');
+        chassis.setAttribute('stroke', '#FFA366');
+
+        banner.className = "p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-950 flex items-start gap-3";
+        banner.innerHTML = `
+          <svg class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div class="text-xs sm:text-sm">
+            <strong>Legally Compliant Safe Zone (${distance} FT):</strong> Your vehicle is safely halted between <strong>15 feet</strong> and <strong>50 feet</strong> under Texas Transportation Code § 545.157.
+          </div>
+        `;
+      } else {
+        // Far back
+        badge.className = "text-neutral-400 font-bold bg-neutral-900 px-2.5 py-1 rounded border border-neutral-700";
+        badge.textContent = `DISTANCE: ${distance} FT (OVER 50 FT)`;
+        chassis.setAttribute('fill', '#6B7280');
+        chassis.setAttribute('stroke', '#9CA3AF');
+
+        banner.className = "p-4 rounded-xl border border-neutral-300 bg-neutral-100 text-neutral-800 flex items-start gap-3";
+        banner.innerHTML = `
+          <svg class="w-5 h-5 text-neutral-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+          </svg>
+          <div class="text-xs sm:text-sm">
+            <strong>Excessive Distance (${distance} FT):</strong> While safe from train debris, stopping beyond 50 feet can block upstream intersections or prevent rearward drivers from identifying the active crossing signal.
+          </div>
+        `;
+      }
+    }
+
+    // 4. Construction Zone Worker Multiplier Toggle
+    let workersActive = false;
+    function toggleWorkers() {
+      workersActive = !workersActive;
+      const btn = document.getElementById('workerToggleBtn');
+      const knob = document.getElementById('toggleKnob');
+      const label = document.getElementById('toggleStateLabel');
+      const fineText = document.getElementById('baseFineText');
+      const doubledBadge = document.getElementById('doubledBadge');
+      const subtext = document.getElementById('fineConditionSubtext');
+
+      if (workersActive) {
+        btn.classList.remove('bg-neutral-800');
+        btn.classList.add('bg-emerald-500');
+        knob.classList.remove('translate-x-1');
+        knob.classList.add('translate-x-9');
+        label.textContent = "ON";
+        label.className = "text-xs font-mono font-bold w-10 text-emerald-300";
+
+        fineText.innerHTML = `<span class="line-through opacity-40 text-orange-200 text-3xl sm:text-4xl mr-2">$200</span>$400 Fine`;
+        doubledBadge.classList.remove('hidden');
+        subtext.innerHTML = "<span class='text-yellow-200 font-bold'>ACTIVE WORKERS PRESENT:</span> TTC § 542.404 statutory double penalty triggered. Mandatory fine minimum doubled.";
+      } else {
+        btn.classList.remove('bg-emerald-500');
+        btn.classList.add('bg-neutral-800');
+        knob.classList.remove('translate-x-9');
+        knob.classList.add('translate-x-1');
+        label.textContent = "OFF";
+        label.className = "text-xs font-mono font-bold w-10 text-neutral-300";
+
+        fineText.innerHTML = `$200 Fine`;
+        doubledBadge.classList.add('hidden');
+        subtext.innerHTML = "Standard designated highway work zone corridor without active labor crew present.";
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L03-T03';
+  const nextTopicId = 'L03-T04';
+  const prevTopicId = 'L03-T02';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

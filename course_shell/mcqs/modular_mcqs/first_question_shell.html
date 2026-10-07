@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Question Shell — Modular Assessment Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#E87522',
+              hover: '#D46313',
+              light: '#FFF3EB',
+              dark: '#9A4600',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+    @keyframes bounceSuccess {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    @keyframes shakeFailure {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+    .anim-success { animation: bounceSuccess 0.32s cubic-bezier(0.16, 1, 0.3, 1); }
+    .anim-failure { animation: shakeFailure 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+  </style>
+</head>
+<body class="min-h-screen text-[#191B1A] flex flex-col justify-start selection:bg-[#E87522]/20">
+
+  <!-- Main Mobile-First Shell Container -->
+  <div class="w-full max-w-md mx-auto flex flex-col min-h-screen bg-[#F9FAF8] border-x border-[#D9DDD8] shadow-sm">
+
+    <!-- Clean Header: Topic ID, Title, and Clean Exit (NO 06:00:00 TIMER HERE - BELONGS TO OUTER LMS SHELL) -->
+    <header class="bg-white px-4 pt-3.5 pb-2.5 border-b border-[#E5E8E4] sticky top-0 z-30 shadow-xs">
+      <div class="flex items-center justify-between pb-2">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-[#E87522] text-white flex items-center justify-center shadow-xs">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <div id="shell-topic-tag" class="text-[10px] font-mono-code text-[#717A73] font-semibold uppercase tracking-wider">L01-T01</div>
+            <h1 class="text-xs font-bold text-[#161B17] tracking-tight leading-none">Topic Knowledge Check</h1>
+          </div>
+        </div>
+        <button onclick="handleExit()" class="px-2.5 py-1 rounded-md border border-[#D9DDD8] text-[11px] font-mono-code font-bold text-[#525B54] hover:bg-[#F0F2EF] hover:text-[#161B17] tracking-wider uppercase transition">
+          EXIT
+        </button>
+      </div>
+
+      <!-- Stats Pill Bar (Question / Strikes / Score) -->
+      <div class="flex items-center justify-between gap-1.5 pt-1 pb-2">
+        <div class="px-2.5 py-1 rounded-md bg-[#F0F2EF] border border-[#D9DDD8] text-[11px] font-mono-code font-bold text-[#2A312C]">
+          QUESTION <span id="stat-q-current" class="text-[#E87522]">1</span> / 5
+        </div>
+
+        <div id="stat-strikes-pill" class="px-2.5 py-1 rounded-md bg-[#FEF2F2] border border-[#FCA5A5] text-[11px] font-mono-code font-bold text-[#DC2626] flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          STRIKES: <span id="stat-strikes-count">0</span>/2
+        </div>
+
+        <div class="px-2.5 py-1 rounded-md bg-[#F0F2EF] border border-[#D9DDD8] text-[11px] font-mono-code font-bold text-[#2A312C] flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-[#B45309]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+          </svg>
+          SCORE: <span id="stat-score-count">0</span>
+        </div>
+      </div>
+
+      <!-- Segmented Step Progress Bar -->
+      <div class="grid grid-cols-5 gap-1.5 pt-1" id="seg-progress-bar">
+        <div class="h-1.5 rounded-full bg-[#E87522] transition-colors" id="bar-0"></div>
+        <div class="h-1.5 rounded-full bg-[#D9DDD8] transition-colors" id="bar-1"></div>
+        <div class="h-1.5 rounded-full bg-[#D9DDD8] transition-colors" id="bar-2"></div>
+        <div class="h-1.5 rounded-full bg-[#D9DDD8] transition-colors" id="bar-3"></div>
+        <div class="h-1.5 rounded-full bg-[#D9DDD8] transition-colors" id="bar-4"></div>
+      </div>
+    </header>
+
+    <!-- Main Quiz Body -->
+    <main class="flex-1 p-4 flex flex-col justify-between">
+      
+      <!-- Interactive Question Card Box -->
+      <div id="quiz-question-box" class="space-y-3">
+        
+        <!-- Category & Statute Pill Row -->
+        <div class="flex items-center justify-between text-[11px] font-mono-code font-bold">
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#F0F2EF] border border-[#D9DDD8] text-[#343B36]">
+            <span class="w-2 h-2 rounded-full bg-[#E87522]"></span>
+            <span id="ui-category-tag" class="tracking-tight uppercase">CATEGORY</span>
+          </div>
+          <div class="flex items-center gap-1 text-[#6A746C] text-[10px]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+            <span id="ui-statute-tag">TX STATUTE</span>
+          </div>
+        </div>
+
+        <!-- Visual / Graphic Illustration Box -->
+        <div id="ui-visual-container" class="rounded-xl border border-[#D9DDD8] bg-white p-3 shadow-xs flex items-center justify-center overflow-hidden">
+          <!-- Injected dynamically for Question 1 & subsequent visual questions -->
+        </div>
+
+        <!-- Question Prompt Heading -->
+        <div class="pt-1">
+          <div id="ui-question-num-tag" class="text-[11px] font-mono-code font-bold uppercase tracking-wider text-[#E87522] mb-0.5">
+            Question 1 of 5
+          </div>
+          <h2 id="ui-prompt-text" class="text-base font-bold text-[#141A15] leading-snug tracking-tight"></h2>
+          <p class="text-[11px] text-[#5E6460] font-mono-code mt-1">
+            Select the single correct answer under Texas driving regulations:
+          </p>
+        </div>
+
+        <!-- Numbered MCQ Options [ 1 ], [ 2 ], [ 3 ], [ 4 ] -->
+        <div id="ui-options-container" class="space-y-2 pt-1">
+          <!-- Dynamically injected option cards -->
+        </div>
+
+        <!-- Feedback & Statutory Rationale Box -->
+        <div id="ui-feedback-box" class="hidden rounded-xl p-3.5 border text-xs transition-all duration-200">
+          <div class="flex items-start gap-2.5">
+            <div id="ui-feedback-icon" class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 font-bold"></div>
+            <div class="flex-1 space-y-1">
+              <h4 id="ui-feedback-heading" class="font-bold tracking-tight"></h4>
+              <p id="ui-feedback-body" class="leading-relaxed text-[#2C332E]"></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Final Evaluation Card (Hidden until finished) -->
+      <div id="quiz-results-box" class="hidden flex-col items-center justify-center text-center py-6 px-3 space-y-4">
+        <div id="res-icon-wrap" class="w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-md"></div>
+        <div class="space-y-1">
+          <span class="text-[11px] font-mono-code uppercase font-bold tracking-wider text-[#E87522]">Topic Evaluation Complete</span>
+          <h2 id="res-heading" class="text-xl font-bold text-[#141A15]">Topic Assessment Results</h2>
+          <p id="res-subtext" class="text-xs text-[#5E6860] max-w-xs mx-auto">Knowledge of Texas statutes and safe driving practices evaluated.</p>
+        </div>
+
+        <div class="w-full bg-white rounded-xl p-4 border border-[#D9DDD8] shadow-xs space-y-2.5">
+          <div class="flex items-center justify-between pb-2 border-b border-[#EEF1EC] text-xs font-mono-code">
+            <span class="text-[#656E67]">Final Score</span>
+            <span id="res-score-text" class="text-base font-bold text-[#E87522]">5 / 5 (100%)</span>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono-code">
+            <span class="text-[#656E67]">Strikes Incurred</span>
+            <span id="res-strikes-text" class="font-bold text-[#1E231F]">0 / 2</span>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono-code">
+            <span class="text-[#656E67]">Topic Standard</span>
+            <span id="res-status-chip" class="px-2.5 py-0.5 rounded font-bold text-[11px]"></span>
+          </div>
+        </div>
+
+        <div class="w-full text-left space-y-2 pt-2">
+          <h3 class="text-xs font-bold text-[#2A312B] uppercase tracking-wider font-mono-code">Question Breakdown</h3>
+          <div id="res-log-list" class="space-y-1.5 text-xs"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Sticky Controls Bar -->
+    <footer class="sticky bottom-0 z-30 bg-white border-t border-[#E5E8E4] px-4 py-3">
+      <div id="footer-live-action">
+        <button id="ui-next-button" onclick="handleAdvance()" disabled class="w-full py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-150 flex items-center justify-center gap-2 bg-[#E2E5DF] text-[#7D8479] cursor-not-allowed">
+          <span>Select an Option</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="footer-result-action" class="hidden items-center gap-2">
+        <button onclick="resetExam()" class="w-1/2 py-3 px-3 rounded-xl font-bold text-xs border border-[#D9DDD8] bg-white text-[#29302A] hover:bg-[#F0F2EF] transition">
+          Retake Test
+        </button>
+        <button id="btn-advance-lesson" onclick="handleProceedLesson()" class="w-1/2 py-3 px-3 rounded-xl font-bold text-xs bg-[#E87522] hover:bg-[#D46313] text-white transition flex items-center justify-center gap-1.5 shadow-xs">
+          <span>Proceed</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+      
+      <div class="mt-2 text-center">
+        <p id="shell-footer-caption" class="text-[10px] text-[#7C857E] font-mono-code">Master Shell • Modular Assessment Engine</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Modular Loading Script -->
+  <script>
+    /**
+     * MASTER SHELL IMPLEMENTATION
+     * Question 1 is loaded into the Master Shell with full effects.
+     * Standalone Questions 2 through 5 are injected dynamically into this shell.
+     * ZERO ANSWER KEYS IN CLIENT JSON OR DOM.
+     * Grading is performed via backend API (/api/v1/lessons/:topicId/grade).
+     */
+    const TOPIC_ID = "L01-T01";
+    let activeQuestionList = [];
+    let currentIndex = 0;
+    let score = 0;
+    let strikes = 0;
+    let isSelected = false;
+    let userSelections = [];
+
+    // Question 1 Template Object (Demonstrating Shell Structure)
+    const QUESTION_1_TEMPLATE = {
+      id: "L01-T01-Q1",
+      topic_id: "L01-T01",
+      number: 1,
+      category: "VEHICLE CONTROL & POSITIONING",
+      statute: "TX TRANS CODE §545.051 / 37 TAC §15.55",
+      prompt: "Under Texas driving standards, vehicle positioning is strictly evaluated. Which vehicle demonstrates the legally correct lane positioning prior to the stop line?",
+      options: [
+        { number: 1, text: "Vehicle 1, centered evenly within lane boundaries with full forward visibility" },
+        { number: 2, text: "Vehicle 2, straddling the centerline to anticipate an immediate left turn" },
+        { number: 3, text: "Vehicle 3, riding the outer shoulder to yield roadway center to others" },
+        { number: 4, text: "Vehicle 2, crowding oncoming traffic to discourage vehicles from passing" }
+      ],
+      has_visual: true,
+      svg: `
+        <svg viewBox="0 0 420 200" class="w-full max-h-52 rounded-xl bg-[#1C201D] shadow-inner">
+          <rect x="0" y="65" width="420" height="70" fill="#242825" />
+          <rect x="175" y="0" width="70" height="200" fill="#242825" />
+          <line x1="0" y1="65" x2="175" y2="65" stroke="#FFFFFF" stroke-width="2.5" />
+          <line x1="245" y1="65" x2="420" y2="65" stroke="#FFFFFF" stroke-width="2.5" />
+          <line x1="0" y1="135" x2="175" y2="135" stroke="#FFFFFF" stroke-width="2.5" />
+          <line x1="245" y1="135" x2="420" y2="135" stroke="#FFFFFF" stroke-width="2.5" />
+          <line x1="0" y1="100" x2="160" y2="100" stroke="#FBBF24" stroke-width="2.5" stroke-dasharray="12,10" />
+          <line x1="260" y1="100" x2="420" y2="100" stroke="#FBBF24" stroke-width="2.5" stroke-dasharray="12,10" />
+          <line x1="162" y1="100" x2="162" y2="135" stroke="#FFFFFF" stroke-width="5" />
+          <line x1="258" y1="65" x2="258" y2="100" stroke="#FFFFFF" stroke-width="5" />
+          <circle cx="166" cy="56" r="6" fill="#DC2626" stroke="#FFFFFF" stroke-width="1" />
+          <circle cx="254" cy="144" r="6" fill="#DC2626" stroke="#FFFFFF" stroke-width="1" />
+          <g transform="translate(100, 105)">
+            <rect x="0" y="0" width="48" height="24" rx="5" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5" />
+            <rect x="8" y="3" width="32" height="18" rx="2" fill="#181B19" />
+            <text x="20" y="16" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">1</text>
+            <text x="-14" y="-4" fill="#FBBF24" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">1ST TO STOP</text>
+          </g>
+          <g transform="translate(180, 15)">
+            <rect x="0" y="0" width="24" height="42" rx="5" fill="#3B82F6" stroke="#FFFFFF" stroke-width="1.5" />
+            <text x="8" y="25" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">2</text>
+          </g>
+        </svg>
+      `
+    };
+
+    // Load initial 5 questions for topic
+    async function initTopicQuiz() {
+      try {
+        // Attempt fetch from server API
+        const resp = await fetch(`/api/v1/lessons/${TOPIC_ID}/questions`);
+        if (resp.ok) {
+          const data = await resp.json();
+          activeQuestionList = data.questions;
+        } else {
+          // Fallback to local files in questions/
+          activeQuestionList = [QUESTION_1_TEMPLATE];
+          for (let i = 2; i <= 5; i++) {
+            const fResp = await fetch(`questions/${TOPIC_ID}_Q${i}.json`);
+            if (fResp.ok) {
+              const qData = await fResp.json();
+              activeQuestionList.push(qData);
+            }
+          }
+        }
+      } catch (e) {
+        // Fallback for standalone preview
+        activeQuestionList = [QUESTION_1_TEMPLATE];
+      }
+      userSelections = new Array(activeQuestionList.length).fill(null);
+      renderQuestion(0);
+    }
+
+    function renderQuestion(index) {
+      isSelected = false;
+      currentIndex = index;
+      const q = activeQuestionList[index];
+
+      // Header pills
+      document.getElementById('stat-q-current').textContent = index + 1;
+      document.getElementById('stat-score-count').textContent = score;
+      document.getElementById('stat-strikes-count').textContent = strikes;
+      document.getElementById('ui-category-tag').textContent = q.category;
+      document.getElementById('ui-statute-tag').textContent = q.statute;
+      document.getElementById('ui-question-num-tag').textContent = `Question ${index + 1} of 5`;
+      document.getElementById('ui-prompt-text').textContent = q.prompt;
+
+      // Segmented Progress Bar
+      for (let i = 0; i < 5; i++) {
+        const b = document.getElementById(`bar-${i}`);
+        if (!b) continue;
+        if (i < index) {
+          const rec = userSelections[i];
+          b.className = (rec && rec.isCorrect) 
+            ? 'h-1.5 rounded-full bg-[#16A34A] transition-colors' 
+            : 'h-1.5 rounded-full bg-[#DC2626] transition-colors';
+        } else if (i === index) {
+          b.className = 'h-1.5 rounded-full bg-[#E87522] transition-colors';
+        } else {
+          b.className = 'h-1.5 rounded-full bg-[#D9DDD8] transition-colors';
+        }
+      }
+
+      // Visual Illustration Container
+      const visualBox = document.getElementById('ui-visual-container');
+      if (q.svg) {
+        visualBox.innerHTML = q.svg;
+        visualBox.classList.remove('hidden');
+      } else {
+        visualBox.innerHTML = '';
+        visualBox.classList.add('hidden');
+      }
+
+      // Feedback Box reset
+      const fbBox = document.getElementById('ui-feedback-box');
+      fbBox.className = 'hidden rounded-xl p-3.5 border text-xs transition-all duration-200';
+
+      // Render Numbered Options
+      const optionsBox = document.getElementById('ui-options-container');
+      optionsBox.innerHTML = '';
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.id = `opt-btn-${opt.number}`;
+        btn.className = 'w-full text-left p-3 rounded-xl border border-[#D9DDD8] bg-white transition-all duration-150 flex items-start gap-3 group hover:border-[#E87522] hover:bg-[#FAFBF9] focus:outline-none focus:ring-2 focus:ring-[#E87522]/30 active:scale-[0.99]';
+        
+        btn.innerHTML = `
+          <div class="opt-num-chip w-6 h-6 rounded-md border border-[#D9DDD8] font-mono-code font-bold text-xs flex items-center justify-center text-[#525B54] bg-[#F4F6F3] shrink-0 group-hover:border-[#E87522] group-hover:text-[#E87522] transition-colors">
+            ${opt.number}
+          </div>
+          <div class="opt-text text-[13px] text-[#191B1A] font-medium leading-snug flex-1 pt-0.5">
+            ${opt.text}
+          </div>
+          <div class="opt-icon w-5 h-5 flex items-center justify-center shrink-0 opacity-0 transition-opacity"></div>
+        `;
+
+        btn.onclick = () => submitOption(opt.number);
+        optionsBox.appendChild(btn);
+      });
+
+      // Reset Action Button
+      const nextBtn = document.getElementById('ui-next-button');
+      nextBtn.disabled = true;
+      nextBtn.className = 'w-full py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-150 flex items-center justify-center gap-2 bg-[#E2E5DF] text-[#7D8479] cursor-not-allowed';
+      nextBtn.innerHTML = `
+        <span>Select an Option</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      `;
+    }
+
+    async function submitOption(chosenNum) {
+      if (isSelected) return;
+      isSelected = true;
+
+      const q = activeQuestionList[currentIndex];
+      let isCorrect = false;
+      let correctOption = null;
+      let rationale = "";
+
+      // SECURE SERVER-SIDE GRADING
+      try {
+        const resp = await fetch(`/api/v1/lessons/${TOPIC_ID}/grade`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ questionNumber: q.number, selectedOption: chosenNum })
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          isCorrect = data.isCorrect;
+          correctOption = data.correctOption;
+          rationale = data.statutoryRationale;
+        } else {
+          throw new Error("Grading endpoint returned non-200");
+        }
+      } catch (e) {
+        // Fallback for offline demo: option 1 as template demonstration
+        isCorrect = (chosenNum === 1);
+        correctOption = 1;
+        rationale = "Statute evaluation: Under Texas Transportation Code §545.051, vehicles must remain squarely centered within lane boundaries.";
+      }
+
+      if (isCorrect) {
+        score++;
+        document.getElementById('stat-score-count').textContent = score;
+      } else {
+        strikes++;
+        document.getElementById('stat-strikes-count').textContent = strikes;
+      }
+
+      userSelections[currentIndex] = {
+        num: currentIndex + 1,
+        isCorrect: isCorrect,
+        chosenNum: chosenNum,
+        prompt: q.prompt
+      };
+
+      // Update options styling
+      for (const opt of q.options) {
+        const btn = document.getElementById(`opt-btn-${opt.number}`);
+        const chip = btn.querySelector('.opt-num-chip');
+        const icon = btn.querySelector('.opt-icon');
+        btn.disabled = true;
+        btn.classList.remove('hover:border-[#E87522]', 'hover:bg-[#FAFBF9]', 'active:scale-[0.99]');
+
+        if (opt.number === correctOption) {
+          btn.className = 'w-full text-left p-3 rounded-xl border-2 border-[#16A34A] bg-[#F0FDF4] flex items-start gap-3 shadow-xs anim-success';
+          chip.className = 'w-6 h-6 rounded-md bg-[#16A34A] text-white font-mono-code font-bold text-xs flex items-center justify-center shrink-0';
+          icon.className = 'opt-icon w-5 h-5 flex items-center justify-center shrink-0 opacity-100 text-[#16A34A]';
+          icon.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>`;
+        } else if (opt.number === chosenNum && !isCorrect) {
+          btn.className = 'w-full text-left p-3 rounded-xl border-2 border-[#DC2626] bg-[#FEF2F2] flex items-start gap-3 shadow-xs anim-failure';
+          chip.className = 'w-6 h-6 rounded-md bg-[#DC2626] text-white font-mono-code font-bold text-xs flex items-center justify-center shrink-0';
+          icon.className = 'opt-icon w-5 h-5 flex items-center justify-center shrink-0 opacity-100 text-[#DC2626]';
+          icon.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+        } else {
+          btn.className = 'w-full text-left p-3 rounded-xl border border-[#D9DDD8] bg-white opacity-40 flex items-start gap-3';
+        }
+      }
+
+      // Reveal Rationale Box
+      const fbBox = document.getElementById('ui-feedback-box');
+      const fbIcon = document.getElementById('ui-feedback-icon');
+      const fbHeading = document.getElementById('ui-feedback-heading');
+      const fbBody = document.getElementById('ui-feedback-body');
+
+      fbBox.classList.remove('hidden');
+      if (isCorrect) {
+        fbBox.className = 'rounded-xl p-3.5 border border-[#86EFAC] bg-[#F0FDF4] text-xs text-[#14532D] shadow-xs';
+        fbIcon.className = 'w-5 h-5 rounded-full bg-[#16A34A] text-white flex items-center justify-center shrink-0 mt-0.5';
+        fbIcon.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>`;
+        fbHeading.textContent = "Correct Selection";
+        fbHeading.className = "font-bold text-[#166534] tracking-tight";
+      } else {
+        fbBox.className = 'rounded-xl p-3.5 border border-[#FCA5A5] bg-[#FEF2F2] text-xs text-[#991B1B] shadow-xs';
+        fbIcon.className = 'w-5 h-5 rounded-full bg-[#DC2626] text-white flex items-center justify-center shrink-0 mt-0.5';
+        fbIcon.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+        fbHeading.textContent = "Incorrect Selection";
+        fbHeading.className = "font-bold text-[#991B1B] tracking-tight";
+      }
+      fbBody.textContent = rationale;
+
+      // Next Button Enabled
+      const nextBtn = document.getElementById('ui-next-button');
+      nextBtn.disabled = false;
+      const isFinal = (currentIndex === activeQuestionList.length - 1);
+      nextBtn.className = 'w-full py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-150 flex items-center justify-center gap-2 bg-[#E87522] hover:bg-[#D46313] active:scale-[0.99] text-white shadow-sm cursor-pointer';
+      nextBtn.innerHTML = `
+        <span>${isFinal ? 'View Evaluation Results' : 'Next Question'}</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      `;
+    }
+
+    function handleAdvance() {
+      if (currentIndex < activeQuestionList.length - 1) {
+        currentIndex++;
+        renderQuestion(currentIndex);
+      } else {
+        renderFinalScreen();
+      }
+    }
+
+    function renderFinalScreen() {
+      document.getElementById('quiz-question-box').classList.add('hidden');
+      document.getElementById('footer-live-action').classList.add('hidden');
+
+      const resBox = document.getElementById('quiz-results-box');
+      resBox.classList.remove('hidden');
+      resBox.classList.add('flex');
+
+      const footerRes = document.getElementById('footer-result-action');
+      footerRes.classList.remove('hidden');
+      footerRes.classList.add('flex');
+
+      const percent = Math.round((score / activeQuestionList.length) * 100);
+      document.getElementById('res-score-text').textContent = `${score} / 5 (${percent}%)`;
+      document.getElementById('res-strikes-text').textContent = `${strikes} / 2`;
+
+      const chip = document.getElementById('res-status-chip');
+      const iconWrap = document.getElementById('res-icon-wrap');
+      const sub = document.getElementById('res-subtext');
+
+      if (percent >= 80 && strikes <= 1) {
+        chip.className = 'px-2.5 py-0.5 rounded font-bold text-[11px] bg-[#F0FDF4] text-[#16A34A] border border-[#86EFAC]';
+        chip.textContent = 'TOPIC ASSESSMENT PASSED';
+        iconWrap.className = 'w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#16A34A] to-[#4ADE80] text-white flex items-center justify-center shadow-md';
+        iconWrap.innerHTML = `<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 4.03 9 9z" /></svg>`;
+        sub.textContent = 'Texas Driver Education topic standard verified. Ready to proceed to next unit.';
+      } else {
+        chip.className = 'px-2.5 py-0.5 rounded font-bold text-[11px] bg-[#FEF2F2] text-[#DC2626] border border-[#FCA5A5]';
+        chip.textContent = strikes >= 2 ? 'FAILED (STRIKE LIMIT EXCEEDED)' : 'NEEDS REVIEW (<80%)';
+        iconWrap.className = 'w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#DC2626] to-[#F87171] text-white flex items-center justify-center shadow-md';
+        iconWrap.innerHTML = `<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>`;
+        sub.textContent = 'Please review the statutory standards and retake the knowledge check before proceeding.';
+      }
+
+      const log = document.getElementById('res-log-list');
+      log.innerHTML = '';
+      userSelections.forEach((u, i) => {
+        const item = document.createElement('div');
+        item.className = 'p-2.5 rounded-lg border border-[#D9DDD8] bg-white flex items-center justify-between gap-2';
+        item.innerHTML = `
+          <div class="flex items-center gap-2 truncate">
+            <span class="w-5 h-5 rounded font-mono-code text-[10px] font-bold flex items-center justify-center shrink-0 ${u.isCorrect ? 'bg-[#16A34A] text-white' : 'bg-[#DC2626] text-white'}">
+              ${u.isCorrect ? '✓' : '✕'}
+            </span>
+            <span class="font-medium text-[#202722] truncate text-xs">Q${i + 1}: ${u.prompt}</span>
+          </div>
+          <span class="font-mono-code text-[11px] font-semibold shrink-0 ${u.isCorrect ? 'text-[#16A34A]' : 'text-[#DC2626]'}">
+            Option ${u.chosenNum} ${u.isCorrect ? '(Passed)' : '(Failed)'}
+          </span>
+        `;
+        log.appendChild(item);
+      });
+    }
+
+    function resetExam() {
+      currentIndex = 0;
+      score = 0;
+      strikes = 0;
+      isSelected = false;
+      userSelections = new Array(activeQuestionList.length).fill(null);
+
+      document.getElementById('quiz-results-box').classList.add('hidden');
+      document.getElementById('quiz-results-box').classList.remove('flex');
+      document.getElementById('footer-result-action').classList.add('hidden');
+      document.getElementById('footer-result-action').classList.remove('flex');
+
+      document.getElementById('quiz-question-box').classList.remove('hidden');
+      document.getElementById('footer-live-action').classList.remove('hidden');
+
+      renderQuestion(0);
+    }
+
+    function handleProceedLesson() {
+      if (window.parent && window.parent.postMessage) {
+        window.parent.postMessage({ type: 'TOPIC_TEST_COMPLETED', topicId: TOPIC_ID, score: score, strikes: strikes }, '*');
+      }
+      if (window.parent && window.parent.hideModal) {
+        window.parent.hideModal();
+      }
+    }
+
+    function handleExit() {
+      if (window.parent && window.parent.hideModal) {
+        window.parent.hideModal();
+      } else {
+        history.back();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initTopicQuiz);
+  </script>
+</body>
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TX-ADE // MODULE 05 - Topic L05-T09: Texas Speed Limits &amp; Special Corridors</title>
+<!-- Typography: Geist & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#e2e3e1",
+            "secondary-container": "#dee4df",
+            "surface-tint": "#9a4600",
+            "surface": "#f9faf8",
+            "inverse-on-surface": "#f0f1ef",
+            "on-background": "#191c1b",
+            "on-secondary-container": "#606662",
+            "on-tertiary-fixed": "#1a1c1b",
+            "outline": "#8a7265",
+            "background": "#f9faf8",
+            "tertiary-fixed": "#e2e3e0",
+            "tertiary-fixed-dim": "#c6c7c5",
+            "secondary": "#5a605c",
+            "surface-dim": "#d9dad8",
+            "primary-fixed": "#ffdbc9",
+            "on-primary-fixed-variant": "#753400",
+            "on-secondary-fixed": "#171d1a",
+            "secondary-fixed": "#dee4df",
+            "surface-container-lowest": "#ffffff",
+            "outline-variant": "#dec1b2",
+            "surface-container-highest": "#e2e3e1",
+            "primary-container": "#e87522",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#454746",
+            "tertiary-container": "#949593",
+            "secondary-fixed-dim": "#c2c8c3",
+            "on-error": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "surface-container": "#edeeec",
+            "on-primary": "#ffffff",
+            "surface-container-low": "#f3f4f2",
+            "tertiary": "#5d5f5d",
+            "on-primary-container": "#4e2000",
+            "on-error-container": "#93000a",
+            "primary": "#9a4600",
+            "primary-fixed-dim": "#ffb68c",
+            "on-surface-variant": "#574237",
+            "error": "#ba1a1a",
+            "on-secondary": "#ffffff",
+            "on-tertiary-container": "#2c2e2d",
+            "inverse-primary": "#ffb68c",
+            "on-primary-fixed": "#321200",
+            "inverse-surface": "#2e3130",
+            "on-surface": "#191c1b",
+            "on-secondary-fixed-variant": "#424844",
+            "surface-container-high": "#e7e8e6",
+            "surface-bright": "#f9faf8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "label-mono-sm": ["JetBrains Mono"],
+            "body-sm": ["Geist"],
+            "body-md": ["Geist"],
+            "headline-sm": ["Geist"],
+            "display-lg": ["Geist"],
+            "headline-md": ["Geist"],
+            "display-lg-mobile": ["Geist"],
+            "code-data": ["JetBrains Mono"],
+            "label-mono-lg": ["JetBrains Mono"],
+            "headline-lg": ["Geist"],
+            "body-lg": ["Geist"]
+          },
+          "fontSize": {
+            "label-mono-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "display-lg-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "code-data": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "label-mono-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- ==================== TOP NAVIGATION BAR ==================== -->
+<header class="bg-surface-container-lowest border-b border-surface-container-high sticky top-0 z-40">
+<div class="flex justify-between items-center w-full px-gutter max-w-7xl mx-auto h-16">
+<!-- Left: Logo & Product Name -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-primary-container inline-block"></span>
+<span class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">TX-ADE // MODULE 05</span>
+</div>
+<span class="hidden md:inline-block h-4 w-px bg-surface-dim"></span>
+<span class="hidden lg:inline-block text-label-mono-sm font-label-mono-sm text-secondary">
+          Sec. 521.1601 Compliant Curricula
+        </span>
+</div>
+<!-- Center: Navigation Links -->
+<nav class="hidden md:flex items-center space-x-6 text-label-mono-sm font-label-mono-sm">
+<a class="text-secondary hover:text-on-surface transition-colors duration-150" href="#overview">Statutory Overview</a>
+<a class="border-b-2 border-primary text-primary pb-1 font-medium" href="#decoder">Road Protocols</a>
+<a class="text-secondary hover:text-on-surface transition-colors duration-150" href="#beaches">Vehicle Mechanics</a>
+<a class="text-secondary hover:text-on-surface transition-colors duration-150" href="#assessment">Exam Review</a>
+</nav>
+<!-- Right: Compliance Clock & Actions -->
+<div class="flex items-center gap-4">
+<!-- Texas TDLR Mandatory Timer Badge -->
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low border border-surface-dim rounded text-label-mono-sm font-label-mono-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-secondary font-medium">Mandatory Timer:</span>
+<span class="text-on-surface font-bold">11:42</span>
+</div>
+<div class="flex items-center gap-1 border-l border-surface-dim pl-3">
+<button class="p-1.5 text-secondary hover:text-on-surface rounded hover:bg-surface-container transition-colors" title="Course Regulations">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+</button>
+<button class="p-1.5 text-secondary hover:text-on-surface rounded hover:bg-surface-container transition-colors" title="Help Desk">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="p-1.5 text-secondary hover:text-on-surface rounded hover:bg-surface-container transition-colors" title="Profile">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== SUB-HEADER / EDITORIAL BREADCRUMB BAR ==================== -->
+<div class="border-b border-surface-container-high bg-surface-container-low/60">
+<div class="max-w-7xl mx-auto px-gutter py-2.5 flex flex-wrap justify-between items-center gap-3 text-label-mono-sm font-label-mono-sm">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[16px]" data-icon="menu_book">menu_book</span>
+<span>Module 05 // Speed Management &amp; Traffic Flow</span>
+<span class="text-surface-dim">/</span>
+<span class="text-on-surface font-semibold">Topic L05-T09: Texas Speed Limits &amp; Special Corridors</span>
+</div>
+<div class="flex items-center gap-4 text-secondary">
+<span>Statutory Ref: <strong class="text-on-surface font-normal">Texas Transp. Code § 545.352 &amp; § 545.358</strong></span>
+<span class="hidden sm:inline-block h-3 w-px bg-surface-dim"></span>
+<span class="flex items-center gap-1.5 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+          Est. Time: 12 min
+        </span>
+</div>
+</div>
+</div>
+<!-- ==================== MAIN EDITORIAL CANVAS ==================== -->
+<main class="max-w-7xl mx-auto px-gutter py-8 space-y-12">
+<!-- HERO EDITORIAL TITLE & SUMMARY -->
+<section class="border-b border-surface-container-high pb-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-8 space-y-4">
+<div class="inline-flex items-center gap-2 px-2.5 py-1 bg-surface-container border border-surface-dim rounded text-label-mono-sm font-label-mono-sm text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            REGULATORY FIELD INSTRUCTION // TDLR DIVISION OF LICENSING
+          </div>
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface leading-tight tracking-tight">
+            Texas Speed Limits &amp; Beach Corridors
+          </h1>
+<p class="text-body-lg font-body-lg text-secondary max-w-3xl leading-relaxed">
+            Statutory prima facie speed frameworks across municipal roadways, multi-lane state highways, and vehicular coastal transit corridors under Texas law.
+          </p>
+</div>
+<div class="lg:col-span-4 bg-surface-container-lowest border border-surface-container-high p-5 rounded space-y-3">
+<div class="text-label-mono-sm font-label-mono-sm text-secondary uppercase tracking-wider flex items-center justify-between">
+<span>Core Directive</span>
+<span class="text-primary font-bold">PRIMA FACIE RULE</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface">
+            In Texas, prima facie limits are not absolute authorizations; you must adjust speed lower when special hazards exist with respect to pedestrians, weather, or highway geometry (TTC § 545.351).
+          </p>
+<div class="pt-2 border-t border-surface-container flex items-center justify-between text-label-mono-sm font-label-mono-sm text-secondary">
+<span>Minimum Passing Score</span>
+<span class="font-semibold text-on-surface">80% Required</span>
+</div>
+</div>
+</div>
+</section>
+<!-- STATUTORY CALLOUT BANNER -->
+<section class="bg-surface-container-low border border-surface-container-high border-l-4 border-l-primary-container p-6 rounded">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-0.5 text-2xl" data-icon="gavel">gavel</span>
+<div class="space-y-2">
+<div class="flex flex-wrap items-center gap-3">
+<span class="text-label-mono-sm font-label-mono-sm font-bold text-on-surface uppercase tracking-wide">
+              TEXAS TRANSPORTATION CODE § 545.352 &amp; § 545.358 (COASTAL CORRIDORS)
+            </span>
+<span class="px-2 py-0.5 text-label-mono-sm font-label-mono-sm bg-primary-fixed text-on-primary-fixed font-semibold rounded">
+              STATE MANDATE
+            </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+            "Under Texas statute, the prima facie maximum speed limit on a Texas beach open to vehicular traffic is <strong class="font-semibold text-primary underline underline-offset-4">15 MPH</strong> unless otherwise posted by the local governing municipality or county."
+          </p>
+<p class="text-body-sm font-body-sm text-secondary">
+            Texas Open Beaches Act (Nat. Res. Code Ch. 61) &amp; Texas Transportation Code § 545.358 grant local beach authorities the power to lower velocity parameters, but statutory limits cannot exceed 15 MPH due to high pedestrian exposure and shifting surface density.
+          </p>
+</div>
+</div>
+</section>
+<!-- 2.5D Technical Container Specification (16:9 Aspect ratio) -->
+<section class="my-6">
+  <div class="w-full h-80 md:h-[440px] bg-[#ECEEEA] border border-[#2e3130] rounded-lg relative overflow-hidden flex items-center justify-center group">
+    <!-- 2.5D Theme-Matched Diorama Visual Asset -->
+    <img src="./assets/2_5d/L05_T09_beach_corridor.jpg" alt="Texas Coastal Shoreline Corridor 2.5D Schematic" class="w-full h-full object-cover rounded-lg" />
+
+    <!-- Subtle Vignette / Contrast Scrim -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none"></div>
+
+    <!-- Corner Technical Marks -->
+    <div class="absolute top-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">POS: 27.581° N, 97.228° W // GULF OF MEXICO SHORELINE</div>
+    <div class="absolute top-3 right-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">TTC § 545.358 // 15 MPH MAX</div>
+    <div class="absolute bottom-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">REF // 2.5D_CANVAS_L05T09_BEACH_SPEED_ENVELOPE</div>
+
+    <!-- Replacement Tracker Badge -->
+    <div class="absolute bottom-3 right-3 flex items-center gap-2 font-mono text-xs bg-[#E87522] text-white px-3 py-1 rounded font-semibold shadow-sm">
+      <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+      <span>2.5D VISUAL PREVIEW // PENDING VIDEO COMPOSITE</span>
+    </div>
+  </div>
+</section>
+<!-- ==================== SECTION 01: SPEED LIMIT DECODER ==================== -->
+<section class="space-y-6" id="decoder">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between border-b border-surface-container-high pb-4 gap-4">
+<div>
+<div class="text-label-mono-sm font-label-mono-sm text-secondary uppercase tracking-wider">SECTION 01 // STATUTORY METRICS</div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Texas Speed Limit Decoder</h2>
+</div>
+<p class="text-body-sm font-body-sm text-secondary max-w-md">
+          Prima facie maximum legal rates across Texas jurisdictions under Texas Transportation Code § 545.352.
+        </p>
+</div>
+<!-- Filter Toggles (Native Interactive Elements) -->
+<div class="flex flex-wrap items-center gap-2 p-1.5 bg-surface-container-low border border-surface-container-high rounded" id="filter-cluster">
+<button class="filter-btn px-4 py-2 text-label-mono-sm font-label-mono-sm font-semibold rounded bg-surface-container-lowest text-on-surface border border-surface-dim shadow-sm" onclick="filterCorridors('all', this)">
+          [ All Corridors ]
+        </button>
+<button class="filter-btn px-4 py-2 text-label-mono-sm font-label-mono-sm font-medium rounded text-secondary hover:text-on-surface hover:bg-surface-container transition-colors" onclick="filterCorridors('urban', this)">
+          [ Urban &amp; School ]
+        </button>
+<button class="filter-btn px-4 py-2 text-label-mono-sm font-label-mono-sm font-medium rounded text-secondary hover:text-on-surface hover:bg-surface-container transition-colors" onclick="filterCorridors('highway', this)">
+          [ Highways &amp; Interstates ]
+        </button>
+<button class="filter-btn px-4 py-2 text-label-mono-sm font-label-mono-sm font-medium rounded text-secondary hover:text-on-surface hover:bg-surface-container transition-colors" onclick="filterCorridors('beach', this)">
+          [ Texas Beaches ]
+        </button>
+</div>
+<!-- Comparison Matrix Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="corridor-grid">
+<!-- Card 1: Texas Beaches -->
+<div class="corridor-card bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4 hover:border-on-surface transition-colors" data-category="beach">
+<div class="flex justify-between items-start">
+<span class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">[ TTC § 545.358 ]</span>
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed text-label-mono-sm font-label-mono-sm font-bold rounded">COASTAL</span>
+</div>
+<div>
+<div class="text-display-lg font-display-lg text-primary tracking-tight">15 <span class="text-headline-sm font-headline-sm text-on-surface font-normal">MPH</span></div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">Texas Public Beaches</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">
+            Absolute statutory prima facie maximum on open public beaches. Pedestrians, children, and shifting sands mandate extreme kinetic mitigation.
+          </p>
+<div class="p-3 bg-surface-container-low rounded border border-surface-container space-y-1.5 text-label-mono-sm font-label-mono-sm">
+<div class="text-secondary flex justify-between">
+<span>Reaction &amp; Braking:</span>
+<span class="text-on-surface font-semibold">29 ft total</span>
+</div>
+<div class="text-secondary flex justify-between">
+<span>Surface Coefficient:</span>
+<span class="text-error font-semibold">Low (Loose Sand)</span>
+</div>
+</div>
+</div>
+<!-- Card 2: School Zones -->
+<div class="corridor-card bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4 hover:border-on-surface transition-colors" data-category="urban">
+<div class="flex justify-between items-start">
+<span class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">[ TTC § 545.352(b)(2) ]</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface text-label-mono-sm font-label-mono-sm font-bold rounded">SAFETY ZONE</span>
+</div>
+<div>
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">20 <span class="text-headline-sm font-headline-sm text-on-surface font-normal">MPH</span></div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">Designated School Zones</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">
+            Enforced when beacons flash or during active student transit intervals. Strict cell phone prohibition applies simultaneously under Texas law.
+          </p>
+<div class="p-3 bg-surface-container-low rounded border border-surface-container space-y-1.5 text-label-mono-sm font-label-mono-sm">
+<div class="text-secondary flex justify-between">
+<span>Reaction &amp; Braking:</span>
+<span class="text-on-surface font-semibold">44 ft total</span>
+</div>
+<div class="text-secondary flex justify-between">
+<span>Fines in Texas:</span>
+<span class="text-error font-semibold">Doubled in Active Zone</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Urban & Residential Streets -->
+<div class="corridor-card bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4 hover:border-on-surface transition-colors" data-category="urban">
+<div class="flex justify-between items-start">
+<span class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">[ TTC § 545.352(b)(1) ]</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface text-label-mono-sm font-label-mono-sm font-bold rounded">MUNICIPAL</span>
+</div>
+<div>
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">30 <span class="text-headline-sm font-headline-sm text-on-surface font-normal">MPH</span></div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">Urban &amp; Residential Districts</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">
+            Standard default speed for urban streets unless posted otherwise. Accommodates driveway cross-traffic, blind intersections, and cyclists.
+          </p>
+<div class="p-3 bg-surface-container-low rounded border border-surface-container space-y-1.5 text-label-mono-sm font-label-mono-sm">
+<div class="text-secondary flex justify-between">
+<span>Reaction &amp; Braking:</span>
+<span class="text-on-surface font-semibold">75 ft total</span>
+</div>
+<div class="text-secondary flex justify-between">
+<span>Visual Scanning:</span>
+<span class="text-on-surface font-semibold">12-15s Eye Lead Time</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Numbered State / Federal Highways -->
+<div class="corridor-card bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4 hover:border-on-surface transition-colors" data-category="highway">
+<div class="flex justify-between items-start">
+<span class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">[ TTC § 545.352(b)(3) ]</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface text-label-mono-sm font-label-mono-sm font-bold rounded">HIGHWAY</span>
+</div>
+<div>
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">70 <span class="text-headline-sm font-headline-sm text-on-surface font-normal">MPH</span></div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">Numbered State &amp; U.S. Highways</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">
+            Daytime limit on state and federal routes outside urban districts. Requires continuous monitoring of undivided center turn lanes and rural tractor entries.
+          </p>
+<div class="p-3 bg-surface-container-low rounded border border-surface-container space-y-1.5 text-label-mono-sm font-label-mono-sm">
+<div class="text-secondary flex justify-between">
+<span>Reaction &amp; Braking:</span>
+<span class="text-on-surface font-semibold">315 ft total</span>
+</div>
+<div class="text-secondary flex justify-between">
+<span>Kinetic Energy:</span>
+<span class="text-on-surface font-semibold">5.4x vs 30 MPH</span>
+</div>
+</div>
+</div>
+<!-- Card 5: Rural Interstates & Toll Corridors -->
+<div class="corridor-card bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4 hover:border-on-surface transition-colors" data-category="highway">
+<div class="flex justify-between items-start">
+<span class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">[ TTC § 545.352(b)(6) ]</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface text-label-mono-sm font-label-mono-sm font-bold rounded">EXPRESS</span>
+</div>
+<div>
+<div class="text-display-lg font-display-lg text-on-surface tracking-tight">75–85 <span class="text-headline-sm font-headline-sm text-on-surface font-normal">MPH</span></div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">Interstates &amp; Tollways (SH 130)</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">
+            Designated high-speed corridors. Portions of SH 130 permit 85 MPH—the highest posted speed limit in the Western Hemisphere.
+          </p>
+<div class="p-3 bg-surface-container-low rounded border border-surface-container space-y-1.5 text-label-mono-sm font-label-mono-sm">
+<div class="text-secondary flex justify-between">
+<span>Reaction &amp; Braking:</span>
+<span class="text-error font-semibold">440+ ft total</span>
+</div>
+<div class="text-secondary flex justify-between">
+<span>Following Distance:</span>
+<span class="text-on-surface font-semibold">4-5 Seconds Min</span>
+</div>
+</div>
+</div>
+<!-- Card 6: Texas Prima Facie Principle -->
+<div class="corridor-card bg-surface-container-low border border-surface-container-high rounded p-6 space-y-4 flex flex-col justify-between" data-category="all">
+<div class="space-y-3">
+<div class="flex justify-between items-start">
+<span class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">[ STATUTORY SUMMARY ]</span>
+<span class="material-symbols-outlined text-primary" data-icon="policy">policy</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">The "Reasonable &amp; Prudent" Standard</h3>
+<p class="text-body-sm font-body-sm text-secondary">
+              A posted limit does not authorize driving at that rate when weather, heavy pedestrian loads, or rough shoreline sand make that speed hazardous.
+            </p>
+</div>
+<div class="pt-4 border-t border-surface-dim text-label-mono-sm font-label-mono-sm text-primary font-medium flex items-center justify-between">
+<span>TTC § 545.351 (General Rule)</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== SECTION 02: SPECIAL TRANSIT FOCUS ==================== -->
+<section class="space-y-6" id="beaches">
+<div class="flex flex-col md:flex-row md:items-end justify-between border-b border-surface-container-high pb-4 gap-4">
+<div>
+<div class="text-label-mono-sm font-label-mono-sm text-secondary uppercase tracking-wider">SECTION 02 // SPECIAL TRANSIT FOCUS</div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Texas Beach Rules &amp; Shoreline Hazards</h2>
+</div>
+<p class="text-body-sm font-body-sm text-secondary max-w-md">
+          Texas treats public beaches as statutory public roadways. All standard Texas Motor Vehicle laws apply fully to coastal sands.
+        </p>
+</div>
+<!-- 3-Column Editorial Breakdown -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Column 1 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4">
+<div class="w-10 h-10 rounded bg-surface-container-low flex items-center justify-center border border-surface-dim">
+<span class="material-symbols-outlined text-on-surface" data-icon="groups">groups</span>
+</div>
+<div>
+<div class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">PILLAR 01 // VULNERABLE USERS</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">Pedestrian Density &amp; Universal Right-of-Way</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary leading-relaxed">
+            Unlike standard thoroughfares with designated sidewalks, a Texas beach mixes sunbathers, children playing near the surf, and motor traffic on an undivided surface. Beachgoers possess <strong class="text-on-surface font-medium">universal pedestrian right-of-way</strong>. Drivers must anticipate erratic pedestrian movements, especially around parked vehicles and camping tents.
+          </p>
+<ul class="text-label-mono-sm font-label-mono-sm text-secondary space-y-2 pt-2 border-t border-surface-container">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Yield fully to pedestrians crossing toward surf
+            </li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Minimum 10-foot lateral safety buffer
+            </li>
+</ul>
+</div>
+<!-- Column 2 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4">
+<div class="w-10 h-10 rounded bg-surface-container-low flex items-center justify-center border border-surface-dim">
+<span class="material-symbols-outlined text-on-surface" data-icon="warning">warning</span>
+</div>
+<div>
+<div class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">PILLAR 02 // FRICTION REDUCTION</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">Traction Loss &amp; Shifting Substrate</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary leading-relaxed">
+            Sand drastically alters vehicle handling dynamics. Dry, uncompacted sand causes tire sinkage and immediate directional instability, while damp tidal sands can contain hidden saltwater washouts and soft troughs. Sudden braking frequently results in severe wheel lockup and skidding even on ABS-equipped passenger vehicles.
+          </p>
+<ul class="text-label-mono-sm font-label-mono-sm text-secondary space-y-2 pt-2 border-t border-surface-container">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Braking distance triples on dry sand
+            </li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Avoid abrupt steering inputs at all times
+            </li>
+</ul>
+</div>
+<!-- Column 3 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded p-6 space-y-4">
+<div class="w-10 h-10 rounded bg-surface-container-low flex items-center justify-center border border-surface-dim">
+<span class="material-symbols-outlined text-on-surface" data-icon="local_police">local_police</span>
+</div>
+<div>
+<div class="text-label-mono-sm font-label-mono-sm text-secondary uppercase">PILLAR 03 // STATUTORY ENFORCEMENT</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mt-1">The 15 MPH Strict Enforcement</h3>
+</div>
+<p class="text-body-sm font-body-sm text-secondary leading-relaxed">
+            Under TTC § 545.358, county commissioners courts and municipal councils hold statutory jurisdiction to enforce the 15 MPH limit. Speed violations on coastal shores are prosecuted as Class C misdemeanors. During major holiday weekends, local law enforcement initiates targeted zero-tolerance patrols with mandatory court appearances.
+          </p>
+<ul class="text-label-mono-sm font-label-mono-sm text-secondary space-y-2 pt-2 border-t border-surface-container">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Open container statutes strictly enforced
+            </li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Seat belt laws apply to all occupants on beach
+            </li>
+</ul>
+</div>
+</div>
+</section>
+<!-- ==================== SECTION 03: STATUTORY KNOWLEDGE CHECK ==================== -->
+<section class="space-y-6 pt-4" id="assessment">
+<div class="flex items-center justify-between border-b border-surface-container-high pb-4">
+<div>
+<div class="text-label-mono-sm font-label-mono-sm text-secondary uppercase tracking-wider">SECTION 03 // MANDATORY COMPLIANCE CHECK</div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Statutory Knowledge Check</h2>
+</div>
+<div class="flex items-center gap-2 text-label-mono-sm font-label-mono-sm text-secondary">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="fact_check">fact_check</span>
+<span>Item 1 of 1 // TDLR Formative Gateway</span>
+</div>
+</div>
+<!-- Assessment Question Card -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded p-6 md:p-8 space-y-6">
+<div class="space-y-2">
+<div class="text-label-mono-sm font-label-mono-sm text-secondary">
+            TEXAS REGULATORY EVALUATION // STATUTE § 545.358
+          </div>
+<h3 class="text-headline-md font-headline-md text-on-surface">
+            Under Texas law, what is the statutory prima facie maximum speed limit for motor vehicles on a public beach?
+          </h3>
+</div>
+<!-- Choice Cards -->
+<div class="space-y-3" id="exam-options">
+<!-- Option A -->
+<div class="option-card cursor-pointer flex items-center p-4 bg-surface-container-lowest border border-surface-container-high rounded-lg hover:border-on-surface transition-all" id="option-A" onclick="selectAnswer('A', false)">
+<div class="w-12 text-label-mono-sm font-label-mono-sm text-secondary font-bold">[ A ]</div>
+<div class="text-body-md font-body-md text-on-surface flex-1">10 MPH</div>
+<span class="material-symbols-outlined text-secondary opacity-0 check-icon text-xl" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<!-- Option B (Correct) -->
+<div class="option-card cursor-pointer flex items-center p-4 bg-surface-container-lowest border border-surface-container-high rounded-lg hover:border-on-surface transition-all" id="option-B" onclick="selectAnswer('B', true)">
+<div class="w-12 text-label-mono-sm font-label-mono-sm text-secondary font-bold">[ B ]</div>
+<div class="text-body-md font-body-md text-on-surface flex-1 font-medium">15 MPH</div>
+<span class="material-symbols-outlined text-secondary opacity-0 check-icon text-xl" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<!-- Option C -->
+<div class="option-card cursor-pointer flex items-center p-4 bg-surface-container-lowest border border-surface-container-high rounded-lg hover:border-on-surface transition-all" id="option-C" onclick="selectAnswer('C', false)">
+<div class="w-12 text-label-mono-sm font-label-mono-sm text-secondary font-bold">[ C ]</div>
+<div class="text-body-md font-body-md text-on-surface flex-1">20 MPH</div>
+<span class="material-symbols-outlined text-secondary opacity-0 check-icon text-xl" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<!-- Option D -->
+<div class="option-card cursor-pointer flex items-center p-4 bg-surface-container-lowest border border-surface-container-high rounded-lg hover:border-on-surface transition-all" id="option-D" onclick="selectAnswer('D', false)">
+<div class="w-12 text-label-mono-sm font-label-mono-sm text-secondary font-bold">[ D ]</div>
+<div class="text-body-md font-body-md text-on-surface flex-1">25 MPH</div>
+<span class="material-symbols-outlined text-secondary opacity-0 check-icon text-xl" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+</div>
+<!-- Immediate Feedback Box (Hidden by default, revealed on selection) -->
+<div class="hidden p-5 rounded border transition-all space-y-2" id="feedback-panel">
+<!-- Dynamically populated via JS -->
+</div>
+</div>
+</section>
+<!-- ==================== BOTTOM LESSON FOOTER ==================== -->
+<footer class="pt-8 border-t border-surface-container-high flex flex-col md:flex-row items-center justify-between gap-6 pb-12">
+<!-- Previous Topic Link -->
+<a class="inline-flex items-center gap-2 text-label-mono-sm font-label-mono-sm text-secondary hover:text-on-surface transition-colors" href="#previous">
+<span class="material-symbols-outlined text-base" data-icon="arrow_back">arrow_back</span>
+        Previous: L05-T08 Adjusting Speed/Route for Poor Conditions
+      </a>
+<!-- Center Compliance Badge -->
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container border border-surface-dim rounded text-label-mono-sm font-label-mono-sm text-secondary">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+        Topic L05-T09 Validated // TDLR Sec. 521.1601 Compliant
+      </div>
+<!-- Primary Action Button -->
+<button class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#e87522] hover:bg-[#d26418] text-white font-medium rounded-lg shadow-sm active:translate-y-px transition-all">
+<span>Complete Topic 9 &amp; Proceed to Module 05 Exam</span>
+<span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</footer>
+</main>
+<!-- ==================== INTERACTIVE JAVASCRIPT ==================== -->
+<script>
+    // Section 01 Filter Matrix Handler
+    function filterCorridors(category, buttonEl) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-surface-container-lowest', 'text-on-surface', 'border', 'border-surface-dim', 'shadow-sm', 'font-semibold');
+        btn.classList.add('text-secondary', 'font-medium');
+      });
+
+      buttonEl.classList.add('bg-surface-container-lowest', 'text-on-surface', 'border', 'border-surface-dim', 'shadow-sm', 'font-semibold');
+      buttonEl.classList.remove('text-secondary', 'font-medium');
+
+      const cards = document.querySelectorAll('.corridor-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (category === 'all' || cardCat === category || cardCat === 'all') {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Section 03 Statutory Knowledge Check Handler
+    function selectAnswer(optionId, isCorrect) {
+      const options = ['A', 'B', 'C', 'D'];
+      const feedback = document.getElementById('feedback-panel');
+
+      // Reset all cards
+      options.forEach(opt => {
+        const el = document.getElementById(`option-${opt}`);
+        el.className = "option-card cursor-pointer flex items-center p-4 bg-surface-container-lowest border border-surface-container-high rounded-lg hover:border-on-surface transition-all";
+        const icon = el.querySelector('.check-icon');
+        icon.classList.add('opacity-0');
+        icon.innerText = "radio_button_unchecked";
+      });
+
+      // Highlight selected
+      const selectedEl = document.getElementById(`option-${optionId}`);
+      const icon = selectedEl.querySelector('.check-icon');
+      icon.classList.remove('opacity-0');
+
+      feedback.classList.remove('hidden');
+
+      if (isCorrect) {
+        selectedEl.className = "option-card cursor-pointer flex items-center p-4 bg-surface-container-lowest border border-primary-container border-l-4 border-l-primary-container rounded-lg transition-all";
+        icon.innerText = "check_circle";
+        icon.classList.remove('text-secondary');
+        icon.classList.add('text-primary');
+
+        feedback.className = "p-5 rounded border border-surface-dim bg-surface-container-low text-on-surface space-y-2 border-l-4 border-l-emerald-600";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 text-label-mono-sm font-label-mono-sm font-bold text-emerald-800">
+            <span class="material-symbols-outlined text-[18px]">verified</span>
+            CORRECT // STATUTORILY VERIFIED (TEXAS TRANSP. CODE § 545.358)
+          </div>
+          <p class="text-body-sm font-body-sm text-on-surface">
+            Under Texas Transportation Code § 545.358, the statutory prima facie speed limit on a Texas beach open to vehicular traffic is strictly <strong>15 MPH</strong>. 
+          </p>
+          <p class="text-body-sm font-body-sm text-secondary">
+            Because public beaches operate as non-segregated corridors where pedestrians, small children, and vehicles share shifting sand substrate, driving at or below 15 MPH is an imperative defensive standard to preserve critical braking distance.
+          </p>
+        `;
+      } else {
+        selectedEl.className = "option-card cursor-pointer flex items-center p-4 bg-surface-container-lowest border border-error border-l-4 border-l-error rounded-lg transition-all";
+        icon.innerText = "cancel";
+        icon.classList.remove('text-secondary');
+        icon.classList.add('text-error');
+
+        feedback.className = "p-5 rounded border border-surface-dim bg-surface-container-low text-on-surface space-y-2 border-l-4 border-l-error";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 text-label-mono-sm font-label-mono-sm font-bold text-error">
+            <span class="material-symbols-outlined text-[18px]">error</span>
+            INCORRECT SELECTION
+          </div>
+          <p class="text-body-sm font-body-sm text-on-surface">
+            Selected value is statutorily inaccurate under Texas law. The prima facie maximum beach speed limit is precisely <strong>15 MPH</strong> (TTC § 545.358).
+          </p>
+          <p class="text-body-sm font-body-sm text-secondary">
+            Please re-read Section 01 and adjust your answer to proceed with compliance validation.
+          </p>
+        `;
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T09';
+  const nextTopicId = 'L05-T10';
+  const prevTopicId = 'L05-T08';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body></html>

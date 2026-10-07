@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L04-T04: Applied Risk Reduction</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            brand: {
+              orange: '#E87522',
+              'orange-hover': '#D46313',
+              'orange-light': '#FDF4EC',
+            },
+            road: {
+              asphalt: '#1F2428',
+              line: '#F1C40F',
+              curb: '#D5D8DC',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #111111;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Animated dash line effect */
+    @keyframes roadMove {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 48; }
+    }
+    .road-motion {
+      animation: roadMove 1.4s linear infinite;
+    }
+
+    /* Beacon pulse */
+    @keyframes pulseRed {
+      0%, 100% { opacity: 0.3; transform: scale(0.95); }
+      50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.9)); }
+    }
+    .rr-beacon-left {
+      animation: pulseRed 0.8s ease-in-out infinite;
+    }
+    .rr-beacon-right {
+      animation: pulseRed 0.8s ease-in-out infinite 0.4s;
+    }
+
+    @keyframes pulseYellowArrow {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.9)); }
+    }
+    .flashing-arrow {
+      animation: pulseYellowArrow 0.9s ease-in-out infinite;
+    }
+
+    @keyframes busLightLeft {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 1)); }
+    }
+    @keyframes busLightRight {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 1)); }
+      50% { opacity: 0.2; }
+    }
+    .bus-flasher-l {
+      animation: busLightLeft 0.7s infinite;
+    }
+    .bus-flasher-r {
+      animation: busLightRight 0.7s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen py-8 px-4 sm:px-6 lg:px-8 selection:bg-brand-orange selection:text-white">
+
+  <!-- Standalone Container (No SaaS sidebars or global LMS shells) -->
+  <main class="max-w-4xl mx-auto">
+
+    <!-- Top Statutory & Breadcrumb Header -->
+    <header class="mb-8">
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-neutral-200 text-xs font-mono tracking-wider text-neutral-500 uppercase">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-brand-orange"></span>
+          <span>MODULE 04 // TOPIC 04 · CAPSTONE SIMULATOR</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>TTC § 544.004, § 545.151, § 545.066</span>
+          <span class="bg-neutral-200 text-neutral-700 px-2 py-0.5 rounded text-[11px] font-semibold">TDLR STANDALONE LAB</span>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <p class="text-xs font-mono font-semibold tracking-widest uppercase text-brand-orange mb-1.5">Lesson 04 · Traffic Control Devices</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900">
+          Applied Risk Reduction
+        </h1>
+        <p class="mt-2.5 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-3xl">
+          Theoretical obedience meets kinetic split-second judgment. Put Texas statutory principles into practice across real-world roadway conflicts in this interactive defensive driving laboratory.
+        </p>
+      </div>
+
+      <!-- Statutory Cornerstone Banner -->
+      <div class="mt-6 p-4 bg-surface border border-neutral-200 border-l-4 border-l-brand-orange rounded-r-lg shadow-sm flex items-start gap-3.5">
+        <div class="text-brand-orange mt-0.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wide text-neutral-500 font-semibold block">TEXAS COMMON LAW & DUE CARE PRINCIPLE</span>
+          <p class="text-sm text-neutral-800 italic mt-0.5">
+            "Even when granted legal precedence or a green indication, an operator possesses an unconditional duty to exercise due care to prevent avoidable collision."
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- THE DEFENSIVE DRIVING SIMULATOR WIDGET -->
+    <section class="bg-surface rounded-2xl border border-neutral-200 shadow-md overflow-hidden" aria-label="Defensive Driving Simulator">
+      
+      <!-- Widget Top Bar / Status Telemetry -->
+      <div class="bg-neutral-900 text-neutral-300 px-5 py-3.5 flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800">
+        <div class="flex items-center gap-3">
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+          <span class="text-xs font-mono font-bold tracking-wider uppercase text-neutral-100">DEFENSIVE DRIVING SIMULATOR</span>
+          <span class="text-neutral-600 font-mono text-xs">|</span>
+          <span id="scenarioIndexBadge" class="text-xs font-mono text-brand-orange font-medium bg-brand-orange/10 px-2 py-0.5 rounded border border-brand-orange/30">
+            SCENARIO 1 OF 4
+          </span>
+        </div>
+
+        <!-- Stage Progress Indicator Pills -->
+        <div class="flex items-center gap-1.5" id="progressPills">
+          <div class="stage-pill w-7 h-1.5 rounded-full bg-brand-orange transition-all duration-300" data-stage="1"></div>
+          <div class="stage-pill w-7 h-1.5 rounded-full bg-neutral-700 transition-all duration-300" data-stage="2"></div>
+          <div class="stage-pill w-7 h-1.5 rounded-full bg-neutral-700 transition-all duration-300" data-stage="3"></div>
+          <div class="stage-pill w-7 h-1.5 rounded-full bg-neutral-700 transition-all duration-300" data-stage="4"></div>
+        </div>
+      </div>
+
+      <!-- 1. THE SIMULATOR VIEWPORT -->
+      <div class="relative w-full h-72 sm:h-84 md:h-96 bg-neutral-950 overflow-hidden select-none" id="simulatorViewport">
+        
+        <!-- Overhead Dynamic HUD Overlays -->
+        <div class="absolute top-4 left-4 z-20 flex flex-col gap-1.5">
+          <div class="inline-flex items-center gap-2 bg-neutral-900/90 backdrop-blur-sm border border-neutral-700/60 px-3 py-1.5 rounded-lg text-xs font-mono text-neutral-200 shadow-lg">
+            <span class="text-neutral-400">VEHICLE VELOCITY:</span>
+            <span id="speedometerValue" class="text-amber-400 font-bold text-sm">45 MPH</span>
+          </div>
+          <div id="statuteBadge" class="inline-flex items-center gap-1.5 bg-neutral-900/80 backdrop-blur-sm border border-neutral-800 px-2.5 py-1 rounded text-[11px] font-mono text-neutral-400">
+            <span>TTC § 544.007(e)</span>
+          </div>
+        </div>
+
+        <div class="absolute top-4 right-4 z-20">
+          <div id="scenarioTag" class="bg-neutral-900/90 backdrop-blur-sm border border-neutral-700/60 px-3 py-1.5 rounded-lg text-xs font-mono text-neutral-300 shadow-lg flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span id="scenarioTagText">YELLOW LIGHT TRANSITION</span>
+          </div>
+        </div>
+
+        <!-- CSS / SVG RENDERED ROAD SCENE CONTAINER -->
+        <div id="sceneContainer" class="w-full h-full relative transition-all duration-500 ease-out">
+          <!-- Dynamic scene content injected via JavaScript -->
+        </div>
+
+        <!-- Cockpit Dashboard / Hood Rim (Perspective Anchor) -->
+        <div class="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-neutral-950 via-neutral-900 to-transparent pointer-events-none z-10 flex items-end justify-center pb-1">
+          <div class="w-3/5 max-w-sm h-3 bg-neutral-800 rounded-t-xl border-t border-neutral-700 shadow-inner flex items-center justify-center">
+            <span class="text-[9px] font-mono tracking-widest text-neutral-400 uppercase">COCKPIT PERSPECTIVE · YOU (DRIVER)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. INTERACTIVE CONTROL PANEL -->
+      <div class="p-6 sm:p-8 bg-surface space-y-6">
+        
+        <!-- Prompt Context Box -->
+        <div class="bg-canvas border border-neutral-200/80 rounded-xl p-4 sm:p-5">
+          <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-500 mb-1.5">
+            <svg class="w-4 h-4 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>TACTICAL ENCOUNTER SCENARIO</span>
+          </div>
+          <p id="scenarioPrompt" class="text-base sm:text-lg font-semibold text-neutral-900 leading-snug">
+            Loading tactical scenario...
+          </p>
+        </div>
+
+        <!-- Action Decision Buttons -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-neutral-500 mb-2.5">
+            EXECUTE DEFENSIVE ACTION:
+          </label>
+          <div id="actionButtonsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <!-- Dynamic option buttons injected via JS -->
+          </div>
+        </div>
+
+        <!-- Dynamic Feedback Readout Box (Hidden initially, reveals upon decision) -->
+        <div id="feedbackContainer" class="hidden transition-all duration-300">
+          <div id="feedbackCard" class="p-5 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-start gap-3.5">
+              <div id="feedbackIcon" class="mt-0.5 flex-shrink-0">
+                <!-- Icon injected via JS -->
+              </div>
+              <div>
+                <h4 id="feedbackTitle" class="text-sm font-bold font-mono tracking-wide uppercase">
+                  EVALUATION RESULT
+                </h4>
+                <p id="feedbackText" class="mt-1 text-sm text-neutral-700 leading-relaxed">
+                  Feedback details.
+                </p>
+              </div>
+            </div>
+
+            <!-- Next Scenario Action CTA -->
+            <div id="nextButtonWrapper" class="w-full sm:w-auto flex-shrink-0">
+              <!-- Next button or Restart injected dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Statistics Footer when Complete -->
+        <div id="completionSummary" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center space-y-3">
+          <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full mx-auto flex items-center justify-center shadow-sm">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-neutral-900">Applied Risk Reduction Lab Completed</h3>
+          <p class="text-sm text-neutral-600 max-w-md mx-auto">
+            You have successfully validated all 4 Texas statutory road encounters under TDLR driver training standards.
+          </p>
+          <div class="pt-2">
+            <button onclick="resetSimulator()" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors shadow-sm">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Restart Simulation Lab
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Post-Simulator Pedagogical Matrix -->
+    <section class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="bg-surface p-5 rounded-xl border border-neutral-200 shadow-sm">
+        <div class="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider mb-1.5">PILLAR 01 // TIME BUFFER</div>
+        <h3 class="text-base font-bold text-neutral-900 mb-2">4-Second Following Interval</h3>
+        <p class="text-xs text-neutral-600 leading-relaxed">
+          At speeds exceeding 30 MPH on Texas roadways, expand your following cushion to a minimum of 4 seconds to maintain an uncompromised escape buffer if the lead vehicle stops abruptly.
+        </p>
+      </div>
+
+      <div class="bg-surface p-5 rounded-xl border border-neutral-200 shadow-sm">
+        <div class="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider mb-1.5">PILLAR 02 // STATUTORY BUFFER</div>
+        <h3 class="text-base font-bold text-neutral-900 mb-2">15 to 50 Foot Rail Stop</h3>
+        <p class="text-xs text-neutral-600 leading-relaxed">
+          Texas Transportation Code § 545.157 mandates stopping no closer than 15 feet and no farther than 50 feet from the nearest rail whenever mechanical gates or electrical beacons activate.
+        </p>
+      </div>
+
+      <div class="bg-surface p-5 rounded-xl border border-neutral-200 shadow-sm">
+        <div class="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider mb-1.5">PILLAR 03 // ZERO EXCEPTION</div>
+        <h3 class="text-base font-bold text-neutral-900 mb-2">Two-Way School Bus Mandate</h3>
+        <p class="text-xs text-neutral-600 leading-relaxed">
+          On undivided roads with dashed or solid centerlines, passing a stopped school bus with alternating flashing reds is strictly forbidden for all directions. Penalties escalate up to a $1,250 fine.
+        </p>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation Bar for Module Progression -->
+    <nav class="mt-10 pt-6 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm font-sans" aria-label="Topic navigation">
+      <a href="#" class="inline-flex items-center gap-2 text-neutral-600 hover:text-neutral-900 font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        <span>Previous: L04-T03 Legal Foundation</span>
+      </a>
+
+      <div class="flex items-center gap-2 text-xs font-mono text-neutral-500">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>L04-T04 Validated // Ready for Examination</span>
+      </div>
+
+      <button class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-orange text-white font-semibold hover:bg-brand-orange-hover transition-all shadow-md active:scale-[0.98]">
+        <span>Complete Topic 4 & Proceed to Module Exam</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Standard Compliant Footer -->
+    <footer class="mt-12 py-6 text-center text-xs text-neutral-500 border-t border-neutral-200 font-sans">
+      <p>© 2025 Texas Department of Licensing and Regulation (TDLR) Approved Adult Driver Education Course • Course Provider #ADE-1042</p>
+      <div class="mt-2 flex justify-center gap-4 text-neutral-400">
+        <a href="#" class="hover:text-neutral-600">Statutory Requirements</a>
+        <span>•</span>
+        <a href="#" class="hover:text-neutral-600">Help & Support</a>
+        <span>•</span>
+        <a href="#" class="hover:text-neutral-600">Course Policies</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT SIMULATION LOGIC -->
+  <script>
+    const scenarios = [
+      {
+        id: 1,
+        title: "Signals & Following Distance",
+        tag: "YELLOW LIGHT TRANSITION",
+        statute: "TTC § 544.007(e)",
+        speed: "45 MPH",
+        prompt: "The light turns steady yellow. You are too close to stop safely before the crosswalk.",
+        options: [
+          {
+            text: "[ Slam on brakes ]",
+            correct: false,
+            feedback: "Incorrect. Risk of rear-end collision. Minimum following distance is 4 seconds over 30mph. In a dilemma zone where a smooth stop cannot be achieved prior to the stop line, the law allows proceeding with extreme caution."
+          },
+          {
+            text: "[ Proceed cautiously through intersection ]",
+            correct: true,
+            feedback: "Correct. If a safe stop is not possible prior to entering the intersection or crosswalk plane, proceed cautiously. Sudden hard stops induce violent rear collisions."
+          }
+        ],
+        renderScene: function() {
+          return `
+            <!-- Scenario 1: Traffic Light Dilemma Zone -->
+            <div class="w-full h-full relative flex items-center justify-center">
+              <!-- Sky & Horizon -->
+              <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-neutral-900"></div>
+
+              <!-- Perspective Road -->
+              <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 400">
+                <!-- Asphalt Trapezoid -->
+                <polygon points="340,160 460,160 780,400 20,400" fill="#1C2024" />
+                
+                <!-- Crosswalk Transverse White Lines -->
+                <line x1="330" y1="185" x2="470" y2="185" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.9" />
+                <line x1="320" y1="198" x2="480" y2="198" stroke="#FFFFFF" stroke-width="6" stroke-opacity="0.9" />
+
+                <!-- Solid White Stop Line Bar -->
+                <line x1="305" y1="215" x2="495" y2="215" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" />
+
+                <!-- Animated White Center Lane Markings -->
+                <line x1="400" y1="220" x2="400" y2="400" stroke="#F1C40F" stroke-width="5" stroke-dasharray="24 24" class="road-motion" />
+                
+                <!-- Left & Right Shoulder Guides -->
+                <line x1="340" y1="160" x2="20" y2="400" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.6" />
+                <line x1="460" y1="160" x2="780" y2="400" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.6" />
+              </svg>
+
+              <!-- Overhead Traffic Signal Mast Arm -->
+              <div class="absolute top-6 z-10 flex flex-col items-center">
+                <!-- Mast Pole -->
+                <div class="w-48 sm:w-64 h-2 bg-neutral-700 shadow-md"></div>
+                <!-- Signal Head Housing -->
+                <div class="bg-neutral-900 border-2 border-neutral-700 p-2 rounded-xl flex items-center gap-2 shadow-2xl mt-1">
+                  <!-- Red Lamp (Inactive) -->
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-950 border border-red-900/50 flex items-center justify-center">
+                    <div class="w-3 h-3 rounded-full bg-red-900/40"></div>
+                  </div>
+                  <!-- Steady Yellow Lamp (ACTIVE) -->
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-400 border border-amber-300 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,1)]">
+                    <div class="w-4 h-4 rounded-full bg-amber-100"></div>
+                  </div>
+                  <!-- Green Lamp (Inactive) -->
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-950 border border-emerald-900/50 flex items-center justify-center">
+                    <div class="w-3 h-3 rounded-full bg-emerald-900/40"></div>
+                  </div>
+                </div>
+                <!-- Warning Subtitle Tag -->
+                <span class="mt-2 text-[10px] font-mono tracking-widest bg-amber-400 text-neutral-950 px-2 py-0.5 rounded font-bold uppercase shadow">
+                  STEADY AMBER PHASE
+                </span>
+              </div>
+
+              <!-- Distance to Stop Line Marker Tag -->
+              <div class="absolute bottom-14 z-10 bg-neutral-900/90 border border-neutral-700 text-neutral-300 px-3 py-1 rounded text-xs font-mono shadow-md flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping"></span>
+                <span>DISTANCE TO STOP BAR: 35 FT // BRAKING DISTANCE: 85 FT</span>
+              </div>
+            </div>
+          `;
+        }
+      },
+      {
+        id: 2,
+        title: "Signs, Markings & Right-of-Way",
+        tag: "FLASHING YELLOW ARROW · UNPROTECTED TURN",
+        statute: "TTC § 544.007 & § 545.152",
+        speed: "18 MPH",
+        prompt: "You are in the dedicated left-turn lane. The signal is a flashing yellow arrow.",
+        options: [
+          {
+            text: "[ Yield to oncoming traffic, then turn ]",
+            correct: true,
+            feedback: "Correct. A flashing yellow arrow allows a permissive left turn, but you MUST yield to oncoming vehicles and crossing pedestrians before proceeding."
+          },
+          {
+            text: "[ Turn immediately, you have the right-of-way ]",
+            correct: false,
+            feedback: "Incorrect. A flashing arrow is permissive, NOT protected. Under Texas Transportation Code § 544.007, you must yield right-of-way to all oncoming traffic."
+          }
+        ],
+        renderScene: function() {
+          return `
+            <!-- Scenario 2: Center Left-Turn Bay with Flashing Arrow and Oncoming Traffic -->
+            <div class="w-full h-full relative flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-neutral-900 to-neutral-950"></div>
+
+              <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 400">
+                <!-- Asphalt Intersection Base -->
+                <polygon points="280,150 520,150 800,400 0,400" fill="#1C2024" />
+                
+                <!-- Cross-street corridor -->
+                <polygon points="0,210 800,210 800,240 0,240" fill="#16191D" />
+
+                <!-- Left-Turn Bay Striping: Solid outer, broken inner yellow -->
+                <!-- Left Boundary: Solid yellow -->
+                <line x1="380" y1="150" x2="250" y2="400" stroke="#F1C40F" stroke-width="4" />
+                <!-- Center Turn Line: Broken yellow -->
+                <line x1="400" y1="150" x2="350" y2="400" stroke="#F1C40F" stroke-width="3" stroke-dasharray="16 14" />
+                
+                <!-- Right lane divider (White) -->
+                <line x1="450" y1="150" x2="620" y2="400" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="20 18" />
+
+                <!-- Painted Turn Arrow on Asphalt in User's Lane -->
+                <path d="M 320,340 L 320,310 L 305,325 M 320,310 L 295,310" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8" />
+              </svg>
+
+              <!-- Opposing Through Vehicle Approaching (Visual Hazard) -->
+              <div class="absolute top-[38%] left-[54%] z-10 flex flex-col items-center">
+                <!-- Top-down / frontal oncoming car silhouette -->
+                <div class="relative bg-cyan-700 border border-cyan-400 w-12 h-16 rounded-md shadow-xl flex flex-col justify-between p-1">
+                  <!-- Headlights beaming toward driver -->
+                  <div class="flex justify-between">
+                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-200 shadow-[0_0_12px_rgba(254,240,138,1)]"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-200 shadow-[0_0_12px_rgba(254,240,138,1)]"></div>
+                  </div>
+                  <!-- Windshield -->
+                  <div class="h-4 bg-cyan-950/80 rounded mx-0.5"></div>
+                  <!-- Wheels -->
+                  <div class="flex justify-between -mb-1 px-0.5">
+                    <div class="w-1.5 h-3 bg-neutral-900 rounded"></div>
+                    <div class="w-1.5 h-3 bg-neutral-900 rounded"></div>
+                  </div>
+                </div>
+                <div class="mt-1 px-1.5 py-0.5 bg-neutral-900/90 border border-neutral-700 rounded text-[9px] font-mono text-cyan-300 font-bold whitespace-nowrap shadow">
+                  ONCOMING: 40 MPH
+                </div>
+              </div>
+
+              <!-- Dedicated Left-Turn Signal Head -->
+              <div class="absolute top-5 left-1/3 -translate-x-1/2 z-20 flex flex-col items-center">
+                <div class="bg-neutral-900 border-2 border-neutral-700 p-2 rounded-xl flex items-center gap-2 shadow-2xl">
+                  <!-- Red Arrow (Off) -->
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-950 border border-red-900/50 flex items-center justify-center">
+                    <span class="text-xs text-red-900">◀</span>
+                  </div>
+                  <!-- Flashing Yellow Arrow (ACTIVE FLASHING) -->
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-400 border border-amber-300 flex items-center justify-center flashing-arrow">
+                    <span class="text-sm font-bold text-neutral-950">◀</span>
+                  </div>
+                  <!-- Green Arrow (Off) -->
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-950 border border-emerald-900/50 flex items-center justify-center">
+                    <span class="text-xs text-emerald-900">◀</span>
+                  </div>
+                </div>
+                <span class="mt-1.5 text-[9px] font-mono tracking-wider bg-neutral-900 border border-amber-500/50 text-amber-400 px-2 py-0.5 rounded font-bold uppercase">
+                  PERMISSIVE YIELD ARROW
+                </span>
+              </div>
+
+              <!-- Trajectory Conflict Indicator -->
+              <div class="absolute bottom-14 left-1/4 z-10 bg-amber-500/20 border border-amber-400 text-amber-300 px-3 py-1 rounded text-xs font-mono shadow-md">
+                UNPROTECTED CONFLICT ZONE AHEAD
+              </div>
+            </div>
+          `;
+        }
+      },
+      {
+        id: 3,
+        title: "Railroads & Construction",
+        tag: "WORK ZONE · ACTIVE RAIL CROSSING",
+        statute: "TTC § 545.157 & § 472.022",
+        speed: "25 MPH",
+        prompt: "You approach a work zone leading to a railroad crossing. Lights are flashing.",
+        options: [
+          {
+            text: "[ Stop 15-50 feet away ]",
+            correct: true,
+            feedback: "Correct. Texas Transportation Code § 545.157 mandates halting within 15 to 50 feet of the nearest rail. Furthermore, work zone traffic fines automatically double when workers are present."
+          },
+          {
+            text: "[ Stop on the tracks to wait for the flag person ]",
+            correct: false,
+            feedback: "Incorrect. Never halt on or near train tracks under any circumstance! A train requires up to 1 mile to decelerate. Always stop between 15 and 50 feet away from the tracks."
+          }
+        ],
+        renderScene: function() {
+          return `
+            <!-- Scenario 3: Construction Zone Leading to Railroad Grade Crossing -->
+            <div class="w-full h-full relative flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-b from-stone-900 via-neutral-900 to-neutral-950"></div>
+
+              <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 400">
+                <!-- Asphalt Road with Orange Construction Tapers -->
+                <polygon points="320,150 480,150 760,400 40,400" fill="#1E2328" />
+
+                <!-- Railroad Tracks Crossing Horizon (Steel Rails & Ties) -->
+                <!-- Ballast Gravel Bed -->
+                <polygon points="0,170 800,170 800,215 0,215" fill="#2C3238" />
+                <!-- Wooden Ties -->
+                <line x1="50" y1="180" x2="50" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="120" y1="180" x2="120" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="200" y1="180" x2="200" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="280" y1="180" x2="280" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="360" y1="180" x2="360" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="440" y1="180" x2="440" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="520" y1="180" x2="520" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="600" y1="180" x2="600" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="680" y1="180" x2="680" y2="205" stroke="#4B382A" stroke-width="4" />
+                <line x1="750" y1="180" x2="750" y2="205" stroke="#4B382A" stroke-width="4" />
+                
+                <!-- Steel Rails -->
+                <line x1="0" y1="185" x2="800" y2="185" stroke="#BDC3C7" stroke-width="4" />
+                <line x1="0" y1="200" x2="800" y2="200" stroke="#BDC3C7" stroke-width="4" />
+
+                <!-- Pavement Stop Line (15-50 Ft buffer mark) -->
+                <line x1="260" y1="255" x2="540" y2="255" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" />
+                <text x="400" y="275" fill="#FFFFFF" font-size="11" font-family="monospace" text-anchor="middle" letter-spacing="2">15 FT MINIMUM SAFETY BUFFER</text>
+              </svg>
+
+              <!-- Construction Cones Lining the Approach (Left & Right) -->
+              <div class="absolute bottom-16 left-12 sm:left-24 flex items-end gap-3 z-10">
+                <div class="w-5 h-8 bg-orange-500 rounded-t-sm border-b-4 border-neutral-900 shadow relative overflow-hidden">
+                  <div class="absolute top-2 w-full h-1.5 bg-white"></div>
+                </div>
+                <div class="w-6 h-10 bg-orange-500 rounded-t-sm border-b-4 border-neutral-900 shadow relative overflow-hidden">
+                  <div class="absolute top-2.5 w-full h-2 bg-white"></div>
+                </div>
+                <div class="w-8 h-12 bg-orange-500 rounded-t-sm border-b-4 border-neutral-900 shadow relative overflow-hidden">
+                  <div class="absolute top-3 w-full h-2.5 bg-white"></div>
+                </div>
+              </div>
+
+              <!-- Railroad Crossbuck Mast with Alternating Flashing Red Signals -->
+              <div class="absolute top-8 right-16 sm:right-28 z-20 flex flex-col items-center">
+                <!-- Crossbuck X Sign -->
+                <div class="relative w-20 h-10 flex items-center justify-center">
+                  <div class="absolute w-20 h-3.5 bg-white border border-neutral-800 text-[8px] font-extrabold text-neutral-900 flex items-center justify-center rotate-[25deg] shadow">
+                    RAILROAD
+                  </div>
+                  <div class="absolute w-20 h-3.5 bg-white border border-neutral-800 text-[8px] font-extrabold text-neutral-900 flex items-center justify-center -rotate-[25deg] shadow">
+                    CROSSING
+                  </div>
+                </div>
+
+                <!-- Dual Flashing Red Signal Beacons -->
+                <div class="mt-2 flex items-center gap-6 bg-neutral-950 p-2 rounded-xl border border-neutral-700 shadow-2xl">
+                  <!-- Left Flasher -->
+                  <div class="w-7 h-7 rounded-full bg-red-600 border-2 border-red-400 rr-beacon-left"></div>
+                  <!-- Center Bell Assembly -->
+                  <div class="w-3 h-3 rounded-full bg-neutral-600"></div>
+                  <!-- Right Flasher -->
+                  <div class="w-7 h-7 rounded-full bg-red-600 border-2 border-red-400 rr-beacon-right"></div>
+                </div>
+
+                <!-- Work Zone Double Fines Plaque -->
+                <div class="mt-2 bg-orange-500 text-neutral-950 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-orange-400 uppercase shadow">
+                  WORK ZONE // FINES DOUBLE
+                </div>
+              </div>
+
+            </div>
+          `;
+        }
+      },
+      {
+        id: 4,
+        title: "Synthesis (School Buses)",
+        tag: "TWO-LANE RURAL HIGHWAY · SCHOOL BUS HALT",
+        statute: "TTC § 545.066",
+        speed: "35 MPH ➔ 0 MPH",
+        prompt: "A school bus is stopped with flashing red lights on a two-lane road.",
+        options: [
+          {
+            text: "[ Stop and do not pass ]",
+            correct: true,
+            feedback: "Correct. On an undivided two-lane road, vehicles traveling in BOTH directions must come to a complete stop until the flashing lights deactivate or the bus driver resumes motion."
+          },
+          {
+            text: "[ Pass carefully since there is a dashed yellow line ]",
+            correct: false,
+            feedback: "Incorrect. A dashed yellow passing line is completely superseded by a stopped school bus displaying alternating flashing red lights. Passing is a mandatory misdemeanor infraction with fines up to $1,250."
+          }
+        ],
+        renderScene: function() {
+          return `
+            <!-- Scenario 4: School Bus with Flashing Red Beacons & Extended Stop Arm -->
+            <div class="w-full h-full relative flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-b from-stone-900 via-neutral-900 to-neutral-950"></div>
+
+              <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 400">
+                <!-- Two-Lane Rural Roadway -->
+                <polygon points="310,140 490,140 760,400 40,400" fill="#1F2327" />
+
+                <!-- Road Shoulders -->
+                <line x1="310" y1="140" x2="40" y2="400" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.8" />
+                <line x1="490" y1="140" x2="760" y2="400" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.8" />
+
+                <!-- Dashed Yellow Centerline (Two-way traffic) -->
+                <line x1="400" y1="140" x2="400" y2="400" stroke="#F1C40F" stroke-width="5" stroke-dasharray="24 20" />
+              </svg>
+
+              <!-- Stopped School Bus Ahead in Left Opposing / Forward Lane -->
+              <div class="absolute top-[28%] left-[45%] -translate-x-1/2 z-10 flex flex-col items-center">
+                
+                <div class="relative flex items-center">
+                  <!-- Extended Octagonal Stop Sign Arm on side of bus -->
+                  <div class="absolute -left-12 top-6 z-20 flex items-center">
+                    <div class="w-10 h-10 bg-red-600 border-2 border-white rounded-lg flex items-center justify-center shadow-lg animate-pulse">
+                      <span class="text-[9px] font-black text-white tracking-tighter">STOP</span>
+                    </div>
+                    <div class="w-2.5 h-1 bg-neutral-400"></div>
+                  </div>
+
+                  <!-- School Bus Body Rear/Back Elevation -->
+                  <div class="w-36 sm:w-44 h-32 sm:h-36 bg-amber-400 border-2 border-amber-500 rounded-t-2xl rounded-b-md shadow-2xl p-2.5 flex flex-col justify-between relative">
+                    
+                    <!-- Roof Header with Alternating Red Flashing Beacons -->
+                    <div class="flex justify-between items-center bg-neutral-950 p-1 rounded-lg">
+                      <div class="w-5 h-5 rounded-full bg-red-600 border-2 border-red-300 bus-flasher-l"></div>
+                      <span class="text-[10px] font-bold text-amber-400 tracking-widest font-mono">SCHOOL BUS</span>
+                      <div class="w-5 h-5 rounded-full bg-red-600 border-2 border-red-300 bus-flasher-r"></div>
+                    </div>
+
+                    <!-- Rear Glass Windows -->
+                    <div class="grid grid-cols-2 gap-2 my-1">
+                      <div class="h-10 bg-neutral-900/80 rounded border border-neutral-700"></div>
+                      <div class="h-10 bg-neutral-900/80 rounded border border-neutral-700"></div>
+                    </div>
+
+                    <!-- Reflective Danger Chevrons & Tail Lights -->
+                    <div class="flex justify-between items-center pt-1 border-t border-amber-500/60">
+                      <div class="w-4 h-4 rounded-full bg-red-700 border border-red-400"></div>
+                      <div class="text-[8px] font-mono font-bold bg-neutral-900 text-neutral-200 px-1.5 py-0.5 rounded">
+                        STATE LAW: STOP
+                      </div>
+                      <div class="w-4 h-4 rounded-full bg-red-700 border border-red-400"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Distance Sensor Label -->
+                <div class="mt-2 bg-neutral-900/90 border border-neutral-700 text-amber-300 text-[11px] font-mono px-3 py-1 rounded shadow">
+                  HALT REQUIRED FOR BOTH DIRECTIONS
+                </div>
+              </div>
+
+            </div>
+          `;
+        }
+      }
+    ];
+
+    let currentScenarioIndex = 0;
+    let answeredCorrectly = false;
+
+    function renderCurrentScenario() {
+      const scenario = scenarios[currentScenarioIndex];
+      answeredCorrectly = false;
+
+      // Update Header Badges & Meters
+      document.getElementById('scenarioIndexBadge').textContent = `SCENARIO ${scenario.id} OF ${scenarios.length}`;
+      document.getElementById('speedometerValue').textContent = scenario.speed;
+      document.getElementById('scenarioTagText').textContent = scenario.tag;
+      document.getElementById('statuteBadge').innerHTML = `<span>${scenario.statute}</span>`;
+
+      // Update Progress Stage Pills
+      const pills = document.querySelectorAll('.stage-pill');
+      pills.forEach((pill, idx) => {
+        if (idx === currentScenarioIndex) {
+          pill.className = 'stage-pill w-7 h-1.5 rounded-full bg-brand-orange transition-all duration-300';
+        } else if (idx < currentScenarioIndex) {
+          pill.className = 'stage-pill w-7 h-1.5 rounded-full bg-emerald-500 transition-all duration-300';
+        } else {
+          pill.className = 'stage-pill w-7 h-1.5 rounded-full bg-neutral-700 transition-all duration-300';
+        }
+      });
+
+      // Render Visual Viewport Scene
+      const sceneContainer = document.getElementById('sceneContainer');
+      sceneContainer.innerHTML = scenario.renderScene();
+
+      // Update Scenario Prompt
+      document.getElementById('scenarioPrompt').textContent = scenario.prompt;
+
+      // Render Interactive Decision Buttons
+      const buttonsContainer = document.getElementById('actionButtonsContainer');
+      buttonsContainer.innerHTML = '';
+
+      scenario.options.forEach((opt, optIndex) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'opt-btn text-left p-4 sm:p-5 rounded-xl border-2 border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50 active:scale-[0.99] font-medium text-neutral-900 text-sm sm:text-base leading-snug transition-all duration-150 shadow-sm';
+        btn.innerHTML = `<span class="font-mono text-brand-orange mr-1 font-bold">[${String.fromCharCode(65 + optIndex)}]</span> ${opt.text}`;
+        btn.onclick = () => selectOption(optIndex);
+        buttonsContainer.appendChild(btn);
+      });
+
+      // Reset Feedback Box
+      const feedbackContainer = document.getElementById('feedbackContainer');
+      feedbackContainer.classList.add('hidden');
+    }
+
+    function selectOption(optionIndex) {
+      const scenario = scenarios[currentScenarioIndex];
+      const selectedOption = scenario.options[optionIndex];
+      const feedbackContainer = document.getElementById('feedbackContainer');
+      const feedbackCard = document.getElementById('feedbackCard');
+      const feedbackIcon = document.getElementById('feedbackIcon');
+      const feedbackTitle = document.getElementById('feedbackTitle');
+      const feedbackText = document.getElementById('feedbackText');
+      const nextButtonWrapper = document.getElementById('nextButtonWrapper');
+
+      // Highlight selected button & disable/enable styling
+      const buttons = document.querySelectorAll('.opt-btn');
+      buttons.forEach((b, idx) => {
+        if (idx === optionIndex) {
+          if (selectedOption.correct) {
+            b.className = 'opt-btn text-left p-4 sm:p-5 rounded-xl border-2 border-emerald-500 bg-emerald-50 font-medium text-emerald-950 text-sm sm:text-base leading-snug transition-all shadow-sm';
+          } else {
+            b.className = 'opt-btn text-left p-4 sm:p-5 rounded-xl border-2 border-red-500 bg-red-50 font-medium text-red-950 text-sm sm:text-base leading-snug transition-all shadow-sm';
+          }
+        } else {
+          b.className = 'opt-btn text-left p-4 sm:p-5 rounded-xl border-2 border-neutral-200 bg-white opacity-70 font-medium text-neutral-600 text-sm sm:text-base leading-snug transition-all';
+        }
+      });
+
+      feedbackContainer.classList.remove('hidden');
+
+      if (selectedOption.correct) {
+        answeredCorrectly = true;
+        feedbackCard.className = 'p-5 rounded-xl border border-emerald-300 bg-emerald-50/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm';
+        feedbackTitle.className = 'text-sm font-bold font-mono tracking-wide uppercase text-emerald-800';
+        feedbackTitle.textContent = 'STATUTORY ACTION VERIFIED · CORRECT';
+        feedbackText.className = 'mt-1 text-sm text-emerald-900 leading-relaxed';
+        feedbackText.textContent = selectedOption.feedback;
+
+        feedbackIcon.innerHTML = `
+          <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+        `;
+
+        // Render Next Scenario Button
+        if (currentScenarioIndex < scenarios.length - 1) {
+          nextButtonWrapper.innerHTML = `
+            <button onclick="advanceScenario()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-orange hover:bg-brand-orange-hover text-white font-mono font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-md active:scale-95">
+              <span>Next Scenario</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          `;
+        } else {
+          nextButtonWrapper.innerHTML = `
+            <button onclick="finishAllScenarios()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-mono font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-md active:scale-95">
+              <span>Finish Laboratory</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </button>
+          `;
+        }
+
+      } else {
+        feedbackCard.className = 'p-5 rounded-xl border border-red-300 bg-red-50/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm';
+        feedbackTitle.className = 'text-sm font-bold font-mono tracking-wide uppercase text-red-800';
+        feedbackTitle.textContent = 'HAZARD INDUCED · INCORRECT DECISION';
+        feedbackText.className = 'mt-1 text-sm text-red-900 leading-relaxed';
+        feedbackText.textContent = selectedOption.feedback;
+
+        feedbackIcon.innerHTML = `
+          <div class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center shadow">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </div>
+        `;
+
+        nextButtonWrapper.innerHTML = `
+          <button onclick="retryScenario()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-neutral-300 hover:bg-neutral-50 text-neutral-800 font-mono font-semibold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm">
+            <span>Try Alternative</span>
+          </button>
+        `;
+      }
+    }
+
+    function retryScenario() {
+      // Re-enable options
+      const buttons = document.querySelectorAll('.opt-btn');
+      buttons.forEach(b => {
+        b.className = 'opt-btn text-left p-4 sm:p-5 rounded-xl border-2 border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50 active:scale-[0.99] font-medium text-neutral-900 text-sm sm:text-base leading-snug transition-all duration-150 shadow-sm';
+      });
+      document.getElementById('feedbackContainer').classList.add('hidden');
+    }
+
+    function advanceScenario() {
+      if (currentScenarioIndex < scenarios.length - 1) {
+        currentScenarioIndex++;
+        renderCurrentScenario();
+      }
+    }
+
+    function finishAllScenarios() {
+      document.getElementById('actionButtonsContainer').parentElement.classList.add('hidden');
+      document.getElementById('feedbackContainer').classList.add('hidden');
+      document.getElementById('completionSummary').classList.remove('hidden');
+
+      // Highlight all pills green
+      const pills = document.querySelectorAll('.stage-pill');
+      pills.forEach(p => p.className = 'stage-pill w-7 h-1.5 rounded-full bg-emerald-500 transition-all');
+    }
+
+    function resetSimulator() {
+      currentScenarioIndex = 0;
+      document.getElementById('actionButtonsContainer').parentElement.classList.remove('hidden');
+      document.getElementById('completionSummary').classList.add('hidden');
+      renderCurrentScenario();
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCurrentScenario();
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L04-T04';
+  const nextTopicId = 'L05-T01';
+  const prevTopicId = 'L04-T03';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

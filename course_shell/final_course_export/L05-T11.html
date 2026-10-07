@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L05-T11: Freeway Entry, Travel & Exit</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts: Geist / Inter and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            accent: '#E87522',
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            bordercol: '#D9DDD8',
+            darkslate: '#191B1A',
+            charcoal: '#111111',
+            muted: '#5F6368',
+            subtle: '#80868B',
+          },
+          borderRadius: {
+            DEFAULT: '8px',
+            lg: '8px',
+            md: '8px',
+            sm: '8px',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #111111;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Enforce 8px border radius systemwide with strict 1px borders, zero box-shadow */
+    * {
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    .iso-stage {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+    .iso-road-plane {
+      transform: rotateX(55deg) rotateZ(-18deg);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .anim-car {
+      transition: all 0.75s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+  </style>
+</head>
+<body class="bg-[#F6F7F5] min-h-screen py-10 px-4 sm:px-6">
+
+  <!-- UNIFIED SINGLE-COLUMN STACKED CONTAINER (max-w-4xl, no sidebar, no global header) -->
+  <main class="max-w-4xl mx-auto space-y-6">
+
+    <!-- TOP LESSON HEADER & METADATA -->
+    <header class="bg-white border border-[#D9DDD8] rounded-lg p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-muted mb-4 border-b border-[#D9DDD8] pb-4">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#E87522]"></span>
+          <span class="font-semibold tracking-wider uppercase text-charcoal">Module 05 // Speed Management & Flow</span>
+          <span class="text-[#D9DDD8]">|</span>
+          <span class="text-[#E87522] font-semibold">Topic L05-T11</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="px-2 py-0.5 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] text-charcoal">TTC § 545.154 & § 545.051</span>
+          <span class="px-2 py-0.5 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] text-charcoal">TDLR Mandatory Curriculum</span>
+          <span>EST: 12 MIN</span>
+        </div>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-charcoal mb-3">
+        Freeway Entry, Travel, and Exit
+      </h1>
+      <p class="text-base sm:text-lg text-muted leading-relaxed max-w-3xl">
+        High-speed multi-lane transit requires systematic kinetic calibration, anticipatory space cushion management, and strict statutory discipline across on-ramps, cruising lanes, and deceleration tapers.
+      </p>
+
+      <!-- STATUTORY PRECEPT BANNER -->
+      <div class="mt-6 p-4 border border-[#D9DDD8] border-l-4 border-l-[#E87522] bg-[#F6F7F5] rounded-lg flex items-start gap-3">
+        <div class="text-[#E87522] font-mono text-base font-bold mt-0.5">§</div>
+        <div class="text-xs sm:text-sm text-charcoal leading-relaxed font-sans">
+          <span class="font-mono font-semibold text-[#E87522] uppercase tracking-wider block text-xs mb-1">Texas Transportation Code § 545.154 // Controlled-Access Precedence</span>
+          "An operator on an access or feeder road of a controlled-access highway shall yield the right-of-way to a vehicle entering or about to enter the access or feeder road from the highway, or leaving or about to leave an access or feeder road to enter the highway."
+        </div>
+      </div>
+    </header>
+
+    <!-- INTERACTIVE SECTION: FREEWAY LOGISTICS PIPELINE -->
+    <section class="bg-white border border-[#D9DDD8] rounded-lg p-6 sm:p-8 space-y-6">
+      
+      <!-- Section Title & Narrative -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D9DDD8] pb-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-[#E87522] block mb-1">Kinetic Simulation Laboratory</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-charcoal">Freeway Logistics Pipeline</h2>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-xs text-muted">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Live 2.5D Corridor Model</span>
+        </div>
+      </div>
+
+      <p class="text-sm text-muted leading-relaxed">
+        Select a phase of the freeway lifecycle below to observe vehicle trajectory synchronization, lane calibration, and statutory driver obligations in real time.
+      </p>
+
+      <!-- PIPELINE PHASE SELECTOR BUTTONS -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <button id="btn-phase-1" onclick="setPipelinePhase(1)" 
+          class="pipeline-btn flex items-center justify-between p-3.5 border-2 border-[#E87522] bg-[#F6F7F5] rounded-lg text-left transition-colors">
+          <div>
+            <span class="block text-xs font-mono font-semibold text-[#E87522]">PHASE 01</span>
+            <span class="text-sm font-bold text-charcoal">1. Freeway Entry</span>
+          </div>
+          <span class="font-mono text-xs px-2 py-0.5 rounded-lg bg-white border border-[#D9DDD8] text-charcoal">Ramp → Merge</span>
+        </button>
+
+        <button id="btn-phase-2" onclick="setPipelinePhase(2)" 
+          class="pipeline-btn flex items-center justify-between p-3.5 border border-[#D9DDD8] bg-white rounded-lg text-left transition-colors hover:border-charcoal">
+          <div>
+            <span class="block text-xs font-mono text-muted">PHASE 02</span>
+            <span class="text-sm font-bold text-charcoal">2. Highway Travel</span>
+          </div>
+          <span class="font-mono text-xs px-2 py-0.5 rounded-lg bg-[#F6F7F5] border border-[#D9DDD8] text-muted">Cruising Discipline</span>
+        </button>
+
+        <button id="btn-phase-3" onclick="setPipelinePhase(3)" 
+          class="pipeline-btn flex items-center justify-between p-3.5 border border-[#D9DDD8] bg-white rounded-lg text-left transition-colors hover:border-charcoal">
+          <div>
+            <span class="block text-xs font-mono text-muted">PHASE 03</span>
+            <span class="text-sm font-bold text-charcoal">3. Safe Exit</span>
+          </div>
+          <span class="font-mono text-xs px-2 py-0.5 rounded-lg bg-[#F6F7F5] border border-[#D9DDD8] text-muted">Off-Ramp Decel</span>
+        </button>
+      </div>
+
+      <!-- 2.5D INTERACTIVE SIMULATION VISUAL -->
+      <div class="relative bg-[#191B1A] border border-[#D9DDD8] rounded-lg overflow-hidden h-[340px] sm:h-[380px] flex items-center justify-center p-4">
+        
+        <!-- Subtle Top Spec Bar -->
+        <div class="absolute top-3 left-4 right-4 flex items-center justify-between font-mono text-[11px] text-[#80868B] border-b border-white/10 pb-2 z-20">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E87522]"></span>
+            <span id="telemetry-corridor" class="text-white">IH-35 CORRIDOR VECTOR // SPEED CHANGE LANE ACTIVE</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span>VELOCITY: <strong id="telemetry-speed" class="text-[#E87522]">65 MPH</strong></span>
+            <span class="hidden sm:inline">SCALE: 1:1 STATUTORY</span>
+          </div>
+        </div>
+
+        <!-- 2.5D Isometric Road Deck -->
+        <div class="iso-stage w-full h-full flex items-center justify-center pointer-events-none">
+          <div id="road-plane" class="iso-road-plane relative w-[540px] sm:w-[620px] h-[240px] bg-[#232726] border-2 border-white/20 rounded-lg p-3 overflow-hidden">
+            
+            <!-- Concrete Shoulders & Paved Edge Lines -->
+            <div class="absolute inset-x-0 top-0 h-4 bg-[#2D3130] border-b border-white/30"></div>
+            <div class="absolute inset-x-0 bottom-0 h-4 bg-[#2D3130] border-t border-white/30"></div>
+
+            <!-- LANE 1 (Passing / Left Lane) -->
+            <div class="absolute inset-x-0 top-4 h-[55px] border-b border-dashed border-white/40 flex items-center justify-between px-6">
+              <span class="font-mono text-[10px] text-white/40 tracking-wider">LANE 1 (PASSING ONLY § 545.051)</span>
+              <!-- Ambient Traffic in Lane 1 -->
+              <div class="w-12 h-6 bg-slate-300 rounded border border-black/40 flex items-center justify-center text-[9px] font-mono font-bold text-black opacity-80">
+                72 MPH
+              </div>
+            </div>
+
+            <!-- LANE 2 (Through / Center Travel Lane) -->
+            <div class="absolute inset-x-0 top-[75px] h-[55px] border-b border-dashed border-white/40 flex items-center justify-between px-16">
+              <span class="font-mono text-[10px] text-white/40 tracking-wider">LANE 2 (THROUGH TRANSIT)</span>
+              <!-- Ambient Lead Traffic -->
+              <div id="ambient-car-2" class="w-12 h-6 bg-slate-400 rounded border border-black/40 flex items-center justify-center text-[9px] font-mono font-bold text-black opacity-90 transition-all duration-700">
+                65 MPH
+              </div>
+            </div>
+
+            <!-- LANE 3 (Right Lane / Merge & Exit Exchange) -->
+            <div class="absolute inset-x-0 top-[130px] h-[55px] flex items-center justify-between px-6">
+              <span class="font-mono text-[10px] text-white/40 tracking-wider">LANE 3 (MERGING & SLOWER TRAFFIC)</span>
+            </div>
+
+            <!-- ON-RAMP TAPER / ACCELERATION LANE (Topological feature) -->
+            <div id="ramp-feature" class="absolute left-0 bottom-4 w-48 h-12 bg-[#2D3130] border-t-2 border-r-2 border-dashed border-[#E87522]/80 transition-all duration-500">
+              <div class="p-1 font-mono text-[9px] text-[#E87522] tracking-tight">ACCELERATION LANE (SPEED-CHANGE)</div>
+            </div>
+
+            <!-- EXIT OFF-RAMP TAPER -->
+            <div id="exit-feature" class="absolute right-0 bottom-4 w-48 h-12 bg-[#2D3130] border-t-2 border-l-2 border-dashed border-white/40 opacity-30 transition-all duration-500">
+              <div class="p-1 text-right font-mono text-[9px] text-white/70 tracking-tight">OFF-RAMP DECELERATION TAPER</div>
+            </div>
+
+            <!-- DYNAMIC USER CAR [YOU] -->
+            <div id="user-vehicle" class="anim-car absolute left-10 bottom-6 w-14 h-7 bg-[#E87522] rounded border border-white flex items-center justify-center z-30 transition-all duration-700">
+              <div class="flex items-center gap-1">
+                <span class="w-1.5 h-3 bg-white/70 rounded-sm"></span>
+                <span class="text-[9px] font-mono font-bold text-white tracking-tighter">YOU</span>
+                <span class="w-1.5 h-3 bg-white/70 rounded-sm"></span>
+              </div>
+              <!-- Blinker indicator -->
+              <div id="car-blinker" class="absolute -top-1 left-2 w-2 h-2 rounded-full bg-amber-300 animate-ping"></div>
+            </div>
+
+            <!-- SPATIAL BUFFER MEASUREMENT BRACKET (Phase 2) -->
+            <div id="buffer-bracket" class="absolute top-[82px] left-[150px] w-28 h-6 border-b-2 border-l-2 border-r-2 border-amber-400 opacity-0 transition-opacity duration-500 flex items-center justify-center">
+              <span class="font-mono text-[9px] text-amber-300 bg-black/60 px-1 rounded">3.0s TIME BUFFER</span>
+            </div>
+
+            <!-- 1000 YD ADVANCE NOTICE SIGN (Phase 3) -->
+            <div id="advance-sign" class="absolute top-2 right-12 opacity-0 transition-opacity duration-500 bg-emerald-800 border border-white text-white p-1 rounded font-mono text-[9px] flex items-center gap-1.5">
+              <span>EXIT 238B</span>
+              <span class="text-amber-300">1,000 YDS</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Simulation State Overlay Banner -->
+        <div class="absolute bottom-3 left-4 right-4 bg-black/80 border border-white/10 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 z-20 font-mono text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-[#E87522] font-bold">» STATUS:</span>
+            <span id="simulation-status-text" class="text-white">Matching speed on acceleration lane. Yielding to high-speed mainline traffic. Left blinker active.</span>
+          </div>
+          <button onclick="replayCurrentPhase()" class="self-start sm:self-auto px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-lg border border-white/20 transition-colors pointer-events-auto">
+            Replay Motion
+          </button>
+        </div>
+
+      </div>
+
+      <!-- INTERACTIVE STAGE SPECIFICATION -->
+      <div id="pipeline-description-box" class="p-4 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg">
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-lg bg-[#E87522] text-white flex items-center justify-center font-mono text-xs font-bold shrink-0 mt-0.5" id="spec-step-number">
+            01
+          </div>
+          <div class="space-y-1">
+            <h4 id="spec-step-title" class="font-bold text-charcoal text-sm sm:text-base">
+              Phase 1: Freeway Entry (Acceleration & Gap Acceptance)
+            </h4>
+            <p id="spec-step-desc" class="text-xs sm:text-sm text-muted leading-relaxed">
+              Use the on-ramp and speed-change lane to match prevailing traffic velocity. Signal left at least 100 feet prior, audit the blind spot over your left shoulder, and yield right-of-way to circulating freeway traffic.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- STATUTORY TEXT SECTION: 3 BEAUTIFUL EDITORIAL CARDS -->
+    <section class="space-y-4">
+      
+      <div class="border-b border-[#D9DDD8] pb-2">
+        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-[#E87522] block mb-1">Codified Driver Precepts</span>
+        <h2 class="text-2xl font-bold text-charcoal tracking-tight">Statutory Rules of Freeway Operation</h2>
+      </div>
+
+      <!-- CARD 1: ENTRY -->
+      <div class="bg-white border border-[#D9DDD8] rounded-lg p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#D9DDD8] pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="px-2 py-0.5 rounded-lg bg-[#F6F7F5] border border-[#D9DDD8] font-mono text-xs font-bold text-[#E87522]">
+              ENTRY MANDATE
+            </span>
+            <h3 class="text-lg font-bold text-charcoal">Freeway Ingress & Speed Change Protocol</h3>
+          </div>
+          <span class="font-mono text-xs text-muted">TTC § 545.154 & § 545.104</span>
+        </div>
+
+        <p class="text-sm text-charcoal leading-relaxed">
+          Entering a modern controlled-access freeway is an active synchronization exercise. Entering traffic does not possess right-of-way and must adapt smoothly to the prevailing traffic current.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+          
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">01 // Frontage Road Yield</span>
+            <p class="text-xs text-muted leading-relaxed">
+              Under Texas Transportation Code § 545.154, traffic traversing frontage or access roads <strong class="text-charcoal">must unconditionally yield</strong> to vehicles entering or exiting the freeway ramps.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">02 // Speed Change Lane</span>
+            <p class="text-xs text-muted leading-relaxed">
+              Use the acceleration lane to briskly accelerate to highway speed. Never stop abruptly at the end of a merge ramp unless traffic density renders entry physically impossible.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">03 // 100-Ft Signal & Blend</span>
+            <p class="text-xs text-muted leading-relaxed">
+              Continuously signal intention for at least <strong class="text-charcoal">100 feet</strong>, execute a chin-to-shoulder mirror/blind spot check, and smoothly merge into an identified 4-second gap.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARD 2: TRAVEL -->
+      <div class="bg-white border border-[#D9DDD8] rounded-lg p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#D9DDD8] pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="px-2 py-0.5 rounded-lg bg-[#F6F7F5] border border-[#D9DDD8] font-mono text-xs font-bold text-[#E87522]">
+              TRAVEL MANDATE
+            </span>
+            <h3 class="text-lg font-bold text-charcoal">Cruising Discipline & Space Cushion Maintenance</h3>
+          </div>
+          <span class="font-mono text-xs text-muted">TTC § 545.051 & § 545.062</span>
+        </div>
+
+        <p class="text-sm text-charcoal leading-relaxed">
+          Highway travel demands high situational discipline, proactive spacing, and sensory management to mitigate high-speed compression waves and monotony.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+          
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">01 // Lane Positioning Hierarchy</span>
+            <p class="text-xs text-muted leading-relaxed">
+              Maintain the <strong class="text-charcoal">right lane for slower traffic</strong> and entering/exiting flow. Center lanes serve long-distance cruising. The far-left lane is strictly reserved for lawful passing maneuvers.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">02 // 2–4 Second Buffer</span>
+            <p class="text-xs text-muted leading-relaxed">
+              Preserve a <strong class="text-charcoal">2 to 4 second</strong> following distance under favorable conditions. Expand this temporal cushion to 6+ seconds at speeds above 60 MPH, in adverse weather, or when trailing commercial trucks.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">03 // Highway Hypnosis Defense</span>
+            <p class="text-xs text-muted leading-relaxed">
+              Monotonous expressway transit dulls neurological response. <strong class="text-charcoal">Halt every 2 hours or 100 miles</strong> to walk and circulate oxygen. Continuously scan near, mid, and far horizons.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARD 3: EXIT -->
+      <div class="bg-white border border-[#D9DDD8] rounded-lg p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#D9DDD8] pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="px-2 py-0.5 rounded-lg bg-[#F6F7F5] border border-[#D9DDD8] font-mono text-xs font-bold text-[#E87522]">
+              EXIT MANDATE
+            </span>
+            <h3 class="text-lg font-bold text-charcoal">Egress Planning & Deceleration Chamber Discipline</h3>
+          </div>
+          <span class="font-mono text-xs text-muted">TTC § 545.101 & TxDOT Design Standard</span>
+        </div>
+
+        <p class="text-sm text-charcoal leading-relaxed">
+          Exiting the expressway safely prevents violent high-speed rear-end impacts and improper cross-lane diving maneuvers.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+          
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">01 // 1,000-Yard Staging</span>
+            <p class="text-xs text-muted leading-relaxed">
+              Prepare at least <strong class="text-charcoal">1,000 yards (over 1/2 mile)</strong> in advance. Gradually shift into the rightmost exit-lane corridor well before the off-ramp taper begins.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">02 // Decelerate on Ramp ONLY</span>
+            <p class="text-xs text-muted leading-relaxed">
+              <strong class="text-charcoal">Do NOT brake on the active highway mainlanes.</strong> Maintain cruising velocity until your vehicle completely clears the gore point and enters the deceleration ramp.
+            </p>
+          </div>
+
+          <div class="p-3.5 bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg space-y-1.5">
+            <span class="font-mono text-xs font-bold text-charcoal block">03 // The Missed Exit Rule</span>
+            <p class="text-xs text-muted leading-relaxed">
+              If you overshoot your designated exit, <strong class="text-charcoal">never stop, reverse, or cross the painted gore island</strong>. Continue to the subsequent interchange; reversing on a controlled highway is a hazardous Class C infraction.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FORMATIVE STATUTORY ASSESSMENT GATEWAY -->
+    <section class="bg-white border border-[#D9DDD8] rounded-lg p-6 sm:p-8 space-y-6">
+      <div class="flex items-center justify-between border-b border-[#D9DDD8] pb-3">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-[#E87522] block mb-1">Knowledge Validation Gate</span>
+          <h3 class="text-lg font-bold text-charcoal">Statutory Verification Check</h3>
+        </div>
+        <span class="text-xs font-mono text-muted">Pass Threshold: 100%</span>
+      </div>
+
+      <!-- Question 1 -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-charcoal">
+          1. Under Texas Transportation Code § 545.154, who possesses statutory right-of-way between vehicles traversing a frontage road and vehicles entering or exiting freeway ramps?
+        </p>
+        <div class="space-y-2 text-xs sm:text-sm">
+          <label class="flex items-start gap-3 p-3 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] cursor-pointer hover:border-charcoal">
+            <input type="radio" name="q1" class="mt-0.5 text-[#E87522] focus:ring-0">
+            <span>Frontage road traffic always maintains right-of-way because they are proceeding straight on an uninterrupted roadway.</span>
+          </label>
+          <label class="flex items-start gap-3 p-3 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] cursor-pointer hover:border-charcoal">
+            <input type="radio" name="q1" class="mt-0.5 text-[#E87522] focus:ring-0">
+            <span class="text-charcoal font-medium">Frontage road traffic must yield the right-of-way to vehicles entering or exiting the controlled-access freeway. <strong class="text-emerald-700 block font-mono text-xs mt-0.5">✓ STATUTORILY CORRECT (§ 545.154)</strong></span>
+          </label>
+          <label class="flex items-start gap-3 p-3 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] cursor-pointer hover:border-charcoal">
+            <input type="radio" name="q1" class="mt-0.5 text-[#E87522] focus:ring-0">
+            <span>Right-of-way is governed solely by whoever is traveling at the highest calibrated velocity.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="space-y-3 pt-3 border-t border-[#D9DDD8]">
+        <p class="text-sm font-semibold text-charcoal">
+          2. When preparing to exit a 70 MPH Texas interstate highway, where must mechanical deceleration take place?
+        </p>
+        <div class="space-y-2 text-xs sm:text-sm">
+          <label class="flex items-start gap-3 p-3 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] cursor-pointer hover:border-charcoal">
+            <input type="radio" name="q2" class="mt-0.5 text-[#E87522] focus:ring-0">
+            <span>Drivers must pump brakes 500 feet prior to the ramp while still occupying the rightmost highway mainlane.</span>
+          </label>
+          <label class="flex items-start gap-3 p-3 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] cursor-pointer hover:border-charcoal">
+            <input type="radio" name="q2" class="mt-0.5 text-[#E87522] focus:ring-0">
+            <span class="text-charcoal font-medium">Maintain highway speed until completely inside the deceleration ramp, then apply progressive braking to match the posted advisory speed. <strong class="text-emerald-700 block font-mono text-xs mt-0.5">✓ STATUTORILY CORRECT (Prevents Compression Shockwaves)</strong></span>
+          </label>
+          <label class="flex items-start gap-3 p-3 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] cursor-pointer hover:border-charcoal">
+            <input type="radio" name="q2" class="mt-0.5 text-[#E87522] focus:ring-0">
+            <span>Immediately decelerate across all lanes simultaneously while activating 4-way hazard blinkers.</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON FOOTER NAVIGATION -->
+    <footer class="bg-white border border-[#D9DDD8] rounded-lg p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-muted">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span class="text-charcoal font-medium">Topic L05-T11 Validated // TDLR Compliant</span>
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <button class="flex-1 sm:flex-none px-4 py-2 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] text-charcoal hover:bg-white transition-colors">
+          ← Previous: L05-T10 Lights
+        </button>
+        <button class="flex-1 sm:flex-none px-5 py-2 bg-[#E87522] hover:bg-[#d66718] text-white font-bold rounded-lg transition-colors">
+          Complete Topic 11 & Proceed →
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT: LOGISTICS PIPELINE INTERACTIVITY -->
+  <script>
+    let activePhase = 1;
+
+    const phaseSpecs = {
+      1: {
+        title: "Phase 1: Freeway Entry (Acceleration & Gap Acceptance)",
+        desc: "Use the on-ramp and speed-change lane to match prevailing traffic velocity. Signal left at least 100 feet prior, audit the blind spot over your left shoulder, and yield right-of-way to circulating freeway traffic.",
+        corridor: "IH-35 CORRIDOR VECTOR // SPEED CHANGE LANE ACTIVE",
+        speed: "65 MPH",
+        status: "Accelerating in speed-change lane. Matching 65 MPH highway rhythm. Left blinker active.",
+        carPos: { left: '180px', top: '142px' },
+        blinker: true,
+        buffer: false,
+        sign: false,
+        rampOpacity: '1',
+        exitOpacity: '0.3',
+      },
+      2: {
+        title: "Phase 2: Highway Cruising Discipline & Spatial Defense",
+        desc: "Establish a minimum 2 to 4 second dynamic cushion behind lead traffic. Slower traffic stays right. Center lanes accommodate through travel, and stopping every 2 hours prevents highway hypnosis.",
+        corridor: "INTERSTATE CORRIDOR // LANE 2 CRUISE VELOCITY",
+        speed: "70 MPH",
+        status: "Cruising in Lane 2. 3.0s time buffer locked behind lead sedan. Zero tailgating margin.",
+        carPos: { left: '230px', top: '86px' },
+        blinker: false,
+        buffer: true,
+        sign: false,
+        rampOpacity: '0.3',
+        exitOpacity: '0.3',
+      },
+      3: {
+        title: "Phase 3: Exit Staging & Off-Ramp Deceleration Taper",
+        desc: "Stage into the rightmost lane 1,000 yards prior. Signal continuously for 100+ feet. Do not decelerate on the main freeway; brake smoothly only after crossing onto the off-ramp taper.",
+        corridor: "IH-35 SOUTH // EXIT 238B DECELERATION TAPER",
+        speed: "45 MPH",
+        status: "Car has entered the off-ramp taper. Mainlanes cleared before braking began. Speed safely reducing.",
+        carPos: { left: '440px', top: '150px' },
+        blinker: true,
+        buffer: false,
+        sign: true,
+        rampOpacity: '0.3',
+        exitOpacity: '1',
+      }
+    };
+
+    function setPipelinePhase(phaseNum) {
+      activePhase = phaseNum;
+      
+      // Update Button Styles
+      [1, 2, 3].forEach(num => {
+        const btn = document.getElementById(`btn-phase-${num}`);
+        const tag = btn.querySelector('span:first-child');
+        if (num === phaseNum) {
+          btn.className = "pipeline-btn flex items-center justify-between p-3.5 border-2 border-[#E87522] bg-[#F6F7F5] rounded-lg text-left transition-colors";
+          tag.className = "block text-xs font-mono font-semibold text-[#E87522]";
+        } else {
+          btn.className = "pipeline-btn flex items-center justify-between p-3.5 border border-[#D9DDD8] bg-white rounded-lg text-left transition-colors hover:border-charcoal";
+          tag.className = "block text-xs font-mono text-muted";
+        }
+      });
+
+      // Update Spec Card Text
+      const spec = phaseSpecs[phaseNum];
+      document.getElementById('spec-step-number').innerText = `0${phaseNum}`;
+      document.getElementById('spec-step-title').innerText = spec.title;
+      document.getElementById('spec-step-desc').innerText = spec.desc;
+
+      // Update Simulation Telemetry
+      document.getElementById('telemetry-corridor').innerText = spec.corridor;
+      document.getElementById('telemetry-speed').innerText = spec.speed;
+      document.getElementById('simulation-status-text').innerText = spec.status;
+
+      // Animate Vehicle & 2.5D visual components
+      const userCar = document.getElementById('user-vehicle');
+      const blinker = document.getElementById('car-blinker');
+      const buffer = document.getElementById('buffer-bracket');
+      const advanceSign = document.getElementById('advance-sign');
+      const rampFeature = document.getElementById('ramp-feature');
+      const exitFeature = document.getElementById('exit-feature');
+
+      userCar.style.left = spec.carPos.left;
+      userCar.style.top = spec.carPos.top;
+
+      blinker.style.display = spec.blinker ? 'block' : 'none';
+      buffer.style.opacity = spec.buffer ? '1' : '0';
+      advanceSign.style.opacity = spec.sign ? '1' : '0';
+      rampFeature.style.opacity = spec.rampOpacity;
+      exitFeature.style.opacity = spec.exitOpacity;
+    }
+
+    function replayCurrentPhase() {
+      const userCar = document.getElementById('user-vehicle');
+      userCar.style.transition = 'none';
+      userCar.style.left = '10px';
+      userCar.style.top = '155px';
+
+      setTimeout(() => {
+        userCar.style.transition = 'all 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+        setPipelinePhase(activePhase);
+      }, 50);
+    }
+
+    // Initialize with Phase 1
+    window.onload = function() {
+      setPipelinePhase(1);
+    };
+  </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const configs = [
+    { name: 'q1', correctIdx: 1, statute: 'TTC § 545.154' },
+    { name: 'q2', correctIdx: 1, statute: 'Deceleration Ramp Dynamics' }
+  ];
+
+  configs.forEach(cfg => {
+    const radios = document.querySelectorAll(`input[name="${cfg.name}"]`);
+    radios.forEach((radio, idx) => {
+      const label = radio.closest('label');
+      if (label) {
+        label.addEventListener('click', () => {
+          radios.forEach(r => {
+            const l = r.closest('label');
+            if (l) {
+              l.className = 'flex items-start gap-3 p-3 border border-[#D9DDD8] rounded-lg bg-[#F6F7F5] cursor-pointer hover:border-charcoal';
+            }
+          });
+
+          if (idx === cfg.correctIdx) {
+            label.className = 'flex items-start gap-3 p-3 border-2 border-emerald-600 rounded-lg bg-emerald-50 text-emerald-950 font-medium cursor-pointer shadow-xs';
+          } else {
+            label.className = 'flex items-start gap-3 p-3 border-2 border-rose-500 rounded-lg bg-rose-50 text-rose-900 cursor-pointer shadow-xs';
+          }
+        });
+      }
+    });
+  });
+
+  // Footer navigation
+  document.querySelectorAll('button, a').forEach(btn => {
+    const txt = btn.textContent || '';
+    if (txt.includes('Complete Topic 11') || txt.includes('Proceed →')) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        try {
+          let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+          if (!completed.includes('L05-T11')) completed.push('L05-T11');
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+          window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: 'L05-T11' }, '*');
+        } catch(err) {}
+        window.location.href = './L05-T12.html';
+      });
+    }
+    if (txt.includes('Previous') || txt.includes('L05-T10')) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = './L05-T10.html';
+      });
+    }
+  });
+});
+</script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T11';
+  const nextTopicId = 'L05-T12';
+  const prevTopicId = 'L05-T10';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L02-T04: Vehicle Inspection & Registration</title>
+  <script src="https://cdn.tailwindcss.com">
+    function checkQ1(choice) {
+      ['A', 'B', 'C', 'D'].forEach(opt => {
+        const btn = document.getElementById('q1-opt-' + opt);
+        if (btn) btn.className = "p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition";
+      });
+      const selectedBtn = document.getElementById('q1-opt-' + choice);
+      const fb = document.getElementById('q1-feedback');
+      fb.classList.remove('hidden');
+      if (choice === 'B') {
+        if (selectedBtn) selectedBtn.className = "p-3 text-left rounded border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold cursor-pointer";
+        fb.className = "mt-3 p-3 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-900 text-xs font-mono block";
+        fb.innerHTML = "<strong>CORRECT (TTC § 547.408):</strong> Under Texas law, passenger vehicles traveling at 20 MPH must be capable of coming to a complete stop within 25 feet upon initial brake pedal depression.";
+      } else {
+        if (selectedBtn) selectedBtn.className = "p-3 text-left rounded border-2 border-red-500 bg-red-50 text-red-900 cursor-pointer";
+        fb.className = "mt-3 p-3 rounded-lg border border-red-300 bg-red-50 text-red-900 text-xs font-mono block";
+        fb.innerHTML = "<strong>INCORRECT:</strong> Texas Transportation Code § 547.408 mandates that passenger vehicle service brakes must stop the car within 25 feet from a speed of 20 MPH.";
+      }
+    }
+
+    function checkQ2(choice) {
+      ['A', 'B', 'C', 'D'].forEach(opt => {
+        const btn = document.getElementById('q2-opt-' + opt);
+        if (btn) btn.className = "p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition";
+      });
+      const selectedBtn = document.getElementById('q2-opt-' + choice);
+      const fb = document.getElementById('q2-feedback');
+      fb.classList.remove('hidden');
+      if (choice === 'B') {
+        if (selectedBtn) selectedBtn.className = "p-3 text-left rounded border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold cursor-pointer";
+        fb.className = "mt-3 p-3 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-900 text-xs font-mono block";
+        fb.innerHTML = "<strong>CORRECT (TTC § 502.040):</strong> New Texas residents have a mandatory 30-day statutory window from the date of establishing residency to register their motor vehicles.";
+      } else {
+        if (selectedBtn) selectedBtn.className = "p-3 text-left rounded border-2 border-red-500 bg-red-50 text-red-900 cursor-pointer";
+        fb.className = "mt-3 p-3 rounded-lg border border-red-300 bg-red-50 text-red-900 text-xs font-mono block";
+        fb.innerHTML = "<strong>INCORRECT:</strong> Texas Transportation Code § 502.040 establishes that new residents must register their vehicle within 30 days of establishing residence in Texas.";
+      }
+    }
+    
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#e87522',
+              'orange-light': '#fdf2e9',
+              'orange-dark': '#c85a10',
+            },
+            surface: {
+              DEFAULT: '#f9faf8',
+              card: '#ffffff',
+              muted: '#f3f4f2',
+              border: '#e4e6e2',
+              'border-subtle': '#edebe7',
+            },
+            charcoal: {
+              900: '#141716',
+              800: '#222625',
+              700: '#343a38',
+              500: '#626865',
+              400: '#8e9490',
+              300: '#b8beb9',
+            },
+            statutory: {
+              red: '#d93829',
+              'red-light': '#fef2f1',
+              green: '#1b873f',
+              'green-light': '#eefbf2',
+              blue: '#1967d2',
+              'blue-light': '#eef5ff',
+            }
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"Geist Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #f9faf8;
+      color: #141716;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(20, 23, 22, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20, 23, 22, 0.04) 1px, transparent 1px);
+    }
+    .tech-grid-dark {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    }
+    .cad-dimension-line {
+      position: relative;
+    }
+    .cad-dimension-line::before, .cad-dimension-line::after {
+      content: '';
+      position: absolute;
+      width: 1px;
+      height: 12px;
+      background-color: #e87522;
+      top: -5px;
+    }
+    .cad-dimension-line::before { left: 0; }
+    .cad-dimension-line::after { right: 0; }
+
+    /* Interactive Inspection Callouts */
+    /* Interactive Inspection Callouts (Rock-Solid Button Interaction - Zero Jitter) */
+    .callout-node {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+    }
+    .callout-node circle.node-bg {
+      transition: fill 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  stroke 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  stroke-width 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  r 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.2s ease;
+    }
+    .callout-node text {
+      transition: fill 0.2s ease;
+      pointer-events: none;
+    }
+    .callout-node line {
+      transition: stroke 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .callout-node:not(.active-node):hover circle.node-bg {
+      fill: #FFF5EE;
+      stroke: #e87522;
+      stroke-width: 2.2px;
+      r: 16px;
+    }
+    .callout-node:not(.active-node):hover text {
+      fill: #e87522;
+    }
+    .callout-node:not(.active-node):hover line {
+      stroke: #e87522;
+      opacity: 1;
+    }
+    .callout-node:active circle.node-bg {
+      transform: scale(0.94);
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      accent-color: #e87522;
+    }
+
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-orange selection:text-white pb-24">
+
+  <!-- STANDALONE LESSON CONTAINER (No Shell, No Header, No Sidebar) -->
+  <main class="max-w-5xl mx-auto px-6 pt-12">
+    
+    <!-- STATUTORY BREADCRUMB & METADATA -->
+    <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-charcoal-500 pb-3 border-b border-surface-border mb-8">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-brand-orange"></span>
+        <span class="tracking-wide">L02-T04 // VEHICLE ROADWORTHINESS & REGULATORY INTAKE</span>
+        <span class="text-charcoal-300">/</span>
+        <span class="text-charcoal-700 font-semibold">TTC CHAPTER 547 & 548</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-[11px] bg-surface-muted px-2 py-0.5 rounded border border-surface-border">TDLR MANDATORY STANDARD</span>
+        <span class="text-[11px] text-charcoal-400">TEXAS "TWO STEPS, ONE STICKER"</span>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 1 & 2: OPENING — VEHICLE AS THE LESSON & INTERACTIVE CAD  -->
+    <!-- ================================================================= -->
+    <header class="mb-10">
+      <div class="flex items-baseline gap-3 mb-2">
+        <span class="font-mono text-xs font-semibold uppercase tracking-widest text-brand-orange">Statutory Assessment 04</span>
+        <span class="text-xs text-charcoal-400 font-mono">Sec. 548.051 Mandate</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-charcoal-900 leading-tight">
+        Is this vehicle ready for the road?
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-charcoal-500 max-w-3xl leading-relaxed">
+        Under Texas Transportation Code § 548.051, every motor vehicle operated on public highways must pass an annual state inspection verifying 16 critical mechanical subsystems. Inspect the vehicle below to evaluate statutory safety tolerances and critical CAD distance metrics.
+      </p>
+    </header>
+
+    <!-- CENTRAL CAD INSPECTION THEATER -->
+    <section class="bg-surface-card rounded-xl border border-surface-border shadow-sm overflow-hidden mb-12">
+      <!-- Top Theater Status Bar -->
+      <div class="bg-white border-b border-surface-border px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+        <div class="flex items-center gap-3">
+          <span class="flex h-2.5 w-2.5 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-orange"></span>
+          </span>
+          <span class="font-semibold text-charcoal-800">CAD VIEWPORT // ACTIVE TX-DPS SPEC VEHICLE</span>
+          <span class="text-charcoal-300">|</span>
+          <span class="text-charcoal-500">SCALE 1:1 ORTHOGRAPHIC & KINETIC PLANE</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-surface-muted text-charcoal-600 border border-surface-border text-[11px]">COORDINATES: AUSTIN DPS #04</span>
+          <span class="px-2 py-0.5 rounded bg-brand-orange-light text-brand-orange-dark font-semibold border border-brand-orange/20 text-[11px]">ALL SYSTEMS CALIBRATED</span>
+        </div>
+      </div>
+
+      <!-- Main Interactive Graphic Workspace -->
+      <div class="relative tech-grid p-6 sm:p-10 border-b border-surface-border select-none">
+        
+        <!-- Interactive Controls Bar inside Workspace -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <div class="flex items-center gap-2 text-xs font-mono">
+            <span class="text-charcoal-400">SELECT SUBSYSTEM:</span>
+            <div class="inline-flex rounded-md border border-surface-border bg-white p-1 shadow-sm gap-1 text-[11px]" id="nodeSelectorBar">
+              <button onclick="selectInspectionNode('tires')" class="node-btn px-2.5 py-1 rounded font-medium transition bg-brand-orange text-white" data-node="tires">01 Tires (2/32")</button>
+              <button onclick="selectInspectionNode('brakes')" class="node-btn px-2.5 py-1 rounded font-medium transition hover:bg-surface-muted text-charcoal-700" data-node="brakes">02 Brakes (25 FT)</button>
+              <button onclick="selectInspectionNode('horn')" class="node-btn px-2.5 py-1 rounded font-medium transition hover:bg-surface-muted text-charcoal-700" data-node="horn">03 Horn (200 FT)</button>
+              <button onclick="selectInspectionNode('mirrors')" class="node-btn px-2.5 py-1 rounded font-medium transition hover:bg-surface-muted text-charcoal-700" data-node="mirrors">04 Mirrors (200 FT)</button>
+              <button onclick="selectInspectionNode('lights')" class="node-btn px-2.5 py-1 rounded font-medium transition hover:bg-surface-muted text-charcoal-700" data-node="lights">05 Lights (600 FT)</button>
+            </div>
+          </div>
+          <div class="text-[11px] font-mono text-charcoal-400 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px] text-brand-orange">touch_app</span>
+            Click numbered nodes or CAD markers
+          </div>
+        </div>
+
+        <!-- THE VEHICLE CAD SVG CANVAS -->
+        <div class="relative w-full max-w-4xl mx-auto py-2">
+          
+          <svg viewBox="0 0 920 440" class="w-full h-auto overflow-visible" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Grid & Patterns -->
+              <pattern id="cadGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(20,23,22,0.05)" stroke-width="1"/>
+              </pattern>
+              <!-- Arrowhead marker -->
+              <marker id="arrowCAD" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M 1 1 L 7 4 L 1 7 Z" fill="#e87522" />
+              </marker>
+              <marker id="arrowCADRev" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto">
+                <path d="M 7 1 L 1 4 L 7 7 Z" fill="#e87522" />
+              </marker>
+              <marker id="arrowCharcoal" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M 1 1 L 7 4 L 1 7 Z" fill="#626865" />
+              </marker>
+              <marker id="arrowCharcoalRev" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto">
+                <path d="M 7 1 L 1 4 L 7 7 Z" fill="#626865" />
+              </marker>
+
+              <!-- Radial gradients for Horn & Lights -->
+              <radialGradient id="hornAcousticRadius" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#e87522" stop-opacity="0.35"/>
+                <stop offset="70%" stop-color="#e87522" stop-opacity="0.08"/>
+                <stop offset="100%" stop-color="#e87522" stop-opacity="0"/>
+              </radialGradient>
+
+              <linearGradient id="headlightBeam" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#e87522" stop-opacity="0.45"/>
+                <stop offset="40%" stop-color="#f59e0b" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+              </linearGradient>
+
+              <linearGradient id="mirrorCone" x1="100%" y1="50%" x2="0%" y2="50%">
+                <stop offset="0%" stop-color="#1967d2" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#1967d2" stop-opacity="0.02"/>
+              </linearGradient>
+            </defs>
+
+            <!-- ROAD GROUND PLANE & TICKS -->
+            <rect x="20" y="270" width="880" height="2" fill="#141716" opacity="0.2"/>
+            <g stroke="#141716" stroke-opacity="0.15" stroke-width="1">
+              <line x1="80" y1="265" x2="80" y2="275"/>
+              <line x1="160" y1="267" x2="160" y2="273"/>
+              <line x1="240" y1="265" x2="240" y2="275"/>
+              <line x1="320" y1="267" x2="320" y2="273"/>
+              <line x1="400" y1="265" x2="400" y2="275"/>
+              <line x1="480" y1="267" x2="480" y2="273"/>
+              <line x1="560" y1="265" x2="560" y2="275"/>
+              <line x1="640" y1="267" x2="640" y2="273"/>
+              <line x1="720" y1="265" x2="720" y2="275"/>
+              <line x1="800" y1="267" x2="800" y2="273"/>
+              <line x1="880" y1="265" x2="880" y2="275"/>
+            </g>
+
+            <!-- DYNAMIC LAYER: LIGHTS REFLECTOR CONE (600 FT) -->
+            <g id="layer-lights" class="transition-opacity duration-300 opacity-30">
+              <polygon points="630,225 890,165 890,270 630,240" fill="url(#headlightBeam)"/>
+              <line x1="630" y1="180" x2="880" y2="180" stroke="#e87522" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowCAD)"/>
+              <text x="740" y="173" font-family="'Geist Mono', monospace" font-size="11" fill="#e87522" font-weight="600" text-anchor="middle">600 FT TAILLIGHT / REFLECTOR VISIBILITY (§ 547.325)</text>
+            </g>
+
+            <!-- DYNAMIC LAYER: HORN ACOUSTIC ENVELOPE (200 FT) -->
+            <g id="layer-horn" class="transition-opacity duration-300 opacity-20">
+              <circle cx="580" cy="205" r="140" fill="url(#hornAcousticRadius)"/>
+              <circle cx="580" cy="205" r="90" fill="none" stroke="#e87522" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+              <circle cx="580" cy="205" r="140" fill="none" stroke="#e87522" stroke-width="1" stroke-opacity="0.4"/>
+              <text x="580" y="55" font-family="'Geist Mono', monospace" font-size="11" fill="#e87522" font-weight="600" text-anchor="middle">200 FT AUDIBILITY RADIUS (§ 547.501)</text>
+            </g>
+
+            <!-- DYNAMIC LAYER: REARVIEW CONE (200 FT REAR VISIBILITY) -->
+            <g id="layer-mirrors" class="transition-opacity duration-300 opacity-30">
+              <polygon points="340,165 50,110 50,230 340,175" fill="url(#mirrorCone)"/>
+              <line x1="330" y1="140" x2="60" y2="140" stroke="#1967d2" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowCAD)"/>
+              <text x="195" y="133" font-family="'Geist Mono', monospace" font-size="11" fill="#1967d2" font-weight="600" text-anchor="middle">200 FT UNRESTRICTED REAR VIEW (§ 547.602)</text>
+            </g>
+
+            <!-- ============================================== -->
+            <!-- DETAILED 3D PASSENGER VEHICLE (SEMI-ORTHOGONAL) -->
+            <!-- ============================================== -->
+            <!-- Ground Drop Shadow -->
+            <ellipse cx="440" cy="272" rx="230" ry="14" fill="#141716" opacity="0.16"/>
+            
+            <!-- VEHICLE BODY GROUP -->
+            <g id="car-body" class="cursor-pointer" onclick="selectInspectionNode('brakes')">
+              <!-- Underchassis Line -->
+              <rect x="250" y="248" width="370" height="8" rx="2" fill="#222625"/>
+              <rect x="360" y="252" width="130" height="4" fill="#e87522" opacity="0.8"/> <!-- Catalytic converter / exhaust marker -->
+
+              <!-- Rear Wheel & Rim -->
+              <g class="cursor-pointer" onclick="event.stopPropagation(); selectInspectionNode('tires')">
+                <circle cx="300" cy="245" r="32" fill="#1f2421" stroke="#343a38" stroke-width="2"/>
+                <circle cx="300" cy="245" r="23" fill="#e4e6e2" stroke="#626865" stroke-width="2"/>
+                <circle cx="300" cy="245" r="12" fill="#222625"/>
+                <!-- Rim Spokes -->
+                <line x1="300" y1="225" x2="300" y2="265" stroke="#8e9490" stroke-width="2"/>
+                <line x1="280" y1="245" x2="320" y2="245" stroke="#8e9490" stroke-width="2"/>
+                <!-- Tread Indicator Callout Circle -->
+                <circle cx="300" cy="275" r="4" fill="#e87522"/>
+              </g>
+
+              <!-- Front Wheel & Rim -->
+              <g class="cursor-pointer" onclick="event.stopPropagation(); selectInspectionNode('tires')">
+                <circle cx="560" cy="245" r="32" fill="#1f2421" stroke="#343a38" stroke-width="2"/>
+                <circle cx="560" cy="245" r="23" fill="#e4e6e2" stroke="#626865" stroke-width="2"/>
+                <circle cx="560" cy="245" r="12" fill="#222625"/>
+                <line x1="560" y1="225" x2="560" y2="265" stroke="#8e9490" stroke-width="2"/>
+                <line x1="540" y1="245" x2="580" y2="245" stroke="#8e9490" stroke-width="2"/>
+                <circle cx="560" cy="275" r="4" fill="#e87522"/>
+              </g>
+
+              <!-- Wheel Wells -->
+              <path d="M 260 252 A 42 42 0 0 1 340 252" fill="none" stroke="#626865" stroke-width="3"/>
+              <path d="M 520 252 A 42 42 0 0 1 600 252" fill="none" stroke="#626865" stroke-width="3"/>
+
+              <!-- Main Aerodynamic Body Shell (Texas Editorial White/Silver Coupe/Sedan) -->
+              <path d="M 215 240 
+                       L 218 205 
+                       C 220 195, 235 188, 255 186 
+                       L 310 183 
+                       C 335 183, 355 145, 385 130 
+                       C 410 118, 480 118, 515 125 
+                       L 555 165 
+                       C 580 178, 620 188, 640 195 
+                       L 655 210 
+                       C 660 220, 658 238, 650 248 
+                       L 615 250 
+                       L 595 242 
+                       C 585 220, 535 220, 525 242 
+                       L 345 242 
+                       C 335 220, 285 220, 275 242 
+                       L 225 245 Z" 
+                    fill="#ffffff" stroke="#141716" stroke-width="2.5" stroke-linejoin="round"/>
+
+              <!-- Sculpted Body Character Line -->
+              <path d="M 225 210 Q 420 205 645 220" fill="none" stroke="#e4e6e2" stroke-width="2.5"/>
+              <path d="M 245 225 Q 430 220 635 232" fill="none" stroke="#edebe7" stroke-width="1.5"/>
+
+              <!-- Greenhouse / Windows (Glass with Sky Gradient) -->
+              <path d="M 330 180 
+                       C 350 148, 375 133, 400 128 
+                       L 485 128 
+                       L 485 178 
+                       L 330 180 Z" 
+                    fill="#f3f4f2" stroke="#343a38" stroke-width="1.8"/>
+              <!-- Front Windshield & A-Pillar -->
+              <path d="M 495 128 
+                       L 512 128 
+                       C 525 132, 545 152, 560 176 
+                       L 495 178 Z" 
+                    fill="#eef5ff" stroke="#343a38" stroke-width="1.8"/>
+              <!-- B-Pillar & Door Line -->
+              <line x1="490" y1="128" x2="490" y2="242" stroke="#222625" stroke-width="2"/>
+              <line x1="395" y1="180" x2="395" y2="242" stroke="#b8beb9" stroke-width="1.5"/>
+
+              <!-- Door Handles -->
+              <rect x="445" y="195" width="22" height="4" rx="1.5" fill="#343a38"/>
+              <rect x="355" y="195" width="22" height="4" rx="1.5" fill="#343a38"/>
+
+              <!-- Side View Mirror -->
+              <g class="cursor-pointer" onclick="event.stopPropagation(); selectInspectionNode('mirrors')">
+                <path d="M 505 175 C 500 170, 495 168, 485 170 L 487 180 L 505 179 Z" fill="#ffffff" stroke="#141716" stroke-width="1.8"/>
+                <ellipse cx="488" cy="175" rx="3" ry="5" fill="#1967d2" opacity="0.6"/>
+              </g>
+
+              <!-- Headlamp Unit (Front) -->
+              <g class="cursor-pointer" onclick="event.stopPropagation(); selectInspectionNode('lights')">
+                <path d="M 640 205 L 654 212 L 650 225 L 632 222 Z" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.8"/>
+                <circle cx="645" cy="216" r="4" fill="#e87522"/>
+              </g>
+
+              <!-- Tail Lamp Unit (Rear) -->
+              <g class="cursor-pointer" onclick="event.stopPropagation(); selectInspectionNode('lights')">
+                <path d="M 218 200 L 228 202 L 226 220 L 216 218 Z" fill="#fef2f1" stroke="#d93829" stroke-width="1.8"/>
+                <rect x="219" y="204" width="6" height="12" rx="1" fill="#d93829"/>
+              </g>
+
+              <!-- Texas Windshield Inspection / Reg Sticker representation -->
+              <rect x="525" y="156" width="10" height="12" rx="1" fill="#1967d2" stroke="#ffffff" stroke-width="0.8"/>
+              <rect x="527" y="163" width="6" height="3" fill="#ffffff"/>
+            </g>
+
+            <!-- ============================================== -->
+            <!-- CAD DIMENSION ARROWS & DISTANCE OVERLAYS       -->
+            <!-- ============================================== -->
+
+            <!-- 1. BRAKE STOPPING DISTANCE: 25 FT AT 20 MPH -->
+            <g id="layer-brakes" class="transition-all duration-300">
+              <!-- Dimension Extension lines from Wheels to Ground -->
+              <line x1="560" y1="280" x2="560" y2="340" stroke="#e87522" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="880" y1="280" x2="880" y2="340" stroke="#e87522" stroke-width="1" stroke-dasharray="3,3"/>
+              <!-- Stopping Track Line -->
+              <line x1="560" y1="330" x2="880" y2="330" stroke="#e87522" stroke-width="2.5" marker-start="url(#arrowCADRev)" marker-end="url(#arrowCAD)"/>
+              
+              <!-- Hash-marks at endpoints -->
+              <line x1="560" y1="322" x2="560" y2="338" stroke="#e87522" stroke-width="2"/>
+              <line x1="880" y1="322" x2="880" y2="338" stroke="#e87522" stroke-width="2"/>
+
+              <!-- Measurement Label Pill -->
+              <rect x="660" y="318" width="140" height="24" rx="4" fill="#ffffff" stroke="#e87522" stroke-width="1.5"/>
+              <text x="730" y="334" font-family="'Geist Mono', monospace" font-size="11" font-weight="700" fill="#e87522" text-anchor="middle">
+                25 FT @ 20 MPH
+              </text>
+              <text x="730" y="354" font-family="'Geist Mono', monospace" font-size="9" fill="#626865" text-anchor="middle">
+                MAX STATUTORY STOPPING DISTANCE (§ 547.408)
+              </text>
+            </g>
+
+            <!-- 2. TIRE TREAD DEPTH CAD OVERLAY: 2/32" -->
+            <g id="cad-tire-gauge">
+              <line x1="300" y1="280" x2="300" y2="385" stroke="#343a38" stroke-width="1" stroke-dasharray="2,2"/>
+              <!-- Mini depth micrometer graphic -->
+              <rect x="275" y="380" width="125" height="42" rx="4" fill="#ffffff" stroke="#343a38" stroke-width="1.2"/>
+              <text x="285" y="396" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#141716">TIRE TREAD GAUGE</text>
+              <text x="285" y="412" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#e87522">2/32" (1.6mm)</text>
+              <text x="368" y="412" font-family="'Geist', sans-serif" font-size="9" fill="#626865">MIN LEGAL</text>
+            </g>
+
+            <!-- ============================================== -->
+            <!-- NUMBERED INSPECTION NODES (CLICKABLE TARGETS)   -->
+            <!-- ============================================== -->
+            
+            <!-- Node 01: Tires (Interactive Button) -->
+            <g id="node-tires" class="cursor-pointer callout-node group" onclick="selectInspectionNode('tires')" role="button" tabindex="0" aria-label="Inspect Tires (2/32 in)">
+              <circle cx="250" cy="105" r="24" fill="transparent" />
+              <line id="line-tires" x1="300" y1="245" x2="250" y2="105" stroke="#e87522" stroke-width="2.5" />
+              <circle id="circle-tires" class="node-bg" cx="250" cy="105" r="17" fill="#e87522" stroke="#ffffff" stroke-width="2.5" />
+              <text id="text-tires" x="250" y="109" font-family="'Geist Mono', monospace" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">01</text>
+            </g>
+
+            <!-- Node 02: Brakes (Interactive Button) -->
+            <g id="node-brakes" class="cursor-pointer callout-node group" onclick="selectInspectionNode('brakes')" role="button" tabindex="0" aria-label="Inspect Brakes (25 FT)">
+              <circle cx="590" cy="85" r="24" fill="transparent" />
+              <line id="line-brakes" x1="560" y1="245" x2="590" y2="85" stroke="#C5CCC7" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <circle id="circle-brakes" class="node-bg" cx="590" cy="85" r="14" fill="#ffffff" stroke="#A4ACA6" stroke-width="2"/>
+              <text id="text-brakes" x="590" y="89" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#4B534E" text-anchor="middle">02</text>
+            </g>
+
+            <!-- Node 03: Horn (Interactive Button) -->
+            <g id="node-horn" class="cursor-pointer callout-node group" onclick="selectInspectionNode('horn')" role="button" tabindex="0" aria-label="Inspect Horn (200 FT)">
+              <circle cx="680" cy="75" r="24" fill="transparent" />
+              <line id="line-horn" x1="620" y1="195" x2="680" y2="75" stroke="#C5CCC7" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <circle id="circle-horn" class="node-bg" cx="680" cy="75" r="14" fill="#ffffff" stroke="#A4ACA6" stroke-width="2"/>
+              <text id="text-horn" x="680" y="79" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#4B534E" text-anchor="middle">03</text>
+            </g>
+
+            <!-- Node 04: Mirrors (Interactive Button) -->
+            <g id="node-mirrors" class="cursor-pointer callout-node group" onclick="selectInspectionNode('mirrors')" role="button" tabindex="0" aria-label="Inspect Mirrors (200 FT)">
+              <circle cx="445" cy="65" r="24" fill="transparent" />
+              <line id="line-mirrors" x1="488" y1="175" x2="445" y2="65" stroke="#C5CCC7" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <circle id="circle-mirrors" class="node-bg" cx="445" cy="65" r="14" fill="#ffffff" stroke="#A4ACA6" stroke-width="2"/>
+              <text id="text-mirrors" x="445" y="69" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#4B534E" text-anchor="middle">04</text>
+            </g>
+
+            <!-- Node 05: Lights (Interactive Button) -->
+            <g id="node-lights" class="cursor-pointer callout-node group" onclick="selectInspectionNode('lights')" role="button" tabindex="0" aria-label="Inspect Lights (600 FT)">
+              <circle cx="745" cy="95" r="24" fill="transparent" />
+              <line id="line-lights" x1="645" y1="216" x2="745" y2="95" stroke="#C5CCC7" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <circle id="circle-lights" class="node-bg" cx="745" cy="95" r="14" fill="#ffffff" stroke="#A4ACA6" stroke-width="2"/>
+              <text id="text-lights" x="745" y="99" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#4B534E" text-anchor="middle">05</text>
+            </g>
+
+          </svg>
+        </div>
+      </div>
+
+      <!-- Detail Card Docked Below Vehicle Viewport -->
+      <div id="inspectionDetailPanel" class="p-6 bg-surface-muted/60 transition-all duration-200">
+        <!-- Content will swap dynamically via JavaScript -->
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span id="detailBadge" class="font-mono text-xs px-2 py-0.5 rounded bg-brand-orange text-white font-bold">NODE 01 // CRITICAL METRIC</span>
+              <span id="detailStatute" class="font-mono text-xs text-charcoal-500">TTC § 547.612 // TIRES & RUNNING GEAR</span>
+            </div>
+            <h3 id="detailTitle" class="text-xl font-bold text-charcoal-900">Tire Tread Depth: Minimum 2/32 Inch</h3>
+            <p id="detailDesc" class="text-sm text-charcoal-600 mt-1 max-w-2xl leading-relaxed">
+              Tires must possess at least 2/32 of an inch of tread depth across all major grooves. No fabric breaks, exposed cords, or severe sidewall bulges. The "Lincoln penny test" checks this: if the top of Lincoln's head is visible, the vehicle fails Texas safety inspection.
+            </p>
+          </div>
+          <div class="shrink-0 bg-white p-3.5 rounded-lg border border-surface-border text-center min-w-[160px] shadow-xs">
+            <span class="block text-[11px] font-mono text-charcoal-400 uppercase">Texas Mandate</span>
+            <span id="detailValue" class="block text-2xl font-extrabold text-brand-orange font-mono">2/32 IN</span>
+            <span id="detailSub" class="block text-[11px] text-charcoal-500">Tread Depth Threshold</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick 16-Item Checklist Accordion/Pills -->
+      <div class="px-6 py-4 bg-white border-t border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs">
+        <span class="font-mono text-charcoal-400 font-medium">FULL STATUTORY 16-POINT ROSTER (§ 548.051):</span>
+        <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-charcoal-600">
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border font-medium text-charcoal-800">1. Brakes</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border font-medium text-charcoal-800">2. Tires</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border font-medium text-charcoal-800">3. Lights</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border font-medium text-charcoal-800">4. Horn</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border font-medium text-charcoal-800">5. Mirrors</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border text-charcoal-500">6. Wiper Blades</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border text-charcoal-500">7. Exhaust System</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border text-charcoal-500">8. Fuel Cap</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border text-charcoal-500">9. Seat Belts</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border text-charcoal-500">10. Steering</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border text-charcoal-500">11. Window Tint</span>
+          <span class="px-2 py-0.5 rounded bg-surface-muted border border-surface-border text-charcoal-500">+5 Emissions/Safety</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3: THE INSPECTION WORKFLOW (HORIZONTAL CAD PIPELINE)       -->
+    <!-- ================================================================= -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-2 font-mono text-xs text-brand-orange uppercase tracking-wider font-semibold">
+        <span>Section 03 // Administrative Circuit</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 mb-2">
+        The Texas Vehicle Inspection Workflow
+      </h2>
+      <p class="text-sm sm:text-base text-charcoal-500 mb-6 max-w-2xl">
+        Texas implements a strict sequential electronic handshake. An owner cannot register a motor vehicle without an active, verified passing inspection record transmitted to the state mainframe.
+      </p>
+
+      <!-- Horizontal Flowchart Container -->
+      <div class="bg-surface-card rounded-xl border border-surface-border p-6 shadow-sm overflow-x-auto">
+        <div class="min-w-[760px] grid grid-cols-5 gap-3 relative">
+          
+          <!-- Step 1 -->
+          <div class="relative bg-surface-muted/50 p-4 rounded-lg border border-surface-border flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs font-bold text-charcoal-400">STAGE 01</span>
+                <span class="material-symbols-outlined text-[18px] text-charcoal-500">verified_user</span>
+              </div>
+              <h4 class="font-bold text-sm text-charcoal-900 mb-1">Financial Responsibility</h4>
+              <p class="text-xs text-charcoal-600 leading-relaxed">
+                Present compliant 30/60/25 liability insurance card or DPS deposit certificate. Inspector cannot commence without proof.
+              </p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-surface-border/60 text-[10px] font-mono text-charcoal-400">
+              PREREQUISITE GATE
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative bg-surface-muted/50 p-4 rounded-lg border border-surface-border flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs font-bold text-charcoal-400">STAGE 02</span>
+                <span class="material-symbols-outlined text-[18px] text-brand-orange">build_circle</span>
+              </div>
+              <h4 class="font-bold text-sm text-charcoal-900 mb-1">DPS Inspection Station</h4>
+              <p class="text-xs text-charcoal-600 leading-relaxed">
+                Certified technician conducts physical safety & emissions evaluation (OBD-II port check, braking, chassis test).
+              </p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-surface-border/60 text-[10px] font-mono text-charcoal-400">
+              PHYSICAL TESTING
+            </div>
+          </div>
+
+          <!-- Step 3: VIR (Highlight) -->
+          <div class="relative bg-brand-orange-light/40 p-4 rounded-lg border-2 border-brand-orange flex flex-col justify-between shadow-xs">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs font-bold text-brand-orange">STAGE 03</span>
+                <span class="material-symbols-outlined text-[18px] text-brand-orange">description</span>
+              </div>
+              <h4 class="font-bold text-sm text-charcoal-900 mb-1">Passing VIR Issued</h4>
+              <p class="text-xs text-charcoal-700 leading-relaxed font-medium">
+                Vehicle Inspection Report (VIR) printed. Valid for <span class="font-mono font-bold text-brand-orange">90 DAYS</span> to complete state registration.
+              </p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-brand-orange/30 text-[10px] font-mono text-brand-orange-dark font-bold">
+              90-DAY CLOCK RUNS
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="relative bg-surface-muted/50 p-4 rounded-lg border border-surface-border flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs font-bold text-charcoal-400">STAGE 04</span>
+                <span class="material-symbols-outlined text-[18px] text-charcoal-500">lan</span>
+              </div>
+              <h4 class="font-bold text-sm text-charcoal-900 mb-1">Electronic DB Upload</h4>
+              <p class="text-xs text-charcoal-600 leading-relaxed">
+                Inspector transmits pass status in real-time to the Texas Department of Motor Vehicles (TxDMV) database.
+              </p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-surface-border/60 text-[10px] font-mono text-charcoal-400">
+              SYNC WITHIN SECONDS
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="relative bg-surface-muted/50 p-4 rounded-lg border border-surface-border flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs font-bold text-charcoal-400">STAGE 05</span>
+                <span class="material-symbols-outlined text-[18px] text-statutory-green">check_circle</span>
+              </div>
+              <h4 class="font-bold text-sm text-charcoal-900 mb-1">Registration Issuance</h4>
+              <p class="text-xs text-charcoal-600 leading-relaxed">
+                County tax assessor verifies DB record; owner pays registration fees; windshield validation sticker is dispensed.
+              </p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-surface-border/60 text-[10px] font-mono text-statutory-green font-bold">
+              ONE STICKER AFFIXED
+            </div>
+          </div>
+
+        </div>
+
+        <!-- System Footnote -->
+        <div class="mt-4 pt-3 border-t border-surface-border flex items-center justify-between text-xs text-charcoal-500 font-mono">
+          <span>STATUTORY PRINCIPLE: "TWO STEPS, ONE STICKER" (TEXAS HB 2305)</span>
+          <span class="text-brand-orange font-semibold">Windshield inspection sticker abolished in favor of single registration decal</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 4: PROHIBITED MODIFICATIONS (THE ILLEGAL VEHICLE)        -->
+    <!-- ================================================================= -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-2 font-mono text-xs text-statutory-red uppercase tracking-wider font-semibold">
+        <span class="w-2 h-2 rounded-full bg-statutory-red"></span>
+        <span>Section 04 // Statutory Prohibitions (§ 547.611 & Penal Provisions)</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 mb-2">
+        Equipment You Must Not Have: Prohibited Modifications
+      </h2>
+      <p class="text-sm sm:text-base text-charcoal-500 mb-6 max-w-2xl">
+        Operating a vehicle equipped with unauthorized devices constitutes a Class C misdemeanor in Texas. The blueprint below maps forbidden modifications that trigger immediate failed inspection and roadside citation.
+      </p>
+
+      <div class="bg-surface-card rounded-xl border border-surface-border shadow-sm overflow-hidden">
+        <!-- Wireframe Technical Schematic -->
+        <div class="tech-grid p-6 sm:p-8 bg-charcoal-900 text-white relative">
+          <div class="flex items-center justify-between pb-4 border-b border-charcoal-700 text-xs font-mono">
+            <span class="text-statutory-red font-bold flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">warning</span>
+              ILLEGAL MODIFICATION DIAGNOSTIC MATRIX
+            </span>
+            <span class="text-charcoal-400">COLOR CODING: SEMANTIC RED = STATUTORY VIOLATION</span>
+          </div>
+
+          <!-- Stylized Prohibited Vehicle Diagram -->
+          <div class="py-6 max-w-3xl mx-auto">
+            <svg viewBox="0 0 800 280" class="w-full h-auto overflow-visible" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="gridDark" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect x="0" y="0" width="800" height="280" fill="transparent"/>
+
+              <!-- Vehicle Outline (Chassis Wireframe) -->
+              <path d="M 120 180 
+                       L 130 140 
+                       L 210 130 
+                       L 270 70 
+                       L 500 70 
+                       L 560 125 
+                       L 660 135 
+                       L 680 180 
+                       L 620 185 
+                       C 605 160, 555 160, 540 185 
+                       L 280 185 
+                       C 265 160, 215 160, 200 185 Z" 
+                    fill="none" stroke="#626865" stroke-width="1.8" stroke-dasharray="4,3"/>
+
+              <!-- Wheels -->
+              <circle cx="240" cy="185" r="28" fill="none" stroke="#626865" stroke-width="2"/>
+              <circle cx="580" cy="185" r="28" fill="none" stroke="#626865" stroke-width="2"/>
+
+              <!-- ILLEGAL ITEM 1: Red Light Showing From Front -->
+              <g>
+                <circle cx="670" cy="145" r="10" fill="#d93829" opacity="0.8"/>
+                <polygon points="670,145 780,110 780,180" fill="#d93829" opacity="0.25"/>
+                <line x1="670" y1="145" x2="720" y2="50" stroke="#d93829" stroke-width="1.5"/>
+                <circle cx="720" cy="50" r="4" fill="#d93829"/>
+                <rect x="710" y="25" width="85" height="20" rx="3" fill="#d93829"/>
+                <text x="752" y="39" font-family="'Geist Mono', monospace" font-size="9" fill="#ffffff" font-weight="700" text-anchor="middle">RED FRONT LIGHT</text>
+              </g>
+
+              <!-- ILLEGAL ITEM 2: Flashing Red / Blue Beacon -->
+              <g>
+                <rect x="380" y="55" width="24" height="12" rx="2" fill="#d93829"/>
+                <line x1="392" y1="55" x2="392" y2="25" stroke="#d93829" stroke-width="1.5"/>
+                <circle cx="392" cy="25" r="4" fill="#d93829"/>
+                <rect x="330" y="5" width="125" height="20" rx="3" fill="#d93829"/>
+                <text x="392" y="19" font-family="'Geist Mono', monospace" font-size="9" fill="#ffffff" font-weight="700" text-anchor="middle">FLASHING BEACON (COP MOCK)</text>
+              </g>
+
+              <!-- ILLEGAL ITEM 3: Radar Interference / Jammer -->
+              <g>
+                <rect x="650" y="170" width="16" height="8" fill="#d93829"/>
+                <line x1="658" y1="178" x2="658" y2="230" stroke="#d93829" stroke-width="1.5"/>
+                <circle cx="658" cy="230" r="4" fill="#d93829"/>
+                <rect x="600" y="235" width="130" height="20" rx="3" fill="#d93829"/>
+                <text x="665" y="249" font-family="'Geist Mono', monospace" font-size="9" fill="#ffffff" font-weight="700" text-anchor="middle">RADAR / LASER JAMMER</text>
+              </g>
+
+              <!-- ILLEGAL ITEM 4: Cutout Exhaust / Straight Pipe -->
+              <g>
+                <path d="M 120 185 L 170 185" stroke="#d93829" stroke-width="4"/>
+                <line x1="140" y1="185" x2="140" y2="235" stroke="#d93829" stroke-width="1.5"/>
+                <circle cx="140" cy="235" r="4" fill="#d93829"/>
+                <rect x="80" y="240" width="120" height="20" rx="3" fill="#d93829"/>
+                <text x="140" y="254" font-family="'Geist Mono', monospace" font-size="9" fill="#ffffff" font-weight="700" text-anchor="middle">MUFFLER CUTOUT / BYPASS</text>
+              </g>
+
+              <!-- ILLEGAL ITEM 5: Severe Slammed / Insufficient Clearance (< Rim Height) -->
+              <g>
+                <line x1="20" y1="213" x2="780" y2="213" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+                <line x1="390" y1="185" x2="390" y2="213" stroke="#d93829" stroke-width="2"/>
+                <text x="450" y="206" font-family="'Geist Mono', monospace" font-size="9" fill="#d93829" font-weight="600">CLEARANCE DEFICIT (&lt; 2 IN / RUBBER SCRAPE)</text>
+              </g>
+
+            </svg>
+          </div>
+        </div>
+
+        <!-- Matrix of Prohibited Gear with Statutory References -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-surface-border">
+          <div class="p-5 bg-white">
+            <div class="text-xs font-mono font-bold text-statutory-red mb-1">TTC § 547.305(c)</div>
+            <h4 class="font-bold text-sm text-charcoal-900 mb-1">Red Light Showing from Front</h4>
+            <p class="text-xs text-charcoal-600 leading-relaxed">
+              Except for authorized emergency vehicles, no vehicle may display a red lamp visible from directly in front of the vehicle.
+            </p>
+          </div>
+          <div class="p-5 bg-white">
+            <div class="text-xs font-mono font-bold text-statutory-red mb-1">TTC § 547.604</div>
+            <h4 class="font-bold text-sm text-charcoal-900 mb-1">Muffler Cutout or Bypass</h4>
+            <p class="text-xs text-charcoal-600 leading-relaxed">
+              A motor vehicle must be equipped with an operational muffler preventing excessive noise. Cutouts, bypasses, or whistle attachments are illegal.
+            </p>
+          </div>
+          <div class="p-5 bg-white">
+            <div class="text-xs font-mono font-bold text-statutory-red mb-1">TTC § 547.614</div>
+            <h4 class="font-bold text-sm text-charcoal-900 mb-1">Radar & LIDAR Interference</h4>
+            <p class="text-xs text-charcoal-600 leading-relaxed">
+              Possession or operation of a radar jammer or transmitter designed to scramble, confuse, or disable police speed measurement devices is prohibited.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 5: OPTIONAL EQUIPMENT (TOGGLEABLE ADD-ONS)               -->
+    <!-- ================================================================= -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-2 font-mono text-xs text-brand-orange uppercase tracking-wider font-semibold">
+        <span>Section 05 // Permissible Accessories (§ 547.306)</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 mb-2">
+        Optional Equipment: Legal Enhancements & Restrictions
+      </h2>
+      <p class="text-sm sm:text-base text-charcoal-500 mb-6 max-w-2xl">
+        Texas allows several specific optional accessories provided they operate strictly within statutory angles, power levels, and luminance limits. Toggle options below:
+      </p>
+
+      <div class="bg-surface-card rounded-xl border border-surface-border p-6 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="optionalEquipmentGrid">
+          
+          <!-- Add-on 1: Spotlights -->
+          <div class="p-4 rounded-lg border border-surface-border bg-surface-muted/40 transition hover:border-brand-orange">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-semibold text-charcoal-700">MAX 2 SPOTLIGHTS</span>
+              <span class="material-symbols-outlined text-[20px] text-brand-orange">highlight</span>
+            </div>
+            <h4 class="font-bold text-sm text-charcoal-900 mb-1">Spotlamps (§ 547.327)</h4>
+            <p class="text-xs text-charcoal-600 mb-3 leading-relaxed">
+              May not be aimed so that high-intensity beam strikes windshield or mirrors of approaching drivers. Max two permitted.
+            </p>
+            <div class="text-[11px] font-mono text-charcoal-500 bg-white p-2 rounded border border-surface-border">
+              RULE: Beam must strike ground within 100 FT if turned toward traffic.
+            </div>
+          </div>
+
+          <!-- Add-on 2: Fog / Auxiliary Passing Lamps -->
+          <div class="p-4 rounded-lg border border-surface-border bg-surface-muted/40 transition hover:border-brand-orange">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-semibold text-charcoal-700">MAX 2 FOG LAMPS</span>
+              <span class="material-symbols-outlined text-[20px] text-brand-orange">foggy</span>
+            </div>
+            <h4 class="font-bold text-sm text-charcoal-900 mb-1">Fog Lamps (§ 547.328)</h4>
+            <p class="text-xs text-charcoal-600 mb-3 leading-relaxed">
+              Mounted at height 12 to 30 inches. Aimed so that high intensity beam does not rise above 4 inches in 25 feet.
+            </p>
+            <div class="text-[11px] font-mono text-charcoal-500 bg-white p-2 rounded border border-surface-border">
+              MOUNT HEIGHT: 12" min – 30" max from ground plane.
+            </div>
+          </div>
+
+          <!-- Add-on 3: Window Sunscreening (Tint) -->
+          <div class="p-4 rounded-lg border border-surface-border bg-surface-muted/40 transition hover:border-brand-orange">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-semibold text-charcoal-700">25% VLT MINIMUM</span>
+              <span class="material-symbols-outlined text-[20px] text-brand-orange">wb_shade</span>
+            </div>
+            <h4 class="font-bold text-sm text-charcoal-900 mb-1">Window Tint (§ 547.613)</h4>
+            <p class="text-xs text-charcoal-600 mb-3 leading-relaxed">
+              Windshield: AS-1 line or top 5". Side windows to immediate left/right of driver: 25% Visible Light Transmission (VLT).
+            </p>
+            <div class="text-[11px] font-mono text-charcoal-500 bg-white p-2 rounded border border-surface-border">
+              LUMENS: 25% light pass-through test on inspector photometer.
+            </div>
+          </div>
+
+          <!-- Add-on 4: Backup Lamps -->
+          <div class="p-4 rounded-lg border border-surface-border bg-surface-muted/40 transition hover:border-brand-orange">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-semibold text-charcoal-700">WHITE / AMBER</span>
+              <span class="material-symbols-outlined text-[20px] text-brand-orange">replay</span>
+            </div>
+            <h4 class="font-bold text-sm text-charcoal-900 mb-1">Backup Lamps (§ 547.332)</h4>
+            <p class="text-xs text-charcoal-600 mb-3 leading-relaxed">
+              Illuminates white or amber only when transmission is placed into reverse. Must not be illuminated during forward travel.
+            </p>
+            <div class="text-[11px] font-mono text-charcoal-500 bg-white p-2 rounded border border-surface-border">
+              SAFETY: Automatic interlock with transmission selector switch.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 6: REGISTRATION & EXEMPTIONS                             -->
+    <!-- ================================================================= -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-2 font-mono text-xs text-brand-orange uppercase tracking-wider font-semibold">
+        <span>Section 06 // TxDMV Credentials & Exempt Vehicle Lineup</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 mb-2">
+        Texas Registration & Statutory Exemptions
+      </h2>
+      <p class="text-sm sm:text-base text-charcoal-500 mb-6 max-w-2xl">
+        Every passenger vehicle operating on Texas roads must display valid Texas license plates and the unified registration windshield decal.
+      </p>
+
+      <!-- Physical Rendering: Texas Windshield Sticker & License Plate -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+        
+        <!-- Left: Windshield Sticker Card -->
+        <div class="lg:col-span-6 bg-surface-card rounded-xl border border-surface-border p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 text-xs font-mono text-charcoal-500">
+              <span class="font-semibold text-charcoal-800">AFFIXATION: LOWER LEFT WINDSHIELD</span>
+              <span class="text-brand-orange font-bold">INSIDE GLASS</span>
+            </div>
+            
+            <!-- Graphic Windshield Mockup -->
+            <div class="relative bg-gradient-to-b from-sky-100/60 to-white border-2 border-charcoal-300 rounded-lg p-6 flex items-center justify-center min-h-[170px] overflow-hidden">
+              <div class="absolute top-2 left-2 text-[9px] font-mono text-charcoal-400">DRIVER POV (LOWER LEFT CORNER)</div>
+              <!-- Windshield Sticker Graphic -->
+              <div class="w-40 h-36 bg-blue-600 rounded-md shadow-md p-2.5 flex flex-col justify-between border-2 border-white text-white font-mono select-none">
+                <div class="flex justify-between items-start text-[9px] font-bold border-b border-blue-400 pb-1">
+                  <span>TEXAS DMV</span>
+                  <span>PASS 2025</span>
+                </div>
+                <div class="text-center my-1">
+                  <span class="text-3xl font-extrabold tracking-tight block">08 25</span>
+                  <span class="text-[9px] tracking-widest block opacity-90">EXPIRES AUG 2025</span>
+                </div>
+                <div class="text-[8px] bg-blue-700 p-1 rounded flex justify-between">
+                  <span>PLATE: ABC-1234</span>
+                  <span>VIN: 9481</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-surface-border text-xs text-charcoal-600">
+            <span class="font-bold text-charcoal-800">Placement Rule:</span> Must be placed on the lower left corner of the driver’s front windshield, clear of wiper sweep obstructions.
+          </div>
+        </div>
+
+        <!-- Right: Registration Timeline & Purchase Milestones -->
+        <div class="lg:col-span-6 bg-surface-card rounded-xl border border-surface-border p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 text-xs font-mono text-charcoal-500">
+              <span class="font-semibold text-charcoal-800">STATUTORY TIMELINE: VEHICLE SALE</span>
+              <span class="text-brand-orange font-bold">TTC § 501.023</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex items-start gap-3 p-3 rounded-lg bg-surface-muted border border-surface-border">
+                <div class="h-7 w-7 rounded-full bg-brand-orange text-white flex items-center justify-center font-mono font-bold text-xs shrink-0">
+                  30
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-charcoal-900">30-Day Mandatory Title & Registration Window</h4>
+                  <p class="text-xs text-charcoal-600 mt-0.5">
+                    Upon purchasing a motor vehicle in a private sale, the buyer has exactly <strong class="text-charcoal-900">30 calendar days</strong> to transfer the title and register with their County Tax Assessor-Collector.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3 rounded-lg bg-surface-muted border border-surface-border">
+                <div class="h-7 w-7 rounded-full bg-charcoal-800 text-white flex items-center justify-center font-mono font-bold text-xs shrink-0">
+                  TX
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-charcoal-900">Buyer's Temporary Tag (Dealer Sales)</h4>
+                  <p class="text-xs text-charcoal-600 mt-0.5">
+                    Licensed dealers issue a secure web-based eTAG valid for up to 60 days while permanent metallic plates and decals are processed.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-surface-border text-xs text-charcoal-600">
+            <span class="font-bold text-charcoal-800">Penalty:</span> Failure to register within 30 days incurs a 5% statutory late transfer penalty plus municipal court fines.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- EXEMPT VEHICLES SILHOUETTE LINEUP -->
+      <div class="bg-surface-card rounded-xl border border-surface-border p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <span class="font-mono text-xs font-semibold text-brand-orange uppercase">Statutory Carveouts</span>
+            <h3 class="text-lg font-bold text-charcoal-900">Exempt Vehicles Lineup (TTC § 548.052 & § 502.140)</h3>
+          </div>
+          <span class="text-xs font-mono text-charcoal-400">NO ANNUAL INSPECTION STICKER REQUIRED</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- Silhouette 1: Farm Tractor -->
+          <div class="border border-surface-border rounded-lg p-4 bg-surface-muted/40 text-center flex flex-col items-center justify-between">
+            <div class="h-20 w-full flex items-center justify-center mb-2">
+              <svg viewBox="0 0 100 60" class="h-14 w-auto text-charcoal-700" fill="currentColor">
+                <!-- Farm Tractor silhouette -->
+                <circle cx="25" cy="42" r="16" fill="#343a38"/>
+                <circle cx="80" cy="46" r="11" fill="#343a38"/>
+                <path d="M 25 35 L 45 20 L 65 20 L 70 35 L 80 40 L 75 48 L 40 48 Z" fill="#626865"/>
+                <rect x="58" y="10" width="4" height="12" fill="#343a38"/>
+                <rect x="42" y="14" width="18" height="14" rx="2" fill="#8e9490"/>
+              </svg>
+            </div>
+            <div>
+              <span class="font-mono text-xs font-bold text-charcoal-800 block">Farm Tractor & Machinery</span>
+              <p class="text-xs text-charcoal-500 mt-1">Exempt when operated temporarily on highways between farm plots or husbandry facilities.</p>
+            </div>
+            <span class="mt-3 text-[10px] font-mono font-semibold text-statutory-green bg-statutory-green-light px-2 py-0.5 rounded border border-statutory-green/20">
+              § 548.052(1) EXEMPT
+            </span>
+          </div>
+
+          <!-- Silhouette 2: Golf Cart -->
+          <div class="border border-surface-border rounded-lg p-4 bg-surface-muted/40 text-center flex flex-col items-center justify-between">
+            <div class="h-20 w-full flex items-center justify-center mb-2">
+              <svg viewBox="0 0 100 60" class="h-14 w-auto text-charcoal-700" fill="currentColor">
+                <!-- Golf Cart silhouette -->
+                <circle cx="28" cy="46" r="9" fill="#343a38"/>
+                <circle cx="75" cy="46" r="9" fill="#343a38"/>
+                <path d="M 22 42 L 35 32 L 65 32 L 80 42 Z" fill="#626865"/>
+                <line x1="38" y1="32" x2="36" y2="12" stroke="#343a38" stroke-width="2"/>
+                <line x1="72" y1="32" x2="70" y2="12" stroke="#343a38" stroke-width="2"/>
+                <path d="M 32 12 L 75 12 L 73 16 L 34 16 Z" fill="#343a38"/>
+                <rect x="45" y="24" width="16" height="10" fill="#8e9490"/>
+              </svg>
+            </div>
+            <div>
+              <span class="font-mono text-xs font-bold text-charcoal-800 block">Golf Cart / Neighborhood EV</span>
+              <p class="text-xs text-charcoal-500 mt-1">Master planned communities and roads under 35 mph. Requires county golf cart license plate.</p>
+            </div>
+            <span class="mt-3 text-[10px] font-mono font-semibold text-statutory-green bg-statutory-green-light px-2 py-0.5 rounded border border-statutory-green/20">
+              § 551.402 EXEMPT
+            </span>
+          </div>
+
+          <!-- Silhouette 3: Electric Bicycle -->
+          <div class="border border-surface-border rounded-lg p-4 bg-surface-muted/40 text-center flex flex-col items-center justify-between">
+            <div class="h-20 w-full flex items-center justify-center mb-2">
+              <svg viewBox="0 0 100 60" class="h-14 w-auto text-charcoal-700" fill="currentColor">
+                <!-- Electric Bicycle silhouette -->
+                <circle cx="25" cy="42" r="14" fill="none" stroke="#343a38" stroke-width="2.5"/>
+                <circle cx="75" cy="42" r="14" fill="none" stroke="#343a38" stroke-width="2.5"/>
+                <path d="M 25 42 L 45 42 L 60 26 L 38 26 L 25 42 Z" fill="none" stroke="#343a38" stroke-width="2"/>
+                <line x1="60" y1="26" x2="75" y2="42" stroke="#343a38" stroke-width="2"/>
+                <line x1="60" y1="26" x2="63" y2="18" stroke="#343a38" stroke-width="2"/>
+                <line x1="58" y1="18" x2="68" y2="18" stroke="#343a38" stroke-width="2.5"/>
+                <rect x="42" y="32" width="10" height="7" rx="1" fill="#e87522"/> <!-- Motor pack -->
+              </svg>
+            </div>
+            <div>
+              <span class="font-mono text-xs font-bold text-charcoal-800 block">Electric Bicycle / Moped &lt;50cc</span>
+              <p class="text-xs text-charcoal-500 mt-1">E-bikes (&lt;750W / &lt;28 mph) require neither state title, registration decal, nor annual safety inspection.</p>
+            </div>
+            <span class="mt-3 text-[10px] font-mono font-semibold text-statutory-green bg-statutory-green-light px-2 py-0.5 rounded border border-statutory-green/20">
+              § 551.106 EXEMPT
+            </span>
+          </div>
+
+          <!-- Silhouette 4: Power Sweeper -->
+          <div class="border border-surface-border rounded-lg p-4 bg-surface-muted/40 text-center flex flex-col items-center justify-between">
+            <div class="h-20 w-full flex items-center justify-center mb-2">
+              <svg viewBox="0 0 100 60" class="h-14 w-auto text-charcoal-700" fill="currentColor">
+                <!-- Power Sweeper / Mobile Construction silhouette -->
+                <rect x="25" y="22" width="50" height="24" rx="3" fill="#626865"/>
+                <circle cx="34" cy="46" r="8" fill="#343a38"/>
+                <circle cx="68" cy="46" r="8" fill="#343a38"/>
+                <circle cx="82" cy="48" r="5" fill="#e87522"/> <!-- Sweeper brush -->
+                <rect x="58" y="24" width="12" height="10" fill="#eef5ff"/>
+              </svg>
+            </div>
+            <div>
+              <span class="font-mono text-xs font-bold text-charcoal-800 block">Road Maintenance & Sweepers</span>
+              <p class="text-xs text-charcoal-500 mt-1">Specialized road-building equipment, ditch diggers, and power sweepers operated for highway servicing.</p>
+            </div>
+            <span class="mt-3 text-[10px] font-mono font-semibold text-statutory-green bg-statutory-green-light px-2 py-0.5 rounded border border-statutory-green/20">
+              § 548.052(3) EXEMPT
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 7: NEW RESIDENT PIPELINE (30-DAY RELOCATION MATRIX)       -->
+    <!-- ================================================================= -->
+    <section class="mb-14">
+      <div class="flex items-center gap-2 mb-2 font-mono text-xs text-brand-orange uppercase tracking-wider font-semibold">
+        <span>Section 07 // Texas Relocation Protocol</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 mb-2">
+        New Texas Resident Vehicle Onboarding Pipeline
+      </h2>
+      <p class="text-sm sm:text-base text-charcoal-500 mb-6 max-w-2xl">
+        Under Texas Transportation Code § 502.040, an out-of-state individual relocating to Texas must register their motor vehicle within a non-negotiable statutory window.
+      </p>
+
+      <!-- 30 DAYS VISUAL EMPHASIS CALLOUT -->
+      <div class="bg-surface-card rounded-xl border-2 border-brand-orange p-6 shadow-sm mb-6">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-surface-border">
+          <div class="flex items-center gap-4">
+            <div class="h-16 w-16 rounded-xl bg-brand-orange text-white flex flex-col items-center justify-center font-mono font-extrabold shadow-md shrink-0">
+              <span class="text-2xl leading-none">30</span>
+              <span class="text-[10px] uppercase tracking-wider">DAYS</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono font-bold text-brand-orange uppercase">Strict Statutory Deadline</span>
+              <h3 class="text-xl font-bold text-charcoal-900">The 30-Day Relocation Mandate</h3>
+              <p class="text-xs text-charcoal-600 mt-1 max-w-xl">
+                New Texas residents must inspect and register all motor vehicles within <strong>30 days of establishing residency</strong>, before applying for a Texas Driver License (which allows a 90-day window).
+              </p>
+            </div>
+          </div>
+          <div class="font-mono text-xs bg-brand-orange-light text-brand-orange-dark font-bold px-3 py-2 rounded border border-brand-orange/30">
+            TTC § 502.040 ENFORCED
+          </div>
+        </div>
+
+        <!-- Sequential Map / Step Chain -->
+        <div class="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          
+          <div class="p-3.5 rounded bg-surface-muted border border-surface-border">
+            <div class="text-[11px] font-mono text-charcoal-400 font-bold mb-1">STEP 01</div>
+            <h5 class="text-xs font-bold text-charcoal-900 mb-1">Establish Domicile</h5>
+            <p class="text-[11px] text-charcoal-600">Acquire permanent Texas residence (utility bill, lease, or mortgage document).</p>
+          </div>
+
+          <div class="p-3.5 rounded bg-surface-muted border border-surface-border">
+            <div class="text-[11px] font-mono text-brand-orange font-bold mb-1">STEP 02</div>
+            <h5 class="text-xs font-bold text-charcoal-900 mb-1">Vehicle Inspection + VIN</h5>
+            <p class="text-[11px] text-charcoal-600">Obtain safety inspection and out-of-state VIN verification (Form VTR-68-A).</p>
+          </div>
+
+          <div class="p-3.5 rounded bg-surface-muted border border-surface-border">
+            <div class="text-[11px] font-mono text-charcoal-400 font-bold mb-1">STEP 03</div>
+            <h5 class="text-xs font-bold text-charcoal-900 mb-1">Texas Insurance</h5>
+            <p class="text-[11px] text-charcoal-600">Verify 30/60/25 liability coverage written by Texas-authorized underwriter.</p>
+          </div>
+
+          <div class="p-3.5 rounded bg-surface-muted border border-surface-border">
+            <div class="text-[11px] font-mono text-brand-orange font-bold mb-1">STEP 04</div>
+            <h5 class="text-xs font-bold text-charcoal-900 mb-1">County Registration</h5>
+            <p class="text-[11px] text-charcoal-600">Surrender out-of-state registration at County Tax Office; receive Texas plates and decal.</p>
+          </div>
+
+          <div class="p-3.5 rounded bg-surface-muted border border-surface-border">
+            <div class="text-[11px] font-mono text-statutory-green font-bold mb-1">STEP 05</div>
+            <h5 class="text-xs font-bold text-charcoal-900 mb-1">DPS Driver License</h5>
+            <p class="text-[11px] text-charcoal-600">Present vehicle registration receipt at DPS driver license testing station.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- KNOWLEDGE CHECK / STATUTORY ASSESSMENT CHECKPOINT                 -->
+    <!-- ================================================================= -->
+    <section class="bg-white rounded-xl border border-surface-border p-6 sm:p-8 shadow-sm mb-12">
+      <div class="flex items-center justify-between gap-4 pb-4 border-b border-surface-border mb-6">
+        <div>
+          <span class="font-mono text-xs font-semibold text-brand-orange uppercase">Statutory Knowledge Verification</span>
+          <h3 class="text-lg font-bold text-charcoal-900">Checkpoint: Vehicle Standards & Inspection Statutes</h3>
+        </div>
+        <span class="text-xs font-mono text-charcoal-400">TEXAS TRANS CODE § 548 CHECKPOINT</span>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Question 1 -->
+        <div>
+          <p class="text-sm sm:text-base font-semibold text-charcoal-900 mb-3">
+            1. Under Texas Transportation Code § 547.408, what is the maximum legal stopping distance permitted for a passenger car traveling at 20 MPH upon initial brake pedal depression?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono" id="q1-options">
+            <button type="button" onclick="checkQ1('A')" id="q1-opt-A" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ A ] 15 feet
+            </button>
+            <button type="button" onclick="checkQ1('B')" id="q1-opt-B" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ B ] 25 feet
+            </button>
+            <button type="button" onclick="checkQ1('C')" id="q1-opt-C" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ C ] 40 feet
+            </button>
+            <button type="button" onclick="checkQ1('D')" id="q1-opt-D" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ D ] 55 feet
+            </button>
+          </div>
+          <div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg border text-xs font-mono"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="pt-4 border-t border-surface-border">
+          <p class="text-sm sm:text-base font-semibold text-charcoal-900 mb-3">
+            2. A motorist moves from Oklahoma to Texas. How many days does the individual have to register their motor vehicle under Texas Transportation Code § 502.040?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono" id="q2-options">
+            <button type="button" onclick="checkQ2('A')" id="q2-opt-A" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ A ] 10 Days
+            </button>
+            <button type="button" onclick="checkQ2('B')" id="q2-opt-B" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ B ] 30 Days
+            </button>
+            <button type="button" onclick="checkQ2('C')" id="q2-opt-C" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ C ] 60 Days
+            </button>
+            <button type="button" onclick="checkQ2('D')" id="q2-opt-D" class="p-3 text-left rounded border border-surface-border bg-surface-muted/50 hover:border-brand-orange cursor-pointer transition">
+              [ D ] 90 Days
+            </button>
+          </div>
+          <div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg border text-xs font-mono"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON NAVIGATION FOOTER (STANDALONE BODY CONTROLS) -->
+    <footer class="pt-6 border-t border-surface-border flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+      <a href="#" class="inline-flex items-center gap-2 text-charcoal-600 hover:text-charcoal-900 transition py-2 px-3 rounded hover:bg-surface-muted">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        Previous Topic: L02-T03 Suspensions & Revocations
+      </a>
+
+      <div class="flex items-center gap-3">
+        <span class="text-charcoal-400">TOPIC L02-T04 COMPLIANT</span>
+        <button class="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold px-5 py-2.5 rounded-lg shadow-sm transition">
+          Mark as Completed & Advance to Module 02 Review
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- INTERACTIVE LOGIC SCRIPT (Vanilla JS for Subsystem Swapping) -->
+  <script>
+    const inspectionData = {
+      tires: {
+        badge: "NODE 01 // CRITICAL METRIC",
+        statute: "TTC § 547.612 // TIRES & RUNNING GEAR",
+        title: "Tire Tread Depth: Minimum 2/32 Inch",
+        desc: "Tires must possess at least 2/32 of an inch of tread depth across all major grooves. No fabric breaks, exposed cords, or severe sidewall bulges. The 'Lincoln penny test' checks this: if the top of Lincoln's head is visible, the vehicle fails Texas safety inspection.",
+        val: "2/32 IN",
+        sub: "Tread Depth Threshold",
+        activeLayers: ['layer-brakes']
+      },
+      brakes: {
+        badge: "NODE 02 // STOPPING DISTANCE",
+        statute: "TTC § 547.408 // SERVICE BRAKE PERFORMANCE",
+        title: "Braking Distance: 25 Feet at 20 MPH",
+        desc: "Upon full application of the service brake at 20 miles per hour on dry, level, smooth pavement, the motor vehicle must stop completely within 25 feet without swerving or pulling sideways. Parking brake must hold vehicle stationary on any grade.",
+        val: "25 FT",
+        sub: "Max Stopping Distance @ 20 MPH",
+        activeLayers: ['layer-brakes']
+      },
+      horn: {
+        badge: "NODE 03 // AUDIBLE WARNING",
+        statute: "TTC § 547.501 // AUDIBLE SOUND DEVICE",
+        title: "Horn Audibility: 200 Feet Operating Radius",
+        desc: "A motor vehicle must be equipped with an operative horn capable of emitting sound audible under normal conditions from a distance of at least 200 feet. The horn may not emit an unreasonably loud or harsh sound or a whistle.",
+        val: "200 FT",
+        sub: "Audibility Radius Under Normal Conditions",
+        activeLayers: ['layer-horn']
+      },
+      mirrors: {
+        badge: "NODE 04 // REARWARD SIGHTLINE",
+        statute: "TTC § 547.602 // REARVIEW MIRROR REQUIREMENT",
+        title: "Rearview Mirrors: 200 Feet Rearward Sightline",
+        desc: "Every vehicle must have at least one mirror located to reflect to the operator a view of the highway for a distance of at least 200 feet to the rear. If driver's view through rear window is obstructed, side exterior mirrors are mandatory.",
+        val: "200 FT",
+        sub: "Unrestricted Rearward Horizon",
+        activeLayers: ['layer-mirrors']
+      },
+      lights: {
+        badge: "NODE 05 // REFLECTOR & BEAM SPECS",
+        statute: "TTC § 547.325 & § 547.333 // LIGHTING STANDARDS",
+        title: "Lighting & Reflectors: 600 Feet Reflectivity",
+        desc: "Taillights and red rear reflectors must be visible at night from all distances within 100 to 600 feet when directly in front of lawful lower beams of headlamps. Headlamps must reveal persons and vehicles at 350 feet on high beam, 100 feet on low beam.",
+        val: "600 FT",
+        sub: "Reflector Visibility Threshold",
+        activeLayers: ['layer-lights']
+      }
+    };
+
+    function selectInspectionNode(nodeKey) {
+      const data = inspectionData[nodeKey];
+      if (!data) return;
+
+      // Update Detail Card
+      document.getElementById('detailBadge').innerText = data.badge;
+      document.getElementById('detailStatute').innerText = data.statute;
+      document.getElementById('detailTitle').innerText = data.title;
+      document.getElementById('detailDesc').innerText = data.desc;
+      document.getElementById('detailValue').innerText = data.val;
+      document.getElementById('detailSub').innerText = data.sub;
+
+      // Update Button Highlight states in top bar
+      const buttons = document.querySelectorAll('#nodeSelectorBar .node-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-node') === nodeKey) {
+          btn.className = "node-btn px-2.5 py-1 rounded font-medium transition bg-brand-orange text-white shadow-xs";
+        } else {
+          btn.className = "node-btn px-2.5 py-1 rounded font-medium transition hover:bg-surface-muted text-charcoal-700";
+        }
+      });
+
+      // Update Lollipop Nodes: Change clicked lollipop to SOLID ORANGE, others to clean inactive
+      const allNodes = ['tires', 'brakes', 'horn', 'mirrors', 'lights'];
+      allNodes.forEach(key => {
+        const group = document.getElementById(`node-${key}`);
+        const circle = document.getElementById(`circle-${key}`);
+        const text = document.getElementById(`text-${key}`);
+        const line = document.getElementById(`line-${key}`);
+
+        if (key === nodeKey) {
+          // ACTIVE LOLLIPOP: SOLID ORANGE with WHITE TEXT
+          if (group) group.classList.add('active-node');
+          if (circle) {
+            circle.setAttribute('fill', '#e87522');
+            circle.setAttribute('stroke', '#ffffff');
+            circle.setAttribute('stroke-width', '2.5');
+            circle.setAttribute('r', '17');
+            circle.style.filter = 'drop-shadow(0 3px 6px rgba(232, 117, 34, 0.45))';
+          }
+          if (text) {
+            text.setAttribute('fill', '#ffffff');
+            text.setAttribute('font-weight', '800');
+            text.style.fontSize = '11px';
+          }
+          if (line) {
+            line.setAttribute('stroke', '#e87522');
+            line.setAttribute('stroke-width', '2.5');
+            line.setAttribute('stroke-dasharray', 'none');
+            line.style.opacity = '1';
+          }
+        } else {
+          // INACTIVE LOLLIPOP: Clean white with crisp border & dark text
+          if (group) group.classList.remove('active-node');
+          if (circle) {
+            circle.setAttribute('fill', '#ffffff');
+            circle.setAttribute('stroke', '#A4ACA6');
+            circle.setAttribute('stroke-width', '2');
+            circle.setAttribute('r', '14');
+            circle.style.filter = 'none';
+          }
+          if (text) {
+            text.setAttribute('fill', '#4B534E');
+            text.setAttribute('font-weight', '700');
+            text.style.fontSize = '10px';
+          }
+          if (line) {
+            line.setAttribute('stroke', '#C5CCC7');
+            line.setAttribute('stroke-width', '1.5');
+            line.setAttribute('stroke-dasharray', '3,3');
+            line.style.opacity = '0.6';
+          }
+        }
+      });
+
+      // Update SVG CAD Layers
+      const cadTire = document.getElementById('cad-tire-gauge');
+      const cadBrakes = document.getElementById('layer-brakes');
+      const cadHorn = document.getElementById('layer-horn');
+      const cadMirrors = document.getElementById('layer-mirrors');
+      const cadLights = document.getElementById('layer-lights');
+
+      if (cadTire) cadTire.style.opacity = (nodeKey === 'tires') ? '1' : '0.2';
+      if (cadBrakes) cadBrakes.style.opacity = (nodeKey === 'brakes') ? '1' : '0.2';
+      if (cadHorn) cadHorn.style.opacity = (nodeKey === 'horn') ? '0.9' : '0.15';
+      if (cadMirrors) cadMirrors.style.opacity = (nodeKey === 'mirrors') ? '0.9' : '0.15';
+      if (cadLights) cadLights.style.opacity = (nodeKey === 'lights') ? '0.95' : '0.15';
+    }
+
+    // Default to tires
+    selectInspectionNode('tires');
+
+    // Attach keyboard listener to callout nodes
+    document.querySelectorAll('.callout-node').forEach(node => {
+      node.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          node.click();
+        }
+      });
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L02-T04';
+  const nextTopicId = 'L02-T05';
+  const prevTopicId = 'L02-T03';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

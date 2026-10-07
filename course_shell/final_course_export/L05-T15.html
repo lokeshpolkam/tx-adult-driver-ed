@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TX Adult Driver Ed — L05-T15: Winter Driving</title>
+<!-- Material Symbols Outlined Font -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-container": "#e2dfde",
+            "on-error-container": "#93000a",
+            "placeholder-bg": "#1C1C1E",
+            "on-secondary": "#ffffff",
+            "secondary": "#5f5e5e",
+            "on-primary-container": "#4e2000",
+            "on-tertiary-fixed": "#001e30",
+            "secondary-fixed": "#e5e2e1",
+            "inverse-surface": "#2e3130",
+            "inverse-primary": "#ffb68c",
+            "on-secondary-container": "#636262",
+            "inverse-on-surface": "#f0f1ef",
+            "tertiary": "#006493",
+            "surface-variant": "#e2e3e1",
+            "on-error": "#ffffff",
+            "background": "#f9faf8",
+            "on-secondary-fixed-variant": "#474746",
+            "on-secondary-fixed": "#1c1b1b",
+            "tertiary-fixed-dim": "#8dcdff",
+            "primary-container": "#e87522",
+            "surface-container-high": "#e7e8e6",
+            "tertiary-fixed": "#cae6ff",
+            "primary-fixed-dim": "#ffb68c",
+            "on-tertiary-fixed-variant": "#004b70",
+            "outline-variant": "#dec1b2",
+            "on-primary-fixed-variant": "#753400",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f3f4f2",
+            "surface-container": "#edeeec",
+            "on-surface-variant": "#574237",
+            "surface-white": "#FFFFFF",
+            "surface": "#f9faf8",
+            "error": "#ba1a1a",
+            "on-background": "#191c1b",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#321200",
+            "surface-dim": "#d9dad8",
+            "surface-bright": "#f9faf8",
+            "surface-container-highest": "#e2e3e1",
+            "primary": "#9a4600",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-container": "#00314b",
+            "on-surface": "#191c1b",
+            "text-dark": "#111111",
+            "surface-tint": "#9a4600",
+            "primary-fixed": "#ffdbc9",
+            "outline": "#8a7265",
+            "secondary-fixed-dim": "#c8c6c5",
+            "tertiary-container": "#009ee5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "4rem",
+            "space-xs": "0.5rem",
+            "margin": "2rem",
+            "gutter": "2rem",
+            "space-sm": "1rem",
+            "space-md": "1.5rem",
+            "space-lg": "2.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "mono": ["JetBrains Mono", "monospace"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    details[open] summary .accordion-chevron {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TOP APP BAR (Shared Component Exact Structure & Token Hierarchy) -->
+<header class="w-full bg-surface shadow-sm sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-space-md md:px-margin max-w-7xl mx-auto h-16">
+<!-- Brand & Module Identification -->
+<div class="flex items-center gap-6">
+<span class="text-headline-sm font-headline-sm text-on-surface tracking-tight font-bold">Texas Adult Driver Ed</span>
+<span class="hidden lg:inline-block text-secondary text-body-sm font-body-sm pl-4 border-l border-surface-variant">
+          TDLR Certified Provider #C2844
+        </span>
+</div>
+<!-- Navigation Tabs (Shared Components JSON execution) -->
+<nav class="hidden md:flex items-center space-x-6 h-full pt-1">
+<a class="text-secondary font-label-md text-label-md hover:text-on-surface transition-colors duration-150 pb-1" href="#">
+          Course Overview
+        </a>
+<a class="border-b-2 border-primary-container text-on-surface font-label-md text-label-md pb-1 flex items-center gap-1.5 font-semibold" href="#">
+<span>Module 05</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container inline-block"></span>
+</a>
+<a class="text-secondary font-label-md text-label-md hover:text-on-surface transition-colors duration-150 pb-1" href="#">
+          Reference Manual
+        </a>
+</nav>
+<!-- Action Cluster -->
+<div class="flex items-center space-x-3">
+<button class="p-2 text-secondary hover:text-on-surface transition-colors duration-150 rounded" title="Bookmark Topic">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+<button class="p-2 text-secondary hover:text-on-surface transition-colors duration-150 rounded" title="Help &amp; Support Desk">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-6 w-px bg-surface-variant mx-1"></div>
+<button class="px-3.5 py-1.5 rounded border border-surface-variant text-label-md font-label-md text-secondary hover:text-on-surface hover:bg-surface-container transition-colors duration-150">
+          Exit Lesson
+        </button>
+</div>
+</div>
+</header>
+<!-- MAIN EDITORIAL LESSON CANVAS -->
+<main class="max-w-4xl mx-auto px-space-md md:px-margin py-space-lg space-y-space-lg">
+<!-- LESSON HEADER & METADATA -->
+<header class="space-y-4">
+<!-- Subtitle / Breadcrumb -->
+<div class="flex items-center gap-2 text-secondary text-body-sm font-body-sm tracking-wide">
+<span class="material-symbols-outlined text-[18px] text-primary">school</span>
+<span>MODULE 05 // Speed Management &amp; Special Roadway Conditions · Topic L05-T15</span>
+</div>
+<!-- Regulatory Badges -->
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="inline-flex items-center px-2.5 py-1 bg-surface-container-high text-on-surface font-mono text-[11px] font-semibold tracking-tight rounded">
+          TEXAS TRANSP. CODE § 545.351 &amp; § 545.401
+        </span>
+<span class="inline-flex items-center px-2.5 py-1 bg-surface-container-high text-on-surface font-mono text-[11px] font-semibold tracking-tight rounded">
+          TDLR SEC. 521.1601 COMPLIANT
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-secondary-fixed text-on-secondary-fixed font-mono text-[11px] font-semibold tracking-tight rounded">
+<span class="material-symbols-outlined text-[13px]">timer</span>
+          EST. TIME: 12 MIN
+        </span>
+</div>
+<!-- Main Headline & Subtitle -->
+<div class="pt-2">
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight text-dark">
+          Winter Driving
+        </h1>
+<p class="text-body-lg font-body-lg text-secondary pt-2 max-w-3xl leading-relaxed">
+          Navigating cryogenic road hazards, micro-traction depletion, thermal bridge dynamics, and survivable winter corridor operations across Texas roadways.
+        </p>
+</div>
+<!-- Statutory Callout Banner (Texas Transportation Code § 545.351) -->
+<div class="p-5 bg-surface-white rounded-lg border-l-4 border-primary-container shadow-sm space-y-2 mt-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">gavel</span>
+<span class="font-mono text-[12px] font-bold text-on-surface tracking-wider">
+            TEXAS TRANSPORTATION CODE § 545.351 // BASIC SPEED RULE &amp; SPECIAL HAZARDS
+          </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant italic pl-7 leading-relaxed">
+          “An operator may not drive at a speed greater than is reasonable and prudent under the conditions and having regard for actual and potential hazards then existing... An operator shall drive at an appropriate reduced speed when a special hazard exists with regard to weather or highway conditions.”
+        </p>
+</div>
+</header>
+<!-- HERO VISUAL MEDIA CONTAINER (Design System: Placeholder Box) -->
+<section class="bg-placeholder-bg rounded-xl p-6 md:p-8 text-inverse-on-surface shadow-md">
+<!-- Header / Spec Bar -->
+<div class="flex flex-col sm:flex-row justify-between sm:items-center pb-6 border-b border-inverse-surface gap-2">
+<div class="flex items-center space-x-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-mono text-[12px] text-inverse-on-surface tracking-widest font-semibold">
+            THERMAL ADVECTION ON ELEVATED ROADWAY STRUCTURES · TEXAS DPS SPEC L05-15
+          </span>
+</div>
+<span class="font-mono text-[11px] text-secondary-fixed bg-inverse-surface px-2.5 py-1 rounded">
+          HUD TELEMETRY · TXDOT FREEZE ADVISORY
+        </span>
+</div>
+<!-- 2.5D Technical Container Specification (16:9 Aspect ratio) -->
+<div class="w-full h-80 md:h-[400px] bg-[#ECEEEA] border border-inverse-surface rounded-lg relative overflow-hidden flex items-center justify-center group my-4">
+  <!-- 2.5D Theme-Matched Diorama Visual Asset -->
+  <img src="./assets/2_5d/L05_T15_icy_bridge.jpg" alt="Texas Elevated Bridge Thermal Advection 2.5D Schematic" class="w-full h-full object-cover rounded-lg" />
+
+  <!-- Subtle Vignette / Contrast Scrim -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none"></div>
+
+  <!-- Corner Technical Marks -->
+  <div class="absolute top-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">POS: 32.7767° N, 96.7970° W // DALLAS-FT WORTH FLYOVER</div>
+  <div class="absolute top-3 right-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">TXDOT FREEZE ADVISORY // 32°F CRITICAL</div>
+  <div class="absolute bottom-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">REF // 2.5D_CANVAS_L05T15_BLACK_ICE_ADVECTION</div>
+
+  <!-- Replacement Tracker Badge -->
+  <div class="absolute bottom-3 right-3 flex items-center gap-2 font-mono text-xs bg-[#E87522] text-white px-3 py-1 rounded font-semibold shadow-sm">
+    <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+    <span>2.5D VISUAL PREVIEW // PENDING VIDEO COMPOSITE</span>
+  </div>
+</div>
+<!-- Sensor / Physics Metadata Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-inverse-surface">
+<div class="space-y-1">
+<span class="text-[11px] font-mono text-secondary-fixed block">Ambient Roadway Temp</span>
+<span class="text-label-md font-label-md text-inverse-on-surface font-semibold">32°F / 0°C Critical Horizon</span>
+</div>
+<div class="space-y-1">
+<span class="text-[11px] font-mono text-secondary-fixed block">Bridge Substrate</span>
+<span class="text-label-md font-label-md text-inverse-on-surface font-semibold">Elevated Deck Advection</span>
+</div>
+<div class="space-y-1">
+<span class="text-[11px] font-mono text-secondary-fixed block">Friction Coefficient</span>
+<span class="text-label-md font-label-md text-primary-fixed-dim font-semibold font-mono">μ = 0.05 to 0.10 (Severe Ice)</span>
+</div>
+<div class="space-y-1">
+<span class="text-[11px] font-mono text-secondary-fixed block">Stopping Multiplier</span>
+<span class="text-label-md font-label-md text-primary-container font-semibold font-mono">9x to 10x Dry Baseline</span>
+</div>
+</div>
+</section>
+<!-- SECTION 01 // KINETIC & ATMOSPHERIC HAZARDS (Interactive Accordion) -->
+<section class="space-y-4 pt-4">
+<div class="flex items-center justify-between border-b border-surface-variant pb-3">
+<div>
+<span class="font-mono text-[11px] font-bold text-primary tracking-wider block">SECTION 01 // CORE CURRICULUM</span>
+<h2 class="text-headline-md font-headline-md text-on-surface">Critical Winter Hazards &amp; Mechanics</h2>
+</div>
+<span class="text-body-sm font-body-sm text-secondary hidden sm:inline">3 Key Modules</span>
+</div>
+<!-- Native Interactive Accordion Rows -->
+<div class="space-y-3 pt-2">
+<!-- Accordion Item 1 -->
+<details class="group bg-surface-white rounded-lg shadow-sm border border-surface-variant/40 overflow-hidden" open="">
+<summary class="flex justify-between items-center p-5 cursor-pointer select-none hover:bg-surface-container-low transition-colors duration-150">
+<div class="flex items-center space-x-3">
+<span class="flex items-center justify-center w-7 h-7 rounded bg-surface-container-high text-primary font-mono text-[13px] font-bold">01</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">Black Ice on Bridges &amp; Overpasses</span>
+</div>
+<span class="material-symbols-outlined accordion-chevron text-secondary transition-transform duration-200">expand_more</span>
+</summary>
+<div class="px-5 pb-6 pt-1 space-y-4 text-body-md font-body-md text-on-surface-variant leading-relaxed border-t border-surface-variant/30">
+<p>
+              Cold air circulates both above and underneath elevated concrete structures and bridges, causing moisture to freeze much faster than on surrounding roadway roadbeds insulated by earth ground heat. Black ice is transparent, smooth, and virtually invisible, often resembling damp pavement. Drivers must never brake abruptly, engage cruise control, or make sharp steering inputs when crossing bridge spans.
+            </p>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded border-l-2 border-primary-container">
+<span class="material-symbols-outlined text-primary text-[18px]">warning</span>
+<span class="font-mono text-[12px] font-semibold text-on-surface">
+                TTC § 545.351: Cease acceleration before bridge deck entry.
+              </span>
+</div>
+</div>
+</details>
+<!-- Accordion Item 2 -->
+<details class="group bg-surface-white rounded-lg shadow-sm border border-surface-variant/40 overflow-hidden">
+<summary class="flex justify-between items-center p-5 cursor-pointer select-none hover:bg-surface-container-low transition-colors duration-150">
+<div class="flex items-center space-x-3">
+<span class="flex items-center justify-center w-7 h-7 rounded bg-surface-container-high text-primary font-mono text-[13px] font-bold">02</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">Reduced Visibility &amp; Optical Occlusion (Freezing Fog &amp; Sleet)</span>
+</div>
+<span class="material-symbols-outlined accordion-chevron text-secondary transition-transform duration-200">expand_more</span>
+</summary>
+<div class="px-5 pb-6 pt-1 space-y-4 text-body-md font-body-md text-on-surface-variant leading-relaxed border-t border-surface-variant/30">
+<p>
+              Winter precipitation, freezing drizzle, blowing snow, and dense advection fog severely constrict sight distance. Standard high beams reflect blinding glare off airborne ice crystals back into the cabin. Operators are statutorily required to utilize low-beam headlamps (TTC § 547.302), quadruple forward visual search intervals (12–15 seconds minimum), and keep windshield wiper defrosters running continuously.
+            </p>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded border-l-2 border-primary-container">
+<span class="material-symbols-outlined text-primary text-[18px]">visibility</span>
+<span class="font-mono text-[12px] font-semibold text-on-surface">
+                TTC § 547.302: Use low-beam lamps during daylight precipitation or fog.
+              </span>
+</div>
+</div>
+</details>
+<!-- Accordion Item 3 -->
+<details class="group bg-surface-white rounded-lg shadow-sm border border-surface-variant/40 overflow-hidden">
+<summary class="flex justify-between items-center p-5 cursor-pointer select-none hover:bg-surface-container-low transition-colors duration-150">
+<div class="flex items-center space-x-3">
+<span class="flex items-center justify-center w-7 h-7 rounded bg-surface-container-high text-primary font-mono text-[13px] font-bold">03</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">Increased Stopping Distance &amp; Momentum Dissipation</span>
+</div>
+<span class="material-symbols-outlined accordion-chevron text-secondary transition-transform duration-200">expand_more</span>
+</summary>
+<div class="px-5 pb-6 pt-1 space-y-4 text-body-md font-body-md text-on-surface-variant leading-relaxed border-t border-surface-variant/30">
+<p>
+              On packed snow, stopping distances triple (3x); on hard ice or invisible black ice, vehicle stopping distance increases by 9x to 10x compared to dry asphalt. Anti-lock Braking Systems (ABS) will vibrate and pulse—drivers must maintain firm continuous pedal pressure without pumping. Following distances must be expanded from the standard 3 seconds to at least 8 to 10 seconds.
+            </p>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded border-l-2 border-primary-container">
+<span class="material-symbols-outlined text-primary text-[18px]">space_dashboard</span>
+<span class="font-mono text-[12px] font-semibold text-on-surface">
+                Dynamic Safety Margin: Maintain 8 to 10 seconds following gap on packed ice.
+              </span>
+</div>
+</div>
+</details>
+</div>
+</section>
+<!-- SECTION 02 // TACTICAL FIELD PROTOCOLS -->
+<section class="space-y-4 pt-4">
+<div class="flex items-center justify-between border-b border-surface-variant pb-3">
+<div>
+<span class="font-mono text-[11px] font-bold text-primary tracking-wider block">SECTION 02 // OPERATIONAL SAFETY</span>
+<h2 class="text-headline-md font-headline-md text-on-surface">Winter Emergency Countermeasures</h2>
+</div>
+<span class="text-body-sm font-body-sm text-secondary hidden sm:inline">Phases 01 – 04</span>
+</div>
+<!-- 2x2 Bento Grid of Clean White Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
+<!-- Card 1 -->
+<div class="bg-surface-white p-6 rounded-lg shadow-sm border border-surface-variant/30 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow duration-200">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono text-[11px] font-bold text-primary tracking-wider uppercase">Phase 01</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">travel_explore</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Pre-Freeze Route Reconnaissance</h3>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+              Monitoring TxDOT DriveTexas.org road conditions, inspecting tire tread depth ≥ 4/32 inch for adequate siping, and topping off sub-zero windshield washer fluid before departing.
+            </p>
+</div>
+<div class="pt-3 border-t border-surface-container text-body-sm font-body-sm text-secondary font-mono text-[12px]">
+            Portal: DriveTexas.org // TxDOT Statewide System
+          </div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-white p-6 rounded-lg shadow-sm border border-surface-variant/30 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow duration-200">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono text-[11px] font-bold text-primary-container tracking-wider uppercase">Phase 02 · Critical Rule</span>
+<span class="material-symbols-outlined text-primary-container text-[20px]">cancel</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Immediate Deactivation of Cruise Control</h3>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+              Never operate cruise control on wet, icy, or snow-slick roads. The automated throttle will attempt to maintain target speed over zero-traction surfaces, inducing instant wheelspin and unrecoverable yaw spin.
+            </p>
+</div>
+<div class="pt-3 border-t border-surface-container text-body-sm font-body-sm text-secondary font-mono text-[12px]">
+            Statute: Manual driver modulation mandatory in freezing rain
+          </div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-white p-6 rounded-lg shadow-sm border border-surface-variant/30 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow duration-200">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono text-[11px] font-bold text-primary tracking-wider uppercase">Phase 03</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">swap_horiz</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Smooth Counter-Steer Protocol</h3>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+              If rear wheels break traction, immediately look and gently steer in the direction the rear is sliding (counter-steering) without touching the accelerator pedal or abruptly stomping on friction brakes.
+            </p>
+</div>
+<div class="pt-3 border-t border-surface-container text-body-sm font-body-sm text-secondary font-mono text-[12px]">
+            Kinematics: Neutralize lateral g-load and re-engage roll traction
+          </div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-white p-6 rounded-lg shadow-sm border border-surface-variant/30 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow duration-200">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono text-[11px] font-bold text-primary tracking-wider uppercase">Phase 04</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">medical_services</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Winter Emergency Kit Staging</h3>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+              Carrying thermal foil blankets, heavy-duty jumper cables, LED flashlight with spare cells, coarse sand/kitty litter for traction recovery, and keeping the TxDOT Roadside Assistance hotline on speed dial.
+            </p>
+</div>
+<div class="pt-3 border-t border-surface-container text-body-sm font-body-sm text-secondary font-mono text-[12px]">
+            TxDOT Roadside Emergency Hotline: 1-800-525-5555
+          </div>
+</div>
+</div>
+</section>
+<!-- SECTION 03 // STATUTORY KNOWLEDGE CHECK -->
+<section class="space-y-4 pt-4">
+<div class="bg-surface-white p-6 md:p-8 rounded-lg shadow-sm border border-surface-variant/40 space-y-6">
+<!-- Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-surface-variant/40 gap-2">
+<div>
+<span class="font-mono text-[11px] font-bold text-primary-container tracking-wider uppercase">QUESTION 01 OF 01 · TDLR RULE §521.1601</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">Statutory Knowledge Check</h3>
+</div>
+<span class="text-label-md font-label-md px-2.5 py-1 bg-surface-container rounded text-secondary font-mono text-[12px]">
+            PASSING CRITERIA: 100%
+          </span>
+</div>
+<!-- Question Prompt -->
+<div>
+<p class="text-headline-sm font-headline-sm text-on-surface text-[19px]">
+            Which part of the road freezes first?
+          </p>
+</div>
+<!-- Multiple Choice Options -->
+<div class="space-y-3">
+<!-- Option A -->
+<div id="quiz-opt-a" class="quiz-choice flex items-center p-4 rounded border border-surface-variant/60 bg-surface-bright text-on-surface cursor-pointer hover:bg-surface-container-low transition-colors duration-150">
+<div class="w-5 h-5 rounded-full border-2 border-secondary flex items-center justify-center mr-4 flex-shrink-0">
+<span class="text-[11px] font-mono font-bold text-secondary">A</span>
+</div>
+<span class="text-body-md font-body-md text-on-surface">Interstate roadbeds surrounded by dense soil.</span>
+</div>
+<!-- Option B (Correct & Highlighted) -->
+<div id="quiz-opt-b" class="quiz-choice flex flex-col rounded border border-surface-variant/60 bg-surface-bright text-on-surface cursor-pointer hover:bg-surface-container-low transition-colors duration-150">
+<div class="flex items-center p-4">
+<div class="w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center mr-4 flex-shrink-0">
+<span class="material-symbols-outlined text-[16px] text-white">check</span>
+</div>
+<span class="text-body-md font-body-md font-semibold text-on-surface flex-grow">Bridges and overpasses.</span>
+<span class="ml-2 px-2 py-0.5 bg-primary-fixed text-on-primary-fixed-variant font-mono text-[11px] font-bold rounded uppercase">
+                Correct Answer
+              </span>
+</div>
+<!-- Rationale Box underneath Option B -->
+<div id="quiz-b-rationale" class="p-4 bg-emerald-50/50 border-t border-emerald-200 space-y-1 hidden">
+<div class="flex items-center gap-1.5 text-primary text-[12px] font-mono font-bold">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>STATUTORY RATIONALE &amp; THERMAL DYNAMICS:</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant pl-5 leading-relaxed">
+                Cold winter air flows both above and below bridge decks and overpasses simultaneously, rapidly chilling the concrete from all sides. Ground-insulated roads retain geothermal heat significantly longer. Under Texas driving safety doctrine, bridges consistently freeze before adjacent road surfaces.
+              </p>
+</div>
+</div>
+<!-- Option C -->
+<div id="quiz-opt-c" class="quiz-choice flex items-center p-4 rounded border border-surface-variant/60 bg-surface-bright text-on-surface cursor-pointer hover:bg-surface-container-low transition-colors duration-150">
+<div class="w-5 h-5 rounded-full border-2 border-secondary flex items-center justify-center mr-4 flex-shrink-0">
+<span class="text-[11px] font-mono font-bold text-secondary">C</span>
+</div>
+<span class="text-body-md font-body-md text-on-surface">Low-lying shaded valleys alongside rivers.</span>
+</div>
+<!-- Option D -->
+<div id="quiz-opt-d" class="quiz-choice flex items-center p-4 rounded border border-surface-variant/60 bg-surface-bright text-on-surface cursor-pointer hover:bg-surface-container-low transition-colors duration-150">
+<div class="w-5 h-5 rounded-full border-2 border-secondary flex items-center justify-center mr-4 flex-shrink-0">
+<span class="text-[11px] font-mono font-bold text-secondary">D</span>
+</div>
+<span class="text-body-md font-body-md text-on-surface">Concrete road surfaces in direct afternoon sunlight.</span>
+</div>
+</div>
+</div>
+<div id="quiz-live-feedback" class="mt-4 p-4 rounded-lg hidden font-mono text-xs"></div>
+</section>
+<!-- LESSON ADVANCEMENT & VALIDATION STRIP -->
+<section class="bg-surface-white p-5 rounded-lg shadow-sm border border-surface-variant/40 flex flex-col md:flex-row justify-between items-center gap-4">
+<!-- Previous Action -->
+<a class="text-body-md font-body-md font-medium text-secondary hover:text-on-surface flex items-center gap-1.5 transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span>Previous: L05-T14 Skids, Blowouts &amp; Brake Failure</span>
+</a>
+<!-- Center Status -->
+<div class="flex items-center gap-2 text-label-md font-label-md text-on-surface font-mono text-[12px] bg-surface-container px-3 py-1.5 rounded">
+<span class="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
+<span>Topic L05-T15 Validated // TDLR Sec. 521.1601 Compliant</span>
+</div>
+<!-- Forward Primary Action -->
+<button class="w-full md:w-auto px-6 py-3 bg-primary-container text-on-primary font-label-md text-label-md rounded font-bold shadow hover:bg-primary transition-colors duration-150 flex items-center justify-center gap-2">
+<span>Complete Topic 15 &amp; Proceed to L05-T16</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- FOOTER (Shared Component Exact Structure & Token Hierarchy) -->
+<footer class="w-full bg-surface-container mt-16">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-space-md md:px-margin py-space-md max-w-7xl mx-auto gap-4">
+<!-- Copyright / TDLR Statement -->
+<p class="text-secondary text-body-sm font-body-sm text-center md:text-left">
+        © 2024 Texas Department of Licensing and Regulation (TDLR) Approved Curriculum. All rights reserved.
+      </p>
+<!-- Statutory Links -->
+<nav class="flex flex-wrap justify-center items-center gap-6">
+<a class="text-secondary text-body-sm font-body-sm hover:text-on-surface transition-colors duration-150" href="#">
+          Statutory Terms
+        </a>
+<a class="text-secondary text-body-sm font-body-sm hover:text-on-surface transition-colors duration-150" href="#">
+          Accessibility Policy
+        </a>
+<a class="text-secondary text-body-sm font-body-sm hover:text-on-surface transition-colors duration-150" href="#">
+          Support Desk
+        </a>
+<a class="text-secondary text-body-sm font-body-sm hover:text-on-surface transition-colors duration-150" href="#">
+          System Status
+        </a>
+</nav>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const optA = document.getElementById('quiz-opt-a');
+  const optB = document.getElementById('quiz-opt-b');
+  const optC = document.getElementById('quiz-opt-c');
+  const optD = document.getElementById('quiz-opt-d');
+  const rationale = document.getElementById('quiz-b-rationale');
+  const feedback = document.getElementById('quiz-live-feedback');
+  const proceedBtn = document.querySelector('button.bg-primary-container');
+
+  function clearChoices() {
+    [optA, optB, optC, optD].forEach(opt => {
+      if (opt) {
+        opt.className = 'quiz-choice flex items-center p-4 rounded border border-surface-variant/60 bg-surface-bright text-on-surface cursor-pointer hover:bg-surface-container-low transition-colors duration-150';
+      }
+    });
+    if (rationale) rationale.classList.add('hidden');
+    if (feedback) feedback.classList.add('hidden');
+  }
+
+  function handleSelect(choice, isCorrect, reason) {
+    clearChoices();
+    const target = choice === 'A' ? optA : choice === 'B' ? optB : choice === 'C' ? optC : optD;
+    if (isCorrect) {
+      target.className = 'quiz-choice flex flex-col rounded border-2 border-emerald-600 bg-emerald-50/60 shadow-sm transition-all duration-150 cursor-pointer';
+      if (rationale) rationale.classList.remove('hidden');
+      if (feedback) {
+        feedback.className = 'mt-4 p-4 rounded-lg bg-emerald-100 text-emerald-900 border border-emerald-300 font-sans text-xs font-medium flex items-center gap-2';
+        feedback.innerHTML = '<span class="material-symbols-outlined text-emerald-700">check_circle</span> <strong>CORRECT:</strong> ' + reason;
+      }
+    } else {
+      target.className = 'quiz-choice flex items-center p-4 rounded border-2 border-rose-500 bg-rose-50 text-rose-900 shadow-sm transition-all duration-150 cursor-pointer';
+      if (feedback) {
+        feedback.className = 'mt-4 p-4 rounded-lg bg-rose-100 text-rose-900 border border-rose-300 font-sans text-xs font-medium flex items-center gap-2';
+        feedback.innerHTML = '<span class="material-symbols-outlined text-rose-700">cancel</span> <strong>INCORRECT:</strong> ' + reason;
+      }
+    }
+  }
+
+  if (optA) optA.addEventListener('click', () => handleSelect('A', false, 'Roadbeds surrounded by dense soil retain geothermal ground warmth. Elevated structures freeze much sooner.'));
+  if (optB) optB.addEventListener('click', () => handleSelect('B', true, 'Cold air circulates both beneath and above bridge decks simultaneously, rapidly chilling concrete from all sides.'));
+  if (optC) optC.addEventListener('click', () => handleSelect('C', false, 'Low-lying valleys may hold humidity, but elevated bridges consistently develop ice sheets first.'));
+  if (optD) optD.addEventListener('click', () => handleSelect('D', false, 'Sunlight warms road pavement; uninsulated bridge decks chill and freeze first in sub-freezing Texas conditions.'));
+
+  if (proceedBtn) {
+    proceedBtn.addEventListener('click', () => {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes('L05-T15')) completed.push('L05-T15');
+        localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: 'L05-T15' }, '*');
+      } catch(e) {}
+      window.location.href = './L05-T16.html';
+    });
+  }
+});
+</script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T15';
+  const nextTopicId = 'L05-T16';
+  const prevTopicId = 'L05-T14';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

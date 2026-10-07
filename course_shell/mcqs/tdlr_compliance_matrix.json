@@ -1,0 +1,54 @@
+{
+  "regulatory_standard": "16 Texas Administrative Code \u00a7 84.503 & Texas Transportation Code \u00a7 521.1601",
+  "work_zone_mandate": "TDLR Rule Update / HB 1884 (Effective September 1, 2026)",
+  "audit_timestamp_iso": "2026-10-06T23:00:17Z",
+  "instructional_course_hours": {
+    "required_total_course_minutes": 360,
+    "required_active_instructional_minutes": 330,
+    "active_instructional_seconds_target": 19800,
+    "inactivity_pause_timeout_seconds": 300,
+    "architecture_engine_reference": "cloud_architecture_spec/05_COMPLIANCE_AND_CERTIFICATION_ENGINE.md"
+  },
+  "identity_verification_pvq": {
+    "rule": "16 TAC \u00a7 84.503(d) / \u00a7 84.500(g)",
+    "onboarding_questions": 5,
+    "challenge_frequency_minutes": "Intervals not to exceed 60 minutes",
+    "countdown_seconds": 90,
+    "max_consecutive_failures": 2,
+    "consequence_of_failure": "Permanent lockout and course termination"
+  },
+  "comprehensive_final_examination": {
+    "rule": "16 TAC \u00a7 84.503(c)(3)",
+    "minimum_total_questions": 30,
+    "bank_a_highway_signs_required": 15,
+    "bank_a_pool_size": 15,
+    "bank_b_traffic_laws_required": 15,
+    "bank_b_pool_size": 15,
+    "passing_score_percentage": 70.0,
+    "passing_score_fraction": "21 / 30",
+    "reexamination_rule": "Retest drawn from alternate randomized pool questions",
+    "exam_html_player": "C:/tx_dmv/final_mcq_export/final_exam.html"
+  },
+  "work_zone_curriculum_mandate_sept_2026": {
+    "mandate_title": "Construction and Maintenance Work Zone Instruction (Sept 1, 2026)",
+    "statutory_references": [
+      "Texas Transportation Code \u00a7 472.022 (Obeying Warning Signs / Barricades - Class B Misdemeanor)",
+      "Texas Transportation Code \u00a7 542.404 (Fine Doubled in Construction / Maintenance Zones)",
+      "Texas Transportation Code \u00a7 542.501 (Obedience to Authorized Flaggers)",
+      "Texas Transportation Code \u00a7 545.157 (Move Over / Slow Down Act for Highway Maintenance)"
+    ],
+    "topic_level_questions_count": 10,
+    "final_exam_work_zone_questions_count": 4,
+    "compliance_status": "FULLY INTEGRATED AND VERIFIED"
+  },
+  "grading_security_architecture": {
+    "client_side_analysis": "Client-side SHA-256 hashing of small 4-choice space is cryptographically insufficient against brute-force inspection.",
+    "production_server_engine": "mcq_engine/server.py",
+    "endpoints": [
+      "POST /api/v1/lessons/:topicId/grade",
+      "POST /api/v1/quizzes/submit",
+      "POST /api/v1/exam/submit"
+    ],
+    "zero_leak_verification": "Server strips correct_option, target_hash, and salt from client payloads."
+  }
+}

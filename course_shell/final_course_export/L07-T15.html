@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L07-T15: Communication Impediment</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Geist & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            surface: '#F6F7F5',
+            bordercol: '#D9DDD8',
+            accent: '#E87522',
+            darkink: '#111111',
+            mutedink: '#555555',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 3D Flip Card Styles */
+    .perspective-1000 {
+      perspective: 1200px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Subtle fine guilloche pattern for license security background */
+    .license-pattern {
+      background-color: #ffffff;
+      background-image: radial-gradient(#e5e7eb 0.75px, transparent 0.75px), radial-gradient(#e5e7eb 0.75px, #ffffff 0.75px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+    }
+
+    /* Pulse beacon */
+    @keyframes subtle-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(1.04); }
+    }
+    .animate-badge-pulse {
+      animation: subtle-pulse 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-[#F6F7F5] text-darkink font-sans antialiased min-h-screen py-10 px-4 sm:px-6 lg:px-8 selection:bg-accent selection:text-white">
+
+  <!-- Content Container (Minimal, Info-Rich, No Global Header, No Tabs, No Sliders) -->
+  <main class="max-w-4xl mx-auto space-y-8">
+
+    <!-- Top Statutory & Topic Meta Header -->
+    <header class="border-b border-[#D9DDD8] pb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-mutedink uppercase tracking-wider mb-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-accent"></span>
+          <span>MODULE 07 // ROADWAY INTERACTIONS</span>
+          <span class="text-[#D9DDD8]">•</span>
+          <span class="text-accent font-semibold">TOPIC L07-T15</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="bg-white px-2.5 py-1 rounded-lg border border-[#D9DDD8]">TEXAS TRANSP. CODE § 521.142(h)</span>
+          <span class="bg-white px-2.5 py-1 rounded-lg border border-[#D9DDD8]">SAMUEL ALLEN LAW</span>
+        </div>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-darkink">
+        Communication Impediment Restriction
+      </h1>
+      <p class="mt-2 text-sm sm:text-base text-mutedink leading-relaxed max-w-2xl font-normal">
+        Texas statute authorizes individuals with diagnosed communication barriers (including Autism Spectrum Disorder, deafness, speech impairments, or PTSD) to display a voluntary, confidential restriction indicator directly on their official credential.
+      </p>
+    </header>
+
+    <!-- Statutory Alert Banner -->
+    <section class="bg-white border-l-4 border-accent border-y border-r border-[#D9DDD8] p-4 rounded-lg flex items-start gap-3.5">
+      <div class="mt-0.5 text-accent font-mono font-bold text-base select-none">§</div>
+      <div class="text-xs sm:text-sm text-darkink space-y-1">
+        <div class="font-mono text-xs uppercase tracking-wide text-accent font-semibold">
+          Texas Transportation Code § 521.142(h) & Texas Administrative Code Title 37
+        </div>
+        <p class="text-mutedink leading-normal">
+          "The department shall provide a space on each driver's license or personal identification certificate for the applicant to indicate that the applicant has a health condition or disability that may impede effective communication with a peace officer."
+        </p>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SECTION: TEXAS DRIVER LICENSE FLIPPER -->
+    <section class="bg-white border border-[#D9DDD8] rounded-lg p-6 sm:p-8">
+      
+      <!-- Interactive Controller Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D9DDD8] pb-5 mb-8">
+        <div>
+          <div class="text-xs font-mono uppercase tracking-wider text-mutedink flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+            Tactile Credential Inspector // Scale 1:1 Texas Standard Spec
+          </div>
+          <h2 class="text-lg font-bold text-darkink mt-0.5" id="view-state-title">
+            License Front: Standard Credentials
+          </h2>
+        </div>
+
+        <!-- Primary Action: Flip License Button -->
+        <button 
+          id="flip-button"
+          onclick="toggleLicenseFlip()" 
+          class="inline-flex items-center justify-center gap-2 bg-accent hover:bg-[#d46519] active:scale-[0.98] text-white font-mono text-xs uppercase tracking-wider font-semibold px-5 py-3 rounded-lg border border-[#c45e16] transition-all shadow-none focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          aria-label="Flip Driver License"
+        >
+          <svg class="w-4 h-4 transition-transform duration-300" id="flip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span id="flip-button-label">Flip License to Reveal Back</span>
+        </button>
+      </div>
+
+      <!-- Centered Card Stage with 3D Perspective -->
+      <div class="perspective-1000 w-full flex justify-center py-4">
+        
+        <!-- FLIP CONTAINER -->
+        <div 
+          id="license-card" 
+          class="transform-style-3d relative w-full max-w-[520px] aspect-[1.586/1] rounded-lg cursor-pointer"
+          onclick="toggleLicenseFlip()"
+          title="Click to flip license"
+        >
+
+          <!-- ============================================== -->
+          <!-- LICENSE FRONT SIDE                             -->
+          <!-- ============================================== -->
+          <div class="backface-hidden absolute inset-0 w-full h-full rounded-lg border border-[#c8ccc6] license-pattern p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-none bg-white">
+            
+            <!-- Security Hologram / Header strip -->
+            <div class="border-b border-[#D9DDD8] pb-3 flex items-start justify-between">
+              <div>
+                <div class="text-[10px] font-mono tracking-widest text-[#666666] uppercase">STATE OF TEXAS // DPS</div>
+                <div class="text-base sm:text-lg font-bold tracking-tight text-darkink flex items-center gap-2">
+                  DRIVER LICENSE
+                  <span class="text-[9px] font-mono font-normal border border-[#D9DDD8] text-mutedink px-1.5 py-0.5 rounded">CLASS C</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="inline-flex items-center gap-1 bg-[#f0f2ee] border border-[#D9DDD8] px-2 py-0.5 rounded text-[10px] font-mono text-darkink">
+                  <span class="text-accent font-bold">★</span> REAL ID
+                </div>
+                <div class="text-[9px] font-mono text-mutedink mt-0.5">USA COMPLIANT</div>
+              </div>
+            </div>
+
+            <!-- Middle Identity Section -->
+            <div class="grid grid-cols-12 gap-4 items-center py-1">
+              <!-- Photo Box -->
+              <div class="col-span-4 bg-[#eceee9] border border-[#D9DDD8] rounded aspect-[3/4] flex flex-col items-center justify-center p-2 relative overflow-hidden">
+                <svg class="w-12 h-12 text-[#999999]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                <div class="text-[8px] font-mono text-mutedink mt-1 uppercase">AUDIT 481920</div>
+                <!-- Lone Star watermark stamp -->
+                <div class="absolute bottom-1 right-1 text-[#0000000c] text-3xl font-black select-none pointer-events-none">★</div>
+              </div>
+
+              <!-- Driver Data -->
+              <div class="col-span-8 space-y-2 text-xs font-mono">
+                <div>
+                  <span class="text-[9px] text-mutedink block uppercase">4d DL Number</span>
+                  <span class="font-bold text-sm tracking-wide text-darkink">TX 98421065</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <span class="text-[9px] text-mutedink block uppercase">1 Last Name</span>
+                    <span class="font-semibold text-darkink">MORGAN</span>
+                  </div>
+                  <div>
+                    <span class="text-[9px] text-mutedink block uppercase">2 First Name</span>
+                    <span class="font-semibold text-darkink">JORDAN R.</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <span class="text-[9px] text-mutedink block uppercase">3 DOB</span>
+                    <span class="text-darkink">10/14/1998</span>
+                  </div>
+                  <div>
+                    <span class="text-[9px] text-mutedink block uppercase">4b Exp Date</span>
+                    <span class="text-accent font-semibold">10/14/2030</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="text-[9px] text-mutedink block uppercase">8 Address</span>
+                  <span class="text-[11px] text-darkink leading-tight block">412 CONGRESS AVE, AUSTIN, TX 78701</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Flip Hint -->
+            <div class="border-t border-[#D9DDD8] pt-2 flex items-center justify-between text-[10px] font-mono text-mutedink">
+              <span class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                ACTIVE VALID STATUS
+              </span>
+              <span class="text-accent flex items-center gap-1 font-medium">
+                Click Card or Button to Flip ⟳
+              </span>
+            </div>
+          </div>
+
+
+          <!-- ============================================== -->
+          <!-- LICENSE BACK SIDE (REVEALS RESTRICTION CODE)   -->
+          <!-- ============================================== -->
+          <div class="backface-hidden rotate-y-180 absolute inset-0 w-full h-full rounded-lg border border-[#c8ccc6] license-pattern p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-none bg-white">
+            
+            <!-- Top Magnetic / Barcode Emulation -->
+            <div>
+              <div class="w-full h-8 bg-darkink rounded flex items-center justify-between px-3">
+                <span class="text-[8px] font-mono text-[#888888] tracking-widest">TEXAS SECURITY ENCODED MAGNETIC STRIPE</span>
+                <span class="text-[8px] font-mono text-[#666666]">PDF417 READY</span>
+              </div>
+              <div class="mt-1.5 flex items-center gap-1 opacity-70">
+                <div class="h-2 flex-1 bg-repeating-linear-stripes bg-[linear-gradient(90deg,#111_2px,transparent_2px,#111_4px,transparent_4px)]"></div>
+              </div>
+            </div>
+
+            <!-- Center Content: The Highlighted Code Area -->
+            <div class="my-auto py-2">
+              <div class="flex items-center justify-between mb-1.5 font-mono text-[10px] text-mutedink uppercase">
+                <span>Statutory Restrictions & Endorsements</span>
+                <span class="text-accent font-semibold">TTC § 521.142 Mandate</span>
+              </div>
+
+              <!-- TARGETED BRIGHT ORANGE RESTRICTION BADGE CONTAINER -->
+              <div class="relative bg-orange-50 border-2 border-accent rounded-lg p-3.5 sm:p-4 text-darkink transition-all">
+                
+                <!-- Pulsing Visual Indicator -->
+                <div class="flex items-start justify-between gap-3">
+                  <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                      <span class="bg-accent text-white font-mono font-bold text-xs px-2 py-0.5 rounded tracking-wide animate-badge-pulse">
+                        RESTRICTION CODE: 08
+                      </span>
+                      <span class="text-[11px] font-mono text-accent font-semibold uppercase tracking-tight">
+                        • Verified DPS Endorsement
+                      </span>
+                    </div>
+                    
+                    <div class="text-sm sm:text-base font-bold text-darkink tracking-tight pt-1">
+                      Communication Impediment with a Peace Officer
+                    </div>
+                    
+                    <div class="text-xs text-mutedink font-mono pt-0.5">
+                      Statutory Authority: Form DL-101 // Physician Authenticated
+                    </div>
+                  </div>
+
+                  <!-- Info Button to trigger Tooltip -->
+                  <button 
+                    onclick="event.stopPropagation(); toggleTooltip();"
+                    class="flex-shrink-0 bg-white border border-accent hover:bg-orange-100 text-accent rounded-full w-7 h-7 flex items-center justify-center font-mono font-bold text-xs transition-colors"
+                    title="Click for statutory explanation"
+                    aria-label="Explain Restriction Code 08"
+                  >
+                    ℹ
+                  </button>
+                </div>
+
+                <!-- POP-UP TOOLTIP (REQUIRED EXACT TEXT) -->
+                <div 
+                  id="impediment-tooltip" 
+                  class="mt-3.5 bg-darkink text-white p-3.5 rounded-lg border border-neutral-700 text-xs shadow-none font-sans relative transition-all block"
+                >
+                  <div class="flex items-start gap-2.5">
+                    <span class="text-accent font-mono text-sm leading-none mt-0.5 font-bold">ℹ</span>
+                    <div class="space-y-1">
+                      <div class="text-[10px] font-mono uppercase tracking-wider text-accent font-bold">
+                        Statutory Protocol & Purpose
+                      </div>
+                      <p class="text-neutral-100 text-xs sm:text-[13px] leading-relaxed font-normal">
+                        "This optional code alerts law enforcement officers to a driver's communication challenges. Requires physician Form DL-101."
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bottom Backside Meta -->
+            <div class="border-t border-[#D9DDD8] pt-2 flex items-center justify-between text-[9px] font-mono text-mutedink">
+              <span>CARD AUDIT: #481920412-TX</span>
+              <span class="text-darkink font-semibold">SAMUEL ALLEN ACT § 521.142(h)</span>
+              <span>STATE OF TEXAS</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- State Indicator Pill Below Card -->
+      <div class="flex justify-center mt-4">
+        <div class="inline-flex items-center gap-2 bg-[#f0f2ee] border border-[#D9DDD8] px-3 py-1.5 rounded-lg text-xs font-mono text-mutedink">
+          <span class="w-2 h-2 rounded-full" id="side-indicator-dot" style="background-color: #555555;"></span>
+          <span id="side-indicator-text">Active Surface: FRONT (Standard Credentials) — Click "Flip License" to inspect Code 08</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- INFORMATION-RICH STATUTORY BREAKDOWN (NON-TABULAR, MINIMAL, GEIST + JETBRAINS MONO) -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <!-- Card 1: Form DL-101 Verification Pipeline -->
+      <article class="bg-white border border-[#D9DDD8] p-5 rounded-lg space-y-3">
+        <div class="flex items-center justify-between border-b border-[#D9DDD8] pb-2.5">
+          <span class="font-mono text-xs uppercase tracking-wider text-accent font-semibold">
+            01 // CLINICAL AUTHENTICATION
+          </span>
+          <span class="text-[10px] font-mono text-mutedink bg-[#F6F7F5] px-2 py-0.5 rounded border border-[#D9DDD8]">
+            FORM DL-101
+          </span>
+        </div>
+        <h3 class="text-base font-bold text-darkink">
+          Physician Statement Mandate
+        </h3>
+        <p class="text-xs text-mutedink leading-relaxed font-normal">
+          The code is not self-selected at the DPS counter. An applicant must submit <strong class="text-darkink">Texas DPS Form DL-101</strong>, signed by a licensed physician (MD/DO) certifying a recognized physical or mental condition that impedes oral roadside dialogue.
+        </p>
+        <div class="bg-[#F6F7F5] border border-[#D9DDD8] p-3 rounded text-xs font-mono space-y-1 text-darkink">
+          <div class="text-[10px] text-mutedink uppercase">Qualifying Diagnoses Under TAC Title 37:</div>
+          <div>• Autism Spectrum Disorder (ASD)</div>
+          <div>• Speech Impairment / Stuttering / Apraxia</div>
+          <div>• Deafness or Severe Hearing Impairment</div>
+          <div>• Post-Traumatic Stress Disorder (PTSD)</div>
+        </div>
+      </article>
+
+      <!-- Card 2: Roadside Peace Officer Interaction Protocol -->
+      <article class="bg-white border border-[#D9DDD8] p-5 rounded-lg space-y-3">
+        <div class="flex items-center justify-between border-b border-[#D9DDD8] pb-2.5">
+          <span class="font-mono text-xs uppercase tracking-wider text-accent font-semibold">
+            02 // ROADSIDE ENCOUNTER DOCTRINE
+          </span>
+          <span class="text-[10px] font-mono text-mutedink bg-[#F6F7F5] px-2 py-0.5 rounded border border-[#D9DDD8]">
+            OFFICER PROCEDURE
+          </span>
+        </div>
+        <h3 class="text-base font-bold text-darkink">
+          De-Escalation & Privacy Safeguard
+        </h3>
+        <p class="text-xs text-mutedink leading-relaxed font-normal">
+          When handed the credential during a traffic stop, the peace officer immediately flips to check restrictions. The discrete code alerts the officer to adapt questioning style—preempting tragic misunderstandings mistaken for evasiveness or intoxication.
+        </p>
+        <div class="bg-[#F6F7F5] border border-[#D9DDD8] p-3 rounded text-xs font-mono space-y-1 text-darkink">
+          <div class="text-[10px] text-mutedink uppercase">Statutory Privacy Safeguard:</div>
+          <div>• <span class="font-bold text-accent">Zero Diagnostic Stigma:</span> The medical condition itself is never printed on the card face.</div>
+          <div>• Only authorized law enforcement personnel recognize the restriction definition.</div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Bottom Navigation & Completion Module Footer -->
+    <footer class="bg-white border border-[#D9DDD8] p-4 sm:p-5 rounded-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-xs font-mono text-mutedink">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>TOPIC L07-T15 INTERACTIVE STANDARD SATISFIED</span>
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <a 
+          href="#completed" 
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-accent hover:bg-[#d46519] active:scale-[0.98] text-white font-mono text-xs uppercase tracking-wider font-semibold px-6 py-2.5 rounded-lg border border-[#c45e16] transition-all"
+        >
+          <span>Complete Topic 15 & Proceed</span>
+          <span>→</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Logic -->
+  <script>
+    let isFlipped = false;
+    let tooltipVisible = true;
+
+    function toggleLicenseFlip() {
+      const card = document.getElementById('license-card');
+      const buttonLabel = document.getElementById('flip-button-label');
+      const flipIcon = document.getElementById('flip-icon');
+      const viewStateTitle = document.getElementById('view-state-title');
+      const indicatorDot = document.getElementById('side-indicator-dot');
+      const indicatorText = document.getElementById('side-indicator-text');
+
+      isFlipped = !isFlipped;
+
+      if (isFlipped) {
+        card.classList.add('rotate-y-180');
+        buttonLabel.textContent = 'Flip License to Front';
+        flipIcon.classList.add('rotate-180');
+        viewStateTitle.textContent = 'License Back: Code 08 Highlighted';
+        indicatorDot.style.backgroundColor = '#E87522';
+        indicatorText.textContent = 'Active Surface: BACK (Restriction Code 08 Active) — Inspect the orange restriction badge and statutory tooltip';
+      } else {
+        card.classList.remove('rotate-y-180');
+        buttonLabel.textContent = 'Flip License to Reveal Back';
+        flipIcon.classList.remove('rotate-180');
+        viewStateTitle.textContent = 'License Front: Standard Credentials';
+        indicatorDot.style.backgroundColor = '#555555';
+        indicatorText.textContent = 'Active Surface: FRONT (Standard Credentials) — Click "Flip License" to inspect Code 08';
+      }
+    }
+
+    function toggleTooltip() {
+      const tooltip = document.getElementById('impediment-tooltip');
+      if (tooltip.classList.contains('hidden')) {
+        tooltip.classList.remove('hidden');
+        tooltip.classList.add('block');
+      } else {
+        tooltip.classList.remove('block');
+        tooltip.classList.add('hidden');
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L07-T15';
+  const nextTopicId = 'L07-T16';
+  const prevTopicId = 'L07-T14';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L05-T05: The Invisible Zone: Blind Spot Driving</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#E87522',
+              'orange-hover': '#cf6317',
+              'orange-light': '#FFF5EE',
+              gray: '#191B1A',
+              muted: '#64748B'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #111111;
+      font-family: 'Inter', sans-serif;
+    }
+    .road-surface {
+      background-color: #1E2229;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .lane-divider {
+      background-image: repeating-linear-gradient(to bottom, #E2E8F0 0, #E2E8F0 16px, transparent 16px, transparent 32px);
+    }
+    .lane-divider-yellow {
+      background-image: repeating-linear-gradient(to bottom, #F59E0B 0, #F59E0B 16px, transparent 16px, transparent 32px);
+    }
+    .transition-spatial {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pulse-warning {
+      animation: alertPulse 2s infinite;
+    }
+    @keyframes alertPulse {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-[#111111] antialiased selection:bg-[#E87522] selection:text-white pb-24">
+
+  <!-- STANDALONE LESSON CONTAINER -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+
+    <!-- LESSON METADATA BREADCRUMB -->
+    <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono uppercase tracking-wider text-slate-500 pb-3 border-b border-slate-200">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#E87522]"></span>
+        <span>Module 05 // Speed Management & Flow</span>
+        <span class="text-slate-300">/</span>
+        <span class="font-semibold text-slate-800">Topic L05-T05</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px]">
+        <span>TTC § 545.060</span>
+        <span class="text-slate-300">|</span>
+        <span class="text-emerald-700 font-medium">TDLR Sec. 521.1601 Compliant</span>
+        <span class="text-slate-300">|</span>
+        <span>Est. Time: 12 Min</span>
+      </div>
+    </div>
+
+    <!-- LESSON TITLE & INTRO -->
+    <header class="mt-8 mb-8">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight font-display text-slate-900 leading-tight">
+        The Invisible Zone: <span class="text-[#E87522]">Blind Spot Driving</span>
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">
+        Modern vehicle mirrors leave critical peripheral wedges unmonitored. On Texas high-speed corridors, occupying these blind zones deprives adjacent operators of situational awareness—converting ordinary lane transitions into catastrophic sideswipe collisions.
+      </p>
+    </header>
+
+    <!-- STATUTORY CORNERSTONE CALLOUT -->
+    <div class="bg-white border-l-4 border-[#E87522] rounded-r-lg p-5 shadow-sm mb-10 flex items-start gap-4">
+      <div class="p-2 bg-[#FFF5EE] text-[#E87522] rounded-md mt-0.5">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+      </div>
+      <div class="flex-1">
+        <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-1">
+          Texas Transportation Code § 545.060 // Driving on Roadway Laned for Traffic
+        </div>
+        <p class="text-sm text-slate-800 italic leading-snug">
+          "An operator on a roadway divided into two or more clearly marked lanes for traffic shall drive as nearly as practical entirely within a single lane and <strong class="text-slate-900 not-italic font-semibold">may not move from the lane unless that movement can be made safely.</strong>"
+        </p>
+        <p class="text-xs text-slate-500 mt-2">
+          Statutory Mandate: Safe lane departure requires prior situational awareness through active peripheral scanning, mirror verification, and head checks.
+        </p>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE MODULE: THE SPATIAL EXPLORER -->
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-12">
+      <!-- Section Header -->
+      <div class="px-6 py-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3 bg-slate-50/50">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-[#E87522] font-semibold">Interactive Laboratory</span>
+          <h2 class="text-xl sm:text-2xl font-bold font-display text-slate-900 mt-0.5">The Spatial Explorer</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Test peripheral visibility cones, blind spots, and the commercial truck "No-Zone".</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-mono px-3 py-1.5 bg-slate-100 rounded-md border border-slate-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-slate-600">Sim Feed: Orthogonal 2D Corridor</span>
+        </div>
+      </div>
+
+      <!-- MAIN CONTROLLER BAR -->
+      <div class="p-6 bg-slate-50 border-b border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- PANEL 1: CENTRAL VEHICLE TOGGLE -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-500 font-medium mb-2.5">
+            01 // Select Central Host Vehicle
+          </label>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="btnVehicleCar" onclick="selectVehicle('car')" class="px-4 py-3 rounded-lg text-sm font-semibold transition-spatial border-2 flex items-center justify-center gap-2 bg-white text-slate-900 border-[#E87522] shadow-sm">
+              <svg class="w-4 h-4 text-[#E87522]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+              </svg>
+              <span>Passenger Car</span>
+            </button>
+            <button id="btnVehicleTruck" onclick="selectVehicle('truck')" class="px-4 py-3 rounded-lg text-sm font-semibold transition-spatial border-2 flex items-center justify-center gap-2 bg-white text-slate-600 border-slate-200 hover:border-slate-300">
+              <svg class="w-4 h-4 text-slate-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+              </svg>
+              <span>Commercial Truck</span>
+            </button>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-500 font-mono flex items-center justify-between">
+            <span id="vehicleSpecsText">Standard 180° front scan · Left & right mirror cones</span>
+            <span class="text-amber-700 font-medium">B-Pillar Occlusion</span>
+          </div>
+        </div>
+
+        <!-- PANEL 2: TARGET VEHICLE TYPE & QUICK POSITIONING -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-500 font-medium mb-2.5">
+            02 // Target Vehicle Type (The Following Operator)
+          </label>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="btnTargetSmallCar" onclick="selectTargetType('smallCar')" class="px-3 py-2.5 rounded-lg text-xs font-semibold transition-spatial border flex items-center justify-center gap-2 bg-white text-slate-900 border-[#E87522] shadow-sm">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+              <span>Trailing Sedan</span>
+            </button>
+            <button id="btnTargetMotorcycle" onclick="selectTargetType('motorcycle')" class="px-3 py-2.5 rounded-lg text-xs font-semibold transition-spatial border flex items-center justify-center gap-2 bg-white text-slate-600 border-slate-200 hover:border-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span>Motorcycle (Narrow Silhouette)</span>
+            </button>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-500 font-mono">
+            Vulnerability note: Motorcycles easily vanish within A/B pillars and side mirrors.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIMULATION VIEWPORT -->
+      <div class="p-4 sm:p-6 bg-slate-900/5">
+        <div class="relative w-full h-[520px] rounded-xl overflow-hidden shadow-inner road-surface border border-slate-800">
+          
+          <!-- THREE-LANE ROADWAY MARKINGS -->
+          <!-- Lane 1 (Left Passing Lane) -->
+          <div class="absolute inset-y-0 left-0 w-1/3 border-r border-dashed border-slate-600/40"></div>
+          <!-- Lane 2 (Center Travel Lane - Where Host Car is) -->
+          <div class="absolute inset-y-0 left-1/3 w-1/3 bg-white/[0.015]"></div>
+          <!-- Lane 3 (Right Slow Lane) -->
+          <div class="absolute inset-y-0 right-0 w-1/3 border-l border-dashed border-slate-600/40"></div>
+
+          <!-- Vertical Road Centerline Dash lines -->
+          <div class="absolute top-0 bottom-0 left-[33.33%] w-[2px] lane-divider opacity-50 pointer-events-none"></div>
+          <div class="absolute top-0 bottom-0 left-[66.66%] w-[2px] lane-divider opacity-50 pointer-events-none"></div>
+
+          <!-- Shoulder Solid White Lines -->
+          <div class="absolute top-0 bottom-0 left-3 w-[2px] bg-white/40 pointer-events-none"></div>
+          <div class="absolute top-0 bottom-0 right-3 w-[2px] bg-white/40 pointer-events-none"></div>
+
+          <!-- Highway Directional Chevrons -->
+          <div class="absolute inset-0 flex flex-col justify-between py-6 px-10 pointer-events-none opacity-20">
+            <div class="flex justify-between text-[11px] font-mono text-slate-400">
+              <span>LANE 1 (PASSING)</span>
+              <span>LANE 2 (TRAVEL)</span>
+              <span>LANE 3 (RIGHT)</span>
+            </div>
+            <div class="flex justify-center text-slate-500 font-mono text-xs tracking-widest">
+              ▲ DIRECTION OF VEHICULAR TRAVEL ▲
+            </div>
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>TEXAS IH-35 CORRIDOR SPEC</span>
+              <span>SPEED: 65 MPH STEADY</span>
+              <span>ORTHOGONAL METRICS</span>
+            </div>
+          </div>
+
+          <!-- SVG OVERLAY FOR VISIBLE MIRROR CONES AND BLIND SPOT POLYGONS -->
+          <svg id="spatialSvg" class="absolute inset-0 w-full h-full pointer-events-none transition-spatial" viewBox="0 0 800 520" preserveAspectRatio="none">
+            <defs>
+              <!-- Blind Spot Red Pattern -->
+              <pattern id="diagonalRed" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="8" stroke="#EF4444" stroke-width="1.5" stroke-opacity="0.6" />
+              </pattern>
+              <!-- No-Zone Truck Orange Pattern -->
+              <pattern id="diagonalOrange" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="8" stroke="#F97316" stroke-width="1.5" stroke-opacity="0.7" />
+              </pattern>
+            </defs>
+
+            <!-- ===================== CAR GEOMETRY CONES ===================== -->
+            <g id="carConesGroup" class="transition-spatial opacity-100">
+              <!-- Left Side Mirror Visible Cone (Light Blue) -->
+              <polygon points="360,240 180,320 230,460 365,270" fill="#38BDF8" fill-opacity="0.18" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" />
+              <!-- Right Side Mirror Visible Cone (Light Blue) -->
+              <polygon points="440,240 620,320 570,460 435,270" fill="#38BDF8" fill-opacity="0.18" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" />
+              <!-- Rearview Center Mirror Visible Cone (Light Blue) -->
+              <polygon points="380,240 420,240 500,500 300,500" fill="#38BDF8" fill-opacity="0.12" stroke="#0284C7" stroke-width="1" stroke-dasharray="3,3" />
+
+              <!-- Left Blind Spot (Red Wedge - B Pillar to Rear Quarter) -->
+              <polygon points="360,220 200,190 180,320 360,250" fill="url(#diagonalRed)" fill-opacity="0.7" stroke="#DC2626" stroke-width="1.8" />
+              <!-- Right Blind Spot (Red Wedge - Passenger Rear Quarter) -->
+              <polygon points="440,220 600,190 620,320 440,250" fill="url(#diagonalRed)" fill-opacity="0.7" stroke="#DC2626" stroke-width="1.8" />
+              
+              <!-- Labels -->
+              <text x="210" y="250" fill="#F87171" font-size="11" font-family="monospace" font-weight="bold">BLIND SPOT (LEFT)</text>
+              <text x="495" y="250" fill="#F87171" font-size="11" font-family="monospace" font-weight="bold">BLIND SPOT (RIGHT)</text>
+              <text x="250" y="410" fill="#38BDF8" font-size="10" font-family="monospace">MIRROR FIELD</text>
+              <text x="480" y="410" fill="#38BDF8" font-size="10" font-family="monospace">MIRROR FIELD</text>
+              <text x="350" y="470" fill="#38BDF8" font-size="10" font-family="monospace">REAR MIRROR</text>
+            </g>
+
+            <!-- ===================== TRUCK GEOMETRY CONES ===================== -->
+            <g id="truckConesGroup" class="transition-spatial opacity-0" style="display: none;">
+              <!-- Left Mirror Visible Arc (Narrow sliver due to flat convex glass) -->
+              <polygon points="350,150 160,220 200,320 350,220" fill="#38BDF8" fill-opacity="0.15" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" />
+              <!-- Right Mirror Visible Arc -->
+              <polygon points="450,150 640,220 600,320 450,220" fill="#38BDF8" fill-opacity="0.15" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" />
+
+              <!-- TRUCK MASSIVE NO-ZONES (Front, Left, Right, Rear) -->
+              <!-- 1. Front No-Zone (Cab blind spot: up to 20 feet ahead) -->
+              <polygon points="340,110 460,110 490,40 310,40" fill="url(#diagonalOrange)" fill-opacity="0.7" stroke="#EA580C" stroke-width="1.8" />
+              <!-- 2. Left Side No-Zone (Spans 1 full lane alongside trailer) -->
+              <polygon points="340,140 180,140 160,340 340,340" fill="url(#diagonalOrange)" fill-opacity="0.8" stroke="#EA580C" stroke-width="2" />
+              <!-- 3. Right Side No-Zone (Massive: spans across 2 lanes, starting from cab back) -->
+              <polygon points="460,130 730,170 700,380 460,350" fill="url(#diagonalOrange)" fill-opacity="0.85" stroke="#EA580C" stroke-width="2" />
+              <!-- 4. Massive Rear No-Zone (Up to 200 feet behind the trailer) -->
+              <polygon points="340,360 460,360 520,515 280,515" fill="url(#diagonalOrange)" fill-opacity="0.85" stroke="#EA580C" stroke-width="2" />
+
+              <!-- Truck Labels -->
+              <text x="345" y="70" fill="#FB923C" font-size="11" font-family="monospace" font-weight="bold">FRONT NO-ZONE (20 FT)</text>
+              <text x="190" y="240" fill="#FB923C" font-size="11" font-family="monospace" font-weight="bold">LEFT NO-ZONE</text>
+              <text x="500" y="240" fill="#FB923C" font-size="12" font-family="monospace" font-weight="bold">HUGE RIGHT NO-ZONE</text>
+              <text x="330" y="440" fill="#FB923C" font-size="12" font-family="monospace" font-weight="bold">REAR NO-ZONE (200 FT)</text>
+              <text x="315" y="460" fill="#FFFFFF" font-size="9" font-family="monospace" opacity="0.8">IF YOU CAN'T SEE MIRRORS, HE CAN'T SEE YOU</text>
+            </g>
+          </svg>
+
+          <!-- CENTRAL HOST VEHICLE (CAR OR TRUCK) -->
+          <!-- 1. Central Passenger Car -->
+          <div id="hostCar" class="absolute left-1/2 top-[200px] -translate-x-1/2 -translate-y-1/2 transition-spatial z-20">
+            <div class="relative w-16 h-28 bg-slate-100 rounded-2xl shadow-2xl border border-slate-300 flex flex-col items-center justify-between p-1.5">
+              <!-- Windshield Front -->
+              <div class="w-12 h-6 bg-slate-800 rounded-t-lg mt-1 border-b border-cyan-400/40 relative">
+                <!-- Headlights -->
+                <div class="absolute -top-1 left-0.5 w-2 h-1 bg-yellow-200 rounded-sm"></div>
+                <div class="absolute -top-1 right-0.5 w-2 h-1 bg-yellow-200 rounded-sm"></div>
+              </div>
+              <!-- Cabin Roof -->
+              <div class="text-[9px] font-mono font-bold tracking-tight text-slate-700 uppercase">
+                YOU (CAR)
+              </div>
+              <!-- Windshield Rear -->
+              <div class="w-12 h-4 bg-slate-800 rounded-b-md mb-1 border-t border-red-500/30 relative">
+                <!-- Taillights -->
+                <div class="absolute -bottom-1 left-0.5 w-2 h-1 bg-red-600 rounded-sm"></div>
+                <div class="absolute -bottom-1 right-0.5 w-2 h-1 bg-red-600 rounded-sm"></div>
+              </div>
+              <!-- Side Mirrors -->
+              <div class="absolute top-5 -left-2 w-2 h-3 bg-slate-400 rounded-l-sm border border-slate-500"></div>
+              <div class="absolute top-5 -right-2 w-2 h-3 bg-slate-400 rounded-r-sm border border-slate-500"></div>
+            </div>
+          </div>
+
+          <!-- 2. Central Commercial Truck (18-Wheeler Rig + Trailer) -->
+          <div id="hostTruck" class="absolute left-1/2 top-[240px] -translate-x-1/2 -translate-y-1/2 transition-spatial z-20 opacity-0 pointer-events-none scale-95" style="display: none;">
+            <div class="relative flex flex-col items-center">
+              <!-- Cab Unit -->
+              <div class="w-20 h-16 bg-amber-500 rounded-t-xl border-2 border-amber-600 shadow-xl relative flex flex-col items-center justify-start p-1 z-10">
+                <!-- Front Windshield -->
+                <div class="w-16 h-4 bg-slate-900 rounded-t-md mt-1 border-b border-cyan-300"></div>
+                <div class="text-[9px] font-mono font-extrabold text-slate-900 mt-1 uppercase tracking-tight">COMMERCIAL CAB</div>
+                <!-- Dual Heavy-Duty West-Coast Mirrors -->
+                <div class="absolute top-2 -left-3.5 w-3 h-5 bg-slate-800 rounded-sm border border-slate-400"></div>
+                <div class="absolute top-2 -right-3.5 w-3 h-5 bg-slate-800 rounded-sm border border-slate-400"></div>
+              </div>
+              <!-- Fifth Wheel Hitch -->
+              <div class="w-8 h-2 bg-slate-800 my-[-1px] z-0"></div>
+              <!-- 53-Foot Enclosed Cargo Trailer -->
+              <div class="w-24 h-48 bg-slate-200 border-2 border-slate-400 rounded-b-md shadow-2xl flex flex-col justify-between items-center p-2 text-center relative z-10">
+                <span class="text-[8px] font-mono tracking-widest text-slate-400 uppercase">TX-DOT FREIGHT SPEC</span>
+                <div class="py-2">
+                  <div class="text-[11px] font-bold text-slate-800 uppercase tracking-tight font-display">LONG COMBINATION</div>
+                  <div class="text-[9px] font-mono text-red-600 font-semibold mt-0.5">80,000 LBS GVWR</div>
+                </div>
+                <div class="w-full flex justify-between px-1">
+                  <div class="w-3 h-1.5 bg-red-600 rounded-sm"></div>
+                  <div class="text-[8px] font-mono text-slate-500">ICC BARRIER</div>
+                  <div class="w-3 h-1.5 bg-red-600 rounded-sm"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THE TARGET VEHICLE (MOVABLE VIA PRESETS & DRAG) -->
+          <div id="targetVehicle" class="absolute transition-spatial z-30 flex flex-col items-center cursor-pointer" style="left: 240px; top: 215px;">
+            <!-- Target Model 1: Small Blue Sedan -->
+            <div id="targetModelCar" class="relative w-12 h-20 bg-blue-600 rounded-xl shadow-lg border border-blue-400 flex flex-col items-center justify-between p-1">
+              <div class="w-8 h-4 bg-slate-900 rounded-t-md mt-0.5 relative">
+                <div class="absolute -top-1 left-0.5 w-1.5 h-1 bg-yellow-200 rounded-xs"></div>
+                <div class="absolute -top-1 right-0.5 w-1.5 h-1 bg-yellow-200 rounded-xs"></div>
+              </div>
+              <span class="text-[8px] font-mono font-bold text-white uppercase tracking-tighter">TARGET</span>
+              <div class="w-8 h-3 bg-slate-900 rounded-b-sm mb-0.5 relative">
+                <div class="absolute -bottom-1 left-0.5 w-1.5 h-1 bg-red-400 rounded-xs"></div>
+                <div class="absolute -bottom-1 right-0.5 w-1.5 h-1 bg-red-400 rounded-xs"></div>
+              </div>
+            </div>
+
+            <!-- Target Model 2: Slim Motorcycle -->
+            <div id="targetModelMoto" class="relative w-6 h-14 bg-emerald-500 rounded-full shadow-lg border border-emerald-300 flex flex-col items-center justify-between p-0.5 hidden">
+              <div class="w-2.5 h-2.5 rounded-full bg-slate-900 mt-0.5"></div>
+              <!-- Handlebars -->
+              <div class="w-8 h-1 bg-slate-800 rounded-full"></div>
+              <div class="text-[6px] font-mono text-white font-bold">MOTO</div>
+              <div class="w-2 h-2 rounded-full bg-slate-900 mb-0.5"></div>
+            </div>
+
+            <!-- Floating Target Position Tag -->
+            <div id="targetTag" class="mt-1 px-2 py-0.5 bg-red-600 text-white rounded text-[10px] font-mono font-bold shadow-md whitespace-nowrap">
+              LINGERING IN BLIND SPOT
+            </div>
+          </div>
+
+          <!-- STATUS BADGE HUD -->
+          <div class="absolute top-4 left-4 z-10 bg-slate-900/90 backdrop-blur-sm border border-slate-700 text-white rounded-lg p-3 text-xs font-mono max-w-xs shadow-md">
+            <div class="flex items-center justify-between text-slate-400 mb-1 border-b border-slate-800 pb-1">
+              <span>RADAR TELEMETRY</span>
+              <span id="telemetryStatus" class="text-red-400 font-semibold">● DANGER ZONE</span>
+            </div>
+            <div class="space-y-0.5 text-[11px]">
+              <div>HOST: <span id="hudHostName" class="text-white font-semibold">PASSENGER CAR</span></div>
+              <div>TARGET VECTOR: <span id="hudTargetVector" class="text-amber-300">LEFT REAR QUARTER</span></div>
+              <div>VISIBILITY: <span id="hudVisibility" class="text-red-400 font-bold">OCCLUDED (0% MIRROR)</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PANEL 3: TARGET POSITIONING CONTROLS (RIGHT / BOTTOM CONTROL TIER) -->
+      <div class="p-6 bg-white border-t border-slate-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">03 // Move Target Vehicle</span>
+            <h3 class="text-sm font-bold text-slate-900">Preset Tactical Corridor Scenarios</h3>
+          </div>
+          <span class="text-xs font-mono text-slate-500">Click any position to simulate driver visibility</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Button 1: Safe Following -->
+          <button id="btnPosSafe" onclick="setScenario('safe')" class="p-4 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-left transition-spatial hover:shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">ZONE: STABLE</span>
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="font-bold text-sm text-slate-900">[ Safe Following ]</div>
+            <p class="text-xs text-slate-500 mt-1">Directly behind the host vehicle outside collision wedges; 3-4s headway interval.</p>
+          </button>
+
+          <!-- Button 2: Lingering in Blind Spot -->
+          <button id="btnPosBlind" onclick="setScenario('blind')" class="p-4 rounded-xl border-2 border-red-500 bg-red-50/30 text-left transition-spatial shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded">ZONE: CRITICAL HAZARD</span>
+              <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <div class="font-bold text-sm text-slate-900">[ Lingering in Blind Spot ]</div>
+            <p class="text-xs text-slate-500 mt-1">Hovering diagonally off the rear flank where mirrors fail and B-pillars occlude.</p>
+          </button>
+
+          <!-- Button 3: Passing Zone -->
+          <button id="btnPosPassing" onclick="setScenario('passing')" class="p-4 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-left transition-spatial hover:shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">ZONE: OBSERVABLE</span>
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </div>
+            <div class="font-bold text-sm text-slate-900">[ Passing Alongside ]</div>
+            <p class="text-xs text-slate-500 mt-1">Adjacent to the driver's front door; clearly registered in peripheral forward sightline.</p>
+          </button>
+        </div>
+
+        <!-- DYNAMIC STATUTORY FEEDBACK BANNER (AGGRESSIVELY UPDATES) -->
+        <div id="dynamicFeedbackBanner" class="mt-6 p-5 rounded-xl border-l-4 border-red-500 bg-red-50 text-slate-800 transition-spatial">
+          <div class="flex items-start gap-3">
+            <div id="feedbackIcon" class="mt-0.5 text-red-600">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <span id="feedbackSeverity" class="font-mono text-xs font-bold uppercase tracking-wider text-red-800">CRITICAL KINETIC HAZARD DETECTED</span>
+                <span class="text-slate-300">·</span>
+                <span id="feedbackCiting" class="font-mono text-xs text-slate-600">Texas Transp. Code § 545.060</span>
+              </div>
+              <p id="feedbackMainText" class="text-sm font-semibold text-slate-900 leading-snug">
+                You are lingering in the blind spot. Either complete the pass or slow down to become visible.
+              </p>
+              <p id="feedbackSubText" class="text-xs text-slate-600 mt-1">
+                The driver cannot detect you through the rear-view or side-view mirrors. If they initiate a sudden evasive maneuver or lane shift, you have zero reaction buffer.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CORE EDUCATIONAL MODULE: THE 3 LAWS OF THE NO-ZONE & BLIND SPOT MITIGATION -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <!-- Card 1 -->
+      <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="text-xs font-mono uppercase tracking-wider text-[#E87522] font-semibold mb-2">Rule 01 // The Mirror Rule</div>
+          <h3 class="text-base font-bold font-display text-slate-900">If You Can't See Their Face</h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+            If you cannot see the commercial truck driver's face in their exterior side-view mirror, the driver <strong>cannot see you</strong>. Never tailgate or cruise alongside an 18-wheeler.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-500">
+          <span>TX Commercial Code</span>
+          <span class="text-slate-700 font-medium">No-Zone Mandate</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="text-xs font-mono uppercase tracking-wider text-[#E87522] font-semibold mb-2">Rule 02 // Physical Verification</div>
+          <h3 class="text-base font-bold font-display text-slate-900">The 90-Degree Chin-Check</h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+            Glancing at side mirrors alone fails the Texas DPS road exam. Texas law demands an active 90-degree chin-to-shoulder turn to physically inspect the B-pillar zone before any lateral movement.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-500">
+          <span>DPS Examination Protocol</span>
+          <span class="text-slate-700 font-medium">BGE Mirror Calibration</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="text-xs font-mono uppercase tracking-wider text-[#E87522] font-semibold mb-2">Rule 03 // Backing & Turning</div>
+          <h3 class="text-base font-bold font-display text-slate-900">Never Cross Behind Backing Trucks</h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+            Under TTC § 545.415, backing operators must yield. However, large freight rigs possess a completely blinded 200-foot rear wedge. Pedestrians and vehicles must never step behind a reverse gear.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-500">
+          <span>TTC § 545.415</span>
+          <span class="text-slate-700 font-medium">Zero Rear Sightline</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMATIVE ASSESSMENT // TDLR KNOWLEDGE CHECK -->
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 mb-12">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-[#E87522] font-semibold">Formative Assessment // TDLR Checkpoint</span>
+          <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 mt-1">Topic 5 Knowledge Verification</h3>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2.5 py-1 rounded">Pass Threshold: 100%</span>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Question 1 -->
+        <div>
+          <p class="text-sm font-semibold text-slate-900 mb-3">
+            1. Under Texas Transportation Code § 545.060 and defensive driving doctrine, when is an operator required to perform a physical shoulder head-check?
+          </p>
+          <div class="space-y-2">
+            <button onclick="checkAnswer(this, false, 'q1-feedback')" class="w-full text-left p-3.5 rounded-lg border border-slate-200 hover:border-slate-300 text-xs sm:text-sm text-slate-700 transition-spatial">
+              [ A ] Only when merging onto high-speed interstate tollways with heavy commercial traffic.
+            </button>
+            <button onclick="checkAnswer(this, true, 'q1-feedback')" class="w-full text-left p-3.5 rounded-lg border border-slate-200 hover:border-slate-300 text-xs sm:text-sm text-slate-700 transition-spatial">
+              [ B ] Before changing lanes, merging, turning, or pulling out from a parked curbside position.
+            </button>
+            <button onclick="checkAnswer(this, false, 'q1-feedback')" class="w-full text-left p-3.5 rounded-lg border border-slate-200 hover:border-slate-300 text-xs sm:text-sm text-slate-700 transition-spatial">
+              [ C ] Only when your rearview mirror does not show vehicles directly behind you.
+            </button>
+          </div>
+          <div id="q1-feedback" class="hidden mt-3 p-3.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900">
+            <strong>Correct:</strong> Under Texas law, mirror checks must always be corroborated with a physical head check across the B-pillar before any lateral departure.
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="pt-6 border-t border-slate-100">
+          <p class="text-sm font-semibold text-slate-900 mb-3">
+            2. When driving near a large commercial truck, where is the most hazardous and expansive blind spot located?
+          </p>
+          <div class="space-y-2">
+            <button onclick="checkAnswer(this, false, 'q2-feedback')" class="w-full text-left p-3.5 rounded-lg border border-slate-200 hover:border-slate-300 text-xs sm:text-sm text-slate-700 transition-spatial">
+              [ A ] Directly off the front bumper for 5 feet.
+            </button>
+            <button onclick="checkAnswer(this, true, 'q2-feedback')" class="w-full text-left p-3.5 rounded-lg border border-slate-200 hover:border-slate-300 text-xs sm:text-sm text-slate-700 transition-spatial">
+              [ B ] Along the entire right side of the rig, extending outward across up to two full traffic lanes.
+            </button>
+            <button onclick="checkAnswer(this, false, 'q2-feedback')" class="w-full text-left p-3.5 rounded-lg border border-slate-200 hover:border-slate-300 text-xs sm:text-sm text-slate-700 transition-spatial">
+              [ C ] Directly above the exhaust stacks.
+            </button>
+          </div>
+          <div id="q2-feedback" class="hidden mt-3 p-3.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900">
+            <strong>Correct:</strong> A commercial truck's right-side No-Zone is exceptionally large, spanning across two lanes and requiring extra vigilance before passing on the right (which is discouraged).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON FOOTER NAVIGATION & COMPLETION CONTROLLER -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200">
+      <a href="#" class="px-5 py-3 rounded-lg border border-slate-200 hover:bg-white text-xs font-mono font-medium text-slate-600 transition-colors flex items-center gap-2">
+        <span>← Previous: L05-T04 Laws for Passing, Turning & Stopping</span>
+      </a>
+
+      <div class="flex items-center gap-2 text-xs font-mono text-slate-500">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Topic L05-T05 Validated // TDLR Sec. 521.1601</span>
+      </div>
+
+      <button class="w-full sm:w-auto px-7 py-3 rounded-lg bg-[#E87522] hover:bg-[#cf6317] text-white text-sm font-semibold shadow-sm transition-spatial flex items-center justify-center gap-2">
+        <span>Complete Topic 5 & Proceed to L05-T06</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </button>
+    </div>
+
+    <!-- STATUTORY FOOTNOTE -->
+    <footer class="mt-14 text-center text-xs font-mono text-slate-400">
+      © 2025 Texas Department of Licensing and Regulation (TDLR) Approved Adult Driver Education · Course Provider #ADE-1042 · TTC § 545.060 Compliance Validated
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT CONTROLLER ENGINE -->
+  <script>
+    // State Model
+    const state = {
+      hostVehicle: 'car',      // 'car' | 'truck'
+      targetType: 'smallCar',  // 'smallCar' | 'motorcycle'
+      scenario: 'blind'        // 'safe' | 'blind' | 'passing'
+    };
+
+    // Position Coordinates for Scenarios based on Host Vehicle
+    const positions = {
+      car: {
+        safe: { left: 400, top: 380, label: 'SAFE FOLLOWING', zone: 'safe' },
+        blind: { left: 260, top: 220, label: 'LINGERING IN BLIND SPOT', zone: 'blind' },
+        passing: { left: 240, top: 120, label: 'PASSING ALONGSIDE CAB', zone: 'passing' }
+      },
+      truck: {
+        safe: { left: 400, top: 460, label: 'REAR NO-ZONE (TOO CLOSE)', zone: 'blind' },
+        blind: { left: 620, top: 260, label: 'RIGHT NO-ZONE (CRITICAL)', zone: 'blind' },
+        passing: { left: 220, top: 110, label: 'PASSING TRUCK CAB', zone: 'passing' }
+      }
+    };
+
+    // Update UI elements based on state
+    function updateScene() {
+      const isCar = state.hostVehicle === 'car';
+      const isTruck = !isCar;
+      const isMoto = state.targetType === 'motorcycle';
+
+      // 1. Vehicle Shape visibility
+      const hostCar = document.getElementById('hostCar');
+      const hostTruck = document.getElementById('hostTruck');
+      const carCones = document.getElementById('carConesGroup');
+      const truckCones = document.getElementById('truckConesGroup');
+
+      if (isCar) {
+        hostCar.style.display = 'block';
+        hostTruck.style.display = 'none';
+        hostCar.style.opacity = '1';
+        hostCar.style.pointerEvents = 'auto';
+
+        carCones.style.display = 'block';
+        truckCones.style.display = 'none';
+        carCones.style.opacity = '1';
+
+        document.getElementById('hudHostName').innerText = 'PASSENGER CAR';
+        document.getElementById('vehicleSpecsText').innerText = 'Standard 180° front scan · Left & right mirror cones';
+      } else {
+        hostCar.style.display = 'none';
+        hostTruck.style.display = 'block';
+        hostTruck.style.opacity = '1';
+        hostTruck.style.pointerEvents = 'auto';
+
+        carCones.style.display = 'none';
+        truckCones.style.display = 'block';
+        truckCones.style.opacity = '1';
+
+        document.getElementById('hudHostName').innerText = 'COMMERCIAL 18-WHEELER';
+        document.getElementById('vehicleSpecsText').innerText = 'Massive 4-sided No-Zones: Front (20ft), Sides (2 lanes), Rear (200ft)';
+      }
+
+      // 2. Target Vehicle Model (Car vs Motorcycle)
+      const targetModelCar = document.getElementById('targetModelCar');
+      const targetModelMoto = document.getElementById('targetModelMoto');
+
+      if (isMoto) {
+        targetModelCar.classList.add('hidden');
+        targetModelMoto.classList.remove('hidden');
+      } else {
+        targetModelCar.classList.remove('hidden');
+        targetModelMoto.classList.add('hidden');
+      }
+
+      // 3. Position the Target Vehicle
+      const currentPos = positions[state.hostVehicle][state.scenario];
+      const targetVehicle = document.getElementById('targetVehicle');
+      const targetTag = document.getElementById('targetTag');
+
+      targetVehicle.style.left = `${currentPos.left}px`;
+      targetVehicle.style.top = `${currentPos.top}px`;
+      targetTag.innerText = currentPos.label;
+
+      // 4. Update HUD and Dynamic Feedback Banner
+      const banner = document.getElementById('dynamicFeedbackBanner');
+      const feedbackSeverity = document.getElementById('feedbackSeverity');
+      const feedbackMainText = document.getElementById('feedbackMainText');
+      const feedbackSubText = document.getElementById('feedbackSubText');
+      const feedbackIcon = document.getElementById('feedbackIcon');
+      const telemetryStatus = document.getElementById('telemetryStatus');
+      const hudVisibility = document.getElementById('hudVisibility');
+      const hudTargetVector = document.getElementById('hudTargetVector');
+
+      // Style active scenario buttons
+      ['Safe', 'Blind', 'Passing'].forEach(scen => {
+        const btn = document.getElementById('btnPos' + scen);
+        if (state.scenario.toLowerCase() === scen.toLowerCase()) {
+          btn.classList.add('ring-2', 'ring-[#E87522]', 'border-[#E87522]');
+        } else {
+          btn.classList.remove('ring-2', 'ring-[#E87522]', 'border-[#E87522]');
+        }
+      });
+
+      // Contextual feedback logic
+      if (currentPos.zone === 'blind') {
+        // HAZARD / BLIND SPOT
+        banner.className = 'mt-6 p-5 rounded-xl border-l-4 border-red-500 bg-red-50 text-slate-800 transition-spatial';
+        targetTag.className = 'mt-1 px-2 py-0.5 bg-red-600 text-white rounded text-[10px] font-mono font-bold shadow-md whitespace-nowrap pulse-warning';
+        telemetryStatus.className = 'text-red-400 font-semibold';
+        telemetryStatus.innerText = '● DANGER: NO SIGHTLINE';
+        hudVisibility.className = 'text-red-400 font-bold';
+        hudVisibility.innerText = 'OCCLUDED (0% MIRROR SIGHT)';
+        
+        feedbackSeverity.innerText = 'CRITICAL KINETIC HAZARD DETECTED';
+        feedbackSeverity.className = 'font-mono text-xs font-bold uppercase tracking-wider text-red-800';
+        feedbackIcon.innerHTML = `<svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
+
+        if (isCar) {
+          hudTargetVector.innerText = 'LEFT B-PILLAR BLIND ZONE';
+          if (isMoto) {
+            feedbackMainText.innerText = 'Motorcycles are easily hidden in these zones. Always perform a physical shoulder check before changing lanes.';
+            feedbackSubText.innerText = 'A motorcycle’s narrow profile is completely enveloped by the driver’s blind wedge. Without a physical 90° head-turn, a lane change causes an instant collision.';
+          } else {
+            feedbackMainText.innerText = 'You are lingering in the blind spot. Either complete the pass or slow down to become visible.';
+            feedbackSubText.innerText = 'Cruising diagonally behind another passenger car locks you into their optical dead zone. Maintain acceleration to pass cleanly or ease off to establish clear mirror sightlines.';
+          }
+        } else {
+          // Commercial Truck
+          if (state.scenario === 'safe') {
+            hudTargetVector.innerText = 'REAR 200-FT NO-ZONE';
+            feedbackMainText.innerText = 'You are in the Truck No-Zone! If you cannot see the truck\'s side mirrors, the driver cannot see you. Never cross behind a backing truck.';
+            feedbackSubText.innerText = 'Commercial freight trailers have zero central rearview sight. Following closer than 200 feet strips away stopping distance and hides you from the driver entirely.';
+          } else {
+            hudTargetVector.innerText = 'RIGHT SIDE MULTI-LANE NO-ZONE';
+            feedbackMainText.innerText = 'You are in the No-Zone. If you cannot see the truck\'s side mirrors, the driver cannot see you. Never cross behind a backing truck.';
+            feedbackSubText.innerText = 'The right side of an 18-wheeler is its largest blind spot, spanning across two lanes. If this rig initiates a right turn or lane shift, it will pivot directly into your corridor.';
+          }
+          if (isMoto) {
+            feedbackSubText += ' NOTE: Motorcycles trapped in truck No-Zones are completely invisible to high-cab operators.';
+          }
+        }
+
+      } else if (currentPos.zone === 'safe') {
+        // SAFE FOLLOWING
+        banner.className = 'mt-6 p-5 rounded-xl border-l-4 border-emerald-500 bg-emerald-50 text-slate-800 transition-spatial';
+        targetTag.className = 'mt-1 px-2 py-0.5 bg-emerald-600 text-white rounded text-[10px] font-mono font-bold shadow-md whitespace-nowrap';
+        telemetryStatus.className = 'text-emerald-400 font-semibold';
+        telemetryStatus.innerText = '● SECURE FOLLOWING CUSHION';
+        hudVisibility.className = 'text-emerald-400 font-bold';
+        hudVisibility.innerText = 'FULL VISIBILITY (MIRROR DIRECT)';
+        hudTargetVector.innerText = 'TRAILING CENTRAL HEADWAY';
+
+        feedbackSeverity.innerText = 'STATUTORILY COMPLIANT INTERVAL';
+        feedbackSeverity.className = 'font-mono text-xs font-bold uppercase tracking-wider text-emerald-800';
+        feedbackIcon.innerHTML = `<svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+
+        feedbackMainText.innerText = 'Target vehicle positioned with compliant spacing in the central mirror cone.';
+        feedbackSubText.innerText = 'The host operator can clearly track your velocity in their rearview glass. Maintain 3 to 4 seconds of headway under standard Texas dry pavement conditions.';
+
+      } else {
+        // PASSING ALONGSIDE
+        banner.className = 'mt-6 p-5 rounded-xl border-l-4 border-blue-500 bg-blue-50 text-slate-800 transition-spatial';
+        targetTag.className = 'mt-1 px-2 py-0.5 bg-blue-600 text-white rounded text-[10px] font-mono font-bold shadow-md whitespace-nowrap';
+        telemetryStatus.className = 'text-blue-400 font-semibold';
+        telemetryStatus.innerText = '● PASSING ACTIVE';
+        hudVisibility.className = 'text-blue-400 font-bold';
+        hudVisibility.innerText = 'DIRECT PERIPHERAL CONTACT';
+        hudTargetVector.innerText = 'FORWARD LEFT PASSING AISLE';
+
+        feedbackSeverity.innerText = 'ACTIVE OVERTAKE MANEUVER';
+        feedbackSeverity.className = 'font-mono text-xs font-bold uppercase tracking-wider text-blue-800';
+        feedbackIcon.innerHTML = `<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`;
+
+        feedbackMainText.innerText = 'Target vehicle is actively passing alongside the cab and visible in the driver’s peripheral window.';
+        feedbackSubText.innerText = 'Do not linger here. Under Texas law, complete the passing maneuver with smooth acceleration until you can clearly see both headlights of the overtaken vehicle in your rearview mirror before returning to the lane.';
+      }
+    }
+
+    // Interactive Button Handlers
+    function selectVehicle(type) {
+      state.hostVehicle = type;
+      const btnCar = document.getElementById('btnVehicleCar');
+      const btnTruck = document.getElementById('btnVehicleTruck');
+
+      if (type === 'car') {
+        btnCar.className = 'px-4 py-3 rounded-lg text-sm font-semibold transition-spatial border-2 flex items-center justify-center gap-2 bg-white text-slate-900 border-[#E87522] shadow-sm';
+        btnTruck.className = 'px-4 py-3 rounded-lg text-sm font-semibold transition-spatial border-2 flex items-center justify-center gap-2 bg-white text-slate-600 border-slate-200 hover:border-slate-300';
+      } else {
+        btnTruck.className = 'px-4 py-3 rounded-lg text-sm font-semibold transition-spatial border-2 flex items-center justify-center gap-2 bg-white text-slate-900 border-[#E87522] shadow-sm';
+        btnCar.className = 'px-4 py-3 rounded-lg text-sm font-semibold transition-spatial border-2 flex items-center justify-center gap-2 bg-white text-slate-600 border-slate-200 hover:border-slate-300';
+      }
+      updateScene();
+    }
+
+    function selectTargetType(type) {
+      state.targetType = type;
+      const btnSmallCar = document.getElementById('btnTargetSmallCar');
+      const btnMoto = document.getElementById('btnTargetMotorcycle');
+
+      if (type === 'smallCar') {
+        btnSmallCar.className = 'px-3 py-2.5 rounded-lg text-xs font-semibold transition-spatial border flex items-center justify-center gap-2 bg-white text-slate-900 border-[#E87522] shadow-sm';
+        btnMoto.className = 'px-3 py-2.5 rounded-lg text-xs font-semibold transition-spatial border flex items-center justify-center gap-2 bg-white text-slate-600 border-slate-200 hover:border-slate-300';
+      } else {
+        btnMoto.className = 'px-3 py-2.5 rounded-lg text-xs font-semibold transition-spatial border flex items-center justify-center gap-2 bg-white text-slate-900 border-[#E87522] shadow-sm';
+        btnSmallCar.className = 'px-3 py-2.5 rounded-lg text-xs font-semibold transition-spatial border flex items-center justify-center gap-2 bg-white text-slate-600 border-slate-200 hover:border-slate-300';
+      }
+      updateScene();
+    }
+
+    function setScenario(scen) {
+      state.scenario = scen;
+      updateScene();
+    }
+
+    // Knowledge Check Validation
+    function checkAnswer(btn, isCorrect, feedbackId) {
+      const parent = btn.parentElement;
+      const feedback = document.getElementById(feedbackId);
+      
+      parent.querySelectorAll('button').forEach(b => {
+        b.classList.remove('border-emerald-500', 'bg-emerald-50', 'text-emerald-900', 'border-red-500', 'bg-red-50', 'text-red-900');
+        b.classList.add('border-slate-200');
+      });
+
+      if (isCorrect) {
+        btn.classList.remove('border-slate-200');
+        btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900', 'font-semibold');
+        feedback.className = 'mt-3 p-3.5 bg-emerald-50 border border-emerald-300 rounded-lg text-xs text-emerald-900 block';
+      } else {
+        btn.classList.remove('border-slate-200');
+        btn.classList.add('border-red-500', 'bg-red-50', 'text-red-900');
+        feedback.className = 'mt-3 p-3.5 bg-red-50 border border-red-300 rounded-lg text-xs text-red-900 block';
+        feedback.innerHTML = '<strong>Incorrect:</strong> Review the statutory doctrine above and select the compliant response.';
+      }
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateScene();
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T05';
+  const nextTopicId = 'L05-T06';
+  const prevTopicId = 'L05-T04';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

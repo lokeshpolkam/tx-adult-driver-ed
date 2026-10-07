@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L02-T06: Reduce Risk (Synthesis & Application)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['Geist Mono', 'monospace'],
+          },
+          colors: {
+            surface: {
+              DEFAULT: '#f9faf8',
+              dim: '#d9dad8',
+              bright: '#f9faf8',
+              lowest: '#ffffff',
+              low: '#f3f4f2',
+              mid: '#eceeed',
+              high: '#e4e6e3',
+              highest: '#dcdeda'
+            },
+            roadOrange: {
+              DEFAULT: '#e87522',
+              hover: '#d46517',
+              dim: 'rgba(232, 117, 34, 0.12)',
+              border: '#e87522'
+            },
+            charcoal: {
+              DEFAULT: '#191c1b',
+              secondary: '#474c4a',
+              muted: '#727976',
+              light: '#8e9390'
+            },
+            statutoryRed: '#ba1a1a',
+            statutoryGreen: '#1e7b45'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #f9faf8;
+      color: #191c1b;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .technical-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #dcdeda;
+    }
+    .connection-line-active {
+      stroke-dasharray: 6;
+      animation: dashmove 1.2s linear infinite;
+    }
+    @keyframes dashmove {
+      to {
+        stroke-dashoffset: -12;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen py-10 px-4 md:px-8">
+
+  <!-- STANDALONE LESSON WRAPPER (NO GLOBAL APP HEADER OR SIDEBAR) -->
+  <main class="max-w-5xl mx-auto space-y-12">
+
+    <!-- TOP STATUTORY BREADCRUMB & METADATA -->
+    <header class="border-b border-surface-high pb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-roadOrange"></span>
+          <span class="font-mono text-xs uppercase tracking-wider text-charcoal-muted">
+            L02-T06 // SYNTHESIS &amp; OPERATIONAL READINESS // TEXAS TRANSPORTATION CODE CH. 521, 502, 601
+          </span>
+        </div>
+        <div class="flex items-center gap-3 font-mono text-[11px] text-charcoal-muted">
+          <span class="px-2 py-0.5 border border-surface-high bg-white uppercase">Simulation Mode: Active</span>
+          <span class="px-2 py-0.5 bg-roadOrange/10 text-roadOrange border border-roadOrange/30 font-semibold uppercase">Module 02 Capstone</span>
+        </div>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-charcoal">
+        Reduce Risk: Synthesis &amp; Application
+      </h1>
+      <p class="mt-2 text-charcoal-secondary text-base md:text-lg max-w-3xl leading-relaxed">
+        Safe highway transit in Texas is not an abstract concept; it is an engineered matrix of statutory readiness, physical verification, and real-time legal accountability. Before the ignition turns, every operational requirement must interlock.
+      </p>
+    </header>
+
+    <!-- SECTION 1: OPENING SIMULATION (BEFORE YOU DRIVE) -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-roadOrange font-semibold">Section 01 // Spatial Ingestion</span>
+          <h2 class="text-2xl font-bold text-charcoal">Before You Drive</h2>
+        </div>
+        <span class="font-mono text-xs text-charcoal-muted border border-surface-high px-2 py-1 bg-white">
+          ASSET CODE: 2.5D_CANVAS_L02T06_READINESS
+        </span>
+      </div>
+
+      <!-- 2.5D Asset Container -->
+      <div class="relative w-full rounded-lg border border-surface-high bg-[#ECEEEA] overflow-hidden">
+        <!-- 2.5D Technical Container Specification (16:9 Aspect ratio) -->
+        <div class="w-full h-80 md:h-[440px] relative overflow-hidden flex items-center justify-center group">
+          <img src="./assets/2_5d/L02_T06_vehicle_inspection.jpg" alt="Texas Vehicle Legal Foundation 2.5D Schematic" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none"></div>
+
+          <!-- Technical Corner Accents -->
+          <div class="absolute top-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">
+            POS: 30.2672° N, 97.7431° W // AUSTIN TRANSIT SECTOR
+          </div>
+          <div class="absolute top-3 right-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">
+            TX-DPS // REGULATORY VECTOR PLATFORM
+          </div>
+          <div class="absolute bottom-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">
+            REF // 2.5D_CANVAS_L02T06_VEHICLE_FOUNDATION
+          </div>
+
+          <!-- Replacement Tracker Badge -->
+          <div class="absolute bottom-3 right-3 flex items-center gap-2 font-mono text-xs bg-[#E87522] text-white px-3 py-1 rounded font-semibold shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+            <span>2.5D VISUAL PREVIEW // PENDING VIDEO COMPOSITE</span>
+          </div>
+        </div>
+
+        <!-- Narrative description block mandated by user -->
+        <div class="p-4 md:p-6 bg-surface-low border-t border-surface-high">
+          <div class="flex items-center gap-2 font-mono text-xs font-semibold text-charcoal mb-2">
+            <span class="w-1.5 h-1.5 bg-[#E87522]"></span>
+            SCENE SPECIFICATION // PHYSICAL FOUNDATION NEXUS:
+          </div>
+          <p class="text-sm text-charcoal-secondary leading-relaxed">
+            &ldquo;A 3D vehicle parked at the edge of a Texas roadway. 4 readiness conditions (License, Registration, Insurance, Driving Status) form the physical foundation beneath the vehicle. The road only opens when all 4 are verified.&rdquo;
+          </p>
+          <div class="mt-3 pt-3 border-t border-surface-high grid grid-cols-2 md:grid-cols-4 gap-2 font-mono text-[11px]">
+            <div class="text-charcoal-muted">1. TTC § 521.021: <span class="text-charcoal font-semibold">LICENSE</span></div>
+            <div class="text-charcoal-muted">2. TTC § 502.040: <span class="text-charcoal font-semibold">REGISTRATION</span></div>
+            <div class="text-charcoal-muted">3. TTC § 601.051: <span class="text-charcoal font-semibold">INSURANCE</span></div>
+            <div class="text-charcoal-muted">4. TTC § 521.457: <span class="text-charcoal font-semibold">STATUS CLEAR</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INTERACTIVE DASHBOARD — READY TO DRIVE? / THE LEGAL FOUNDATION -->
+    <section class="space-y-4" id="section-foundation">
+      <div class="border-b border-surface-high pb-3 flex flex-col md:flex-row md:items-end justify-between gap-2">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-roadOrange font-semibold">Section 02 // Interactive Calibration</span>
+          <h2 class="text-2xl font-bold text-charcoal">Ready to Drive? The Legal Foundation</h2>
+          <p class="text-sm text-charcoal-secondary">
+            Inspect the vehicle preparing to enter the highway. Toggle the four statutory foundation strata beneath the chassis to observe systemic stability.
+          </p>
+        </div>
+        <div id="readiness-summary-badge" class="font-mono text-xs px-3 py-1 bg-surface-low border border-surface-high text-charcoal font-semibold">
+          SYSTEM INTEGRITY: <span id="verified-count" class="text-roadOrange">4</span>/4 VERIFIED
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left: Interactive Vehicle Foundation Matrix & Visual Feedback (7 cols) -->
+        <div class="lg:col-span-7 bg-white border border-surface-high p-5 md:p-6 space-y-6">
+          <div class="flex items-center justify-between border-b border-surface-high pb-3">
+            <span class="font-mono text-xs text-charcoal-muted uppercase">Vehicle Chassis &amp; Sub-Plinth Simulator</span>
+            <span class="font-mono text-[11px] text-roadOrange bg-roadOrange/10 px-2 py-0.5">CLICK LAYERS TO TOGGLE AUDIT</span>
+          </div>
+
+          <!-- Stylized Isometric Vehicle & Foundation Canvas -->
+          <div class="relative bg-surface-low border border-surface-high p-6 flex flex-col items-center justify-center min-h-[280px]">
+            <!-- Grid lines -->
+            <div class="technical-grid absolute inset-0 opacity-40 pointer-events-none"></div>
+
+            <!-- Road Barrier / Gate Indicator -->
+            <div id="road-gate-barrier" class="absolute top-4 right-4 flex items-center gap-2 px-2.5 py-1 bg-white border border-statutoryGreen text-statutoryGreen font-mono text-xs font-semibold shadow-sm transition-all duration-300">
+              <span class="w-2 h-2 rounded-full bg-statutoryGreen animate-pulse"></span>
+              <span id="road-gate-text">HIGHWAY TRANSIT: OPEN</span>
+            </div>
+
+            <!-- Vehicle Vector Representation -->
+            <div id="vehicle-silhouette" class="relative z-10 transition-all duration-500 transform translate-y-0">
+              <div class="w-48 h-24 relative flex items-center justify-center">
+                <!-- Vehicle Body Graphic SVG -->
+                <svg viewBox="0 0 200 90" class="w-full h-full drop-shadow-sm">
+                  <!-- Road shadow -->
+                  <ellipse cx="100" cy="82" rx="70" ry="6" fill="#191c1b" opacity="0.12" />
+                  <!-- Car Body Base -->
+                  <path d="M 20,62 L 35,42 L 65,40 L 85,22 L 140,22 L 165,40 L 185,48 L 190,65 L 180,68 L 20,68 Z" fill="#ffffff" stroke="#191c1b" stroke-width="2.5" stroke-linejoin="round" />
+                  <!-- Cab Glass / Windshield -->
+                  <path d="M 88,25 L 138,25 L 160,40 L 68,40 Z" fill="#e4e6e3" stroke="#191c1b" stroke-width="2" />
+                  <line x1="112" y1="25" x2="112" y2="40" stroke="#191c1b" stroke-width="2" />
+                  <!-- Headlight (Amber/White) -->
+                  <polygon points="185,50 190,52 190,60 183,58" fill="#e87522" />
+                  <!-- Wheels -->
+                  <circle cx="55" cy="68" r="14" fill="#ffffff" stroke="#191c1b" stroke-width="3" />
+                  <circle cx="55" cy="68" r="6" fill="#191c1b" />
+                  <circle cx="150" cy="68" r="14" fill="#ffffff" stroke="#191c1b" stroke-width="3" />
+                  <circle cx="150" cy="68" r="6" fill="#191c1b" />
+                  <!-- TX Inspection Windshield Decal -->
+                  <rect x="70" y="32" width="6" height="6" fill="#1e7b45" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Foundation Strata Beneath the Vehicle -->
+            <div class="w-full max-w-sm mt-3 space-y-1 relative z-10" id="foundation-strata-display">
+              <!-- Layer 1: License -->
+              <div id="stratum-display-license" class="transition-all duration-300 h-6 bg-white border-2 border-statutoryGreen px-3 flex items-center justify-between text-[11px] font-mono shadow-xs">
+                <span class="font-bold text-charcoal">STRATUM 1 // DRIVER LICENSE (TTC § 521.021)</span>
+                <span class="text-statutoryGreen font-bold flex items-center gap-1">✓ SECURED</span>
+              </div>
+              <!-- Layer 2: Registration -->
+              <div id="stratum-display-reg" class="transition-all duration-300 h-6 bg-white border-2 border-statutoryGreen px-3 flex items-center justify-between text-[11px] font-mono shadow-xs">
+                <span class="font-bold text-charcoal">STRATUM 2 // REGISTRATION &amp; VIR (TTC § 502.040)</span>
+                <span class="text-statutoryGreen font-bold flex items-center gap-1">✓ CURRENT</span>
+              </div>
+              <!-- Layer 3: Insurance -->
+              <div id="stratum-display-ins" class="transition-all duration-300 h-6 bg-white border-2 border-statutoryGreen px-3 flex items-center justify-between text-[11px] font-mono shadow-xs">
+                <span class="font-bold text-charcoal">STRATUM 3 // FINANCIAL RESPONSIBILITY 30/60/25</span>
+                <span class="text-statutoryGreen font-bold flex items-center gap-1">✓ ACTIVE</span>
+              </div>
+              <!-- Layer 4: Status -->
+              <div id="stratum-display-status" class="transition-all duration-300 h-6 bg-white border-2 border-statutoryGreen px-3 flex items-center justify-between text-[11px] font-mono shadow-xs">
+                <span class="font-bold text-charcoal">STRATUM 4 // STATUTORY STATUS (NO DWLI/REVOKE)</span>
+                <span class="text-statutoryGreen font-bold flex items-center gap-1">✓ PRIVILEGE VALID</span>
+              </div>
+            </div>
+
+            <!-- Visual Collapse Warning Banner (Appears when incomplete) -->
+            <div id="collapse-alert" class="hidden mt-4 w-full bg-statutoryRed/10 border-l-4 border-statutoryRed p-3 font-mono text-xs text-statutoryRed flex items-start gap-2">
+              <span class="font-bold">⚠️ FOUNDATION COLLAPSE:</span>
+              <span id="collapse-reason-text">One or more mandatory statutory layers have failed. Under Texas law, this vehicle is statutorily prohibited from entering public rights-of-way.</span>
+            </div>
+          </div>
+
+          <!-- Statutory Synthesis Footnote -->
+          <div class="text-xs text-charcoal-secondary font-mono border-t border-surface-high pt-3 flex items-center justify-between">
+            <span>RULE: INDIVISIBLE STATUTORY CONTRACT</span>
+            <span class="text-roadOrange">TEXAS TRANSP CODE CH. 521/502/601</span>
+          </div>
+        </div>
+
+        <!-- Right: The 4 Interactive Checkpoint Controls (5 cols) -->
+        <div class="lg:col-span-5 space-y-3">
+          <div class="text-xs font-mono uppercase text-charcoal-muted tracking-wider">
+            Toggle Verification Parameters:
+          </div>
+
+          <!-- Control 1: License -->
+          <div id="ctrl-license" onclick="toggleLayer('license')" class="cursor-pointer border-2 border-statutoryGreen bg-white p-3.5 hover:border-roadOrange transition-all">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="font-mono text-xs text-charcoal-muted">STATUTE // TTC § 521.021</div>
+                <div class="font-semibold text-charcoal text-sm mt-0.5 flex items-center gap-1.5">
+                  <span id="badge-icon-license" class="text-statutoryGreen font-bold text-base">☑</span>
+                  DRIVER LICENSE
+                </div>
+              </div>
+              <span id="state-license" class="font-mono text-xs px-2 py-0.5 bg-statutoryGreen/10 text-statutoryGreen font-bold">VERIFIED</span>
+            </div>
+            <p class="text-xs text-charcoal-secondary mt-1.5">
+              Valid Texas Class C or appropriate credential in physical possession.
+            </p>
+          </div>
+
+          <!-- Control 2: Registration -->
+          <div id="ctrl-reg" onclick="toggleLayer('reg')" class="cursor-pointer border-2 border-statutoryGreen bg-white p-3.5 hover:border-roadOrange transition-all">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="font-mono text-xs text-charcoal-muted">STATUTE // TTC § 502.040 &amp; 548.051</div>
+                <div class="font-semibold text-charcoal text-sm mt-0.5 flex items-center gap-1.5">
+                  <span id="badge-icon-reg" class="text-statutoryGreen font-bold text-base">☑</span>
+                  REGISTRATION &amp; INSPECTION
+                </div>
+              </div>
+              <span id="state-reg" class="font-mono text-xs px-2 py-0.5 bg-statutoryGreen/10 text-statutoryGreen font-bold">CURRENT</span>
+            </div>
+            <p class="text-xs text-charcoal-secondary mt-1.5">
+              Windshield validation decal affixed (Two Steps, One Sticker), county taxes satisfied.
+            </p>
+          </div>
+
+          <!-- Control 3: Insurance -->
+          <div id="ctrl-ins" onclick="toggleLayer('ins')" class="cursor-pointer border-2 border-statutoryGreen bg-white p-3.5 hover:border-roadOrange transition-all">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="font-mono text-xs text-charcoal-muted">STATUTE // SAFETY RESPONSIBILITY ACT</div>
+                <div class="font-semibold text-charcoal text-sm mt-0.5 flex items-center gap-1.5">
+                  <span id="badge-icon-ins" class="text-statutoryGreen font-bold text-base">☑</span>
+                  INSURANCE (30/60/25)
+                </div>
+              </div>
+              <span id="state-ins" class="font-mono text-xs px-2 py-0.5 bg-statutoryGreen/10 text-statutoryGreen font-bold">ACTIVE</span>
+            </div>
+            <p class="text-xs text-charcoal-secondary mt-1.5">
+              TexasSure real-time verification compliant policy or statutory proof document.
+            </p>
+          </div>
+
+          <!-- Control 4: Status -->
+          <div id="ctrl-status" onclick="toggleLayer('status')" class="cursor-pointer border-2 border-statutoryGreen bg-white p-3.5 hover:border-roadOrange transition-all">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="font-mono text-xs text-charcoal-muted">STATUTE // TTC § 521.457 / ALR</div>
+                <div class="font-semibold text-charcoal text-sm mt-0.5 flex items-center gap-1.5">
+                  <span id="badge-icon-status" class="text-statutoryGreen font-bold text-base">☑</span>
+                  DRIVING STATUS CLEAR
+                </div>
+              </div>
+              <span id="state-status" class="font-mono text-xs px-2 py-0.5 bg-statutoryGreen/10 text-statutoryGreen font-bold">UNENCUMBERED</span>
+            </div>
+            <p class="text-xs text-charcoal-secondary mt-1.5">
+              No active administrative suspensions, revocations, cancellations, or denial orders.
+            </p>
+          </div>
+
+          <div class="p-3 bg-surface-low border border-surface-high text-xs text-charcoal-secondary">
+            <strong class="text-charcoal font-mono uppercase">Instruction:</strong> Click any stratum above to simulate what happens during highway transit when a legal layer lapses.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTION — FIX THE RISK & FOLLOW THE CONSEQUENCE -->
+    <section class="space-y-4" id="section-consequence">
+      <div class="border-b border-surface-high pb-3">
+        <span class="font-mono text-xs uppercase tracking-widest text-roadOrange font-semibold">Section 03 // Branching Pathway Simulator</span>
+        <h2 class="text-2xl font-bold text-charcoal">Fix the Risk &amp; Follow the Consequence</h2>
+        <p class="text-sm text-charcoal-secondary">
+          Analyze realistic Texas transit infractions. Trace the branching legal pipeline: choose between lawful statutory mitigation or taking the wheel unlawfully.
+        </p>
+      </div>
+
+      <!-- Case Scenario Selector Tabs -->
+      <div class="flex flex-wrap gap-2 border-b border-surface-high pb-3">
+        <button onclick="selectCase(1)" id="case-btn-1" class="px-3 py-1.5 font-mono text-xs font-semibold bg-roadOrange text-white border border-roadOrange">
+          CASE A: EXPIRED 30-DAY REGISTRATION
+        </button>
+        <button onclick="selectCase(2)" id="case-btn-2" class="px-3 py-1.5 font-mono text-xs font-semibold bg-white text-charcoal border border-surface-high hover:border-charcoal">
+          CASE B: DWLI (DRIVING WHILE LICENSE INVALID)
+        </button>
+        <button onclick="selectCase(3)" id="case-btn-3" class="px-3 py-1.5 font-mono text-xs font-semibold bg-white text-charcoal border border-surface-high hover:border-charcoal">
+          CASE C: LAPSED 30/60/25 AUTO POLICY
+        </button>
+      </div>
+
+      <!-- Branching Interactive Workspace -->
+      <div class="bg-white border border-surface-high p-5 md:p-6 space-y-6">
+        
+        <!-- Scenario Brief Box -->
+        <div class="bg-surface-low border-l-4 border-roadOrange p-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div>
+            <div class="font-mono text-xs text-roadOrange font-semibold" id="case-statutory-label">
+              SCENARIO AUDIT // TEXAS TRANSPORTATION CODE § 502.040
+            </div>
+            <div class="text-base font-semibold text-charcoal mt-0.5" id="case-brief-title">
+              Vehicle Purchased via Private Sale Exceeded 30 Calendar Days Without Title/Registration Transfer
+            </div>
+            <p class="text-sm text-charcoal-secondary mt-1 max-w-3xl" id="case-brief-desc">
+              Marcus bought a used sedan from a neighbor 38 days ago. The seller provided a signed title, but Marcus hasn't visited the County Tax Assessor-Collector office or obtained a vehicle inspection report.
+            </p>
+          </div>
+          <div class="shrink-0 font-mono text-xs bg-white border border-surface-high px-3 py-2 text-charcoal text-right">
+            <div>AUDIT CODE: <span class="text-roadOrange font-bold" id="case-code">REG-30D</span></div>
+            <div class="text-charcoal-muted text-[11px]">Strict Liability Gate</div>
+          </div>
+        </div>
+
+        <!-- Question 1: What is the risk? & Question 2: What should be addressed? -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Step 1: Diagnose Risk -->
+          <div class="border border-surface-high p-4 bg-surface-low/50 space-y-3">
+            <span class="font-mono text-xs font-bold text-charcoal flex items-center gap-1.5">
+              <span class="w-4 h-4 rounded-full bg-charcoal text-white flex items-center justify-center text-[10px]">1</span>
+              DIAGNOSE: WHAT IS THE STATUTORY RISK?
+            </span>
+            <div class="space-y-2" id="risk-options-container">
+              <!-- Dynamically populated options -->
+            </div>
+          </div>
+
+          <!-- Step 2: Prescribe Remedy -->
+          <div class="border border-surface-high p-4 bg-surface-low/50 space-y-3">
+            <span class="font-mono text-xs font-bold text-charcoal flex items-center gap-1.5">
+              <span class="w-4 h-4 rounded-full bg-charcoal text-white flex items-center justify-center text-[10px]">2</span>
+              REMEDY: WHAT MUST BE ADDRESSED?
+            </span>
+            <div class="space-y-2" id="remedy-options-container">
+              <!-- Dynamically populated options -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Simulator: "Drive Anyway" vs "Fix Lawfully" -->
+        <div class="border-t border-surface-high pt-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs uppercase tracking-wider text-charcoal-muted">
+              Choose Operational Decision Vector:
+            </span>
+            <span class="font-mono text-xs text-charcoal-muted" id="pipeline-status-text">Select an action to animate statutory pipeline</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button onclick="triggerDecision('unlawful')" id="btn-decide-unlawful" class="p-4 border-2 border-surface-high hover:border-statutoryRed bg-white text-left transition-all group">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-statutoryRed font-bold uppercase tracking-wider">Option A // High Risk</span>
+                <span class="font-mono text-xs text-charcoal-muted group-hover:text-statutoryRed">➔ Trace Consequences</span>
+              </div>
+              <div class="font-bold text-charcoal text-lg mt-1 group-hover:text-statutoryRed transition-colors">
+                Drive Unlawfully (Take The Wheel)
+              </div>
+              <p class="text-xs text-charcoal-secondary mt-1">
+                Operate vehicle immediately on public transit corridors despite known statutory defect.
+              </p>
+            </button>
+
+            <button onclick="triggerDecision('lawful')" id="btn-decide-lawful" class="p-4 border-2 border-surface-high hover:border-statutoryGreen bg-white text-left transition-all group">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-statutoryGreen font-bold uppercase tracking-wider">Option B // Statutory Compliance</span>
+                <span class="font-mono text-xs text-charcoal-muted group-hover:text-statutoryGreen">➔ Trace Compliance</span>
+              </div>
+              <div class="font-bold text-charcoal text-lg mt-1 group-hover:text-statutoryGreen transition-colors">
+                Fix Statutory Defect Before Driving
+              </div>
+              <p class="text-xs text-charcoal-secondary mt-1">
+                Satisfy mandated administrative, inspection, and insurance conditions prior to operation.
+              </p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Animated / Interactive Consequence Pathway Tracer -->
+        <div id="pathway-trace-box" class="bg-surface-low border border-surface-high p-5 rounded-none relative overflow-hidden transition-all duration-300">
+          <div class="font-mono text-xs text-charcoal-muted uppercase mb-4 flex items-center justify-between">
+            <span>Branching Consequence Tracer Pipeline:</span>
+            <span id="pipeline-decision-badge" class="font-bold text-xs px-2 py-0.5 bg-white border border-surface-high text-charcoal">
+              STANDBY
+            </span>
+          </div>
+
+          <!-- Flow Diagram Nodes -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 relative z-10" id="pipeline-nodes-container">
+            <!-- Node 1 -->
+            <div class="bg-white border-2 border-surface-high p-3.5 font-mono" id="node-1">
+              <div class="text-[10px] text-charcoal-muted uppercase">STAGE 01 // CONDITION</div>
+              <div class="font-bold text-charcoal text-sm mt-0.5" id="node-1-text">STATUTORY DEFECT IDENTIFIED</div>
+              <div class="text-xs text-charcoal-secondary mt-1" id="node-1-sub">Active violation under TTC provisions.</div>
+            </div>
+
+            <!-- Node 2 -->
+            <div class="bg-white border-2 border-surface-high p-3.5 font-mono" id="node-2">
+              <div class="text-[10px] text-charcoal-muted uppercase">STAGE 02 // ACTION</div>
+              <div class="font-bold text-charcoal text-sm mt-0.5" id="node-2-text">AWAITING DRIVER DECISION</div>
+              <div class="text-xs text-charcoal-secondary mt-1" id="node-2-sub">Select Option A or B above.</div>
+            </div>
+
+            <!-- Node 3 -->
+            <div class="bg-white border-2 border-surface-high p-3.5 font-mono" id="node-3">
+              <div class="text-[10px] text-charcoal-muted uppercase">STAGE 03 // STATUTORY OUTCOME</div>
+              <div class="font-bold text-charcoal text-sm mt-0.5" id="node-3-text">RESULT PENDING</div>
+              <div class="text-xs text-charcoal-secondary mt-1" id="node-3-sub">Legal liability or verified clearance.</div>
+            </div>
+          </div>
+
+          <!-- Statutory Explanation Output -->
+          <div id="pathway-explanation" class="hidden mt-4 p-3 bg-white border text-xs leading-relaxed">
+            <!-- Dynamically populated explanation -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: THE 30 / 60 / 25 TACTILE MEMORY MOMENT -->
+    <section class="space-y-4" id="section-liability">
+      <div class="border-b border-surface-high pb-3 flex flex-col md:flex-row md:items-end justify-between gap-2">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-roadOrange font-semibold">Section 04 // Tactile Verification</span>
+          <h2 class="text-2xl font-bold text-charcoal">The 30 / 60 / 25 Tactile Memory Moment</h2>
+          <p class="text-sm text-charcoal-secondary">
+            Texas Transportation Code § 601.072 establishes rigid minimum liability ceilings. Match each statutory monetary token to its exact legal destination.
+          </p>
+        </div>
+        <div class="font-mono text-xs px-3 py-1 bg-surface-low border border-surface-high text-charcoal font-semibold">
+          AMOUNTS AS OF JAN 1, 2011 MANDATE
+        </div>
+      </div>
+
+      <div class="bg-white border border-surface-high p-5 md:p-6 space-y-6">
+        
+        <!-- Instruction Banner -->
+        <div class="p-3 bg-surface-low border-l-4 border-roadOrange text-xs text-charcoal flex items-center justify-between">
+          <span>
+            <strong class="font-mono uppercase">Interactive Protocol:</strong> Select an orange statutory dollar block below, then click its corresponding statutory liability category destination.
+          </span>
+          <span id="matching-score" class="font-mono font-bold text-roadOrange ml-3 shrink-0">MATCHED: 0 / 3</span>
+        </div>
+
+        <!-- 3 Large Tactile Tokens (Source Blocks) -->
+        <div>
+          <div class="font-mono text-xs uppercase text-charcoal-muted tracking-wider mb-2">
+            Statutory Financial Responsibility Tokens (Click to Select):
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <!-- Token 1: $30,000 -->
+            <button onclick="selectToken('30k')" id="token-30k" class="p-4 border-2 border-surface-high hover:border-roadOrange bg-surface-lowest text-left transition-all relative">
+              <div class="flex items-center justify-between font-mono text-xs text-charcoal-muted">
+                <span>TOKEN // A</span>
+                <span id="badge-30k" class="text-roadOrange font-bold text-[11px] uppercase">UNASSIGNED</span>
+              </div>
+              <div class="text-3xl font-bold font-mono text-charcoal mt-2 tracking-tight">$30,000</div>
+              <div class="font-mono text-xs text-charcoal-secondary mt-1">Single Injury Baseline Threshold</div>
+            </button>
+
+            <!-- Token 2: $60,000 -->
+            <button onclick="selectToken('60k')" id="token-60k" class="p-4 border-2 border-surface-high hover:border-roadOrange bg-surface-lowest text-left transition-all relative">
+              <div class="flex items-center justify-between font-mono text-xs text-charcoal-muted">
+                <span>TOKEN // B</span>
+                <span id="badge-60k" class="text-roadOrange font-bold text-[11px] uppercase">UNASSIGNED</span>
+              </div>
+              <div class="text-3xl font-bold font-mono text-charcoal mt-2 tracking-tight">$60,000</div>
+              <div class="font-mono text-xs text-charcoal-secondary mt-1">Aggregate Incident Injury Cap</div>
+            </button>
+
+            <!-- Token 3: $25,000 -->
+            <button onclick="selectToken('25k')" id="token-25k" class="p-4 border-2 border-surface-high hover:border-roadOrange bg-surface-lowest text-left transition-all relative">
+              <div class="flex items-center justify-between font-mono text-xs text-charcoal-muted">
+                <span>TOKEN // C</span>
+                <span id="badge-25k" class="text-roadOrange font-bold text-[11px] uppercase">UNASSIGNED</span>
+              </div>
+              <div class="text-3xl font-bold font-mono text-charcoal mt-2 tracking-tight">$25,000</div>
+              <div class="font-mono text-xs text-charcoal-secondary mt-1">Tangible Property Asset Ceiling</div>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- 3 Visual Destinations (Drop Targets) -->
+        <div class="pt-2">
+          <div class="font-mono text-xs uppercase text-charcoal-muted tracking-wider mb-2">
+            Statutory Target Destinations (Click Target While Token Selected):
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <!-- Target 1: Bodily Injury 1 Person -->
+            <div onclick="dropTokenToTarget('target-single-injury')" id="target-single-injury" class="p-4 border-2 border-dashed border-surface-high bg-surface-low cursor-pointer hover:border-charcoal transition-all">
+              <div class="font-mono text-xs text-charcoal-muted flex items-center justify-between">
+                <span>DESTINATION 01</span>
+                <span class="font-mono text-[10px] bg-white px-1.5 py-0.5 border border-surface-high">TTC § 601.072(a)(1)</span>
+              </div>
+              <div class="font-bold text-charcoal text-base mt-2">Bodily Injury: 1 Person</div>
+              <p class="text-xs text-charcoal-secondary mt-1">
+                Medical expenses, emergency care, loss of income, pain and suffering for an individual in an at-fault crash.
+              </p>
+              <div id="slot-single-injury" class="mt-4 p-2.5 bg-white border border-surface-high text-center font-mono text-sm text-charcoal-muted">
+                [ CLICK TO ASSIGN TOKEN ]
+              </div>
+            </div>
+
+            <!-- Target 2: Bodily Injury 2+ People -->
+            <div onclick="dropTokenToTarget('target-multi-injury')" id="target-multi-injury" class="p-4 border-2 border-dashed border-surface-high bg-surface-low cursor-pointer hover:border-charcoal transition-all">
+              <div class="font-mono text-xs text-charcoal-muted flex items-center justify-between">
+                <span>DESTINATION 02</span>
+                <span class="font-mono text-[10px] bg-white px-1.5 py-0.5 border border-surface-high">TTC § 601.072(a)(2)</span>
+              </div>
+              <div class="font-bold text-charcoal text-base mt-2">Bodily Injury: 2+ People (Total Crash)</div>
+              <p class="text-xs text-charcoal-secondary mt-1">
+                Total aggregate bodily injury coverage available for two or more individuals per incident, regardless of how many persons are harmed.
+              </p>
+              <div id="slot-multi-injury" class="mt-4 p-2.5 bg-white border border-surface-high text-center font-mono text-sm text-charcoal-muted">
+                [ CLICK TO ASSIGN TOKEN ]
+              </div>
+            </div>
+
+            <!-- Target 3: Property Damage -->
+            <div onclick="dropTokenToTarget('target-property-damage')" id="target-property-damage" class="p-4 border-2 border-dashed border-surface-high bg-surface-low cursor-pointer hover:border-charcoal transition-all">
+              <div class="font-mono text-xs text-charcoal-muted flex items-center justify-between">
+                <span>DESTINATION 03</span>
+                <span class="font-mono text-[10px] bg-white px-1.5 py-0.5 border border-surface-high">TTC § 601.072(a)(3)</span>
+              </div>
+              <div class="font-bold text-charcoal text-base mt-2">Property Damage (Per Crash)</div>
+              <p class="text-xs text-charcoal-secondary mt-1">
+                Destruction or repair of other vehicles, utility fixtures, roadway barriers, street signage, or private structures.
+              </p>
+              <div id="slot-property-damage" class="mt-4 p-2.5 bg-white border border-surface-high text-center font-mono text-sm text-charcoal-muted">
+                [ CLICK TO ASSIGN TOKEN ]
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Liability Verification Result Card -->
+        <div id="liability-feedback-box" class="hidden p-4 bg-white border-2 border-statutoryGreen flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-statutoryGreen text-white flex items-center justify-center font-bold text-base">✓</div>
+            <div>
+              <div class="font-mono text-xs text-statutoryGreen font-bold uppercase">STATUTORY CEILINGS PERFECTLY CALIBRATED</div>
+              <div class="text-sm text-charcoal mt-0.5">30/60/25 is established in law (effective Jan 1, 2011). It covers liabilities you cause to others, never repairs to your own car.</div>
+            </div>
+          </div>
+          <button onclick="resetLiabilityMatching()" class="px-3 py-1 font-mono text-xs border border-surface-high bg-surface-low hover:bg-white text-charcoal">
+            RESET MATCHING
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: FINAL CHALLENGE — WOULD YOU DRIVE? (INTERACTIVE DECISION TERMINAL) -->
+    <section class="space-y-4" id="section-challenge">
+      <div class="border-b border-surface-high pb-3 flex flex-col md:flex-row md:items-end justify-between gap-2">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-roadOrange font-semibold">Section 05 // Final Evaluation Gate</span>
+          <h2 class="text-2xl font-bold text-charcoal">Final Challenge: Would You Drive?</h2>
+          <p class="text-sm text-charcoal-secondary">
+            Execute decisive legal judgment. Review the driver condition telemetry and issue your binding operational verdict.
+          </p>
+        </div>
+        <div class="font-mono text-xs px-2.5 py-1 bg-roadOrange/10 border border-roadOrange/30 text-roadOrange font-bold">
+          TERMINAL // 3 APPLICATION TRIALS
+        </div>
+      </div>
+
+      <!-- Decision Terminal Surface -->
+      <div class="bg-white border border-surface-high p-5 md:p-8 space-y-6">
+        
+        <!-- Case Index Selector -->
+        <div class="flex items-center justify-between border-b border-surface-high pb-3">
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-xs text-charcoal-muted uppercase">Trial Queue:</span>
+            <button onclick="setChallengeTrial(1)" id="trial-tab-1" class="font-mono text-xs px-2 py-0.5 bg-charcoal text-white font-bold">TRIAL 01</button>
+            <button onclick="setChallengeTrial(2)" id="trial-tab-2" class="font-mono text-xs px-2 py-0.5 bg-surface-low text-charcoal font-semibold border border-surface-high">TRIAL 02</button>
+            <button onclick="setChallengeTrial(3)" id="trial-tab-3" class="font-mono text-xs px-2 py-0.5 bg-surface-low text-charcoal font-semibold border border-surface-high">TRIAL 03</button>
+          </div>
+          <div class="font-mono text-xs text-charcoal-muted" id="terminal-pass-counter">
+            VERDICTS EVALUATED: <span class="font-bold text-charcoal">0</span>/3
+          </div>
+        </div>
+
+        <!-- Stylized Telemetry Dashboard -->
+        <div class="bg-surface-low border border-surface-high p-5">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-high pb-4">
+            
+            <div class="space-y-1">
+              <span class="font-mono text-[11px] text-roadOrange font-bold uppercase" id="trial-category-tag">
+                RESIDENCY &amp; VEHICLE REGISTRATION CONFLICT
+              </span>
+              <h3 class="text-lg md:text-xl font-bold text-charcoal" id="trial-scenario-headline">
+                New Texas Resident // Day 45 Since Relocation // Vehicle Unregistered
+              </h3>
+            </div>
+
+            <!-- Visual Driver / Vehicle Badge -->
+            <div class="shrink-0 flex items-center gap-3 bg-white border border-surface-high p-2.5 px-3">
+              <div class="w-10 h-10 border border-surface-high flex items-center justify-center font-mono text-xs font-bold text-charcoal bg-surface-low">
+                TX-OP
+              </div>
+              <div class="font-mono text-xs">
+                <div class="text-charcoal font-bold" id="trial-driver-id">DRIVER: DEVON M. (AGE 24)</div>
+                <div class="text-charcoal-muted text-[11px]" id="trial-chassis-id">CHASSIS: 2022 SEDAN (OK PLATES)</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Detailed Statutory Fact Matrix -->
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
+            <div class="bg-white p-3 border border-surface-high">
+              <span class="text-charcoal-muted text-[10px] uppercase">1. OPERATOR CREDENTIAL</span>
+              <div class="font-bold text-charcoal mt-1" id="trial-fact-license">Oklahoma DL (Valid, unexpired)</div>
+              <div class="text-charcoal-secondary text-[11px] mt-0.5" id="trial-fact-license-sub">Within 90-day grace window for DL</div>
+            </div>
+
+            <div class="bg-white p-3 border border-surface-high">
+              <span class="text-charcoal-muted text-[10px] uppercase">2. VEHICLE REGISTRATION</span>
+              <div class="font-bold text-statutoryRed mt-1" id="trial-fact-reg">Oklahoma Registration (Day 45)</div>
+              <div class="text-charcoal-secondary text-[11px] mt-0.5" id="trial-fact-reg-sub">Exceeded 30-day vehicle mandate</div>
+            </div>
+
+            <div class="bg-white p-3 border border-surface-high">
+              <span class="text-charcoal-muted text-[10px] uppercase">3. FINANCIAL RESPONSIBILITY</span>
+              <div class="font-bold text-charcoal mt-1" id="trial-fact-ins">Texas 30/60/25 Compliant Policy</div>
+              <div class="text-charcoal-secondary text-[11px] mt-0.5" id="trial-fact-ins-sub">Policy bound to vehicle VIN</div>
+            </div>
+          </div>
+
+          <!-- Scenario Narrative -->
+          <p class="mt-4 text-sm text-charcoal-secondary leading-relaxed" id="trial-narrative">
+            Devon relocated from Oklahoma to Fort Worth 45 days ago for work. He has valid Texas 30/60/25 liability insurance and holds a valid Oklahoma driver license. He is running late to work and plans to drive his Oklahoma-registered car across town. Under Texas Transportation Code § 502.040, is he permitted to turn the ignition?
+          </p>
+        </div>
+
+        <!-- The Two Massive Decision Buttons -->
+        <div class="space-y-3">
+          <div class="font-mono text-xs text-charcoal-muted uppercase tracking-wider text-center">
+            Issue Binding Driver Decision:
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- BUTTON 1: DRIVE -->
+            <button onclick="submitVerdict('DRIVE')" id="btn-verdict-drive" class="py-5 px-6 border-2 border-surface-high hover:border-charcoal bg-white font-mono text-center transition-all group">
+              <div class="text-xs text-charcoal-muted uppercase group-hover:text-charcoal">Operational Choice 01</div>
+              <div class="text-2xl md:text-3xl font-bold text-charcoal tracking-tight mt-1 flex items-center justify-center gap-2">
+                <span>[ DRIVE ]</span>
+              </div>
+              <div class="text-xs text-charcoal-secondary mt-1 font-sans">
+                Vehicle is roadworthy and driver possesses valid license &amp; insurance.
+              </div>
+            </button>
+
+            <!-- BUTTON 2: FIX FIRST -->
+            <button onclick="submitVerdict('FIX')" id="btn-verdict-fix" class="py-5 px-6 border-2 border-surface-high hover:border-roadOrange bg-white font-mono text-center transition-all group">
+              <div class="text-xs text-roadOrange uppercase font-bold">Operational Choice 02</div>
+              <div class="text-2xl md:text-3xl font-bold text-roadOrange tracking-tight mt-1 flex items-center justify-center gap-2">
+                <span>[ FIX FIRST ]</span>
+              </div>
+              <div class="text-xs text-charcoal-secondary mt-1 font-sans">
+                Statutory prerequisite violated; vehicle must be legalized before road entry.
+              </div>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Statutory Reasoning Reveal Box -->
+        <div id="verdict-reasoning-card" class="hidden p-5 border-2 transition-all duration-300">
+          <!-- Dynamically populated verdict reasoning -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LESSON SYNTHESIS & STATUTORY CLOSE -->
+    <section class="bg-white border border-surface-high p-6 md:p-8 space-y-4">
+      <div class="flex items-center gap-2 font-mono text-xs uppercase text-roadOrange font-bold">
+        <span class="w-2 h-2 rounded-full bg-roadOrange"></span>
+        LESSON SYNTHESIS // MODULE 02 CAPSTONE CLOSURE
+      </div>
+      <h3 class="text-xl font-bold text-charcoal">
+        The Four Inviolable Strata of Texas Motoring
+      </h3>
+      <p class="text-sm text-charcoal-secondary leading-relaxed">
+        You have analyzed and synthesized the foundational requirements of the Texas Driver Handbook and Transportation Code Chapters 521, 502, and 601. Remember: driving on Texas roads is a conditional statutory privilege. Ignorance of registration deadlines, insurance lapses, or credential restrictions never exempts an operator from strict liability.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-surface-high font-mono text-xs">
+        <div class="p-3 bg-surface-low border border-surface-high">
+          <div class="text-roadOrange font-bold">01 // CREDENTIAL</div>
+          <div class="text-charcoal mt-0.5">Valid Texas DL carried at all times (TTC § 521.025).</div>
+        </div>
+        <div class="p-3 bg-surface-low border border-surface-high">
+          <div class="text-roadOrange font-bold">02 // REGISTRATION</div>
+          <div class="text-charcoal mt-0.5">30-day relocation &amp; sale window strictly enforced (TTC § 502.040).</div>
+        </div>
+        <div class="p-3 bg-surface-low border border-surface-high">
+          <div class="text-roadOrange font-bold">03 // RESPONSIBILITY</div>
+          <div class="text-charcoal mt-0.5">30/60/25 liability coverage maintained uninterrupted (TTC § 601.051).</div>
+        </div>
+        <div class="p-3 bg-surface-low border border-surface-high">
+          <div class="text-roadOrange font-bold">04 // LEGAL STATUS</div>
+          <div class="text-charcoal mt-0.5">Absolute zero-tolerance for DWLI or operating while revoked (TTC § 521.457).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION / COMPLETION FOOTER (STANDALONE FORMAT) -->
+    <footer class="pt-4 border-t border-surface-high flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="#previous" class="inline-flex items-center gap-2 font-mono text-xs text-charcoal-muted hover:text-charcoal border border-surface-high px-4 py-2 bg-white transition-colors">
+        <span>←</span> Previous Topic: L02-T05 Statutory SRA Obligations
+      </a>
+
+      <div class="font-mono text-xs text-charcoal-muted">
+        TOPIC L02-T06 // SYNTHESIS COMPLETED
+      </div>
+
+      <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-mono text-xs font-bold text-white bg-roadOrange hover:bg-roadOrange-hover px-6 py-3 border border-roadOrange shadow-sm transition-all cursor-pointer">
+        <span>COMPLETE MODULE 02 &amp; ENTER ASSESSMENT</span>
+        <span>→</span>
+      </button>
+    </footer>
+
+  </main>
+
+  <!-- INTERACTIVE LOGIC SCRIPT (VANILLA JS, NO EXTERNAL DEPENDENCIES) -->
+  <script>
+    // -------------------------------------------------------------
+    // SECTION 2: FOUNDATION STRATA INTERACTION
+    // -------------------------------------------------------------
+    const foundationState = {
+      license: true,
+      reg: true,
+      ins: true,
+      status: true
+    };
+
+    function toggleLayer(layerKey) {
+      foundationState[layerKey] = !foundationState[layerKey];
+      updateFoundationUI();
+    }
+
+    function updateFoundationUI() {
+      const keys = ['license', 'reg', 'ins', 'status'];
+      let verifiedCount = 0;
+
+      keys.forEach(k => {
+        const isVerified = foundationState[k];
+        const ctrl = document.getElementById('ctrl-' + k);
+        const stateBadge = document.getElementById('state-' + k);
+        const badgeIcon = document.getElementById('badge-icon-' + k);
+        const stratumDisplay = document.getElementById('stratum-display-' + k);
+
+        if (isVerified) {
+          verifiedCount++;
+          // Control styling
+          ctrl.className = "cursor-pointer border-2 border-statutoryGreen bg-white p-3.5 hover:border-roadOrange transition-all";
+          stateBadge.className = "font-mono text-xs px-2 py-0.5 bg-statutoryGreen/10 text-statutoryGreen font-bold";
+          stateBadge.innerText = k === 'reg' ? 'CURRENT' : (k === 'status' ? 'UNENCUMBERED' : 'VERIFIED');
+          badgeIcon.innerText = "☑";
+          badgeIcon.className = "text-statutoryGreen font-bold text-base";
+
+          // Stratum visual plinth
+          stratumDisplay.className = "transition-all duration-300 h-6 bg-white border-2 border-statutoryGreen px-3 flex items-center justify-between text-[11px] font-mono shadow-xs";
+          stratumDisplay.innerHTML = `
+            <span class="font-bold text-charcoal">STRATUM: ${k.toUpperCase()} VERIFIED</span>
+            <span class="text-statutoryGreen font-bold flex items-center gap-1">✓ SECURED</span>
+          `;
+        } else {
+          // Failure styling
+          ctrl.className = "cursor-pointer border-2 border-statutoryRed bg-statutoryRed/5 p-3.5 hover:border-statutoryRed transition-all";
+          stateBadge.className = "font-mono text-xs px-2 py-0.5 bg-statutoryRed text-white font-bold";
+          stateBadge.innerText = "DEFECT DETECTED";
+          badgeIcon.innerText = "☒";
+          badgeIcon.className = "text-statutoryRed font-bold text-base";
+
+          // Stratum visual plinth collapsed
+          stratumDisplay.className = "transition-all duration-300 h-6 bg-statutoryRed/20 border-2 border-dashed border-statutoryRed px-3 flex items-center justify-between text-[11px] font-mono opacity-80";
+          stratumDisplay.innerHTML = `
+            <span class="font-bold text-statutoryRed">STRATUM COLLAPSED: ${k.toUpperCase()} MISSING</span>
+            <span class="text-statutoryRed font-bold">✕ PROHIBITED</span>
+          `;
+        }
+      });
+
+      // Update Header counter
+      document.getElementById('verified-count').innerText = verifiedCount;
+
+      const vehicle = document.getElementById('vehicle-silhouette');
+      const gateBarrier = document.getElementById('road-gate-barrier');
+      const gateText = document.getElementById('road-gate-text');
+      const collapseAlert = document.getElementById('collapse-alert') || document.getElementById('foundation-collapse-alert');
+      const collapseReason = document.getElementById('collapse-reason-text');
+
+      if (verifiedCount === 4) {
+        vehicle.style.transform = "translateY(0px) rotate(0deg)";
+        gateBarrier.className = "absolute top-4 right-4 flex items-center gap-2 px-2.5 py-1 bg-white border border-statutoryGreen text-statutoryGreen font-mono text-xs font-semibold shadow-sm transition-all duration-300";
+        gateBarrier.innerHTML = '<span class="w-2 h-2 rounded-full bg-statutoryGreen animate-pulse"></span><span>HIGHWAY TRANSIT: OPEN</span>';
+        collapseAlert.classList.add('hidden');
+      } else {
+        // Visual physical tilt/collapse
+        const tiltDeg = (4 - verifiedCount) * 2.5;
+        const dropPx = (4 - verifiedCount) * 3;
+        vehicle.style.transform = `translateY(${dropPx}px) rotate(${tiltDeg}deg)`;
+
+        gateBarrier.className = "absolute top-4 right-4 flex items-center gap-2 px-2.5 py-1 bg-statutoryRed text-white font-mono text-xs font-semibold shadow-sm transition-all duration-300";
+        gateBarrier.innerHTML = '<span class="w-2 h-2 rounded-full bg-white animate-ping"></span><span>ROAD BLOCKED // TRANSIT PROHIBITED</span>';
+        collapseAlert.classList.remove('hidden');
+
+        // Compile failure list
+        const missing = [];
+        if (!foundationState.license) missing.push("Driver License (TTC § 521.021)");
+        if (!foundationState.reg) missing.push("Vehicle Registration/Inspection (TTC § 502.040)");
+        if (!foundationState.ins) missing.push("30/60/25 Financial Responsibility (TTC § 601.051)");
+        if (!foundationState.status) missing.push("Valid Driving Privilege Status (TTC § 521.457)");
+        collapseReason.innerText = `Legal foundation breach detected in: ${missing.join(", ")}. Operating this vehicle in this state constitutes a statutory offense under Texas law.`;
+      }
+    }
+
+
+    // -------------------------------------------------------------
+    // SECTION 3: BRANCHING CONSEQUENCE SIMULATOR
+    // -------------------------------------------------------------
+    const casesData = {
+      1: {
+        code: "REG-30D",
+        statute: "TEXAS TRANSPORTATION CODE § 502.040",
+        title: "Vehicle Purchased via Private Sale Exceeded 30 Calendar Days Without Title/Registration Transfer",
+        desc: "Marcus bought a used sedan from a neighbor 38 days ago. The seller provided a signed title, but Marcus hasn't visited the County Tax Assessor-Collector office or obtained a vehicle inspection report.",
+        risks: [
+          { text: "Operating an unregistered vehicle past statutory transfer window (TTC § 502.040)", correct: true },
+          { text: "Automatic felony reckless driving charge", correct: false },
+          { text: "Permanent forfeiture of driver license without trial", correct: false }
+        ],
+        remedies: [
+          { text: "Obtain passing VIR inspection, then remit sales tax and registration fees at County Tax Assessor within Texas", correct: true },
+          { text: "Simply carry the signed paper title in the glove box indefinitely", correct: false },
+          { text: "Print a handwritten temporary tag and place it in the rear window", correct: false }
+        ],
+        unlawful: {
+          node1: "TTC § 502.040 BREACH (38 DAYS)",
+          node2: "TRAFFIC STOP // DISCOVERY",
+          node3: "CITATION + 5% LATE PENALTY",
+          sub3: "Fine up to $200, cumulative 5% monthly late transfer penalty, potential vehicle impoundment.",
+          expl: "<strong>Statutory Consequence:</strong> Under TTC § 502.040, a purchaser has exactly 30 calendar days to register a newly acquired vehicle. Operating beyond this window exposes the driver to a misdemeanor citation, late registration financial penalties of 5% to 25%, and risk of roadside impoundment."
+        },
+        lawful: {
+          node1: "TTC § 502.040 COMPLIANCE",
+          node2: "INSPECTION + TAX ASSESSOR VISIT",
+          node3: "UNIFIED STICKER AFFIXED",
+          sub3: "Valid 1-year registration decal placed on lower driver-side windshield.",
+          expl: "<strong>Statutory Mitigation:</strong> Marcus visits an authorized Texas inspection station for a vehicle inspection report (VIR), takes the title and insurance proof to the County Tax Assessor, pays sales tax and registration fees, and legalizes the vehicle for full highway transit."
+        }
+      },
+      2: {
+        code: "DWLI-521",
+        statute: "TEXAS TRANSPORTATION CODE § 521.457",
+        title: "Operating While License Invalid (DWLI) Following Prior Unpaid Surcharge / Administrative Suspension",
+        desc: "Elena received an administrative suspension for repeat moving violations. She needs to commute 15 miles to work tomorrow morning but has not filed for an Occupational Driver License (ODL).",
+        risks: [
+          { text: "Operating Motor Vehicle While License Invalid (TTC § 521.457 criminal offense)", correct: true },
+          { text: "Only a minor $10 administrative warning", correct: false },
+          { text: "Mandatory federal vehicle seizure", correct: false }
+        ],
+        remedies: [
+          { text: "Petition County/District court for an Occupational Driver License (ODL) and file Form SR-22 insurance", correct: true },
+          { text: "Drive only on backroads where state troopers rarely patrol", correct: false },
+          { text: "Borrow a family member's driver license to show law enforcement", correct: false }
+        ],
+        unlawful: {
+          node1: "TTC § 521.457 ACTIVE SUSPENSION",
+          node2: "POLICE ALPR / TRAFFIC STOP",
+          node3: "CLASS B ARREST + PERIOD EXTENDED",
+          sub3: "Arrest, vehicle towed to impound, fine up to $2,000, and suspension period doubled automatically.",
+          expl: "<strong>Statutory Consequence:</strong> Under TTC § 521.457, driving while license invalid is a Class B misdemeanor if operated without financial responsibility or during a suspension. Upon conviction, the original suspension period is automatically doubled, and the operator faces immediate jail detention and hefty surcharges."
+        },
+        lawful: {
+          node1: "TTC § 521.242 RELIEF MECHANISM",
+          node2: "ODL PETITION + SR-22 FILING",
+          node3: "ESSENTIAL NEED DRIVING GRANTED",
+          sub3: "Restricted 4–12 hour work/educational transit authorized legally by court order.",
+          expl: "<strong>Statutory Mitigation:</strong> Elena retains legal counsel or petitions the court directly showing essential need, files an SR-22 certificate with DPS, pays the statutory fee, and drives lawfully under the certified terms of an Occupational Driver License."
+        }
+      },
+      3: {
+        code: "SRA-601",
+        statute: "TEXAS TRANSPORTATION CODE § 601.051",
+        title: "Lapsed Auto Liability Insurance Detected via Real-Time TexasSure Database",
+        desc: "Julian cancelled his auto insurance policy three weeks ago to save cash, intending to renew it next month. He drives daily on Texas state highways.",
+        risks: [
+          { text: "Failure to maintain strict financial responsibility (TTC § 601.051)", correct: true },
+          { text: "Criminal felony evasion charge", correct: false },
+          { text: "Immediate lifetime revocation of US passport", correct: false }
+        ],
+        remedies: [
+          { text: "Immediately secure an active Texas 30/60/25 liability policy before operating the vehicle", correct: true },
+          { text: "Keep $50 cash in the glove compartment as emergency damages collateral", correct: false },
+          { text: "Drive only during daylight hours", correct: false }
+        ],
+        unlawful: {
+          node1: "TTC § 601.051 STRICT BREACH",
+          node2: "TEXASSURE VERIFICATION FAILURE",
+          node3: "$350 FINE + SR-22 MANDATE",
+          sub3: "Class C fine ($175–$350), $250 annual surcharge for 3 years, mandatory SR-22 high-risk filing.",
+          expl: "<strong>Statutory Consequence:</strong> TexasSure links vehicle registration to insurance company feeds. A traffic stop or automated audit immediately reveals uninsured operation, leading to statutory fines, state surcharges, and mandatory SR-22 proof of financial responsibility."
+        },
+        lawful: {
+          node1: "TTC § 601.051 COVERAGE RE-ESTABLISHED",
+          node2: "POLICY BOUND IN TEXASSURE DB",
+          node3: "CONTINUOUS FINANCIAL SECURITY",
+          sub3: "Peace officer query confirms electronic compliance instantly.",
+          expl: "<strong>Statutory Mitigation:</strong> Julian contacts a licensed Texas auto insurer, binds a compliant 30/60/25 policy, and retains his digital proof card on his mobile device, securing continuous compliance."
+        }
+      }
+    };
+
+    let activeCaseId = 1;
+
+    function selectCase(caseId) {
+      activeCaseId = caseId;
+      // Update Tab button states
+      [1, 2, 3].forEach(id => {
+        const btn = document.getElementById('case-btn-' + id);
+        if (id === caseId) {
+          btn.className = "px-3 py-1.5 font-mono text-xs font-semibold bg-roadOrange text-white border border-roadOrange";
+        } else {
+          btn.className = "px-3 py-1.5 font-mono text-xs font-semibold bg-white text-charcoal border border-surface-high hover:border-charcoal";
+        }
+      });
+
+      const data = casesData[caseId];
+      document.getElementById('case-statutory-label').innerText = `SCENARIO AUDIT // ${data.statute}`;
+      document.getElementById('case-brief-title').innerText = data.title;
+      document.getElementById('case-brief-desc').innerText = data.desc;
+      document.getElementById('case-code').innerText = data.code;
+
+      // Populate Risk Options
+      const riskContainer = document.getElementById('risk-options-container');
+      riskContainer.innerHTML = '';
+      data.risks.forEach((r, idx) => {
+        const opt = document.createElement('div');
+        opt.className = "p-2.5 bg-white border border-surface-high text-xs text-charcoal hover:border-roadOrange cursor-pointer transition-all flex items-start gap-2";
+        opt.innerHTML = `<span class="font-mono text-charcoal-muted">[${String.fromCharCode(65 + idx)}]</span> <span>${r.text}</span>`;
+        opt.onclick = () => {
+          riskContainer.querySelectorAll('div').forEach(el => el.classList.remove('border-statutoryGreen', 'bg-statutoryGreen/5', 'font-semibold'));
+          opt.classList.add('border-statutoryGreen', 'bg-statutoryGreen/5', 'font-semibold');
+        };
+        riskContainer.appendChild(opt);
+      });
+
+      // Populate Remedy Options
+      const remedyContainer = document.getElementById('remedy-options-container');
+      remedyContainer.innerHTML = '';
+      data.remedies.forEach((rem, idx) => {
+        const opt = document.createElement('div');
+        opt.className = "p-2.5 bg-white border border-surface-high text-xs text-charcoal hover:border-roadOrange cursor-pointer transition-all flex items-start gap-2";
+        opt.innerHTML = `<span class="font-mono text-charcoal-muted">[${idx + 1}]</span> <span>${rem.text}</span>`;
+        opt.onclick = () => {
+          remedyContainer.querySelectorAll('div').forEach(el => el.classList.remove('border-statutoryGreen', 'bg-statutoryGreen/5', 'font-semibold'));
+          opt.classList.add('border-statutoryGreen', 'bg-statutoryGreen/5', 'font-semibold');
+        };
+        remedyContainer.appendChild(opt);
+      });
+
+      // Reset Decision Pipeline View
+      resetDecisionView();
+    }
+
+    function resetDecisionView() {
+      document.getElementById('node-1-text').innerText = "STATUTORY DEFECT IDENTIFIED";
+      document.getElementById('node-1-sub').innerText = "Active violation under TTC provisions.";
+      document.getElementById('node-2-text').innerText = "AWAITING DRIVER DECISION";
+      document.getElementById('node-2-sub').innerText = "Select Option A or Option B above.";
+      document.getElementById('node-3-text').innerText = "RESULT PENDING";
+      document.getElementById('node-3-sub').innerText = "Legal liability or verified clearance.";
+      
+      document.getElementById('node-1').className = "bg-white border-2 border-surface-high p-3.5 font-mono";
+      document.getElementById('node-2').className = "bg-white border-2 border-surface-high p-3.5 font-mono";
+      document.getElementById('node-3').className = "bg-white border-2 border-surface-high p-3.5 font-mono";
+
+      document.getElementById('pipeline-decision-badge').innerText = "STANDBY";
+      document.getElementById('pipeline-decision-badge').className = "font-bold text-xs px-2 py-0.5 bg-white border border-surface-high text-charcoal";
+      document.getElementById('pathway-explanation').classList.add('hidden');
+    }
+
+    function triggerDecision(decisionType) {
+      const data = casesData[activeCaseId];
+      const trace = data[decisionType];
+      const badge = document.getElementById('pipeline-decision-badge');
+      const explBox = document.getElementById('pathway-explanation');
+
+      document.getElementById('node-1-text').innerText = trace.node1;
+      document.getElementById('node-2-text').innerText = trace.node2;
+      document.getElementById('node-3-text').innerText = trace.node3;
+      document.getElementById('node-3-sub').innerText = trace.sub3;
+
+      if (decisionType === 'unlawful') {
+        badge.innerText = "UNLAWFUL OPERATION: CITATION & PENALTIES TRIGGERED";
+        badge.className = "font-bold text-xs px-2 py-0.5 bg-statutoryRed text-white";
+
+        document.getElementById('node-1').className = "bg-white border-2 border-statutoryRed p-3.5 font-mono";
+        document.getElementById('node-2').className = "bg-statutoryRed/10 border-2 border-statutoryRed p-3.5 font-mono text-statutoryRed";
+        document.getElementById('node-3').className = "bg-statutoryRed text-white p-3.5 font-mono";
+
+        explBox.className = "mt-4 p-3 bg-statutoryRed/10 border-l-4 border-statutoryRed text-xs text-charcoal leading-relaxed";
+        explBox.innerHTML = trace.expl;
+        explBox.classList.remove('hidden');
+      } else {
+        badge.innerText = "STATUTORY REMEDY COMPLETED: SAFE TRANSIT";
+        badge.className = "font-bold text-xs px-2 py-0.5 bg-statutoryGreen text-white";
+
+        document.getElementById('node-1').className = "bg-white border-2 border-statutoryGreen p-3.5 font-mono";
+        document.getElementById('node-2').className = "bg-statutoryGreen/10 border-2 border-statutoryGreen p-3.5 font-mono text-statutoryGreen";
+        document.getElementById('node-3').className = "bg-statutoryGreen text-white p-3.5 font-mono";
+
+        explBox.className = "mt-4 p-3 bg-statutoryGreen/10 border-l-4 border-statutoryGreen text-xs text-charcoal leading-relaxed";
+        explBox.innerHTML = trace.expl;
+        explBox.classList.remove('hidden');
+      }
+    }
+
+
+    // -------------------------------------------------------------
+    // SECTION 4: TACTILE 30 / 60 / 25 MATCHING MATRIX
+    // -------------------------------------------------------------
+    let selectedTokenId = null;
+    const liabilityAssignments = {
+      'target-single-injury': null, // expects '30k'
+      'target-multi-injury': null,  // expects '60k'
+      'target-property-damage': null // expects '25k'
+    };
+
+    function selectToken(tokenId) {
+      selectedTokenId = tokenId;
+      ['30k', '60k', '25k'].forEach(id => {
+        const btn = document.getElementById('token-' + id);
+        if (id === tokenId) {
+          btn.classList.add('border-roadOrange', 'bg-roadOrange/5', 'ring-2', 'ring-roadOrange/30');
+        } else {
+          btn.classList.remove('border-roadOrange', 'bg-roadOrange/5', 'ring-2', 'ring-roadOrange/30');
+        }
+      });
+    }
+
+    function dropTokenToTarget(targetId) {
+      if (!selectedTokenId) {
+        const toast = document.getElementById('tx-ade-toast');
+        if (toast) {
+          toast.style.background = '#D97706';
+          toast.style.color = '#FFFFFF';
+          toast.innerHTML = '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Please select a coverage token ($30,000, $60,000, or $25,000) first.';
+          toast.style.transform = 'translateY(0)';
+          toast.style.opacity = '1';
+          setTimeout(() => {
+            toast.style.transform = 'translateY(120px)';
+            toast.style.opacity = '0';
+          }, 3000);
+        }
+        return;
+      }
+
+      // Check if this token was assigned to another target; if so, clear it
+      for (const t in liabilityAssignments) {
+        if (liabilityAssignments[t] === selectedTokenId) {
+          liabilityAssignments[t] = null;
+          updateSlotDisplay(t, null);
+        }
+      }
+
+      // Assign
+      liabilityAssignments[targetId] = selectedTokenId;
+      updateSlotDisplay(targetId, selectedTokenId);
+
+      // Deselect token
+      const prevToken = selectedTokenId;
+      selectedTokenId = null;
+      ['30k', '60k', '25k'].forEach(id => {
+        document.getElementById('token-' + id).classList.remove('border-roadOrange', 'bg-roadOrange/5', 'ring-2', 'ring-roadOrange/30');
+      });
+
+      checkLiabilityCompletion();
+    }
+
+    function updateSlotDisplay(targetId, tokenId) {
+      const slotMap = {
+        'target-single-injury': 'slot-single-injury',
+        'target-multi-injury': 'slot-multi-injury',
+        'target-property-damage': 'slot-property-damage'
+      };
+      const tokenLabels = {
+        '30k': '$30,000 Bodily Injury / Person',
+        '60k': '$60,000 Total Bodily Injury / Crash',
+        '25k': '$25,000 Property Damage / Crash'
+      };
+      const slot = document.getElementById(slotMap[targetId]);
+
+      if (tokenId) {
+        slot.className = "mt-4 p-2.5 bg-roadOrange text-white font-mono text-sm font-bold flex items-center justify-between";
+        slot.innerHTML = `<span>${tokenLabels[tokenId]}</span> <span class="text-xs bg-white/20 px-1.5 py-0.5">ASSIGNED</span>`;
+      } else {
+        slot.className = "mt-4 p-2.5 bg-white border border-surface-high text-center font-mono text-sm text-charcoal-muted";
+        slot.innerText = "[ CLICK TO ASSIGN TOKEN ]";
+      }
+    }
+
+    function checkLiabilityCompletion() {
+      let matchedCount = 0;
+      if (liabilityAssignments['target-single-injury'] === '30k') matchedCount++;
+      if (liabilityAssignments['target-multi-injury'] === '60k') matchedCount++;
+      if (liabilityAssignments['target-property-damage'] === '25k') matchedCount++;
+
+      document.getElementById('matching-score').innerText = `MATCHED: ${matchedCount} / 3`;
+
+      if (matchedCount === 3) {
+        document.getElementById('liability-feedback-box').classList.remove('hidden');
+      } else {
+        document.getElementById('liability-feedback-box').classList.add('hidden');
+      }
+    }
+
+    function resetLiabilityMatching() {
+      liabilityAssignments['target-single-injury'] = null;
+      liabilityAssignments['target-multi-injury'] = null;
+      liabilityAssignments['target-property-damage'] = null;
+      updateSlotDisplay('target-single-injury', null);
+      updateSlotDisplay('target-multi-injury', null);
+      updateSlotDisplay('target-property-damage', null);
+      checkLiabilityCompletion();
+    }
+
+
+    // -------------------------------------------------------------
+    // SECTION 5: FINAL CHALLENGE — WOULD YOU DRIVE?
+    // -------------------------------------------------------------
+    const challengeTrials = {
+      1: {
+        category: "RESIDENCY & VEHICLE REGISTRATION CONFLICT",
+        headline: "New Texas Resident // Day 45 Since Relocation // Vehicle Unregistered",
+        driverId: "DRIVER: DEVON M. (AGE 24)",
+        chassisId: "CHASSIS: 2022 SEDAN (OK PLATES)",
+        factLicense: "Oklahoma DL (Valid, unexpired)",
+        factLicenseSub: "Within 90-day grace window for DL",
+        factReg: "Oklahoma Registration (Day 45)",
+        factRegSub: "Exceeded 30-day vehicle mandate",
+        factIns: "Texas 30/60/25 Compliant Policy",
+        factInsSub: "Policy bound to vehicle VIN",
+        narrative: "Devon relocated from Oklahoma to Fort Worth 45 days ago for work. He has valid Texas 30/60/25 liability insurance and holds a valid Oklahoma driver license. He is running late to work and plans to drive his Oklahoma-registered car across town. Under Texas Transportation Code § 502.040, is he permitted to turn the ignition?",
+        correctVerdict: "FIX",
+        reasoning: {
+          DRIVE: {
+            verdictTitle: "VERDICT FAILED // STATUTORY CITATION INCOMING",
+            isCorrect: false,
+            color: "statutoryRed",
+            text: "<strong>Incorrect Decision:</strong> While Texas law allows out-of-state drivers up to <strong>90 days</strong> to surrender an out-of-state driver license (TTC § 521.029), Texas Transportation Code § 502.040 strictly mandates that an out-of-state motor vehicle must be registered within <strong>30 days of establishing residency</strong>. Because Devon is on Day 45, his vehicle is operating illegally on Texas public roadways and is subject to immediate citation and municipal fines."
+          },
+          FIX: {
+            verdictTitle: "VERDICT ACCURATE // STATUTORY COMPLIANCE PRESERVED",
+            isCorrect: true,
+            color: "statutoryGreen",
+            text: "<strong>Correct Judgment:</strong> Devon must <strong>FIX FIRST</strong> before driving. Under TTC § 502.040, a new resident has exactly 30 calendar days to register their motor vehicle in Texas (which requires obtaining a Texas Vehicle Inspection Report and visiting the County Tax Assessor). Even though his out-of-state driver license remains valid under the separate 90-day transition window, operating this vehicle past 30 days is an active statutory offense."
+          }
+        }
+      },
+      2: {
+        category: "OCCUPATIONAL DRIVER LICENSE RESTRICTION BREACH",
+        headline: "Essential Need ODL Holder // Commute at 2:30 AM (Non-Authorized Window)",
+        driverId: "DRIVER: RACHEL K. (AGE 31)",
+        chassisId: "CHASSIS: 2019 COMPACT SUV",
+        factLicense: "Texas Occupational DL (Restricted)",
+        factLicenseSub: "Court order specifies 6:00 AM – 6:00 PM only",
+        factReg: "Texas Registration Current",
+        factRegSub: "Valid sticker affixed",
+        factIns: "Active Form SR-22 on File with DPS",
+        factInsSub: "Pre-requisite for valid ODL verified",
+        narrative: "Rachel holds a valid Texas Occupational Driver License (ODL) issued under TTC § 521.242. Her court order restricts operation strictly between 6:00 AM and 6:00 PM for employment transit. Her employer calls her at 2:15 AM requesting emergency assistance at the warehouse. Should Rachel turn the key?",
+        correctVerdict: "FIX",
+        reasoning: {
+          DRIVE: {
+            verdictTitle: "VERDICT FAILED // CRIMINAL OFFENSE",
+            isCorrect: false,
+            color: "statutoryRed",
+            text: "<strong>Incorrect Decision:</strong> Under Texas Transportation Code § 521.253, operating a motor vehicle in violation of any restriction imposed on an occupational driver license is a Class B misdemeanor and results in the mandatory, immediate revocation of the ODL order."
+          },
+          FIX: {
+            verdictTitle: "VERDICT ACCURATE // ODL INTEGRITY PRESERVED",
+            isCorrect: true,
+            color: "statutoryGreen",
+            text: "<strong>Correct Judgment:</strong> Rachel must <strong>FIX FIRST</strong> (or find alternative transit like rideshare). Operating outside the hours explicitly authorized by the judicial order converts driving into a Class B misdemeanor under TTC § 521.253. An employer emergency does not override a signed judicial order."
+          }
+        }
+      },
+      3: {
+        category: "COMMERCIAL / PASSENGER CAPACITY CARVEOUT",
+        headline: "Standard Class C Driver Asked to Drive a 15-Passenger Church Van with 14 Passengers",
+        driverId: "DRIVER: JAVIER R. (AGE 22)",
+        chassisId: "CHASSIS: 15-PASSENGER TRANSPORT VAN",
+        factLicense: "Texas Class C Unrestricted",
+        factLicenseSub: "Standard passenger vehicle credential",
+        factReg: "Texas Commercial Exempt / Current",
+        factRegSub: "Two Steps, One Sticker Verified",
+        factIns: "Institutional Liability 100/300/50",
+        factInsSub: "Compliant coverage in force",
+        narrative: "Javier is 22 years old and holds a regular Texas Class C license. He is asked to drive a 15-passenger van carrying 14 church members to an event across the county. He receives no compensation. Does a Texas Class C license legally authorize him to drive this vehicle and group?",
+        correctVerdict: "DRIVE",
+        reasoning: {
+          DRIVE: {
+            verdictTitle: "VERDICT ACCURATE // STATUTORY THRESHOLD SATISFIED",
+            isCorrect: true,
+            color: "statutoryGreen",
+            text: "<strong>Correct Judgment:</strong> Under Texas Transportation Code § 521.083, a standard Class C license authorizes the operation of a passenger vehicle or van designed to transport <strong>fewer than 26 passengers</strong> (or a vehicle with a Gross Vehicle Weight Rating of 26,000 lbs or less) when not operated for commercial compensation. Because the van seats 15 and is not for hire, Javier is fully authorized to drive."
+          },
+          FIX: {
+            verdictTitle: "VERDICT INCORRECT // UNNECESSARY BARRIER",
+            isCorrect: false,
+            color: "statutoryRed",
+            text: "<strong>Incorrect Decision:</strong> A Commercial Driver License (CDL) or Class B license is only triggered if the vehicle is designed to transport 16 or more passengers (including the driver) for compensation or has a GVWR exceeding 26,000 lbs. Under TTC § 521.083, Javier's Class C license legally permits operating a standard 15-passenger van for non-commercial transit."
+          }
+        }
+      }
+    };
+
+    let activeTrialId = 1;
+    let completedTrials = new Set();
+
+    function setChallengeTrial(trialId) {
+      activeTrialId = trialId;
+      [1, 2, 3].forEach(id => {
+        const tab = document.getElementById('trial-tab-' + id);
+        if (id === trialId) {
+          tab.className = "font-mono text-xs px-2 py-0.5 bg-charcoal text-white font-bold";
+        } else {
+          tab.className = "font-mono text-xs px-2 py-0.5 bg-surface-low text-charcoal font-semibold border border-surface-high";
+        }
+      });
+
+      const t = challengeTrials[trialId];
+      document.getElementById('trial-category-tag').innerText = t.category;
+      document.getElementById('trial-scenario-headline').innerText = t.headline;
+      document.getElementById('trial-driver-id').innerText = t.driverId;
+      document.getElementById('trial-chassis-id').innerText = t.chassisId;
+      document.getElementById('trial-fact-license').innerText = t.factLicense;
+      document.getElementById('trial-fact-license-sub').innerText = t.factLicenseSub;
+      document.getElementById('trial-fact-reg').innerText = t.factReg;
+      document.getElementById('trial-fact-reg-sub').innerText = t.factRegSub;
+      document.getElementById('trial-fact-ins').innerText = t.factIns;
+      document.getElementById('trial-fact-ins-sub').innerText = t.factInsSub;
+      document.getElementById('trial-narrative').innerText = t.narrative;
+
+      // Hide previous reasoning
+      document.getElementById('verdict-reasoning-card').classList.add('hidden');
+    }
+
+    function submitVerdict(verdictChoice) {
+      const t = challengeTrials[activeTrialId];
+      const reasoningObj = t.reasoning[verdictChoice];
+      const card = document.getElementById('verdict-reasoning-card');
+
+      completedTrials.add(activeTrialId);
+      document.getElementById('terminal-pass-counter').innerHTML = `VERDICTS EVALUATED: <span class="font-bold text-roadOrange">${completedTrials.size}</span>/3`;
+
+      card.className = reasoningObj.isCorrect
+        ? "p-5 border-2 border-statutoryGreen bg-statutoryGreen/5 transition-all duration-300"
+        : "p-5 border-2 border-statutoryRed bg-statutoryRed/5 transition-all duration-300";
+
+      card.innerHTML = `
+        <div class="flex items-center justify-between border-b ${reasoningObj.isCorrect ? 'border-statutoryGreen/30' : 'border-statutoryRed/30'} pb-2 mb-3">
+          <span class="font-mono text-xs font-bold uppercase ${reasoningObj.isCorrect ? 'text-statutoryGreen' : 'text-statutoryRed'}">
+            ${reasoningObj.verdictTitle}
+          </span>
+          <span class="font-mono text-[11px] bg-white px-2 py-0.5 border ${reasoningObj.isCorrect ? 'border-statutoryGreen text-statutoryGreen' : 'border-statutoryRed text-statutoryRed'} font-semibold">
+            YOUR SELECTION: [ ${verdictChoice} ]
+          </span>
+        </div>
+        <div class="text-sm text-charcoal leading-relaxed">
+          ${reasoningObj.text}
+        </div>
+      `;
+      card.classList.remove('hidden');
+    }
+
+    // Initialize Case 1 on page load
+    selectCase(1);
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L02-T06';
+  const nextTopicId = 'L02-T07';
+  const prevTopicId = 'L02-T05';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

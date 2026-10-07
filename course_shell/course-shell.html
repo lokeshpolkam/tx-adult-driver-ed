@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TX-ADE Course Player</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet" />
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-container': '#e87522',
+                        'primary': '#9a4600',
+                        'on-primary': '#ffffff',
+                        'background': '#f9faf8',
+                        'on-surface': '#191c1b',
+                        'secondary': '#5a605c',
+                        'tertiary': '#5d5f5d',
+                        'surface-container-lowest': '#ffffff',
+                        'surface-container-low': '#f3f4f2',
+                        'surface-container': '#edeeec',
+                        'surface-container-high': '#e7e8e6',
+                        'surface-container-highest': '#e2e3e1',
+                        'surface-dim': '#d9dad8',
+                        'outline': '#8a7265',
+                        'outline-variant': '#dec1b2',
+                        'on-surface-variant': '#574237',
+                        'error': '#ba1a1a',
+                        'on-error': '#ffffff'
+                    },
+                    fontFamily: {
+                        sans: ['Geist', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Typography Tokens */
+        .font-headline-sm { font-family: 'Geist', sans-serif; font-size: 16px; line-height: 24px; letter-spacing: -0.01em; font-weight: 600; }
+        .font-headline-lg { font-family: 'Geist', sans-serif; font-size: 32px; line-height: 40px; letter-spacing: -0.015em; font-weight: 600; }
+        .font-body-sm { font-family: 'Geist', sans-serif; font-size: 14px; line-height: 20px; font-weight: 400; }
+        .font-body-md { font-family: 'Geist', sans-serif; font-size: 16px; line-height: 24px; font-weight: 400; }
+        .font-label-mono-sm { font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 16px; font-weight: 500; }
+        .font-code-data { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 18px; font-weight: 400; }
+
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #d9dad8; border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #8a7265; }
+
+        /* Icon Variants */
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Layout resets */
+        html, body { height: 100%; overflow: hidden; margin: 0; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-sans flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full h-[64px] z-40 bg-surface-container-lowest border-b border-surface-container-high flex items-center px-4 justify-between shadow-sm">
+        <!-- Left: Branding -->
+        <div class="flex items-center space-x-3 shrink-0">
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-toggle" class="lg:hidden text-secondary hover:text-on-surface">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="w-2.5 h-2.5 bg-primary-container rounded-sm"></div>
+            <div class="font-headline-sm uppercase text-on-surface tracking-tight">
+                <span>TX-ADE // TEXAS ADULT DRIVER ED</span>
+            </div>
+            <div class="h-4 w-px bg-surface-dim hidden md:block"></div>
+            <div class="hidden md:flex items-center gap-1.5 px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded-lg">
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-600"></div>
+                <span class="font-label-mono-sm text-secondary">ONLINE / Sec. 521.1601 TDLR Compliant</span>
+            </div>
+        </div>
+
+        <!-- Center: Metrics -->
+        <div class="hidden lg:flex items-center space-x-8 flex-1 justify-center">
+            <!-- Progress -->
+            <div class="flex flex-col w-48">
+                <div class="flex justify-between font-label-mono-sm text-secondary mb-1">
+                    <span>COURSE PROGRESS</span>
+                    <span id="progress-text">0 / 75 TOPICS (0%)</span>
+                </div>
+                <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-primary-container transition-all duration-300" style="width: 0%;"></div>
+                </div>
+            </div>
+            <!-- Timer -->
+            <div class="flex flex-col w-48">
+                <div class="flex justify-between font-label-mono-sm text-secondary mb-1">
+                    <span>COURSE TIME</span>
+                    <span id="timer-text">00:00:00 / 06:00:00</span>
+                </div>
+                <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+                    <div id="timer-bar" class="h-full bg-[#1e8f3b] transition-all duration-1000" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="flex items-center space-x-4 shrink-0">
+            <button id="shell-help-btn" class="flex items-center space-x-1 text-secondary hover:text-on-surface font-label-mono-sm transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">help</span>
+                <span class="hidden sm:inline">HELP</span>
+            </button>
+            <button id="shell-save-btn" class="hidden sm:flex items-center space-x-1 text-secondary hover:text-on-surface font-label-mono-sm transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">save</span>
+                <span>SAVE PROGRESS</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center font-headline-sm text-primary">
+                JS
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 pt-[64px] h-full overflow-hidden relative">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed top-[64px] bottom-0 left-0 w-[280px] bg-surface-container-lowest border-r border-surface-dim z-30 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col select-none">
+            <!-- Sidebar Header -->
+            <div class="p-4 border-b border-surface-dim shrink-0 bg-surface-container-low">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-label-mono-sm text-secondary">CURRICULUM SYLLABUS</span>
+                    <span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant font-label-mono-sm rounded">6 HR REQ</span>
+                </div>
+                <div class="font-headline-sm">Course Overview // Module <span id="current-module-num">1</span> / 09</div>
+            </div>
+
+            <!-- Module List -->
+            <div id="module-list" class="flex-1 overflow-y-auto custom-scroll py-2 bg-surface-container-lowest">
+                <!-- Modules injected by JS -->
+            </div>
+
+            <!-- Bottom Seal -->
+            <div class="p-4 border-t border-surface-container-high shrink-0 bg-surface-container-low flex items-start space-x-3 text-secondary">
+                <span class="material-symbols-outlined mt-0.5 text-[20px]">gavel</span>
+                <p class="font-label-mono-sm leading-tight">Texas Administrative Code<br>§ 84.500 Compliance Verified</p>
+            </div>
+        </aside>
+
+        <!-- Overlay for mobile sidebar -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-on-surface/20 z-20 hidden lg:hidden"></div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col min-w-0 bg-surface-container relative lg:ml-[280px]">
+            <iframe id="content-frame" class="flex-1 w-full border-none bg-white" src="about:blank"></iframe>
+            
+            <!-- Bottom Navigation -->
+            <footer class="h-[64px] bg-surface-container-lowest border-t border-surface-container-high flex items-center justify-between px-6 shrink-0 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <button id="btn-prev" class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-surface-dim bg-surface-container-lowest hover:border-on-surface text-on-surface font-label-mono-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    <span>PREVIOUS TOPIC</span>
+                </button>
+                
+                <div class="hidden md:flex items-center space-x-2 font-label-mono-sm text-secondary">
+                    <div id="status-dot" class="w-2 h-2 rounded-full bg-[#1e8f3b]"></div>
+                    <span id="topic-status-indicator">TOPIC L01-T01 CONTENT VALIDATED</span>
+                    <span id="topic-test-badge" class="hidden px-2 py-0.5 rounded text-[11px] font-bold bg-[#F0FDF4] text-[#16A34A] border border-[#86EFAC]">
+                        TEST PASSED
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button id="btn-take-test" class="flex items-center space-x-2 bg-primary-container text-white px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer">
+                        <span class="material-symbols-outlined text-[18px]">assignment_turned_in</span>
+                        <span id="btn-take-test-label">TAKE A TEST ON THIS TOPIC</span>
+                    </button>
+                    <button id="btn-next" class="flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer">
+                        <span id="btn-next-label">NEXT TOPIC</span>
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </button>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Topic Assessment Modal (TDLR § 84.500 Mastery Check) -->
+    <div id="topic-test-modal" class="fixed inset-0 bg-on-surface/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-surface-container-lowest border border-surface-dim rounded-2xl max-w-4xl w-full h-[92vh] max-h-[880px] shadow-2xl flex flex-col overflow-hidden font-sans">
+            <!-- Modal Header -->
+            <div class="bg-white px-5 py-3.5 border-b border-surface-dim flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-primary-container"></div>
+                    <div>
+                        <div class="font-headline-sm text-on-surface text-[15px] font-bold" id="modal-test-topic-title">Topic Knowledge Check</div>
+                        <div class="font-label-mono-sm text-secondary text-xs" id="modal-test-subtitle">5 Standalone Questions · TDLR § 84.500 Mastery Check · Server-Side Grading</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="modal-close-test" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-surface-dim text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-mono-sm text-xs transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[18px]">close</span>
+                        <span>RETURN TO LESSON</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Modal Body: Iframe -->
+            <div class="flex-1 w-full bg-[#F6F7F5] relative overflow-hidden">
+                <iframe id="test-frame" class="w-full h-full border-none" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shell Help Modal (TDLR Compliance Support) -->
+    <div id="shell-help-modal" class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest border border-surface-dim rounded-xl max-w-lg w-full shadow-2xl overflow-hidden font-sans">
+            <div class="bg-surface-container-low px-6 py-4 border-b border-surface-dim flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+                    <span class="font-headline-sm text-on-surface uppercase tracking-tight text-[15px]">TX-ADE // Student Support & Compliance</span>
+                </div>
+                <button id="shell-close-help" class="text-secondary hover:text-on-surface text-2xl font-bold cursor-pointer transition-colors">&times;</button>
+            </div>
+            <div class="p-6 space-y-4 text-sm text-secondary leading-relaxed">
+                <div>
+                    <h4 class="font-semibold text-on-surface mb-1">State Regulatory Standard</h4>
+                    <p class="text-xs font-label-mono-sm">Texas Department of Licensing and Regulation (TDLR) · 16 TAC § 84.500</p>
+                </div>
+                <div class="bg-surface-container-low border border-surface-dim rounded-lg p-3.5 space-y-2 text-xs">
+                    <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-primary-container text-[16px] mt-0.5">schedule</span>
+                        <span><strong>Instructional Time:</strong> State law mandates an aggregate 360 active instructional minutes (6 clock hours). Idle time past 5 minutes is paused automatically.</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-primary-container text-[16px] mt-0.5">verified</span>
+                        <span><strong>Mastery Gate:</strong> Each module requires 70% passing threshold before proceeding to the final exam.</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-primary-container text-[16px] mt-0.5">save</span>
+                        <span><strong>State Registry Sync:</strong> Your progress and cumulative time are saved automatically and can be manually synchronized via the top bar.</span>
+                    </div>
+                </div>
+                <div class="text-xs pt-1 border-t border-surface-dim flex justify-between items-center">
+                    <span>Direct Instructor Support:</span>
+                    <a href="mailto:support@texasade.org" class="text-primary-container font-semibold hover:underline">support@texasade.org</a>
+                </div>
+            </div>
+            <div class="bg-surface-container-low px-6 py-3.5 border-t border-surface-dim flex justify-end">
+                <button id="shell-dismiss-help" class="px-5 py-2 bg-primary-container hover:bg-primary text-white rounded-lg font-label-mono-sm font-semibold transition-colors cursor-pointer">
+                    UNDERSTOOD
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shell Notification Toast -->
+    <div id="shell-toast" class="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-lg font-label-mono-sm text-xs font-semibold flex items-center gap-2 shadow-xl transition-all duration-300 transform translate-y-24 opacity-0 pointer-events-none bg-emerald-700 text-white">
+        <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        <span id="shell-toast-msg">Progress Saved!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const COURSE_DATA = {
+            modules: [
+                {
+                    id: 1, code: 'MOD 01', title: 'Course Intro & Safety', quizInfo: '10 Q · 70% Pass',
+                    topics: [
+                        { id: 'L01-T01', title: 'Value of ADE — Statutory Bounds & Principles', minutes: 25 },
+                        { id: 'L01-T02', title: 'Traffic Laws — Framework for Responsible Driving', minutes: 25 },
+                        { id: 'L01-T03', title: 'Driving is a Privilege — Risk & Consequences', minutes: 20 },
+                    ]
+                },
+                {
+                    id: 2, code: 'MOD 02', title: 'Your License to Drive', quizInfo: '10 Q · 70% Pass',
+                    topics: [
+                        { id: 'L02-T01', title: 'Obtaining, Possessing & Renewing a Texas DL', minutes: 20 },
+                        { id: 'L02-T02', title: 'License Types, Restrictions & Organ Donation', minutes: 20 },
+                        { id: 'L02-T03', title: 'Statutory Suspensions & Revocations', minutes: 15 },
+                        { id: 'L02-T04', title: 'Vehicle Inspection & Registration', minutes: 15 },
+                        { id: 'L02-T05', title: 'Safety Responsibility Act', minutes: 15 },
+                        { id: 'L02-T06', title: 'Reduce Risk — License & Registration', minutes: 10 },
+                        { id: 'L02-T07', title: 'Texas Driving with Disabilities Program', minutes: 10 },
+                    ]
+                },
+                {
+                    id: 3, code: 'MOD 03', title: 'Right-of-Way Rules', quizInfo: '10 Q · 70% Pass',
+                    topics: [
+                        { id: 'L03-T01', title: 'Definition of Right-of-Way', minutes: 15 },
+                        { id: 'L03-T02', title: 'Traditional & Non-Traditional Intersections', minutes: 20 },
+                        { id: 'L03-T03', title: 'Accepting or Yielding Right-of-Way', minutes: 20 },
+                        { id: 'L03-T04', title: 'Move Over & Slow Down Law', minutes: 15 },
+                        { id: 'L03-T05', title: 'Passing Stopped Emergency Vehicles', minutes: 10 },
+                        { id: 'L03-T06', title: 'Legal & Responsible Decisions', minutes: 10 },
+                        { id: 'L03-T07', title: 'Defensive Driving — Anticipate & Respond', minutes: 15 },
+                    ]
+                },
+                {
+                    id: 4, code: 'MOD 04', title: 'Traffic Control Devices', quizInfo: '10 Q · 70% Pass',
+                    topics: [
+                        { id: 'L04-T01', title: 'Signs, Signals, and Markings', minutes: 25 },
+                        { id: 'L04-T02', title: 'Responding to Traffic Control Devices', minutes: 20 },
+                        { id: 'L04-T03', title: 'Knowledge to Responsible Decisions', minutes: 15 },
+                        { id: 'L04-T04', title: 'Applied Risk Reduction', minutes: 10 },
+                    ]
+                },
+                {
+                    id: 5, code: 'MOD 05', title: 'Controlling Traffic Flow', quizInfo: '15 Q · 70% Pass',
+                    topics: [
+                        { id: 'L05-T01', title: 'Definition of Traffic Flow', minutes: 10 },
+                        { id: 'L05-T02', title: 'Managing Traffic Flow', minutes: 15 },
+                        { id: 'L05-T03', title: 'Signaling & Communication', minutes: 10 },
+                        { id: 'L05-T04', title: 'Passing, Turning, and Parking', minutes: 20 },
+                        { id: 'L05-T05', title: 'Blind Spot Driving', minutes: 10 },
+                        { id: 'L05-T06', title: 'Safe Following Intervals', minutes: 10 },
+                        { id: 'L05-T07', title: 'Speed Related to Stopping', minutes: 10 },
+                        { id: 'L05-T08', title: 'Adjusting to Poor Conditions & Flash Floods', minutes: 10 },
+                        { id: 'L05-T09', title: 'Texas Speed Limits & Special Corridors', minutes: 10 },
+                        { id: 'L05-T10', title: 'Vehicle Lights', minutes: 10 },
+                        { id: 'L05-T11', title: 'Freeway Entry, Travel & Exit', minutes: 15 },
+                        { id: 'L05-T12', title: 'Fatigue & Highway Hypnosis', minutes: 10 },
+                        { id: 'L05-T13', title: 'Managing a Vehicle Breakdown', minutes: 10 },
+                        { id: 'L05-T14', title: 'Controlling a Vehicle in Emergencies', minutes: 10 },
+                        { id: 'L05-T15', title: 'Winter Driving', minutes: 10 },
+                        { id: 'L05-T16', title: 'Reduce Risk — Traffic Flow', minutes: 10 },
+                        { id: 'L05-T17', title: 'Construction & Work Zones', minutes: 10 },
+                        { id: 'L05-T18', title: 'Litter Prevention & Road Debris', minutes: 10 },
+                    ]
+                },
+                {
+                    id: 6, code: 'MOD 06', title: 'Alcohol & Drug Awareness', quizInfo: '10 Q · 70% Pass',
+                    topics: [
+                        { id: 'L06-T01', title: 'Legal Definition of Intoxication in Texas', minutes: 15 },
+                        { id: 'L06-T02', title: 'How Alcohol & Drugs Affect Driving', minutes: 20 },
+                        { id: 'L06-T03', title: 'Adult Penalties — DWI & Assault', minutes: 15 },
+                        { id: 'L06-T04', title: 'Minor Penalties — Zero Tolerance', minutes: 15 },
+                        { id: 'L06-T05', title: 'Texas Open Container Law', minutes: 10 },
+                        { id: 'L06-T06', title: 'Admin License Revocation & Implied Consent', minutes: 15 },
+                        { id: 'L06-T07', title: 'Reduce Risk — Alcohol & Drug Practices', minutes: 10 },
+                    ]
+                },
+                {
+                    id: 7, code: 'MOD 07', title: 'Sharing the Road', quizInfo: '15 Q · 70% Pass',
+                    topics: [
+                        { id: 'L07-T01', title: 'Categorize Roadway Users', minutes: 10 },
+                        { id: 'L07-T02', title: 'Good Samaritan Law', minutes: 10 },
+                        { id: 'L07-T03', title: 'Laws for Sharing the Road', minutes: 15 },
+                        { id: 'L07-T04', title: 'Responsibilities of a Defensive Driver', minutes: 10 },
+                        { id: 'L07-T05', title: 'Seatbelts, Open Beds & Unattended Children', minutes: 10 },
+                        { id: 'L07-T06', title: 'Stopped by Law Enforcement', minutes: 10 },
+                        { id: 'L07-T07', title: 'Community Safety Education Act (SB 30)', minutes: 10 },
+                        { id: 'L07-T08', title: 'Aggressive Driving & Avoidance', minutes: 10 },
+                        { id: 'L07-T09', title: 'Cargo, Safety Chains & Towing', minutes: 10 },
+                        { id: 'L07-T10', title: 'Carbon Monoxide Poisoning', minutes: 10 },
+                        { id: 'L07-T11', title: 'Cooperating with Law Enforcement', minutes: 10 },
+                        { id: 'L07-T12', title: 'Operating Near Oversize Vehicles', minutes: 10 },
+                        { id: 'L07-T13', title: 'Driving with Disabilities Program', minutes: 10 },
+                        { id: 'L07-T14', title: 'How to Participate in the Program', minutes: 5 },
+                        { id: 'L07-T15', title: 'Communication Impediment', minutes: 5 },
+                        { id: 'L07-T16', title: 'Form DL-101 Verification', minutes: 5 },
+                        { id: 'L07-T17', title: 'Vehicle Registration TLETS', minutes: 5 },
+                        { id: 'L07-T18', title: 'Form VTR-216 Router', minutes: 5 },
+                    ]
+                },
+                {
+                    id: 8, code: 'MOD 08', title: 'Managing Risk', quizInfo: '10 Q · 70% Pass',
+                    topics: [
+                        { id: 'L08-T01', title: '7 Keys to Safe Driving', minutes: 15 },
+                        { id: 'L08-T02', title: 'Four Dangers of Poor Decision Making', minutes: 15 },
+                        { id: 'L08-T03', title: 'Dangers of Impaired Driving', minutes: 15 },
+                        { id: 'L08-T04', title: 'Distractions That Affect Driving', minutes: 15 },
+                        { id: 'L08-T05', title: 'Dangers of Speed & Street Racing', minutes: 10 },
+                        { id: 'L08-T06', title: 'Risk of Not Wearing a Safety Belt', minutes: 10 },
+                        { id: 'L08-T07', title: 'Dangers of Driving at Night', minutes: 10 },
+                        { id: 'L08-T08', title: 'Wireless Communications & Distracted Driving', minutes: 10 },
+                        { id: 'L08-T09', title: 'Safe Driving Practices', minutes: 15 },
+                        { id: 'L08-T10', title: 'Human Trafficking Awareness (Julia Wells Act)', minutes: 10 },
+                    ]
+                },
+                {
+                    id: 9, code: 'MOD 09', title: 'Final Exam Prep', quizInfo: 'Mastery ≥ 70%',
+                    topics: [
+                        { id: 'L09-T01', title: 'DPS Highway Sign & Traffic Law Exam', minutes: 45 },
+                    ]
+                },
+            ]
+        };
+
+        
+        // Flatten topics for easy sequential navigation
+        const ALL_TOPICS = COURSE_DATA.modules.flatMap(m => m.topics);
+        const TOTAL_TOPICS = ALL_TOPICS.length;
+
+        // State Management
+        let completedTopics = new Set(JSON.parse(localStorage.getItem('tx_ade_completed') || '[]'));
+        let activeTopicId = localStorage.getItem('tx_ade_active') || ALL_TOPICS[0].id;
+        let elapsedSeconds = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+        let expandedModuleId = COURSE_DATA.modules.find(m => m.topics.some(t => t.id === activeTopicId))?.id || 1;
+
+        // DOM Elements
+        const moduleListEl = document.getElementById('module-list');
+        const iframeEl = document.getElementById('content-frame');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const btnNextLabel = document.getElementById('btn-next-label');
+        const btnTakeTest = document.getElementById('btn-take-test');
+        const btnTakeTestLabel = document.getElementById('btn-take-test-label');
+        const topicStatusEl = document.getElementById('topic-status-indicator');
+        const topicTestBadge = document.getElementById('topic-test-badge');
+        const progressTextEl = document.getElementById('progress-text');
+        const progressBarRealEl = document.getElementById('progress-bar');
+        const timerTextEl = document.getElementById('timer-text');
+        const timerBarEl = document.getElementById('timer-bar');
+        const currentModuleNumEl = document.getElementById('current-module-num');
+        const topicTestModal = document.getElementById('topic-test-modal');
+        const testFrame = document.getElementById('test-frame');
+        const modalCloseTest = document.getElementById('modal-close-test');
+        const modalTestTitle = document.getElementById('modal-test-topic-title');
+        const modalTestSubtitle = document.getElementById('modal-test-subtitle');
+
+        // Mobile Menu toggle
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const toggleBtn = document.getElementById('mobile-menu-toggle');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        });
+        overlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+
+        function getTopicUrl(id) {
+            return `./final_course_export/${id}.html`;
+        }
+
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
+
+        function isTopicUnlocked(index) {
+            return true; // All topics freely interactive and accessible
+        }
+
+        function renderSidebar() {
+            moduleListEl.innerHTML = '';
+            
+            COURSE_DATA.modules.forEach(mod => {
+                const isExpanded = mod.id === expandedModuleId;
+                
+                // Module Container
+                const modDiv = document.createElement('div');
+                modDiv.className = 'border-b border-surface-container-high';
+
+                // Module Header
+                const modHeader = document.createElement('button');
+                modHeader.className = `w-full px-4 py-3 flex items-center justify-between text-left transition-colors cursor-pointer ${isExpanded ? 'bg-surface-container-low' : 'hover:bg-surface-container-low'}`;
+                modHeader.onclick = () => {
+                    expandedModuleId = isExpanded ? null : mod.id;
+                    renderSidebar();
+                };
+
+                const headerLeft = document.createElement('div');
+                headerLeft.className = 'flex items-center space-x-3';
+                const modIcon = document.createElement('span');
+                modIcon.className = 'material-symbols-outlined text-[20px] text-secondary';
+                
+                const allCompleted = mod.topics.every(t => completedTopics.has(t.id));
+                const someCompleted = mod.topics.some(t => completedTopics.has(t.id));
+                if (allCompleted) {
+                    modIcon.textContent = 'check_circle';
+                    modIcon.className += ' text-[#1e8f3b] icon-fill';
+                } else if (someCompleted) {
+                    modIcon.textContent = 'play_circle';
+                    modIcon.className += ' text-primary-container';
+                } else {
+                    modIcon.textContent = 'folder_open';
+                }
+                
+                const headerText = document.createElement('div');
+                headerText.innerHTML = `<div class="font-label-mono-sm text-secondary">${mod.code}</div>
+                                      <div class="font-body-sm font-semibold">${mod.title}</div>`;
+                
+                headerLeft.appendChild(modIcon);
+                headerLeft.appendChild(headerText);
+
+                const chevron = document.createElement('span');
+                chevron.className = 'material-symbols-outlined text-secondary transition-transform';
+                chevron.textContent = isExpanded ? 'expand_more' : 'chevron_right';
+
+                modHeader.appendChild(headerLeft);
+                modHeader.appendChild(chevron);
+                modDiv.appendChild(modHeader);
+
+                // Topics List (if expanded)
+                if (isExpanded) {
+                    const topicsContainer = document.createElement('div');
+                    topicsContainer.className = 'py-2';
+                    
+                    mod.topics.forEach((topic) => {
+                        const globalIndex = ALL_TOPICS.findIndex(t => t.id === topic.id);
+                        const isCompleted = completedTopics.has(topic.id);
+                        const isActive = topic.id === activeTopicId;
+
+                        const tBtn = document.createElement('button');
+                        tBtn.className = `w-full text-left px-4 py-2 flex items-start space-x-3 transition-colors cursor-pointer ${
+                            isActive ? 'bg-[#FFF8F3] border-l-2 border-primary-container pl-[14px]' : 'border-l-2 border-transparent hover:bg-surface-container-low'
+                        }`;
+
+                        tBtn.onclick = () => loadTopic(topic.id);
+
+                        const tIcon = document.createElement('span');
+                        tIcon.className = `material-symbols-outlined mt-0.5 text-[18px] shrink-0 ${isCompleted ? 'text-[#1e8f3b] icon-fill' : (isActive ? 'text-primary-container icon-fill' : 'text-secondary')}`;
+                        tIcon.textContent = isCompleted ? 'check_circle' : (isActive ? 'radio_button_checked' : 'radio_button_unchecked');
+
+                        const tText = document.createElement('div');
+                        tText.className = `flex flex-col ${isActive ? 'font-semibold text-on-surface' : (isCompleted ? 'text-secondary' : 'text-on-surface/80')}`;
+                        
+                        const statusStr = isCompleted ? 'Completed' : (isActive ? 'Active Topic' : 'Pending');
+                        const passBadge = isCompleted ? '<span class="ml-1.5 px-1.5 py-0.2 rounded text-[10px] font-bold bg-[#F0FDF4] text-[#16A34A] border border-[#86EFAC]">PASSED</span>' : '';
+                        tText.innerHTML = `<span class="font-body-sm leading-snug">${topic.id}: ${topic.title}</span>
+                                           <span class="font-label-mono-sm mt-0.5 opacity-80 flex items-center">${statusStr} · ${topic.minutes} MIN ${passBadge}</span>`;
+
+                        tBtn.appendChild(tIcon);
+                        tBtn.appendChild(tText);
+                        topicsContainer.appendChild(tBtn);
+                    });
+
+                    // Interactive Module Assessment Button
+                    if (mod.quizInfo) {
+                        const isModFinished = mod.topics.every(t => completedTopics.has(t.id));
+                        const qBtn = document.createElement('button');
+                        qBtn.className = 'w-[calc(100%-2rem)] text-left px-4 py-3 mt-2 mx-4 bg-surface-container hover:bg-surface-container-high rounded border border-surface-container-high flex items-center space-x-3 text-secondary transition-colors cursor-pointer';
+                        qBtn.innerHTML = `<span class="material-symbols-outlined text-[20px] ${isModFinished ? 'text-[#1e8f3b] icon-fill' : 'text-primary-container'}">${isModFinished ? 'verified' : 'fact_check'}</span>
+                                          <div>
+                                              <div class="font-body-sm font-semibold">${mod.id === 9 ? 'TDLR Final Exam (30 Questions)' : 'Module ' + mod.id.toString().padStart(2, '0') + ' Knowledge Check'}</div>
+                                              <div class="font-label-mono-sm">${mod.quizInfo}</div>
+                                          </div>`;
+                        qBtn.onclick = () => {
+                            if (mod.id === 9) {
+                                openTopicTest('L09-T01');
+                            } else {
+                                const lastTopic = mod.topics[mod.topics.length - 1];
+                                openTopicTest(lastTopic.id);
+                            }
+                        };
+                        topicsContainer.appendChild(qBtn);
+                    }
+
+                    modDiv.appendChild(topicsContainer);
+                }
+
+                moduleListEl.appendChild(modDiv);
+            });
+        }
+
+        function updateMetrics() {
+            const completedCount = completedTopics.size;
+            const progressPct = Math.round((completedCount / TOTAL_TOPICS) * 100);
+            
+            progressTextEl.textContent = `${completedCount} / ${TOTAL_TOPICS} TOPICS (${progressPct}%)`;
+            progressBarRealEl.style.width = `${progressPct}%`;
+
+            const currentMod = COURSE_DATA.modules.find(m => m.topics.some(t => t.id === activeTopicId));
+            if (currentMod) currentModuleNumEl.textContent = currentMod.id;
+
+            topicStatusEl.textContent = `TOPIC ${activeTopicId} CONTENT VALIDATED`;
+            updateFooterButtons();
+        }
+
+        function updateFooterButtons() {
+            const currentIndex = ALL_TOPICS.findIndex(t => t.id === activeTopicId);
+            btnPrev.disabled = currentIndex === 0;
+
+            const isCompleted = completedTopics.has(activeTopicId);
+            const isLast = (currentIndex === TOTAL_TOPICS - 1);
+
+            if (topicTestBadge) {
+                if (isCompleted) {
+                    topicTestBadge.classList.remove('hidden');
+                } else {
+                    topicTestBadge.classList.add('hidden');
+                }
+            }
+
+            if (activeTopicId === 'L09-T01') {
+                btnTakeTestLabel.textContent = isCompleted ? 'RETAKE FINAL EXAM' : 'TAKE FINAL EXAM (30 QUESTIONS)';
+            } else {
+                btnTakeTestLabel.textContent = isCompleted ? 'RETAKE TOPIC TEST' : 'TAKE A TEST ON THIS TOPIC';
+            }
+
+            if (isCompleted) {
+                btnTakeTest.className = 'flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer';
+                btnNext.className = 'flex items-center space-x-2 bg-primary-container text-white px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer';
+                btnNextLabel.textContent = isLast ? 'FINISH COURSE' : 'NEXT TOPIC';
+            } else {
+                btnTakeTest.className = 'flex items-center space-x-2 bg-primary-container text-white px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer';
+                btnNext.className = 'flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer';
+                btnNextLabel.textContent = isLast ? 'FINISH COURSE' : 'NEXT TOPIC';
+            }
+        }
+
+        function loadTopic(id) {
+            activeTopicId = id;
+            localStorage.setItem('tx_ade_active', id);
+            
+            const currentMod = COURSE_DATA.modules.find(m => m.topics.some(t => t.id === activeTopicId));
+            if (currentMod) expandedModuleId = currentMod.id;
+
+            iframeEl.src = getTopicUrl(id);
+            
+            // Close mobile menu on topic select
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+
+            renderSidebar();
+            updateMetrics();
+            updateFooterButtons();
+        }
+
+        function openTopicTest(topicId) {
+            const id = topicId || activeTopicId;
+            const topicObj = ALL_TOPICS.find(t => t.id === id);
+            const titleStr = topicObj ? topicObj.title : id;
+
+            if (id === 'L09-T01') {
+                modalTestTitle.textContent = `TDLR Final Examination — 30 Questions`;
+                modalTestSubtitle.textContent = `15 Highway Signs + 15 Traffic Laws · Sept 1, 2026 Work Zone Mandate · 70% Pass Required`;
+                testFrame.src = `./mcqs/final_exam.html`;
+            } else {
+                modalTestTitle.textContent = `Topic Knowledge Check — ${id}: ${titleStr}`;
+                modalTestSubtitle.textContent = `5 Standalone Questions · TDLR § 84.500 Mastery Gate · Server-Side Grading`;
+                testFrame.src = `./mcqs/${id}.html`;
+            }
+
+            topicTestModal.classList.remove('hidden');
+        }
+
+        function closeTopicTest() {
+            topicTestModal.classList.add('hidden');
+            testFrame.src = 'about:blank';
+        }
+
+        window.hideModal = closeTopicTest;
+
+        if (modalCloseTest) {
+            modalCloseTest.addEventListener('click', closeTopicTest);
+        }
+        if (topicTestModal) {
+            topicTestModal.addEventListener('click', (e) => {
+                if (e.target === topicTestModal) closeTopicTest();
+            });
+        }
+
+        if (btnTakeTest) {
+            btnTakeTest.addEventListener('click', () => {
+                openTopicTest(activeTopicId);
+            });
+        }
+
+        if (btnPrev) {
+            btnPrev.addEventListener('click', () => {
+                const idx = ALL_TOPICS.findIndex(t => t.id === activeTopicId);
+                if (idx > 0) loadTopic(ALL_TOPICS[idx - 1].id);
+            });
+        }
+
+        if (btnNext) {
+            btnNext.addEventListener('click', () => {
+                const idx = ALL_TOPICS.findIndex(t => t.id === activeTopicId);
+                
+                // Mark current as completed
+                completedTopics.add(activeTopicId);
+                localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
+
+                if (idx < TOTAL_TOPICS - 1) {
+                    loadTopic(ALL_TOPICS[idx + 1].id);
+                } else {
+                    renderSidebar();
+                    updateMetrics();
+                    showShellToast('🎉 All 75 Topics Completed! State Certification Ready.', true);
+                }
+            });
+        }
+
+        // TDLR Compliance: Active Instructional Time & Idle Detection
+        let isTimerPaused = false;
+        let idleSeconds = 0;
+
+        // Pause when student switches away from course tab
+        window.addEventListener('blur', () => {
+            isTimerPaused = true;
+            updateTimerDisplay();
+        });
+        window.addEventListener('focus', () => {
+            isTimerPaused = false;
+            idleSeconds = 0;
+            updateTimerDisplay();
+        });
+
+        // Reset idle counter on active interaction
+        ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt => {
+            window.addEventListener(evt, () => {
+                if (idleSeconds > 300) {
+                    isTimerPaused = false;
+                }
+                idleSeconds = 0;
+            });
+        });
+
+        function updateTimerDisplay() {
+            const maxSeconds = 6 * 3600; // 6 hours
+            const displayStr = `${formatTime(elapsedSeconds)} / 06:00:00`;
+            
+            if (isTimerPaused) {
+                timerTextEl.innerHTML = `<span class="text-amber-600 font-semibold text-[11px]">[PAUSED]</span> ${displayStr}`;
+                timerBarEl.className = "h-full bg-amber-500 transition-all duration-1000";
+            } else {
+                timerTextEl.textContent = displayStr;
+                timerBarEl.className = "h-full bg-[#1e8f3b] transition-all duration-1000";
+            }
+            
+            const pct = Math.min(100, (elapsedSeconds / maxSeconds) * 100);
+            timerBarEl.style.width = `${pct}%`;
+        }
+
+        // Timer Execution Loop
+        setInterval(() => {
+            idleSeconds++;
+            if (idleSeconds > 300) { // 5 minutes without activity
+                isTimerPaused = true;
+            }
+
+            if (!isTimerPaused) {
+                elapsedSeconds++;
+                if (elapsedSeconds % 10 === 0) { // Save every 10s
+                    localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
+                }
+            }
+            
+            updateTimerDisplay();
+        }, 1000);
+
+        // Eliminate duplicate lesson footer navigation on load
+        iframeEl.addEventListener('load', () => {
+            try {
+                const doc = iframeEl.contentDocument || iframeEl.contentWindow.document;
+                if (doc) {
+                    let style = doc.getElementById('tx-shell-override-footer');
+                    if (!style) {
+                        style = doc.createElement('style');
+                        style.id = 'tx-shell-override-footer';
+                        style.textContent = `
+                            footer,
+                            .lesson-footer,
+                            [data-role="lesson-footer"],
+                            main > footer,
+                            body > footer,
+                            footer.border-t,
+                            header + main + footer {
+                                display: none !important;
+                            }
+                        `;
+                        doc.head.appendChild(style);
+                    }
+                    // Hide any footer elements in DOM
+                    doc.querySelectorAll('footer').forEach(f => f.style.display = 'none');
+
+                    // Also search for standalone proceed / next topic buttons inside lesson bodies
+                    doc.querySelectorAll('button, a').forEach(el => {
+                        const txt = (el.textContent || '').trim().toLowerCase();
+                        if (txt.includes('proceed to') || txt.includes('next topic') || txt.includes('next lesson') || txt.includes('complete topic')) {
+                            const container = el.closest('footer') || el.closest('div.border-t') || el.closest('div.rounded-2xl');
+                            if (container && container !== doc.body && container !== doc.documentElement) {
+                                container.style.display = 'none';
+                            } else {
+                                el.style.display = 'none';
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.warn('Iframe footer override warning:', e);
+            }
+        });
+
+        // Message listener for topic tests, final exam, and lesson completion
+        window.addEventListener('message', (event) => {
+            if (!event.data) return;
+
+            if (event.data.type === 'TOPIC_TEST_COMPLETED' || event.data.type === 'FINAL_EXAM_COMPLETED') {
+                const topicId = event.data.topicId || activeTopicId;
+                const score = event.data.score;
+                const passed = (event.data.passed !== false && event.data.strikes !== 2);
+
+                if (passed) {
+                    completedTopics.add(topicId);
+                    localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
+
+                    showShellToast(`Topic ${topicId} Assessment Passed! Mastery Verified.`, true);
+                    closeTopicTest();
+
+                    renderSidebar();
+                    updateMetrics();
+                    updateFooterButtons();
+
+                    const idx = ALL_TOPICS.findIndex(t => t.id === topicId);
+                    if (idx < TOTAL_TOPICS - 1) {
+                        loadTopic(ALL_TOPICS[idx + 1].id);
+                    }
+                } else {
+                    showShellToast(`Topic ${topicId} Score Below Passing. Review lesson notes and retake.`, false);
+                }
+            } else if (event.data.type === 'TOPIC_COMPLETE') {
+                const topicId = event.data.topicId || activeTopicId;
+                completedTopics.add(topicId);
+                localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
+                const idx = ALL_TOPICS.findIndex(t => t.id === topicId);
+                if (idx < TOTAL_TOPICS - 1) {
+                    loadTopic(ALL_TOPICS[idx + 1].id);
+                } else {
+                    renderSidebar();
+                    updateMetrics();
+                }
+            }
+        });
+
+        
+        // Shell Toast Function
+        function showShellToast(msg, isSuccess = true) {
+            const toast = document.getElementById('shell-toast');
+            const toastMsg = document.getElementById('shell-toast-msg');
+            if (!toast || !toastMsg) return;
+            toastMsg.textContent = msg;
+            toast.className = `fixed bottom-6 right-6 z-50 px-5 py-3 rounded-lg font-label-mono-sm text-xs font-semibold flex items-center gap-2 shadow-xl transition-all duration-300 transform translate-y-0 opacity-100 pointer-events-none ${isSuccess ? 'bg-emerald-700 text-white' : 'bg-amber-600 text-white'}`;
+            setTimeout(() => {
+                toast.className = `fixed bottom-6 right-6 z-50 px-5 py-3 rounded-lg font-label-mono-sm text-xs font-semibold flex items-center gap-2 shadow-xl transition-all duration-300 transform translate-y-24 opacity-0 pointer-events-none ${isSuccess ? 'bg-emerald-700 text-white' : 'bg-amber-600 text-white'}`;
+            }, 3000);
+        }
+
+        // Wire Up Shell Help Button & Modal
+        const shellHelpBtn = document.getElementById('shell-help-btn');
+        const shellHelpModal = document.getElementById('shell-help-modal');
+        const shellCloseHelp = document.getElementById('shell-close-help');
+        const shellDismissHelp = document.getElementById('shell-dismiss-help');
+
+        if (shellHelpBtn && shellHelpModal) {
+            shellHelpBtn.addEventListener('click', () => shellHelpModal.classList.remove('hidden'));
+            if (shellCloseHelp) shellCloseHelp.addEventListener('click', () => shellHelpModal.classList.add('hidden'));
+            if (shellDismissHelp) shellDismissHelp.addEventListener('click', () => shellHelpModal.classList.add('hidden'));
+            shellHelpModal.addEventListener('click', (e) => {
+                if (e.target === shellHelpModal) shellHelpModal.classList.add('hidden');
+            });
+        }
+
+        // Wire Up Shell Save Progress Button
+        const shellSaveBtn = document.getElementById('shell-save-btn');
+        if (shellSaveBtn) {
+            shellSaveBtn.addEventListener('click', () => {
+                try {
+                    localStorage.setItem('tx_ade_active', activeTopicId);
+                    localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
+                    localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
+                    showShellToast(`Progress Saved! (${completedTopics.size}/${TOTAL_TOPICS} Topics · ${formatTime(elapsedSeconds)})`, true);
+                } catch(e) {
+                    showShellToast('Error saving progress', false);
+                }
+            });
+        }
+
+        // Initial Course Hydration
+        function initializeCourse() {
+            renderSidebar();
+            loadTopic(activeTopicId);
+            updateMetrics();
+            updateFooterButtons();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeCourse);
+        } else {
+            initializeCourse();
+        }
+
+    </script>
+
+</body>
+</html>

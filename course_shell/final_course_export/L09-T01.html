@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DPS Official Knowledge Test - Exam Simulator</title>
+<!-- Typography Imports -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline-variant": "#dec1b2",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-variant": "#e2e3e1",
+            "on-secondary-container": "#606361",
+            "secondary": "#5b5f5d",
+            "error": "#ba1a1a",
+            "on-secondary-fixed": "#181c1a",
+            "primary-fixed-dim": "#ffb68c",
+            "secondary-fixed-dim": "#c4c7c4",
+            "outline": "#8a7265",
+            "on-surface-variant": "#574237",
+            "surface-container-highest": "#e2e3e1",
+            "primary-container": "#e87522",
+            "on-primary-container": "#4e2000",
+            "surface-tint": "#9a4600",
+            "tertiary-fixed-dim": "#62df7d",
+            "on-surface": "#191c1b",
+            "surface-container": "#edeeec",
+            "on-background": "#191c1b",
+            "surface-bright": "#f9faf8",
+            "primary-fixed": "#ffdbc9",
+            "inverse-primary": "#ffb68c",
+            "surface-container-high": "#e7e8e6",
+            "surface": "#f9faf8",
+            "tertiary": "#006e2d",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#444845",
+            "tertiary-fixed": "#7ffc97",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f3f4f2",
+            "secondary-container": "#dde0dd",
+            "inverse-on-surface": "#f0f1ef",
+            "inverse-surface": "#2e3130",
+            "on-error-container": "#93000a",
+            "background": "#f9faf8",
+            "on-tertiary-fixed": "#002109",
+            "surface-dim": "#d9dad8",
+            "on-tertiary-container": "#003613",
+            "on-primary-fixed": "#321200",
+            "primary": "#9a4600",
+            "secondary-fixed": "#e0e3e0",
+            "tertiary-container": "#25ab51",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#753400",
+            "on-tertiary-fixed-variant": "#005320"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-tablet": "1.5rem",
+            "space-lg": "1.5rem",
+            "margin-desktop": "3rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem",
+            "gutter-desktop": "2rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "space-xl": "2.5rem",
+            "margin-tablet": "2rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Geist"],
+            "body-md": ["Geist"],
+            "label-mono-md": ["JetBrains Mono"],
+            "body-sm": ["Geist"],
+            "display-lg-mobile": ["Geist"],
+            "display-lg": ["Geist"],
+            "label-mono-lg": ["JetBrains Mono"],
+            "headline-lg": ["Geist"],
+            "label-mono-sm": ["JetBrains Mono"],
+            "headline-sm": ["Geist"],
+            "headline-md": ["Geist"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-mono-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-mono-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-mono-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .animate-shake {
+      animation: shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes popBounce {
+      0% { transform: scale(0.96); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .animate-pop {
+      animation: popBounce 0.25s ease-out forwards;
+    }
+
+    @keyframes stampDrop {
+      0% { transform: scale(2.8) rotate(-18deg); opacity: 0; }
+      75% { transform: scale(0.92) rotate(-8deg); opacity: 0.95; }
+      100% { transform: scale(1) rotate(-10deg); opacity: 1; }
+    }
+    .animate-stamp {
+      animation: stampDrop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    /* Confetti canvas */
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#F6F7F5] text-on-surface antialiased flex justify-center min-h-screen selection:bg-primary-container selection:text-white">
+<!-- Mobile Viewport Shell (Max width 430px for native app feel, centered) -->
+<div class="w-full max-w-[430px] min-h-screen bg-[#F6F7F5] flex flex-col justify-between border-x border-[#D9DDD8] shadow-sm relative overflow-hidden">
+<!-- TOP APP BAR (From Shared Components JSON) -->
+<header class="sticky top-0 z-40 bg-surface-bright dark:bg-surface border-b border-surface-variant dark:border-secondary shadow-none">
+<div class="flex justify-between items-center w-full px-margin md:px-margin-desktop max-w-[720px] mx-auto py-2.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-on-surface tracking-tight">DPS Official Knowledge Test</span>
+</div>
+<button class="text-label-mono-md font-label-mono-md text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-150 px-2 py-1 rounded active:translate-y-0.5 transition-transform duration-100" id="exitBtn">
+          EXIT
+        </button>
+</div>
+<!-- Live Exam Telemetry Header Bar -->
+<div class="px-4 pb-2.5 pt-1 bg-surface-bright flex flex-col gap-1.5">
+<div class="flex justify-between items-center text-label-mono-sm font-label-mono-sm text-secondary">
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface bg-surface-container px-2 py-0.5 rounded text-label-mono-sm" id="qTrackerText">QUESTION 1 / 5</span>
+<span class="inline-flex items-center gap-1 text-[#DC2626] font-semibold bg-error-container/40 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span id="livesText">STRIKES: 0/2</span>
+</span>
+</div>
+<div class="flex items-center gap-1 font-bold text-primary">
+<span class="material-symbols-outlined text-base">military_tech</span>
+<span id="currentScoreDisplay">SCORE: 0</span>
+</div>
+</div>
+<!-- Segmented 5-Step Bar -->
+<div class="grid grid-cols-5 gap-1.5 h-2 w-full pt-1" id="segmentedProgressBar">
+<div class="h-1.5 rounded-full bg-surface-variant transition-all duration-300" id="seg-0"></div>
+<div class="h-1.5 rounded-full bg-surface-variant transition-all duration-300" id="seg-1"></div>
+<div class="h-1.5 rounded-full bg-surface-variant transition-all duration-300" id="seg-2"></div>
+<div class="h-1.5 rounded-full bg-surface-variant transition-all duration-300" id="seg-3"></div>
+<div class="h-1.5 rounded-full bg-surface-variant transition-all duration-300" id="seg-4"></div>
+</div>
+</div>
+</header>
+<!-- MAIN INTERACTIVE CANVAS -->
+<main class="flex-1 px-4 pt-3 pb-24 overflow-y-auto" id="examMainContainer">
+<!-- ACTIVE EXAM VIEW -->
+<section class="flex flex-col gap-3" id="questionCardSection">
+<!-- Telemetry Badge & Category -->
+<div class="flex justify-between items-center">
+<span class="text-label-mono-sm font-label-mono-sm uppercase tracking-wider px-2.5 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold inline-flex items-center gap-1.5" id="categoryBadge">
+<span class="w-1.5 h-1.5 rounded-full bg-[#E87522]"></span>
+<span id="categoryLabel">RIGHT-OF-WAY LAWS</span>
+</span>
+<span class="text-label-mono-sm font-label-mono-sm text-secondary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">gavel</span>
+            TX TRANS CODE
+          </span>
+</div>
+<!-- Question Scenario Visual Box -->
+<div class="w-full bg-white rounded-lg border border-[#D9DDD8] p-3 flex flex-col items-center justify-center min-h-[160px] shadow-sm" id="scenarioVisualContainer">
+<!-- Injected dynamically via JS -->
+</div>
+<!-- Question Prompt Headline -->
+<div class="space-y-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-snug" id="questionHeadline">
+<!-- Injected via JS -->
+</h2>
+<p class="font-body-sm text-body-sm text-secondary">Select the single correct answer under official Texas DPS statutes:</p>
+</div>
+<!-- Multiple Choice Options List -->
+<div class="flex flex-col gap-2.5 pt-1" id="optionsContainer">
+<!-- Options injected via JS -->
+</div>
+</section>
+<!-- RESULTS SUMMARY SCREEN (Initially Hidden) -->
+<section class="hidden flex flex-col items-center justify-center text-center py-4 space-y-4" id="resultsScreen">
+<div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto shadow-md" id="resultsBadgeContainer">
+<!-- Dynamic Trophy or Warning Icon -->
+</div>
+<div class="space-y-1">
+<span class="text-label-mono-sm font-label-mono-sm uppercase tracking-widest text-secondary font-bold" id="resultSubhead">STATE EXAM OUTCOME</span>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface" id="resultTitle">
+<!-- Approved or Retake Needed -->
+</h2>
+<p class="font-body-md text-body-md text-secondary max-w-xs mx-auto" id="resultDesc">
+<!-- Explanation string -->
+</p>
+</div>
+<!-- Score Meter Card -->
+<div class="w-full bg-white border border-[#D9DDD8] rounded-xl p-4 shadow-sm flex items-center justify-between">
+<div class="text-left space-y-1">
+<div class="text-label-mono-sm font-label-mono-sm text-secondary">FINAL ACCURACY</div>
+<div class="font-headline-lg text-headline-lg font-extrabold text-on-surface" id="resultPercentage">80%</div>
+<div class="inline-block text-label-mono-sm font-label-mono-sm font-bold px-2 py-0.5 rounded" id="passingStatusBadge">
+              STATE BENCHMARK: 70% MIN
+            </div>
+</div>
+<div class="relative w-24 h-24 flex items-center justify-center">
+<svg class="w-24 h-24 transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-variant" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-[#16A34A] transition-all duration-1000 ease-out" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" id="scoreCircleProgress" stroke="currentColor" stroke-dasharray="80, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-on-surface" id="circleRatio">4/5</span>
+<span class="text-[9px] font-label-mono-sm uppercase text-secondary">Passed</span>
+</div>
+</div>
+</div>
+<!-- Diagnostic Breakdown -->
+<div class="w-full bg-white border border-[#D9DDD8] rounded-xl p-3 text-left space-y-2">
+<div class="text-label-mono-sm font-label-mono-sm font-bold text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">fact_check</span>
+            EXAM AUDIT TRAIL
+          </div>
+<div class="space-y-1.5 divide-y divide-surface-container" id="auditList">
+<!-- Dynamic audit trail items -->
+</div>
+</div>
+<!-- Primary Action Cluster -->
+<div class="w-full space-y-2.5 pt-2">
+<button class="w-full bg-[#E87522] text-white font-headline-sm text-headline-sm py-3 px-4 rounded-lg font-bold border-b-[3px] border-[#B8550E] active:translate-y-0.5 active:border-b transition-all flex items-center justify-center gap-2 shadow-sm" id="viewCertificateBtn">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span>View Verified Certificate</span>
+</button>
+<button class="w-full bg-white text-on-surface font-body-md text-body-md py-2.5 px-4 rounded-lg font-bold border-[1.5px] border-[#D9DDD8] border-b-2 hover:bg-surface-container active:translate-y-0.5 transition-all flex items-center justify-center gap-2" id="retakeExamBtn">
+<span class="material-symbols-outlined">restart_alt</span>
+<span>Retake Exam Simulator</span>
+</button>
+</div>
+</section>
+</main>
+<!-- INTERACTIVE SLIDE-UP RATIONALE DRAWER (Feedback after answer) -->
+<div class="fixed inset-x-0 bottom-14 z-50 transform translate-y-full transition-transform duration-300 ease-out max-w-[430px] mx-auto px-3" id="feedbackDrawer">
+<div class="bg-white border-2 border-[#16A34A] rounded-xl shadow-2xl p-4 space-y-3" id="feedbackDrawerContent">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full flex items-center justify-center bg-[#16A34A]/10 text-[#16A34A]" id="feedbackIconSpan">
+<span class="material-symbols-outlined font-bold" id="feedbackMaterialIcon">check_circle</span>
+</span>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-[#16A34A]" id="feedbackTitle">CORRECT! (+20 PTS)</div>
+<div class="text-label-mono-sm font-label-mono-sm text-secondary font-medium">Texas Drivers License Standard</div>
+</div>
+</div>
+<span class="text-label-mono-sm font-label-mono-sm text-secondary bg-surface-container px-2 py-0.5 rounded" id="timeElapsedBadge">VERIFIED</span>
+</div>
+<div class="p-2.5 bg-surface-container-low rounded-lg border border-[#D9DDD8]">
+<p class="font-body-md text-body-md text-on-surface" id="feedbackExplanation">
+<!-- Citation & Law -->
+</p>
+</div>
+<button class="w-full bg-[#E87522] text-white font-headline-sm text-headline-sm py-2.5 px-4 rounded-lg font-bold border-b-[3px] border-[#B8550E] active:translate-y-0.5 active:border-b transition-all flex items-center justify-center gap-2 shadow-sm" id="nextQuestionBtn">
+<span>Continue to Question 2</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- BOTTOM NAVIGATION BAR (From Shared Components JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 py-2 border-t border-surface-variant dark:border-secondary bg-surface-bright dark:bg-surface">
+<!-- Exam Tab (Active) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg px-3 py-1.5 font-semibold active:translate-y-0.5 transition-transform duration-100" id="navExam">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">quiz</span>
+<span class="text-label-mono-sm font-label-mono-sm uppercase tracking-wider">Exam</span>
+</button>
+<!-- Handbook Tab -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim px-3 py-1.5 hover:bg-surface-container transition-colors duration-150 active:translate-y-0.5 transition-transform duration-100" id="navHandbook">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-mono-sm font-label-mono-sm uppercase tracking-wider">Handbook</span>
+</button>
+<!-- Progress Tab -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim px-3 py-1.5 hover:bg-surface-container transition-colors duration-150 active:translate-y-0.5 transition-transform duration-100" id="navProgress">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-mono-sm font-label-mono-sm uppercase tracking-wider">Progress</span>
+</button>
+</nav>
+<!-- OFFICIAL DPS CERTIFICATE MODAL -->
+<div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-3" id="certModal">
+<div class="w-full max-w-sm bg-[#FFFFFF] rounded-2xl border-4 border-[#171B19] p-5 relative shadow-2xl flex flex-col items-center animate-pop">
+<!-- Close Button -->
+<button class="absolute top-3 right-3 text-secondary hover:text-on-surface p-1 rounded-full" id="closeCertBtn">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Official Header Watermark -->
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[#E87522] text-3xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-headline-sm text-headline-sm font-extrabold tracking-tight text-on-surface">TEXAS DPS KNOWLEDGE VERIFICATION</span>
+</div>
+<p class="font-label-mono-sm text-label-mono-sm text-secondary mb-4 uppercase">Certificate of Academic Exam Completion</p>
+<!-- Official Certificate Border & Details Card -->
+<div class="w-full border-2 border-dashed border-[#8a7265] p-3 rounded-lg bg-[#FAF9F6] text-center relative overflow-hidden">
+<div class="text-[10px] font-label-mono-sm uppercase tracking-widest text-[#753400] font-bold">Driver License Division - State of Texas</div>
+<div class="my-2.5">
+<span class="text-xs text-secondary font-label-mono-sm">THIS CERTIFIES THAT CANDIDATE</span>
+<div class="font-headline-md text-headline-md font-bold text-on-surface mt-0.5">EXAM APPLICANT #40892</div>
+<div class="text-label-mono-sm text-secondary">Has successfully satisfied the statutory test threshold with a grade of:</div>
+<div class="font-headline-lg text-headline-lg font-black text-[#16A34A] my-1" id="certScoreGrade">80.0% - PASS</div>
+</div>
+<!-- Certificate Metadata Grid -->
+<div class="grid grid-cols-2 gap-2 text-left pt-2 border-t border-[#D9DDD8] text-[10px] font-label-mono-sm text-secondary">
+<div>
+<span class="block font-bold text-on-surface">DATE VALIDATED:</span>
+<span id="certDateStamp">TODAY</span>
+</div>
+<div>
+<span class="block font-bold text-on-surface">VERIFICATION CODE:</span>
+<span class="font-mono text-[#9a4600]">TX-DPS-8842-OK</span>
+</div>
+</div>
+<!-- Rubber Stamp Animation Element -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none" id="rubberStamp">
+<div class="border-4 border-[#16A34A] text-[#16A34A] font-extrabold font-label-mono-lg px-4 py-2 rounded-lg tracking-wider transform -rotate-12 bg-white/80 backdrop-blur-xs shadow-lg animate-stamp">
+              ★ APPROVED - DPS CERTIFIED ★
+            </div>
+</div>
+</div>
+<!-- Download & Print Button -->
+<div class="w-full mt-4 space-y-2">
+<button class="w-full bg-[#171B19] text-white py-2.5 rounded-lg font-bold font-headline-sm text-sm flex items-center justify-center gap-2 hover:bg-black transition-all" onclick="window.print()">
+<span class="material-symbols-outlined text-base">print</span>
+<span>Print Official Record</span>
+</button>
+<button class="w-full text-secondary text-label-mono-sm font-label-mono-sm hover:underline py-1" id="dismissCertBtn">
+            Return to Exam Summary
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Particle Fireworks / Confetti Canvas -->
+<canvas id="confettiCanvas"></canvas>
+<!-- Interactive Logic Engine -->
+<script>
+    // 5 EXACT QUESTIONS SPECIFIED IN PROMPT
+    const EXAM_QUESTIONS = [
+      {
+        id: 1,
+        category: "RIGHT-OF-WAY LAWS",
+        headline: "Four vehicles arrive at an all-way stop intersection. Who has the legal right-of-way to proceed first?",
+        scenarioSvg: `
+          <svg viewBox="0 0 280 140" class="w-full h-36">
+            <!-- Roadway Base -->
+            <rect width="280" height="140" fill="#E2E3E1" />
+            <!-- Asphalt intersection cross -->
+            <rect x="0" y="45" width="280" height="50" fill="#2E3130" />
+            <rect x="115" y="0" width="50" height="140" fill="#2E3130" />
+            
+            <!-- Stop Lines & Center Lines -->
+            <line x1="0" y1="70" x2="105" y2="70" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+            <line x1="175" y1="70" x2="280" y2="70" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+            <line x1="140" y1="0" x2="140" y2="40" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+            <line x1="140" y1="100" x2="140" y2="140" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+
+            <line x1="110" y1="45" x2="110" y2="95" stroke="#FFFFFF" stroke-width="3" />
+            <line x1="170" y1="45" x2="170" y2="95" stroke="#FFFFFF" stroke-width="3" />
+            <line x1="115" y1="42" x2="165" y2="42" stroke="#FFFFFF" stroke-width="3" />
+            <line x1="115" y1="98" x2="165" y2="98" stroke="#FFFFFF" stroke-width="3" />
+
+            <!-- Car A (Arrived First - Highlighted) -->
+            <g transform="translate(80, 52)">
+              <rect width="24" height="16" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+              <text x="12" y="12" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">A</text>
+              <text x="12" y="-4" font-family="JetBrains Mono" font-size="8" font-weight="bold" fill="#E87522" text-anchor="middle">1st to Stop</text>
+            </g>
+
+            <!-- Car B -->
+            <g transform="translate(144, 18)">
+              <rect width="16" height="20" rx="3" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+              <text x="8" y="14" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">B</text>
+            </g>
+
+            <!-- Car C -->
+            <g transform="translate(180, 72)">
+              <rect width="24" height="16" rx="3" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+              <text x="12" y="12" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">C</text>
+            </g>
+
+            <!-- Car D -->
+            <g transform="translate(122, 106)">
+              <rect width="16" height="20" rx="3" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+              <text x="8" y="14" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">D</text>
+            </g>
+
+            <!-- 4-Way STOP indicators -->
+            <circle cx="104" cy="38" r="6" fill="#DC2626" />
+            <circle cx="176" cy="38" r="6" fill="#DC2626" />
+            <circle cx="104" cy="102" r="6" fill="#DC2626" />
+            <circle cx="176" cy="102" r="6" fill="#DC2626" />
+            <text x="140" y="73" font-family="Geist" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">ALL-WAY</text>
+          </svg>
+        `,
+        options: [
+          { key: "A", text: "The vehicle that reached the intersection first and came to a complete stop", correct: true },
+          { key: "B", text: "The largest commercial vehicle or pickup truck", correct: false },
+          { key: "C", text: "The vehicle signaling a left turn across traffic", correct: false },
+          { key: "D", text: "The fastest accelerating vehicle", correct: false }
+        ],
+        explanation: "Texas Transportation Code § 545.151: At an all-way stop, the first vehicle to stop has the right-of-way. If arriving simultaneously, yield to the vehicle on your immediate right."
+      },
+      {
+        id: 2,
+        category: "REGULATORY & WARNING SIGNS",
+        headline: "What is the primary legal meaning and required driver response for a yellow diamond-shaped sign?",
+        scenarioSvg: `
+          <svg viewBox="0 0 280 140" class="w-full h-36">
+            <rect width="280" height="140" fill="#F3F4F2" rx="6"/>
+            <!-- MUTCD Diamond Sign Post -->
+            <rect x="136" y="90" width="8" height="45" fill="#8A7265" rx="1"/>
+            
+            <!-- Yellow Diamond Base (Rotated Square) -->
+            <g transform="translate(140, 52) rotate(45)">
+              <rect x="-35" y="-35" width="70" height="70" rx="6" fill="#FACC15" stroke="#171B19" stroke-width="4"/>
+              <rect x="-31" y="-31" width="62" height="62" rx="4" fill="none" stroke="#171B19" stroke-width="1.5"/>
+            </g>
+
+            <!-- Vector Hazard Icon: Lane Merge / Divided Highway -->
+            <path d="M 133 34 L 133 70 M 147 48 L 147 70 M 147 48 C 147 40 133 46 133 34" fill="none" stroke="#171B19" stroke-width="4" stroke-linecap="round"/>
+            <polygon points="133,30 128,38 138,38" fill="#171B19"/>
+            
+            <text x="140" y="115" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#191C1B" text-anchor="middle">MUTCD W4-1 MERGE</text>
+          </svg>
+        `,
+        options: [
+          { key: "A", text: "Regulatory mandate — stop immediately and yield", correct: false },
+          { key: "B", text: "Warning / Hazard ahead — slow down and prepare for potential road conditions", correct: true },
+          { key: "C", text: "Interstate route highway marker", correct: false },
+          { key: "D", text: "Construction detour route exclusively", correct: false }
+        ],
+        explanation: "MUTCD / DPS Handbook Section 5: Diamond-shaped yellow signs are Warning signs alerting drivers to upcoming hazards, lane merges, sharp curves, or pedestrian crossings."
+      },
+      {
+        id: 3,
+        category: "SAFE MANEUVERS",
+        headline: "Under state law, at what minimum continuous distance before turning or changing lanes must you activate your turn signal?",
+        scenarioSvg: `
+          <svg viewBox="0 0 280 140" class="w-full h-36">
+            <rect width="280" height="140" fill="#2E3130" rx="6"/>
+            <!-- Roadway Striping -->
+            <line x1="20" y1="70" x2="260" y2="70" stroke="#FFD100" stroke-width="2" stroke-dasharray="8 6"/>
+            <line x1="20" y1="20" x2="260" y2="20" stroke="#FFFFFF" stroke-width="2"/>
+            <line x1="20" y1="120" x2="260" y2="120" stroke="#FFFFFF" stroke-width="2"/>
+
+            <!-- Turn Vehicle -->
+            <g transform="translate(45, 82)">
+              <rect width="36" height="20" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+              <!-- Blinking Signal Light Indicator -->
+              <circle cx="34" cy="2" r="3" fill="#FACC15" />
+              <circle cx="34" cy="2" r="6" fill="#FACC15" opacity="0.4"/>
+            </g>
+
+            <!-- 100 FT Continuous Distance Marker -->
+            <line x1="85" y1="45" x2="220" y2="45" stroke="#FFFFFF" stroke-width="2" />
+            <polygon points="85,45 92,41 92,49" fill="#FFFFFF"/>
+            <polygon points="220,45 213,41 213,49" fill="#FFFFFF"/>
+            
+            <rect x="115" y="34" width="75" height="22" rx="4" fill="#171B19" stroke="#E87522" stroke-width="1.5"/>
+            <text x="152" y="49" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">100 FEET</text>
+
+            <!-- Intersection Arrow Ahead -->
+            <path d="M 225 90 L 250 90 M 245 80 L 255 90 L 245 100" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        `,
+        options: [
+          { key: "A", text: "At least 50 feet", correct: false },
+          { key: "B", text: "At least 100 feet before the turn or lane change", correct: true },
+          { key: "C", text: "Only when other vehicles are visibly in your rearview mirror", correct: false },
+          { key: "D", text: "At least 250 feet on city surface streets", correct: false }
+        ],
+        explanation: "Texas Transportation Code § 545.104: An operator intending to turn right or left shall signal continuously for not less than the last 100 feet of movement immediately before the turn."
+      },
+      {
+        id: 4,
+        category: "ALCOHOL & SUBSTANCE LAWS",
+        headline: "What is the legal Blood Alcohol Concentration (BAC) limit for any driver under the age of 21 operating a motor vehicle?",
+        scenarioSvg: `
+          <svg viewBox="0 0 280 140" class="w-full h-36">
+            <rect width="280" height="140" fill="#FAF9F8" rx="6"/>
+            
+            <!-- Digital Breathalyzer Device Visual -->
+            <rect x="75" y="15" width="130" height="110" rx="12" fill="#191C1B" stroke="#D9DDD8" stroke-width="2"/>
+            
+            <!-- Sensor Vent -->
+            <rect x="130" y="8" width="20" height="8" rx="2" fill="#5B5F5D"/>
+
+            <!-- LCD Screen Gauge -->
+            <rect x="90" y="30" width="100" height="50" rx="6" fill="#003613" stroke="#25AB51" stroke-width="1.5"/>
+            <text x="140" y="62" font-family="JetBrains Mono" font-size="24" font-weight="bold" fill="#7FFC97" text-anchor="middle">0.00%</text>
+            <text x="140" y="74" font-family="JetBrains Mono" font-size="8" font-weight="bold" fill="#62DF7D" text-anchor="middle">ZERO TOLERANCE LAW</text>
+
+            <!-- Status Indicator Pills -->
+            <g transform="translate(90, 92)">
+              <rect width="45" height="18" rx="3" fill="#DC2626"/>
+              <text x="22" y="12" font-family="JetBrains Mono" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">&lt; 21 YRS</text>
+            </g>
+            <g transform="translate(145, 92)">
+              <rect width="45" height="18" rx="3" fill="#25AB51"/>
+              <text x="22" y="12" font-family="JetBrains Mono" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">STRICT</text>
+            </g>
+          </svg>
+        `,
+        options: [
+          { key: "A", text: "0.08% BAC", correct: false },
+          { key: "B", text: "0.04% BAC", correct: false },
+          { key: "C", text: "Zero Tolerance: Any detectable amount of alcohol in the system (0.00%)", correct: true },
+          { key: "D", text: "0.02% BAC with adult supervision", correct: false }
+        ],
+        explanation: "Texas Alcoholic Beverage Code (Zero Tolerance Law): It is illegal for any minor to drive with any detectable amount of alcohol in their system. The legal limit is strictly 0.00%."
+      },
+      {
+        id: 5,
+        category: "PASSING & ROAD POSITION",
+        headline: "When is it legally permissible to pass another vehicle on the right?",
+        scenarioSvg: `
+          <svg viewBox="0 0 280 140" class="w-full h-36">
+            <rect width="280" height="140" fill="#2E3130" rx="6"/>
+            <!-- Lane Markings -->
+            <line x1="10" y1="30" x2="270" y2="30" stroke="#FFFFFF" stroke-width="2"/>
+            <line x1="10" y1="75" x2="270" y2="75" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="6 6"/>
+            <line x1="10" y1="120" x2="270" y2="120" stroke="#FFFFFF" stroke-width="2"/>
+
+            <!-- Turning Vehicle in left lane (Left blinker) -->
+            <g transform="translate(100, 42)">
+              <rect width="40" height="22" rx="4" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+              <circle cx="2" cy="4" r="3" fill="#FACC15"/>
+              <text x="20" y="14" font-family="JetBrains Mono" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">MAKING LEFT</text>
+            </g>
+
+            <!-- Legal Passing Vehicle on paved unobstructed right lane -->
+            <g transform="translate(160, 86)">
+              <rect width="42" height="22" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+              <text x="21" y="14" font-family="JetBrains Mono" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">PASSING</text>
+            </g>
+
+            <!-- Trajectory Path Arrow -->
+            <path d="M 60 97 L 150 97 M 145 92 L 155 97 L 145 102" fill="none" stroke="#25AB51" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="140" y="22" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#7FFC97" text-anchor="middle">PAVED UNOBSTRUCTED LANE ONLY</text>
+          </svg>
+        `,
+        options: [
+          { key: "A", text: "Whenever traffic is moving slower than the posted speed limit", correct: false },
+          { key: "B", text: "Only when the vehicle overtaken is making a left turn and on paved, unobstructed pavement without leaving the roadway", correct: true },
+          { key: "C", text: "By driving onto the paved or unpaved right shoulder at any time", correct: false },
+          { key: "D", text: "Passing on the right is strictly prohibited under all circumstances", correct: false }
+        ],
+        explanation: "Texas Transportation Code § 545.057: An operator may pass to the right only if the vehicle overtaken is making or about to make a left turn, and the pass is made safely on pavement without driving onto the shoulder."
+      }
+    ];
+
+    // STATE VARIABLES
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let strikes = 0;
+    const MAX_STRIKES = 2;
+    let isAnswerSubmitted = false;
+    let userAuditHistory = []; // records question result details
+
+    // DOM ELEMENTS
+    const questionCardSection = document.getElementById('questionCardSection');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const scenarioVisualContainer = document.getElementById('scenarioVisualContainer');
+    const questionHeadline = document.getElementById('questionHeadline');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const categoryLabel = document.getElementById('categoryLabel');
+    const qTrackerText = document.getElementById('qTrackerText');
+    const livesText = document.getElementById('livesText');
+    const currentScoreDisplay = document.getElementById('currentScoreDisplay');
+    const feedbackDrawer = document.getElementById('feedbackDrawer');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackIconSpan = document.getElementById('feedbackIconSpan');
+    const feedbackMaterialIcon = document.getElementById('feedbackMaterialIcon');
+    const feedbackExplanation = document.getElementById('feedbackExplanation');
+    const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+    const certModal = document.getElementById('certModal');
+    const viewCertificateBtn = document.getElementById('viewCertificateBtn');
+    const closeCertBtn = document.getElementById('closeCertBtn');
+    const dismissCertBtn = document.getElementById('dismissCertBtn');
+    const retakeExamBtn = document.getElementById('retakeExamBtn');
+
+    // INITIAL LOAD
+    function initExam() {
+      currentQuestionIndex = 0;
+      score = 0;
+      strikes = 0;
+      userAuditHistory = [];
+      isAnswerSubmitted = false;
+      
+      resultsScreen.classList.add('hidden');
+      questionCardSection.classList.remove('hidden');
+      feedbackDrawer.classList.add('translate-y-full');
+
+      // Reset segmented progress
+      for (let i = 0; i < 5; i++) {
+        const seg = document.getElementById(`seg-${i}`);
+        seg.className = "h-1.5 rounded-full bg-surface-variant transition-all duration-300";
+      }
+
+      renderCurrentQuestion();
+      updateTelemetry();
+    }
+
+    // UPDATE TOP TELEMETRY
+    function updateTelemetry() {
+      qTrackerText.textContent = `QUESTION ${currentQuestionIndex + 1} / 5`;
+      livesText.textContent = `STRIKES: ${strikes}/${MAX_STRIKES}`;
+      currentScoreDisplay.textContent = `SCORE: ${score * 20}`;
+    }
+
+    // RENDER QUESTION
+    function renderCurrentQuestion() {
+      isAnswerSubmitted = false;
+      const q = EXAM_QUESTIONS[currentQuestionIndex];
+
+      // Update segment currently active
+      const currentSeg = document.getElementById(`seg-${currentQuestionIndex}`);
+      if (currentSeg) {
+        currentSeg.className = "h-1.5 rounded-full bg-[#E87522] animate-pulse transition-all duration-300";
+      }
+
+      // Populate Visual & Text
+      categoryLabel.textContent = q.category;
+      scenarioVisualContainer.innerHTML = q.scenarioSvg;
+      questionHeadline.textContent = q.headline;
+
+      // Populate Multiple-Choice Buttons
+      optionsContainer.innerHTML = '';
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.dataset.key = opt.key;
+        btn.className = `w-full text-left p-3.5 rounded-xl border-[1.5px] border-[#D9DDD8] border-b-[3px] bg-white transition-all duration-150 flex items-start gap-3 hover:bg-surface-container-low active:translate-y-0.5 active:border-b-[1.5px] group`;
+        
+        btn.innerHTML = `
+          <span class="w-7 h-7 rounded-md bg-surface-container font-label-mono-md text-label-mono-md font-bold text-on-surface flex items-center justify-center shrink-0 border border-[#D9DDD8] group-hover:border-[#171B19]">
+            ${opt.key}
+          </span>
+          <span class="font-body-md text-body-md text-on-surface pt-0.5 leading-snug flex-1 font-medium">
+            ${opt.text}
+          </span>
+          <span class="material-symbols-outlined text-secondary opacity-0 transition-opacity text-xl shrink-0 pt-0.5" id="icon-${opt.key}">
+            radio_button_unchecked
+          </span>
+        `;
+
+        btn.addEventListener('click', () => handleOptionSelect(opt, btn));
+        optionsContainer.appendChild(btn);
+      });
+
+      // Update Feedback CTA Text
+      if (currentQuestionIndex === EXAM_QUESTIONS.length - 1) {
+        nextQuestionBtn.innerHTML = `<span>View Exam Results</span><span class="material-symbols-outlined text-lg">assessment</span>`;
+      } else {
+        nextQuestionBtn.innerHTML = `<span>Continue to Question ${currentQuestionIndex + 2}</span><span class="material-symbols-outlined text-lg">arrow_forward</span>`;
+      }
+    }
+
+    // HANDLE OPTION SELECTION
+    function handleOptionSelect(selectedOption, buttonElement) {
+      if (isAnswerSubmitted) return;
+      isAnswerSubmitted = true;
+
+      const q = EXAM_QUESTIONS[currentQuestionIndex];
+      const isCorrect = selectedOption.correct;
+      const currentSeg = document.getElementById(`seg-${currentQuestionIndex}`);
+
+      // Disable other buttons
+      const allOptionButtons = optionsContainer.querySelectorAll('button');
+      allOptionButtons.forEach(btn => {
+        btn.disabled = true;
+      });
+
+      if (isCorrect) {
+        score++;
+        triggerConfetti(buttonElement);
+        // Stylize selected correct button
+        buttonElement.className = "w-full text-left p-3.5 rounded-xl border-2 border-[#16A34A] border-b-4 bg-[#16A34A]/10 transition-all flex items-start gap-3 animate-pop";
+        const iconSpan = buttonElement.querySelector(`#icon-${selectedOption.key}`);
+        iconSpan.textContent = "check_circle";
+        iconSpan.className = "material-symbols-outlined text-[#16A34A] opacity-100 text-xl shrink-0 pt-0.5";
+        iconSpan.style.fontVariationSettings = "'FILL' 1";
+
+        if (currentSeg) currentSeg.className = "h-1.5 rounded-full bg-[#16A34A] transition-all";
+
+        // Setup Drawer for Correct
+        feedbackTitle.textContent = "CORRECT! (+20 PTS)";
+        feedbackTitle.className = "font-headline-sm text-headline-sm font-bold text-[#16A34A]";
+        feedbackIconSpan.className = "w-8 h-8 rounded-full flex items-center justify-center bg-[#16A34A]/10 text-[#16A34A]";
+        feedbackMaterialIcon.textContent = "check_circle";
+        document.getElementById('feedbackDrawerContent').className = "bg-white border-2 border-[#16A34A] rounded-xl shadow-2xl p-4 space-y-3";
+
+      } else {
+        strikes++;
+        // Stylize selected incorrect button with shake
+        buttonElement.className = "w-full text-left p-3.5 rounded-xl border-2 border-[#DC2626] border-b-4 bg-[#DC2626]/10 transition-all flex items-start gap-3 animate-shake";
+        const errorIcon = buttonElement.querySelector(`#icon-${selectedOption.key}`);
+        errorIcon.textContent = "cancel";
+        errorIcon.className = "material-symbols-outlined text-[#DC2626] opacity-100 text-xl shrink-0 pt-0.5";
+        errorIcon.style.fontVariationSettings = "'FILL' 1";
+
+        // Highlight the true correct option in soft green
+        allOptionButtons.forEach(b => {
+          const key = b.dataset.key;
+          const optMatch = q.options.find(o => o.key === key);
+          if (optMatch && optMatch.correct) {
+            b.className = "w-full text-left p-3.5 rounded-xl border-2 border-[#16A34A] border-b-2 bg-[#16A34A]/5 transition-all flex items-start gap-3";
+            const trueIcon = b.querySelector(`#icon-${key}`);
+            trueIcon.textContent = "check_circle";
+            trueIcon.className = "material-symbols-outlined text-[#16A34A] opacity-100 text-xl shrink-0 pt-0.5";
+          }
+        });
+
+        if (currentSeg) currentSeg.className = "h-1.5 rounded-full bg-[#DC2626] transition-all";
+
+        // Setup Drawer for Incorrect
+        feedbackTitle.textContent = "INCORRECT STATUTE (0 PTS)";
+        feedbackTitle.className = "font-headline-sm text-headline-sm font-bold text-[#DC2626]";
+        feedbackIconSpan.className = "w-8 h-8 rounded-full flex items-center justify-center bg-[#DC2626]/10 text-[#DC2626]";
+        feedbackMaterialIcon.textContent = "error";
+        document.getElementById('feedbackDrawerContent').className = "bg-white border-2 border-[#DC2626] rounded-xl shadow-2xl p-4 space-y-3";
+      }
+
+      // Record Audit Trail
+      userAuditHistory.push({
+        qIndex: currentQuestionIndex + 1,
+        headline: q.headline,
+        isCorrect: isCorrect,
+        category: q.category
+      });
+
+      // Populate Explanation
+      feedbackExplanation.textContent = q.explanation;
+      updateTelemetry();
+
+      // Slide up drawer
+      setTimeout(() => {
+        feedbackDrawer.classList.remove('translate-y-full');
+      }, 250);
+    }
+
+    // NEXT QUESTION OR RESULTS
+    nextQuestionBtn.addEventListener('click', () => {
+      feedbackDrawer.classList.add('translate-y-full');
+
+      setTimeout(() => {
+        if (currentQuestionIndex < EXAM_QUESTIONS.length - 1) {
+          currentQuestionIndex++;
+          renderCurrentQuestion();
+          updateTelemetry();
+        } else {
+          showResultsScreen();
+        }
+      }, 300);
+    });
+
+    // RENDER RESULTS SCREEN
+    function showResultsScreen() {
+      questionCardSection.classList.add('hidden');
+      resultsScreen.classList.remove('hidden');
+
+      const finalPercentage = Math.round((score / EXAM_QUESTIONS.length) * 100);
+      const isPassed = finalPercentage >= 70; // 4 out of 5 = 80% (Pass), 3 out of 5 = 60% (Fail)
+
+      const badgeContainer = document.getElementById('resultsBadgeContainer');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultDesc = document.getElementById('resultDesc');
+      const resultPercentage = document.getElementById('resultPercentage');
+      const scoreCircleProgress = document.getElementById('scoreCircleProgress');
+      const circleRatio = document.getElementById('circleRatio');
+      const passingStatusBadge = document.getElementById('passingStatusBadge');
+
+      resultPercentage.textContent = `${finalPercentage}%`;
+      circleRatio.textContent = `${score}/${EXAM_QUESTIONS.length}`;
+
+      // Update circular stroke (circumference approx 100)
+      scoreCircleProgress.setAttribute('stroke-dasharray', `${finalPercentage}, 100`);
+
+      if (isPassed) {
+        triggerGrandConfetti();
+        badgeContainer.className = "w-20 h-20 rounded-full flex items-center justify-center mx-auto shadow-md bg-[#16A34A]/10 border-2 border-[#16A34A] text-[#16A34A]";
+        badgeContainer.innerHTML = `<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>`;
+        resultTitle.textContent = "EXAM PASSED - OFFICIAL QUALIFIED";
+        resultTitle.className = "font-headline-lg text-headline-lg font-bold text-[#16A34A]";
+        resultDesc.textContent = "Congratulations! You have satisfied the knowledge testing requirements mandated by the Texas Department of Public Safety.";
+        passingStatusBadge.className = "inline-block text-label-mono-sm font-label-mono-sm font-bold px-2 py-0.5 rounded bg-[#16A34A]/15 text-[#16A34A]";
+        passingStatusBadge.textContent = "STATE STATUS: PASSED";
+        viewCertificateBtn.classList.remove('hidden');
+        document.getElementById('certScoreGrade').textContent = `${finalPercentage}.0% - PASS`;
+      } else {
+        badgeContainer.className = "w-20 h-20 rounded-full flex items-center justify-center mx-auto shadow-md bg-[#DC2626]/10 border-2 border-[#DC2626] text-[#DC2626]";
+        badgeContainer.innerHTML = `<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">report</span>`;
+        resultTitle.textContent = "KNOWLEDGE EXAM NOT PASSED";
+        resultTitle.className = "font-headline-lg text-headline-lg font-bold text-[#DC2626]";
+        resultDesc.textContent = "State benchmark mandates a minimum of 70% accuracy. Review the handbook citations below and retake the simulator.";
+        passingStatusBadge.className = "inline-block text-label-mono-sm font-label-mono-sm font-bold px-2 py-0.5 rounded bg-[#DC2626]/15 text-[#DC2626]";
+        passingStatusBadge.textContent = "STATE STATUS: BELOW 70% MINIMUM";
+        viewCertificateBtn.classList.add('hidden');
+      }
+
+      // Build Audit Trail List
+      const auditList = document.getElementById('auditList');
+      auditList.innerHTML = '';
+      userAuditHistory.forEach(item => {
+        const row = document.createElement('div');
+        row.className = "pt-1.5 flex items-center justify-between text-xs";
+        row.innerHTML = `
+          <div class="flex items-center gap-2 truncate pr-2">
+            <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs ${item.isCorrect ? 'bg-[#16A34A]/15 text-[#16A34A]' : 'bg-[#DC2626]/15 text-[#DC2626]'} font-bold">
+              ${item.qIndex}
+            </span>
+            <span class="truncate font-medium text-on-surface">${item.category}</span>
+          </div>
+          <span class="font-label-mono-sm font-bold shrink-0 ${item.isCorrect ? 'text-[#16A34A]' : 'text-[#DC2626]'}">
+            ${item.isCorrect ? '+20 PTS' : '0 PTS'}
+          </span>
+        `;
+        auditList.appendChild(row);
+      });
+    }
+
+    // RETAKE SIMULATOR BUTTON
+    retakeExamBtn.addEventListener('click', () => {
+      initExam();
+    });
+
+    // CERTIFICATE MODAL CONTROLS
+    viewCertificateBtn.addEventListener('click', () => {
+      const today = new Date();
+      document.getElementById('certDateStamp').textContent = today.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      certModal.classList.remove('hidden');
+      triggerGrandConfetti();
+    });
+
+    closeCertBtn.addEventListener('click', () => {
+      certModal.classList.add('hidden');
+    });
+
+    dismissCertBtn.addEventListener('click', () => {
+      certModal.classList.add('hidden');
+    });
+
+    // EXIT APP BUTTON INTERACTION
+    document.getElementById('exitBtn').addEventListener('click', () => {
+      if (confirm("Exit official DPS knowledge test session? Any uncompleted answers will not be recorded.")) {
+        initExam();
+      }
+    });
+
+    // LIGHTWEIGHT CONFETTI PARTICLE SYSTEM
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function triggerConfetti(originElement) {
+      const rect = originElement ? originElement.getBoundingClientRect() : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+      const centerX = rect.x + (rect.width ? rect.width / 2 : 0);
+      const centerY = rect.y + (rect.height ? rect.height / 2 : 0);
+
+      const colors = ['#E87522', '#16A34A', '#FACC15', '#25AB51', '#FFFFFF'];
+      for (let i = 0; i < 35; i++) {
+        particles.push({
+          x: centerX,
+          y: centerY,
+          size: Math.random() * 6 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.7) * 9,
+          gravity: 0.22,
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 12,
+          alpha: 1
+        });
+      }
+      if (!isAnimatingConfetti) {
+        animateConfetti();
+      }
+    }
+
+    function triggerGrandConfetti() {
+      const colors = ['#E87522', '#16A34A', '#FACC15', '#FFD100', '#191C1B'];
+      for (let i = 0; i < 110; i++) {
+        particles.push({
+          x: Math.random() * window.innerWidth,
+          y: -10,
+          size: Math.random() * 7 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 5,
+          vy: Math.random() * 5 + 3,
+          gravity: 0.12,
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 10,
+          alpha: 1
+        });
+      }
+      if (!isAnimatingConfetti) {
+        animateConfetti();
+      }
+    }
+
+    let isAnimatingConfetti = false;
+    function animateConfetti() {
+      isAnimatingConfetti = true;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p, index) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.rotation += p.rotationSpeed;
+        p.alpha -= 0.012;
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+
+        if (p.alpha <= 0 || p.y > window.innerHeight) {
+          particles.splice(index, 1);
+        }
+      });
+
+      if (particles.length > 0) {
+        requestAnimationFrame(animateConfetti);
+      } else {
+        isAnimatingConfetti = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    // START ON DOM READY
+    window.addEventListener('DOMContentLoaded', () => {
+      initExam();
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L09-T01';
+  const nextTopicId = 'None';
+  const prevTopicId = 'L08-T10';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body></html>

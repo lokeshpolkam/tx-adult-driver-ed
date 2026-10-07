@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L05-T04: Maneuvers: Passing, Turning, and Parking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            canvas: '#F6F7F5',
+            'brand-orange': '#E87522',
+            'brand-dark': '#111111',
+            'surface-white': '#FFFFFF',
+            'border-subtle': '#E2E4E0',
+            'card-border': '#E7E9E5',
+            'ink-muted': '#62665F',
+            'ink-light': '#8A8F87'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #111111;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .road-perspective {
+      perspective: 600px;
+    }
+    .road-plane {
+      transform: rotateX(46deg);
+      transform-origin: bottom center;
+    }
+    .dashed-pass {
+      background-image: linear-gradient(to bottom, #FBBF24 50%, transparent 50%);
+      background-size: 4px 32px;
+    }
+    .solid-pass {
+      background-color: #FBBF24;
+    }
+    .transition-all-custom {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* wheel rotation transitions */
+    .wheel-rotate {
+      transition: transform 0.35s ease;
+      transform-origin: center center;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-24 selection:bg-orange-100 selection:text-orange-900">
+
+  <!-- Editorial Top Metabar -->
+  <header class="border-b border-border-subtle bg-surface-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center px-2 py-0.5 rounded font-mono font-medium tracking-wide bg-orange-50 text-brand-orange border border-orange-200/60 uppercase">
+          Module 05 &middot; Topic 04
+        </span>
+        <span class="text-ink-light">/</span>
+        <span class="font-mono text-ink-muted">TTC &sect; 545.051 &ndash; &sect; 545.302</span>
+      </div>
+      <div class="flex items-center gap-4 text-ink-muted font-mono">
+        <span class="hidden sm:inline-flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          TDLR APPROVED CURRICULUM
+        </span>
+        <span class="text-ink-light">|</span>
+        <span>EST. TIME: 16 MIN</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Lesson Article Content -->
+  <main class="max-w-5xl mx-auto px-6 pt-10">
+
+    <!-- Hero Title Block -->
+    <div class="mb-14">
+      <div class="inline-flex items-center gap-2 mb-3">
+        <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+        <p class="font-mono text-xs uppercase tracking-widest text-brand-orange font-semibold">
+          Kinetic Trajectories &amp; Statutory Spacing
+        </p>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark mb-4 leading-tight">
+        Maneuvers: Passing, Turning, and Parking
+      </h1>
+      <p class="text-lg md:text-xl text-ink-muted font-normal max-w-3xl leading-relaxed">
+        Operating across opposing lanes, crossing pedestrian paths, and securing stationary vehicles require non-negotiable statutory margins. Master the codified geometric rules under Texas Transportation Code Chapter 545.
+      </p>
+
+      <!-- Statutory Cornerstone Box -->
+      <div class="mt-8 p-5 bg-surface-white rounded-xl border border-card-border shadow-xs flex flex-col sm:flex-row items-start gap-4">
+        <div class="p-2.5 rounded-lg bg-orange-50 border border-orange-200/70 text-brand-orange shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <div class="text-sm leading-relaxed">
+          <span class="font-mono text-xs font-bold text-brand-orange uppercase tracking-wider block mb-1">
+            Texas Transportation Code &sect; 545.053 &amp; &sect; 545.054
+          </span>
+          <p class="text-neutral-800">
+            "An operator passing another vehicle proceeding in the same direction shall pass to the left at a safe distance and may not move back to the right until safely clear. On roadways with oncoming traffic, the maneuver must be completed before coming within <strong class="font-semibold text-brand-dark">200 feet</strong> of an oncoming vehicle."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 1: THE PASSING ZONE -->
+    <section class="mb-16 bg-surface-white rounded-2xl border border-card-border p-6 md:p-8 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-border-subtle gap-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-ink-light block mb-1">Module 01 // Kinetic Corridor</span>
+          <h2 class="text-2xl font-bold text-brand-dark tracking-tight">The Passing Zone (Passing &amp; Being Passed)</h2>
+        </div>
+        <!-- Segmented Mode Controller -->
+        <div class="inline-flex p-1 bg-canvas rounded-lg border border-border-subtle self-start md:self-auto font-mono text-xs">
+          <button id="btn-safe-pass" onclick="setPassingMode('safe')" class="px-4 py-2 rounded-md font-medium transition-all-custom bg-surface-white text-brand-dark shadow-xs border border-card-border">
+            [ Safe Pass ]
+          </button>
+          <button id="btn-illegal-pass" onclick="setPassingMode('illegal')" class="px-4 py-2 rounded-md font-medium transition-all-custom text-ink-muted hover:text-brand-dark">
+            [ Illegal Pass ]
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- 2.5D CSS Road Display -->
+        <div class="lg:col-span-7 bg-neutral-900 rounded-xl overflow-hidden p-6 relative border border-neutral-800 shadow-inner flex flex-col items-center justify-center min-h-[340px]">
+          <!-- Road Perspective Stage -->
+          <div class="w-full h-72 road-perspective flex items-center justify-center relative">
+            <div id="road-surface" class="w-64 h-96 bg-neutral-800 rounded-t-sm relative border-x-4 border-neutral-600 road-plane shadow-2xl flex justify-center overflow-hidden">
+              
+              <!-- Lane divider (Center) -->
+              <div id="lane-line" class="absolute w-1.5 h-full top-0 dashed-pass transition-all-custom"></div>
+
+              <!-- Hazard structure overlay (Bridge/Tunnel portal for illegal pass) -->
+              <div id="hazard-bridge" class="absolute top-2 w-full flex flex-col items-center opacity-0 pointer-events-none transition-all-custom z-20">
+                <div class="w-full h-8 bg-amber-500/20 border-y-2 border-dashed border-amber-400 flex items-center justify-center">
+                  <span class="font-mono text-[9px] uppercase tracking-wider text-amber-300 font-bold bg-neutral-900/90 px-2 py-0.5 rounded">
+                    &Delta; 100 FT BRIDGE APEX ZONE
+                  </span>
+                </div>
+              </div>
+
+              <!-- Right Lane: Slower Lead Vehicle -->
+              <div id="lead-car" class="absolute bottom-36 right-8 w-12 h-20 bg-neutral-700 border border-neutral-500 rounded-lg shadow-md flex flex-col justify-between p-1.5 transition-all-custom">
+                <div class="w-full flex justify-between px-1">
+                  <span class="w-1.5 h-1 bg-red-400 rounded-xs"></span>
+                  <span class="w-1.5 h-1 bg-red-400 rounded-xs"></span>
+                </div>
+                <div class="w-full h-6 bg-neutral-900 rounded flex items-center justify-center">
+                  <span class="font-mono text-[8px] text-neutral-400">45 MPH</span>
+                </div>
+                <div class="w-full flex justify-between px-1">
+                  <span class="w-1.5 h-1 bg-amber-200 rounded-xs"></span>
+                  <span class="w-1.5 h-1 bg-amber-200 rounded-xs"></span>
+                </div>
+              </div>
+
+              <!-- Passing Vehicle (YOU) -->
+              <div id="user-passing-car" class="absolute bottom-8 right-8 w-12 h-22 bg-brand-orange border-2 border-orange-300 rounded-lg shadow-xl flex flex-col justify-between p-1.5 transition-all-custom z-10">
+                <div class="w-full flex justify-between px-1">
+                  <span class="w-2 h-1 bg-amber-200 rounded-xs animate-pulse"></span>
+                  <span class="w-2 h-1 bg-amber-200 rounded-xs"></span>
+                </div>
+                <div class="w-full h-7 bg-orange-950/80 rounded flex flex-col items-center justify-center text-center">
+                  <span class="font-mono text-[8px] font-bold text-orange-200">YOU</span>
+                  <span id="user-car-speed" class="font-mono text-[7px] text-orange-300">55 MPH</span>
+                </div>
+                <div class="w-full flex justify-between px-1">
+                  <span class="w-2 h-1 bg-red-500 rounded-xs"></span>
+                  <span class="w-2 h-1 bg-red-500 rounded-xs"></span>
+                </div>
+              </div>
+
+              <!-- Oncoming Car in distance (Safe pass simulation) -->
+              <div id="oncoming-car" class="absolute top-8 left-8 w-8 h-14 bg-blue-600/80 border border-blue-400 rounded shadow flex flex-col justify-between p-1 transition-all-custom opacity-70">
+                <div class="w-full flex justify-between px-0.5">
+                  <span class="w-1 h-0.5 bg-yellow-300 rounded-xs"></span>
+                  <span class="w-1 h-0.5 bg-yellow-300 rounded-xs"></span>
+                </div>
+                <div class="text-[6px] font-mono text-center text-white">ONCOMING</div>
+                <div class="w-full flex justify-between px-0.5">
+                  <span class="w-1 h-0.5 bg-red-400 rounded-xs"></span>
+                  <span class="w-1 h-0.5 bg-red-400 rounded-xs"></span>
+                </div>
+              </div>
+
+              <!-- 200 FT Buffer Caliper Line -->
+              <div id="buffer-marker" class="absolute top-28 left-4 w-32 border-b-2 border-dashed border-emerald-400/80 flex items-center justify-between text-[8px] font-mono text-emerald-300 px-1">
+                <span>&larr;</span>
+                <span class="bg-neutral-900/90 px-1 rounded">&ge; 200 FT BUFFER</span>
+                <span>&rarr;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Telemetry Ribbon -->
+          <div class="w-full mt-4 flex items-center justify-between border-t border-neutral-800 pt-3 text-[11px] font-mono">
+            <span class="text-neutral-400 flex items-center gap-1.5">
+              <span id="pass-indicator-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              STATUS: <strong id="pass-status-text" class="text-neutral-200">STATUTORILY PERMISSIBLE</strong>
+            </span>
+            <span id="pass-metric-badge" class="text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-2 py-0.5 rounded">
+              DASHED LINE // CLEAR VISIBILITY
+            </span>
+          </div>
+        </div>
+
+        <!-- Instructional Callout Column -->
+        <div class="lg:col-span-5 space-y-4">
+          <div id="pass-narrative-card" class="p-5 rounded-xl border border-emerald-200 bg-emerald-50/50 transition-all-custom">
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 block mb-1">
+              Statutory Requirement // TTC &sect; 545.054
+            </span>
+            <h3 id="pass-headline" class="text-base font-bold text-emerald-950 mb-2">
+              Safe Passing Protocol: 200-Foot Safety Clearance
+            </h3>
+            <p id="pass-explanation" class="text-sm text-emerald-900/90 leading-relaxed font-normal">
+              Return to the right lane before an approaching car comes within <strong>200 feet</strong>. Always check your rearview mirror until both headlights of the overtaken vehicle are visible before merging right.
+            </p>
+          </div>
+
+          <div class="p-4 bg-canvas rounded-xl border border-border-subtle text-xs space-y-2.5">
+            <div class="font-mono font-semibold text-brand-dark flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
+              STATUTORY PROHIBITION ZONES (TTC &sect; 545.056):
+            </div>
+            <ul class="space-y-1.5 text-ink-muted pl-4 list-disc">
+              <li>Within <strong>100 feet</strong> of an intersection or railroad grade crossing.</li>
+              <li>Within <strong>100 feet</strong> of any bridge, viaduct, or tunnel.</li>
+              <li>When awaiting or rounding a blind curve or hill crest where sight is restricted.</li>
+              <li>When the vehicle ahead is stopped at a crosswalk to permit a pedestrian to cross.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 2: THE 7 STEPS OF TURNING -->
+    <section class="mb-16 bg-surface-white rounded-2xl border border-card-border p-6 md:p-8 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-border-subtle gap-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-ink-light block mb-1">Module 02 // Sequential Trajectory</span>
+          <h2 class="text-2xl font-bold text-brand-dark tracking-tight">The 7 Steps of Turning</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs text-ink-muted">STEP <strong id="step-count-num" class="text-brand-orange text-sm">1</strong> OF 7</span>
+          <button id="btn-next-step" onclick="cycleTurnStep()" class="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange hover:bg-orange-600 text-white rounded-lg font-mono text-xs font-semibold shadow-xs transition-colors">
+            <span>[ Next Step ]</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+          <button onclick="resetTurnStep()" class="px-2.5 py-2 bg-canvas hover:bg-neutral-200 text-ink-muted rounded-lg font-mono text-xs border border-border-subtle transition-colors" title="Reset to Step 1">
+            &circlearrowleft;
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Top-Down Intersection Stage -->
+        <div class="lg:col-span-6 bg-neutral-900 rounded-xl p-4 border border-neutral-800 flex items-center justify-center min-h-[380px] relative overflow-hidden">
+          
+          <!-- Intersection Geometry (Standard 4-Way) -->
+          <div class="w-72 h-72 relative bg-neutral-800 rounded-md overflow-hidden border-2 border-neutral-700">
+            <!-- Road Gray Background -->
+            <div class="absolute inset-0 bg-neutral-800"></div>
+
+            <!-- Grass / Curbs (4 Quadrants) -->
+            <div class="absolute top-0 left-0 w-24 h-24 bg-neutral-900 border-r-4 border-b-4 border-neutral-600"></div>
+            <div class="absolute top-0 right-0 w-24 h-24 bg-neutral-900 border-l-4 border-b-4 border-neutral-600"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-neutral-900 border-r-4 border-t-4 border-neutral-600"></div>
+            <div class="absolute bottom-0 right-0 w-24 h-24 bg-neutral-900 border-l-4 border-t-4 border-neutral-600"></div>
+
+            <!-- Center Lines -->
+            <!-- North-South Double Yellow -->
+            <div class="absolute top-0 left-[142px] w-0.5 h-24 bg-amber-400"></div>
+            <div class="absolute top-0 left-[146px] w-0.5 h-24 bg-amber-400"></div>
+            <div class="absolute bottom-0 left-[142px] w-0.5 h-24 bg-amber-400"></div>
+            <div class="absolute bottom-0 left-[146px] w-0.5 h-24 bg-amber-400"></div>
+
+            <!-- East-West Double Yellow -->
+            <div class="absolute left-0 top-[142px] w-24 h-0.5 bg-amber-400"></div>
+            <div class="absolute left-0 top-[146px] w-24 h-0.5 bg-amber-400"></div>
+            <div class="absolute right-0 top-[142px] w-24 h-0.5 bg-amber-400"></div>
+            <div class="absolute right-0 top-[146px] w-24 h-0.5 bg-amber-400"></div>
+
+            <!-- Stop Bars -->
+            <div class="absolute bottom-24 left-[146px] w-24 h-1.5 bg-white"></div>
+            <div class="absolute top-24 left-0 w-24 h-1.5 bg-white"></div>
+
+            <!-- White Transverse Crosswalk Hash Marks -->
+            <div class="absolute bottom-[98px] left-[148px] w-22 h-3 flex justify-between pointer-events-none opacity-40">
+              <span class="w-1 h-full bg-white"></span>
+              <span class="w-1 h-full bg-white"></span>
+              <span class="w-1 h-full bg-white"></span>
+              <span class="w-1 h-full bg-white"></span>
+              <span class="w-1 h-full bg-white"></span>
+            </div>
+
+            <!-- Left Turn Trajectory Arc Guide -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 288 288">
+              <path d="M 166 260 L 166 160 Q 166 126 120 126 L 20 126" fill="none" stroke="#E87522" stroke-width="2" stroke-dasharray="4,4" opacity="0.4" />
+            </svg>
+
+            <!-- Turning Vehicle (Stylized Top-Down) -->
+            <div id="anim-turn-car" class="absolute w-7 h-12 bg-brand-orange border border-orange-200 rounded shadow-lg flex flex-col justify-between p-0.5 transition-all duration-700 z-10" style="bottom: 8px; left: 162px; transform: rotate(0deg);">
+              <!-- Headlights -->
+              <div class="w-full flex justify-between px-0.5">
+                <span id="turn-signal-left" class="w-1.5 h-1 bg-yellow-200 rounded-xs"></span>
+                <span class="w-1.5 h-1 bg-neutral-200 rounded-xs"></span>
+              </div>
+              <div class="w-full h-3 bg-neutral-900 rounded-xs flex items-center justify-center">
+                <span class="font-mono text-[5px] text-white">YOU</span>
+              </div>
+              <!-- Taillights -->
+              <div class="w-full flex justify-between px-0.5">
+                <span class="w-1.5 h-1 bg-red-500 rounded-xs"></span>
+                <span class="w-1.5 h-1 bg-red-500 rounded-xs"></span>
+              </div>
+            </div>
+
+            <!-- Step Indicator Badge inside Canvas -->
+            <div class="absolute top-2 left-2 z-20 font-mono text-[9px] text-neutral-300 bg-neutral-900/90 border border-neutral-700 px-2 py-1 rounded">
+              NODE: <span id="turn-node-title" class="text-brand-orange font-bold">APPROACH CORRIDOR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7-Step Breakdown Narrative -->
+        <div class="lg:col-span-6 space-y-3">
+          <div id="turn-step-content" class="p-5 rounded-xl border border-card-border bg-canvas transition-all-custom">
+            <div class="flex items-center gap-2 mb-2 font-mono text-xs">
+              <span class="px-2 py-0.5 rounded bg-brand-orange text-white font-bold" id="step-pill">STEP 1</span>
+              <span class="text-ink-muted uppercase tracking-wider" id="step-statute">TTC &sect; 545.101</span>
+            </div>
+            <h3 id="step-title" class="text-lg font-bold text-brand-dark mb-2">
+              Decide on Your Turn Well in Advance
+            </h3>
+            <p id="step-desc" class="text-sm text-ink-muted leading-relaxed font-normal mb-3">
+              Never make a last-second decision to turn. If you miss your street, turn at the next intersection rather than swerving across lanes or attempting hazardous multi-lane cuts.
+            </p>
+            <div class="p-3 bg-surface-white rounded-lg border border-border-subtle font-mono text-xs text-brand-dark flex items-center gap-2">
+              <span class="text-brand-orange font-bold">&bull;</span>
+              <span id="step-pro-tip">Standard: Choose your path before braking or altering roadway velocity.</span>
+            </div>
+          </div>
+
+          <!-- Miniature 7-Step Progression Dots -->
+          <div class="grid grid-cols-7 gap-1.5 pt-2">
+            <button onclick="jumpToTurnStep(1)" id="dot-1" class="h-2 rounded-full bg-brand-orange transition-all"></button>
+            <button onclick="jumpToTurnStep(2)" id="dot-2" class="h-2 rounded-full bg-border-subtle hover:bg-neutral-300 transition-all"></button>
+            <button onclick="jumpToTurnStep(3)" id="dot-3" class="h-2 rounded-full bg-border-subtle hover:bg-neutral-300 transition-all"></button>
+            <button onclick="jumpToTurnStep(4)" id="dot-4" class="h-2 rounded-full bg-border-subtle hover:bg-neutral-300 transition-all"></button>
+            <button onclick="jumpToTurnStep(5)" id="dot-5" class="h-2 rounded-full bg-border-subtle hover:bg-neutral-300 transition-all"></button>
+            <button onclick="jumpToTurnStep(6)" id="dot-6" class="h-2 rounded-full bg-border-subtle hover:bg-neutral-300 transition-all"></button>
+            <button onclick="jumpToTurnStep(7)" id="dot-7" class="h-2 rounded-full bg-border-subtle hover:bg-neutral-300 transition-all"></button>
+          </div>
+          <div class="flex justify-between font-mono text-[10px] text-ink-light px-1">
+            <span>1. DECIDE EARLY</span>
+            <span>4. SLOW TO TURN SPEED</span>
+            <span>7. FINISH PROPER LANE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 3: THE PARKING DISTANCE EXPLORER -->
+    <section class="mb-16 bg-surface-white rounded-2xl border border-card-border p-6 md:p-8 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-border-subtle gap-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-ink-light block mb-1">Module 03 // Spatial Buffers</span>
+          <h2 class="text-2xl font-bold text-brand-dark tracking-tight">The Parking Distance Explorer (TTC &sect; 545.302)</h2>
+        </div>
+        <!-- Quick Preset Jumps -->
+        <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+          <button onclick="setParkingSlider(15)" class="px-2.5 py-1.5 rounded-md bg-canvas hover:bg-neutral-200 border border-border-subtle text-brand-dark transition-colors">15 FT: Hydrant</button>
+          <button onclick="setParkingSlider(20)" class="px-2.5 py-1.5 rounded-md bg-canvas hover:bg-neutral-200 border border-border-subtle text-brand-dark transition-colors">20 FT: Crosswalk</button>
+          <button onclick="setParkingSlider(30)" class="px-2.5 py-1.5 rounded-md bg-canvas hover:bg-neutral-200 border border-border-subtle text-brand-dark transition-colors">30 FT: Stop Sign</button>
+          <button onclick="setParkingSlider(50)" class="px-2.5 py-1.5 rounded-md bg-canvas hover:bg-neutral-200 border border-border-subtle text-brand-dark transition-colors">50 FT: Railroad</button>
+        </div>
+      </div>
+
+      <div class="mt-6 space-y-6">
+        <!-- Interactive Slider Control -->
+        <div class="p-6 bg-canvas rounded-xl border border-border-subtle">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs text-ink-muted uppercase tracking-wider font-semibold">
+              PROXIMITY THRESHOLD TO SAFETY ASSETS:
+            </span>
+            <div class="flex items-baseline gap-1.5 font-mono">
+              <span id="slider-display-val" class="text-3xl font-extrabold text-brand-orange">15</span>
+              <span class="text-sm font-semibold text-brand-dark">FEET</span>
+            </div>
+          </div>
+          <input type="range" id="distance-slider" min="0" max="100" value="15" step="1" oninput="onDistanceSliderChange(this.value)" class="w-full h-2.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-brand-orange">
+          <div class="flex justify-between font-mono text-[10px] text-ink-light mt-2">
+            <span>0 FT (Direct Contact)</span>
+            <span>15 FT</span>
+            <span>20 FT</span>
+            <span>30 FT</span>
+            <span>50 FT</span>
+            <span>100 FT (Unrestricted)</span>
+          </div>
+        </div>
+
+        <!-- CSS Street Corridor Visualizer -->
+        <div class="relative w-full h-36 bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 p-3 flex flex-col justify-between">
+          <!-- Sidewalk Curb (Top) -->
+          <div class="w-full h-6 bg-neutral-700 border-b-4 border-neutral-500 flex items-center px-4 relative">
+            <span class="font-mono text-[9px] text-neutral-300">SIDEWALK &amp; PEDESTRIAN ACCESS</span>
+
+            <!-- Stationed Asset 1: 15 FT Fire Hydrant -->
+            <div id="asset-hydrant" class="absolute left-[15%] -top-2 flex flex-col items-center transition-all">
+              <div class="w-3.5 h-6 bg-red-600 rounded-t border border-red-300 shadow"></div>
+              <span class="font-mono text-[8px] text-red-400 font-bold mt-0.5">15' HYDRANT</span>
+            </div>
+
+            <!-- Stationed Asset 2: 20 FT Crosswalk -->
+            <div id="asset-crosswalk" class="absolute left-[26%] -top-1 flex flex-col items-center transition-all opacity-40">
+              <div class="w-6 h-4 border-x border-dashed border-white bg-white/20"></div>
+              <span class="font-mono text-[8px] text-neutral-300 font-bold mt-0.5">20' CROSSWALK</span>
+            </div>
+
+            <!-- Stationed Asset 3: 30 FT Stop Sign -->
+            <div id="asset-stopsign" class="absolute left-[44%] -top-3 flex flex-col items-center transition-all opacity-40">
+              <div class="w-4 h-4 bg-red-600 rotate-45 flex items-center justify-center text-[5px] font-bold text-white shadow">STOP</div>
+              <div class="w-0.5 h-3 bg-neutral-400"></div>
+              <span class="font-mono text-[8px] text-neutral-300 font-bold">30' SIGN/LIGHT</span>
+            </div>
+
+            <!-- Stationed Asset 4: 50 FT Railroad -->
+            <div id="asset-railroad" class="absolute left-[72%] -top-2 flex flex-col items-center transition-all opacity-40">
+              <div class="w-4 h-4 rounded-full bg-amber-400 border border-neutral-900 flex items-center justify-center font-bold text-neutral-900 text-[6px]">RXR</div>
+              <span class="font-mono text-[8px] text-amber-300 font-bold mt-0.5">50' RAILROAD</span>
+            </div>
+          </div>
+
+          <!-- Street Pavement & Parked Car Position Marker -->
+          <div class="relative w-full h-16 flex items-center">
+            <!-- Dynamic Exclusion Buffer Line -->
+            <div id="exclusion-zone" class="absolute left-0 top-1 h-14 bg-red-500/20 border-r-2 border-red-500 transition-all flex items-center justify-center" style="width: 15%;">
+              <span class="font-mono text-[9px] text-red-300 font-bold bg-neutral-950/80 px-1 rounded">PROHIBITED ZONE</span>
+            </div>
+
+            <!-- Parked Vehicle Indicator -->
+            <div id="parked-car-marker" class="absolute h-9 bg-brand-orange border border-orange-300 rounded shadow-md flex items-center justify-center px-2 transition-all duration-150 z-20" style="left: 17%;">
+              <span class="font-mono text-[8px] font-bold text-white whitespace-nowrap">YOUR CAR</span>
+            </div>
+          </div>
+
+          <!-- Distance Readout Footbar -->
+          <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 border-t border-neutral-800 pt-1">
+            <span id="parking-zone-legal" class="text-emerald-400 font-semibold">&check; COMPLIANT STOP DISTANCE</span>
+            <span>TTC &sect; 545.302 STATUTORY RADIALS</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Rule Output Card -->
+        <div id="slider-card-feedback" class="p-5 rounded-xl border border-orange-200 bg-orange-50/40 transition-all">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <span id="slider-rule-code" class="font-mono text-xs font-bold uppercase tracking-wider text-brand-orange">
+                TTC &sect; 545.302(b)(1) &middot; 15-FOOT THRESHOLD
+              </span>
+              <h4 id="slider-rule-title" class="text-base font-bold text-brand-dark mt-1">
+                Fire Hydrant Mandatory Clearance
+              </h4>
+              <p id="slider-rule-text" class="text-sm text-ink-muted mt-1 leading-relaxed">
+                An operator may not stand or park an occupied or unoccupied vehicle within <strong>15 feet</strong> of a fire hydrant, except temporarily to pick up or discharge a passenger.
+              </p>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-surface-white border border-card-border font-mono text-xs font-bold text-brand-dark shrink-0">
+              MIN: 15 FT
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 4: PARKING & STANDING RESTRICTIONS -->
+    <section class="mb-16 bg-surface-white rounded-2xl border border-card-border p-6 md:p-8 shadow-xs">
+      <div class="pb-6 border-b border-border-subtle">
+        <span class="font-mono text-xs uppercase tracking-widest text-ink-light block mb-1">Module 04 // Statutory Accountability</span>
+        <h2 class="text-2xl font-bold text-brand-dark tracking-tight">Parking &amp; Standing Restrictions</h2>
+        <p class="text-sm text-ink-muted mt-1">
+          Strict liability violations carrying escalating municipal and penal sanctions across Texas jurisdictions.
+        </p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Card 1: Disabled Parking -->
+        <div class="p-6 rounded-xl border border-card-border bg-canvas flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-blue-700 font-mono text-xs font-semibold">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+                TTC &sect; 681.011
+              </span>
+              <span class="font-mono text-xs font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded">
+                CLASS C MISDEMEANOR
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-brand-dark mb-2">Disabled Parking Space Restrictions</h3>
+            <p class="text-sm text-ink-muted leading-relaxed mb-4">
+              It is illegal to park, stop, or stand in a designated accessible parking space or the adjacent striped access aisle without displaying a valid state-issued disabled placard or specialized license plate.
+            </p>
+            <div class="space-y-2 text-xs font-mono text-neutral-800 bg-surface-white p-3.5 rounded-lg border border-border-subtle">
+              <div class="flex justify-between border-b border-border-subtle pb-1.5">
+                <span class="text-ink-muted">1st Offense Fine:</span>
+                <strong class="text-brand-dark">$500 &ndash; $750</strong>
+              </div>
+              <div class="flex justify-between border-b border-border-subtle pb-1.5">
+                <span class="text-ink-muted">Subsequent Conviction:</span>
+                <strong class="text-red-700">$550 &ndash; $1,250 + 50 hrs Community Service</strong>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-ink-muted">5+ Prior Convictions:</span>
+                <strong class="text-red-700">Up to $1,250 + Imprisonment &le; 6 mos</strong>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 text-xs font-mono text-ink-muted">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+            Includes white/blue striped access ramps and loading aisles.
+          </div>
+        </div>
+
+        <!-- Card 2: Unattended Motor Vehicle -->
+        <div class="p-6 rounded-xl border border-card-border bg-canvas flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-orange-50 border border-orange-200 text-brand-orange font-mono text-xs font-semibold">
+                TTC &sect; 545.404
+              </span>
+              <span class="font-mono text-xs font-bold text-brand-dark bg-surface-white border border-card-border px-2 py-0.5 rounded">
+                MANDATORY 4-POINT PROTOCOL
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-brand-dark mb-2">Unattended Motor Vehicle Rules</h3>
+            <p class="text-sm text-ink-muted leading-relaxed mb-4">
+              An operator may not leave a vehicle unattended without first completing statutory safety measures to prevent accidental rollaway and vehicular theft on public thoroughfares.
+            </p>
+            <div class="space-y-2 text-xs text-neutral-800 bg-surface-white p-3.5 rounded-lg border border-border-subtle">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center font-mono font-bold text-[10px]">1</span>
+                <span><strong>Stop the engine</strong> completely.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center font-mono font-bold text-[10px]">2</span>
+                <span><strong>Lock the ignition</strong> and remove the mechanical key.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center font-mono font-bold text-[10px]">3</span>
+                <span><strong>Effectively set the parking brake</strong> (emergency brake).</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center font-mono font-bold text-[10px]">4</span>
+                <span>If standing on a grade, <strong>turn front wheels to the curb</strong> or side.</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 text-xs font-mono text-ink-muted">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
+            Applies to any public street, alley, highway, or open parking structure.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 5: PARKING EXECUTION (Parallel & Hills) -->
+    <section class="mb-16 bg-surface-white rounded-2xl border border-card-border p-6 md:p-8 shadow-xs">
+      <div class="pb-6 border-b border-border-subtle">
+        <span class="font-mono text-xs uppercase tracking-widest text-ink-light block mb-1">Module 05 // Mechanical Execution</span>
+        <h2 class="text-2xl font-bold text-brand-dark tracking-tight">Parking Execution (Parallel &amp; Hills)</h2>
+        <p class="text-sm text-ink-muted mt-1">
+          Precision placement within 18 inches of the curb and gravitational lockouts on inclines under TTC &sect; 545.301 &amp; 302.
+        </p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Parallel Parking 4-Step Interactive Guide -->
+        <div class="lg:col-span-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold text-brand-dark">Parallel Parking: 4 Stages</h3>
+              <span class="font-mono text-xs text-brand-orange bg-orange-50 border border-orange-200 px-2 py-0.5 rounded font-semibold">
+                TARGET: 6" &middot; MAX: 18"
+              </span>
+            </div>
+            
+            <!-- Step Buttons -->
+            <div class="grid grid-cols-4 gap-2 mb-4 font-mono text-xs">
+              <button onclick="setParallelStep(1)" id="p-step-btn-1" class="py-2 rounded-lg bg-brand-orange text-white font-semibold transition-all">STAGE 1</button>
+              <button onclick="setParallelStep(2)" id="p-step-btn-2" class="py-2 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all">STAGE 2</button>
+              <button onclick="setParallelStep(3)" id="p-step-btn-3" class="py-2 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all">STAGE 3</button>
+              <button onclick="setParallelStep(4)" id="p-step-btn-4" class="py-2 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all">STAGE 4</button>
+            </div>
+
+            <!-- Mini Visual Diagram for Parallel Step -->
+            <div class="h-32 bg-neutral-900 rounded-xl border border-neutral-800 p-3 relative overflow-hidden flex items-center justify-center mb-4">
+              <!-- Right Curb -->
+              <div class="absolute right-0 top-0 bottom-0 w-4 bg-neutral-600 border-l-2 border-neutral-400"></div>
+              
+              <!-- Parked Front Car -->
+              <div class="absolute right-6 top-2 w-8 h-12 bg-neutral-700 border border-neutral-500 rounded"></div>
+              <!-- Parked Rear Car -->
+              <div class="absolute right-6 bottom-2 w-8 h-12 bg-neutral-700 border border-neutral-500 rounded"></div>
+
+              <!-- Animated Maneuvering Car (YOU) -->
+              <div id="parallel-car" class="absolute w-8 h-14 bg-brand-orange border border-orange-200 rounded shadow-lg transition-all duration-500 flex flex-col justify-between p-0.5" style="right: 50px; top: 10px; transform: rotate(0deg);">
+                <div class="w-full flex justify-between px-0.5">
+                  <span class="w-1 h-0.5 bg-yellow-200 rounded-xs"></span>
+                  <span class="w-1 h-0.5 bg-yellow-200 rounded-xs"></span>
+                </div>
+                <div class="text-[5px] font-mono text-center text-white font-bold">YOU</div>
+                <div class="w-full flex justify-between px-0.5">
+                  <span class="w-1 h-0.5 bg-red-400 rounded-xs"></span>
+                  <span class="w-1 h-0.5 bg-red-400 rounded-xs"></span>
+                </div>
+              </div>
+
+              <!-- Alignment guideline -->
+              <div id="parallel-guide-line" class="absolute right-[54px] top-0 bottom-0 border-r border-dashed border-emerald-400/50"></div>
+            </div>
+
+            <!-- Step Description Box -->
+            <div id="parallel-desc-card" class="p-4 bg-canvas rounded-xl border border-border-subtle text-xs space-y-1">
+              <span id="p-stage-title" class="font-bold text-brand-dark block text-sm">1. Position Alongside Front Vehicle</span>
+              <p id="p-stage-body" class="text-ink-muted leading-relaxed font-normal">
+                Stop parallel to the front vehicle approximately 2 to 3 feet away, aligning your rear bumper with the vehicle's rear bumper. Signal your right turn early.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 bg-neutral-50 rounded-lg border border-border-subtle text-[11px] font-mono text-ink-muted flex items-center justify-between">
+            <span>TX MANDATE: TTC &sect; 545.301</span>
+            <span class="text-brand-dark font-semibold">MAX 18" FROM CURB</span>
+          </div>
+        </div>
+
+        <!-- Right: Hill Parking Interactive Angle Tester -->
+        <div class="lg:col-span-6 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-border-subtle pt-6 lg:pt-0 lg:pl-8">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold text-brand-dark">Hill Parking Wheel Angle</h3>
+              <span class="font-mono text-xs text-ink-muted">SELECT TOPOLOGY:</span>
+            </div>
+
+            <!-- Hill Selection Buttons -->
+            <div class="grid grid-cols-3 gap-2 mb-4 font-mono text-xs">
+              <button onclick="setHillMode('uphill')" id="hill-btn-uphill" class="py-2 px-1 rounded-lg bg-brand-orange text-white font-semibold transition-all text-center">
+                [ Uphill w/ Curb ]
+              </button>
+              <button onclick="setHillMode('downhill')" id="hill-btn-downhill" class="py-2 px-1 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all text-center">
+                [ Downhill w/ Curb ]
+              </button>
+              <button onclick="setHillMode('nocurb')" id="hill-btn-nocurb" class="py-2 px-1 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all text-center">
+                [ No Curb ]
+              </button>
+            </div>
+
+            <!-- Visual Hill & Wheel Simulator -->
+            <div class="h-44 bg-neutral-900 rounded-xl border border-neutral-800 p-4 relative overflow-hidden flex items-center justify-center mb-4">
+              <!-- Raised Concrete Curb (Right) -->
+              <div id="hill-curb" class="absolute right-8 top-0 bottom-0 w-5 bg-neutral-600 border-l-4 border-neutral-400 flex flex-col justify-center items-center">
+                <span class="font-mono text-[8px] text-neutral-300 -rotate-90 whitespace-nowrap">CONCRETE CURB</span>
+              </div>
+
+              <!-- Top-Down Vehicle Chassis -->
+              <div class="w-24 h-36 bg-neutral-800 border-2 border-neutral-600 rounded-xl relative shadow-2xl flex flex-col justify-between p-2">
+                <!-- Windshield -->
+                <div class="w-full h-8 bg-neutral-950 rounded border border-neutral-700 flex items-center justify-center">
+                  <span class="font-mono text-[7px] text-neutral-400">CHASSIS</span>
+                </div>
+                <!-- Front Wheels (Steering Axle) -->
+                <div class="absolute -top-1 -left-2.5 w-3 h-7 bg-neutral-950 border border-neutral-400 rounded-xs wheel-rotate" id="front-wheel-left"></div>
+                <div class="absolute -top-1 -right-2.5 w-3 h-7 bg-neutral-950 border border-neutral-400 rounded-xs wheel-rotate" id="front-wheel-right"></div>
+
+                <!-- Center label -->
+                <div class="text-center font-mono text-[8px] text-brand-orange font-bold">
+                  <span id="hill-roll-direction">&uarr; INCLINE &uarr;</span>
+                </div>
+
+                <!-- Rear Wheels (Fixed) -->
+                <div class="absolute -bottom-1 -left-2.5 w-3 h-7 bg-neutral-950 border border-neutral-500 rounded-xs"></div>
+                <div class="absolute -bottom-1 -right-2.5 w-3 h-7 bg-neutral-950 border border-neutral-500 rounded-xs"></div>
+              </div>
+
+              <!-- Kinematic Result Tag -->
+              <div class="absolute bottom-2 left-3 font-mono text-[9px] bg-neutral-950/80 px-2 py-0.5 rounded border border-neutral-700 text-neutral-300">
+                WHEEL ORIENTATION: <span id="wheel-text-summary" class="text-brand-orange font-bold">AWAY FROM CURB (LEFT)</span>
+              </div>
+            </div>
+
+            <!-- Hill Logic Explanation -->
+            <div id="hill-feedback-card" class="p-4 bg-canvas rounded-xl border border-border-subtle text-xs space-y-1">
+              <span id="hill-headline" class="font-bold text-brand-dark block text-sm">Uphill with a Curb: Turn Wheels Left (Away from Curb)</span>
+              <p id="hill-body" class="text-ink-muted leading-relaxed font-normal">
+                Turn wheels sharp left (away from curb). If brakes fail, the back of the front tire rolls backward and chocks squarely against the concrete curb, arresting all downhill momentum.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 bg-neutral-50 rounded-lg border border-border-subtle text-[11px] font-mono text-ink-muted flex items-center justify-between">
+            <span>MEMORIZATION ACRONYM:</span>
+            <strong class="text-brand-dark">UCLA: Up Curb Left Always</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 6: BACKING & COASTING -->
+    <section class="mb-16 bg-surface-white rounded-2xl border border-card-border p-6 md:p-8 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-border-subtle gap-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-ink-light block mb-1">Module 06 // Vulnerability Radar</span>
+          <h2 class="text-2xl font-bold text-brand-dark tracking-tight">Backing &amp; Coasting (TTC &sect; 545.405 &amp; &sect; 545.406)</h2>
+        </div>
+        <button id="btn-toggle-blindspot" onclick="toggleBlindSpot()" class="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-lg font-mono text-xs font-semibold shadow-xs transition-colors self-start md:self-auto flex items-center gap-2">
+          <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+          <span id="blindspot-btn-label">[ View Blind Spot ]</span>
+        </button>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Visual Warning Diagram -->
+        <div class="lg:col-span-7 bg-neutral-950 rounded-xl p-5 border border-neutral-800 min-h-[300px] flex flex-col justify-between relative overflow-hidden">
+          
+          <!-- Highway / Service Corridor -->
+          <div class="w-full h-44 relative flex items-center justify-center">
+            
+            <!-- Commercial Truck (Leading) -->
+            <div class="absolute left-6 w-32 h-20 bg-neutral-800 border-2 border-neutral-600 rounded-md flex shadow-xl z-20">
+              <!-- Cab -->
+              <div class="w-10 h-full bg-neutral-700 border-r border-neutral-600 flex flex-col justify-between p-1">
+                <span class="w-2 h-1 bg-amber-400 rounded-xs"></span>
+                <span class="font-mono text-[7px] text-neutral-300 -rotate-90">CAB</span>
+                <span class="w-2 h-1 bg-amber-400 rounded-xs"></span>
+              </div>
+              <!-- Trailer Body -->
+              <div class="flex-1 p-2 flex flex-col justify-center items-center text-center">
+                <span class="font-mono text-[8px] font-bold text-white">COMMERCIAL RIG</span>
+                <span class="font-mono text-[6px] text-neutral-400">&ge; 40 FT TRAILER</span>
+              </div>
+              <!-- Reverse Beacon Light -->
+              <div id="truck-reverse-light" class="absolute -right-1 top-2 bottom-2 w-1.5 flex flex-col justify-between">
+                <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span>
+                <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span>
+              </div>
+            </div>
+
+            <!-- High Hazard Blind Spot Zone (Revealed by JS) -->
+            <div id="truck-blindspot-cone" class="absolute left-38 w-60 h-28 bg-red-600/30 border-2 border-dashed border-red-500 rounded-r-2xl flex items-center justify-center transition-all duration-500 opacity-0 pointer-events-none z-10">
+              <div class="text-center p-2 bg-neutral-950/90 rounded border border-red-500/60 shadow-lg">
+                <span class="font-mono text-[9px] font-bold text-red-400 block">&Delta; ZERO VISIBILITY BLIND ZONE</span>
+                <span class="font-mono text-[7px] text-neutral-300">EXTENDS UP TO 200 FEET TO REAR</span>
+              </div>
+            </div>
+
+            <!-- Car Trailing Behind (YOU) -->
+            <div id="trailing-car" class="absolute right-6 w-14 h-12 bg-brand-orange border border-orange-300 rounded shadow-lg flex flex-col justify-between p-1 transition-all z-20">
+              <div class="w-full flex justify-between">
+                <span class="w-1 h-1 bg-amber-200 rounded-xs"></span>
+                <span class="w-1 h-1 bg-amber-200 rounded-xs"></span>
+              </div>
+              <div class="text-[7px] font-mono text-center text-white font-bold">YOU</div>
+              <div class="w-full flex justify-between">
+                <span class="w-1 h-1 bg-red-400 rounded-xs"></span>
+                <span class="w-1 h-1 bg-red-400 rounded-xs"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Warning Bar -->
+          <div class="border-t border-neutral-800 pt-2.5 flex items-center justify-between font-mono text-[10px] text-neutral-400">
+            <span class="text-red-400 font-bold">&bull; NEVER CROSS BEHIND A BACKING TRUCK</span>
+            <span>TTC &sect; 545.405 &amp; &sect; 545.406</span>
+          </div>
+        </div>
+
+        <!-- Instructional Mandates Column -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="p-4 bg-canvas rounded-xl border border-border-subtle">
+            <span class="font-mono text-xs font-bold text-brand-orange uppercase tracking-wider block mb-1">
+              Backing Duty // TTC &sect; 545.405
+            </span>
+            <p class="text-xs text-ink-muted leading-relaxed">
+              An operator may not back a vehicle unless the movement can be made with safety and without interfering with other traffic. Backing on a shoulder or roadway of a limited-access highway is strictly prohibited.
+            </p>
+          </div>
+
+          <div class="p-4 bg-red-50/60 rounded-xl border border-red-200/70">
+            <span class="font-mono text-xs font-bold text-red-700 uppercase tracking-wider block mb-1">
+              Coasting Prohibition // TTC &sect; 545.406
+            </span>
+            <h4 class="text-sm font-bold text-neutral-900 mb-1">
+              Coasting in Neutral on a Downgrade is Illegal
+            </h4>
+            <p class="text-xs text-red-900/80 leading-relaxed font-normal">
+              An operator may not coast with the transmission in neutral or with the clutch disengaged while traveling on a downgrade. Coasting decouples the engine, eliminates engine braking, compromises power steering assist, and leads to rapid brake overheating.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Topic Knowledge Check Formative Section -->
+    <section class="mb-14 bg-surface-white rounded-2xl border border-card-border p-6 md:p-8 shadow-xs">
+      <div class="pb-4 border-b border-border-subtle flex items-center justify-between">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-brand-orange font-semibold block mb-1">TDLR Formative Check</span>
+          <h2 class="text-xl font-bold text-brand-dark tracking-tight">Statutory Maneuver Verification</h2>
+        </div>
+        <span class="font-mono text-xs text-ink-light bg-canvas px-2.5 py-1 rounded border border-border-subtle">
+          PASSING CRITERIA: 100%
+        </span>
+      </div>
+
+      <div class="mt-6 space-y-6">
+        <!-- Question 1 -->
+        <div class="space-y-3">
+          <p class="text-sm font-semibold text-brand-dark">
+            1. Under Texas Transportation Code &sect; 545.054, when must an operator complete a pass and return to the right lane before an oncoming vehicle?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <button onclick="checkQuestion(1, 'A')" id="q1-opt-A" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ A ] Before coming within 100 feet
+            </button>
+            <button onclick="checkQuestion(1, 'B')" id="q1-opt-B" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ B ] Before coming within 200 feet
+            </button>
+            <button onclick="checkQuestion(1, 'C')" id="q1-opt-C" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ C ] Only after sounding the vehicular horn
+            </button>
+            <button onclick="checkQuestion(1, 'D')" id="q1-opt-D" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ D ] At any distance if traveling over 60 MPH
+            </button>
+          </div>
+          <div id="q1-feedback" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 font-mono"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="space-y-3 pt-4 border-t border-border-subtle">
+          <p class="text-sm font-semibold text-brand-dark">
+            2. When parking headed uphill on a two-way street with a curb, in which direction should you turn the front wheels?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <button onclick="checkQuestion(2, 'A')" id="q2-opt-A" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ A ] Straight ahead parallel with the street
+            </button>
+            <button onclick="checkQuestion(2, 'B')" id="q2-opt-B" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ B ] Sharp to the right (toward the curb)
+            </button>
+            <button onclick="checkQuestion(2, 'C')" id="q2-opt-C" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ C ] Sharp to the left (away from the curb)
+            </button>
+            <button onclick="checkQuestion(2, 'D')" id="q2-opt-D" class="p-3 text-left rounded-lg border border-border-subtle hover:bg-canvas transition-colors bg-surface-white">
+              [ D ] Wheels turned right with hazard flashers on
+            </button>
+          </div>
+          <div id="q2-feedback" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 font-mono"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Lesson Navigation Bar -->
+    <div class="pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="#prev" class="px-5 py-2.5 rounded-lg border border-border-subtle bg-surface-white hover:bg-canvas text-xs font-mono font-medium text-ink-muted transition-colors flex items-center gap-2">
+        <span>&larr;</span>
+        <span>Previous: L05-T03 Signaling &amp; Communication</span>
+      </a>
+
+      <div class="flex items-center gap-2 font-mono text-xs text-ink-light">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Topic L05-T04 Validated // TDLR Compliant</span>
+      </div>
+
+      <button class="px-6 py-2.5 rounded-lg bg-brand-orange hover:bg-orange-600 text-white font-mono text-xs font-semibold tracking-wide shadow-xs transition-colors flex items-center gap-2">
+        <span>Complete Topic 4 &amp; Proceed to L05-T05</span>
+        <span>&rarr;</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Editorial Footer -->
+  <footer class="mt-20 border-t border-border-subtle bg-surface-white py-8 text-xs text-ink-light font-mono">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span>&copy; 2025 Texas Adult Driver Education &middot; TDLR Approved Curriculum Provider ADE-1042</span>
+      <div class="flex items-center gap-4">
+        <span class="hover:text-ink-muted cursor-pointer">Statute Index</span>
+        <span>&bull;</span>
+        <span class="hover:text-ink-muted cursor-pointer">Kinetic Standards</span>
+        <span>&bull;</span>
+        <span class="hover:text-ink-muted cursor-pointer">Accessibility</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vanilla JavaScript Interaction Controller -->
+  <script>
+    /* ========================================================
+       MODULE 1: PASSING CONTROLLER
+    ======================================================== */
+    function setPassingMode(mode) {
+      const btnSafe = document.getElementById('btn-safe-pass');
+      const btnIllegal = document.getElementById('btn-illegal-pass');
+      const laneLine = document.getElementById('lane-line');
+      const hazardBridge = document.getElementById('hazard-bridge');
+      const userPassingCar = document.getElementById('user-passing-car');
+      const oncomingCar = document.getElementById('oncoming-car');
+      const bufferMarker = document.getElementById('buffer-marker');
+      const passIndicator = document.getElementById('pass-indicator-dot');
+      const passStatusText = document.getElementById('pass-status-text');
+      const passMetricBadge = document.getElementById('pass-metric-badge');
+      const narrativeCard = document.getElementById('pass-narrative-card');
+      const passHeadline = document.getElementById('pass-headline');
+      const passExplanation = document.getElementById('pass-explanation');
+      const userCarSpeed = document.getElementById('user-car-speed');
+
+      if (mode === 'safe') {
+        btnSafe.className = 'px-4 py-2 rounded-md font-medium transition-all-custom bg-surface-white text-brand-dark shadow-xs border border-card-border';
+        btnIllegal.className = 'px-4 py-2 rounded-md font-medium transition-all-custom text-ink-muted hover:text-brand-dark';
+
+        laneLine.className = 'absolute w-1.5 h-full top-0 dashed-pass transition-all-custom';
+        hazardBridge.classList.add('opacity-0');
+        hazardBridge.classList.remove('opacity-100');
+
+        userPassingCar.style.bottom = '8rem';
+        userPassingCar.style.right = '4.5rem'; // moved into passing lane
+        userCarSpeed.textContent = '55 MPH';
+
+        oncomingCar.style.top = '2rem';
+        oncomingCar.style.opacity = '0.7';
+        bufferMarker.style.opacity = '1';
+
+        passIndicator.className = 'w-2 h-2 rounded-full bg-emerald-400';
+        passStatusText.textContent = 'STATUTORILY PERMISSIBLE';
+        passMetricBadge.className = 'text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-2 py-0.5 rounded';
+        passMetricBadge.textContent = 'DASHED LINE // CLEAR VISIBILITY';
+
+        narrativeCard.className = 'p-5 rounded-xl border border-emerald-200 bg-emerald-50/50 transition-all-custom';
+        passHeadline.textContent = 'Safe Passing Protocol: 200-Foot Safety Clearance';
+        passExplanation.innerHTML = 'Return to the right lane before an approaching car comes within <strong>200 feet</strong>. Always check your rearview mirror until both headlights of the overtaken vehicle are visible before merging right.';
+      } else {
+        btnIllegal.className = 'px-4 py-2 rounded-md font-medium transition-all-custom bg-surface-white text-brand-dark shadow-xs border border-card-border';
+        btnSafe.className = 'px-4 py-2 rounded-md font-medium transition-all-custom text-ink-muted hover:text-brand-dark';
+
+        laneLine.className = 'absolute w-2 h-full top-0 solid-pass transition-all-custom';
+        hazardBridge.classList.remove('opacity-0');
+        hazardBridge.classList.add('opacity-100');
+
+        userPassingCar.style.bottom = '3rem';
+        userPassingCar.style.right = '2rem'; // trailing behind
+        userCarSpeed.textContent = '45 MPH';
+
+        oncomingCar.style.top = '1rem';
+        bufferMarker.style.opacity = '0.2';
+
+        passIndicator.className = 'w-2 h-2 rounded-full bg-red-500 animate-pulse';
+        passStatusText.textContent = 'STRICTLY PROHIBITED (SOLID YELLOW)';
+        passMetricBadge.className = 'text-red-400 bg-red-950/60 border border-red-800/80 px-2 py-0.5 rounded';
+        passMetricBadge.textContent = 'ILLEGAL: WITHIN 100 FT OF BRIDGE / TUNNEL';
+
+        narrativeCard.className = 'p-5 rounded-xl border border-red-200 bg-red-50/50 transition-all-custom';
+        passHeadline.textContent = 'Passing Prohibited: Solid Yellow & Critical Infrastructure';
+        passExplanation.innerHTML = 'Passing is prohibited within <strong>100 feet</strong> of a bridge, viaduct, tunnel, intersection, or railroad crossing under Texas Transportation Code &sect; 545.056. Crossing a solid yellow line incurs misdemeanor moving violation citations.';
+      }
+    }
+
+    /* ========================================================
+       MODULE 2: 7 STEPS OF TURNING CONTROLLER
+    ======================================================== */
+    let currentTurnStep = 1;
+    const turnStepsData = [
+      {
+        step: 1,
+        title: "1. Decide on Your Turn Well in Advance",
+        statute: "TTC § 545.101",
+        node: "APPROACH CORRIDOR",
+        desc: "Never make a last-second decision to turn. If you miss your street, proceed to the next intersection rather than executing hazardous sudden lane shifts.",
+        proTip: "Standard: Plan your turning route before braking or altering velocity.",
+        bottom: "8px",
+        left: "162px",
+        rot: "0deg",
+        signal: false
+      },
+      {
+        step: 2,
+        title: "2. Scan All Mirrors & Blind Spots",
+        statute: "TTC § 545.060",
+        node: "SURVEILLANCE CHECK",
+        desc: "Perform an optical sweep: interior rearview mirror, exterior side mirror, and a deliberate 90-degree chin-to-shoulder head check to verify cyclists and blind-spot vehicles.",
+        proTip: "Spatial Rule: Urban turns often conceal cyclists along your curb flank.",
+        bottom: "35px",
+        left: "162px",
+        rot: "0deg",
+        signal: false
+      },
+      {
+        step: 3,
+        title: "3. Move into the Proper Turning Lane",
+        statute: "TTC § 545.101(b)",
+        node: "LANE ENTRY THRESHOLD",
+        desc: "Move into the proper lane well ahead of time. For a left turn, approach in the extreme left-hand lane lawfully available to traffic moving in your direction.",
+        proTip: "Texas Law: Never attempt a left turn from an outer through-lane.",
+        bottom: "65px",
+        left: "155px",
+        rot: "0deg",
+        signal: false
+      },
+      {
+        step: 4,
+        title: "4. Signal Continuously for at Least 100 Feet",
+        statute: "TTC § 545.104",
+        node: "100-FT INTENT SIGNAL",
+        desc: "Under Texas Transportation Code § 545.104, an operator must signal intent continuously for not less than the last 100 feet of movement before turning.",
+        proTip: "Statutory Mandate: Tapping the turn signal 20 feet away is illegal.",
+        bottom: "85px",
+        left: "155px",
+        rot: "0deg",
+        signal: true
+      },
+      {
+        step: 5,
+        title: "5. Decelerate to a Safe Kinetic Turning Speed",
+        statute: "TTC § 545.351",
+        node: "CONTROLLED DECELERATION",
+        desc: "Brake smoothly before the turn while traveling in a straight line. Do not brake aggressively mid-corner; slow to 10–15 MPH prior to steering wheel input.",
+        proTip: "Physics Rule: Braking mid-turn compromises tire lateral grip.",
+        bottom: "105px",
+        left: "155px",
+        rot: "0deg",
+        signal: true
+      },
+      {
+        step: 6,
+        title: "6. Check for Cross-Traffic, Pedestrians & Bicycles",
+        statute: "TTC § 545.152 & § 552.008",
+        node: "INTERSECTION APEX",
+        desc: "Yield unconditionally to oncoming vehicles and pedestrians lawful in the crosswalk. Keep front wheels straight while waiting so a rear impact won't push you into oncoming traffic.",
+        proTip: "Life-Saving Rule: Never turn front wheels left while waiting for a gap.",
+        bottom: "128px",
+        left: "150px",
+        rot: "-35deg",
+        signal: true
+      },
+      {
+        step: 7,
+        title: "7. Finish the Turn in the Proper Lawful Lane",
+        statute: "TTC § 545.101",
+        node: "CORRIDOR COMPLETION",
+        desc: "Complete the maneuver into the lane closest to the centerline moving in your direction (the left-most lane). Never drift across multiple lanes during corner recovery.",
+        proTip: "Compliance: Turn completed. Cancel indicator immediately.",
+        bottom: "135px",
+        left: "30px",
+        rot: "-90deg",
+        signal: false
+      }
+    ];
+
+    function applyTurnStep(stepNum) {
+      currentTurnStep = stepNum;
+      const data = turnStepsData[stepNum - 1];
+
+      document.getElementById('step-count-num').textContent = data.step;
+      document.getElementById('step-pill').textContent = `STEP ${data.step}`;
+      document.getElementById('step-statute').textContent = data.statute;
+      document.getElementById('step-title').textContent = data.title;
+      document.getElementById('step-desc').textContent = data.desc;
+      document.getElementById('step-pro-tip').textContent = data.proTip;
+      document.getElementById('turn-node-title').textContent = data.node;
+
+      // Animate car
+      const car = document.getElementById('anim-turn-car');
+      car.style.bottom = data.bottom;
+      car.style.left = data.left;
+      car.style.transform = `rotate(${data.rot})`;
+
+      // Blinker
+      const blinker = document.getElementById('turn-signal-left');
+      if (data.signal) {
+        blinker.classList.add('animate-ping', 'bg-amber-300');
+        blinker.classList.remove('bg-yellow-200');
+      } else {
+        blinker.classList.remove('animate-ping', 'bg-amber-300');
+        blinker.classList.add('bg-yellow-200');
+      }
+
+      // Update Dots
+      for (let i = 1; i <= 7; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (i <= stepNum) {
+          dot.className = 'h-2 rounded-full bg-brand-orange transition-all';
+        } else {
+          dot.className = 'h-2 rounded-full bg-border-subtle hover:bg-neutral-300 transition-all';
+        }
+      }
+    }
+
+    function cycleTurnStep() {
+      let next = currentTurnStep + 1;
+      if (next > 7) next = 1;
+      applyTurnStep(next);
+    }
+
+    function resetTurnStep() {
+      applyTurnStep(1);
+    }
+
+    function jumpToTurnStep(s) {
+      applyTurnStep(s);
+    }
+
+    /* ========================================================
+       MODULE 3: PARKING DISTANCE EXPLORER
+    ======================================================== */
+    const parkingRules = {
+      15: {
+        code: "TTC § 545.302(b)(1) · 15-FOOT THRESHOLD",
+        title: "Fire Hydrant Mandatory Clearance",
+        text: "An operator may not stand or park an occupied or unoccupied vehicle within <strong>15 feet</strong> of a fire hydrant, except momentarily to pick up or discharge passengers."
+      },
+      20: {
+        code: "TTC § 545.302(a)(3) · 20-FOOT THRESHOLD",
+        title: "Crosswalk at an Intersection & Fire Station Driveway",
+        text: "Parking is strictly prohibited within <strong>20 feet</strong> of a crosswalk at an intersection, or within 20 feet of the driveway entrance to any fire station on the same side of the street."
+      },
+      30: {
+        code: "TTC § 545.302(b)(4) · 30-FOOT THRESHOLD",
+        title: "Traffic Signals, Stop Signs & Yield Signs",
+        text: "Parking is prohibited within <strong>30 feet</strong> upon the approach to any flashing signal, stop sign, yield sign, or official traffic-control signal located at the side of a roadway."
+      },
+      50: {
+        code: "TTC § 545.302(b)(5) · 50-FOOT THRESHOLD",
+        title: "Railroad Grade Crossing Proximity Buffer",
+        text: "An operator may not park within <strong>50 feet</strong> of the nearest rail of a railroad crossing. This guarantees an unobstructed visual sightline for train approach velocities."
+      }
+    };
+
+    function onDistanceSliderChange(val) {
+      const v = parseInt(val, 10);
+      document.getElementById('slider-display-val').textContent = v;
+
+      // Update exclusion zone visually on CSS road
+      const exclusionZone = document.getElementById('exclusion-zone');
+      const parkedCar = document.getElementById('parked-car-marker');
+      const zonePercent = Math.min(v, 90);
+      exclusionZone.style.width = `${zonePercent}%`;
+      parkedCar.style.left = `${Math.min(zonePercent + 2, 88)}%`;
+
+      // Dim or highlight assets
+      const hHydrant = document.getElementById('asset-hydrant');
+      const hCrosswalk = document.getElementById('asset-crosswalk');
+      const hStopsign = document.getElementById('asset-stopsign');
+      const hRailroad = document.getElementById('asset-railroad');
+
+      hHydrant.style.opacity = (v >= 15 && v < 20) ? '1' : '0.4';
+      hCrosswalk.style.opacity = (v >= 20 && v < 30) ? '1' : '0.4';
+      hStopsign.style.opacity = (v >= 30 && v < 50) ? '1' : '0.4';
+      hRailroad.style.opacity = (v >= 50) ? '1' : '0.4';
+
+      // Update rule text
+      const ruleCode = document.getElementById('slider-rule-code');
+      const ruleTitle = document.getElementById('slider-rule-title');
+      const ruleText = document.getElementById('slider-rule-text');
+      const zoneLegal = document.getElementById('parking-zone-legal');
+
+      if (v < 15) {
+        ruleCode.textContent = "TTC § 545.302 · SEVERE HAZARD PROXIMITY";
+        ruleTitle.textContent = "Illegal Proximity Zone (< 15 FT)";
+        ruleText.innerHTML = "Stopping within 15 feet obstructs emergency municipal equipment and sightlines. Immediate towing authorized.";
+        zoneLegal.textContent = "✕ VIOLATION ZONE // CITATION + TOWING";
+        zoneLegal.className = "text-red-400 font-semibold";
+      } else if (v < 20) {
+        ruleCode.textContent = parkingRules[15].code;
+        ruleTitle.textContent = parkingRules[15].title;
+        ruleText.innerHTML = parkingRules[15].text;
+        zoneLegal.textContent = "✓ 15 FT HYDRANT CLEARANCE SATISFIED";
+        zoneLegal.className = "text-emerald-400 font-semibold";
+      } else if (v < 30) {
+        ruleCode.textContent = parkingRules[20].code;
+        ruleTitle.textContent = parkingRules[20].title;
+        ruleText.innerHTML = parkingRules[20].text;
+        zoneLegal.textContent = "✓ 20 FT CROSSWALK THRESHOLD SATISFIED";
+        zoneLegal.className = "text-emerald-400 font-semibold";
+      } else if (v < 50) {
+        ruleCode.textContent = parkingRules[30].code;
+        ruleTitle.textContent = parkingRules[30].title;
+        ruleText.innerHTML = parkingRules[30].text;
+        zoneLegal.textContent = "✓ 30 FT TRAFFIC CONTROL CLEARANCE SATISFIED";
+        zoneLegal.className = "text-emerald-400 font-semibold";
+      } else {
+        ruleCode.textContent = parkingRules[50].code;
+        ruleTitle.textContent = parkingRules[50].title;
+        ruleText.innerHTML = parkingRules[50].text;
+        zoneLegal.textContent = "✓ 50 FT RAILROAD GRADE THRESHOLD SATISFIED";
+        zoneLegal.className = "text-emerald-400 font-semibold";
+      }
+    }
+
+    function setParkingSlider(dist) {
+      const slider = document.getElementById('distance-slider');
+      slider.value = dist;
+      onDistanceSliderChange(dist);
+    }
+
+    /* ========================================================
+       MODULE 5: PARALLEL & HILL PARKING
+    ======================================================== */
+    const parallelStages = {
+      1: {
+        title: "1. Position Alongside Front Vehicle",
+        body: "Stop parallel to the front vehicle approximately 2 to 3 feet away, aligning your rear bumper with the vehicle's rear bumper. Signal your right turn early.",
+        carRight: "50px",
+        carTop: "10px",
+        rot: "0deg"
+      },
+      2: {
+        title: "2. Reverse & Cut Wheels Sharp Right (45° Angle)",
+        body: "Look over your right shoulder through the rear window. Back slowly while turning the steering wheel all the way to the right until your vehicle is at a 45-degree angle to the curb.",
+        carRight: "36px",
+        carTop: "32px",
+        rot: "-38deg"
+      },
+      3: {
+        title: "3. Straighten & Cut Wheels Sharp Left",
+        body: "When your front bumper clears the rear bumper of the front car, turn the steering wheel sharply all the way to the left while continuing to reverse smoothly toward the curb.",
+        carRight: "22px",
+        carTop: "54px",
+        rot: "-10deg"
+      },
+      4: {
+        title: "4. Center Vehicle (Target: 6 Inches, Max: 18 Inches)",
+        body: "Pull forward slowly, turning wheels right to straighten. Center the vehicle between the cars. Final position must be parallel and within 6 to 18 inches of the curb under TTC § 545.301.",
+        carRight: "18px",
+        carTop: "48px",
+        rot: "0deg"
+      }
+    };
+
+    function setParallelStep(step) {
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`p-step-btn-${i}`);
+        if (i === step) {
+          btn.className = 'py-2 rounded-lg bg-brand-orange text-white font-semibold transition-all';
+        } else {
+          btn.className = 'py-2 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all';
+        }
+      }
+      const data = parallelStages[step];
+      document.getElementById('p-stage-title').textContent = data.title;
+      document.getElementById('p-stage-body').textContent = data.body;
+
+      const pCar = document.getElementById('parallel-car');
+      pCar.style.right = data.carRight;
+      pCar.style.top = data.carTop;
+      pCar.style.transform = `rotate(${data.rot})`;
+    }
+
+    function setHillMode(mode) {
+      const btnUp = document.getElementById('hill-btn-uphill');
+      const btnDown = document.getElementById('hill-btn-downhill');
+      const btnNo = document.getElementById('hill-btn-nocurb');
+
+      const wheelLeft = document.getElementById('front-wheel-left');
+      const wheelRight = document.getElementById('front-wheel-right');
+      const wheelSummary = document.getElementById('wheel-text-summary');
+      const hillHeadline = document.getElementById('hill-headline');
+      const hillBody = document.getElementById('hill-body');
+      const hillCurb = document.getElementById('hill-curb');
+      const rollDir = document.getElementById('hill-roll-direction');
+
+      btnUp.className = 'py-2 px-1 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all text-center';
+      btnDown.className = 'py-2 px-1 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all text-center';
+      btnNo.className = 'py-2 px-1 rounded-lg bg-canvas text-ink-muted hover:bg-neutral-200 transition-all text-center';
+
+      hillCurb.style.opacity = '1';
+
+      if (mode === 'uphill') {
+        btnUp.className = 'py-2 px-1 rounded-lg bg-brand-orange text-white font-semibold transition-all text-center';
+        // Wheels away from curb (pointing left)
+        wheelLeft.style.transform = 'rotate(-32deg)';
+        wheelRight.style.transform = 'rotate(-32deg)';
+        wheelSummary.textContent = 'AWAY FROM CURB (LEFT)';
+        hillHeadline.textContent = 'Uphill with Curb: Turn Wheels Left (Away from Curb)';
+        hillBody.innerHTML = 'Turn wheels sharp left (away from curb). If brakes fail, the back of the front tire rolls backward and chocks squarely against the concrete curb, arresting all downhill momentum.';
+        rollDir.innerHTML = '&uarr; INCLINE &uarr;';
+      } else if (mode === 'downhill') {
+        btnDown.className = 'py-2 px-1 rounded-lg bg-brand-orange text-white font-semibold transition-all text-center';
+        // Wheels toward curb (pointing right)
+        wheelLeft.style.transform = 'rotate(32deg)';
+        wheelRight.style.transform = 'rotate(32deg)';
+        wheelSummary.textContent = 'TOWARD THE CURB (RIGHT)';
+        hillHeadline.textContent = 'Downhill with Curb: Turn Wheels Right (Toward Curb)';
+        hillBody.innerHTML = 'Turn wheels sharp right (toward the curb). If the car slips forward, the front tire rolls directly into the curb barrier and halts forward vehicle motion.';
+        rollDir.innerHTML = '&darr; DECLINE &darr;';
+      } else {
+        btnNo.className = 'py-2 px-1 rounded-lg bg-brand-orange text-white font-semibold transition-all text-center';
+        // Wheels toward edge of road (right)
+        wheelLeft.style.transform = 'rotate(32deg)';
+        wheelRight.style.transform = 'rotate(32deg)';
+        wheelSummary.textContent = 'TOWARD ROAD SHOULDER (RIGHT)';
+        hillHeadline.textContent = 'No Curb (Uphill or Downhill): Turn Wheels Right';
+        hillBody.innerHTML = 'Turn wheels sharp right toward the side of the road. If the brakes fail, the car will roll off the roadway onto the grassy shoulder rather than rolling into moving traffic lanes.';
+        hillCurb.style.opacity = '0.15';
+        rollDir.innerHTML = '&updownarrow; ANY GRADE &updownarrow;';
+      }
+    }
+
+    /* ========================================================
+       MODULE 6: TRUCK BLIND SPOT
+    ======================================================== */
+    let blindSpotVisible = false;
+    function toggleBlindSpot() {
+      const cone = document.getElementById('truck-blindspot-cone');
+      const label = document.getElementById('blindspot-btn-label');
+      blindSpotVisible = !blindSpotVisible;
+
+      if (blindSpotVisible) {
+        cone.classList.remove('opacity-0');
+        cone.classList.add('opacity-100');
+        label.textContent = '[ Hide Blind Spot ]';
+      } else {
+        cone.classList.add('opacity-0');
+        cone.classList.remove('opacity-100');
+        label.textContent = '[ View Blind Spot ]';
+      }
+    }
+
+    /* ========================================================
+       KNOWLEDGE CHECK HANDLER
+    ======================================================== */
+    function checkQuestion(qNum, selected) {
+      if (qNum === 1) {
+        const fb = document.getElementById('q1-feedback');
+        fb.classList.remove('hidden');
+        if (selected === 'B') {
+          fb.className = 'p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 font-mono';
+          fb.innerHTML = '<strong>✓ CORRECT (TTC § 545.054):</strong> Texas Transportation Code requires completing the pass and returning to your authorized lane before coming within 200 feet of an oncoming vehicle.';
+        } else {
+          fb.className = 'p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-900 font-mono';
+          fb.innerHTML = '<strong>✕ INCORRECT:</strong> Texas Transportation Code § 545.054 establishes a mandatory 200-foot buffer prior to oncoming traffic encounters.';
+        }
+      } else if (qNum === 2) {
+        const fb = document.getElementById('q2-feedback');
+        fb.classList.remove('hidden');
+        if (selected === 'C') {
+          fb.className = 'p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 font-mono';
+          fb.innerHTML = '<strong>✓ CORRECT (UCLA RULE):</strong> Uphill with a Curb = Turn wheels Left (Away from curb). The back of the front tire will chock securely against the curb.';
+        } else {
+          fb.className = 'p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-900 font-mono';
+          fb.innerHTML = '<strong>✕ INCORRECT:</strong> Turning wheels right uphill would cause the car to roll across the road if brakes fail. Remember the rule: Uphill with Curb = Left (Away).';
+        }
+      }
+    }
+
+    // Initialize default states on load
+    window.addEventListener('DOMContentLoaded', () => {
+      setPassingMode('safe');
+      applyTurnStep(1);
+      onDistanceSliderChange(15);
+      setParallelStep(1);
+      setHillMode('uphill');
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T04';
+  const nextTopicId = 'L05-T05';
+  const prevTopicId = 'L05-T03';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

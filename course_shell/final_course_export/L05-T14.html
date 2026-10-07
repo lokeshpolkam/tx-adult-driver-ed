@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TX-ADE // L05-T14 Controlling a Vehicle in Emergencies</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-on-surface": "#f0f1ef",
+            "on-secondary-fixed": "#171d1a",
+            "inverse-primary": "#ffb68c",
+            "secondary-container": "#dee4df",
+            "on-background": "#191c1b",
+            "tertiary": "#5d5f5d",
+            "surface": "#f9faf8",
+            "primary-fixed-dim": "#ffb68c",
+            "surface-variant": "#e2e3e1",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#191c1b",
+            "on-tertiary-fixed-variant": "#454746",
+            "background": "#f9faf8",
+            "tertiary-fixed": "#e2e3e0",
+            "secondary": "#5a605c",
+            "error-container": "#ffdad6",
+            "error": "#ba1a1a",
+            "on-surface-variant": "#574237",
+            "surface-container-low": "#f3f4f2",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#949593",
+            "on-tertiary-fixed": "#1a1c1b",
+            "on-primary": "#ffffff",
+            "surface-container-high": "#e7e8e6",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#424844",
+            "secondary-fixed": "#dee4df",
+            "inverse-surface": "#2e3130",
+            "surface-container-highest": "#e2e3e1",
+            "surface-container": "#edeeec",
+            "on-tertiary-container": "#2c2e2d",
+            "surface-tint": "#9a4600",
+            "primary-container": "#e87522",
+            "primary": "#9a4600",
+            "primary-fixed": "#ffdbc9",
+            "on-primary-container": "#4e2000",
+            "outline": "#8a7265",
+            "on-primary-fixed": "#321200",
+            "outline-variant": "#dec1b2",
+            "secondary-fixed-dim": "#c2c8c3",
+            "tertiary-fixed-dim": "#c6c7c5",
+            "surface-bright": "#f9faf8",
+            "on-primary-fixed-variant": "#753400",
+            "on-error-container": "#93000a",
+            "on-tertiary": "#ffffff",
+            "surface-dim": "#d9dad8",
+            "on-secondary-container": "#606662"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Geist", "sans-serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "display-lg-mobile": ["Geist", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "label-mono-sm": ["JetBrains Mono", "monospace"],
+            "headline-sm": ["Geist", "sans-serif"],
+            "label-mono-lg": ["JetBrains Mono", "monospace"],
+            "display-lg": ["Geist", "sans-serif"],
+            "headline-lg": ["Geist", "sans-serif"],
+            "code-data": ["JetBrains Mono", "monospace"],
+            "body-sm": ["Geist", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-lg-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-mono-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "label-mono-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "code-data": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+    }
+    @keyframes road-motion {
+      0% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 40; }
+    }
+    .road-lines {
+      stroke-dasharray: 14 26;
+      animation: road-motion 0.6s linear infinite;
+    }
+    .road-lines-fast {
+      stroke-dasharray: 14 26;
+      animation: road-motion 0.25s linear infinite;
+    }
+    .road-lines-stop {
+      animation: none;
+    }
+    @keyframes car-spin {
+      0% { transform: translateY(0) rotate(0deg); }
+      30% { transform: translateY(-10px) rotate(45deg); }
+      60% { transform: translateY(15px) rotate(140deg); }
+      100% { transform: translateY(25px) rotate(195deg); }
+    }
+    .anim-spinout {
+      animation: car-spin 1.2s forwards cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    @keyframes car-recover {
+      0% { transform: rotate(15deg); }
+      40% { transform: rotate(-6deg); }
+      70% { transform: rotate(2deg) translateY(-8px); }
+      100% { transform: rotate(0deg) translateY(-2px); }
+    }
+    .anim-recover {
+      animation: car-recover 1.2s forwards ease-out;
+    }
+  </style>
+</head>
+<body class="bg-[#F6F7F5] text-on-surface font-body-md antialiased min-h-screen py-8 px-4 sm:px-6">
+<!-- Texas Mandatory Instructional Timer Bar (Compliant TDLR Requirement) -->
+<div class="max-w-4xl mx-auto mb-6 bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-3 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase">Texas TDLR Mandatory Unit Clock</span>
+<span class="font-label-mono-sm text-label-mono-sm text-[#191B1A] font-semibold bg-surface-container-high px-2 py-0.5 rounded">UNIT SEC. 521.1601</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 font-label-mono-lg text-label-mono-lg text-[#191B1A]">
+<span class="material-symbols-outlined text-secondary" style="font-size: 18px;">timer</span>
+<span class="font-semibold text-primary-container" id="session-timer">11:58</span>
+<span class="text-secondary text-xs">/ 12:00 MIN</span>
+</div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary border-l border-[#D9DDD8] pl-3 hidden sm:inline">Active Attendance Verified</span>
+</div>
+</div>
+<!-- Main Centered Content Container -->
+<main class="max-w-4xl mx-auto space-y-8">
+<!-- 1. Lesson Header -->
+<header class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-6 sm:p-8 space-y-4">
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-mono-sm text-label-mono-sm text-primary-container font-semibold tracking-wider">
+          MODULE 05 // SPEED MANAGEMENT &amp; SPECIAL ROADWAY CONDITIONS • TOPIC L05-T14
+        </span>
+</div>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm bg-surface-container-low text-on-surface px-2.5 py-1 rounded border border-[#D9DDD8]">
+<span class="material-symbols-outlined text-secondary" style="font-size: 14px;">gavel</span>
+          TTC § 545.401 &amp; § 545.406
+        </span>
+<span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm bg-surface-container-low text-on-surface px-2.5 py-1 rounded border border-[#D9DDD8]">
+<span class="material-symbols-outlined text-secondary" style="font-size: 14px;">verified_user</span>
+          TDLR SEC. 521.1601 COMPLIANT
+        </span>
+<span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm bg-surface-container-low text-secondary px-2.5 py-1 rounded border border-[#D9DDD8]">
+<span class="material-symbols-outlined text-secondary" style="font-size: 14px;">schedule</span>
+          EST. TIME: 12 MIN
+        </span>
+</div>
+<div class="pt-2">
+<h1 class="font-headline-lg text-headline-lg text-[#191B1A]">
+          Controlling a Vehicle in Emergencies
+        </h1>
+<p class="font-body-lg text-body-lg text-secondary mt-2">
+          Kinetic failure recovery, loss of tire adhesion, sudden mechanical breakdowns, and statutory vehicle control directives under Texas law.
+        </p>
+</div>
+<!-- Statutory Callout Box -->
+<div class="bg-[#F6F7F5] border border-[#D9DDD8] border-l-4 border-l-primary-container rounded-lg p-4 mt-4">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-mono-sm text-label-mono-sm font-semibold text-[#191B1A]">TEXAS TRANSPORTATION CODE § 545.401 — RECKLESS DRIVING &amp; VEHICULAR CONTROL PRECEPT</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+          "A person commits an offense if the person drives a vehicle in willful or wanton disregard for the safety of persons or property." In sudden road hazards, statutory driver liability requires maintaining intentional command of kinetic forces. Panic responses (such as wheel jerking or locked-wheel braking) induce fatal spin dynamics and fail the standard of reasonable care.
+        </p>
+</div>
+</header>
+<!-- 2. Crisis Reaction Simulator (Interactive Core - Centered) -->
+<section class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-6 sm:p-8 space-y-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#D9DDD8] gap-2">
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary-container font-semibold uppercase tracking-wider block">
+            SECTION 01 // KINETIC DECISION ENGINE • CRISIS REACTION SIMULATOR
+          </span>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">
+            Select an in-flight crisis scenario to test your reaction time and statutory decision execution.
+          </p>
+</div>
+<button class="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest border border-[#D9DDD8] hover:border-[#191B1A] rounded-lg font-label-mono-sm text-label-mono-sm text-on-surface transition-colors" id="reset-sim-btn" onclick="resetSimulation()">
+<span class="material-symbols-outlined" style="font-size: 16px;">refresh</span>
+          Reset Scenario
+        </button>
+</div>
+<!-- Scenario Selector Buttons -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<button class="scenario-tab flex items-center justify-between p-3.5 rounded-lg border border-primary-container bg-surface-container-low text-left transition-colors" id="scenario-btn-1" onclick="switchScenario(1)">
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-primary-container block font-semibold">SCENARIO 01</span>
+<span class="font-headline-sm text-headline-sm text-[#191B1A] text-sm font-semibold">Skidding (Loss of Traction)</span>
+</div>
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">swap_driving_apps_wheel</span>
+</button>
+<button class="scenario-tab flex items-center justify-between p-3.5 rounded-lg border border-[#D9DDD8] bg-surface-container-lowest hover:border-[#191B1A] text-left transition-colors" id="scenario-btn-2" onclick="switchScenario(2)">
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block font-semibold">SCENARIO 02</span>
+<span class="font-headline-sm text-headline-sm text-[#191B1A] text-sm font-semibold">Tire Blowout (High Speed)</span>
+</div>
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">tire_repair</span>
+</button>
+<button class="scenario-tab flex items-center justify-between p-3.5 rounded-lg border border-[#D9DDD8] bg-surface-container-lowest hover:border-[#191B1A] text-left transition-colors" id="scenario-btn-3" onclick="switchScenario(3)">
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block font-semibold">SCENARIO 03</span>
+<span class="font-headline-sm text-headline-sm text-[#191B1A] text-sm font-semibold">Total Brake Failure</span>
+</div>
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">warning</span>
+</button>
+</div>
+<!-- Simulation Viewport -->
+<div class="relative w-full bg-[#191B1A] border border-[#D9DDD8] rounded-lg overflow-hidden p-4 sm:p-6 text-white min-h-[320px] flex flex-col justify-between">
+<!-- Live HUD Telemetry -->
+<div class="flex flex-wrap items-center justify-between gap-3 z-10 border-b border-neutral-700 pb-3">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping" id="hud-pulse"></span>
+<span class="font-code-data text-code-data text-amber-400 font-semibold uppercase" id="hud-status">
+              STATUS: REAR-WHEEL SKID TO THE RIGHT
+            </span>
+</div>
+<div class="flex items-center gap-4 font-code-data text-code-data text-neutral-300">
+<span>VELOCITY: <strong class="text-white" id="hud-speed">55 MPH</strong></span>
+<span>TRACTION COEFFICIENT: <strong class="text-amber-400" id="hud-friction">0.24 (WET ASPHALT)</strong></span>
+</div>
+</div>
+<!-- Animated Road & Vehicle Canvas Stage -->
+<div class="relative h-44 sm:h-48 my-3 flex items-center justify-center overflow-hidden">
+<!-- Road Surface Vector Graphic -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 800 200">
+<!-- Road shoulders -->
+<rect fill="#2d3130" height="20" width="800" x="0" y="0"></rect>
+<rect fill="#2d3130" height="20" width="800" x="0" y="180"></rect>
+<!-- Solid edge lines -->
+<line opacity="0.8" stroke="#FFFFFF" stroke-width="2" x1="0" x2="800" y1="20" y2="20"></line>
+<line opacity="0.8" stroke="#FFFFFF" stroke-width="2" x1="0" x2="800" y1="180" y2="180"></line>
+<!-- Center lane divider -->
+<line class="road-lines" id="lane-line" stroke="#ffcc00" stroke-width="3" x1="0" x2="800" y1="100" y2="100"></line>
+</svg>
+<!-- Hazard Overlay Visuals -->
+<div class="absolute left-1/4 top-1/2 -translate-y-1/2 opacity-70" id="hazard-icon-layer">
+<span class="material-symbols-outlined text-amber-400 text-4xl animate-bounce" id="hazard-glyph">water_drop</span>
+</div>
+<!-- Vehicle Entity Top-Down Graphic -->
+<div class="relative z-10 transition-transform duration-300 flex flex-col items-center" id="car-entity">
+<!-- Simulated Top-Down Car Silhouette -->
+<div class="relative w-24 h-12 bg-neutral-200 rounded-md border-2 border-neutral-400 flex items-center justify-between px-2 shadow-lg" id="car-body">
+<!-- Front lights -->
+<div class="absolute -right-1 top-1.5 w-1.5 h-2 bg-yellow-300 rounded-r"></div>
+<div class="absolute -right-1 bottom-1.5 w-1.5 h-2 bg-yellow-300 rounded-r"></div>
+<!-- Windshield -->
+<div class="w-4 h-8 bg-neutral-800 rounded-sm ml-4"></div>
+<!-- Rear glass -->
+<div class="w-3 h-7 bg-neutral-800 rounded-sm mr-2"></div>
+<!-- Tail lights -->
+<div class="absolute -left-1 top-1.5 w-1.5 h-2 bg-red-800 rounded-l transition-colors" id="brake-lights"></div>
+<div class="absolute -left-1 bottom-1.5 w-1.5 h-2 bg-red-800 rounded-l transition-colors" id="brake-lights-2"></div>
+<!-- Center tag -->
+<span class="text-[9px] font-mono text-neutral-900 absolute inset-0 flex items-center justify-center font-bold tracking-tighter">
+                TX-ADE
+              </span>
+</div>
+<!-- Skid marks visualization -->
+<div class="hidden absolute -left-16 top-1/2 -translate-y-1/2 w-16 h-8 border-t-2 border-b-2 border-dashed border-neutral-400 opacity-60" id="skid-marks"></div>
+</div>
+</div>
+<!-- Simulation Feedback Overlay Banner -->
+<div class="z-10 min-h-[48px] rounded border border-neutral-700 bg-neutral-900/90 p-3 flex items-center gap-3 text-sm" id="sim-feedback-banner">
+<span class="material-symbols-outlined text-amber-400" id="feedback-icon">info</span>
+<span class="font-body-sm text-neutral-200" id="feedback-text">
+            Awaiting student reaction. Select an action protocol below to execute vehicular maneuver.
+          </span>
+</div>
+</div>
+<!-- Decision Prompt & Action Radios -->
+<div class="space-y-4 pt-2">
+<div class="flex items-center justify-between">
+<label class="font-label-mono-sm text-label-mono-sm uppercase text-[#191B1A] font-semibold">
+            Select Your Emergency Maneuver Execution:
+          </label>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary" id="action-lock-state">Awaiting Input</span>
+</div>
+<div class="space-y-3" id="choices-container">
+<!-- Dynamic Choices Injected By JS Based on Active Scenario -->
+</div>
+</div>
+</section>
+<!-- 3. Statutory Text & Editorial Cards (Directly Below Simulator) -->
+<section class="space-y-6">
+<div class="border-b border-[#D9DDD8] pb-3">
+<span class="font-label-mono-sm text-label-mono-sm text-primary-container font-semibold uppercase tracking-wider block">
+          SECTION 02 // STATUTORY OPERATING PROTOCOLS &amp; MECHANICAL DIRECTIVES
+        </span>
+<h2 class="font-headline-md text-headline-md text-[#191B1A] mt-1">
+          Texas Operational Rules for High-Kinetic Emergencies
+        </h2>
+</div>
+<!-- Group A: Skidding & Off-Road Recovery -->
+<div class="space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">alt_route</span>
+<h3 class="font-headline-sm text-headline-sm text-[#191B1A]">Group A: Skidding &amp; Off-Road Edge Recovery</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card: Anatomy of a Skid -->
+<article class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-5 space-y-2.5">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase block">
+              TTC § 545.401 // TRACTION LOSS MECHANICS
+            </span>
+<h4 class="font-headline-sm text-headline-sm text-base text-[#191B1A] font-semibold">
+              The Anatomy of a Skid &amp; Counter-Steer Protocol
+            </h4>
+<p class="font-body-sm text-body-sm text-secondary">
+              A skid occurs when vehicle tires lose micro-friction adhesion with the road surface due to excessive speed, standing water, or abrupt control inputs.
+            </p>
+<ul class="font-body-sm text-body-sm text-[#191B1A] space-y-1.5 pt-1">
+<li class="flex items-start gap-2">
+<span class="text-primary-container font-mono font-bold">1.</span>
+<span><strong>Release Accelerator Immediately:</strong> Cut torque to allow tires to regain natural rolling adhesion.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-primary-container font-mono font-bold">2.</span>
+<span><strong>Steer in the Direction of the Skid:</strong> If your rear wheels slide right, steer right. Avoid overcorrecting.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-primary-container font-mono font-bold">3.</span>
+<span><strong>Prohibit Locked-Wheel Braking:</strong> Sudden hard braking locks wheels into dynamic hydroplaning.</span>
+</li>
+</ul>
+</article>
+<!-- Card: Running Off the Pavement -->
+<article class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-5 space-y-2.5">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase block">
+              ROADWAY SAFETY DIRECTIVE // SHOULDER DROP-OFF
+            </span>
+<h4 class="font-headline-sm text-headline-sm text-base text-[#191B1A] font-semibold">
+              Running Off the Pavement onto Low Shoulder
+            </h4>
+<p class="font-body-sm text-body-sm text-secondary">
+              If your right wheels drop off the paved surface onto an unpaved or rutted shoulder, jerking the wheel left creates immediate loss of equilibrium and high-speed rollover.
+            </p>
+<ul class="font-body-sm text-body-sm text-[#191B1A] space-y-1.5 pt-1">
+<li class="flex items-start gap-2">
+<span class="text-primary-container font-mono font-bold">1.</span>
+<span><strong>Maintain Directional Path:</strong> Hold wheel straight parallel with the roadway edge. Do not turn back immediately.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-primary-container font-mono font-bold">2.</span>
+<span><strong>Decelerate Without Braking:</strong> Ease off the throttle until speed drops under 20 MPH.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-primary-container font-mono font-bold">3.</span>
+<span><strong>Straddle and Re-enter:</strong> Signal, verify clear traffic, and gently turn steering wheel 1/4 turn to remount pavement.</span>
+</li>
+</ul>
+</article>
+</div>
+</div>
+<!-- Group B: Mechanical Emergencies -->
+<div class="space-y-4 pt-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">car_crash</span>
+<h3 class="font-headline-sm text-headline-sm text-[#191B1A]">Group B: Mechanical Emergencies &amp; Grade Control</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Card: Blowout Protocol -->
+<article class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-5 space-y-2">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase block">CRITICAL PROCEDURE</span>
+<h4 class="font-headline-sm text-headline-sm text-base text-[#191B1A] font-semibold">
+              Tire Blowout Survival Protocol
+            </h4>
+<p class="font-body-sm text-body-sm text-secondary">
+              A blowout produces a loud report and violent vehicle pull toward the ruptured tire.
+            </p>
+<p class="font-body-sm text-body-sm text-[#191B1A] pt-1">
+<strong>Action:</strong> Grip steering firmly at 9 &amp; 3 o'clock. <em>Never slam on brakes.</em> Ease off gas and maintain course until rolling drag reduces speed, then coast smoothly onto shoulder.
+            </p>
+</article>
+<!-- Card: Brake Failure -->
+<article class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-5 space-y-2">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase block">HYDRAULIC FAILURE</span>
+<h4 class="font-headline-sm text-headline-sm text-base text-[#191B1A] font-semibold">
+              Total Brake Loss Execution
+            </h4>
+<p class="font-body-sm text-body-sm text-secondary">
+              Sudden loss of pedal resistance requires rapid mechanical decelerating countermeasures.
+            </p>
+<p class="font-body-sm text-body-sm text-[#191B1A] pt-1">
+<strong>Action:</strong> Downshift to lower transmission gear (L, 2, or 1) to force engine braking. Pump pedal rapidly to rebuild residual hydraulic pressure. Gradually apply parking brake while holding release catch.
+            </p>
+</article>
+<!-- Card: Downgrades & TTC 545.406 -->
+<article class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-5 space-y-2">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase block">TTC § 545.406 MANDATE</span>
+<h4 class="font-headline-sm text-headline-sm text-base text-[#191B1A] font-semibold">
+              Steep Hills &amp; Coasting Prohibition
+            </h4>
+<p class="font-body-sm text-body-sm text-secondary">
+              Texas statute strictly forbids coasting on a downgrade with gears in neutral or clutch disengaged.
+            </p>
+<p class="font-body-sm text-body-sm text-[#191B1A] pt-1">
+<strong>Statutory Rule:</strong> Maintain engaged transmission in low gear before beginning downhill descent to avoid brake fade, boil fluid, and fatal mechanical runaway.
+            </p>
+</article>
+</div>
+</div>
+</section>
+<!-- 4. Formative Assessment Checkpoint (Section 03) -->
+<section class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-6 sm:p-8 space-y-6">
+<div class="border-b border-[#D9DDD8] pb-3">
+<span class="font-label-mono-sm text-label-mono-sm text-primary-container font-semibold uppercase tracking-wider block">
+          SECTION 03 // FORMATIVE ASSESSMENT CHECKPOINT
+        </span>
+<h2 class="font-headline-md text-headline-md text-[#191B1A] mt-1">
+          Statutory Verification Questions
+        </h2>
+<p class="font-body-sm text-body-sm text-secondary">
+          Confirm your statutory proficiency before course progress is recorded for Texas TDLR reporting.
+        </p>
+</div>
+<!-- Question 1 -->
+<div class="space-y-3 pt-2">
+<div class="flex items-center gap-2">
+<span class="font-label-mono-sm text-label-mono-sm bg-surface-container-high px-2 py-0.5 rounded text-[#191B1A] font-semibold">ITEM 01</span>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary">TTC § 545.401 VEHICULAR RECOVERY</span>
+</div>
+<p class="font-body-md text-body-md text-[#191B1A] font-medium">
+          When driving at 65 MPH on a Texas interstate, your right-rear tire suddenly experiences a catastrophic blowout. What is the immediate, mandatory driver reaction?
+        </p>
+<div class="space-y-2">
+<label class="q1-choice flex items-center p-3 rounded-lg border border-[#D9DDD8] hover:border-[#191B1A] cursor-pointer transition-colors bg-surface-container-lowest" onclick="checkQuiz(1, 'A')">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary w-10 font-bold">[ A ]</span>
+<span class="font-body-sm text-body-sm text-[#191B1A]">Slam hard on the brakes immediately and jerk the steering wheel toward the emergency shoulder.</span>
+</label>
+<label class="q1-choice flex items-center p-3 rounded-lg border border-[#D9DDD8] hover:border-[#191B1A] cursor-pointer transition-colors bg-surface-container-lowest" onclick="checkQuiz(1, 'B')">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary w-10 font-bold">[ B ]</span>
+<span class="font-body-sm text-body-sm text-[#191B1A]">Grip the steering wheel firmly, hold the vehicle in a straight path, ease off the accelerator, and gently brake only after speed has drastically dropped.</span>
+</label>
+<label class="q1-choice flex items-center p-3 rounded-lg border border-[#D9DDD8] hover:border-[#191B1A] cursor-pointer transition-colors bg-surface-container-lowest" onclick="checkQuiz(1, 'C')">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary w-10 font-bold">[ C ]</span>
+<span class="font-body-sm text-body-sm text-[#191B1A]">Shift into neutral immediately, release the steering wheel slightly, and pull the handbrake.</span>
+</label>
+</div>
+<div class="hidden p-3 rounded-lg font-body-sm text-body-sm" id="q1-feedback"></div>
+</div>
+<hr class="border-[#D9DDD8]"/>
+<!-- Question 2 -->
+<div class="space-y-3">
+<div class="flex items-center gap-2">
+<span class="font-label-mono-sm text-label-mono-sm bg-surface-container-high px-2 py-0.5 rounded text-[#191B1A] font-semibold">ITEM 02</span>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary">TTC § 545.406 DOWNHILL COMPLIANCE</span>
+</div>
+<p class="font-body-md text-body-md text-[#191B1A] font-medium">
+          Under Texas Transportation Code § 545.406, what is the legal restriction concerning operating a motor vehicle on a downgrade (steep hill)?
+        </p>
+<div class="space-y-2">
+<label class="q2-choice flex items-center p-3 rounded-lg border border-[#D9DDD8] hover:border-[#191B1A] cursor-pointer transition-colors bg-surface-container-lowest" onclick="checkQuiz(2, 'A')">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary w-10 font-bold">[ A ]</span>
+<span class="font-body-sm text-body-sm text-[#191B1A]">An operator is strictly prohibited from coasting with the transmission in neutral or with the clutch disengaged.</span>
+</label>
+<label class="q2-choice flex items-center p-3 rounded-lg border border-[#D9DDD8] hover:border-[#191B1A] cursor-pointer transition-colors bg-surface-container-lowest" onclick="checkQuiz(2, 'B')">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary w-10 font-bold">[ B ]</span>
+<span class="font-body-sm text-body-sm text-[#191B1A]">Coasting in neutral is permitted provided hazard warning lights are flashing continuously.</span>
+</label>
+<label class="q2-choice flex items-center p-3 rounded-lg border border-[#D9DDD8] hover:border-[#191B1A] cursor-pointer transition-colors bg-surface-container-lowest" onclick="checkQuiz(2, 'C')">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary w-10 font-bold">[ C ]</span>
+<span class="font-body-sm text-body-sm text-[#191B1A]">Vehicles may disengage the transmission only if descending at speeds lower than 35 MPH.</span>
+</label>
+</div>
+<div class="hidden p-3 rounded-lg font-body-sm text-body-sm" id="q2-feedback"></div>
+</div>
+</section>
+<!-- 5. Lesson Footer / Progression Navigation -->
+<footer class="bg-surface-container-lowest border border-[#D9DDD8] rounded-lg p-6 sm:p-8 space-y-6">
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+<a class="inline-flex items-center gap-1.5 font-label-mono-sm text-label-mono-sm text-secondary hover:text-[#191B1A] transition-colors" href="#previous">
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_back</span>
+          Previous Topic: L05-T13 Managing a Vehicle Breakdown
+        </a>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 font-label-mono-sm text-label-mono-sm text-[#191B1A] bg-surface-container-low px-3 py-1.5 rounded border border-[#D9DDD8]">
+<span class="material-symbols-outlined text-green-700" style="font-size: 16px;">check_circle</span>
+            Topic L05-T14 Validated // TDLR Sec. 521.1601 Compliant
+          </span>
+</div>
+</div>
+<div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#D9DDD8]">
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block">
+            NEXT MANDATORY MODULE LESSON
+          </span>
+<span class="font-headline-sm text-headline-sm text-base text-[#191B1A] font-semibold">
+            Topic L05-T15: Hazardous Weather Navigation &amp; Flooded Roadways (Turn Around Don't Drown)
+          </span>
+</div>
+<button class="inline-flex items-center justify-center gap-2 bg-primary-container hover:bg-[#D26418] text-white font-headline-sm text-sm font-semibold px-6 py-3 rounded-lg transition-transform active:translate-y-px shadow-none whitespace-nowrap cursor-pointer">
+<span>Complete Topic 14 &amp; Proceed to L05-T15</span>
+<span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+<div class="pt-4 border-t border-[#D9DDD8] text-center sm:text-left">
+<p class="font-label-mono-sm text-label-mono-sm text-secondary text-[11px]">
+          Texas Department of Licensing and Regulation (TDLR) Course Compliance Registry #ADE-9842. Certified under Texas Administrative Code Title 16, Part 4, Chapter 84. Mandatory lesson time tracked via cryptographically secured session markers.
+        </p>
+</div>
+</footer>
+</main>
+<!-- Interactive Simulator Engine Script -->
+<script>
+    const scenarios = {
+      1: {
+        title: "Skidding (Loss of Traction)",
+        hudStatus: "STATUS: REAR-WHEEL SKID TO THE RIGHT",
+        speed: "55 MPH",
+        friction: "0.24 (WET ASPHALT)",
+        hazardGlyph: "water_drop",
+        initialCarRotate: 18,
+        choices: [
+          {
+            letter: "A",
+            text: "Slam on the brakes and steer sharply away from the spin (Panic Reaction)",
+            correct: false,
+            feedback: "CRITICAL FAILURE: Hard braking breaks remaining micro-friction, causing violent 180° spin and rollover off the roadway.",
+            animClass: "anim-spinout",
+            brakesActive: true
+          },
+          {
+            letter: "B",
+            text: "Take foot off accelerator, gently steer into the direction of the skid, do not brake hard (Statutory Correct)",
+            correct: true,
+            feedback: "CORRECT STATUTORY RECOVERY: Releasing throttle restores rolling tire adhesion; counter-steering counteracts rotational inertia safely.",
+            animClass: "anim-recover",
+            brakesActive: false
+          },
+          {
+            letter: "C",
+            text: "Pull emergency handbrake abruptly to lock the rear axle",
+            correct: false,
+            feedback: "CRITICAL FAILURE: Locking rear wheels immediately removes all lateral stability, resulting in an unrecoverable flat spin.",
+            animClass: "anim-spinout",
+            brakesActive: true
+          }
+        ]
+      },
+      2: {
+        title: "Tire Blowout (High Speed)",
+        hudStatus: "STATUS: RIGHT-FRONT TIRE CASING RUPTURE",
+        speed: "65 MPH",
+        friction: "0.41 (UNEVEN DRAG)",
+        hazardGlyph: "tire_repair",
+        initialCarRotate: 8,
+        choices: [
+          {
+            letter: "A",
+            text: "Slam hard on the brakes and jerk toward the right shoulder immediately",
+            correct: false,
+            feedback: "CRITICAL FAILURE: Sudden braking forces excessive weight onto the shredded rim, digging into asphalt and causing an immediate rollover crash.",
+            animClass: "anim-spinout",
+            brakesActive: true
+          },
+          {
+            letter: "B",
+            text: "Grip steering wheel firmly at 9 & 3, hold vehicle straight, ease off accelerator, brake gently once slowed (Statutory Correct)",
+            correct: true,
+            feedback: "CORRECT STATUTORY RECOVERY: Firm two-handed grip overcomes extreme asymmetric drag; natural coasting allows a controlled shoulder stop.",
+            animClass: "anim-recover",
+            brakesActive: false
+          },
+          {
+            letter: "C",
+            text: "Accelerate aggressively to pull the vehicle out of the drag force",
+            correct: false,
+            feedback: "CRITICAL FAILURE: Higher speed rapidly shreds remaining rubber bead, destroying rim integrity and losing complete steering control.",
+            animClass: "anim-spinout",
+            brakesActive: false
+          }
+        ]
+      },
+      3: {
+        title: "Total Brake Failure",
+        hudStatus: "STATUS: ZERO HYDRAULIC PRESSURE (PEDAL TO FLOOR)",
+        speed: "50 MPH",
+        friction: "0.78 (DRY DESCENT)",
+        hazardGlyph: "warning",
+        initialCarRotate: 0,
+        choices: [
+          {
+            letter: "A",
+            text: "Shift into Park immediately and shut off ignition while in motion",
+            correct: false,
+            feedback: "CRITICAL FAILURE: Shifting into Park sheers the parking pawl; turning off ignition locks the steering column, guaranteeing a fatal collision.",
+            animClass: "anim-spinout",
+            brakesActive: false
+          },
+          {
+            letter: "B",
+            text: "Downshift to lower gear (L/2), rapidly pump brakes, apply parking brake gradually while holding release (Statutory Correct)",
+            correct: true,
+            feedback: "CORRECT STATUTORY RECOVERY: Engine compression reliably slows the drive wheels; parking brake cable provides mechanical secondary friction.",
+            animClass: "anim-recover",
+            brakesActive: true
+          },
+          {
+            letter: "C",
+            text: "Keep car in overdrive and repeatedly swerve across lanes to create friction",
+            correct: false,
+            feedback: "CRITICAL FAILURE: Swerving at speed without brakes induces high-speed rollover and strikes adjacent vehicles in violation of TTC § 545.401.",
+            animClass: "anim-spinout",
+            brakesActive: false
+          }
+        ]
+      }
+    };
+
+    let currentScenarioId = 1;
+    let selectedChoiceIndex = null;
+
+    function renderChoices(scId) {
+      const container = document.getElementById("choices-container");
+      container.innerHTML = "";
+      const sc = scenarios[scId];
+
+      sc.choices.forEach((choice, index) => {
+        const choiceBtn = document.createElement("button");
+        choiceBtn.className = `choice-option w-full text-left p-3.5 rounded-lg border border-[#D9DDD8] bg-surface-container-lowest hover:border-[#191B1A] transition-all flex items-start gap-3`;
+        choiceBtn.id = `choice-card-${index}`;
+        choiceBtn.onclick = () => executeChoice(index);
+
+        choiceBtn.innerHTML = `
+          <span class="font-label-mono-sm text-label-mono-sm text-secondary font-bold px-2 py-0.5 rounded bg-surface-container-high">[ ${choice.letter} ]</span>
+          <span class="font-body-sm text-body-sm text-[#191B1A] flex-1">${choice.text}</span>
+        `;
+        container.appendChild(choiceBtn);
+      });
+    }
+
+    function switchScenario(scId) {
+      currentScenarioId = scId;
+      selectedChoiceIndex = null;
+
+      // Update Scenario Tab Styles
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`scenario-btn-1`);
+        const tab = document.getElementById(`scenario-btn-${i}`);
+        if (i === scId) {
+          tab.classList.remove("border-[#D9DDD8]", "bg-surface-container-lowest");
+          tab.classList.add("border-primary-container", "bg-surface-container-low");
+          tab.querySelector(".material-symbols-outlined").classList.remove("text-secondary");
+          tab.querySelector(".material-symbols-outlined").classList.add("text-primary-container");
+          tab.querySelector("span:first-child").classList.remove("text-secondary");
+          tab.querySelector("span:first-child").classList.add("text-primary-container");
+        } else {
+          tab.classList.add("border-[#D9DDD8]", "bg-surface-container-lowest");
+          tab.classList.remove("border-primary-container", "bg-surface-container-low");
+          tab.querySelector(".material-symbols-outlined").classList.add("text-secondary");
+          tab.querySelector(".material-symbols-outlined").classList.remove("text-primary-container");
+          tab.querySelector("span:first-child").classList.add("text-secondary");
+          tab.querySelector("span:first-child").classList.remove("text-primary-container");
+        }
+      }
+
+      // Update Telemetry HUD
+      const sc = scenarios[scId];
+      document.getElementById("hud-status").innerText = sc.hudStatus;
+      document.getElementById("hud-speed").innerText = sc.speed;
+      document.getElementById("hud-friction").innerText = sc.friction;
+      document.getElementById("hazard-glyph").innerText = sc.hazardGlyph;
+
+      // Reset Simulation Viewport Visuals
+      resetCarVisualState(sc.initialCarRotate);
+      renderChoices(scId);
+
+      // Reset Banner
+      const banner = document.getElementById("sim-feedback-banner");
+      banner.className = "z-10 min-h-[48px] rounded border border-neutral-700 bg-neutral-900/90 p-3 flex items-center gap-3 text-sm";
+      document.getElementById("feedback-icon").innerText = "info";
+      document.getElementById("feedback-icon").className = "material-symbols-outlined text-amber-400";
+      document.getElementById("feedback-text").innerText = "Scenario initialized. Select your emergency maneuver choice below.";
+      document.getElementById("action-lock-state").innerText = "Awaiting Input";
+    }
+
+    function resetCarVisualState(deg = 0) {
+      const car = document.getElementById("car-entity");
+      car.className = "relative z-10 transition-transform duration-300 flex flex-col items-center";
+      car.style.transform = `rotate(${deg}deg)`;
+      
+      const b1 = document.getElementById("brake-lights");
+      const b2 = document.getElementById("brake-lights-2");
+      b1.className = "absolute -left-1 top-1.5 w-1.5 h-2 bg-red-800 rounded-l transition-colors";
+      b2.className = "absolute -left-1 bottom-1.5 w-1.5 h-2 bg-red-800 rounded-l transition-colors";
+
+      const roadLine = document.getElementById("lane-line");
+      roadLine.className = "road-lines";
+
+      document.getElementById("skid-marks").classList.add("hidden");
+    }
+
+    function executeChoice(choiceIdx) {
+      selectedChoiceIndex = choiceIdx;
+      const sc = scenarios[currentScenarioId];
+      const choice = sc.choices[choiceIdx];
+
+      // Update Choice Cards styling
+      sc.choices.forEach((_, idx) => {
+        const card = document.getElementById(`choice-card-${idx}`);
+        if (idx === choiceIdx) {
+          card.className = "choice-option w-full text-left p-3.5 rounded-lg border border-primary-container bg-surface-container-low border-l-4 border-l-primary-container flex items-start gap-3 transition-all";
+        } else {
+          card.className = "choice-option w-full text-left p-3.5 rounded-lg border border-[#D9DDD8] bg-surface-container-lowest opacity-50 flex items-start gap-3";
+        }
+      });
+
+      const car = document.getElementById("car-entity");
+      const b1 = document.getElementById("brake-lights");
+      const b2 = document.getElementById("brake-lights-2");
+      const roadLine = document.getElementById("lane-line");
+      const banner = document.getElementById("sim-feedback-banner");
+      const feedbackIcon = document.getElementById("feedback-icon");
+      const feedbackText = document.getElementById("feedback-text");
+      const statusBadge = document.getElementById("hud-status");
+
+      // Reset animation classes
+      car.classList.remove("anim-spinout", "anim-recover");
+      void car.offsetWidth; // trigger reflow
+
+      // Activate Brake Lights if applicable
+      if (choice.brakesActive) {
+        b1.className = "absolute -left-1 top-1.5 w-1.5 h-2 bg-red-500 rounded-l shadow-[0_0_8px_#ff0000]";
+        b2.className = "absolute -left-1 bottom-1.5 w-1.5 h-2 bg-red-500 rounded-l shadow-[0_0_8px_#ff0000]";
+        document.getElementById("skid-marks").classList.remove("hidden");
+      }
+
+      if (choice.correct) {
+        // Safe Recovery Outcome
+        car.classList.add("anim-recover");
+        roadLine.className = "road-lines-stop";
+        banner.className = "z-10 min-h-[48px] rounded border border-green-700 bg-green-950/90 p-3.5 flex items-center gap-3 text-sm text-green-200";
+        feedbackIcon.innerText = "check_circle";
+        feedbackIcon.className = "material-symbols-outlined text-green-400 text-xl";
+        feedbackText.innerHTML = `<strong>${choice.feedback}</strong>`;
+        statusBadge.innerText = "STATUS: SAFE STABILIZATION ACHIEVED";
+        statusBadge.className = "font-code-data text-code-data text-green-400 font-semibold uppercase";
+        document.getElementById("action-lock-state").innerText = "Protocol Mastered";
+      } else {
+        // Crash / Loss of Control Outcome
+        car.classList.add("anim-spinout");
+        roadLine.className = "road-lines-fast";
+        banner.className = "z-10 min-h-[48px] rounded border border-red-700 bg-red-950/90 p-3.5 flex items-center gap-3 text-sm text-red-200";
+        feedbackIcon.innerText = "report";
+        feedbackIcon.className = "material-symbols-outlined text-red-400 text-xl";
+        feedbackText.innerHTML = `<strong>${choice.feedback}</strong>`;
+        statusBadge.innerText = "STATUS: CATASTROPHIC VEHICULAR SPIN";
+        statusBadge.className = "font-code-data text-code-data text-red-400 font-semibold uppercase";
+        document.getElementById("action-lock-state").innerText = "Execution Failed";
+      }
+    }
+
+    function resetSimulation() {
+      switchScenario(currentScenarioId);
+    }
+
+    // Formative Quiz Handler
+    function checkQuiz(qNum, selected) {
+      const qClass = `q${qNum}-choice`;
+      const feedbackDiv = document.getElementById(`q${qNum}-feedback`);
+      const options = document.querySelectorAll(`.${qClass}`);
+
+      options.forEach(opt => {
+        opt.classList.remove("border-primary-container", "border-l-4", "border-l-primary-container", "bg-surface-container-low");
+        opt.classList.add("border-[#D9DDD8]", "bg-surface-container-lowest");
+      });
+
+      // Highlight selected
+      event.currentTarget.classList.remove("border-[#D9DDD8]", "bg-surface-container-lowest");
+      event.currentTarget.classList.add("border-primary-container", "border-l-4", "border-l-primary-container", "bg-surface-container-low");
+
+      feedbackDiv.classList.remove("hidden");
+
+      if (qNum === 1) {
+        if (selected === 'B') {
+          feedbackDiv.className = "p-3 rounded-lg font-body-sm text-body-sm bg-green-50 text-green-900 border border-green-300";
+          feedbackDiv.innerHTML = "<strong>CORRECT:</strong> TTC statutory standard mandates keeping steering authority through a firm dual-hand grip while allowing rolling resistance to slow the car. Hard braking is fatal during a blowout.";
+        } else {
+          feedbackDiv.className = "p-3 rounded-lg font-body-sm text-body-sm bg-red-50 text-red-900 border border-red-300";
+          feedbackDiv.innerHTML = "<strong>INCORRECT:</strong> Immediate braking transfers the vehicle's dynamic weight directly onto the blown rim, resulting in immediate ground digging and violent rollovers. Re-read the Tire Blowout Protocol above.";
+        }
+      } else if (qNum === 2) {
+        if (selected === 'A') {
+          feedbackDiv.className = "p-3 rounded-lg font-body-sm text-body-sm bg-green-50 text-green-900 border border-green-300";
+          feedbackDiv.innerHTML = "<strong>CORRECT (TTC § 545.406):</strong> Texas statute strictly prohibits coasting downhill in neutral or with clutch disengaged. The vehicle must remain in gear so engine compression brakes the vehicle.";
+        } else {
+          feedbackDiv.className = "p-3 rounded-lg font-body-sm text-body-sm bg-red-50 text-red-900 border border-red-300";
+          feedbackDiv.innerHTML = "<strong>INCORRECT:</strong> Texas Transportation Code § 545.406 contains zero exemptions for speed or hazard flashers. Coasting with disengaged transmission on a downgrade is an explicit statutory misdemeanor.";
+        }
+      }
+    }
+    // Initialize on load
+    window.addEventListener("DOMContentLoaded", () => {
+      switchScenario(1);
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L05-T14';
+  const nextTopicId = 'L05-T15';
+  const prevTopicId = 'L05-T13';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body></html>

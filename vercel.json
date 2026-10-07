@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "public": true,
+  "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/classroom",
+      "dest": "/course_shell/player.html"
+    },
+    {
+      "src": "/player",
+      "dest": "/course_shell/player.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/course_shell/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ]
+}

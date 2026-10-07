@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L03-T07: Defensive Driving: Anticipate & Respond</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#E87522',
+              'orange-dark': '#C75D14',
+              'orange-light': '#FFF5EE',
+              black: '#111111',
+              charcoal: '#1A1A1A',
+              muted: '#666666',
+              border: '#E2E5E0',
+              surface: '#FFFFFF',
+              bg: '#F6F7F5',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #111111;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .road-surface {
+      background-color: #23272A;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .road-dash-white {
+      background: repeating-linear-gradient(to bottom, #FFFFFF 0px, #FFFFFF 18px, transparent 18px, transparent 36px);
+    }
+    .road-dash-yellow {
+      background: repeating-linear-gradient(to bottom, #F59E0B 0px, #F59E0B 18px, transparent 18px, transparent 36px);
+    }
+    .road-dash-yellow-horizontal {
+      background: repeating-linear-gradient(to right, #F59E0B 0px, #F59E0B 18px, transparent 18px, transparent 36px);
+    }
+    .crosswalk-stripes {
+      background: repeating-linear-gradient(to bottom, #FFFFFF 0px, #FFFFFF 12px, transparent 12px, transparent 24px);
+    }
+  </style>
+</head>
+<body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto space-y-12">
+
+    <!-- BREADCRUMB & METADATA -->
+    <header class="border-b border-brand-border pb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono uppercase tracking-wider text-brand-muted">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#E87522]"></span>
+          <span>Module 03 // Right-of-Way Rules</span>
+          <span>•</span>
+          <span class="font-semibold text-brand-black">Topic L03-T07</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>TTC § 545.061 & § 545.152</span>
+          <span>•</span>
+          <span>TDLR SEC. 521.1601</span>
+        </div>
+      </div>
+
+      <!-- HERO SECTION -->
+      <div class="mt-6">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-brand-black">
+          Observe. Anticipate. Respond.
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-brand-muted leading-relaxed max-w-3xl">
+          Defensive driving is not merely reacting to events—it is the deliberate art of anticipating errors before they materialize. Under Texas law and sound roadcraft, having the legal right does not excuse walking or driving into an imminent crash. Real driving mastery means voluntarily conceding space to eliminate kinetic hazard.
+        </p>
+      </div>
+
+      <!-- CORE DOCTRINE CALLOUT -->
+      <div class="mt-6 p-4 rounded-xl bg-brand-orange-light border border-[#E87522]/30 flex items-start gap-3.5">
+        <div class="w-8 h-8 rounded-lg bg-[#E87522] flex items-center justify-center flex-shrink-0 text-white font-mono text-sm font-bold">
+          !
+        </div>
+        <div>
+          <div class="text-xs font-mono font-bold tracking-wide uppercase text-[#E87522]">
+            The Texas Due Care Principle (TTC § 545.401)
+          </div>
+          <p class="text-sm text-brand-black mt-0.5 leading-snug">
+            “No statute grants an unconditional right to crash.” Every operator possesses an overarching legal duty to exercise caution and yield when another road user is in hazard, regardless of signals or lane precedence.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- SCENARIO 1: THE HIGHWAY MERGE CONFLICT -->
+    <section class="bg-white rounded-2xl border border-brand-border p-6 sm:p-8 shadow-sm">
+      <div class="flex items-center justify-between border-b border-brand-border pb-4 mb-6">
+        <div>
+          <span class="text-xs font-mono font-semibold tracking-wider text-[#E87522] uppercase">Statutory Protocol 01</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-brand-black">Scenario 1: Multi-Lane Conflict</h2>
+        </div>
+        <span class="text-xs font-mono px-2.5 py-1 bg-gray-100 text-gray-700 rounded-md">TTC § 545.061</span>
+      </div>
+
+      <p class="text-sm sm:text-base text-gray-700 mb-6">
+        You are driving on a three-lane highway in the far right lane. You and an adjacent driver in the far left lane both initiate lane changes into the center lane at the identical moment.
+      </p>
+
+      <!-- TOP-DOWN CSS ROAD DIAGRAM -->
+      <div class="road-surface rounded-xl p-6 relative overflow-hidden text-white mb-6">
+        <div class="text-[11px] font-mono tracking-widest text-gray-400 mb-3 uppercase flex items-center justify-between">
+          <span>Highway Geometry // 3-Lane Simultaneous Merge</span>
+          <span class="text-amber-400">Direction of Travel: ↓</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-0 border-x-2 border-white/60 h-72 relative rounded bg-neutral-900/90">
+          <!-- Left Lane -->
+          <div class="border-r border-dashed border-white/40 relative flex flex-col items-center justify-start pt-6">
+            <span class="text-[10px] font-mono text-gray-400 mb-2">Lane 1 (Left / Fast)</span>
+            
+            <!-- Other Car (Left) -->
+            <div class="w-16 h-28 rounded-lg bg-sky-500 border-2 border-white shadow-xl relative flex flex-col items-center justify-between p-2 transform rotate-12 transition-transform duration-300">
+              <div class="flex justify-between w-full px-0.5">
+                <span class="w-2 h-2 rounded-full bg-amber-300 shadow-[0_0_8px_#fde047]"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-300 opacity-30"></span>
+              </div>
+              <div class="w-10 h-6 bg-sky-900/80 rounded-t-md border border-sky-300/40"></div>
+              <div class="text-[9px] font-mono font-bold text-white text-center leading-tight">OTHER CAR</div>
+              <div class="w-10 h-4 bg-sky-900/80 rounded-b-md border border-sky-300/40"></div>
+              <div class="flex justify-between w-full px-1">
+                <span class="w-2 h-1 bg-red-400 rounded-xs"></span>
+                <span class="w-2 h-1 bg-red-400 rounded-xs"></span>
+              </div>
+            </div>
+            
+            <!-- Left Car Trajectory Arrow -->
+            <div class="mt-4 flex items-center text-sky-400 text-xs font-mono font-bold animate-pulse">
+              <span>Merging In ↘</span>
+            </div>
+          </div>
+
+          <!-- Center Lane (Conflict Zone) -->
+          <div class="border-r border-dashed border-white/40 relative flex flex-col items-center justify-center bg-red-950/20">
+            <span class="text-[10px] font-mono text-gray-400 absolute top-2">Lane 2 (Center)</span>
+            
+            <!-- Conflict Zone Box -->
+            <div class="border-2 border-dashed border-[#E87522] rounded-xl p-3 bg-neutral-950/70 text-center w-5/6">
+              <span class="text-xs font-mono font-bold text-[#E87522] block">CRITICAL CONFLICT POINT</span>
+              <span class="text-[10px] text-gray-300 block mt-0.5">Simultaneous Center Entry</span>
+            </div>
+          </div>
+
+          <!-- Right Lane (User) -->
+          <div class="relative flex flex-col items-center justify-end pb-6">
+            <span class="text-[10px] font-mono text-gray-400 absolute top-2">Lane 3 (Right)</span>
+
+            <!-- Right Car Trajectory Arrow -->
+            <div class="mb-4 flex items-center text-[#E87522] text-xs font-mono font-bold">
+              <span>↖ Your Path</span>
+            </div>
+
+            <!-- User Car (Right) -->
+            <div class="w-16 h-28 rounded-lg bg-[#E87522] border-2 border-white shadow-xl relative flex flex-col items-center justify-between p-2 transform -rotate-12 transition-transform duration-300">
+              <div class="flex justify-between w-full px-0.5">
+                <span class="w-2 h-2 rounded-full bg-amber-300 opacity-30"></span>
+                <span class="w-2 h-2 rounded-full bg-amber-300 shadow-[0_0_8px_#fde047]"></span>
+              </div>
+              <div class="w-10 h-6 bg-amber-950/80 rounded-t-md border border-amber-300/40"></div>
+              <div class="text-[9px] font-mono font-extrabold text-white text-center leading-tight">YOU (Right)</div>
+              <div class="w-10 h-4 bg-amber-950/80 rounded-b-md border border-amber-300/40"></div>
+              <div class="flex justify-between w-full px-1">
+                <span class="w-2 h-1 bg-red-400 rounded-xs"></span>
+                <span class="w-2 h-1 bg-red-400 rounded-xs"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 flex items-center justify-between text-[11px] font-mono text-gray-400">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-sky-500 inline-block"></span> Left Lane Vehicle (Approaching Faster)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-[#E87522] inline-block"></span> Your Vehicle (Entering from Right)</span>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE DECISION PANEL -->
+      <div class="bg-gray-50 border border-brand-border rounded-xl p-5">
+        <div class="text-xs font-mono font-semibold text-brand-muted uppercase tracking-wide">
+          Tactical Assessment
+        </div>
+        <p class="font-semibold text-brand-black text-base mt-1">
+          You are the car merging from the right. The other car is merging from the left. Anticipate the conflict and respond:
+        </p>
+
+        <!-- DECISION BUTTONS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+          <button id="s1-btn-accel" onclick="handleScenario1('accel')" class="px-5 py-3.5 rounded-lg border-2 border-gray-300 hover:border-red-400 bg-white hover:bg-red-50 text-left font-medium text-sm transition-all duration-150 flex items-center justify-between group">
+            <span class="font-mono text-gray-800 group-hover:text-red-700">[ Accelerate ]</span>
+            <span class="text-xs text-gray-500 group-hover:text-red-600">Force entry first</span>
+          </button>
+          <button id="s1-btn-yield" onclick="handleScenario1('yield')" class="px-5 py-3.5 rounded-lg border-2 border-[#E87522] bg-[#E87522] hover:bg-[#C75D14] text-white text-left font-medium text-sm transition-all duration-150 flex items-center justify-between shadow-sm">
+            <span class="font-mono text-gray-800">[ Yield to the Left Vehicle ]</span>
+            <span class="text-xs text-gray-500">Cancel merge & hold lane</span>
+          </button>
+        </div>
+
+        <!-- FEEDBACK CALLOUT -->
+        <div id="s1-feedback" class="hidden mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 text-sm">
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Statutory Correct Execution — TTC § 545.061
+          </div>
+          <p class="leading-relaxed">
+            <strong class="font-semibold">Texas Transportation Code § 545.061</strong> establishes that an operator entering a lane of traffic from the right <strong>MUST YIELD</strong> the right-of-way to an operator entering the same lane of traffic from the left. Because the left vehicle travels in a higher-speed corridor and possesses statutory precedence, you must yield to avert a high-speed pinch crash.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENARIO 2: THE STUCK PEDESTRIAN -->
+    <section class="bg-white rounded-2xl border border-brand-border p-6 sm:p-8 shadow-sm">
+      <div class="flex items-center justify-between border-b border-brand-border pb-4 mb-6">
+        <div>
+          <span class="text-xs font-mono font-semibold tracking-wider text-[#E87522] uppercase">Statutory Protocol 02</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-brand-black">Scenario 2: The Intersection Delay</h2>
+        </div>
+        <span class="text-xs font-mono px-2.5 py-1 bg-gray-100 text-gray-700 rounded-md">TTC § 552.008 & § 544.007</span>
+      </div>
+
+      <p class="text-sm sm:text-base text-gray-700 mb-6">
+        You are stationary at a red light at an urban intersection. The signal turns green. However, an elderly pedestrian carrying groceries is still stranded mid-crosswalk, unable to complete crossing before the phase change.
+      </p>
+
+      <!-- CSS CROSSWALK & SIGNAL DIAGRAM -->
+      <div class="road-surface rounded-xl p-6 relative overflow-hidden text-white mb-6">
+        <div class="text-[11px] font-mono tracking-widest text-gray-400 mb-4 uppercase flex items-center justify-between">
+          <span>Signalized Crosswalk Dynamics // Vulnerable User Transit</span>
+          <span class="text-emerald-400 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Signal Phase: Green</span>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 bg-neutral-900/90 p-5 rounded-lg border border-neutral-800">
+          
+          <!-- Traffic Signal Box -->
+          <div class="flex flex-col items-center justify-center p-3 bg-neutral-950 border-2 border-neutral-700 rounded-xl shadow-lg w-24">
+            <span class="text-[9px] font-mono text-gray-400 mb-2 uppercase">Signal Head</span>
+            <div class="w-8 h-8 rounded-full bg-red-950/40 border border-neutral-800 mb-2"></div>
+            <div class="w-8 h-8 rounded-full bg-amber-950/40 border border-neutral-800 mb-2"></div>
+            <div class="w-8 h-8 rounded-full bg-emerald-400 border border-emerald-300 shadow-[0_0_16px_#34d399] flex items-center justify-center text-[10px] font-bold text-neutral-900">
+              GO
+            </div>
+            <span class="text-[9px] font-mono text-emerald-400 mt-2 font-bold">SOLID GREEN</span>
+          </div>
+
+          <!-- Road & Crosswalk Canvas -->
+          <div class="flex-1 w-full bg-neutral-800 rounded-lg p-4 relative overflow-hidden border border-neutral-700 flex flex-col justify-between h-64">
+            <!-- Intersecting Corridor -->
+            <div class="text-[10px] font-mono text-gray-400 flex justify-between">
+              <span>← Cross Street West</span>
+              <span>Cross Street East →</span>
+            </div>
+
+            <!-- Continental Crosswalk -->
+            <div class="relative w-full h-24 bg-neutral-900/90 rounded border-y border-white/20 flex items-center justify-around px-2">
+              <!-- Stripes -->
+              <div class="w-5 h-20 bg-white rounded-xs opacity-90"></div>
+              <div class="w-5 h-20 bg-white rounded-xs opacity-90"></div>
+              <div class="w-5 h-20 bg-white rounded-xs opacity-90"></div>
+              
+              <!-- Pedestrian in Crosswalk -->
+              <div class="relative z-10 flex flex-col items-center bg-neutral-950/80 px-3 py-1.5 rounded-lg border border-amber-400/80 shadow-lg">
+                <!-- SVG Pedestrian Icon -->
+                <svg class="w-7 h-7 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="4" r="2" />
+                  <path d="M15 8h-6v5h2v7h2v-7h2V8z" />
+                </svg>
+                <span class="text-[9px] font-mono font-bold text-amber-300 whitespace-nowrap mt-0.5">PEDESTRIAN</span>
+                <span class="text-[8px] font-mono text-gray-400">Still in Crosswalk</span>
+              </div>
+
+              <div class="w-5 h-20 bg-white rounded-xs opacity-90"></div>
+              <div class="w-5 h-20 bg-white rounded-xs opacity-90"></div>
+              <div class="w-5 h-20 bg-white rounded-xs opacity-90"></div>
+            </div>
+
+            <!-- Stop Bar & User Vehicle -->
+            <div class="flex items-center justify-between pt-2 border-t-4 border-white">
+              <div class="text-[10px] font-mono text-gray-300">
+                Transverse Stop Line Limit
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-emerald-400 font-semibold">Your Position: Halted</span>
+                <div class="w-12 h-7 rounded bg-[#E87522] border border-white flex items-center justify-center text-[9px] font-bold">
+                  YOU
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 text-[11px] font-mono text-gray-400 flex items-center justify-between">
+          <span>Signal: Active Green Light (§ 544.007)</span>
+          <span class="text-amber-400">Pedestrian Status: Lawfully in Conflict Path</span>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE DECISION PANEL -->
+      <div class="bg-gray-50 border border-brand-border rounded-xl p-5">
+        <div class="text-xs font-mono font-semibold text-brand-muted uppercase tracking-wide">
+          Tactical Assessment
+        </div>
+        <p class="font-semibold text-brand-black text-base mt-1">
+          Your light just turned green, but the pedestrian hasn't finished crossing. What is your required action?
+        </p>
+
+        <!-- DECISION BUTTONS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+          <button id="s2-btn-go" onclick="handleScenario2('go')" class="px-5 py-3.5 rounded-lg border-2 border-gray-300 hover:border-red-400 bg-white hover:bg-red-50 text-left font-medium text-sm transition-all duration-150 flex items-center justify-between group">
+            <span class="font-mono text-gray-800 group-hover:text-red-700">[ Proceed Quickly ]</span>
+            <span class="text-xs text-gray-500 group-hover:text-red-600">Assert green phase</span>
+          </button>
+          <button id="s2-btn-yield" onclick="handleScenario2('yield')" class="px-5 py-3.5 rounded-lg border-2 border-[#E87522] bg-[#E87522] hover:bg-[#C75D14] text-white text-left font-medium text-sm transition-all duration-150 flex items-center justify-between shadow-sm">
+            <span class="font-mono font-bold">[ Hold Position and Yield ]</span>
+            <span class="text-xs text-white/90">Protect pedestrian</span>
+          </button>
+        </div>
+
+        <!-- FEEDBACK CALLOUT -->
+        <div id="s2-feedback" class="hidden mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 text-sm">
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Universal Protection Doctrine — TTC § 552.008 & § 544.007(b)
+          </div>
+          <p class="leading-relaxed">
+            Safety and human life unconditionally supersede an illuminated green lens. <strong class="font-semibold">Texas Transportation Code § 544.007(b)</strong> explicitly commands that vehicular traffic facing a green signal <strong>shall yield</strong> the right-of-way to other vehicles and pedestrians lawfully within the intersection or adjacent crosswalk. Furthermore, <strong class="font-semibold">TTC § 552.008</strong> establishes a universal duty of due care to avoid colliding with any pedestrian at all times.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENARIO 3: THE BLIND LEFT TURN -->
+    <section class="bg-white rounded-2xl border border-brand-border p-6 sm:p-8 shadow-sm">
+      <div class="flex items-center justify-between border-b border-brand-border pb-4 mb-6">
+        <div>
+          <span class="text-xs font-mono font-semibold tracking-wider text-[#E87522] uppercase">Statutory Protocol 03</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-brand-black">Scenario 3: Opposing Traffic</h2>
+        </div>
+        <span class="text-xs font-mono px-2.5 py-1 bg-gray-100 text-gray-700 rounded-md">TTC § 545.152</span>
+      </div>
+
+      <p class="text-sm sm:text-base text-gray-700 mb-6">
+        You are waiting to turn left at an uncontrolled T-Intersection into a side street. A straight-through opposing vehicle is bearing down on the intersection at standard speed.
+      </p>
+
+      <!-- TOP-DOWN CSS T-INTERSECTION DIAGRAM -->
+      <div class="road-surface rounded-xl p-6 relative overflow-hidden text-white mb-6">
+        <div class="text-[11px] font-mono tracking-widest text-gray-400 mb-4 uppercase flex items-center justify-between">
+          <span>T-Intersection Geometry // Left Turn Conflict Vector</span>
+          <span class="text-amber-400">TTC § 545.152 Mandate</span>
+        </div>
+
+        <div class="relative bg-neutral-900/90 rounded-lg p-6 border border-neutral-800 min-h-[300px] flex items-center justify-center">
+          
+          <!-- Continuous Horizontal Highway -->
+          <div class="absolute w-full h-32 bg-neutral-800 border-y-2 border-white flex flex-col justify-between py-1">
+            <!-- Opposing Lane (Westbound) -->
+            <div class="h-14 flex items-center justify-end px-12 relative">
+              <span class="text-[10px] font-mono text-gray-400 absolute left-4">Opposing Lane (Westbound)</span>
+              
+              <!-- Opposing Straight Car -->
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono text-amber-400 font-bold animate-pulse">45 MPH Direct Path ←</span>
+                <div class="w-20 h-10 rounded-md bg-neutral-100 border-2 border-neutral-400 text-neutral-900 p-1 flex items-center justify-between shadow-lg">
+                  <div class="w-1 h-8 bg-red-500 rounded-xs"></div>
+                  <div class="text-[9px] font-mono font-bold text-center leading-tight">STRAIGHT TRAFFIC</div>
+                  <div class="w-1.5 h-8 bg-amber-300 rounded-xs shadow-[0_0_6px_#fde047]"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Double Yellow Centerline -->
+            <div class="w-full flex flex-col gap-0.5">
+              <div class="w-full h-0.5 bg-amber-400"></div>
+              <div class="w-full h-0.5 bg-amber-400"></div>
+            </div>
+
+            <!-- User Lane (Eastbound) -->
+            <div class="h-14 flex items-center justify-start px-12 relative">
+              <span class="text-[10px] font-mono text-gray-400 absolute right-4">Your Travel Lane (Eastbound)</span>
+
+              <!-- User Car Turning Left -->
+              <div class="flex items-center gap-3">
+                <div class="w-20 h-10 rounded-md bg-[#E87522] border-2 border-white text-white p-1 flex items-center justify-between shadow-lg">
+                  <div class="w-1.5 h-8 bg-amber-300 rounded-xs shadow-[0_0_6px_#fde047]"></div>
+                  <div class="text-[9px] font-mono font-bold text-center leading-tight">YOU (Turn Left)</div>
+                  <div class="w-1 h-8 bg-red-400 rounded-xs"></div>
+                </div>
+                
+                <!-- Trajectory Arc Indicator -->
+                <div class="border-t-2 border-l-2 border-dashed border-[#E87522] w-12 h-12 rounded-tl-xl flex items-start justify-start p-1 text-[10px] font-mono text-[#E87522]">
+                  ↰
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terminating Stem Road (Northbound Side Street) -->
+          <div class="absolute bottom-0 w-28 h-28 bg-neutral-800 border-x-2 border-white flex flex-col items-center justify-center z-0">
+            <span class="text-[9px] font-mono text-gray-400 text-center leading-tight">Terminating Side Street</span>
+          </div>
+
+          <!-- Conflict Zone Center Box -->
+          <div class="relative z-10 w-24 h-24 border-2 border-dashed border-red-500/80 bg-red-950/40 rounded-xl flex flex-col items-center justify-center text-center p-1">
+            <span class="text-[9px] font-mono font-bold text-red-400 uppercase">Conflict Zone</span>
+            <span class="text-[8px] font-mono text-gray-300">T-Bone Hazard</span>
+          </div>
+        </div>
+
+        <div class="mt-3 text-[11px] font-mono text-gray-400 flex items-center justify-between">
+          <span class="text-white">Your Vehicle: Preparing Left Turn into Stem Road</span>
+          <span class="text-amber-400">Opposing Vehicle: Unobstructed Right-of-Way</span>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE DECISION PANEL -->
+      <div class="bg-gray-50 border border-brand-border rounded-xl p-5">
+        <div class="text-xs font-mono font-semibold text-brand-muted uppercase tracking-wide">
+          Tactical Assessment
+        </div>
+        <p class="font-semibold text-brand-black text-base mt-1">
+          You need to turn left, but straight-through traffic is approaching rapidly. Anticipate the conflict and respond:
+        </p>
+
+        <!-- DECISION BUTTONS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+          <button id="s3-btn-force" onclick="handleScenario3('force')" class="px-5 py-3.5 rounded-lg border-2 border-gray-300 hover:border-red-400 bg-white hover:bg-red-50 text-left font-medium text-sm transition-all duration-150 flex items-center justify-between group">
+            <span class="font-mono text-gray-800 group-hover:text-red-700">[ Force the Turn ]</span>
+            <span class="text-xs text-gray-500 group-hover:text-red-600">Accelerate across lane</span>
+          </button>
+          <button id="s3-btn-yield" onclick="handleScenario3('yield')" class="px-5 py-3.5 rounded-lg border-2 border-[#E87522] bg-[#E87522] hover:bg-[#C75D14] text-white text-left font-medium text-sm transition-all duration-150 flex items-center justify-between shadow-sm">
+            <span class="font-mono font-bold">[ Yield to Straight Traffic ]</span>
+            <span class="text-xs text-white/90">Keep wheels straight & wait</span>
+          </button>
+        </div>
+
+        <!-- FEEDBACK CALLOUT -->
+        <div id="s3-feedback" class="hidden mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 text-sm">
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Statutory Absolute Mandate — TTC § 545.152
+          </div>
+          <p class="leading-relaxed">
+            Under <strong class="font-semibold">Texas Transportation Code § 545.152</strong>, an operator intending to turn left within an intersection or into an alley, private road, or driveway <strong>MUST YIELD</strong> the right-of-way to any vehicle approaching from the opposite direction that is in the intersection or so close as to constitute an immediate hazard. Forcing an unprotected turn against oncoming momentum is the leading contributor to fatal angle collisions in Texas. Keep front wheels pointed straight until ready to execute the maneuver.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON COMPLETION FOOTER -->
+    <footer class="pt-8 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+        <span class="text-xs font-mono text-brand-muted uppercase tracking-wide">
+          Topic L03-T07 Validated // TDLR Compliant
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <a href="#" class="px-5 py-3 rounded-lg border border-brand-border bg-white text-brand-black text-sm font-medium hover:bg-gray-50 transition-colors w-full sm:w-auto text-center font-mono">
+          ← Previous: L03-T06 Legal Decisions
+        </a>
+        <button class="px-6 py-3 rounded-lg bg-[#E87522] hover:bg-[#C75D14] text-white text-sm font-semibold transition-colors shadow-sm w-full sm:w-auto text-center flex items-center justify-center gap-2">
+          <span>Complete Module 03 & Take Exam</span>
+          <span>→</span>
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- INTERACTIVITY SCRIPT -->
+  <script>
+    function handleScenario1(action) {
+      const feedback = document.getElementById('s1-feedback');
+      const btnYield = document.getElementById('s1-btn-yield');
+      const btnAccel = document.getElementById('s1-btn-accel');
+      if (action === 'yield') {
+        feedback.className = "mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 text-sm block";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Correct Statutory Decision — TTC § 545.061
+          </div>
+          <p class="leading-relaxed"><strong>Correct!</strong> Texas law explicitly states that the vehicle entering from the right <strong>MUST yield</strong> to the vehicle entering from the left. By pausing your merge, you averted a dual-blindspot collision in the center corridor.</p>
+        `;
+        btnYield.classList.add('ring-2', 'ring-emerald-500');
+        btnAccel.classList.remove('ring-2', 'ring-red-500');
+      } else {
+        feedback.className = "mt-4 p-4 rounded-lg bg-red-50 border border-red-300 text-red-950 text-sm block";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-red-800 mb-1">
+            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+            Critical Hazard: Statutory Violation
+          </div>
+          <p class="leading-relaxed"><strong>Violation of TTC § 545.061:</strong> Accelerating creates an immediate severe side-impact pinch. The vehicle from the left holds legal right-of-way over vehicles entering from the right.</p>
+        `;
+        btnAccel.classList.add('ring-2', 'ring-red-500');
+        btnYield.classList.remove('ring-2', 'ring-emerald-500');
+      }
+    }
+
+    function handleScenario2(action) {
+      const feedback = document.getElementById('s2-feedback');
+      const btnYield = document.getElementById('s2-btn-yield');
+      const btnGo = document.getElementById('s2-btn-go');
+      if (action === 'yield') {
+        feedback.className = "mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 text-sm block";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Correct Statutory Decision — TTC § 544.007(b) & § 552.008
+          </div>
+          <p class="leading-relaxed"><strong>Correct!</strong> A green light authorizes forward transit ONLY after existing cross-traffic and pedestrians clear the conflict zone. Pedestrians lawfully in the crosswalk retain unconditional right-of-way.</p>
+        `;
+        btnYield.classList.add('ring-2', 'ring-emerald-500');
+        btnGo.classList.remove('ring-2', 'ring-red-500');
+      } else {
+        feedback.className = "mt-4 p-4 rounded-lg bg-red-50 border border-red-300 text-red-950 text-sm block";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-red-800 mb-1">
+            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+            Critical Hazard: Failure to Exercise Due Care
+          </div>
+          <p class="leading-relaxed"><strong>Violation of TTC § 552.008:</strong> Proceeding while a pedestrian is in the crosswalk constitutes reckless driving and failure to yield, carrying severe criminal penalties if injury results.</p>
+        `;
+        btnGo.classList.add('ring-2', 'ring-red-500');
+        btnYield.classList.remove('ring-2', 'ring-emerald-500');
+      }
+    }
+
+    function handleScenario3(action) {
+      const feedback = document.getElementById('s3-feedback');
+      const btnYield = document.getElementById('s3-btn-yield');
+      const btnForce = document.getElementById('s3-btn-force');
+      if (action === 'yield') {
+        feedback.className = "mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 text-sm block";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Correct Statutory Decision — TTC § 545.152
+          </div>
+          <p class="leading-relaxed"><strong>Correct!</strong> Operators turning left must always yield to oncoming straight-through traffic until a safe clearance gap exists. Keeping wheels straight prevents being rear-ended into opposing traffic.</p>
+        `;
+        btnYield.classList.add('ring-2', 'ring-emerald-500');
+        btnForce.classList.remove('ring-2', 'ring-red-500');
+      } else {
+        feedback.className = "mt-4 p-4 rounded-lg bg-red-50 border border-red-300 text-red-950 text-sm block";
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-red-800 mb-1">
+            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+            Catastrophic Impact Risk: TTC § 545.152 Violation
+          </div>
+          <p class="leading-relaxed"><strong>Fatal Collision Geometry:</strong> Forcing a left turn in front of oncoming vehicles causes direct broadside T-bone impacts. Oncoming traffic maintains absolute legal precedence over left turns.</p>
+        `;
+        btnForce.classList.add('ring-2', 'ring-red-500');
+        btnYield.classList.remove('ring-2', 'ring-emerald-500');
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L03-T07';
+  const nextTopicId = 'L04-T01';
+  const prevTopicId = 'L03-T06';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>

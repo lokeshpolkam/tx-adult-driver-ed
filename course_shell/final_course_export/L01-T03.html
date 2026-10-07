@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TX-ADE — L01-T03: Driving is a Privilege</title>
+<!-- Google Fonts: Geist & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration matching theme specifications -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-fixed-variant": "#753400",
+            "outline": "#8a7265",
+            "surface": "#f9faf8",
+            "on-tertiary-container": "#2c2e2d",
+            "background": "#f9faf8",
+            "primary-fixed": "#ffdbc9",
+            "on-secondary-fixed": "#171d1a",
+            "on-secondary-fixed-variant": "#424844",
+            "primary": "#9a4600",
+            "on-background": "#191c1b",
+            "on-primary-container": "#4e2000",
+            "surface-dim": "#d9dad8",
+            "primary-container": "#e87522",
+            "on-surface": "#191c1b",
+            "tertiary": "#5d5f5d",
+            "error": "#ba1a1a",
+            "surface-bright": "#f9faf8",
+            "on-error": "#ffffff",
+            "inverse-surface": "#2e3130",
+            "surface-container-high": "#e7e8e6",
+            "secondary": "#5a605c",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e2e3e1",
+            "on-primary-fixed": "#321200",
+            "surface-container": "#edeeec",
+            "inverse-primary": "#ffb68c",
+            "tertiary-fixed-dim": "#c6c7c5",
+            "surface-container-low": "#f3f4f2",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#454746",
+            "on-secondary-container": "#606662",
+            "on-primary": "#ffffff",
+            "secondary-container": "#dee4df",
+            "tertiary-container": "#949593",
+            "secondary-fixed-dim": "#c2c8c3",
+            "surface-variant": "#e2e3e1",
+            "error-container": "#ffdad6",
+            "tertiary-fixed": "#e2e3e0",
+            "on-tertiary-fixed": "#1a1c1b",
+            "on-tertiary": "#ffffff",
+            "outline-variant": "#dec1b2",
+            "inverse-on-surface": "#f0f1ef",
+            "primary-fixed-dim": "#ffb68c",
+            "on-surface-variant": "#574237",
+            "secondary-fixed": "#dee4df",
+            "surface-tint": "#9a4600",
+            "on-secondary": "#ffffff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem"
+          },
+          fontFamily: {
+            "headline-sm": ["Geist", "sans-serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "display-lg": ["Geist", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "display-lg-mobile": ["Geist", "sans-serif"],
+            "body-sm": ["Geist", "sans-serif"],
+            "headline-md": ["Geist", "sans-serif"],
+            "headline-lg": ["Geist", "sans-serif"],
+            "label-mono-sm": ["JetBrains Mono", "monospace"],
+            "label-mono-lg": ["JetBrains Mono", "monospace"],
+            "code-data": ["JetBrains Mono", "monospace"]
+          },
+          fontSize: {
+            "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "500" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "display-lg-mobile": ["34px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "500" }],
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "label-mono-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500" }],
+            "label-mono-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "500" }],
+            "code-data": ["13px", { lineHeight: "18px", fontWeight: "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .cad-grid {
+      background-image: radial-gradient(#d9dad8 1.25px, transparent 1.25px);
+      background-size: 24px 24px;
+    }
+    .transit-line-pattern {
+      background-image: repeating-linear-gradient(to bottom, #d9dad8 0, #d9dad8 10px, transparent 10px, transparent 20px);
+    }
+    .transit-dash-h {
+      background-image: repeating-linear-gradient(to right, #e87522 0, #e87522 14px, transparent 14px, transparent 28px);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- STANDALONE LESSON CANVAS -->
+<main class="max-w-5xl mx-auto py-12 px-6 bg-background">
+<!-- HEADER / TOP BREADCRUMB -->
+<header class="mb-10 pb-8 border-b border-surface-dim">
+<div class="flex items-center gap-2 mb-3">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase tracking-wider">
+          • L01-T03 · PRIVILEGE &amp; CIVIC OBLIGATION | TEXAS TRANSPORTATION CODE // CHAPTER 521
+        </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-4">
+        Driving is a privilege, not a constitutional right
+      </h1>
+<p class="font-body-lg text-body-lg text-secondary leading-relaxed max-w-4xl">
+        The operation of a motor vehicle on Texas public roadways is a conditional privilege granted by the State, governed by statutory covenants, strict civil liability, and an enduring civic obligation to fellow roadway users.
+      </p>
+</header>
+<!-- SECTION 1: 2.5D ASSET CONTAINER -->
+<section class="mb-space-xl">
+  <div class="w-full h-80 md:h-[440px] bg-[#ECEEEA] border border-surface-dim rounded-lg relative overflow-hidden flex items-center justify-center group my-4">
+    <!-- 2.5D Theme-Matched Diorama Visual Asset -->
+    <img src="./assets/2_5d/L01_T03_privilege_covenant.jpg" alt="Texas Transit Privilege and Statutory Covenant 2.5D Schematic" class="w-full h-full object-cover rounded-lg" />
+
+    <!-- Subtle Vignette / Contrast Scrim -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none"></div>
+
+    <!-- Corner Technical Marks -->
+    <div class="absolute top-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">POS: 30.2672° N, 97.7431° W // AUSTIN HQ</div>
+    <div class="absolute top-3 right-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">TX-DPS // TTC § 521.001</div>
+    <div class="absolute bottom-3 left-3 font-mono text-xs text-white/95 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/20">REF // 2.5D_CANVAS_T03_PRIVILEGE_COVENANT</div>
+
+    <!-- Replacement Tracker Badge -->
+    <div class="absolute bottom-3 right-3 flex items-center gap-2 font-mono text-xs bg-[#E87522] text-white px-3 py-1 rounded font-semibold shadow-sm">
+      <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+      <span>2.5D VISUAL PREVIEW // PENDING VIDEO COMPOSITE</span>
+    </div>
+  </div>
+</section>
+<!-- SECTION 2: THE FLOW (Continuous Roadway Geometry & Progression) -->
+<section class="mb-space-xl">
+<div class="mb-6">
+<div class="font-label-mono-sm text-label-mono-sm text-secondary uppercase mb-1">
+          SYSTEMIC TRANSIT CONTRACT // SECTION 02
+        </div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">
+          The Continuum of Motor Vehicle Operation
+        </h2>
+<p class="font-body-md text-body-md text-secondary">
+          Driving authority is not an isolated state, but an unbroken chain connecting personal authorization to statutory accountability.
+        </p>
+</div>
+<!-- Unified Continuous Corridor Terminal Component -->
+<div class="bg-surface-container-lowest border border-surface-dim rounded-lg p-6 lg:p-8">
+<div class="relative">
+<!-- Desktop Road Lane Centerline (Horizontal) -->
+<div class="hidden lg:block absolute top-[44px] left-8 right-8 h-[2px] bg-surface-dim"></div>
+<div class="hidden lg:block absolute top-[44px] left-8 right-8 h-[2px] transit-dash-h opacity-40"></div>
+<!-- 4 Milestone Terminals in a Connected Flow -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10">
+<!-- Terminal 01 -->
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low border-2 border-primary-container flex items-center justify-center font-label-mono-lg text-label-mono-lg font-semibold text-primary">
+                  01
+                </div>
+<div class="h-0.5 flex-1 bg-surface-dim lg:hidden"></div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary lg:hidden">STEP I</span>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-surface-dim h-full flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-mono-sm text-label-mono-sm text-primary font-bold">01 // PRIVILEGE</span>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="badge">badge</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                    Revocable state grant conditioned on technical competence, statutory qualification, and physical readiness under TTC § 521.
+                  </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim flex items-center justify-between text-[11px] font-label-mono-sm text-secondary">
+<span>GRANT // CONDITIONAL</span>
+<span class="text-primary font-semibold">TTC § 521</span>
+</div>
+</div>
+</div>
+<!-- Terminal 02 -->
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low border border-surface-dim flex items-center justify-center font-label-mono-lg text-label-mono-lg font-semibold text-on-surface">
+                  02
+                </div>
+<div class="h-0.5 flex-1 bg-surface-dim lg:hidden"></div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary lg:hidden">STEP II</span>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-surface-dim h-full flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface font-bold">02 // RESPONSIBILITY</span>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="visibility">visibility</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                    Active, ongoing cognitive execution: situational surveillance, ethical speed modulation, and vulnerability recognition.
+                  </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim flex items-center justify-between text-[11px] font-label-mono-sm text-secondary">
+<span>EXECUTION // COGNITIVE</span>
+<span class="text-secondary">ACTIVE</span>
+</div>
+</div>
+</div>
+<!-- Terminal 03 -->
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low border border-surface-dim flex items-center justify-center font-label-mono-lg text-label-mono-lg font-semibold text-on-surface">
+                  03
+                </div>
+<div class="h-0.5 flex-1 bg-surface-dim lg:hidden"></div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary lg:hidden">STEP III</span>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-surface-dim h-full flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface font-bold">03 // OBLIGATION</span>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="gavel">gavel</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                    Strict statutory mandates: continuous financial liability, immediate crash compliance, and obedience to universal traffic controls.
+                  </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim flex items-center justify-between text-[11px] font-label-mono-sm text-secondary">
+<span>MANDATE // STATUTORY</span>
+<span class="text-secondary">BINDING</span>
+</div>
+</div>
+</div>
+<!-- Terminal 04 -->
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low border border-surface-dim flex items-center justify-center font-label-mono-lg text-label-mono-lg font-semibold text-on-surface">
+                  04
+                </div>
+<div class="h-0.5 flex-1 bg-surface-dim lg:hidden"></div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary lg:hidden">STEP IV</span>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-surface-dim h-full flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-mono-sm text-label-mono-sm text-error font-bold">04 // CONSEQUENCE</span>
+<span class="material-symbols-outlined text-error text-sm" data-icon="warning">warning</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                    Immediate civil, administrative, and criminal enforcement when the statutory contract is breached.
+                  </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim flex items-center justify-between text-[11px] font-label-mono-sm text-secondary">
+<span>ENFORCEMENT // PENAL</span>
+<span class="text-error font-semibold">REVOCABLE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: RISKS OF DRIVING (Roadway Path Disruption Model) -->
+<section class="mb-space-xl">
+<div class="mb-4">
+<div class="font-label-mono-sm text-label-mono-sm text-secondary uppercase mb-1">
+          SYSTEMIC RISK TOPOLOGY // SECTION 03
+        </div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">
+          Threats to the Transit Corridor
+        </h2>
+<p class="font-body-md text-body-md text-secondary">
+          Kinetic operation introduces acute systemic perils. Texas averages ~3,500 fatalities and 15,000 serious injuries annually across its roadway network.
+        </p>
+</div>
+<!-- Statistical Banner -->
+<div class="bg-surface-container-low border-l-4 border-primary-container border-y border-r border-surface-dim p-4 rounded-lg mb-6">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="crisis_alert">crisis_alert</span>
+<span class="font-label-mono-sm text-label-mono-sm font-semibold text-on-surface">ANNUAL ROADWAY IMPACT</span>
+</div>
+<div class="font-label-mono-sm text-label-mono-sm text-primary font-semibold">
+            ~3,500 FATALITIES · 15,000+ SERIOUS INJURIES · 1 CRASH EVERY 57 SECONDS (TX-DOT)
+          </div>
+</div>
+</div>
+<!-- Path Disruption Matrix (4 compromised vector corridors) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Disruption 1: Distraction -->
+<div class="bg-surface-container-lowest border border-surface-dim rounded-lg p-5 relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 right-0 w-24 h-24 cad-grid opacity-30 pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="inline-block px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded font-label-mono-sm text-[11px] text-primary">
+                VECTOR DEVIATION // TYPE 01
+              </span>
+<span class="font-label-mono-sm text-label-mono-sm text-tertiary">ΔT = 5.0 SEC</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-xl" data-icon="phonelink_ring">phonelink_ring</span>
+              DISTRACTION
+            </h3>
+<p class="font-label-mono-sm text-[11px] text-secondary uppercase mb-2">Cognitive/Visual Disruption</p>
+<p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+              Manual, visual, and cognitive diversion. Looking at a device for 5 seconds at 55 mph equals traveling the entire length of a football field blindfolded.
+            </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim font-label-mono-sm text-[11px] text-tertiary flex justify-between">
+<span>VELOCITY: 55 MPH</span>
+<span>BLIND DISTANCE: 300 FT</span>
+</div>
+</div>
+<!-- Disruption 2: Impairment -->
+<div class="bg-surface-container-lowest border border-surface-dim rounded-lg p-5 relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 right-0 w-24 h-24 cad-grid opacity-30 pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="inline-block px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded font-label-mono-sm text-[11px] text-primary">
+                VECTOR DEVIATION // TYPE 02
+              </span>
+<span class="font-label-mono-sm text-label-mono-sm text-tertiary">LATENCY: +400%</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-xl" data-icon="science">science</span>
+              IMPAIRMENT
+            </h3>
+<p class="font-label-mono-sm text-[11px] text-secondary uppercase mb-2">Neuromuscular &amp; Sensorimotor Disruption</p>
+<p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+              Alcohol, cannabis, prescription, or illicit substances degrading visual acuity, divided attention, and operational reaction latency.
+            </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim font-label-mono-sm text-[11px] text-tertiary flex justify-between">
+<span>METRIC: BLOOD ALCOHOL CONC.</span>
+<span>TTC § 49.01 STATUTE</span>
+</div>
+</div>
+<!-- Disruption 3: Unsafe Drivers -->
+<div class="bg-surface-container-lowest border border-surface-dim rounded-lg p-5 relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 right-0 w-24 h-24 cad-grid opacity-30 pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="inline-block px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded font-label-mono-sm text-[11px] text-primary">
+                VECTOR DEVIATION // TYPE 03
+              </span>
+<span class="font-label-mono-sm text-label-mono-sm text-tertiary">CORRIDOR VARIANCE</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-xl" data-icon="swap_driving_apps_wheel">swap_driving_apps_wheel</span>
+              UNSAFE DRIVERS
+            </h3>
+<p class="font-label-mono-sm text-[11px] text-secondary uppercase mb-2">Kinetic Variance &amp; Non-Compliance</p>
+<p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+              Erratic speed differentials, improper passing, failure to yield statutory right-of-way, and disregard for signal phase changes.
+            </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim font-label-mono-sm text-[11px] text-tertiary flex justify-between">
+<span>FAILURE: RIGHT-OF-WAY</span>
+<span>TTC CH. 545 VIOLATION</span>
+</div>
+</div>
+<!-- Disruption 4: Road Rage -->
+<div class="bg-surface-container-lowest border border-surface-dim rounded-lg p-5 relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 right-0 w-24 h-24 cad-grid opacity-30 pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="inline-block px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded font-label-mono-sm text-[11px] text-primary">
+                VECTOR DEVIATION // TYPE 04
+              </span>
+<span class="font-label-mono-sm text-label-mono-sm text-error">WEAPONIZED ASSET</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-xl" data-icon="report">report</span>
+              ROAD RAGE
+            </h3>
+<p class="font-label-mono-sm text-[11px] text-secondary uppercase mb-2">Volitional Aggression</p>
+<p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+              Hostile tailgating, brake-checking, deliberate intimidation, and conflict escalation that transform transit tools into deadly weapons.
+            </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-dim font-label-mono-sm text-[11px] text-tertiary flex justify-between">
+<span>CLASSIFICATION: RECKLESS</span>
+<span>TEXAS PENAL CODE 22.01</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: RESPONSIBILITIES & OBLIGATIONS (6 Mapped Areas with Progressive Disclosure) -->
+<section class="mb-space-xl">
+<div class="mb-6">
+<div class="font-label-mono-sm text-label-mono-sm text-secondary uppercase mb-1">
+          CIVIC COVENANT // SECTION 04
+        </div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">
+          The Six Core Driver Obligations
+        </h2>
+<p class="font-body-md text-body-md text-secondary">
+          Holding a Texas driver license creates an affirmative duty across six statutory pillars.
+        </p>
+</div>
+<!-- Interactive Tab / Accordion System -->
+<div class="border border-surface-dim rounded-lg bg-surface-container-lowest overflow-hidden">
+<!-- Tab 01: Financial Responsibility -->
+<div class="border-b border-surface-dim">
+<button class="w-full text-left p-5 flex items-center justify-between bg-surface-container-low/50 hover:bg-surface-container-low transition-colors duration-150 focus:outline-none" id="btn-tab-1" onclick="toggleObligation(1)" type="button">
+<div class="flex items-center gap-4">
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-primary-container px-2 py-0.5 bg-surface-container-lowest border border-surface-dim rounded">
+                01
+              </span>
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block uppercase">TTC § 601.051</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">FINANCIAL RESPONSIBILITY</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-mono-sm text-xs text-primary hidden sm:inline-block">30/60/25 RULE</span>
+<span class="material-symbols-outlined text-secondary transition-transform duration-200 transform rotate-180" data-icon="expand_more" id="icon-tab-1">expand_more</span>
+</div>
+</button>
+<div class="p-6 bg-surface-container-lowest border-t border-surface-dim block" id="content-tab-1">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+<div class="p-3 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-secondary block">BODILY INJURY / PERSON</span>
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-on-surface">$30,000</span>
+</div>
+<div class="p-3 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-secondary block">BODILY INJURY / CRASH TOTAL</span>
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-on-surface">$60,000</span>
+</div>
+<div class="p-3 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-secondary block">PROPERTY DAMAGE / CRASH</span>
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-on-surface">$25,000</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mb-3">
+              Texas Safety Responsibility Act (§ 601.051). Mandatory minimum liability coverage: $30,000 injury/death per person, $60,000 total per crash, $25,000 property damage (30/60/25 rule).
+            </p>
+<div class="flex items-center gap-2 text-xs font-label-mono-sm text-secondary bg-surface-container-low p-2 rounded border border-surface-dim">
+<span class="material-symbols-outlined text-sm text-primary-container" data-icon="verified_user">verified_user</span>
+              Continuous proof required via insurance card, electronic binder, or DPS deposit.
+            </div>
+</div>
+</div>
+<!-- Tab 02: Traffic Laws & Compliance -->
+<div class="border-b border-surface-dim">
+<button class="w-full text-left p-5 flex items-center justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 focus:outline-none" id="btn-tab-2" onclick="toggleObligation(2)" type="button">
+<div class="flex items-center gap-4">
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-secondary px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded">
+                02
+              </span>
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block uppercase">TTC CHAPTER 545</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">TRAFFIC LAWS &amp; COMPLIANCE</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-mono-sm text-xs text-secondary hidden sm:inline-block">RULES OF THE ROAD</span>
+<span class="material-symbols-outlined text-secondary transition-transform duration-200" data-icon="expand_more" id="icon-tab-2">expand_more</span>
+</div>
+</button>
+<div class="p-6 bg-surface-container-lowest border-t border-surface-dim hidden" id="content-tab-2">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mb-3">
+              TTC Chapter 545. Strict adherence to posted regulatory speeds, lane discipline, right-of-way hierarchies, and automated signals.
+            </p>
+<div class="bg-surface-container-low p-3 rounded border-l-2 border-primary-container font-label-mono-sm text-xs text-on-surface">
+              STATUTORY PRINCIPLE: Ignorance of statutes is not an affirmative defense in Texas courts.
+            </div>
+</div>
+</div>
+<!-- Tab 03: Vehicle Mechanical Condition -->
+<div class="border-b border-surface-dim">
+<button class="w-full text-left p-5 flex items-center justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 focus:outline-none" id="btn-tab-3" onclick="toggleObligation(3)" type="button">
+<div class="flex items-center gap-4">
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-secondary px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded">
+                03
+              </span>
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block uppercase">TTC § 548</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">VEHICLE MECHANICAL CONDITION</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-mono-sm text-xs text-secondary hidden sm:inline-block">INSPECTION &amp; MAINTENANCE</span>
+<span class="material-symbols-outlined text-secondary transition-transform duration-200" data-icon="expand_more" id="icon-tab-3">expand_more</span>
+</div>
+</button>
+<div class="p-6 bg-surface-container-lowest border-t border-surface-dim hidden" id="content-tab-3">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mb-3">
+              Annual state safety inspections (§ 548). Affirmative duty to maintain braking systems, directional signals, tire tread depth (&gt;2/32"), headlamps, and windshield clarity.
+            </p>
+<div class="flex items-center gap-2 text-xs font-label-mono-sm text-secondary bg-surface-container-low p-2 rounded border border-surface-dim">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="build">build</span>
+              Operators bear non-delegable civil liability for mechanical failures resulting from deferred maintenance.
+            </div>
+</div>
+</div>
+<!-- Tab 04: Safety Belt Mandates -->
+<div class="border-b border-surface-dim">
+<button class="w-full text-left p-5 flex items-center justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 focus:outline-none" id="btn-tab-4" onclick="toggleObligation(4)" type="button">
+<div class="flex items-center gap-4">
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-secondary px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded">
+                04
+              </span>
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block uppercase">TTC § 545.413</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">SAFETY BELT MANDATES</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-mono-sm text-xs text-secondary hidden sm:inline-block">OCCUPANT RESTRAINT</span>
+<span class="material-symbols-outlined text-secondary transition-transform duration-200" data-icon="expand_more" id="icon-tab-4">expand_more</span>
+</div>
+</button>
+<div class="p-6 bg-surface-container-lowest border-t border-surface-dim hidden" id="content-tab-4">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mb-3">
+              Texas law (§ 545.413). Universal occupant restraint required for all front and rear occupants. Driver is legally cited and responsible for unrestrained passengers under 17.
+            </p>
+<div class="bg-surface-container-low p-3 rounded border-l-2 border-primary-container font-label-mono-sm text-xs text-on-surface">
+              PRIMARY ENFORCEMENT: Law enforcement may execute a stop purely for seatbelt non-compliance.
+            </div>
+</div>
+</div>
+<!-- Tab 05: Crash Duties & Render Aid -->
+<div class="border-b border-surface-dim">
+<button class="w-full text-left p-5 flex items-center justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 focus:outline-none" id="btn-tab-5" onclick="toggleObligation(5)" type="button">
+<div class="flex items-center gap-4">
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-secondary px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded">
+                05
+              </span>
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block uppercase">TTC § 550.021 - § 550.023</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">CRASH DUTIES &amp; RENDER AID</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-mono-sm text-xs text-error hidden sm:inline-block">CRITICAL STATUTE</span>
+<span class="material-symbols-outlined text-secondary transition-transform duration-200" data-icon="expand_more" id="icon-tab-5">expand_more</span>
+</div>
+</button>
+<div class="p-6 bg-surface-container-lowest border-t border-surface-dim hidden" id="content-tab-5">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mb-3">
+              TTC § 550.021 - § 550.023. Immediate stop without obstructing traffic, render reasonable assistance (including summoning EMS), and mandatory exchange of operator details, registration, and insurer info. Leaving the scene of injury or death is an automatic felony.
+            </p>
+<div class="flex items-center gap-2 text-xs font-label-mono-sm text-error bg-surface-container-low p-2 rounded border border-surface-dim">
+<span class="material-symbols-outlined text-sm" data-icon="gavel">gavel</span>
+              FELONY CONVICTION: Up to 10–20 years incarceration in Texas Department of Criminal Justice.
+            </div>
+</div>
+</div>
+<!-- Tab 06: Law Enforcement & Move-Over Laws -->
+<div>
+<button class="w-full text-left p-5 flex items-center justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 focus:outline-none" id="btn-tab-6" onclick="toggleObligation(6)" type="button">
+<div class="flex items-center gap-4">
+<span class="font-label-mono-lg text-label-mono-lg font-bold text-secondary px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded">
+                06
+              </span>
+<div>
+<span class="font-label-mono-sm text-label-mono-sm text-secondary block uppercase">TTC § 545.157</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">LAW ENFORCEMENT &amp; MOVE-OVER LAWS</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-mono-sm text-xs text-secondary hidden sm:inline-block">TRANSIT PROTOCOL</span>
+<span class="material-symbols-outlined text-secondary transition-transform duration-200" data-icon="expand_more" id="icon-tab-6">expand_more</span>
+</div>
+</button>
+<div class="p-6 bg-surface-container-lowest border-t border-surface-dim hidden" id="content-tab-6">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed mb-3">
+              TTC § 545.157 (Texas Move Over or Slow Down Act). Mandates vacating the adjacent lane or dropping speed 20 mph below posted limit when passing stopped emergency vehicles, TxDOT crews, tow trucks, or utility vehicles with flashing lights. Prompt compliance with lawful officer orders.
+            </p>
+<div class="bg-surface-container-low p-3 rounded border-l-2 border-primary-container font-label-mono-sm text-xs text-on-surface">
+              SPEED REDUCTION: If speed limit is under 25 mph, slow to 5 mph.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: CONSEQUENCES (Cause-and-Effect Matrix) -->
+<section class="mb-space-xl">
+<div class="mb-6">
+<div class="font-label-mono-sm text-label-mono-sm text-secondary uppercase mb-1">
+          STATUTORY RECIPROCITY // SECTION 05
+        </div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">
+          Cause &amp; Effect: Breach of the Privilege
+        </h2>
+<p class="font-body-md text-body-md text-secondary">
+          Failure to uphold driving obligations triggers swift administrative, legal, and operational consequences.
+        </p>
+</div>
+<!-- Clinical Regulatory Matrix Table -->
+<div class="border border-surface-dim rounded-lg bg-surface-container-lowest overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-dim font-label-mono-sm text-label-mono-sm text-secondary">
+<th class="py-3.5 px-4 font-medium uppercase tracking-wider w-1/4">CONSEQUENCE VECTOR</th>
+<th class="py-3.5 px-4 font-medium uppercase tracking-wider w-1/4">PRIMARY TRIGGER</th>
+<th class="py-3.5 px-4 font-medium uppercase tracking-wider w-1/2">STATUTORY / OPERATIONAL IMPACT</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-dim font-body-sm text-body-sm">
+<!-- 01 Driver License -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 font-label-mono-sm text-on-surface font-semibold">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    01 // DRIVER LICENSE
+                  </div>
+</td>
+<td class="py-4 px-4 text-secondary font-label-mono-sm text-xs">
+                  DWI, Refusal of chemical test, Point accumulation
+                </td>
+<td class="py-4 px-4 text-on-surface">
+                  Suspension, revocation, or administrative disqualification (ALR) under ALR hearings; inability to renew.
+                </td>
+</tr>
+<!-- 02 Financial & Civil -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 font-label-mono-sm text-on-surface font-semibold">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    02 // FINANCIAL &amp; CIVIL
+                  </div>
+</td>
+<td class="py-4 px-4 text-secondary font-label-mono-sm text-xs">
+                  No liability insurance, at-fault bodily injury crash
+                </td>
+<td class="py-4 px-4 text-on-surface">
+                  Civil tort judgments, personal asset seizure, mandatory SR-22 high-risk insurance surcharges, municipal fines up to $4,000+.
+                </td>
+</tr>
+<!-- 03 Criminal & Legal -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 font-label-mono-sm text-on-surface font-semibold">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    03 // CRIMINAL &amp; LEGAL
+                  </div>
+</td>
+<td class="py-4 px-4 text-secondary font-label-mono-sm text-xs">
+                  Intoxication assault, vehicular manslaughter, hit-and-run
+                </td>
+<td class="py-4 px-4 text-on-surface">
+                  Misdemeanor and felony convictions, mandatory community supervision, court-ordered ignition interlock devices (IID), jail or state prison sentences.
+                </td>
+</tr>
+<!-- 04 Vehicle Removal -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 font-label-mono-sm text-on-surface font-semibold">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    04 // VEHICLE REMOVAL
+                  </div>
+</td>
+<td class="py-4 px-4 text-secondary font-label-mono-sm text-xs">
+                  Driving while license invalid (DWLI), repeat racing/felony
+                </td>
+<td class="py-4 px-4 text-on-surface">
+                  Immediate impoundment, roadside vehicle immobilization, towing fees, and forfeiture under specific felony transit offenses.
+                </td>
+</tr>
+<!-- 05 Insurance Risk -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 font-label-mono-sm text-on-surface font-semibold">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    05 // INSURANCE RISK
+                  </div>
+</td>
+<td class="py-4 px-4 text-secondary font-label-mono-sm text-xs">
+                  Major moving violations, SR-22 requirement
+                </td>
+<td class="py-4 px-4 text-on-surface">
+                  Policy cancellation, non-renewal, placement into high-risk state risk pools, and 300%+ premium spikes spanning 36–60 months.
+                </td>
+</tr>
+<!-- 06 Driving Record -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 font-label-mono-sm text-on-surface font-semibold">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    06 // DRIVING RECORD
+                  </div>
+</td>
+<td class="py-4 px-4 text-secondary font-label-mono-sm text-xs">
+                  Speeding, reckless driving, red-light violations
+                </td>
+<td class="py-4 px-4 text-on-surface">
+                  Permanent DPS driving history points, moving violation convictions, loss of commercial driving endorsements, employment disqualification.
+                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- SECTION 6: FINAL LEARNING MOMENT (Typographic Synthesis) -->
+<section class="mb-space-xl">
+<div class="mb-4">
+<div class="font-label-mono-sm text-label-mono-sm text-secondary uppercase mb-1">
+          LESSON SYNTHESIS // ETHICAL ROADMANSHIP
+        </div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">
+          Ethical Roadmanship: The Covenant
+        </h2>
+</div>
+<div class="bg-surface-container-lowest border border-surface-dim rounded-lg p-6 lg:p-8">
+<p class="font-headline-sm text-headline-sm text-on-surface mb-6">
+          Driving is not simply the ability to operate a vehicle. It is a privilege accompanied by:
+        </p>
+<!-- 5-Point Structural Grid -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-8">
+<div class="p-3.5 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-primary block mb-1">01 // ESSENTIAL</span>
+<div class="font-label-mono-sm text-label-mono-sm font-bold text-on-surface mb-1">FOCUSED ATTENTION</div>
+<p class="font-body-sm text-xs text-secondary">Zero voluntary cognitive diversion</p>
+</div>
+<div class="p-3.5 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-primary block mb-1">02 // ESSENTIAL</span>
+<div class="font-label-mono-sm text-label-mono-sm font-bold text-on-surface mb-1">CIVIC RESPONSIBILITY</div>
+<p class="font-body-sm text-xs text-secondary">Recognizing every occupant's right to survival</p>
+</div>
+<div class="p-3.5 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-primary block mb-1">03 // ESSENTIAL</span>
+<div class="font-label-mono-sm text-label-mono-sm font-bold text-on-surface mb-1">LEGAL OBLIGATIONS</div>
+<p class="font-body-sm text-xs text-secondary">Unwavering statutory and financial compliance</p>
+</div>
+<div class="p-3.5 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-primary block mb-1">04 // ESSENTIAL</span>
+<div class="font-label-mono-sm text-label-mono-sm font-bold text-on-surface mb-1">SAFETY DECISIONS</div>
+<p class="font-body-sm text-xs text-secondary">Proactive risk reduction over personal urgency</p>
+</div>
+<div class="p-3.5 bg-surface rounded border border-surface-dim">
+<span class="font-label-mono-sm text-[11px] text-primary block mb-1">05 // ESSENTIAL</span>
+<div class="font-label-mono-sm text-label-mono-sm font-bold text-on-surface mb-1">ACCOUNTABILITY</div>
+<p class="font-body-sm text-xs text-secondary">Accepting total liability for operational outcomes</p>
+</div>
+</div>
+<!-- Striking Structured Final Statement Anchor -->
+<div class="p-6 bg-surface-container-low rounded border border-surface-dim border-l-4 border-l-primary-container">
+<p class="font-headline-sm text-headline-sm text-on-surface italic leading-relaxed">
+            "The road is a shared civic commons. The moment you turn the ignition, your choices govern life, liberty, and the safety of everyone around you."
+          </p>
+<div class="mt-3 font-label-mono-sm text-label-mono-sm text-secondary uppercase">
+            — TEXAS ADULT DRIVER EDUCATION CURRICULUM // STATUTORY STANDARD
+          </div>
+</div>
+</div>
+</section>
+<!-- FOOTER / NAVIGATION CONTROLS -->
+<footer class="pt-8 border-t border-surface-dim mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+<!-- Previous Lesson Button -->
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface border border-surface-dim rounded-lg font-headline-sm text-sm font-medium transition-colors" href="#prev">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
+        Previous Lesson: L01-T02 Traffic Laws
+      </a>
+<!-- Center Status Badge -->
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded border border-surface-dim">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface">
+          • Topic L01-T03 Ready for Review
+        </span>
+</div>
+<!-- Complete CTA Button -->
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-primary-container hover:bg-primary text-on-primary rounded-lg font-headline-sm text-sm font-medium transition-colors active:translate-y-px duration-100 shadow-none" type="button">
+<span>Mark as Completed &amp; Next Topic</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</footer>
+</main>
+<!-- Interactive Logic for Progressive Disclosure Accordion -->
+<script>
+    function toggleObligation(index) {
+      const content = document.getElementById(`content-tab-${index}`);
+      const icon = document.getElementById(`icon-tab-${index}`);
+      const btn = document.getElementById(`btn-tab-${index}`);
+      const isHidden = content.classList.contains('hidden');
+
+      // Close all tabs
+      for (let i = 1; i <= 6; i++) {
+        const c = document.getElementById(`content-tab-${i}`);
+        const ic = document.getElementById(`icon-tab-${i}`);
+        const b = document.getElementById(`btn-tab-${i}`);
+        if (c && ic && b) {
+          c.classList.add('hidden');
+          c.classList.remove('block');
+          ic.classList.remove('rotate-180');
+          b.classList.remove('bg-surface-container-low/50');
+          b.classList.add('bg-surface-container-lowest');
+        }
+      }
+
+      // If clicked one was closed, open it
+      if (isHidden) {
+        content.classList.remove('hidden');
+        content.classList.add('block');
+        icon.classList.add('rotate-180');
+        btn.classList.add('bg-surface-container-low/50');
+        btn.classList.remove('bg-surface-container-lowest');
+      }
+    }
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L01-T03';
+  const nextTopicId = 'L02-T01';
+  const prevTopicId = 'L01-T02';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TX Adult Driver Ed — L08-T05: Dangers of Speed & Street Racing (TTC §545.420)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            canvas: '#F6F7F5',
+            line: '#D9DDD8',
+            accent: '#E87522',
+            darkText: '#121312',
+            subText: '#5A605B',
+            cockpit: '#0F1110',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F6F7F5;
+      color: #121312;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .tunnel-blur-active {
+      filter: blur(12px) contrast(1.2);
+    }
+    .cone-transition {
+      transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .streak-container {
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .speed-streak {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+  </style>
+</head>
+<body class="p-6 md:p-12 min-h-screen flex flex-col items-center justify-start bg-canvas">
+
+  <main class="w-full max-w-4xl flex flex-col gap-6">
+
+    <!-- Statutory Header Bar (No Global Navigation, Clean Lesson Context) -->
+    <header class="flex flex-col gap-2 pb-4 border-b border-line">
+      <div class="flex items-center justify-between text-xs font-mono uppercase tracking-wider text-subText">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-accent"></span>
+          <span>Module 08 // Reduced-Risk Driving</span>
+          <span class="text-line">/</span>
+          <span class="text-darkText font-medium">Topic L08-T05</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span>TTC § 545.351 & § 545.420</span>
+          <span class="text-line">/</span>
+          <span class="text-accent font-medium">Kinetic Sightline & Racing Lab</span>
+        </div>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-darkText mt-1">Dangers of Speed & Street Racing</h1>
+      <p class="text-sm md:text-base text-subText max-w-2xl leading-relaxed">
+        Velocity degrades peripheral perception through biological optic compression while kinetic stopping distance expands quadratically. Furthermore, Texas Transportation Code § 545.420 strictly criminalizes illegal street racing, drag racing, and speed exhibitions with mandatory vehicle impoundment and felony penalties.
+      </p>
+    </header>
+
+    <!-- Interactive Speed Controller (4 Distinct Discrete Buttons - NO SLIDERS, NO TABS) -->
+    <section class="flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-mono uppercase tracking-widest text-subText">Select Kinetic Velocity</span>
+        <span id="active-state-tag" class="text-xs font-mono text-accent font-semibold">180° Natural Panorama // Stationary</span>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <!-- Button: Stationary -->
+        <button id="btn-stationary" onclick="setSpeed('stationary')" 
+          class="speed-btn group relative p-4 rounded-lg border-2 border-accent bg-white flex flex-col gap-1 text-left transition-all duration-200 focus:outline-none">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs text-subText group-hover:text-darkText">STATE 01</span>
+            <span class="w-2 h-2 rounded-full bg-accent status-dot"></span>
+          </div>
+          <div class="text-2xl font-bold text-darkText font-mono tracking-tight">0 <span class="text-xs font-sans font-normal text-subText">MPH</span></div>
+          <div class="text-xs font-medium text-subText">Stationary</div>
+        </button>
+
+        <!-- Button: 20 MPH -->
+        <button id="btn-20" onclick="setSpeed('20')" 
+          class="speed-btn group relative p-4 rounded-lg border border-line bg-white hover:border-gray-400 flex flex-col gap-1 text-left transition-all duration-200 focus:outline-none">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs text-subText group-hover:text-darkText">STATE 02</span>
+            <span class="w-2 h-2 rounded-full bg-transparent status-dot"></span>
+          </div>
+          <div class="text-2xl font-bold text-darkText font-mono tracking-tight">20 <span class="text-xs font-sans font-normal text-subText">MPH</span></div>
+          <div class="text-xs font-medium text-subText">Urban Corridor</div>
+        </button>
+
+        <!-- Button: 40 MPH -->
+        <button id="btn-40" onclick="setSpeed('40')" 
+          class="speed-btn group relative p-4 rounded-lg border border-line bg-white hover:border-gray-400 flex flex-col gap-1 text-left transition-all duration-200 focus:outline-none">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs text-subText group-hover:text-darkText">STATE 03</span>
+            <span class="w-2 h-2 rounded-full bg-transparent status-dot"></span>
+          </div>
+          <div class="text-2xl font-bold text-darkText font-mono tracking-tight">40 <span class="text-xs font-sans font-normal text-subText">MPH</span></div>
+          <div class="text-xs font-medium text-subText">Suburban Arterial</div>
+        </button>
+
+        <!-- Button: 60 MPH -->
+        <button id="btn-60" onclick="setSpeed('60')" 
+          class="speed-btn group relative p-4 rounded-lg border border-line bg-white hover:border-gray-400 flex flex-col gap-1 text-left transition-all duration-200 focus:outline-none">
+          <div class="flex items-center justify-between w-full">
+            <span class="font-mono text-xs text-subText group-hover:text-darkText">STATE 04</span>
+            <span class="w-2 h-2 rounded-full bg-transparent status-dot"></span>
+          </div>
+          <div class="text-2xl font-bold text-darkText font-mono tracking-tight">60 <span class="text-xs font-sans font-normal text-subText">MPH</span></div>
+          <div class="text-xs font-medium text-subText">Rural Highway</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Telemetry Readouts (Metrics Ribbon) -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <!-- Readout 1: Visual Arc -->
+      <div class="p-4 rounded-lg border border-line bg-white flex flex-col justify-between">
+        <span class="text-xs font-mono uppercase tracking-wider text-subText">Peripheral Field Angle</span>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span id="arc-display" class="text-3xl font-bold font-mono text-darkText tracking-tight">180°</span>
+          <span id="arc-sub" class="text-xs font-mono text-emerald-600 font-medium">FULL SCAN</span>
+        </div>
+        <span class="text-xs text-subText mt-1" id="arc-desc">Complete unobstructed 180° bilateral peripheral envelope.</span>
+      </div>
+
+      <!-- Readout 2: Stopping Distance Counter -->
+      <div class="p-4 rounded-lg border border-line bg-white flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono uppercase tracking-wider text-subText">Total Stopping Distance</span>
+          <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-gray-100 text-subText">TTC § 545.351</span>
+        </div>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span id="distance-counter" class="text-3xl font-bold font-mono text-accent tracking-tight">0</span>
+          <span class="text-xs font-mono text-darkText font-medium">FEET</span>
+        </div>
+        <span class="text-xs text-subText mt-1" id="distance-breakdown">0 ft reaction (1.5s) + 0 ft mechanical braking.</span>
+      </div>
+
+      <!-- Readout 3: Kinetic Energy Multiplier -->
+      <div class="p-4 rounded-lg border border-line bg-white flex flex-col justify-between">
+        <span class="text-xs font-mono uppercase tracking-wider text-subText">Kinetic Threat Index</span>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span id="kinetic-factor" class="text-3xl font-bold font-mono text-darkText tracking-tight">0.0x</span>
+          <span id="kinetic-status" class="text-xs font-mono text-subText font-medium">RESTING STATE</span>
+        </div>
+        <span class="text-xs text-subText mt-1" id="kinetic-desc">Zero momentum; no physical dissipation required.</span>
+      </div>
+    </section>
+
+    <!-- VISION CONE SIMULATOR (Top-down Graphical Canvas) -->
+    <section class="relative w-full rounded-lg border border-line bg-cockpit overflow-hidden shadow-sm">
+      
+      <!-- Top Bar of Simulator -->
+      <div class="relative z-20 flex items-center justify-between px-4 py-3 border-b border-white/10 bg-cockpit/90 backdrop-blur-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+          <span class="text-xs font-mono font-medium text-white/90 uppercase tracking-widest">TOP-DOWN DRIVER FIELD OF VISION SIMULATOR</span>
+        </div>
+        <div class="flex items-center gap-4 text-xs font-mono text-white/60">
+          <span id="optic-mode-label">OPTIC MODE: BROAD RECEPTIVE</span>
+          <span class="text-white/20">|</span>
+          <span id="retina-speed-label">0.0 FT/SEC</span>
+        </div>
+      </div>
+
+      <!-- Main Visual Stage -->
+      <div id="sim-viewport" class="relative w-full h-[420px] md:h-[460px] flex items-center justify-center overflow-hidden bg-[#0A0C0B]">
+
+        <!-- Roadway Top-Down Grid & Markings (Background) -->
+        <div id="roadway-backdrop" class="absolute inset-0 transition-all duration-700 ease-out">
+          <!-- Asphalt Texture Grid Lines -->
+          <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+          <!-- Road Lane Lines (North-South Road Corridor) -->
+          <div class="absolute left-1/2 -translate-x-1/2 w-72 md:w-96 h-full border-x-2 border-white/20">
+            <!-- Center Line (Double Yellow) -->
+            <div class="absolute left-1/2 -translate-x-1/2 w-1.5 h-full flex flex-col justify-between py-2">
+              <div class="w-full h-full border-r border-amber-400/40 border-dashed"></div>
+            </div>
+            <!-- Distance Measurement Arcs (Technical Overlay) -->
+            <div class="absolute top-[8%] left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/25 flex items-center gap-1">
+              <span class="w-8 border-b border-white/15"></span> 300 FT SIGHTLINE <span class="w-8 border-b border-white/15"></span>
+            </div>
+            <div class="absolute top-[32%] left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/25 flex items-center gap-1">
+              <span class="w-8 border-b border-white/15"></span> 200 FT HAZARD ZONE <span class="w-8 border-b border-white/15"></span>
+            </div>
+            <div class="absolute top-[58%] left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/25 flex items-center gap-1">
+              <span class="w-8 border-b border-white/15"></span> 100 FT PERCEPTION <span class="w-8 border-b border-white/15"></span>
+            </div>
+          </div>
+
+          <!-- Peripheral Roadside Hazards (Pedestrians, Animals, Cross-traffic) -->
+          <!-- Left Peripheral Hazard: Pedestrian on curb -->
+          <div id="hazard-left-1" class="absolute bottom-[28%] left-[10%] md:left-[16%] flex flex-col items-center transition-all duration-500">
+            <div class="w-5 h-5 rounded-full bg-amber-500/80 border border-amber-300 flex items-center justify-center text-[9px] font-bold text-black font-mono">P</div>
+            <span class="text-[9px] font-mono text-amber-300/80 mt-1 whitespace-nowrap">CROSS-PEDESTRIAN</span>
+          </div>
+          <!-- Left Distant Hazard: Cyclist -->
+          <div id="hazard-left-2" class="absolute top-[22%] left-[8%] md:left-[14%] flex flex-col items-center transition-all duration-500">
+            <div class="w-5 h-5 rounded-full bg-sky-500/80 border border-sky-300 flex items-center justify-center text-[9px] font-bold text-black font-mono">B</div>
+            <span class="text-[9px] font-mono text-sky-300/80 mt-1 whitespace-nowrap">SHOULDER CYCLIST</span>
+          </div>
+
+          <!-- Right Peripheral Hazard: Merging Vehicle -->
+          <div id="hazard-right-1" class="absolute bottom-[36%] right-[10%] md:right-[16%] flex flex-col items-center transition-all duration-500">
+            <div class="w-6 h-10 rounded bg-rose-500/80 border border-rose-300 flex items-center justify-center text-[9px] font-bold text-white font-mono">CAR</div>
+            <span class="text-[9px] font-mono text-rose-300/80 mt-1 whitespace-nowrap">TERMINATING STEM</span>
+          </div>
+          <!-- Right Distant Hazard: Deer / Wildlife -->
+          <div id="hazard-right-2" class="absolute top-[18%] right-[9%] md:right-[15%] flex flex-col items-center transition-all duration-500">
+            <div class="w-5 h-5 rounded-full bg-orange-500/80 border border-orange-300 flex items-center justify-center text-[9px] font-bold text-black font-mono">!</div>
+            <span class="text-[9px] font-mono text-orange-300/80 mt-1 whitespace-nowrap">WILDLIFE CORRIDOR</span>
+          </div>
+        </div>
+
+        <!-- TUNNEL VISION BLUR-STREAK OVERLAYS -->
+        <!-- Bilateral Optical Occlusion / Peripheral Blurs -->
+        <div id="tunnel-blur-left" class="absolute top-0 bottom-0 left-0 w-1/3 pointer-events-none transition-all duration-700 ease-out opacity-0 backdrop-blur-none bg-gradient-to-r from-black/90 via-black/40 to-transparent"></div>
+        <div id="tunnel-blur-right" class="absolute top-0 bottom-0 right-0 w-1/3 pointer-events-none transition-all duration-700 ease-out opacity-0 backdrop-blur-none bg-gradient-to-l from-black/90 via-black/40 to-transparent"></div>
+
+        <!-- Dynamic Speed Streak Lines (Velocity vectors) -->
+        <div id="speed-streaks" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-500">
+          <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20%" y1="10%" x2="28%" y2="85%" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-dasharray="20 40" />
+            <line x1="12%" y1="20%" x2="22%" y2="90%" stroke="rgba(232,117,34,0.22)" stroke-width="2" stroke-dasharray="30 50" />
+            <line x1="80%" y1="10%" x2="72%" y2="85%" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-dasharray="20 40" />
+            <line x1="88%" y1="20%" x2="78%" y2="90%" stroke="rgba(232,117,34,0.22)" stroke-width="2" stroke-dasharray="30 50" />
+          </svg>
+        </div>
+
+        <!-- SVG DYNAMIC VISION CONE (The central interactive field) -->
+        <svg id="cone-svg" class="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 800 460" preserveAspectRatio="none">
+          <defs>
+            <!-- Glowing Vision Gradient -->
+            <radialGradient id="coneGrad" cx="400" cy="400" r="380" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E87522" stop-opacity="0.55" />
+              <stop offset="45%" stop-color="#E87522" stop-opacity="0.25" />
+              <stop offset="85%" stop-color="#E87522" stop-opacity="0.08" />
+              <stop offset="100%" stop-color="#E87522" stop-opacity="0.0" />
+            </radialGradient>
+
+            <!-- Focal Center Cone Beam (High Acuity Eye Gaze) -->
+            <linearGradient id="focalGrad" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+              <stop offset="60%" stop-color="#E87522" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#E87522" stop-opacity="0.0" />
+            </linearGradient>
+          </defs>
+
+          <!-- The Peripheral Vision Cone Polygon (Dynamically updated via JS) -->
+          <polygon id="vision-polygon" class="cone-transition"
+            points="0,180 800,180 400,395" 
+            fill="url(#coneGrad)" stroke="#E87522" stroke-width="1.5" stroke-opacity="0.7" />
+
+          <!-- High-Acuity Central Foveal Beam (Always sharp forward focus) -->
+          <polygon id="foveal-polygon" class="cone-transition"
+            points="340,30 460,30 400,395" 
+            fill="url(#focalGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-dasharray="4 4" />
+
+          <!-- Angle Indicator Arc (Dashed Line across apex) -->
+          <path id="angle-arc" class="cone-transition" d="M 120,230 A 300,300 0 0,1 680,230" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="3 3" />
+
+          <!-- Left & Right Boundary Ray Lines -->
+          <line id="ray-left" class="cone-transition" x1="400" y1="395" x2="0" y2="180" stroke="#E87522" stroke-width="1.5" stroke-opacity="0.8" />
+          <line id="ray-right" class="cone-transition" x1="400" y1="395" x2="800" y2="180" stroke="#E87522" stroke-width="1.5" stroke-opacity="0.8" />
+        </svg>
+
+        <!-- TOP-DOWN VEHICLE (Anchor at Bottom-Center) -->
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center">
+          <!-- Forward Headlight Projectors -->
+          <div class="flex justify-between w-14 mb-0.5 px-1.5">
+            <span class="w-2.5 h-1.5 rounded-t-sm bg-amber-200/90 shadow-[0_0_8px_#FDE68A]"></span>
+            <span class="w-2.5 h-1.5 rounded-t-sm bg-amber-200/90 shadow-[0_0_8px_#FDE68A]"></span>
+          </div>
+
+          <!-- Stylized Vehicle Chassis -->
+          <div class="relative w-16 h-28 rounded-lg bg-zinc-800 border-2 border-line/60 shadow-2xl flex flex-col items-center justify-between p-1.5">
+            <!-- Front Windshield -->
+            <div class="w-12 h-6 rounded-t bg-cyan-950/80 border border-cyan-400/40 mt-1 flex items-center justify-center">
+              <span class="text-[8px] font-mono text-cyan-200/60">YOU</span>
+            </div>
+
+            <!-- Cockpit Roof & Driver Node -->
+            <div class="w-9 h-7 rounded bg-zinc-900 border border-white/10 flex items-center justify-center">
+              <!-- Driver eye point -->
+              <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+            </div>
+
+            <!-- Rear Glass & Trunk -->
+            <div class="w-12 h-4 rounded-b bg-cyan-950/60 border border-cyan-400/20 mb-1"></div>
+
+            <!-- Rear Brake LEDs -->
+            <div class="absolute -bottom-1 left-2 w-2 h-1 bg-red-600 rounded-sm"></div>
+            <div class="absolute -bottom-1 right-2 w-2 h-1 bg-red-600 rounded-sm"></div>
+          </div>
+
+          <!-- Vehicle Label -->
+          <div class="mt-2 px-2 py-0.5 rounded bg-black/80 border border-white/10 text-[10px] font-mono text-white/70 whitespace-nowrap">
+            OPERATOR APEX
+          </div>
+        </div>
+
+        <!-- Peripheral Blindness Alert Badge (Emerges during tunnel vision) -->
+        <div id="blindness-pill" class="absolute top-14 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded border border-rose-500/40 bg-rose-950/80 text-rose-300 text-xs font-mono opacity-0 transition-opacity duration-300 flex items-center gap-2 pointer-events-none">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+          <span>CRITICAL: 80% LATERAL PERIPHERY BLINDED</span>
+        </div>
+
+      </div>
+
+      <!-- Simulator Bottom Telemetry Legend -->
+      <div class="px-4 py-3 bg-cockpit border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs font-mono text-white/60">
+        <div class="flex items-center gap-4 flex-wrap">
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-sm bg-accent/30 border border-accent"></span>
+            <span>Vision Cone Area</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-sm bg-white/20 border border-white/40 border-dashed"></span>
+            <span>Foveal Focus</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span>Side Hazards (Vulnerable Users)</span>
+          </div>
+        </div>
+        <div class="text-right text-[11px] text-white/40">
+          Source: Texas Driver Handbook & TTC § 545.351 (Basic Speed Rule)
+        </div>
+      </div>
+    </section>
+
+    <!-- Statutory Explanatory Synthesis (Minimalist, Technical, Crisp) -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+      <!-- Physiological Mechanism Card -->
+      <div class="p-5 rounded-lg border border-line bg-white flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accent"></span>
+          <h2 class="text-sm font-mono font-bold uppercase tracking-wider text-darkText">Biological Optic Compression</h2>
+        </div>
+        <p class="text-sm text-subText leading-relaxed">
+          The human eye processes an expansive 180° visual field at rest. As vehicle velocity climbs, the brain naturally suppresses non-foveal retinal data to prioritize the immediate forward collision vector. At 60 MPH, the operative cone contracts to approximately <strong>40° (less than 1/4 of normal)</strong>, rendering roadside pedestrians and intersection cross-traffic physically invisible.
+        </p>
+      </div>
+
+      <!-- Kinetic Stopping Reality Card -->
+      <div class="p-5 rounded-lg border border-line bg-white flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accent"></span>
+          <h2 class="text-sm font-mono font-bold uppercase tracking-wider text-darkText">Quadratic Braking Expansion (<span class="font-mono text-xs">KE = ½mv²</span>)</h2>
+        </div>
+        <p class="text-sm text-subText leading-relaxed">
+          Doubling your velocity does not double stopping distance—it <strong>quadruples</strong> the physical kinetic energy that must be dissipated by tire friction. At 60 MPH, perception-reaction latency alone absorbs 132 feet before hydraulic brakes engage, requiring a cumulative <strong>303+ feet</strong> to achieve mechanical arrest.
+        </p>
+      </div>
+    </section>
+
+    <!-- STATUTORY SECTION: Street Racing (TTC § 545.420) -->
+    <section class="flex flex-col gap-6 mt-6 pt-6 border-t border-line">
+      <!-- Section Header -->
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-accent font-semibold">
+          <span class="w-2 h-2 rounded-full bg-accent"></span>
+          <span>STATUTORY PRECEPT // TTC § 545.420</span>
+        </div>
+        <h2 class="text-2xl font-bold tracking-tight text-darkText">Racing on Highway — Criminal Offense</h2>
+        <div class="p-4 rounded-lg bg-white border border-line text-sm text-subText italic border-l-4 border-l-accent leading-relaxed mt-2">
+          &ldquo;A person commits an offense if the person participates in any manner in a race, a vehicle speed competition or contest, a drag race or acceleration contest, a test of physical endurance of the operator of a vehicle, or in connection with a drag race, parks or rides in a vehicle on a public road, highway, or parking lot.&rdquo;
+        </div>
+      </div>
+
+      <!-- Penalty Escalation Data Grid -->
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono uppercase tracking-wider text-subText">Criminal Penalty Escalation Ladder</span>
+          <span class="text-xs font-mono text-accent">TTC § 545.420(d)-(g)</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+          <!-- Tier 1 -->
+          <div class="p-4 rounded-lg bg-white border border-line flex flex-col justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono text-subText uppercase">1st Offense</span>
+              <div class="text-sm font-bold text-darkText mt-1">Class B Misdemeanor</div>
+            </div>
+            <div class="text-xs text-subText">
+              <div>• Jail: Up to 180 days</div>
+              <div>• Fine: Up to $2,000</div>
+            </div>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="p-4 rounded-lg bg-white border border-line flex flex-col justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono text-subText uppercase">1 Prior / Intox / Open Cont</span>
+              <div class="text-sm font-bold text-darkText mt-1">Class A Misdemeanor</div>
+            </div>
+            <div class="text-xs text-subText">
+              <div>• Jail: Up to 1 year</div>
+              <div>• Fine: Up to $4,000</div>
+            </div>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="p-4 rounded-lg bg-white border border-line flex flex-col justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono text-subText uppercase">2+ Priors</span>
+              <div class="text-sm font-bold text-darkText mt-1">State Jail Felony</div>
+            </div>
+            <div class="text-xs text-subText">
+              <div>• Jail: 180 days – 2 yrs</div>
+              <div>• Fine: Up to $10,000</div>
+            </div>
+          </div>
+
+          <!-- Tier 4 -->
+          <div class="p-4 rounded-lg bg-white border border-line flex flex-col justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono text-subText uppercase">Bodily Injury</span>
+              <div class="text-sm font-bold text-darkText mt-1">3rd Degree Felony</div>
+            </div>
+            <div class="text-xs text-subText">
+              <div>• Prison: 2 – 10 years</div>
+              <div>• Fine: Up to $10,000</div>
+            </div>
+          </div>
+
+          <!-- Tier 5 -->
+          <div class="p-4 rounded-lg bg-white border-2 border-rose-500/60 bg-rose-50/20 flex flex-col justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono text-rose-600 font-semibold uppercase">Serious Injury / Death</span>
+              <div class="text-sm font-bold text-rose-700 mt-1">2nd Degree Felony</div>
+            </div>
+            <div class="text-xs text-subText">
+              <div>• Prison: 2 – 20 years</div>
+              <div>• Fine: Up to $10,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seizure & Spectator Liability Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Seizure & Forfeiture Card -->
+        <div class="p-5 rounded-lg border border-line bg-white flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-accent"></span>
+            <h3 class="text-sm font-mono font-bold uppercase tracking-wider text-darkText">Vehicle Seizure & Civil Forfeiture</h3>
+          </div>
+          <p class="text-sm text-subText leading-relaxed">
+            Under TTC § 545.420(h), peace officers <strong>must impound</strong> the vehicle used in a racing offense. Furthermore, under Texas Code of Criminal Procedure Chapter 59, vehicles used in felony racing offenses are subject to <strong>civil asset forfeiture</strong>—permanent forfeiture of ownership to the state, even without a criminal conviction. Drivers also face mandatory driver license suspensions.
+          </p>
+        </div>
+
+        <!-- Spectator & Organizer Card -->
+        <div class="p-5 rounded-lg border border-line bg-white flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-accent"></span>
+            <h3 class="text-sm font-mono font-bold uppercase tracking-wider text-darkText">Spectator & Organizer Liability</h3>
+          </div>
+          <p class="text-sm text-subText leading-relaxed">
+            Under the <strong>Texas Law of Parties (Penal Code § 7.02)</strong>, anyone who organizes, flags, blocks traffic, aids, or promotes a street race is charged as a principal offender. Filming for promotion can constitute criminal facilitation. Cities such as Dallas, Houston, and San Antonio also impose municipal ordinances criminalizing <strong>spectating</strong> at street takeovers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Scenario Verdict Engine -->
+      <div class="p-6 rounded-xl bg-white border border-line flex flex-col gap-5">
+        <div class="flex items-center justify-between border-b border-line pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+            <span class="text-xs font-mono uppercase tracking-wider text-darkText font-bold">Interactive Lab: Scenario Verdict Engine</span>
+          </div>
+          <span class="text-xs font-mono text-subText">CLASSIFY OFFENSE LEVEL</span>
+        </div>
+
+        <!-- Scenario 1 -->
+        <div class="flex flex-col gap-3">
+          <div class="text-xs font-mono text-accent font-semibold">SCENARIO 01 // INTERSECTION TAKEOVER</div>
+          <p class="text-sm text-darkText">
+            Marcus coordinates an intersection takeover using social media, sets up crowd barricades, and films the high-speed burnouts for promotional ad revenue, but never drives a vehicle. What is his criminal liability?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
+            <button onclick="checkVerdict(this, false, 'Incorrect. Organizing and facilitating is not exempt from criminal prosecution.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              A) No liability (he was not driving)
+            </button>
+            <button onclick="checkVerdict(this, true, 'Correct! Under Texas Law of Parties (PC § 7.02), Marcus is criminally liable as a co-principal for organizing, facilitating, and promoting the offense.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              B) Texas Law of Parties (PC § 7.02)
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. This falls under state criminal conspiracy and the Law of Parties.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              C) Civil noise infraction only
+            </button>
+          </div>
+          <div class="verdict-feedback hidden text-xs font-mono p-3 rounded"></div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="flex flex-col gap-3 pt-4 border-t border-line">
+          <div class="text-xs font-mono text-accent font-semibold">SCENARIO 02 // BODILY INJURY ACCELERATION</div>
+          <p class="text-sm text-darkText">
+            A driver participates in a high-speed acceleration contest on FM 1960. During the race, the vehicle spins out and strikes a spectator, inflicting broken bones and internal injuries. What is the criminal charge?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
+            <button onclick="checkVerdict(this, false, 'Incorrect. A base Class B misdemeanor applies only when zero injuries occur.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              A) Class B Misdemeanor
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. State Jail Felony applies to 2+ prior convictions without injury.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              B) State Jail Felony
+            </button>
+            <button onclick="checkVerdict(this, true, 'Correct! Causing serious bodily injury or death during street racing elevates the charge to a Second-Degree Felony under TTC § 545.420(g), punishable by 2 to 20 years in prison.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              C) Second-Degree Felony
+            </button>
+          </div>
+          <div class="verdict-feedback hidden text-xs font-mono p-3 rounded"></div>
+        </div>
+      </div>
+
+      <!-- Street Racing MCQs -->
+      <div class="p-6 rounded-xl bg-white border border-line flex flex-col gap-5">
+        <div class="flex items-center justify-between border-b border-line pb-3">
+          <span class="text-xs font-mono uppercase tracking-wider text-accent font-bold">KNOWLEDGE CHECK // TTC § 545.420</span>
+          <span class="text-xs font-mono text-subText">3 STATUTORY QUESTIONS</span>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <p class="text-sm font-medium text-darkText">
+            1. Under TTC § 545.420, a first-offense street racing conviction with no priors or injuries is classified as a:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <button onclick="checkVerdict(this, false, 'Incorrect. Base street racing carries up to 180 days jail as a Class B misdemeanor.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              A) Class C Misdemeanor
+            </button>
+            <button onclick="checkVerdict(this, true, 'Correct! A first offense is a Class B Misdemeanor (up to 180 days jail and $2,000 fine).')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              B) Class B Misdemeanor
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. Class A requires a prior conviction or intoxication.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              C) Class A Misdemeanor
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. State jail felony requires 2 or more prior convictions.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              D) State Jail Felony
+            </button>
+          </div>
+          <div class="verdict-feedback hidden text-xs font-mono p-3 rounded"></div>
+        </div>
+
+        <div class="flex flex-col gap-3 pt-3 border-t border-line">
+          <p class="text-sm font-medium text-darkText">
+            2. When a peace officer arrests a driver for illegal street racing, what is the officer statutorily required to do with the vehicle?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <button onclick="checkVerdict(this, true, 'Correct! Under TTC § 545.420(h), the peace officer MUST impound the vehicle.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              A) Must impound the vehicle immediately
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. Peace officers must impound the vehicle.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              B) Allow any passenger to drive it home
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. The vehicle is subject to mandatory impoundment.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              C) Issue a 24-hour warning notice
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. Release is strictly prohibited under Texas statute.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              D) Leave it parked on the shoulder
+            </button>
+          </div>
+          <div class="verdict-feedback hidden text-xs font-mono p-3 rounded"></div>
+        </div>
+
+        <div class="flex flex-col gap-3 pt-3 border-t border-line">
+          <p class="text-sm font-medium text-darkText">
+            3. Can the State of Texas seize permanent ownership of a vehicle used in a felony racing contest without a criminal conviction?
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <button onclick="checkVerdict(this, true, 'Correct! Under Texas Code of Criminal Procedure Chapter 59, vehicles are contraband subject to civil asset forfeiture independently of criminal disposition.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              A) Yes, through civil asset forfeiture under CCP Chapter 59
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. Civil forfeiture operates independently from criminal guilt beyond a reasonable doubt.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              B) No, only after final criminal conviction and exhaustion of appeals
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. Civil asset forfeiture applies to vehicles used in felony racing offenses.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              C) Only if the driver was driving without a license
+            </button>
+            <button onclick="checkVerdict(this, false, 'Incorrect. Chapter 59 empowers state civil asset forfeiture.')" class="p-3 text-left rounded border border-line bg-canvas hover:border-accent text-darkText">
+              D) Only with federal court approval
+            </button>
+          </div>
+          <div class="verdict-feedback hidden text-xs font-mono p-3 rounded"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Actions / Module Progression Gate -->
+    <footer class="pt-4 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-line text-xs font-mono text-subText">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Topic L08-T05 Validated // Kinetic Visuals Standard</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="setSpeed('stationary')" class="px-4 py-2 rounded-lg border border-line bg-white hover:bg-gray-50 text-darkText transition">
+          Reset Simulator
+        </button>
+        <button class="px-5 py-2.5 rounded-lg bg-accent text-white font-medium hover:bg-[#d46618] transition flex items-center gap-2">
+          <span>Complete Topic 5 & Proceed</span>
+          <span>→</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Logic Engine -->
+  <script>
+    function checkVerdict(btn, isCorrect, explanation) {
+      const container = btn.parentElement;
+      const feedback = container.nextElementSibling;
+      const buttons = container.querySelectorAll('button');
+      buttons.forEach(b => {
+        b.disabled = true;
+      });
+      if (isCorrect) {
+        btn.classList.remove('bg-canvas');
+        btn.classList.add('bg-emerald-50', 'border-emerald-600', 'text-emerald-900', 'font-semibold');
+        feedback.className = 'verdict-feedback block text-xs font-mono p-3 rounded bg-emerald-50 border border-emerald-300 text-emerald-800';
+      } else {
+        btn.classList.remove('bg-canvas');
+        btn.classList.add('bg-rose-50', 'border-rose-600', 'text-rose-900');
+        feedback.className = 'verdict-feedback block text-xs font-mono p-3 rounded bg-rose-50 border border-rose-300 text-rose-800';
+      }
+      feedback.innerText = explanation;
+    }
+
+    // State definitions
+    const SPEED_STATES = {
+      'stationary': {
+        mph: 0,
+        arc: 180,
+        arcLabel: '180°',
+        arcStatus: 'FULL SCAN',
+        arcColorClass: 'text-emerald-600',
+        arcDesc: 'Complete unobstructed 180° bilateral peripheral envelope. Full situational awareness.',
+        distance: 0,
+        distanceBreakdown: '0 ft reaction (1.5s) + 0 ft mechanical braking. Zero deceleration lag.',
+        kinetic: '0.0x',
+        kineticStatus: 'RESTING STATE',
+        kineticDesc: 'Zero kinetic momentum; no physical dissipation required.',
+        fps: '0.0 FT/SEC',
+        opticMode: 'OPTIC MODE: BROAD RECEPTIVE',
+        tagText: '180° Natural Panorama // Stationary',
+        // Cone SVG points: Apex is at (400, 395). Full 180° spread covers the entire horizontal width.
+        conePoints: '0,200 800,200 400,395',
+        fovealPoints: '330,40 470,40 400,395',
+        leftRay: { x2: 0, y2: 200 },
+        rightRay: { x2: 800, y2: 200 },
+        arcD: 'M 60,250 A 340,340 0 0,1 740,250',
+        blurOpacity: 0,
+        blurAmount: 0,
+        streakOpacity: 0,
+        showBlindness: false,
+        hazardOpacity: 1.0,
+      },
+      '20': {
+        mph: 20,
+        arc: 120,
+        arcLabel: '120°',
+        arcStatus: 'MILD OCCLUSION',
+        arcColorClass: 'text-emerald-700',
+        arcDesc: 'Optic field compresses by ~33%. Peripheral objects begin to lose micro-focus.',
+        distance: 63,
+        distanceBreakdown: '44 ft perception-reaction (1.5s) + 19 ft mechanical friction arrest.',
+        kinetic: '1.0x',
+        kineticStatus: 'URBAN BASELINE',
+        kineticDesc: 'Baseline kinetic momentum. Survivable pedestrian broadside boundary.',
+        fps: '29.3 FT/SEC',
+        opticMode: 'OPTIC MODE: URBAN SCAN',
+        tagText: '120° Field // Urban Pace (20 MPH)',
+        // 120° cone
+        conePoints: '80,110 720,110 400,395',
+        fovealPoints: '340,40 460,40 400,395',
+        leftRay: { x2: 80, y2: 110 },
+        rightRay: { x2: 720, y2: 110 },
+        arcD: 'M 140,200 A 300,300 0 0,1 660,200',
+        blurOpacity: 0.15,
+        blurAmount: 3,
+        streakOpacity: 0.2,
+        showBlindness: false,
+        hazardOpacity: 0.85,
+      },
+      '40': {
+        mph: 40,
+        arc: 75,
+        arcLabel: '75°',
+        arcStatus: 'MODERATE TUNNEL',
+        arcColorClass: 'text-amber-600',
+        arcDesc: 'Visual cone cut by over 58%. Roadside curbs and approaching cross-traffic blur.',
+        distance: 164,
+        distanceBreakdown: '88 ft perception-reaction (1.5s) + 76 ft mechanical friction arrest.',
+        kinetic: '4.0x',
+        kineticStatus: 'EXPONENTIAL THREAT',
+        kineticDesc: '4x destructive kinetic force compared to 20 MPH baseline.',
+        fps: '58.7 FT/SEC',
+        opticMode: 'OPTIC MODE: CORRIDOR CONVERGENCE',
+        tagText: '75° Field // Suburban Arterial (40 MPH)',
+        // 75° cone
+        conePoints: '220,50 580,50 400,395',
+        fovealPoints: '350,30 450,30 400,395',
+        leftRay: { x2: 220, y2: 50 },
+        rightRay: { x2: 580, y2: 50 },
+        arcD: 'M 240,170 A 260,260 0 0,1 560,170',
+        blurOpacity: 0.45,
+        blurAmount: 7,
+        streakOpacity: 0.55,
+        showBlindness: true,
+        blindnessText: 'CAUTION: 58% LATERAL CONE OCCLUSION',
+        hazardOpacity: 0.35,
+      },
+      '60': {
+        mph: 60,
+        arc: 38,
+        arcLabel: '38°',
+        arcStatus: 'ACUTE TUNNEL VISION',
+        arcColorClass: 'text-rose-600',
+        arcDesc: 'Severe optical collapse (down to ~1/5 of standard panorama). Total blind field on flanks.',
+        distance: 303,
+        distanceBreakdown: '132 ft perception-reaction (1.5s) + 171 ft mechanical friction arrest.',
+        kinetic: '9.0x',
+        kineticStatus: 'LETHAL KINETIC ENVELOPE',
+        kineticDesc: '9x energy dissipation required. Equal to a 10-story freefall impact.',
+        fps: '88.0 FT/SEC',
+        opticMode: 'OPTIC MODE: ACUTE FOVEAL FIXATION',
+        tagText: '38° Acute Tunnel Vision // High Velocity (60 MPH)',
+        // ~38° cone: narrow 1/5 wedge
+        conePoints: '315,20 485,20 400,395',
+        fovealPoints: '360,20 440,20 400,395',
+        leftRay: { x2: 315, y2: 20 },
+        rightRay: { x2: 485, y2: 20 },
+        arcD: 'M 320,150 A 240,240 0 0,1 480,150',
+        blurOpacity: 0.85,
+        blurAmount: 14,
+        streakOpacity: 0.9,
+        showBlindness: true,
+        blindnessText: 'CRITICAL: ACUTE TUNNEL VISION (1/5 CONE)',
+        hazardOpacity: 0.08,
+      }
+    };
+
+    let currentSpeed = 'stationary';
+    let countAnimInterval = null;
+
+    function animateCounter(targetValue) {
+      const el = document.getElementById('distance-counter');
+      const startValue = parseInt(el.innerText) || 0;
+      const duration = 650; // ms
+      const startTime = performance.now();
+
+      if (countAnimInterval) cancelAnimationFrame(countAnimInterval);
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(startValue + (targetValue - startValue) * ease);
+        el.innerText = current;
+
+        if (progress < 1) {
+          countAnimInterval = requestAnimationFrame(update);
+        } else {
+          el.innerText = targetValue;
+        }
+      }
+      countAnimInterval = requestAnimationFrame(update);
+    }
+
+    function setSpeed(key) {
+      const data = SPEED_STATES[key];
+      if (!data) return;
+      currentSpeed = key;
+
+      // 1. Update Buttons Active Styling
+      const buttons = {
+        'stationary': document.getElementById('btn-stationary'),
+        '20': document.getElementById('btn-20'),
+        '40': document.getElementById('btn-40'),
+        '60': document.getElementById('btn-60'),
+      };
+
+      Object.keys(buttons).forEach(k => {
+        const btn = buttons[k];
+        const dot = btn.querySelector('.status-dot');
+        if (k === key) {
+          btn.classList.remove('border-line', 'hover:border-gray-400');
+          btn.classList.add('border-2', 'border-accent');
+          dot.classList.remove('bg-transparent');
+          dot.classList.add('bg-accent');
+        } else {
+          btn.classList.remove('border-2', 'border-accent');
+          btn.classList.add('border-line', 'hover:border-gray-400');
+          dot.classList.remove('bg-accent');
+          dot.classList.add('bg-transparent');
+        }
+      });
+
+      // 2. Update Header Tag
+      document.getElementById('active-state-tag').innerText = data.tagText;
+
+      // 3. Update Metrics Ribbon
+      document.getElementById('arc-display').innerText = data.arcLabel;
+      const arcSub = document.getElementById('arc-sub');
+      arcSub.innerText = data.arcStatus;
+      arcSub.className = `text-xs font-mono font-medium ${data.arcColorClass}`;
+      document.getElementById('arc-desc').innerText = data.arcDesc;
+
+      animateCounter(data.distance);
+      document.getElementById('distance-breakdown').innerText = data.distanceBreakdown;
+
+      document.getElementById('kinetic-factor').innerText = data.kinetic;
+      document.getElementById('kinetic-status').innerText = data.kineticStatus;
+      document.getElementById('kinetic-desc').innerText = data.kineticDesc;
+
+      // 4. Update Simulator HUD labels
+      document.getElementById('optic-mode-label').innerText = data.opticMode;
+      document.getElementById('retina-speed-label').innerText = data.fps;
+
+      // 5. Animate the Vision Cone SVG Elements
+      const poly = document.getElementById('vision-polygon');
+      poly.setAttribute('points', data.conePoints);
+
+      const foveal = document.getElementById('foveal-polygon');
+      foveal.setAttribute('points', data.fovealPoints);
+
+      const leftRay = document.getElementById('ray-left');
+      leftRay.setAttribute('x2', data.leftRay.x2);
+      leftRay.setAttribute('y2', data.leftRay.y2);
+
+      const rightRay = document.getElementById('ray-right');
+      rightRay.setAttribute('x2', data.rightRay.x2);
+      rightRay.setAttribute('y2', data.rightRay.y2);
+
+      const arcPath = document.getElementById('angle-arc');
+      arcPath.setAttribute('d', data.arcD);
+
+      // 6. Tunnel Vision Blur Overlays & Motion Streaks
+      const blurLeft = document.getElementById('tunnel-blur-left');
+      const blurRight = document.getElementById('tunnel-blur-right');
+      const streaks = document.getElementById('speed-streaks');
+
+      blurLeft.style.opacity = data.blurOpacity;
+      blurLeft.style.backdropFilter = `blur(${data.blurAmount}px)`;
+      blurRight.style.opacity = data.blurOpacity;
+      blurRight.style.backdropFilter = `blur(${data.blurAmount}px)`;
+
+      streaks.style.opacity = data.streakOpacity;
+
+      // 7. Peripheral Hazard Fade (Simulating inattentional peripheral blindness)
+      ['hazard-left-1', 'hazard-left-2', 'hazard-right-1', 'hazard-right-2'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.opacity = data.hazardOpacity;
+          el.style.filter = data.blurAmount > 5 ? `blur(${data.blurAmount * 0.4}px)` : 'none';
+        }
+      });
+
+      // 8. Blindness Alert Badge
+      const pill = document.getElementById('blindness-pill');
+      if (data.showBlindness) {
+        pill.querySelector('span:nth-child(2)').innerText = data.blindnessText;
+        pill.classList.remove('opacity-0');
+        pill.classList.add('opacity-100');
+      } else {
+        pill.classList.remove('opacity-100');
+        pill.classList.add('opacity-0');
+      }
+    }
+
+    // Initialize to stationary
+    document.addEventListener('DOMContentLoaded', () => {
+      setSpeed('stationary');
+    });
+  </script>
+
+<!-- Texas ADE Universal Interactivity & Persistence Engine -->
+<script id="tx-ade-interactivity-engine">
+(function() {
+  const currentTopicId = 'L08-T05';
+  const nextTopicId = 'L08-T06';
+  const prevTopicId = 'L08-T04';
+
+  function initInteractivity() {
+    // 1. Toast Notification Element
+    let toast = document.getElementById('tx-ade-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tx-ade-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;padding:12px 20px;border-radius:10px;font-family:sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateY(120px);opacity:0;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+
+    function showToast(msg, isSuccess) {
+      if (!toast) return;
+      toast.style.background = isSuccess ? '#059669' : '#D97706';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = (isSuccess ? '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' : '<svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') + ' ' + msg;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(120px)';
+        toast.style.opacity = '0';
+      }, 3000);
+    }
+
+    // 2. Help Modal
+    function openHelp() {
+      let modal = document.getElementById('tx-ade-help-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'tx-ade-help-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1000000;display:flex;align-items:center;justify-content:center;padding:16px;';
+        modal.innerHTML = `
+          <div style="background:#FFFFFF;border-radius:14px;max-width:500px;width:100%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);overflow:hidden;border:1px solid #E5E7EB;font-family:sans-serif;">
+            <div style="background:#111827;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#E87522;display:inline-block;"></span>
+                <span style="color:#FFFFFF;font-weight:700;font-size:14px;letter-spacing:-0.01em;">Texas Adult Driver Ed · Support & Help</span>
+              </div>
+              <button id="close-tx-ade-help" style="background:none;border:none;color:#9CA3AF;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding:20px;color:#374151;font-size:13px;line-height:1.6;">
+              <div style="font-weight:600;color:#111827;margin-bottom:6px;">Current Lesson: ${currentTopicId}</div>
+              <p style="margin:0 0 12px 0;">You are working through curriculum mandated by the Texas Department of Licensing and Regulation (TDLR) under Texas Administrative Code § 84.500.</p>
+              <div style="background:#F9FAFB;border-radius:8px;padding:12px;border:1px solid #E5E7EB;margin-bottom:12px;">
+                <div style="font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;margin-bottom:4px;">Statutory Requirements</div>
+                <div>• Minimum Time: Topics must be reviewed for required duration</div>
+                <div>• Comprehension: All scenarios and knowledge checks must be answered</div>
+                <div>• Passing Standard: Module exam passing threshold is 70%</div>
+              </div>
+              <div style="font-size:12px;color:#6B7280;">For certified instructional assistance, email <strong>support@texasade.org</strong></div>
+            </div>
+            <div style="padding:12px 20px;background:#F9FAFB;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;">
+              <button id="ok-tx-ade-help" style="background:#E87522;color:#FFFFFF;border:none;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Understood</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('#close-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.querySelector('#ok-tx-ade-help').onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+      }
+      modal.style.display = 'flex';
+    }
+
+    // 3. Complete and Advance
+    function advanceToNext() {
+      try {
+        let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+        if (!completed.includes(currentTopicId)) {
+          completed.push(currentTopicId);
+          localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+        }
+      } catch(e) {}
+
+      try {
+        window.parent.postMessage({ type: 'TOPIC_COMPLETE', topicId: currentTopicId }, '*');
+      } catch(e) {}
+
+      showToast(`Topic ${currentTopicId} Completed!`, true);
+
+      if (nextTopicId && nextTopicId !== 'None') {
+        setTimeout(() => {
+          window.location.href = `./${nextTopicId}.html`;
+        }, 500);
+      } else {
+        setTimeout(() => {
+          showToast('Congratulations! You have completed all course modules!', true);
+        }, 500);
+      }
+    }
+
+    function goToPrev() {
+      if (prevTopicId && prevTopicId !== 'None') {
+        window.location.href = `./${prevTopicId}.html`;
+      }
+    }
+
+    // 4. Attach Listeners to All Functional Navigation Elements
+    document.querySelectorAll('button, a').forEach(el => {
+      const txt = (el.textContent || '').trim().toLowerCase();
+      
+      // Complete / Next button
+      if (txt.includes('complete topic') || txt.includes('mark as completed') || txt.includes('complete module') || txt.includes('proceed to next') || txt.includes('proceed to topic') || (txt.includes('proceed') && txt.includes('→'))) {
+        if (!el.onclick && !el.dataset.bound && !el.id.includes('signal') && !el.id.includes('trigger') && !el.id.includes('vector') && !el.id.includes('card')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            advanceToNext();
+          });
+        }
+      }
+
+      // Previous button
+      if (txt.includes('previous topic') || txt.includes('← previous') || txt.includes('prev topic')) {
+        if (!el.onclick && !el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToPrev();
+          });
+        }
+      }
+
+      // Bookmark button
+      if (txt === 'bookmark' || el.innerHTML.includes('>bookmark<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            el.classList.toggle('text-brand-orange');
+            el.classList.toggle('text-amber-500');
+            showToast(`Topic ${currentTopicId} Bookmarked!`, true);
+          });
+        }
+      }
+
+      // Help button
+      if (txt.includes('help') || el.innerHTML.includes('>help<')) {
+        if (!el.dataset.bound && !el.id.includes('opt') && !el.id.includes('choice')) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openHelp();
+          });
+        }
+      }
+
+      // Save button
+      if (txt.includes('save progress') || txt.includes('save & exit') || el.innerHTML.includes('>save<')) {
+        if (!el.dataset.bound) {
+          el.dataset.bound = 'true';
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            try {
+              let completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+              if (!completed.includes(currentTopicId)) completed.push(currentTopicId);
+              localStorage.setItem('tx_ade_completed', JSON.stringify(completed));
+            } catch(e) {}
+            showToast('Progress Saved to TDLR Registry!', true);
+          });
+        }
+      }
+    });
+
+    // 5. Prevent Unhandled Form Submissions
+    document.querySelectorAll('form').forEach(form => {
+      if (!form.hasAttribute('onsubmit')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (typeof window.verifyAnswer === 'function') {
+            window.verifyAnswer();
+          } else {
+            showToast('Response recorded.', true);
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractivity);
+  } else {
+    initInteractivity();
+  }
+})();
+</script>
+
+</body>
+</html>
