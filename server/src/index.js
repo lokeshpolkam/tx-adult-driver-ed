@@ -25,15 +25,24 @@ const allowedOrigins = [
   'http://127.0.0.1:8080',
   'https://app.texasade.org',
   'https://texasade.org',
+  'https://courseshell.vercel.app',
 ];
+
+const isOriginAllowed = (origin) => {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+  if (origin.endsWith('.vercel.app')) return true;
+  if (process.env.NODE_ENV !== 'production') return true;
+  return false;
+};
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      if (isOriginAllowed(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Blocked by CORS'));
+        callback(null, false);
       }
     },
     credentials: true,
