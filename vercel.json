@@ -1,20 +1,16 @@
 {
   "version": 2,
-  "public": true,
   "cleanUrls": true,
-  "routes": [
-    {
-      "src": "/classroom",
-      "dest": "/course_shell/player.html"
-    },
-    {
-      "src": "/player",
-      "dest": "/course_shell/player.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/course_shell/$1"
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/course_shell/index.html" },
+    { "source": "/index.html", "destination": "/course_shell/index.html" },
+    { "source": "/classroom", "destination": "/course_shell/player.html" },
+    { "source": "/player", "destination": "/course_shell/player.html" },
+    { "source": "/player.html", "destination": "/course_shell/player.html" },
+    { "source": "/cloud_sync.js", "destination": "/course_shell/cloud_sync.js" },
+    { "source": "/final_course_export/(.*)", "destination": "/course_shell/final_course_export/$1" },
+    { "source": "/mcqs/(.*)", "destination": "/course_shell/mcqs/$1" },
+    { "source": "/(.*)", "destination": "/course_shell/$1" }
   ],
   "headers": [
     {
