@@ -11,7 +11,7 @@
 
 | Component | Active Folder | Production Target & Tech Stack |
 | :--- | :--- | :--- |
-| **🌐 Web Application** | [`course_shell/`](file:///c:/tx_dmv/course_shell) | **Live on Vercel**: [`https://courseshell.vercel.app`](https://courseshell.vercel.app)<br>• 3D Cyber Hero Landing Page (`index.html`)<br>• TDLR Virtual Classroom Player (`player.html`)<br>• 9 Modules & 75 Completed Topics (`final_course_export/`)<br>• Modular Quizzes & Answer Keys (`mcqs/`)<br>• Cloud Sync Bridge (`cloud_sync.js`) |
+| **🌐 Web Application** | [`course_shell/`](file:///c:/tx_dmv/course_shell) | **Live on Vercel**: [`https://tx-drive.vercel.app`](https://tx-drive.vercel.app)<br>• 3D Cyber Hero Landing Page (`index.html`)<br>• TDLR Virtual Classroom Player (`player.html`)<br>• 9 Modules & 75 Completed Topics (`final_course_export/`)<br>• Modular Quizzes & Answer Keys (`mcqs/`)<br>• Cloud Sync Bridge (`cloud_sync.js`) |
 | **⚙️ Backend API** | [`server/`](file:///c:/tx_dmv/server) | **Live on Google Cloud Run**: [`https://tx-ade-api-1004296326114.us-central1.run.app`](https://tx-ade-api-1004296326114.us-central1.run.app)<br>• Express.js + PostgreSQL (Cloud SQL) + Redis<br>• Google OAuth 2.0 (`/api/v1/auth/google`)<br>• 100% Promo Code Engine (`/api/v1/billing/validate-coupon`)<br>• Statutory 30s Heartbeats & Telemetry (`/api/v1/student/heartbeat`) |
 | **📱 Mobile Application** | [`tx_adult_driver_ed_flutter/`](file:///c:/tx_dmv/tx_adult_driver_ed_flutter) | **Cross-Platform Flutter (iOS / Android / Mobile Web)**<br>• Phone-optimized single-column ergonomics & touch targets<br>• Responsive Syllabus Drawer (`CurriculumDrawer`)<br>• Sticky Statutory Timer (16 TAC § 84.500)<br>• 90-Second PVQ Identity Challenge Sheet |
 
@@ -52,12 +52,19 @@ The following folders are preserved for historical audit only and must be **IGNO
 ## 🚀 QUICK DEPLOYMENT REFERENCE
 
 ### 1. Web Frontend (Vercel)
-```bash
+```powershell
 cd c:\tx_dmv\course_shell
-npx vercel --prod --yes
+
+# 1. Ensure linked to official tx-drive project (NEVER deploy to legacy txdrive)
+npx --yes vercel link --project tx-drive --yes
+
+# 2. Deploy to production (disable update check to prevent non-interactive prompts from hanging)
+$env:VERCEL_NO_UPDATE_CHECK="1"; npx --yes vercel --prod --yes
 ```
-- Live Domain: `https://courseshell.vercel.app`
-- Direct Classroom: `https://courseshell.vercel.app/player.html`
+- **Live Production Domain**: `https://tx-drive.vercel.app`
+- **Classroom Player**: `https://tx-drive.vercel.app/player.html`
+- **Identity Verification (PVQ 1-Page Checkpoint)**: `https://tx-drive.vercel.app/final_course_export/L09-T01.html`
+- **State Final Examination (30 MCQs)**: `https://tx-drive.vercel.app/mcqs/final_exam.html`
 
 ### 2. Cloud Run Backend (Google Cloud)
 ```bash
