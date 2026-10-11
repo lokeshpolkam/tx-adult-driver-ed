@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">`n  <title>Sign In - Texas Adult Driver Education</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#E87522',
+              hover: '#D26418',
+              dark: '#9A4600',
+              light: '#FFF4ED'
+            },
+            surface: {
+              canvas: '#F6F7F5',
+              card: '#FFFFFF',
+              subtle: '#EEEEEC',
+              border: '#D9DDD8',
+              dark: '#191B1A',
+              slate: '#5E6460'
+            }
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      background-color: theme('colors.surface.canvas');
+      color: theme('colors.surface.dark');
+    }
+    .card-border {
+      border: 1px solid theme('colors.surface.border');
+    }
+    .input-field {
+      font-size: 16px; /* Prevents iOS zoom */
+      min-height: 44px;
+    }
+    
+    /* Google button fallback styling */
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 44px;
+      background-color: #ffffff;
+      color: #3c4043;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-family: 'Roboto', 'Geist', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.25px;
+      cursor: pointer;
+      transition: background-color 0.2s, box-shadow 0.2s;
+    }
+    .btn-google:hover {
+      background-color: #f8f9fa;
+      box-shadow: 0 1px 2px 0 rgba(60,64,67,0.30), 0 1px 3px 1px rgba(60,64,67,0.15);
+    }
+    .btn-google svg {
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+    }
+    
+    /* Toast animation */
+    @keyframes slideInUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes slideOutDown {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(100%); opacity: 0; }
+    }
+    .toast-enter { animation: slideInUp 0.3s ease-out forwards; }
+    .toast-exit { animation: slideOutDown 0.3s ease-in forwards; }
+  </style>
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="bg-surface-card card-border border-b px-4 py-3 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- TX Logo Placeholder -->
+        <div class="w-10 h-10 bg-brand-orange text-white rounded-md flex items-center justify-content-center font-bold text-xl select-none" style="display: flex; align-items: center; justify-content: center;">
+          TX
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight tracking-tight">Adult Driver Ed</h1>
+          <p class="text-xs text-surface-slate font-medium">TDLR Provider #C3284</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="mailto:support@tx-ade.com" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-surface-slate hover:text-brand-orange transition-colors">
+          <span class="material-symbols-outlined text-[18px]">help</span>
+          Support
+        </a>
+        <a href="index.html" class="flex items-center gap-1.5 text-sm font-medium text-surface-slate hover:text-surface-dark transition-colors bg-surface-subtle px-3 py-1.5 rounded-md card-border">
+          <span class="material-symbols-outlined text-[18px]">home</span>
+          <span class="hidden sm:inline">Home</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto w-full px-4 py-8 sm:py-12 flex items-start justify-center">
+    
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      
+      <!-- Left Column: Sign In Form -->
+      <div class="lg:col-span-7 w-full max-w-xl mx-auto lg:mx-0">
+        
+        <div class="mb-8">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-2.5 py-1 bg-surface-dark text-white text-[10px] sm:text-xs font-bold tracking-wider rounded uppercase">Secure Student Portal</span>
+            <span class="px-2.5 py-1 bg-surface-subtle text-surface-slate text-[10px] sm:text-xs font-bold tracking-wider rounded uppercase border border-surface-border">16 TAC § 84.500 Compliant</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Welcome Back</h2>
+          <p class="text-surface-slate text-base sm:text-lg">Sign in to resume your course and access your progress.</p>
+        </div>
+
+        <div class="bg-surface-card card-border rounded-xl p-5 sm:p-8 shadow-sm">
+          
+          <!-- Error Container -->
+          <div id="inline-error" class="hidden mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start gap-3">
+            <span class="material-symbols-outlined text-red-500 shrink-0">error</span>
+            <p id="inline-error-text" class="text-sm font-medium mt-0.5">Invalid credentials.</p>
+          </div>
+
+          <!-- Google Auth Section -->
+          <div class="mb-6">
+            <!-- Native GSI div -->
+            <div id="g_id_onload"
+                 data-client_id="1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleSignIn"
+                 data-auto_prompt="false">
+            </div>
+            
+            <div class="g_id_signin" 
+                 data-type="standard" 
+                 data-shape="rectangular" 
+                 data-theme="outline" 
+                 data-text="signin_with" 
+                 data-size="large" 
+                 data-logo_alignment="left" 
+                 data-width="400">
+            </div>
+            
+            <!-- Fallback Button -->
+            <div id="google-fallback-container" class="hidden mt-2">
+              <button type="button" onclick="triggerGoogleLogin()" class="btn-google">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                  <path fill="none" d="M0 0h48v48H0z"/>
+                </svg>
+                Sign in with Google
+              </button>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center my-6">
+            <div class="flex-grow border-t border-surface-border"></div>
+            <span class="px-4 text-xs font-medium text-surface-slate uppercase tracking-wider bg-surface-card">Or sign in with email</span>
+            <div class="flex-grow border-t border-surface-border"></div>
+          </div>
+
+          <!-- Email Form -->
+          <form id="signin-form" class="space-y-5" novalidate>
+            
+            <!-- Email -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="email" class="block text-sm font-semibold text-surface-dark">Email Address</label>
+                <span class="text-xs text-surface-slate">Yahoo, Outlook, iCloud, Gmail, etc.</span>
+              </div>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-surface-slate">
+                  <span class="material-symbols-outlined text-[20px]">mail</span>
+                </div>
+                <input type="email" id="email" name="email" required autocomplete="email"
+                  class="input-field block w-full pl-10 pr-3 py-2 border-surface-border rounded-lg shadow-sm focus:ring-brand-orange focus:border-brand-orange sm:text-sm bg-white"
+                 >
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="password" class="block text-sm font-semibold text-surface-dark">Password</label>
+                <a href="reset-password.html" class="text-sm font-medium text-brand-orange hover:text-brand-dark transition-colors">Forgot Password?</a>
+              </div>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-surface-slate">
+                  <span class="material-symbols-outlined text-[20px]">lock</span>
+                </div>
+                <input type="password" id="password" name="password" required autocomplete="current-password"
+                  class="input-field block w-full pl-10 pr-10 py-2 border-surface-border rounded-lg shadow-sm focus:ring-brand-orange focus:border-brand-orange sm:text-sm bg-white"
+                 >
+                <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-surface-slate hover:text-surface-dark transition-colors focus:outline-none">
+                  <span id="toggle-password-icon" class="material-symbols-outlined text-[20px]">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember Me -->
+            <div class="flex items-center">
+              <input id="remember-me" name="remember-me" type="checkbox"
+                class="h-4 w-4 text-brand-orange focus:ring-brand-orange border-surface-border rounded cursor-pointer">
+              <label for="remember-me" class="ml-2 block text-sm text-surface-slate cursor-pointer">
+                Remember me for 30 days
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submit-btn" class="w-full flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-hover text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange input-field mt-2">
+              <span id="submit-text">SIGN IN →</span>
+              <span id="submit-icon" class="material-symbols-outlined text-[20px] hidden">arrow_forward</span>
+              <!-- Spinner -->
+              <svg id="submit-spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+            
+            <!-- New Student Link -->
+            <div class="mt-6 text-center">
+              <p class="text-sm text-surface-slate">
+                <a href="signup.html" class="font-bold text-brand-orange hover:text-brand-dark transition-colors">New student? Create Account</a>
+              </p>
+            </div>
+            
+          </form>
+        </div>
+        
+        <!-- TDLR Notice -->
+        <p class="mt-6 text-center text-xs text-surface-slate max-w-sm mx-auto">
+          By signing in, you agree to our Terms of Service and confirm you meet all TDLR requirements for this course.
+        </p>
+
+      </div>
+
+      <!-- Right Column: Info Cards -->
+      <div class="lg:col-span-5 flex flex-col gap-5">
+        
+        <!-- Course Badge Card -->
+        <div class="bg-surface-card card-border rounded-xl p-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-brand-light flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-brand-orange text-2xl">school</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-surface-dark leading-tight mb-1">Texas Adult Driver Education</h3>
+              <p class="text-sm text-surface-slate mb-2">TDLR Course #ADE-1317</p>
+              <ul class="space-y-1.5 mt-3">
+                <li class="flex items-center gap-2 text-sm text-surface-dark">
+                  <span class="material-symbols-outlined text-green-600 text-[18px]">check_circle</span>
+                  <span>6-hour required course</span>
+                </li>
+                <li class="flex items-center gap-2 text-sm text-surface-dark">
+                  <span class="material-symbols-outlined text-green-600 text-[18px]">check_circle</span>
+                  <span>Instant certificate download</span>
+                </li>
+                <li class="flex items-center gap-2 text-sm text-surface-dark">
+                  <span class="material-symbols-outlined text-green-600 text-[18px]">check_circle</span>
+                  <span>Free Module 1 preview</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resume Progress Card -->
+        <div class="bg-surface-card card-border rounded-xl p-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-blue-600 text-2xl">update</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-surface-dark leading-tight mb-1">Seamless Resume</h3>
+              <p class="text-sm text-surface-slate">Your progress is saved securely! Pick up exactly where you left off on any device.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Security Card -->
+        <div class="bg-surface-card card-border rounded-xl p-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-surface-subtle flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-surface-slate text-2xl">verified_user</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-surface-dark leading-tight mb-1">State-Level Compliance & Security</h3>
+              <p class="text-sm text-surface-slate mb-3">Your personal data is encrypted and securely stored following TDLR data handling guidelines.</p>
+              <div class="flex gap-2">
+                <span class="px-2 py-0.5 bg-surface-canvas border border-surface-border rounded text-[10px] font-mono text-surface-slate">256-BIT SSL</span>
+                <span class="px-2 py-0.5 bg-surface-canvas border border-surface-border rounded text-[10px] font-mono text-surface-slate">PCI-DSS COMPLIANT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-surface-card border-t border-surface-border mt-auto">
+    <div class="max-w-7xl mx-auto px-4 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="text-sm text-surface-slate text-center sm:text-left">
+        &copy; 2026 Texas Adult Driver Education. All rights reserved.<br class="sm:hidden" />
+        <span class="hidden sm:inline"> | </span>TDLR Provider #C3284
+      </div>
+      <div class="flex flex-wrap justify-center gap-4 text-sm font-medium text-surface-slate">
+        <a href="#" class="hover:text-surface-dark transition-colors">Terms</a>
+        <a href="#" class="hover:text-surface-dark transition-colors">Privacy</a>
+        <a href="#" class="hover:text-surface-dark transition-colors">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    const API_BASE_URL = 'https://tx-ade-api-1004296326114.us-central1.run.app';
+    const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
+    
+    // UI Elements
+    const form = document.getElementById('signin-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const rememberMeCheck = document.getElementById('remember-me');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+    const submitIcon = document.getElementById('submit-icon');
+    const submitSpinner = document.getElementById('submit-spinner');
+    
+    const inlineError = document.getElementById('inline-error');
+    const inlineErrorText = document.getElementById('inline-error-text');
+    
+    const togglePasswordBtn = document.getElementById('toggle-password');
+    const togglePasswordIcon = document.getElementById('toggle-password-icon');
+
+    // Helper: Show Toast
+    function showToast(msg, isSuccess = true) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      const icon = isSuccess ? 'check_circle' : 'error';
+      const colorClass = isSuccess ? 'bg-green-50 text-green-800 border-green-200' : 'bg-red-50 text-red-800 border-red-200';
+      const iconColor = isSuccess ? 'text-green-500' : 'text-red-500';
+      
+      toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg ${colorClass} toast-enter max-w-[calc(100vw-2rem)]`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined ${iconColor} shrink-0">${icon}</span>
+        <p class="text-sm font-medium leading-tight">${msg}</p>
+        <button onclick="this.parentElement.remove()" class="ml-auto text-surface-slate hover:text-surface-dark focus:outline-none shrink-0">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      `;
+      
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        if (toast.parentElement) {
+          toast.classList.replace('toast-enter', 'toast-exit');
+          setTimeout(() => toast.remove(), 300);
+        }
+      }, 5000);
+    }
+
+    // Helper: Smart Router
+    function getPostLoginRedirect(user) {
+      if (!user) return 'player.html';
+      if (user.enrollmentStatus === 'UNPAID') return 'player.html'; // will be checkout.html
+      if (user.enrollmentStatus === 'ACTIVE') return 'player.html';
+      if (user.enrollmentStatus === 'COMPLETED') return 'player.html';
+      return 'player.html';
+    }
+
+    // Helper: Handle Login Success
+    function handleLoginSuccess(data) {
+      localStorage.setItem('tx_session_token', data.token);
+      localStorage.setItem('tx_user_data', JSON.stringify(data.user));
+      localStorage.setItem('tx_user_active', 'true');
+      
+      const firstName = data.user.firstName || 'Student';
+      showToast(`Welcome back, ${firstName}!`);
+      
+      setTimeout(() => {
+        window.location.href = getPostLoginRedirect(data.user);
+      }, 1000);
+    }
+
+    // Show Error
+    function showError(message) {
+      inlineErrorText.textContent = message;
+      inlineError.classList.remove('hidden');
+    }
+
+    // Hide Error
+    function hideError() {
+      inlineError.classList.add('hidden');
+    }
+
+    // Set Loading State
+    function setLoading(isLoading) {
+      if (isLoading) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        submitText.textContent = 'SIGNING IN...';
+        submitIcon.classList.add('hidden');
+        submitSpinner.classList.remove('hidden');
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitText.textContent = 'SIGN IN →';
+        submitIcon.classList.add('hidden');
+        submitSpinner.classList.add('hidden');
+      }
+    }
+
+    // Password Show/Hide Toggle
+    togglePasswordBtn.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      togglePasswordIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+    });
+
+    // Handle Email Submit
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideError();
+      
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const rememberMe = rememberMeCheck.checked;
+      
+      if (!email || !password) {
+        showError('Please enter both email and password.');
+        return;
+      }
+      
+      setLoading(true);
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, rememberMe })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          handleLoginSuccess(data);
+        } else if (response.status === 401) {
+          showError('Invalid email or password.');
+          setLoading(false);
+        } else if (response.status === 423) {
+          showError('Account locked. Check your email to unlock.');
+          setLoading(false);
+        } else {
+          showError(data.error || 'An error occurred. Please try again.');
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        showToast('Network error. Please try again.', false);
+        showError('Unable to connect to the server. Please check your internet connection.');
+        setLoading(false);
+      }
+    });
+
+    // Handle Google Sign-in Callback (Global function for GSI)
+    window.handleGoogleSignIn = async function(response) {
+      if (!response || !response.credential) {
+        showError('Google authentication failed. Please try again or use email.');
+        return;
+      }
+      
+      hideError();
+      setLoading(true);
+      
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_token: response.credential })
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok) {
+          handleLoginSuccess(data);
+        } else {
+          showError(data.error || 'Google sign-in failed. Please try again.');
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error('Google Auth Error:', err);
+        showToast('Network error during Google sign-in.', false);
+        setLoading(false);
+      }
+    };
+
+    // --- Google Auth Logic ---
+    let googleInitAttempts = 0;
+    const MAX_INIT_ATTEMPTS = 20; // 10 seconds total (500ms * 20)
+
+    function initGoogleAuth() {
+      // If the native GSI initialized and rendered the iframe, great
+      if (document.querySelector('iframe[src*="smartlock"]')) {
+        console.log("Google Auth iframe detected via declarative API.");
+        return;
+      }
+      
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        console.log("Google Auth object available. Manually initializing.");
+        try {
+          google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleGoogleSignIn,
+            auto_prompt: false,
+            context: 'signin'
+          });
+          
+          google.accounts.id.renderButton(
+            document.querySelector('.g_id_signin'),
+            { theme: 'outline', size: 'large', type: 'standard', width: 400, text: 'signin_with' }
+          );
+        } catch (e) {
+          console.warn("Failed to manually init google auth, showing fallback.", e);
+          document.getElementById('google-fallback-container').classList.remove('hidden');
+        }
+      } else {
+        retryGoogleAuth();
+      }
+    }
+
+    function retryGoogleAuth() {
+      if (googleInitAttempts < MAX_INIT_ATTEMPTS) {
+        googleInitAttempts++;
+        setTimeout(initGoogleAuth, 500);
+      } else {
+        console.warn('Google Auth failed to load after multiple attempts. Showing fallback button.');
+        // Hide standard gsi elements and show custom fallback
+        const standardSignIn = document.querySelector('.g_id_signin');
+        if (standardSignIn) standardSignIn.style.display = 'none';
+        document.getElementById('google-fallback-container').classList.remove('hidden');
+      }
+    }
+
+    function triggerGoogleLogin() {
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+         google.accounts.id.prompt(); // Note: prompt() only works if not rendered on page
+      } else {
+         showToast('Google Sign-In is currently unavailable. Please use email.', false);
+      }
+    }
+
+    // Auto-redirect if already logged in
+    async function checkAuthSession() {
+      const token = localStorage.getItem('tx_session_token');
+      const userDataStr = localStorage.getItem('tx_user_data');
+      
+      if (token && userDataStr) {
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          if (res.ok) {
+            const data = await res.json();
+            const user = data.user || JSON.parse(userDataStr);
+            showToast('Already signed in! Redirecting...');
+            setTimeout(() => {
+              window.location.href = getPostLoginRedirect(user);
+            }, 800);
+          } else {
+            // Token invalid
+            localStorage.removeItem('tx_session_token');
+            localStorage.removeItem('tx_user_data');
+            localStorage.removeItem('tx_user_active');
+          }
+        } catch (err) {
+          console.warn('Silent auth check failed:', err);
+        }
+      }
+    }
+
+    // Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuthSession();
+      // Start checking for google object
+      setTimeout(initGoogleAuth, 500);
+    });
+
+  </script>
+</body>
+</html>

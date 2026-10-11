@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">`n  <title>Texas Adult Driver Education - Sign Up</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#E87522',
+                            hover: '#D26418',
+                            dark: '#9A4600',
+                            light: '#FFF4ED'
+                        },
+                        surface: {
+                            canvas: '#F6F7F5',
+                            card: '#FFFFFF',
+                            subtle: '#EEEEEC',
+                            border: '#D9DDD8',
+                            dark: '#191B1A',
+                            slate: '#5E6460'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Geist', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Geist & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Google Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <style>
+        body { font-family: 'Geist', sans-serif; background-color: #F6F7F5; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .card-border { border: 1px solid #D9DDD8; }
+        .input-field {
+            min-height: 44px;
+            font-size: 16px; /* Prevent iOS Zoom */
+            width: 100%;
+            border-radius: 0.375rem;
+            border: 1px solid #D9DDD8;
+            padding: 0.5rem 0.75rem 0.5rem 3.25rem !important;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #E87522;
+            box-shadow: 0 0 0 1px #E87522;
+        }
+        .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5E6460;
+            pointer-events: none;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5E6460;
+            cursor: pointer;
+        }
+        .error-text {
+            color: #dc2626;
+            font-size: 10px;
+            margin-top: 0.25rem;
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-surface-dark">
+
+    <!-- Header -->
+    <header class="bg-surface-card border-b border-surface-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <!-- TX Star Logo Placeholder -->
+                <div class="w-8 h-8 bg-brand-orange flex items-center justify-center rounded-sm">
+                    <span class="material-symbols-outlined text-white text-xl">star</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight">TEXAS<br><span class="text-surface-slate font-normal">Adult Driver Ed</span></h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+                <a href="mailto:support@txade.com" class="hidden sm:flex items-center gap-1 text-surface-slate hover:text-brand-orange">
+                    <span class="material-symbols-outlined text-[18px]">help</span> Support
+                </a>
+                <a href="index.html" class="flex items-center gap-1 text-surface-slate hover:text-brand-orange">
+                    <span class="material-symbols-outlined text-[18px]">home</span> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Column (7 cols) - Form -->
+            <div class="lg:col-span-7 bg-surface-card rounded-lg p-6 sm:p-8 card-border shadow-sm">
+                <div class="mb-6 flex items-center gap-2 text-xs font-mono font-bold text-surface-slate uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-[16px] text-green-600">lock</span> SECURE STUDENT PORTAL
+                    <span class="mx-2">|</span>
+                    16 TAC § 84.500 COMPLIANT
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2">Create Your Account</h2>
+                <p class="text-surface-slate mb-8">Register for the state-mandated 6-hour adult driver education course.</p>
+
+                <!-- Google Auth -->
+                <div class="mb-6">
+                    <div id="g_id_onload"
+                        data-client_id="1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com"
+                        data-context="signup"
+                        data-ux_mode="popup"
+                        data-callback="handleGoogleSignUp"
+                        data-auto_prompt="false">
+                    </div>
+                    
+                    <button type="button" onclick="triggerGoogleLogin()" class="w-full flex justify-center items-center gap-3 bg-surface-card card-border hover:bg-surface-subtle text-surface-dark font-medium py-3 px-4 rounded-md transition-colors min-h-[44px]">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Sign up with Google
+                    </button>
+                    <p id="google-auth-status" class="text-xs text-center text-surface-slate mt-2 hidden"></p>
+                </div>
+
+                <div class="relative flex py-4 items-center mb-6">
+                    <div class="flex-grow border-t border-surface-border"></div>
+                    <span class="flex-shrink-0 mx-4 text-surface-slate text-sm">or register with email</span>
+                    <div class="flex-grow border-t border-surface-border"></div>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="signupForm" novalidate>
+                    <!-- Full Name -->
+                    <div class="mb-7">
+                        <label for="fullName" class="block text-sm font-medium mb-1">Full Legal Name</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined input-icon">person</span>
+                            <input type="text" id="fullName" class="input-field">
+                        </div>
+                        <p class="text-xs text-surface-slate mt-1">Official name printed on state certificate (Form ADE-1317)</p>
+                        <p id="fullNameError" class="error-text font-mono">Invalid name.</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-7">
+                        <div class="flex justify-between items-baseline mb-1">
+                            <label for="email" class="block text-sm font-medium">Email Address</label>
+                            <span class="text-xs text-surface-slate">Yahoo, Outlook, iCloud, Gmail, etc.</span>
+                        </div>
+                        <div class="relative">
+                            <span class="material-symbols-outlined input-icon">mail</span>
+                            <input type="email" id="email" class="input-field">
+                        </div>
+                        <p class="text-xs text-surface-slate mt-1">Official certificate will be delivered to this email inbox.</p>
+                        <p id="emailError" class="error-text font-mono">Invalid email address.</p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-7">
+                        <label for="password" class="block text-sm font-medium mb-1">Password</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <input type="password" id="password" class="input-field pr-10">
+                            <span class="material-symbols-outlined toggle-password" onclick="togglePassword('password', this)">visibility_off</span>
+                        </div>
+                        <p class="text-xs text-surface-slate mt-1">Minimum 8 characters, 1 uppercase letter, 1 number</p>
+                        <p id="passwordError" class="error-text font-mono">Invalid password.</p>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mb-7">
+                        <label for="confirmPassword" class="block text-sm font-medium mb-1">Confirm Password</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <input type="password" id="confirmPassword" class="input-field pr-10">
+                            <span class="material-symbols-outlined toggle-password" onclick="togglePassword('confirmPassword', this)">visibility_off</span>
+                        </div>
+                        <p id="confirmPasswordError" class="error-text font-mono">Passwords do not match.</p>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="mb-6">
+                        <label for="dob" class="block text-sm font-medium mb-1">Date of Birth</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined input-icon">calendar_today</span>
+                            <input type="date" id="dob" class="input-field">
+                        </div>
+                        <p class="text-xs text-surface-slate mt-1">Required by TDLR. Must be 18 or older.</p>
+                        <p id="dobError" class="error-text font-mono">You must be 18 or older.</p>
+                    </div>
+
+                    <!-- TDLR Consent -->
+                    <div class="mb-8">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="consent" class="mt-1 w-4 h-4 text-brand-orange border-surface-border rounded focus:ring-brand-orange">
+                            <span class="text-sm text-surface-slate leading-relaxed">I acknowledge this course is governed by 16 TAC § 84.500 and affirm under penalty of perjury (Tex. Penal Code § 37.10) that I am the student enrolling.</span>
+                        </label>
+                        <p id="consentError" class="error-text font-mono">You must acknowledge this agreement.</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" class="w-full bg-brand-orange hover:bg-brand-hover text-white font-bold py-3 px-4 rounded-md transition-colors min-h-[44px] flex items-center justify-center gap-2">
+                        CREATE ACCOUNT →
+                    </button>
+                    
+                    <div class="mt-6 text-center text-sm text-surface-slate">
+                        Already enrolled? <a href="signin.html" class="text-brand-orange hover:underline font-medium">Sign in here</a>
+                    </div>
+                </form>
+
+                <div class="mt-8 pt-6 border-t border-surface-border text-xs text-surface-slate text-center">
+                    <p>Protected by 256-bit TLS encryption. View our <a href="#" class="underline hover:text-surface-dark">Privacy Policy</a>.</p>
+                </div>
+            </div>
+
+            <!-- Right Column (5 cols) - Info Cards -->
+            <div class="lg:col-span-5 space-y-6">
+                <!-- Course Badge Card -->
+                <div class="bg-surface-card rounded-lg p-6 card-border shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-2xl">workspace_premium</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Official TDLR Course</h3>
+                            <p class="text-sm text-surface-slate font-mono">Provider #C3284 / Course ADE-1317</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start gap-2 text-sm">
+                            <span class="material-symbols-outlined text-[20px] text-green-600">check_circle</span>
+                            <span>State-required 6-hour curriculum</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-sm">
+                            <span class="material-symbols-outlined text-[20px] text-green-600">check_circle</span>
+                            <span>Instant certificate download (ADE-1317)</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-sm">
+                            <span class="material-symbols-outlined text-[20px] text-green-600">check_circle</span>
+                            <span>DPS written exam included</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-sm">
+                            <span class="material-symbols-outlined text-[20px] text-green-600">check_circle</span>
+                            <span>100% online, self-paced, mobile-friendly</span>
+                        </li>
+                    </ul>
+                    <div class="bg-surface-canvas p-4 rounded border border-surface-border flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-surface-slate font-mono mb-1">TOTAL COST</p>
+                            <p class="text-2xl font-bold font-mono">$38.00</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-surface-slate uppercase">Promo code?</p>
+                            <p class="text-xs font-mono font-medium text-green-700">TEXAS100 = $0.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Card -->
+                <div class="bg-surface-card rounded-lg p-6 card-border shadow-sm flex items-center gap-4">
+                    <span class="material-symbols-outlined text-4xl text-gray-400">gpp_good</span>
+                    <div>
+                        <h4 class="font-bold text-sm">Identity & Audit Verified</h4>
+                        <p class="text-xs text-surface-slate mt-1">We implement DPS-approved facial recognition and biometric keystroke dynamics per TAC 84.504(c).</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-dark text-surface-subtle py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+            <div>
+                <p>&copy; 2026 Texas Adult Driver Education. All rights reserved.</p>
+                <p class="text-surface-slate text-xs mt-1">TDLR Provider #C3284</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 max-w-sm w-full bg-surface-dark text-white p-4 rounded shadow-lg transform translate-y-full opacity-0 transition-all duration-300 flex items-start gap-3 z-50">
+        <span id="toastIcon" class="material-symbols-outlined text-green-400">check_circle</span>
+        <div class="flex-grow">
+            <p id="toastMessage" class="text-sm font-medium">Message here</p>
+        </div>
+        <button onclick="hideToast()" class="text-surface-slate hover:text-white">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const API_BASE_URL = 'https://tx-ade-api-1004296326114.us-central1.run.app';
+        const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
+
+        // --- UI Interactions ---
+
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                iconElement.textContent = 'visibility';
+            } else {
+                input.type = 'password';
+                iconElement.textContent = 'visibility_off';
+            }
+        }
+
+        // --- Toast System ---
+        let toastTimeout;
+        function showToast(msg, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMsg.textContent = msg;
+            toastIcon.textContent = isSuccess ? 'check_circle' : 'error';
+            toastIcon.className = `material-symbols-outlined ${isSuccess ? 'text-green-400' : 'text-red-400'}`;
+            
+            toast.classList.remove('translate-y-full', 'opacity-0');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(hideToast, 5000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('translate-y-full', 'opacity-0');
+        }
+
+        // --- Google Identity Services Fallback logic ---
+        let googleAuthInitialized = false;
+        let googleRetryCount = 0;
+        const MAX_GOOGLE_RETRIES = 3;
+
+        function initGoogleAuth() {
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: handleGoogleSignUp,
+                    context: 'signup'
+                });
+                googleAuthInitialized = true;
+                document.getElementById('google-auth-status').classList.add('hidden');
+            }
+        }
+
+        function retryGoogleAuth() {
+            if (!googleAuthInitialized && googleRetryCount < MAX_GOOGLE_RETRIES) {
+                googleRetryCount++;
+                initGoogleAuth();
+                if (!googleAuthInitialized) {
+                    setTimeout(retryGoogleAuth, 1000); // Retry after 1s
+                }
+            } else if (!googleAuthInitialized) {
+                const statusEl = document.getElementById('google-auth-status');
+                statusEl.textContent = 'Google sign-in temporarily unavailable. Please use email.';
+                statusEl.classList.remove('hidden');
+            }
+        }
+
+        window.onload = function() {
+            initGoogleAuth();
+            if (!googleAuthInitialized) {
+                setTimeout(retryGoogleAuth, 1000);
+            }
+        };
+
+        function triggerGoogleLogin() {
+            if (googleAuthInitialized) {
+                google.accounts.id.prompt((notification) => {
+                    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                        // Fallback logic could be opening a popup or showing standard GIS button if custom prompt fails
+                        const gBtn = document.querySelector('.g_id_signin');
+                        if(gBtn) gBtn.click(); // if we had rendered one
+                    }
+                });
+            } else {
+                showToast("Google sign-in is still initializing. Please wait or use email.", false);
+            }
+        }
+
+        // --- Validation Logic ---
+        function clearErrors() {
+            document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.input-field').forEach(el => el.style.borderColor = '');
+        }
+
+        function showError(fieldId, errorId, message) {
+            const field = document.getElementById(fieldId);
+            const error = document.getElementById(errorId);
+            field.style.borderColor = '#dc2626';
+            error.textContent = message;
+            error.style.display = 'block';
+        }
+
+        function validateForm() {
+            clearErrors();
+            let isValid = true;
+
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const dob = document.getElementById('dob').value;
+            const consent = document.getElementById('consent').checked;
+
+            if (name.length < 2 || !/^[A-Za-z\s\-']+$/.test(name)) {
+                showError('fullName', 'fullNameError', 'Name must be at least 2 chars and contain only valid characters.');
+                isValid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('email', 'emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            const pwdRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!pwdRegex.test(password)) {
+                showError('password', 'passwordError', 'Min 8 chars, 1 uppercase, 1 number required.');
+                isValid = false;
+            }
+
+            if (password !== confirm) {
+                showError('confirmPassword', 'confirmPasswordError', 'Passwords do not match.');
+                isValid = false;
+            }
+
+            if (!dob) {
+                showError('dob', 'dobError', 'Date of birth is required.');
+                isValid = false;
+            } else {
+                const birthDate = new Date(dob);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                if (age < 18) {
+                    showError('dob', 'dobError', 'You must be at least 18 years old.');
+                    isValid = false;
+                }
+            }
+
+            if (!consent) {
+                document.getElementById('consentError').textContent = 'You must acknowledge this agreement.';
+                document.getElementById('consentError').style.display = 'block';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // --- Submit Handlers ---
+
+        function handleSuccess(data, name) {
+            localStorage.setItem('tx_session_token', data.token);
+            localStorage.setItem('tx_user_data', JSON.stringify(data.user));
+            localStorage.setItem('tx_user_active', 'true');
+            
+            showToast(`Welcome, ${name}! Redirecting...`, true);
+            
+            setTimeout(() => {
+                if (data.user.enrollmentStatus === 'UNPAID') {
+                    window.location.href = 'player.html'; // Fallback to player.html until checkout.html built
+                } else {
+                    window.location.href = 'player.html';
+                }
+            }, 1500);
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if (!validateForm()) return;
+
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const dob = document.getElementById('dob').value;
+            
+            const btn = document.getElementById('submitBtn');
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin mr-2">progress_activity</span> CREATING ACCOUNT...`;
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, fullName: name, dateOfBirth: dob })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    handleSuccess(data, name);
+                } else {
+                    showToast(data.message || 'Registration failed. Please try again.', false);
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                showToast('Network error. Please try again.', false);
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+            }
+        });
+
+        async function handleGoogleSignUp(response) {
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/v1/auth/google`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_token: response.credential })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Extract name from JWT (basic payload extraction for toast, otherwise rely on backend user data)
+                    let name = 'Student';
+                    if (data.user && data.user.fullName) {
+                        name = data.user.fullName;
+                    }
+                    handleSuccess(data, name);
+                } else {
+                    showToast(data.message || 'Google sign-up failed.', false);
+                }
+            } catch (err) {
+                showToast('Network error. Please try again.', false);
+            }
+        }
+    </script>
+</body>
+</html>

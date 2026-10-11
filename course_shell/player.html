@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Texas Adult Driver Education // Virtual Classroom (ADE-1317)</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">`n  <title>Texas Adult Driver Education // Virtual Classroom (ADE-1317)</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -388,16 +388,22 @@
                     <div>Sign-in is 100% free and instantly unlocks Module 1. Use code <strong>TEXAS100</strong> for 100% off full state certification.</div>
                 </div>
 
-                <!-- Return to landing page -->
-                <div class="pt-2 border-t border-gray-100">
+                <!-- Return to landing page or dedicated login portal -->
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
                     <a href="index.html" class="inline-flex items-center gap-1 text-xs font-mono text-gray-500 hover:text-gray-900 uppercase transition-colors">
                         <span class="material-symbols-outlined text-[16px]">arrow_back</span>
-                        <span>Return to Landing Page</span>
+                        <span>Landing Page</span>
+                    </a>
+                    <a href="signin.html" class="inline-flex items-center gap-1 text-xs font-mono text-amber-700 hover:text-amber-900 font-bold uppercase transition-colors">
+                        <span>Sign In / Enroll</span>
+                        <span class="material-symbols-outlined text-[16px]">open_in_new</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <!-- Shell Notification Toast -->
     <div id="shell-toast" class="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-lg font-label-mono-sm text-xs font-semibold flex items-center gap-2 shadow-xl transition-all duration-300 transform translate-y-24 opacity-0 pointer-events-none bg-emerald-700 text-white">
@@ -526,7 +532,8 @@
                 {
                     id: 9, code: 'MOD 09', title: 'Final Exam Prep', quizInfo: 'Mastery ≥ 70%',
                     topics: [
-                        { id: 'L09-T01', title: 'DPS Highway Sign & Traffic Law Exam', minutes: 45 },
+                        { id: 'L09-T01', title: 'Student Identity Verification (16 TAC § 84.500)', minutes: 10 },
+                        { id: 'L09-T02', title: 'DPS Highway Sign & Traffic Law Exam', minutes: 45 },
                     ]
                 },
             ]
@@ -591,12 +598,18 @@
         });
 
         function getTopicUrl(id) {
+            if (id === 'L09-T02') {
+                return `./mcqs/final_exam.html?v=${Date.now()}`;
+            }
             return `./final_course_export/${id}.html?v=${Date.now()}`;
         }
 
         function getTestUrl(id) {
-            if (id === 'L09-T01') {
+            if (id === 'L09-T02') {
                 return `./mcqs/final_exam.html?v=${Date.now()}`;
+            }
+            if (id === 'L09-T01') {
+                return `./final_course_export/L09-T01.html?v=${Date.now()}`;
             }
             return `./mcqs/${id}.html?v=${Date.now()}`;
         }
@@ -659,6 +672,21 @@
         let isUserAuthenticated = false;
 
         function showMandatoryAuthModal() {
+            // Check if user is already authenticated in localStorage
+            const cachedToken = localStorage.getItem('tx_session_token');
+            const cachedUser = localStorage.getItem('tx_user_data');
+            const isActive = localStorage.getItem('tx_user_active') === 'true';
+            const urlAccess = window.location.search.includes('access=admin_vip_granted');
+
+            if (cachedToken || cachedUser || isActive || urlAccess) {
+                isUserAuthenticated = true;
+                const modal = document.getElementById('mandatory-auth-modal');
+                if (modal) modal.classList.add('hidden');
+                const mainContent = document.querySelector('main');
+                if (mainContent) mainContent.style.filter = 'none';
+                return;
+            }
+
             isUserAuthenticated = false;
             const modal = document.getElementById('mandatory-auth-modal');
             if (modal) modal.classList.remove('hidden');
@@ -681,6 +709,51 @@
         window.showMandatoryAuthModal = showMandatoryAuthModal;
         window.hideMandatoryAuthModal = hideMandatoryAuthModal;
 
+        // Restore Progress from Cloud SQL (Called by cloud_sync.js)
+        window.restoreProgressFromCloud = function(cloudData) {
+            if (!cloudData) return;
+            console.log('[PLAYER] Restoring progress from Cloud SQL:', cloudData);
+
+            // Reconstruct completed topics strictly from user's Cloud SQL record
+            completedTopics = new Set(Array.isArray(cloudData.completedTopics) ? cloudData.completedTopics : []);
+            localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
+
+            // Smart topic resumption:
+            // 1. If unlockedTopicId is provided and NOT completed yet, resume there.
+            // 2. Otherwise find the first uncompleted topic in the sequential course list.
+            // 3. If all topics completed, keep active on the final exam.
+            let resumeTopicId = cloudData.unlockedTopicId;
+            if (!resumeTopicId || completedTopics.has(resumeTopicId)) {
+                const nextUnfinished = ALL_TOPICS.find(t => !completedTopics.has(t.id));
+                resumeTopicId = nextUnfinished ? nextUnfinished.id : ALL_TOPICS[ALL_TOPICS.length - 1].id;
+            }
+            activeTopicId = resumeTopicId;
+            localStorage.setItem('tx_ade_active', activeTopicId);
+
+            elapsedSeconds = (typeof cloudData.totalInstructionalSeconds === 'number' && cloudData.totalInstructionalSeconds >= 0)
+                ? cloudData.totalInstructionalSeconds
+                : 0;
+            localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
+
+            if (cloudData.enrollmentStatus === 'ACTIVE') {
+                window.setEnrollmentStatus(true);
+            } else {
+                window.setEnrollmentStatus(false);
+            }
+
+            renderSidebar();
+            updateMetrics();
+            updateFooterButtons();
+
+            if (activeTopicId) {
+                loadTopic(activeTopicId);
+            }
+        };
+
+        window.getElapsedSeconds = function() {
+            return elapsedSeconds;
+        };
+
         async function applyModalPromoCode() {
             const input = document.getElementById('unlock-promo-input');
             const feedback = document.getElementById('unlock-promo-feedback');
@@ -693,31 +766,27 @@
             feedback.className = 'text-xs font-mono mt-2 text-gray-600 block';
             feedback.textContent = 'Verifying code with Texas registry...';
 
-            try {
-                const res = await fetch(`${API_BASE_URL}/api/v1/billing/validate-coupon`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify({ code })
-                });
-                const data = await res.json();
-                if (data.success && data.valid) {
+            if (typeof window.redeemPromoCode === 'function') {
+                const result = await window.redeemPromoCode(code);
+                if (result.success) {
                     feedback.className = 'text-xs font-mono mt-2 text-emerald-600 font-bold block';
-                    feedback.textContent = `★ ${data.label}: 100% Waived! Unlocking all modules...`;
+                    feedback.textContent = `★ ${result.message}`;
                     window.setEnrollmentStatus(true);
-                    hidePaymentBanner();
+                    if (typeof hidePaymentBanner === 'function') hidePaymentBanner();
                     setTimeout(() => {
                         closeUnlockModal();
                         showShellToast('🎉 All 9 Modules Unlocked! Full Course Access Active.', true);
                     }, 1000);
+                    return;
                 } else {
                     feedback.className = 'text-xs font-mono mt-2 text-rose-600 block';
-                    feedback.textContent = data.message || 'Invalid promo code.';
+                    feedback.textContent = result.message || 'Invalid promo code.';
+                    return;
                 }
-            } catch (err) {
-                feedback.className = 'text-xs font-mono mt-2 text-rose-600 block';
-                feedback.textContent = 'Network error: ' + err.message;
             }
+
+            feedback.className = 'text-xs font-mono mt-2 text-rose-600 block';
+            feedback.textContent = 'Redemption service unavailable.';
         }
         window.showUnlockModal = showUnlockModal;
         window.closeUnlockModal = closeUnlockModal;
@@ -852,7 +921,7 @@
                                 return;
                             }
                             if (mod.id === 9) {
-                                openTopicTest('L09-T01');
+                                openTopicTest('L09-T02');
                             } else {
                                 const lastTopic = mod.topics[mod.topics.length - 1];
                                 openTopicTest(lastTopic.id);
@@ -884,7 +953,7 @@
                         ? `TOPIC ${activeTopicId} · ASSESSMENT PASSED (${testState.score}/${testState.totalQuestions})`
                         : `TOPIC ${activeTopicId} · ASSESSMENT NEEDS REVIEW (${testState.score}/${testState.totalQuestions})`;
                 } else {
-                    topicStatusEl.textContent = (activeTopicId === 'L09-T01')
+                    topicStatusEl.textContent = (activeTopicId === 'L09-T02')
                         ? `FINAL EXAM // QUESTION ${testState.questionIndex + 1} OF ${testState.totalQuestions}`
                         : `TOPIC ${activeTopicId} // QUESTION ${testState.questionIndex + 1} OF ${testState.totalQuestions}`;
                 }
@@ -985,8 +1054,10 @@
                 }
             }
 
-            if (activeTopicId === 'L09-T01') {
+            if (activeTopicId === 'L09-T02') {
                 btnTakeTestLabel.textContent = isCompleted ? 'RETAKE FINAL EXAM' : 'TAKE FINAL EXAM (30 QUESTIONS)';
+            } else if (activeTopicId === 'L09-T01') {
+                btnTakeTestLabel.textContent = isCompleted ? 'REVIEW IDENTITY PROFILE' : 'VERIFY IDENTITY (5 QUESTIONS)';
             } else {
                 btnTakeTestLabel.textContent = isCompleted ? 'RETAKE TOPIC TEST' : 'TAKE A TEST ON THIS TOPIC';
             }
@@ -1056,7 +1127,7 @@
             testState.active = true;
             testState.topicId = id;
             testState.questionIndex = 0;
-            testState.totalQuestions = (id === 'L09-T01') ? 30 : 5;
+            testState.totalQuestions = (id === 'L09-T02') ? 30 : 5;
             testState.isAnswered = false;
             testState.isResultsScreen = false;
             testState.isPassed = false;
@@ -1085,8 +1156,21 @@
         window.returnToLesson = returnToLesson;
         window.proceedToNextTopic = () => {
             const idx = ALL_TOPICS.findIndex(t => t.id === activeTopicId);
+            completedTopics.add(activeTopicId);
+            localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
             if (idx < TOTAL_TOPICS - 1) {
-                loadTopic(ALL_TOPICS[idx + 1].id);
+                const nextTopic = ALL_TOPICS[idx + 1];
+                if (typeof window.reportTopicCompletion === 'function') {
+                    window.reportTopicCompletion(activeTopicId, nextTopic.id);
+                }
+                loadTopic(nextTopic.id);
+            } else {
+                if (typeof window.reportTopicCompletion === 'function') {
+                    window.reportTopicCompletion(activeTopicId, null);
+                }
+                renderSidebar();
+                updateMetrics();
+                showShellToast('🎉 All 75 Topics Completed! State Certification Ready.', true);
             }
         };
 
@@ -1129,8 +1213,15 @@
                             localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
                             const idx = ALL_TOPICS.findIndex(t => t.id === activeTopicId);
                             if (idx < TOTAL_TOPICS - 1) {
-                                loadTopic(ALL_TOPICS[idx + 1].id);
+                                const nextTopic = ALL_TOPICS[idx + 1];
+                                if (typeof window.reportTopicCompletion === 'function') {
+                                    window.reportTopicCompletion(activeTopicId, nextTopic.id);
+                                }
+                                loadTopic(nextTopic.id);
                             } else {
+                                if (typeof window.reportTopicCompletion === 'function') {
+                                    window.reportTopicCompletion(activeTopicId, null);
+                                }
                                 renderSidebar();
                                 updateMetrics();
                                 showShellToast('🎉 All 75 Topics Completed! State Certification Ready.', true);
@@ -1177,12 +1268,18 @@
 
                 if (idx < TOTAL_TOPICS - 1) {
                     const nextTopic = ALL_TOPICS[idx + 1];
+                    if (typeof window.reportTopicCompletion === 'function') {
+                        window.reportTopicCompletion(activeTopicId, nextTopic.id);
+                    }
                     if (!isTopicUnlocked(nextTopic.id)) {
                         showUnlockModal(`Congratulations on completing Module 1! To continue to Module 2 (${nextTopic.id}: ${nextTopic.title}) and receive your official Form ADE-1317 certificate, enroll now or apply your 100% off promo code (TEXAS100).`);
                         return;
                     }
                     loadTopic(nextTopic.id);
                 } else {
+                    if (typeof window.reportTopicCompletion === 'function') {
+                        window.reportTopicCompletion(activeTopicId, null);
+                    }
                     renderSidebar();
                     updateMetrics();
                     showShellToast('🎉 All 75 Topics Completed! State Certification Ready.', true);
@@ -1351,6 +1448,12 @@
                     completedTopics.add(topicId);
                     localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
 
+                    const idx = ALL_TOPICS.findIndex(t => t.id === topicId);
+                    const nextTopic = idx < TOTAL_TOPICS - 1 ? ALL_TOPICS[idx + 1] : null;
+                    if (typeof window.reportTopicCompletion === 'function') {
+                        window.reportTopicCompletion(topicId, nextTopic ? nextTopic.id : null);
+                    }
+
                     showShellToast(`Topic ${topicId} Assessment Passed! Mastery Verified.`, true);
 
                     renderSidebar();
@@ -1366,8 +1469,12 @@
                 completedTopics.add(topicId);
                 localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
                 const idx = ALL_TOPICS.findIndex(t => t.id === topicId);
-                if (idx < TOTAL_TOPICS - 1) {
-                    loadTopic(ALL_TOPICS[idx + 1].id);
+                const nextTopic = idx < TOTAL_TOPICS - 1 ? ALL_TOPICS[idx + 1] : null;
+                if (typeof window.reportTopicCompletion === 'function') {
+                    window.reportTopicCompletion(topicId, nextTopic ? nextTopic.id : null);
+                }
+                if (nextTopic) {
+                    loadTopic(nextTopic.id);
                 } else {
                     renderSidebar();
                     updateMetrics();
@@ -1406,12 +1513,19 @@
         // Wire Up Shell Save Progress Button
         const shellSaveBtn = document.getElementById('shell-save-btn');
         if (shellSaveBtn) {
-            shellSaveBtn.addEventListener('click', () => {
+            shellSaveBtn.addEventListener('click', async () => {
                 try {
                     localStorage.setItem('tx_ade_active', activeTopicId);
                     localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
                     localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
-                    showShellToast(`Progress Saved! (${completedTopics.size}/${TOTAL_TOPICS} Topics · ${formatTime(elapsedSeconds)})`, true);
+                    if (typeof window.syncProgressToCloud === 'function') {
+                        await window.syncProgressToCloud({
+                            completedTopics: [...completedTopics],
+                            activeTopicId: activeTopicId,
+                            elapsedSeconds: elapsedSeconds
+                        });
+                    }
+                    showShellToast(`Progress Saved to Cloud! (${completedTopics.size}/${TOTAL_TOPICS} Topics · ${formatTime(elapsedSeconds)})`, true);
                 } catch(e) {
                     showShellToast('Error saving progress', false);
                 }
@@ -1424,8 +1538,18 @@
             updateMetrics();
             updateFooterButtons();
 
-            // Mandatory state identity verification gate (16 TAC § 84.500)
-            showMandatoryAuthModal();
+            // Check if already authenticated before showing modal
+            const cachedToken = localStorage.getItem('tx_session_token');
+            const cachedUser = localStorage.getItem('tx_user_data');
+            if (cachedToken && cachedUser) {
+                try {
+                    hideMandatoryAuthModal(JSON.parse(cachedUser));
+                } catch (_) {
+                    hideMandatoryAuthModal({});
+                }
+            } else {
+                showMandatoryAuthModal();
+            }
         }
 
         if (document.readyState === 'loading') {

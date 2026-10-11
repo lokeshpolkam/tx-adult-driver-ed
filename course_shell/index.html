@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Texas Adult Driver Education // Official TDLR Approved Course ADE-1317</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">`n  <title>Texas Adult Driver Education // Official TDLR Approved Course ADE-1317</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,21 +123,27 @@
 
     <!-- Right: Authentication & Course Entry Actions -->
     <div class="flex items-center space-x-3">
-      <!-- Google Sign In Button Container -->
-      <div id="header-google-signin" class="shrink-0"></div>
-      
-      <!-- Student profile badge (shown when signed in) -->
-      <div id="header-user-badge" class="hidden items-center gap-2 pl-2">
-        <div id="header-user-avatar" class="w-8 h-8 rounded-full border border-tx-amber overflow-hidden bg-tx-surface flex items-center justify-center text-xs font-bold text-tx-amber"></div>
-        <span id="header-user-name" class="text-xs font-mono text-gray-200 hidden sm:inline font-semibold"></span>
-        <button onclick="handleLogout()" class="text-[11px] font-mono text-gray-400 hover:text-white px-2.5 py-1 bg-white/5 hover:bg-white/10 rounded border border-white/10 transition-colors">LOG OUT</button>
+      <!-- When Logged Out: Clean Sign In & Enroll Now actions -->
+      <div id="header-logged-out" class="flex items-center space-x-3">
+        <a href="signin.html" class="px-3 py-2 rounded-lg text-xs font-mono font-semibold tracking-wider text-gray-300 hover:text-white hover:bg-white/5 transition-colors uppercase">
+          SIGN IN
+        </a>
+        <a href="signup.html" class="px-4 py-2.5 rounded-lg bg-tx-amber hover:bg-tx-dark-amber text-white font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-tx-amber/25 hover:shadow-tx-amber/40 flex items-center gap-1.5">
+          <span>ENROLL NOW ($38)</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
       </div>
 
-      <!-- Enter Virtual Classroom CTA -->
-      <a href="player.html" class="px-4 py-2.5 rounded-lg bg-tx-amber hover:bg-tx-dark-amber text-white font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-tx-amber/25 hover:shadow-tx-amber/40 flex items-center gap-1.5">
-        <span>CLASSROOM</span>
-        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-      </a>
+      <!-- Student profile badge (shown when signed in) -->
+      <div id="header-user-badge" class="hidden items-center gap-2.5 pl-2">
+        <div id="header-user-avatar" class="w-8 h-8 rounded-full border border-tx-amber overflow-hidden bg-tx-surface flex items-center justify-center text-xs font-bold text-tx-amber"></div>
+        <span id="header-user-name" class="text-xs font-mono text-gray-200 hidden sm:inline font-semibold"></span>
+        <a href="player.html" class="px-3.5 py-2 rounded-lg bg-tx-amber hover:bg-tx-dark-amber text-white font-bold text-xs tracking-wider uppercase transition-all shadow-md shadow-tx-amber/25 flex items-center gap-1">
+          <span>CLASSROOM</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+        <button onclick="handleLogout()" class="text-[11px] font-mono text-gray-400 hover:text-white px-2.5 py-1 bg-white/5 hover:bg-white/10 rounded border border-white/10 transition-colors uppercase">LOG OUT</button>
+      </div>
     </div>
   </header>
 
@@ -174,82 +180,97 @@
         Mandatory 6-hour certification course for Texas drivers ages 18–24 (and adults 25+). Skip the written exam at DPS and get your official <strong>Form ADE-1317</strong> certificate.
       </p>
 
-      <!-- Integrated Google Sign-In & Enrollment Console (Pointer Events Re-enabled) -->
-      <div class="pointer-events-auto w-full max-w-lg glass-card p-6 sm:p-7 rounded-2xl border border-white/10 shadow-2xl mb-4 text-left">
+      <!-- Dedicated Enrollment Call-To-Action Console (Pointer Events Re-enabled) -->
+      <div class="pointer-events-auto w-full max-w-xl glass-card p-6 sm:p-8 rounded-2xl border border-white/15 shadow-2xl mb-5 text-left backdrop-blur-xl">
         
-        <!-- Google Sign In Row in Hero -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-5 border-b border-white/10">
-          <div>
-            <div class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-tx-amber text-[18px]">account_circle</span>
-              <span>Student Account</span>
+        <!-- Logged Out View (Default) -->
+        <div id="hero-logged-out-state">
+          <!-- State Certification Pill & Price -->
+          <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-mono font-bold text-gray-200 uppercase tracking-wider">STATE-APPROVED ONLINE ENROLLMENT</span>
             </div>
-            <div id="hero-auth-status" class="text-xs text-gray-400 mt-0.5">Sign in with Google to start course</div>
+            <div class="text-right">
+              <span class="text-xs font-mono text-tx-amber font-bold">$38.00</span>
+              <span class="text-[10px] font-mono text-gray-400 block">or $0 w/ code TEXAS100</span>
+            </div>
           </div>
-          <div id="hero-google-signin" class="shrink-0"></div>
+
+          <!-- Feature Highlights Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6 text-xs text-gray-300 font-mono">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+              <span>100% Online · Self-Paced (6 Hrs)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+              <span>DPS Written Exam Included</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+              <span>Official ADE-1317 Certificate</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+              <span>Free Module 1 Preview</span>
+            </div>
+          </div>
+
+          <!-- Primary CTA Action: ENROLL NOW ONLY -->
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a 
+              href="signup.html" 
+              class="flex-1 py-4 px-6 rounded-xl bg-gradient-to-r from-tx-amber via-orange-500 to-amber-600 hover:from-orange-500 hover:to-tx-dark-amber text-white font-extrabold text-sm tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 hover:shadow-tx-amber/50 flex items-center justify-center gap-2 cursor-pointer group"
+            >
+              <span>ENROLL NOW — START FREE</span>
+              <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+            
+            <a 
+              href="player.html" 
+              class="px-5 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-mono text-xs tracking-wider uppercase transition-all border border-white/10 flex items-center justify-center gap-1.5"
+            >
+              <span>PREVIEW MOD 1</span>
+              <span class="material-symbols-outlined text-[16px]">visibility</span>
+            </a>
+          </div>
+
+          <!-- Secondary Switch: Already Enrolled? Sign In -->
+          <div class="mt-4 pt-3.5 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+            <span class="text-gray-400">Already registered?</span>
+            <a href="signin.html" class="text-tx-amber hover:text-amber-300 font-bold uppercase flex items-center gap-1 transition-colors">
+              <span>Sign In to Resume Course</span>
+              <span class="material-symbols-outlined text-[16px]">login</span>
+            </a>
+          </div>
         </div>
 
-        <!-- Coupon / Tuition Voucher Bar -->
-        <div class="mt-4">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-mono font-bold text-gray-300 uppercase flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-tx-amber text-[16px]">confirmation_number</span>
-              <span>Promo / Tuition Waiver Code</span>
-            </label>
-            <span id="coupon-badge" class="text-xs font-mono text-gray-400 font-semibold">Standard Tuition: $38.00</span>
+        <!-- Logged In View (Dynamically Shown when signed in) -->
+        <div id="hero-logged-in-state" class="hidden">
+          <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+            <div>
+              <div class="text-[11px] font-mono text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>AUTHENTICATED STUDENT SESSION</span>
+              </div>
+              <h3 id="hero-student-name" class="text-lg font-bold text-white mt-1"></h3>
+            </div>
+            <div id="hero-enrollment-status-badge" class="px-2.5 py-1 rounded font-mono text-[11px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              ACTIVE
+            </div>
           </div>
 
-          <div class="flex gap-2">
-            <input 
-              type="text" 
-              id="coupon-input" 
-              placeholder="Enter promo code: TEXAS100" 
-              class="flex-1 bg-black/60 border border-white/15 rounded-lg px-3.5 py-2.5 text-xs font-mono text-white placeholder-gray-500 focus:outline-none focus:border-tx-amber uppercase tracking-wider"
-            />
-            <button 
-              id="apply-coupon-btn" 
-              onclick="applyCouponCode()" 
-              class="px-4 py-2.5 bg-white/10 hover:bg-tx-amber hover:text-white rounded-lg text-xs font-mono font-bold text-gray-200 transition-colors uppercase cursor-pointer"
-            >
-              Apply
-            </button>
-          </div>
+          <p class="text-xs text-gray-300 font-mono mb-5">
+            Your progress is synchronized with the Texas State Registry. Click below to enter the classroom and resume your active lesson.
+          </p>
 
-          <!-- Quick Promo Chip & Free Preview Note -->
-          <div class="flex flex-wrap items-center gap-2 mt-2 text-[11px] font-mono text-gray-400">
-            <span>100% Off Code:</span>
-            <button 
-              type="button" 
-              onclick="document.getElementById('coupon-input').value='TEXAS100'; applyCouponCode();" 
-              class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 font-bold transition-all cursor-pointer flex items-center gap-1"
-            >
-              <span>TEXAS100</span>
-              <span class="text-[9px] uppercase tracking-wider text-emerald-400">(Click to Apply 100% Off)</span>
-            </button>
-            <span class="text-gray-500 text-[10px]">· Module 1 is Free</span>
-          </div>
-
-          <!-- Coupon message feedback -->
-          <div id="coupon-feedback" class="text-xs font-mono mt-2 hidden"></div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="mt-5 flex flex-col sm:flex-row gap-3">
-          <button 
-            id="enroll-action-btn"
-            onclick="handleMainEnrollment()" 
-            class="flex-1 px-6 py-3.5 rounded-xl bg-gradient-to-r from-tx-amber to-amber-600 hover:from-amber-600 hover:to-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <span id="enroll-btn-text">START COURSE ($38)</span>
-            <span class="material-symbols-outlined text-[18px]">bolt</span>
-          </button>
-          
           <a 
             href="player.html" 
-            class="px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-mono text-xs tracking-wider uppercase transition-all border border-white/10 flex items-center justify-center gap-1.5"
+            class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-tx-amber to-amber-600 hover:from-amber-600 hover:to-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2"
           >
-            <span>FREE PREVIEW (MOD 1)</span>
-            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+            <span>ENTER VIRTUAL CLASSROOM</span>
+            <span class="material-symbols-outlined text-[18px]">school</span>
           </a>
         </div>
 
@@ -534,7 +555,7 @@
             </div>
           </div>
 
-          <a href="#hero" class="inline-flex px-8 py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/25 items-center gap-2">
+          <a href="signup.html" class="inline-flex px-8 py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/25 items-center gap-2">
             <span>ENROLL NOW ($38)</span>
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </a>
@@ -642,7 +663,7 @@
           </li>
         </ul>
 
-        <a href="#hero" class="w-full py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2">
+        <a href="signup.html" class="w-full py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2">
           <span>ENROLL FOR $38.00</span>
           <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
         </a>
@@ -1065,87 +1086,54 @@
     // 10. GOOGLE IDENTITY SERVICES & AUTH LOGIC
     // =========================================================================
     async function initAuth() {
+      // 1. Instant hydration from localStorage
+      const cachedToken = localStorage.getItem('tx_session_token');
+      const cachedUser = localStorage.getItem('tx_user_data');
+      if (cachedUser) {
+        try {
+          currentUser = JSON.parse(cachedUser);
+          renderLoggedInUser(currentUser);
+        } catch (_) {}
+      }
+
+      // 2. Validate with API using Bearer header
+      const headers = { 'Content-Type': 'application/json' };
+      if (cachedToken) {
+        headers['Authorization'] = `Bearer ${cachedToken}`;
+      }
+
       try {
-        const res = await fetch(`${API_BASE_URL}/api/v1/auth/me`, { credentials: 'include' });
+        const res = await fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+          headers,
+          credentials: 'include',
+        });
         if (res.ok) {
           const data = await res.json();
           if (data.success && data.user) {
             currentUser = data.user;
+            localStorage.setItem('tx_user_data', JSON.stringify(data.user));
+            if (data.user.enrollmentStatus === 'ACTIVE') {
+              localStorage.setItem('tx_user_active', 'true');
+            }
             renderLoggedInUser(data.user);
             return;
           }
         }
       } catch (err) {}
 
-      if (window.google && window.google.accounts) {
-        window.google.accounts.id.initialize({
-          client_id: GOOGLE_CLIENT_ID,
-          callback: handleGoogleAuthResponse,
-        });
-
-        // Header button
-        window.google.accounts.id.renderButton(
-          document.getElementById('header-google-signin'),
-          { theme: 'outline', size: 'medium', shape: 'pill', text: 'signin_with' }
-        );
-
-        // Hero card button
-        const heroContainer = document.getElementById('hero-google-signin');
-        if (heroContainer) {
-          window.google.accounts.id.renderButton(
-            heroContainer,
-            { theme: 'filled_black', size: 'large', shape: 'rectangular', text: 'continue_with' }
-          );
-        }
-      }
     }
-
-    async function handleGoogleAuthResponse(response) {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/v1/auth/google`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ id_token: response.credential }),
-        });
-        const data = await res.json();
-        if (data.success && data.user) {
-          currentUser = data.user;
-          renderLoggedInUser(data.user);
-          
-          if (data.user.enrollmentStatus === 'ACTIVE') {
-            alert(`Welcome back, ${data.user.fullName}! Your enrollment is active. Opening virtual classroom...`);
-            window.location.href = 'player.html';
-            return;
-          }
-
-          const codeInput = document.getElementById('coupon-input');
-          const code = (codeInput?.value || '').trim();
-          if (code) {
-            applyCouponCode();
-          }
-        }
-      } catch (err) {
-        alert('Google Sign-In failed: ' + err.message);
-      }
-    }
-
+ 
     function renderLoggedInUser(user) {
-      const hG = document.getElementById('header-google-signin');
-      if (hG) hG.style.display = 'none';
-      const heroG = document.getElementById('hero-google-signin');
-      if (heroG) heroG.style.display = 'none';
-
-      const statusEl = document.getElementById('hero-auth-status');
-      if (statusEl) {
-        statusEl.innerHTML = `<span class="text-emerald-400 font-bold">✓ Signed in:</span> ${user.email}`;
-      }
+      // Toggle header auth controls
+      const headerLoggedOut = document.getElementById('header-logged-out');
+      if (headerLoggedOut) headerLoggedOut.classList.add('hidden');
 
       const badge = document.getElementById('header-user-badge');
       if (badge) {
         badge.classList.remove('hidden');
         badge.classList.add('flex');
       }
+
       const nameEl = document.getElementById('header-user-name');
       if (nameEl) nameEl.textContent = user.fullName || user.email;
       
@@ -1158,15 +1146,23 @@
         }
       }
 
+      // Toggle Hero CTA states
+      const heroLoggedOut = document.getElementById('hero-logged-out-state');
+      if (heroLoggedOut) heroLoggedOut.classList.add('hidden');
+
+      const heroLoggedIn = document.getElementById('hero-logged-in-state');
+      if (heroLoggedIn) heroLoggedIn.classList.remove('hidden');
+
+      const heroStudentName = document.getElementById('hero-student-name');
+      if (heroStudentName) heroStudentName.textContent = user.fullName || user.email;
+
+      const heroBadge = document.getElementById('hero-enrollment-status-badge');
+      if (heroBadge) {
+        heroBadge.textContent = user.enrollmentStatus === 'ACTIVE' ? 'ENROLLMENT ACTIVE' : (user.enrollmentStatus || 'ACTIVE');
+      }
+
       const certName = document.getElementById('cert-preview-name');
       if (certName) certName.textContent = (user.fullName || 'STUDENT').toUpperCase();
-
-      if (user.enrollmentStatus === 'ACTIVE') {
-        const btnText = document.getElementById('enroll-btn-text');
-        if (btnText) btnText.textContent = 'ENTER VIRTUAL CLASSROOM';
-        const couponBadge = document.getElementById('coupon-badge');
-        if (couponBadge) couponBadge.innerHTML = `<span class="text-emerald-400 font-bold">ENROLLMENT ACTIVE</span>`;
-      }
     }
 
     // Bulletproof Log Out Handler
@@ -1185,25 +1181,13 @@
       }
 
       currentUser = null;
-      localStorage.clear();
+      localStorage.removeItem('tx_session_token');
+      localStorage.removeItem('tx_user_data');
+      localStorage.removeItem('tx_user_active');
+      localStorage.removeItem('tx_ade_completed');
+      localStorage.removeItem('tx_ade_active');
+      localStorage.removeItem('tx_ade_time');
       sessionStorage.clear();
-
-      // Immediately reset UI
-      const badge = document.getElementById('header-user-badge');
-      if (badge) {
-        badge.classList.remove('flex');
-        badge.classList.add('hidden');
-      }
-      const hG = document.getElementById('header-google-signin');
-      if (hG) hG.style.display = 'block';
-      const heroG = document.getElementById('hero-google-signin');
-      if (heroG) heroG.style.display = 'block';
-
-      const statusEl = document.getElementById('hero-auth-status');
-      if (statusEl) statusEl.textContent = 'Sign in with Google to start course';
-
-      const btnText = document.getElementById('enroll-btn-text');
-      if (btnText) btnText.textContent = 'START COURSE ($38)';
 
       window.location.reload();
     }
@@ -1227,10 +1211,14 @@
       feedback.className = 'text-xs font-mono mt-2 text-gray-300 block';
       feedback.textContent = 'Verifying with Texas State Registry...';
 
+      const cachedToken = localStorage.getItem('tx_session_token');
+      const headers = { 'Content-Type': 'application/json' };
+      if (cachedToken) headers['Authorization'] = `Bearer ${cachedToken}`;
+
       try {
         const res = await fetch(`${API_BASE_URL}/api/v1/billing/validate-coupon`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           credentials: 'include',
           body: JSON.stringify({ code }),
         });
@@ -1239,7 +1227,7 @@
         if (data.success && data.valid) {
           currentCoupon = { code, ...data };
 
-          if (data.isAdmin) {
+          if (data.isAdmin || data.discountPercent === 100) {
             // ADMIN VIP PASS (100% OFF)
             if (data.requiresAuth || !currentUser) {
               feedback.className = 'text-xs font-mono mt-2 text-emerald-400 font-bold block animate-pulse';
@@ -1249,6 +1237,7 @@
               return;
             }
 
+            localStorage.setItem('tx_user_active', 'true');
             feedback.className = 'text-xs font-mono mt-2 text-emerald-400 font-bold block animate-pulse';
             feedback.innerHTML = `★ ${data.message} Opening classroom...`;
             badge.innerHTML = `<span class="text-emerald-400 font-bold">100% WAIVED (${data.finalPriceFormatted})</span>`;

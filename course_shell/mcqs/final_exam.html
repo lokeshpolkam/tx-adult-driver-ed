@@ -472,6 +472,7 @@
       if (passed && window.parent && window.parent.postMessage) {
         window.parent.postMessage({
           type: 'FINAL_EXAM_COMPLETED',
+          topicId: 'L09-T02',
           score: score,
           passed: true
         }, '*');
@@ -482,7 +483,7 @@
       if (window.parent && window.parent.postMessage) {
         window.parent.postMessage({
           type: 'TEST_QUESTION_STATE',
-          topicId: 'L09-T01',
+          topicId: 'L09-T02',
           questionIndex: currentIndex,
           totalQuestions: EXAM_QUESTIONS.length,
           isAnswered: (selectedOption !== null),
