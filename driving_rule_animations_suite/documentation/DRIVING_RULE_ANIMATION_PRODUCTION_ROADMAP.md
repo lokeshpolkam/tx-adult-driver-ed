@@ -50,7 +50,7 @@
 | 12 | **L05-T03** | Signaling & Communication | A | TTC § 545.104 | Continuous turn signal for not less than 100 feet before turn/lane change. | **VERIFIED** |
 | 13 | **L05-T04** | Passing, Turning, and Parking | A | TTC § 545.054 | Complete 2-lane highway pass before oncoming vehicle is within 200 ft. | **VERIFIED** |
 | 14 | **L05-T05** | Blind Spot Driving | B | Safety Standard | Convex vs. flat mirror coverage; physical shoulder head-check zone. | **VERIFIED** |
-| 15 | **L05-T06** | Safe Following Distances | B | TTC § 545.062 | 3-second following rule; expanding buffer in rain, night, or fog. | Queued |
+| 15 | **L05-T06** | Safe Following Distances | B | TTC § 545.062 | 3-second following rule; expanding buffer in rain, night, or fog. | **VERIFIED** |
 | 16 | **L05-T07** | Safe Stopping Distances | B | TTC § 545.351 | Quadratic braking distance curve: perception + reaction + braking. | Queued |
 | 17 | **L05-T08** | Poor Conditions & Flash Floods | C | TTC § 472.022 | Hydroplaning hydrodynamics & high-water barricade penalties. | Queued |
 | 18 | **L05-T10** | Vehicle Lights | B | TTC § 547.333 | Dim high beams within 500 ft of oncoming car / 300 ft following. | Queued |
