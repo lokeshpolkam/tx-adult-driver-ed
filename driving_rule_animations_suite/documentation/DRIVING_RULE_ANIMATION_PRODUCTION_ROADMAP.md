@@ -46,7 +46,7 @@
 ### Phase 3: Module 5 — Roadway Operations & Emergencies (14 Animations)
 | # | Lesson ID | Topic Title | Cat | Statutory Anchor | Core Driving Rule | Status |
 | :-: | :--- | :--- | :-: | :--- | :--- | :---: |
-| 11 | **L05-T02** | Managing Traffic Flow | A | TTC § 545.051 | Drive on right half of roadway; left lane reserved for passing. | Queued |
+| 11 | **L05-T02** | Managing Traffic Flow | A | TTC § 544.004 & § 542.501 | Hierarchy of traffic control: police officer overrules steady red light. | **VERIFIED** |
 | 12 | **L05-T03** | Signaling & Communication | A | TTC § 545.104 | Continuous turn signal for not less than 100 feet before turn/lane change. | Queued |
 | 13 | **L05-T04** | Passing, Turning, and Parking | A | TTC § 545.054 | Complete 2-lane highway pass before oncoming vehicle is within 200 ft. | Queued |
 | 14 | **L05-T05** | Blind Spot Driving | B | Safety Standard | Convex vs. flat mirror coverage; physical shoulder head-check zone. | Queued |
