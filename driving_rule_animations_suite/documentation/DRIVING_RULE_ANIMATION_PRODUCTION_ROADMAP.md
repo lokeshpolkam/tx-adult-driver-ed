@@ -39,7 +39,7 @@
 | :-: | :--- | :--- | :-: | :--- | :--- | :---: |
 | 8 | **L04-T02** | Responding to Traffic Control Devices | A | TTC § 544.007 | Flashing yellow arrow (permissive turn) vs. green arrow (protected). | **VERIFIED** |
 | 9 | **L04-T03** | Knowledge to Responsible Decisions | B | TTC § 545.055 & § 545.054 | Solid vs. dashed yellow centerlines and legal passing corridors. | **VERIFIED** |
-| 10 | **L04-T04** | Applied Risk Reduction | A | TTC § 544.007(x) | Dark / malfunctioning signal functions as an all-way stop. | **IN PRODUCTION** |
+| 10 | **L04-T04** | Applied Risk Reduction | A | TTC § 544.007(x) | Dark / malfunctioning signal functions as an all-way stop. | **VERIFIED** |
 
 ---
 
@@ -80,4 +80,4 @@
 | 30 | **L08-T04** | Distractions That Affect Driving | C | TTC § 545.4251 | 5-second distraction at 55 mph equals traversing an entire football field blind. | Queued |
 | 31 | **L08-T06** | Risk of Not Wearing a Safety Belt | A | TTC § 545.251 | Railroad crossing stop 15–50 ft; 45-degree evacuation if stalled. | Queued |
 | 32 | **L08-T07** | Dangers of Driving at Night | A | TTC § 547.333 | Overdriving headlights: stopping distance exceeding illumination beam. | Queued |
-| 33 | **L08-T09** | Safe Driving Practices | A | TTC § 550.022 | Steer It, Clear It law: moving drivable vehicles to shoulder after fender-bender. | Queued |
+| 33 | **L08-T09** | Safe Driving Practices | A | TTC § 550.022 | Steer It, Clear It law: moving drivable vehicles to shoulder after fender-bender. | **VERIFIED & READY** |
