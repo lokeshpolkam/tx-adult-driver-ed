@@ -58,7 +58,7 @@
 | 20 | **L05-T13** | Managing a Vehicle Breakdown | C | TTC § 545.301 | Emergency shoulder stop: hazards, passenger exit, behind guardrail. | **VERIFIED** |
 | 21 | **L05-T14** | Controlling a Vehicle in Emergencies | C | TTC § 545.401 | Tire blowout: maintain wheel grip, ease throttle, do not panic brake. | **VERIFIED** |
 | 22 | **L05-T15** | Winter Driving | A | Safety Standard | Bridge/overpass early icing; counter-steering into a skid. | **VERIFIED** |
-| 23 | **L05-T16** | Reduce Risk — Traffic Flow | B | TTC § 545.062 | Space cushions: maintaining 360-degree perimeter escape paths. | Queued |
+| 23 | **L05-T16** | Reduce Risk — Traffic Flow | B | TTC § 545.062 | Space cushions: maintaining 360-degree perimeter escape paths. | **VERIFIED** |
 | 24 | **L05-T17** | Construction & Work Zones | C | TTC § 542.404 | Automatic fine doubling with active crews; flagger compliance. | Queued |
 
 ---
