@@ -76,7 +76,7 @@
 ### Phase 5: Module 8 — Driver Responsibility & Night Operations (5 Animations)
 | # | Lesson ID | Topic Title | Cat | Statutory Anchor | Core Driving Rule | Status |
 | :-: | :--- | :--- | :-: | :--- | :--- | :---: |
-| 29 | **L08-T01** | 7 Keys to Safe Driving | B | Safety Standard | SIPDE cognitive scan cycle (Search, Identify, Predict, Decide, Execute). | Queued |
+| 29 | **L08-T01** | 7 Keys to Safe Driving | B | Safety Standard | SIPDE cognitive scan cycle (Search, Identify, Predict, Decide, Execute). | **VERIFIED** |
 | 30 | **L08-T04** | Distractions That Affect Driving | C | TTC § 545.4251 | 5-second distraction at 55 mph equals traversing an entire football field blind. | Queued |
 | 31 | **L08-T06** | Risk of Not Wearing a Safety Belt | A | TTC § 545.251 | Railroad crossing stop 15–50 ft; 45-degree evacuation if stalled. | Queued |
 | 32 | **L08-T07** | Dangers of Driving at Night | A | TTC § 547.333 | Overdriving headlights: stopping distance exceeding illumination beam. | Queued |
