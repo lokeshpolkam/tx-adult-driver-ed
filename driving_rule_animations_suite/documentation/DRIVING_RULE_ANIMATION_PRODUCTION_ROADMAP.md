@@ -68,7 +68,7 @@
 | :-: | :--- | :--- | :-: | :--- | :--- | :---: |
 | 25 | **L07-T03** | Laws for Sharing the Road | A | Safety Standard | Large truck wide right-turn squeeze & 4 commercial No-Zones. | **VERIFIED** |
 | 26 | **L07-T06** | Stopped by Law Enforcement | A | TTC § 543.005 | Safe traffic stop procedure: pull right, hazard lights, hands on wheel. | **VERIFIED** |
-| 27 | **L07-T08** | Aggressive Driving & Avoidance | C | Safety Standard | Road rage de-escalation: yield right-of-way, avoid retaliatory moves. | Queued |
+| 27 | **L07-T08** | Aggressive Driving & Avoidance | C | Safety Standard | Road rage de-escalation: yield right-of-way, avoid retaliatory moves. | **VERIFIED** |
 | 28 | **L07-T12** | Operating Near Oversize Vehicles | A | TTC § 623.001 | Oversize load convoy rules; yielding at narrow bridges and choke points. | Queued |
 
 ---
