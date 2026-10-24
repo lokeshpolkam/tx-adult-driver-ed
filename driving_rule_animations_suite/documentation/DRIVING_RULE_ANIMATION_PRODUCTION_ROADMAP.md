@@ -59,7 +59,7 @@
 | 21 | **L05-T14** | Controlling a Vehicle in Emergencies | C | TTC § 545.401 | Tire blowout: maintain wheel grip, ease throttle, do not panic brake. | **VERIFIED** |
 | 22 | **L05-T15** | Winter Driving | A | Safety Standard | Bridge/overpass early icing; counter-steering into a skid. | **VERIFIED** |
 | 23 | **L05-T16** | Reduce Risk — Traffic Flow | B | TTC § 545.062 | Space cushions: maintaining 360-degree perimeter escape paths. | **VERIFIED** |
-| 24 | **L05-T17** | Construction & Work Zones | C | TTC § 542.404 | Automatic fine doubling with active crews; flagger compliance. | Queued |
+| 24 | **L05-T17** | Construction & Work Zones | C | TTC § 542.404 | Automatic fine doubling with active crews; flagger compliance. | **VERIFIED** |
 
 ---
 
