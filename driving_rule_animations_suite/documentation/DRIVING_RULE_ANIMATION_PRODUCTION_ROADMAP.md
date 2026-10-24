@@ -54,7 +54,7 @@
 | 16 | **L05-T07** | Safe Stopping Distances | B | TTC § 545.351 | Quadratic braking distance curve: perception + reaction + braking. | **VERIFIED** |
 | 17 | **L05-T08** | Poor Conditions & Flash Floods | C | TTC § 472.022 | Hydroplaning hydrodynamics & high-water barricade penalties. | **VERIFIED** |
 | 18 | **L05-T10** | Vehicle Lights | B | TTC § 547.333 | Dim high beams within 500 ft of oncoming car / 300 ft following. | **VERIFIED** |
-| 19 | **L05-T11** | Freeway Entry, Travel & Exit | A | TTC § 545.154 | Acceleration lane merge into traffic gaps; deceleration lane exit. | Queued |
+| 19 | **L05-T11** | Freeway Entry, Travel & Exit | A | TTC § 545.154 | Acceleration lane merge into traffic gaps; deceleration lane exit. | **VERIFIED** |
 | 20 | **L05-T13** | Managing a Vehicle Breakdown | C | TTC § 545.301 | Emergency shoulder stop: hazards, passenger exit, behind guardrail. | Queued |
 | 21 | **L05-T14** | Controlling a Vehicle in Emergencies | C | TTC § 545.401 | Tire blowout: maintain wheel grip, ease throttle, do not panic brake. | Queued |
 | 22 | **L05-T15** | Winter Driving | A | Safety Standard | Bridge/overpass early icing; counter-steering into a skid. | Queued |
