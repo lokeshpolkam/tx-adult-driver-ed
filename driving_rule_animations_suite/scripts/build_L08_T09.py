@@ -503,6 +503,7 @@ html_content = f'''<!DOCTYPE html>
 
       // SCENARIO MODE 1: LEGAL COMPLIANCE ("STEER IT, CLEAR IT")
       if (simulationMode === 'legal') {{
+        tagVehB.style.opacity = '1.0';
         hazardLaneZone.style.opacity = '0.0';
         hazardImpactGroup.style.opacity = '0.0';
 
@@ -597,7 +598,7 @@ html_content = f'''<!DOCTYPE html>
           stageStatusPill.className = 'px-3 py-1.5 rounded-lg bg-[#0E131C]/90 border border-blue-500/40 text-blue-300 font-mono text-xs font-bold tracking-wide shadow-xl flex items-center space-x-2 backdrop-blur-sm';
           stageStatusText.textContent = 'STEP 2: 4-WAY HAZARDS ON — STEERING SAFELY TO SHOULDER';
           tagVehA.textContent = 'VEH A: CLEARING TO SHOULDER';
-          tagVehA.className = 'absolute left-1/2 -translate-x-1/2 -top-7 whitespace-nowrap px-2 py-0.5 rounded bg-[#10141C]/90 border border-emerald-500/50 text-[10px] font-bold text-emerald-300 mono shadow-lg tracking-wider';
+          tagVehA.className = 'absolute left-1/2 -translate-x-1/2 mt-1 whitespace-nowrap px-2 py-0.5 rounded bg-[#10141C]/90 border border-emerald-500/50 text-[10px] font-bold text-emerald-300 mono shadow-lg tracking-wider';
           tagVehB.textContent = 'VEH B: FOLLOWING OUT OF TRAFFIC';
           tagVehB.className = 'absolute left-1/2 -translate-x-1/2 mt-1 whitespace-nowrap px-2 py-0.5 rounded bg-[#10141C]/90 border border-emerald-500/50 text-[10px] font-bold text-emerald-300 mono shadow-lg tracking-wider';
           telemetryClearance.textContent = 'Mainlane Status: Vacating Travel Lanes';
@@ -634,6 +635,7 @@ html_content = f'''<!DOCTYPE html>
 
       // SCENARIO MODE 2: UNLAWFUL LANE BLOCKAGE (STANDING IN LIVE FREEWAY LANE)
       else if (simulationMode === 'blocked') {{
+        tagVehB.style.opacity = '1.0';
         trajVehA.style.opacity = '0.0';
         trajVehB.style.opacity = '0.0';
         vehPolice.style.opacity = '0.0';
@@ -716,9 +718,8 @@ html_content = f'''<!DOCTYPE html>
           stageStatusPill.className = 'px-3 py-1.5 rounded-lg bg-[#0E131C]/90 border border-red-600 text-red-400 font-mono text-xs font-bold tracking-wide shadow-xl flex items-center space-x-2 backdrop-blur-sm';
           stageStatusText.textContent = 'CATASTROPHIC HAZARD: HIGH-SPEED SECONDARY COLLISION IN LIVE LANE!';
           tagVehC.textContent = 'VEH C (SECONDARY IMPACT AT 65 MPH)';
-          tagVehC.className = 'absolute left-1/2 -translate-x-1/2 -top-8 whitespace-nowrap px-2 py-0.5 rounded bg-red-950/90 border border-red-500 text-[10px] font-bold text-red-200 mono shadow-lg tracking-wider';
-          tagVehB.textContent = 'VEH B (CRUSH ZONE)';
-          tagVehB.className = 'absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap px-2 py-0.5 rounded bg-[#10141C]/90 border border-red-500/70 text-[10px] font-bold text-red-400 mono shadow-lg tracking-wider';
+          tagVehC.className = 'absolute left-1/2 -translate-x-1/2 -top-9 whitespace-nowrap px-2 py-0.5 rounded bg-red-950/90 border border-red-500 text-[10px] font-bold text-red-200 mono shadow-lg tracking-wider';
+          tagVehB.style.opacity = '0.0';
         }} else {{
           hazardImpactGroup.style.opacity = '0.0';
           stageStatusPill.className = 'px-3 py-1.5 rounded-lg bg-[#0E131C]/90 border border-amber-500 text-amber-300 font-mono text-xs font-bold tracking-wide shadow-xl flex items-center space-x-2 backdrop-blur-sm';
@@ -727,6 +728,7 @@ html_content = f'''<!DOCTYPE html>
           tagVehC.className = 'absolute left-1/2 -translate-x-1/2 -top-7 whitespace-nowrap px-2 py-0.5 rounded bg-[#10141C]/90 border border-sky-500/50 text-[10px] font-bold text-sky-300 mono shadow-lg tracking-wider';
           tagVehB.textContent = 'VEH B (STRANDED IN TRAVEL LANE)';
           tagVehB.className = 'absolute left-1/2 -translate-x-1/2 mt-1 whitespace-nowrap px-2 py-0.5 rounded bg-[#10141C]/90 border border-amber-500/50 text-[10px] font-bold text-amber-300 mono shadow-lg tracking-wider';
+          tagVehB.style.opacity = '1.0';
         }}
 
         tagVehA.textContent = 'VEH A (STALLED IN LIVE LANE)';
