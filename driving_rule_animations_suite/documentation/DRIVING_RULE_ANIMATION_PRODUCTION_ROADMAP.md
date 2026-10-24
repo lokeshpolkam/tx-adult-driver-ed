@@ -52,7 +52,7 @@
 | 14 | **L05-T05** | Blind Spot Driving | B | Safety Standard | Convex vs. flat mirror coverage; physical shoulder head-check zone. | **VERIFIED** |
 | 15 | **L05-T06** | Safe Following Distances | B | TTC § 545.062 | 3-second following rule; expanding buffer in rain, night, or fog. | **VERIFIED** |
 | 16 | **L05-T07** | Safe Stopping Distances | B | TTC § 545.351 | Quadratic braking distance curve: perception + reaction + braking. | **VERIFIED** |
-| 17 | **L05-T08** | Poor Conditions & Flash Floods | C | TTC § 472.022 | Hydroplaning hydrodynamics & high-water barricade penalties. | Queued |
+| 17 | **L05-T08** | Poor Conditions & Flash Floods | C | TTC § 472.022 | Hydroplaning hydrodynamics & high-water barricade penalties. | **VERIFIED** |
 | 18 | **L05-T10** | Vehicle Lights | B | TTC § 547.333 | Dim high beams within 500 ft of oncoming car / 300 ft following. | Queued |
 | 19 | **L05-T11** | Freeway Entry, Travel & Exit | A | TTC § 545.154 | Acceleration lane merge into traffic gaps; deceleration lane exit. | Queued |
 | 20 | **L05-T13** | Managing a Vehicle Breakdown | C | TTC § 545.301 | Emergency shoulder stop: hazards, passenger exit, behind guardrail. | Queued |
