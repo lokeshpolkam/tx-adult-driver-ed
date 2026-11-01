@@ -91,6 +91,7 @@
       transform: rotateY(-12deg) rotateX(8deg);
     }
   </style>
+  <script src="pricing-client.js"></script>
 </head>
 <body class="font-sans antialiased selection:bg-tx-amber selection:text-white">
 
@@ -117,7 +118,7 @@
       <a href="#overview" class="hover:text-tx-amber transition-colors">How It Works</a>
       <a href="#curriculum" class="hover:text-tx-amber transition-colors">Curriculum</a>
       <a href="#certificate" class="hover:text-tx-amber transition-colors">Certificate</a>
-      <a href="#pricing" class="hover:text-tx-amber transition-colors">Pricing ($38)</a>
+      <a href="#pricing" class="hover:text-tx-amber transition-colors">Pricing (<span class="dyn-price-int">$38</span>)</a>
       <a href="#faq" class="hover:text-tx-amber transition-colors">FAQ</a>
     </nav>
 
@@ -196,14 +197,14 @@
               <span class="material-symbols-outlined text-tx-amber text-[16px]">confirmation_number</span>
               <span>Promo / Tuition Waiver Code</span>
             </label>
-            <span id="coupon-badge" class="text-xs font-mono text-gray-400 font-semibold">Standard Tuition: $38.00</span>
+            <span id="coupon-badge" class="text-xs font-mono text-gray-400 font-semibold">Standard Tuition: <span class="dyn-price-full">$38.00</span></span>
           </div>
 
           <div class="flex gap-2">
             <input 
               type="text" 
               id="coupon-input" 
-              placeholder="Enter promo code: TEXAS100" 
+              placeholder="Enter promo code" 
               class="flex-1 bg-black/60 border border-white/15 rounded-lg px-3.5 py-2.5 text-xs font-mono text-white placeholder-gray-500 focus:outline-none focus:border-tx-amber uppercase tracking-wider"
             />
             <button 
@@ -218,14 +219,7 @@
           <!-- Quick Promo Chip & Free Preview Note -->
           <div class="flex flex-wrap items-center gap-2 mt-2 text-[11px] font-mono text-gray-400">
             <span>100% Off Code:</span>
-            <button 
-              type="button" 
-              onclick="document.getElementById('coupon-input').value='TEXAS100'; applyCouponCode();" 
-              class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 font-bold transition-all cursor-pointer flex items-center gap-1"
-            >
-              <span>TEXAS100</span>
-              <span class="text-[9px] uppercase tracking-wider text-emerald-400">(Click to Apply 100% Off)</span>
-            </button>
+            <!-- 100% bypass chip removed -->
             <span class="text-gray-500 text-[10px]">· Module 1 is Free</span>
           </div>
 
@@ -240,7 +234,7 @@
             onclick="handleMainEnrollment()" 
             class="flex-1 px-6 py-3.5 rounded-xl bg-gradient-to-r from-tx-amber to-amber-600 hover:from-amber-600 hover:to-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2 cursor-pointer"
           >
-            <span id="enroll-btn-text">START COURSE ($38)</span>
+            <span id="enroll-btn-text">START COURSE (<span class="dyn-price-int">$38</span>)</span>
             <span class="material-symbols-outlined text-[18px]">bolt</span>
           </button>
           
@@ -283,13 +277,7 @@
     </div>
 
     <div class="absolute bottom-6 right-6 z-20 hidden lg:flex items-center gap-4 pointer-events-none">
-      <div class="glass-card px-4 py-3 rounded-xl border border-white/10 font-mono text-right pointer-events-auto">
-        <div class="text-[10px] text-tx-amber uppercase tracking-wider font-bold">100% OFF PROMO CODE</div>
-        <div class="text-2xl font-extrabold text-emerald-400 tracking-wider flex items-center justify-end gap-1.5">
-          <span>TEXAS100</span>
-          <button onclick="document.getElementById('coupon-input').value='TEXAS100'; applyCouponCode();" title="Apply code TEXAS100" class="material-symbols-outlined text-sm text-gray-400 hover:text-white cursor-pointer">bolt</button>
-        </div>
-      </div>
+
       <div class="glass-card px-4 py-3 rounded-xl border border-white/10 font-mono text-right">
         <div class="text-[10px] text-gray-400 uppercase tracking-wider">STATE REGISTRY STATUS</div>
         <div class="text-2xl font-extrabold text-tx-cyan">ONLINE & ACTIVE</div>
@@ -535,7 +523,7 @@
           </div>
 
           <a href="#hero" class="inline-flex px-8 py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/25 items-center gap-2">
-            <span>ENROLL NOW ($38)</span>
+            <span>ENROLL NOW (<span class="dyn-price-int">$38</span>)</span>
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </a>
         </div>
@@ -556,7 +544,7 @@
             <div class="my-6 py-4 border-t border-b border-white/10 space-y-2">
               <div class="flex justify-between text-xs">
                 <span class="text-gray-400 font-mono">STUDENT NAME:</span>
-                <span id="cert-preview-name" class="font-bold text-white uppercase">LOKESH POLKAM</span>
+                <span id="cert-preview-name" class="font-bold text-white uppercase">SAMPLE STUDENT</span>
               </div>
               <div class="flex justify-between text-xs">
                 <span class="text-gray-400 font-mono">SERIAL NUMBER:</span>
@@ -615,7 +603,7 @@
 
         <div class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-2">COMPLETE STATE COURSE</div>
         <div class="text-5xl font-black text-white flex items-baseline justify-center gap-1 my-4">
-          <span class="text-3xl text-tx-amber">$</span>38<span class="text-base text-gray-400 font-normal">.00</span>
+          <span class="text-3xl text-tx-amber">$</span><span class="dyn-price-whole">38</span><span class="text-base text-gray-400 font-normal dyn-price-decimal">.00</span>
         </div>
         <p class="text-xs text-gray-400 mb-6 font-mono">Approved for ages 18–24 · Valid for adults 25+</p>
 
@@ -643,7 +631,7 @@
         </ul>
 
         <a href="#hero" class="w-full py-4 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-xl shadow-tx-amber/30 flex items-center justify-center gap-2">
-          <span>ENROLL FOR $38.00</span>
+          <span>ENROLL FOR <span class="dyn-price-full">$38.00</span></span>
           <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
         </a>
       </div>
@@ -760,7 +748,9 @@
   <!-- 9. THREE.JS 3D HIGHWAY SCENE ENGINE -->
   <!-- ========================================================================= -->
   <script>
-    const API_BASE_URL = 'https://tx-ade-api-1004296326114.us-central1.run.app';
+    const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? 'http://localhost:8080'
+      : 'https://tx-ade-api-1004296326114.us-central1.run.app';
     const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
 
     let scene, camera, renderer;
@@ -1203,7 +1193,7 @@
       if (statusEl) statusEl.textContent = 'Sign in with Google to start course';
 
       const btnText = document.getElementById('enroll-btn-text');
-      if (btnText) btnText.textContent = 'START COURSE ($38)';
+      if (btnText) btnText.innerHTML = \'START COURSE (<span class="dyn-price-int">$38</span>)\';
 
       window.location.reload();
     }

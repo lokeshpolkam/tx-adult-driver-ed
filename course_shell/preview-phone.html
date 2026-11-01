@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texas Adult Driver Ed — Virtual Phone Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #1e2430 0%, #0d1117 100%);
+      min-height: 100vh;
+      color: #e6edf3;
+      overflow-x: hidden;
+    }
+    .phone-bezel {
+      box-shadow: 
+        0 0 0 12px #1f232b,
+        0 0 0 14px #2d333f,
+        0 25px 65px rgba(0, 0, 0, 0.75),
+        0 10px 25px rgba(0, 0, 0, 0.5);
+      border-radius: 52px;
+      position: relative;
+      background: #000;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dynamic-island {
+      width: 110px;
+      height: 30px;
+      background: #000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .phone-screen {
+      border-radius: 44px;
+      overflow: hidden;
+      background: #F6F7F5;
+      width: 100%;
+      height: 100%;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center py-6 px-4">
+
+  <!-- Top Controller Bar -->
+  <header class="w-full max-w-5xl flex flex-wrap items-center justify-between gap-4 mb-6 bg-[#161b22]/90 backdrop-blur border border-[#30363d] px-5 py-3 rounded-2xl shadow-xl">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-[#E87522] flex items-center justify-center text-white font-black text-lg shadow-md">
+        TX
+      </div>
+      <div>
+        <h1 class="text-sm font-bold text-white tracking-wide flex items-center gap-2">
+          <span>Texas Adult Driver Ed</span>
+          <span class="text-[10px] font-mono uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">Interactive Virtual Phone</span>
+        </h1>
+        <p class="text-xs text-gray-400 font-mono">TDLR ADE-1317 &bull; School #C3284 &bull; Device Ergonomics Simulator</p>
+      </div>
+    </div>
+
+    <!-- Device Selection & Quick Jump Links -->
+    <div class="flex items-center gap-2">
+      <!-- Device Preset Switcher -->
+      <div class="flex items-center bg-[#0d1117] p-1 rounded-xl border border-[#30363d] text-xs font-mono">
+        <button onclick="setDevice('iphone13')" id="btn-iphone13" class="px-3 py-1.5 rounded-lg bg-[#E87522] text-white font-bold transition">
+          iPhone 13 (390×844)
+        </button>
+        <button onclick="setDevice('pixel5')" id="btn-pixel5" class="px-3 py-1.5 rounded-lg text-gray-400 hover:text-white transition">
+          Pixel 5 (393×851)
+        </button>
+        <button onclick="setDevice('iphoneSE')" id="btn-iphoneSE" class="px-3 py-1.5 rounded-lg text-gray-400 hover:text-white transition">
+          iPhone SE (375×667)
+        </button>
+      </div>
+
+      <!-- Quick Reload -->
+      <button onclick="reloadFrame()" class="p-2 rounded-xl bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] text-gray-300 hover:text-white transition cursor-pointer" title="Reload Phone">
+        <span class="material-symbols-outlined text-lg">refresh</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Quick Screen Jumps -->
+  <div class="flex flex-wrap items-center justify-center gap-2 mb-6 max-w-4xl font-mono text-xs">
+    <span class="text-gray-400 text-[11px] uppercase mr-1">Quick Screen Jump:</span>
+    <button onclick="navigatePhone('/player.html')" class="px-3 py-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] transition cursor-pointer">
+      📱 Classroom Player
+    </button>
+    <button onclick="navigatePhone('/app_lessons/L01-T01.html')" class="px-3 py-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] transition cursor-pointer">
+      📖 Lesson 01.01
+    </button>
+    <button onclick="navigatePhone('/app_lessons/L05-T03.html')" class="px-3 py-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] transition cursor-pointer">
+      🚗 Right-of-Way Interactive
+    </button>
+    <button onclick="navigatePhone('/app_lessons/L09-T01.html')" class="px-3 py-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-orange-400 border border-orange-500/30 transition cursor-pointer">
+      🛡️ 16 TAC PVQ Checkpoint
+    </button>
+    <button onclick="navigatePhone('/mcqs/final_exam.html')" class="px-3 py-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-emerald-400 border border-emerald-500/30 transition cursor-pointer">
+      🎓 State Final Exam
+    </button>
+  </div>
+
+  <!-- The Virtual Phone Shell -->
+  <div class="relative flex items-center justify-center mb-8">
+    <div id="phone-container" class="phone-bezel" style="width: 414px; height: 868px; padding: 12px;">
+      
+      <!-- Realistic Dynamic Island / Notch -->
+      <div class="dynamic-island" id="phone-island">
+        <div class="w-2.5 h-2.5 rounded-full bg-[#111] border border-[#222]"></div>
+        <div class="w-3 h-3 rounded-full bg-[#0a0a0a] border border-[#1a1a1a]"></div>
+      </div>
+
+      <!-- Virtual Phone Display Screen -->
+      <div class="phone-screen">
+        <iframe id="phone-frame" src="/player.html" title="Virtual Mobile Device Simulator"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Controls Guide -->
+  <footer class="text-center text-xs text-gray-500 font-mono space-y-1">
+    <p>💡 Interactive Touch Emulation: Click & drag to scroll, tap buttons, take quizzes, and test real ergonomics.</p>
+    <p>Serving locally from <span class="text-gray-400">http://localhost:3000/preview-phone.html</span></p>
+  </footer>
+
+  <script>
+    const frame = document.getElementById('phone-frame');
+    const container = document.getElementById('phone-container');
+    const island = document.getElementById('phone-island');
+
+    const devices = {
+      iphone13: { w: 414, h: 868, screenW: 390, screenH: 844, island: true, radius: 52 },
+      pixel5: { w: 417, h: 875, screenW: 393, screenH: 851, island: false, radius: 44 },
+      iphoneSE: { w: 399, h: 691, screenW: 375, screenH: 667, island: false, radius: 36 }
+    };
+
+    function setDevice(key) {
+      const d = devices[key];
+      if (!d) return;
+
+      container.style.width = d.w + 'px';
+      container.style.height = d.h + 'px';
+      container.style.borderRadius = d.radius + 'px';
+      container.querySelector('.phone-screen').style.borderRadius = (d.radius - 8) + 'px';
+
+      island.style.display = d.island ? 'flex' : 'none';
+
+      // Update button highlights
+      ['iphone13', 'pixel5', 'iphoneSE'].forEach(k => {
+        const btn = document.getElementById('btn-' + k);
+        if (k === key) {
+          btn.className = 'px-3 py-1.5 rounded-lg bg-[#E87522] text-white font-bold transition';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-gray-400 hover:text-white transition';
+        }
+      });
+    }
+
+    function navigatePhone(path) {
+      frame.src = path;
+    }
+
+    function reloadFrame() {
+      frame.contentWindow.location.reload();
+    }
+  </script>
+</body>
+</html>

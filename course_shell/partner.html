@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Partner Portal | Texas Adult Driver Education</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tx-amber': '#e87522',
+            'tx-dark-amber': '#9a4600',
+            'tx-navy': '#070a10',
+            'tx-surface': '#111726',
+            'tx-card': '#0d1321',
+            'tx-glass': 'rgba(13, 19, 33, 0.82)',
+            'tx-cyan': '#38bdf8',
+            'tx-border': 'rgba(255,255,255,0.08)',
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background: #070a10;
+      color: #f3f4f6;
+      display: none; /* Stealth pattern until authenticated/validated */
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(13, 19, 33, 0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    .metric-card {
+      transition: all 0.25s ease;
+    }
+    .metric-card:hover {
+      border-color: rgba(232, 117, 34, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(232, 117, 34, 0.12);
+    }
+    @keyframes pulseSubtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(0.97); }
+    }
+    .status-pulse-amber {
+      animation: pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    /* Toast animations */
+    @keyframes slideInUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes slideOutDown {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(100%); opacity: 0; }
+    }
+    .toast-enter { animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .toast-exit { animation: slideOutDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); }
+    /* Modal Backdrop */
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+<body id="partner-body" class="font-sans antialiased selection:bg-tx-amber selection:text-white">
+
+  <!-- ========================================================================= -->
+  <!-- 1. ERROR STATE VIEW (Shown if link is invalid / missing / deactivated)     -->
+  <!-- ========================================================================= -->
+  <div id="error-view" class="hidden min-h-screen flex flex-col items-center justify-center p-6 relative">
+    <!-- Ambient Glow -->
+    <div class="absolute w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none -top-10 -right-10"></div>
+    <div class="absolute w-96 h-96 bg-tx-amber/5 rounded-full blur-3xl pointer-events-none -bottom-10 -left-10"></div>
+
+    <div class="w-full max-w-md glass-card rounded-2xl p-8 border border-white/10 text-center relative z-10">
+      <!-- Brand Icon Header -->
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tx-amber to-amber-700 flex items-center justify-center font-black text-white text-base shadow-lg shadow-tx-amber/30">
+          TX
+        </div>
+        <div class="text-left">
+          <div class="font-black text-xs tracking-tight text-white uppercase leading-tight">TEXAS ADULT DRIVER ED</div>
+          <div class="text-[10px] font-mono text-gray-500">ADE-1317 · School #C3284</div>
+        </div>
+      </div>
+
+      <!-- Icon Box -->
+      <div id="error-icon-box" class="w-16 h-16 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center mb-5 mx-auto">
+        <span id="error-icon" class="material-symbols-outlined text-[32px]">link_off</span>
+      </div>
+
+      <!-- Heading -->
+      <h1 id="error-title" class="text-xl font-black text-white uppercase tracking-tight mb-2">
+        Portal Access Required
+      </h1>
+
+      <!-- Message -->
+      <p id="error-message" class="text-sm text-gray-300 mb-6 leading-relaxed">
+        Invalid portal link. Contact admin.
+      </p>
+
+      <!-- Security Info Card -->
+      <div class="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-400 mb-6 text-left font-mono space-y-1.5">
+        <div class="text-gray-200 font-bold flex items-center gap-1.5 mb-2">
+          <span class="material-symbols-outlined text-[15px] text-tx-amber">verified_user</span>
+          <span>Access Guidelines</span>
+        </div>
+        <p>• Partner links contain a secure unique cryptographic key.</p>
+        <p>• If your link was regenerated or revoked, request a new URL.</p>
+        <p>• Contact your account administrator to obtain or refresh your access link.</p>
+      </div>
+
+      <!-- Support Action -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button id="error-retry-btn" onclick="retryAccess()" class="hidden px-5 py-2.5 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-tx-amber/20 items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">refresh</span>
+          <span>Retry Connection</span>
+        </button>
+        <a href="mailto:support@texasade.org?subject=Partner%20Portal%20Access%20Assistance" class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors border border-white/10">
+          <span class="material-symbols-outlined text-[16px]">mail</span>
+          <span>Contact Support</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Small Footer -->
+    <div class="mt-8 text-center text-[11px] font-mono text-gray-500">
+      Texas Adult Driver Education · Partner Portal · ADE-1317
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 2. MAIN DASHBOARD VIEW (Shown once authenticated)                         -->
+  <!-- ========================================================================= -->
+  <div id="dashboard-view" class="hidden min-h-screen flex flex-col">
+
+    <!-- Top Bar Navigation -->
+    <header class="sticky top-0 z-40 glass-card border-b border-white/10 px-6 py-4">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <!-- Left: Brand + Partner Identification -->
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tx-amber to-amber-700 flex items-center justify-center font-black text-white text-base shadow-lg shadow-tx-amber/30 shrink-0">
+            TX
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="nav-partner-name" class="font-extrabold text-base tracking-tight text-white uppercase">
+                Driving School Partner
+              </span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-tx-amber/15 text-tx-amber border border-tx-amber/30 font-bold uppercase tracking-wider">
+                Partner Portal
+              </span>
+              <span id="nav-commission-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold uppercase">
+                10% Commission
+              </span>
+            </div>
+            <p class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5 mt-0.5">
+              <span>Texas Adult Driver Education</span>
+              <span>·</span>
+              <span>State Approved Course ADE-1317</span>
+              <span>·</span>
+              <span>School #C3284</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Actions & Status -->
+        <div class="flex items-center gap-3 self-end md:self-auto">
+          <button onclick="refreshData()" title="Refresh Dashboard" class="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 text-xs font-mono font-bold flex items-center gap-1.5 transition-all">
+            <span id="refresh-icon" class="material-symbols-outlined text-[16px]">sync</span>
+            <span class="hidden sm:inline">Refresh</span>
+          </button>
+          <a href="mailto:support@texasade.org?subject=Driving%20School%20Partner%20Inquiry" class="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 text-xs font-mono font-bold flex items-center gap-1.5 transition-all">
+            <span class="material-symbols-outlined text-[16px]">help</span>
+            <span class="hidden sm:inline">Support</span>
+          </a>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+      <!-- ===================================================================== -->
+      <!-- A. REFERRAL CODE HERO BANNER                                          -->
+      <!-- ===================================================================== -->
+      <section class="glass-card rounded-2xl p-6 md:p-8 border border-white/10 relative overflow-hidden">
+        <!-- Subtle Glow Accents -->
+        <div class="absolute -top-16 -right-16 w-64 h-64 bg-tx-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-16 -left-16 w-64 h-64 bg-tx-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="max-w-xl">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-tx-amber/10 border border-tx-amber/20 text-tx-amber text-xs font-mono font-bold mb-3 uppercase tracking-wider">
+              <span class="material-symbols-outlined text-[15px]">campaign</span>
+              <span>Student Referral Program</span>
+            </div>
+            <h2 id="hero-welcome-title" class="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+              Driving School Partner
+            </h2>
+            <p class="text-sm text-gray-300 mt-2 leading-relaxed">
+              Share this code with your students to earn commission on every course enrollment. Students get official TDLR-certified adult driver education (Course ADE-1317) with the DPS knowledge exam included online.
+            </p>
+          </div>
+
+          <!-- Referral Code Box -->
+          <div class="glass-card bg-black/40 rounded-2xl p-5 border border-white/10 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center gap-4 shrink-0">
+            <div>
+              <div class="text-[11px] font-mono text-gray-400 uppercase tracking-wider font-semibold mb-1">
+                Your Official Referral Code
+              </div>
+              <div class="flex items-center gap-2">
+                <code id="hero-referral-code" class="text-2xl font-mono font-black text-tx-amber tracking-wider px-3.5 py-1.5 rounded-xl bg-tx-amber/10 border border-tx-amber/25 select-all">
+                  --------
+                </code>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2">
+              <button id="copy-code-btn" onclick="copyReferralCode()" class="px-4 py-2.5 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-tx-amber/25 hover:shadow-tx-amber/40 flex items-center justify-center gap-1.5">
+                <span id="copy-code-icon" class="material-symbols-outlined text-[16px]">content_copy</span>
+                <span id="copy-code-label">Copy Code</span>
+              </button>
+              <button id="copy-link-btn" onclick="copyReferralLink()" class="px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-200 hover:text-white border border-white/10 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5" title="Copy Direct Enrollment Link with Referral Code">
+                <span id="copy-link-icon" class="material-symbols-outlined text-[16px]">link</span>
+                <span id="copy-link-label">Copy Link</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- B. EARNINGS SUMMARY (4 KPI CARDS)                                     -->
+      <!-- ===================================================================== -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- Card 1: Total Referrals -->
+        <div class="glass-card rounded-2xl p-5 border border-white/10 metric-card flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono font-semibold text-gray-400 uppercase tracking-wider">Total Referrals</span>
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">group</span>
+            </div>
+          </div>
+          <div>
+            <div id="kpi-referrals" class="text-3xl font-black text-white font-mono tracking-tight">0</div>
+            <div class="text-[11px] font-mono text-gray-400 mt-1">Students initiated with code</div>
+          </div>
+        </div>
+
+        <!-- Card 2: Conversions -->
+        <div class="glass-card rounded-2xl p-5 border border-white/10 metric-card flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono font-semibold text-gray-400 uppercase tracking-wider">Conversions</span>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">trending_up</span>
+            </div>
+          </div>
+          <div>
+            <div id="kpi-conversions" class="text-3xl font-black text-white font-mono tracking-tight">0</div>
+            <div class="text-[11px] font-mono text-gray-400 mt-1">Paid student enrollments</div>
+          </div>
+        </div>
+
+        <!-- Card 3: Total Earnings -->
+        <div class="glass-card rounded-2xl p-5 border border-white/10 metric-card flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono font-semibold text-gray-400 uppercase tracking-wider">Total Earnings</span>
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-tx-amber flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">payments</span>
+            </div>
+          </div>
+          <div>
+            <div id="kpi-earnings" class="text-3xl font-black text-tx-amber font-mono tracking-tight">$0.00</div>
+            <div class="text-[11px] font-mono text-gray-400 mt-1">Cumulative commission earned</div>
+          </div>
+        </div>
+
+        <!-- Card 4: Available Balance -->
+        <div class="glass-card rounded-2xl p-5 border border-emerald-500/20 metric-card flex flex-col justify-between bg-emerald-950/20">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">Available Balance</span>
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">account_balance</span>
+            </div>
+          </div>
+          <div>
+            <div id="kpi-balance" class="text-3xl font-black text-emerald-400 font-mono tracking-tight">$0.00</div>
+            <div class="text-[11px] font-mono text-emerald-400/80 mt-1">Ready for payout withdrawal</div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- C. WITHDRAWAL ACTION BANNER                                           -->
+      <!-- ===================================================================== -->
+      <section class="glass-card rounded-2xl p-6 border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="material-symbols-outlined text-emerald-400 text-[20px]">account_balance_wallet</span>
+            <h3 class="text-base font-extrabold text-white uppercase tracking-tight">Payout & Withdrawal Center</h3>
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed max-w-2xl">
+            Withdrawals are processed directly via Zelle, Bank ACH, PayPal, or mailed check. Minimum withdrawal amount is <strong class="text-white">$10.00</strong>.
+          </p>
+          <div class="flex items-center gap-4 mt-3 text-[11px] font-mono text-gray-400 flex-wrap">
+            <div>Total Earned: <span id="wd-summary-earned" class="text-gray-200 font-bold">$0.00</span></div>
+            <span>•</span>
+            <div>Paid Out: <span id="wd-summary-paid" class="text-gray-200 font-bold">$0.00</span></div>
+            <span>•</span>
+            <div>Pending Review: <span id="wd-summary-pending" class="text-amber-400 font-bold">$0.00</span></div>
+          </div>
+        </div>
+
+        <div class="shrink-0 flex flex-col items-end gap-1.5 w-full md:w-auto">
+          <button id="request-withdrawal-btn" onclick="openWithdrawalModal()" disabled class="w-full md:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-gray-800 disabled:text-gray-500 disabled:border-white/5 disabled:cursor-not-allowed text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-emerald-600/25 disabled:shadow-none flex items-center justify-center gap-2 border border-emerald-500/30">
+            <span class="material-symbols-outlined text-[18px]">payments</span>
+            <span>Request Withdrawal</span>
+          </button>
+          <span id="withdrawal-btn-hint" class="text-[10px] font-mono text-gray-500">
+            Min. $10.00 balance required to withdraw
+          </span>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- D. DATA TABLES GRID                                                   -->
+      <!-- ===================================================================== -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+        <!-- D1. REFERRAL HISTORY TABLE -->
+        <section class="glass-card rounded-2xl border border-white/10 overflow-hidden flex flex-col">
+          <div class="p-5 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-tx-amber text-[20px]">assignment</span>
+              <h3 class="font-extrabold text-sm text-white uppercase tracking-tight">Referral History</h3>
+            </div>
+            <span id="referrals-count-badge" class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-300">
+              0 referrals
+            </span>
+          </div>
+
+          <div class="overflow-x-auto min-h-[240px]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-white/[0.02] border-b border-white/5 font-mono text-[10px] text-gray-400 uppercase tracking-wider">
+                <tr>
+                  <th class="py-3 px-4">Student</th>
+                  <th class="py-3 px-4">Date</th>
+                  <th class="py-3 px-4">Amount Paid</th>
+                  <th class="py-3 px-4">Your Commission</th>
+                  <th class="py-3 px-4 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="referrals-table-body" class="divide-y divide-white/5 font-mono">
+                <tr>
+                  <td colspan="5" class="py-12 text-center text-gray-500">
+                    <span class="material-symbols-outlined text-[28px] text-gray-600 block mb-2">sync</span>
+                    Loading referrals...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- D2. WITHDRAWAL HISTORY TABLE -->
+        <section class="glass-card rounded-2xl border border-white/10 overflow-hidden flex flex-col">
+          <div class="p-5 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-emerald-400 text-[20px]">history</span>
+              <h3 class="font-extrabold text-sm text-white uppercase tracking-tight">Withdrawal Requests</h3>
+            </div>
+            <span id="withdrawals-count-badge" class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-300">
+              0 requests
+            </span>
+          </div>
+
+          <div class="overflow-x-auto min-h-[240px]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-white/[0.02] border-b border-white/5 font-mono text-[10px] text-gray-400 uppercase tracking-wider">
+                <tr>
+                  <th class="py-3 px-4">Date</th>
+                  <th class="py-3 px-4">Amount</th>
+                  <th class="py-3 px-4">Method</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Processed</th>
+                </tr>
+              </thead>
+              <tbody id="withdrawals-table-body" class="divide-y divide-white/5 font-mono">
+                <tr>
+                  <td colspan="5" class="py-12 text-center text-gray-500">
+                    <span class="material-symbols-outlined text-[28px] text-gray-600 block mb-2">sync</span>
+                    Loading withdrawals...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-white/10 py-6 px-4 text-center text-xs font-mono text-gray-500 space-y-1">
+      <div>Texas Adult Driver Education · Partner Portal · Contact admin for support</div>
+      <div class="text-[10px] text-gray-600">Course ADE-1317 · School License #C3284 · Austin, Texas</div>
+    </footer>
+
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 3. WITHDRAWAL REQUEST MODAL                                               -->
+  <!-- ========================================================================= -->
+  <div id="withdrawal-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div class="glass-card max-w-lg w-full rounded-2xl border border-white/15 p-6 md:p-8 shadow-2xl relative">
+      
+      <!-- Close button -->
+      <button onclick="closeWithdrawalModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+        </div>
+        <div>
+          <h3 class="text-lg font-black text-white uppercase tracking-tight">Request Withdrawal</h3>
+          <p class="text-xs text-gray-400 font-mono">Withdraw available referral commission earnings</p>
+        </div>
+      </div>
+
+      <!-- Current Available Balance Banner -->
+      <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-between mb-5 font-mono">
+        <span class="text-xs text-emerald-300">Available Balance:</span>
+        <span id="modal-available-balance" class="text-base font-black text-emerald-400">$0.00</span>
+      </div>
+
+      <!-- Form -->
+      <form id="withdrawal-form" onsubmit="handleWithdrawalSubmit(event)" class="space-y-4">
+
+        <!-- Withdrawal Amount -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="wd-amount" class="text-xs font-mono font-bold text-gray-300 uppercase tracking-wider">
+              Amount ($ USD) *
+            </label>
+            <button type="button" onclick="setMaxWithdrawal()" class="text-[10px] font-mono font-bold text-tx-amber hover:underline uppercase">
+              Withdraw All
+            </button>
+          </div>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 font-mono font-bold">$</span>
+            <input
+              type="number"
+              id="wd-amount"
+              step="0.01"
+              min="10.00"
+              required
+              placeholder="10.00"
+              class="w-full pl-8 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white font-mono text-sm focus:outline-none focus:border-tx-amber transition-colors"
+            >
+          </div>
+          <p class="text-[10px] font-mono text-gray-400 mt-1">Minimum withdrawal: $10.00</p>
+        </div>
+
+        <!-- Payment Method -->
+        <div>
+          <label for="wd-method" class="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+            Payment Method *
+          </label>
+          <select
+            id="wd-method"
+            required
+            onchange="updateMethodPlaceholder()"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-[#0d1321] border border-white/10 text-white font-mono text-sm focus:outline-none focus:border-tx-amber transition-colors"
+          >
+            <option value="Zelle">Zelle</option>
+            <option value="Bank Transfer">Bank Transfer (ACH)</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Check">Check by Mail</option>
+          </select>
+        </div>
+
+        <!-- Payment Details -->
+        <div>
+          <label id="wd-details-label" for="wd-details" class="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+            Payment Details (Zelle Phone or Email) *
+          </label>
+          <textarea
+            id="wd-details"
+            required
+            rows="2"
+            placeholder="e.g. 512-555-0199 or partner@example.com"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-tx-amber transition-colors resize-none"
+          ></textarea>
+          <p id="wd-details-hint" class="text-[10px] font-mono text-gray-400 mt-1">
+            Provide the phone number or email registered with your Zelle account.
+          </p>
+        </div>
+
+        <!-- Notice -->
+        <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-gray-400 flex items-start gap-2">
+          <span class="material-symbols-outlined text-[16px] text-tx-amber shrink-0 mt-0.5">info</span>
+          <span>Payout requests are reviewed by our administration team and typically funded within 1–2 business days.</span>
+        </div>
+
+        <!-- Inline Error Banner -->
+        <div id="modal-error-banner" class="hidden p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-mono"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <button
+            type="button"
+            onclick="closeWithdrawalModal()"
+            class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-mono text-xs font-bold uppercase tracking-wider transition-colors border border-white/10"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            id="modal-submit-btn"
+            class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-emerald-600/30 flex items-center gap-2"
+          >
+            <span id="modal-btn-spinner" class="hidden animate-spin rounded-full h-3.5 w-3.5 border-2 border-white border-t-transparent"></span>
+            <span id="modal-btn-label">Submit Request</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 4. FLOATING TOAST NOTIFICATION CONTAINER                                  -->
+  <!-- ========================================================================= -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 5. JAVASCRIPT LOGIC & API CLIENT                                          -->
+  <!-- ========================================================================= -->
+  <script>
+    // ── Backend API Resolution ──
+    const API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? 'http://localhost:8080'
+      : 'https://tx-ade-api-1004296326114.us-central1.run.app';
+
+    // State Variables
+    let partnerKey = null;
+    let partnerData = null;
+    let availableBalanceCents = 0;
+
+    // ── Utility: Currency Formatter ──
+    function fmt$(cents) {
+      if (cents === undefined || cents === null || isNaN(cents)) return '$0.00';
+      return (cents / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    }
+
+    // ── Utility: Date Formatter ──
+    function fmtDate(iso) {
+      if (!iso) return '—';
+      try {
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return '—';
+        return d.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        });
+      } catch (_) {
+        return '—';
+      }
+    }
+
+    // ── Utility: HTML Escape ──
+    function esc(s) {
+      if (!s) return '';
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // ── Utility: Toast Notifications ──
+    function showToast(msg, ok = true) {
+      const c = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-2xl text-xs font-mono border toast-enter ${
+        ok ? 'bg-emerald-950/90 text-emerald-200 border-emerald-500/40' : 'bg-rose-950/90 text-rose-200 border-rose-500/40'
+      }`;
+      t.innerHTML = `
+        <span class="material-symbols-outlined text-[18px] ${ok ? 'text-emerald-400' : 'text-rose-400'}">
+          ${ok ? 'check_circle' : 'error'}
+        </span>
+        <span>${esc(msg)}</span>
+      `;
+      c.appendChild(t);
+      setTimeout(() => {
+        t.classList.replace('toast-enter', 'toast-exit');
+        setTimeout(() => t.remove(), 350);
+      }, 4500);
+    }
+
+    // ── Error View Controller ──
+    function showErrorState(title, message, icon = 'link_off', showRetry = false) {
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('error-title').textContent = title;
+      document.getElementById('error-message').textContent = message;
+      document.getElementById('error-icon').textContent = icon;
+      
+      const retryBtn = document.getElementById('error-retry-btn');
+      if (showRetry) {
+        retryBtn.classList.remove('hidden');
+        retryBtn.classList.add('inline-flex');
+      } else {
+        retryBtn.classList.add('hidden');
+        retryBtn.classList.remove('inline-flex');
+      }
+
+      document.getElementById('error-view').classList.remove('hidden');
+      document.getElementById('partner-body').style.display = 'block';
+    }
+
+    function retryAccess() {
+      initPartnerPortal();
+    }
+
+    // ── Copy Referral Code ──
+    async function copyReferralCode() {
+      if (!partnerData?.referral_code) return;
+      const code = partnerData.referral_code;
+      try {
+        await navigator.clipboard.writeText(code);
+      } catch (_) {
+        // Fallback for older browsers
+        const t = document.createElement('textarea');
+        t.value = code;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+      }
+      
+      const btn = document.getElementById('copy-code-btn');
+      const icon = document.getElementById('copy-code-icon');
+      const label = document.getElementById('copy-code-label');
+      
+      icon.textContent = 'check';
+      label.textContent = 'Copied!';
+      btn.classList.add('bg-emerald-600');
+      
+      showToast(`Referral code "${code}" copied to clipboard!`, true);
+      
+      setTimeout(() => {
+        icon.textContent = 'content_copy';
+        label.textContent = 'Copy Code';
+        btn.classList.remove('bg-emerald-600');
+      }, 2000);
+    }
+
+    // ── Copy Direct Student Referral Link ──
+    async function copyReferralLink() {
+      if (!partnerData?.referral_code) return;
+      const code = partnerData.referral_code;
+      const link = `${location.origin}/checkout.html?ref=${encodeURIComponent(code)}`;
+      try {
+        await navigator.clipboard.writeText(link);
+      } catch (_) {
+        const t = document.createElement('textarea');
+        t.value = link;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+      }
+
+      const icon = document.getElementById('copy-link-icon');
+      const label = document.getElementById('copy-link-label');
+      icon.textContent = 'check';
+      label.textContent = 'Copied!';
+      showToast('Direct enrollment link copied to clipboard!', true);
+      setTimeout(() => {
+        icon.textContent = 'link';
+        label.textContent = 'Copy Link';
+      }, 2000);
+    }
+
+    // ── Load Dashboard Data ──
+    async function loadDashboard() {
+      const url = `${API}/api/v1/partner/dashboard?key=${encodeURIComponent(partnerKey)}`;
+      const res = await fetch(url);
+      
+      if (!res.ok) {
+        let errData = {};
+        try { errData = await res.json(); } catch (_) {}
+
+        if (res.status === 404 || res.status === 401 || errData.error === 'INVALID_KEY') {
+          showErrorState(
+            'Portal Link Deactivated',
+            errData.message || 'This portal link has been deactivated. Contact your admin for a new link.',
+            'link_off'
+          );
+          return false;
+        }
+
+        showErrorState(
+          'Access Error',
+          errData.message || 'Unable to authenticate portal access. Contact admin.',
+          'error'
+        );
+        return false;
+      }
+
+      const data = await res.json();
+      if (!data.success || !data.partner) {
+        showErrorState('Access Denied', data.message || 'Invalid partner account details.', 'error');
+        return false;
+      }
+
+      partnerData = data.partner;
+      availableBalanceCents = data.availableBalanceCents || 0;
+      const pendingCents = data.pendingWithdrawalCents || 0;
+
+      // Unhide Dashboard View
+      document.getElementById('error-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+      document.getElementById('partner-body').style.display = 'block';
+
+      // Header & Hero branding
+      document.getElementById('nav-partner-name').textContent = partnerData.partner_name || 'Partner School';
+      document.getElementById('nav-commission-badge').textContent = `${partnerData.commission_percent || 10}% Commission`;
+      document.getElementById('hero-welcome-title').textContent = partnerData.partner_name || 'Partner School';
+      document.getElementById('hero-referral-code').textContent = partnerData.referral_code || '------';
+
+      // 4 KPI Cards
+      document.getElementById('kpi-referrals').textContent = (partnerData.total_referrals || 0).toLocaleString();
+      document.getElementById('kpi-conversions').textContent = (partnerData.total_conversions || 0).toLocaleString();
+      document.getElementById('kpi-earnings').textContent = fmt$(partnerData.total_commission_cents || 0);
+      document.getElementById('kpi-balance').textContent = fmt$(availableBalanceCents);
+
+      // Withdrawal Summary
+      document.getElementById('wd-summary-earned').textContent = fmt$(partnerData.total_commission_cents || 0);
+      document.getElementById('wd-summary-paid').textContent = fmt$(partnerData.total_paid_out_cents || 0);
+      document.getElementById('wd-summary-pending').textContent = fmt$(pendingCents);
+      document.getElementById('modal-available-balance').textContent = fmt$(availableBalanceCents);
+
+      // Enable/Disable Withdrawal Button
+      const wdBtn = document.getElementById('request-withdrawal-btn');
+      const wdHint = document.getElementById('withdrawal-btn-hint');
+      if (availableBalanceCents >= 1000) {
+        wdBtn.disabled = false;
+        wdHint.textContent = `Available to withdraw: ${fmt$(availableBalanceCents)}`;
+        wdHint.className = 'text-[10px] font-mono text-emerald-400 font-semibold';
+      } else {
+        wdBtn.disabled = true;
+        wdHint.textContent = 'Minimum $10.00 balance required to withdraw';
+        wdHint.className = 'text-[10px] font-mono text-gray-500';
+      }
+
+      return true;
+    }
+
+    // ── Load Referrals List ──
+    async function loadReferrals() {
+      const tbody = document.getElementById('referrals-table-body');
+      try {
+        const res = await fetch(`${API}/api/v1/partner/referrals?key=${encodeURIComponent(partnerKey)}`);
+        if (!res.ok) throw new Error('Failed to fetch referrals');
+        const data = await res.json();
+        const referrals = data.referrals || [];
+        
+        document.getElementById('referrals-count-badge').textContent = `${referrals.length} referral${referrals.length === 1 ? '' : 's'}`;
+
+        if (!referrals.length) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" class="py-12 text-center text-gray-500">
+                <span class="material-symbols-outlined text-[32px] text-gray-600 block mb-2">group_add</span>
+                <span class="font-bold text-gray-400">No referrals yet. Share your code with students!</span>
+                <p class="text-[11px] text-gray-600 mt-1">Students will appear here as soon as they register with your code.</p>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = referrals.map(r => {
+          const isCredited = (r.status || 'CREDITED').toUpperCase() === 'CREDITED';
+          const badgeClass = isCredited
+            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25'
+            : 'bg-amber-500/10 text-amber-400 border-amber-500/25';
+
+          return `
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 px-4 font-bold text-gray-200">
+                ${esc(r.user_email || 'Student')}
+              </td>
+              <td class="py-3 px-4 text-gray-400">
+                ${fmtDate(r.created_at)}
+              </td>
+              <td class="py-3 px-4 text-gray-300">
+                ${fmt$(r.amount_cents)}
+              </td>
+              <td class="py-3 px-4 font-bold text-emerald-400">
+                ${fmt$(r.commission_cents)}
+              </td>
+              <td class="py-3 px-4 text-right">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${badgeClass}">
+                  ${esc(r.status || 'CREDITED')}
+                </span>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+      } catch (err) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-rose-400">
+              Unable to load referral records. Please try refreshing.
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    // ── Load Withdrawals List ──
+    async function loadWithdrawals() {
+      const tbody = document.getElementById('withdrawals-table-body');
+      try {
+        const res = await fetch(`${API}/api/v1/partner/withdrawals?key=${encodeURIComponent(partnerKey)}`);
+        if (!res.ok) throw new Error('Failed to fetch withdrawals');
+        const data = await res.json();
+        const withdrawals = data.withdrawals || [];
+
+        document.getElementById('withdrawals-count-badge').textContent = `${withdrawals.length} request${withdrawals.length === 1 ? '' : 's'}`;
+
+        if (!withdrawals.length) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" class="py-12 text-center text-gray-500">
+                <span class="material-symbols-outlined text-[32px] text-gray-600 block mb-2">receipt_long</span>
+                <span class="font-bold text-gray-400">No withdrawal requests yet</span>
+                <p class="text-[11px] text-gray-600 mt-1">When your balance reaches $10.00, submit a request above.</p>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = withdrawals.map(w => {
+          const status = (w.status || 'PENDING').toUpperCase();
+          let badgeClass = '';
+          let pulseClass = '';
+
+          if (status === 'PENDING') {
+            badgeClass = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+            pulseClass = 'status-pulse-amber';
+          } else if (status === 'APPROVED') {
+            badgeClass = 'bg-sky-500/10 text-sky-400 border-sky-500/30';
+          } else if (status === 'PAID') {
+            badgeClass = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+          } else if (status === 'REJECTED') {
+            badgeClass = 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+          } else {
+            badgeClass = 'bg-gray-500/10 text-gray-400 border-gray-500/30';
+          }
+
+          let processedInfo = '—';
+          if (w.paid_at) {
+            processedInfo = `<span class="text-emerald-400 font-bold">${fmtDate(w.paid_at)}</span>`;
+          } else if (w.reviewed_at) {
+            processedInfo = `<span class="text-sky-300">${fmtDate(w.reviewed_at)}</span>`;
+          } else if (status === 'PENDING') {
+            processedInfo = `<span class="text-amber-400/80 italic text-[11px]">Under Review</span>`;
+          } else if (status === 'REJECTED') {
+            processedInfo = `<span class="text-rose-400/80 italic text-[11px]">Rejected</span>`;
+          }
+
+          return `
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 px-4 text-gray-400">
+                ${fmtDate(w.created_at)}
+              </td>
+              <td class="py-3 px-4 font-bold text-gray-200">
+                ${fmt$(w.amount_cents)}
+              </td>
+              <td class="py-3 px-4 text-gray-300">
+                ${esc(w.payment_method || '—')}
+              </td>
+              <td class="py-3 px-4">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${badgeClass} ${pulseClass}">
+                  ${status}
+                </span>
+              </td>
+              <td class="py-3 px-4 text-right">
+                ${processedInfo}
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+      } catch (err) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-rose-400">
+              Unable to load withdrawal records. Please try refreshing.
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    // ── Refresh All Data ──
+    async function refreshData() {
+      const icon = document.getElementById('refresh-icon');
+      icon.classList.add('animate-spin');
+      try {
+        const ok = await loadDashboard();
+        if (ok) {
+          await Promise.all([loadReferrals(), loadWithdrawals()]);
+          showToast('Dashboard data updated', true);
+        }
+      } catch (err) {
+        showToast('Failed to refresh data: ' + err.message, false);
+      } finally {
+        setTimeout(() => icon.classList.remove('animate-spin'), 600);
+      }
+    }
+
+    // ── Withdrawal Modal Actions ──
+    function openWithdrawalModal() {
+      if (availableBalanceCents < 1000) {
+        showToast('Minimum withdrawal balance is $10.00', false);
+        return;
+      }
+      
+      const modal = document.getElementById('withdrawal-modal');
+      const form = document.getElementById('withdrawal-form');
+      const errBanner = document.getElementById('modal-error-banner');
+      
+      form.reset();
+      errBanner.classList.add('hidden');
+      errBanner.textContent = '';
+
+      // Default amount is full available balance in dollars
+      const defaultDollars = (availableBalanceCents / 100).toFixed(2);
+      const amountInput = document.getElementById('wd-amount');
+      amountInput.value = defaultDollars;
+      amountInput.max = defaultDollars;
+
+      updateMethodPlaceholder();
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeWithdrawalModal() {
+      const modal = document.getElementById('withdrawal-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function setMaxWithdrawal() {
+      const amountInput = document.getElementById('wd-amount');
+      amountInput.value = (availableBalanceCents / 100).toFixed(2);
+    }
+
+    function updateMethodPlaceholder() {
+      const method = document.getElementById('wd-method').value;
+      const label = document.getElementById('wd-details-label');
+      const textarea = document.getElementById('wd-details');
+      const hint = document.getElementById('wd-details-hint');
+
+      if (method === 'Zelle') {
+        label.textContent = 'Payment Details (Zelle Phone or Email) *';
+        textarea.placeholder = 'e.g. 512-555-0199 or partner@example.com';
+        hint.textContent = 'Provide the phone number or email registered with your Zelle account.';
+      } else if (method === 'Bank Transfer') {
+        label.textContent = 'Payment Details (Bank Routing & Account) *';
+        textarea.placeholder = 'Bank Name: Chase\nRouting Number: 111000025\nAccount Number: 123456789\nAccount Holder: Austin Driving Academy LLC';
+        hint.textContent = 'Provide Bank Name, Routing Number, Account Number, and Account Holder Name.';
+      } else if (method === 'PayPal') {
+        label.textContent = 'Payment Details (PayPal Email) *';
+        textarea.placeholder = 'e.g. payments@austindrivingschool.com';
+        hint.textContent = 'Provide the primary email linked to your PayPal account.';
+      } else if (method === 'Check') {
+        label.textContent = 'Payment Details (Mailing Payee & Address) *';
+        textarea.placeholder = 'Payee Name: Austin Driving Academy\nAddress: 123 Congress Ave, Suite 400\nCity, State, ZIP: Austin, TX 78701';
+        hint.textContent = 'Provide the legal Payee Name and complete physical mailing address for check delivery.';
+      }
+    }
+
+    async function handleWithdrawalSubmit(e) {
+      e.preventDefault();
+      const errBanner = document.getElementById('modal-error-banner');
+      errBanner.classList.add('hidden');
+      errBanner.textContent = '';
+
+      const amountVal = parseFloat(document.getElementById('wd-amount').value);
+      const method = document.getElementById('wd-method').value;
+      const details = document.getElementById('wd-details').value.trim();
+
+      if (isNaN(amountVal) || amountVal < 10) {
+        errBanner.textContent = 'Minimum withdrawal amount is $10.00.';
+        errBanner.classList.remove('hidden');
+        return;
+      }
+
+      const amountCents = Math.round(amountVal * 100);
+      if (amountCents > availableBalanceCents) {
+        errBanner.textContent = `Amount exceeds available balance (${fmt$(availableBalanceCents)}).`;
+        errBanner.classList.remove('hidden');
+        return;
+      }
+
+      if (!details || details.length < 3) {
+        errBanner.textContent = 'Please enter valid payment details for the selected payout method.';
+        errBanner.classList.remove('hidden');
+        return;
+      }
+
+      const btn = document.getElementById('modal-submit-btn');
+      const spinner = document.getElementById('modal-btn-spinner');
+      const label = document.getElementById('modal-btn-label');
+
+      btn.disabled = true;
+      spinner.classList.remove('hidden');
+      label.textContent = 'Submitting...';
+
+      try {
+        const payload = {
+          key: partnerKey,
+          amount_cents: amountCents,
+          payment_method: method,
+          payment_details: details
+        };
+
+        const res = await fetch(`${API}/api/v1/partner/withdrawals?key=${encodeURIComponent(partnerKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(data.message || 'Withdrawal request submitted successfully!', true);
+          closeWithdrawalModal();
+          // Reload dashboard and withdrawals in parallel
+          await Promise.all([loadDashboard(), loadWithdrawals()]);
+        } else {
+          errBanner.textContent = data.message || data.error || 'Failed to submit withdrawal request.';
+          errBanner.classList.remove('hidden');
+          showToast(data.message || 'Withdrawal failed', false);
+        }
+      } catch (err) {
+        errBanner.textContent = 'Network error: ' + err.message;
+        errBanner.classList.remove('hidden');
+        showToast('Network error submitting withdrawal', false);
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+        label.textContent = 'Submit Request';
+      }
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeWithdrawalModal();
+      }
+    });
+
+    // Close modal on backdrop click
+    document.getElementById('withdrawal-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'withdrawal-modal') {
+        closeWithdrawalModal();
+      }
+    });
+
+    // ── Application Initialization ──
+    async function initPartnerPortal() {
+      const params = new URLSearchParams(window.location.search);
+      partnerKey = params.get('key')?.trim();
+
+      if (!partnerKey) {
+        showErrorState(
+          'Portal Access Required',
+          'Invalid portal link. Contact admin.',
+          'vpn_key_off'
+        );
+        return;
+      }
+
+      try {
+        const ok = await loadDashboard();
+        if (ok) {
+          // Parallel fetch of history logs
+          await Promise.all([loadReferrals(), loadWithdrawals()]);
+        }
+      } catch (err) {
+        showErrorState(
+          'Connection Error',
+          'Unable to reach Texas ADE servers. Please verify your internet connection.',
+          'wifi_off',
+          true
+        );
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', initPartnerPortal);
+  </script>
+</body>
+</html>

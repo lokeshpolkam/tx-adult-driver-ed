@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Admin Console | Texas Adult Driver Education</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tx-amber': '#e87522',
+            'tx-dark-amber': '#9a4600',
+            'tx-navy': '#070a10',
+            'tx-surface': '#111726',
+            'tx-card': '#0d1321',
+            'tx-glass': 'rgba(13, 19, 33, 0.82)',
+            'tx-cyan': '#38bdf8',
+            'tx-border': 'rgba(255,255,255,0.08)',
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background:#070a10; color:#f3f4f6; display:none; overflow-x:hidden; }
+    .glass-card {
+      background: rgba(13,19,33,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    /* Sidebar */
+    .sidebar-link { transition: all .2s ease; }
+    .sidebar-link:hover { background: rgba(255,255,255,0.05); }
+    .sidebar-link.active {
+      background: rgba(232,117,34,0.12);
+      border-right: 2px solid #e87522;
+      color: #e87522;
+    }
+    .sidebar-link.active .material-symbols-outlined { color: #e87522; }
+    /* Metric card hover */
+    .metric-card { transition: all .25s ease; }
+    .metric-card:hover { border-color: rgba(232,117,34,0.3); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,117,34,0.1); }
+    /* Toast */
+    @keyframes slideInUp { from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1} }
+    @keyframes slideOutDown { from{transform:translateY(0);opacity:1}to{transform:translateY(100%);opacity:0} }
+    .toast-enter { animation: slideInUp .3s cubic-bezier(.16,1,.3,1) forwards; }
+    .toast-exit { animation: slideOutDown .3s cubic-bezier(.16,1,.3,1) forwards; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius:3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+    /* Section transition */
+    .admin-section { display:none; animation: fadeIn .2s ease; }
+    .admin-section.active { display:block; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+    /* Modal */
+    .modal-backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+  </style>
+</head>
+<body id="admin-body" class="font-sans antialiased selection:bg-tx-amber selection:text-white">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ================================================================ -->
+    <!-- LEFT SIDEBAR NAVIGATION                                          -->
+    <!-- ================================================================ -->
+    <aside id="sidebar" class="w-[240px] shrink-0 h-full glass-card border-r border-white/8 flex flex-col z-40">
+      <!-- Brand Header -->
+      <div class="px-5 py-5 border-b border-white/8">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-tx-amber to-amber-700 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-tx-amber/30">TX</div>
+          <div>
+            <div class="font-extrabold text-xs tracking-tight text-white uppercase leading-tight">TX Admin</div>
+            <div class="text-[10px] font-mono text-gray-500">ADE-1317 · #C3284</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto">
+        <div class="px-3 pt-2 pb-1.5 text-[10px] font-mono text-gray-500 uppercase tracking-widest font-bold">Overview</div>
+        <button onclick="switchSection('dashboard')" data-nav="dashboard" class="sidebar-link active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">space_dashboard</span>
+          <span>Dashboard</span>
+        </button>
+
+        <div class="px-3 pt-4 pb-1.5 text-[10px] font-mono text-gray-500 uppercase tracking-widest font-bold">Management</div>
+        <button onclick="switchSection('students')" data-nav="students" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">school</span>
+          <span>Students</span>
+          <span id="nav-students-count" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-gray-400">--</span>
+        </button>
+        <button onclick="switchSection('revenue')" data-nav="revenue" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">payments</span>
+          <span>Revenue</span>
+        </button>
+        <button onclick="switchSection('partnerships')" data-nav="partnerships" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">handshake</span>
+          <span>Tieups</span>
+          <span id="nav-partners-count" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-gray-400">--</span>
+        </button>
+        <button onclick="switchSection('coupons')" data-nav="coupons" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">confirmation_number</span>
+          <span>Coupons</span>
+          <span id="nav-coupons-count" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-gray-400">--</span>
+        </button>
+        <button onclick="switchSection('withdrawals')" data-nav="withdrawals" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">account_balance_wallet</span>
+          <span>Withdrawals</span>
+          <span id="nav-withdrawals-count" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">--</span>
+        </button>
+        <button onclick="switchSection('pricing')" data-nav="pricing" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">price_change</span>
+          <span>Pricing</span>
+          <span id="nav-pricing-badge" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-bold">$38.00</span>
+        </button>
+
+        <div class="px-3 pt-4 pb-1.5 text-[10px] font-mono text-gray-500 uppercase tracking-widest font-bold">Admin</div>
+        <button onclick="switchSection('team')" data-nav="team" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-300">
+          <span class="material-symbols-outlined text-[20px] text-gray-400">shield_person</span>
+          <span>Team</span>
+        </button>
+      </nav>
+
+      <!-- Admin Profile & Logout -->
+      <div class="px-3 py-3 border-t border-white/8">
+        <div class="flex items-center gap-2.5 px-2 py-2">
+          <div id="sidebar-avatar" class="w-8 h-8 rounded-full bg-gradient-to-br from-tx-amber to-amber-700 text-white font-bold text-xs flex items-center justify-center shrink-0">A</div>
+          <div class="min-w-0 flex-1">
+            <div id="sidebar-email" class="text-xs font-mono font-semibold text-gray-200 truncate">admin</div>
+            <div id="sidebar-role" class="text-[10px] font-mono text-tx-amber uppercase font-bold">ADMIN</div>
+          </div>
+        </div>
+        <button onclick="handleAdminLogout()" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/5 hover:bg-rose-500/15 text-gray-400 hover:text-rose-300 font-mono text-[11px] border border-white/8 hover:border-rose-500/20 transition-all flex items-center justify-center gap-1.5 uppercase font-bold">
+          <span class="material-symbols-outlined text-[14px]">logout</span>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ================================================================ -->
+    <!-- MAIN CONTENT AREA                                                -->
+    <!-- ================================================================ -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+      <!-- Top Bar -->
+      <header class="shrink-0 h-14 border-b border-white/8 bg-tx-navy/80 backdrop-blur-xl flex items-center justify-between px-6">
+        <div class="flex items-center gap-3">
+          <button onclick="toggleMobileSidebar()" class="lg:hidden text-gray-400 hover:text-white">
+            <span class="material-symbols-outlined text-[22px]">menu</span>
+          </button>
+          <h1 id="page-title" class="text-sm font-extrabold uppercase tracking-wider text-white">Dashboard</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="player.html?preview=true" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white font-mono text-[11px] border border-white/8 transition-colors uppercase font-semibold">
+            <span class="material-symbols-outlined text-[14px]">visibility</span>
+            <span>Preview Course</span>
+          </a>
+          <span id="last-refreshed" class="text-[10px] font-mono text-gray-500">--</span>
+          <button onclick="refreshCurrentSection()" class="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors" title="Refresh">
+            <span class="material-symbols-outlined text-[18px]">refresh</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Content -->
+      <main id="main-content" class="flex-1 overflow-y-auto p-6 lg:p-8">
+
+        <!-- ============================================================ -->
+        <!-- SECTION: DASHBOARD                                           -->
+        <!-- ============================================================ -->
+        <div id="sec-dashboard" class="admin-section active space-y-6">
+          <!-- KPI Cards -->
+          <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="glass-card metric-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Total Students</span>
+                <span class="material-symbols-outlined text-[20px] text-tx-amber/60">school</span>
+              </div>
+              <div id="m-students" class="text-3xl font-extrabold text-white font-mono">--</div>
+              <div class="text-[10px] font-mono text-gray-500 mt-1">Registered accounts</div>
+            </div>
+            <div class="glass-card metric-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Active Enrollments</span>
+                <span class="material-symbols-outlined text-[20px] text-emerald-500/60">trending_up</span>
+              </div>
+              <div id="m-active" class="text-3xl font-extrabold text-emerald-400 font-mono">--</div>
+              <div class="text-[10px] font-mono text-emerald-500/50 mt-1">In-progress courses</div>
+            </div>
+            <div class="glass-card metric-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Certificates Issued</span>
+                <span class="material-symbols-outlined text-[20px] text-tx-amber/60">workspace_premium</span>
+              </div>
+              <div id="m-completed" class="text-3xl font-extrabold text-tx-amber font-mono">--</div>
+              <div class="text-[10px] font-mono text-amber-500/50 mt-1">ADE-1317 completions</div>
+            </div>
+            <div class="glass-card metric-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Gross Revenue</span>
+                <span class="material-symbols-outlined text-[20px] text-tx-cyan/60">account_balance</span>
+              </div>
+              <div id="m-revenue" class="text-3xl font-extrabold text-white font-mono">--</div>
+              <div class="text-[10px] font-mono text-gray-500 mt-1">Stripe &amp; direct</div>
+            </div>
+          </div>
+
+          <!-- Quick Info Row -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Active Partners -->
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-tx-amber">handshake</span>
+                  <span class="text-xs font-bold uppercase text-white">Active Tieups</span>
+                </div>
+                <button onclick="switchSection('partnerships')" class="text-[10px] font-mono text-tx-amber hover:text-white transition-colors uppercase font-bold">View All →</button>
+              </div>
+              <div class="flex items-baseline gap-3">
+                <span id="m-partners" class="text-2xl font-extrabold text-white font-mono">--</span>
+                <span class="text-[11px] font-mono text-gray-500">driving school partners</span>
+              </div>
+              <div class="mt-2 text-[11px] font-mono text-gray-500">
+                Total commission: <span id="m-commission" class="text-tx-amber font-bold">--</span>
+              </div>
+            </div>
+            <!-- Admin Team -->
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-tx-amber">shield_person</span>
+                  <span class="text-xs font-bold uppercase text-white">Admin Team</span>
+                </div>
+                <button onclick="switchSection('team')" class="text-[10px] font-mono text-tx-amber hover:text-white transition-colors uppercase font-bold">Manage →</button>
+              </div>
+              <div id="dash-admins-list" class="space-y-2 mt-1">
+                <div class="text-xs font-mono text-gray-500">Loading...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Students -->
+          <div class="glass-card p-5 rounded-2xl">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px] text-tx-cyan">group</span>
+                <span class="text-xs font-bold uppercase text-white">Recent Registrations</span>
+              </div>
+              <button onclick="switchSection('students')" class="text-[10px] font-mono text-tx-amber hover:text-white transition-colors uppercase font-bold">View All →</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-mono">
+                <thead>
+                  <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px]">
+                    <th class="py-2 px-3">Student</th>
+                    <th class="py-2 px-3">Status</th>
+                    <th class="py-2 px-3 text-right">Registered</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-recent-students" class="divide-y divide-white/5">
+                  <tr><td colspan="3" class="py-6 text-center text-gray-500">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: STUDENTS                                            -->
+        <!-- ============================================================ -->
+        <div id="sec-students" class="admin-section space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <h2 class="text-lg font-extrabold uppercase tracking-wider text-white">Student Registry</h2>
+            <div class="flex items-center gap-2">
+              <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-2.5 text-[16px] text-gray-500">search</span>
+                <input type="text" id="student-search" placeholder="Search by name or email..." oninput="debounceStudentSearch()" class="pl-9 pr-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-white placeholder-gray-500 focus:outline-none focus:border-tx-amber w-[240px]">
+              </div>
+              <select id="student-status-filter" onchange="loadStudents(1)" class="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-gray-300 focus:outline-none focus:border-tx-amber">
+                <option value="">All Status</option>
+                <option value="ACTIVE">Active</option>
+                <option value="COMPLETED">Completed</option>
+                <option value="UNPAID">Unpaid</option>
+              </select>
+            </div>
+          </div>
+          <div class="glass-card rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-mono">
+                <thead>
+                  <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px] bg-white/[0.02]">
+                    <th class="py-3 px-4">Student</th>
+                    <th class="py-3 px-4">Email</th>
+                    <th class="py-3 px-4">Status</th>
+                    <th class="py-3 px-4 text-right">Registered</th>
+                  </tr>
+                </thead>
+                <tbody id="students-table-body" class="divide-y divide-white/5">
+                  <tr><td colspan="4" class="py-10 text-center text-gray-500">Select the Students section to load data</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination -->
+            <div class="flex items-center justify-between px-4 py-3 border-t border-white/8">
+              <span id="students-showing" class="text-[11px] font-mono text-gray-500">-- students</span>
+              <div class="flex items-center gap-1.5">
+                <button id="students-prev" onclick="loadStudents(studentPage-1)" disabled class="px-2.5 py-1 rounded bg-white/5 text-gray-400 text-[11px] font-mono border border-white/8 disabled:opacity-30 hover:bg-white/10 transition-colors">Prev</button>
+                <span id="students-page-info" class="text-[11px] font-mono text-gray-400 px-2">--</span>
+                <button id="students-next" onclick="loadStudents(studentPage+1)" disabled class="px-2.5 py-1 rounded bg-white/5 text-gray-400 text-[11px] font-mono border border-white/8 disabled:opacity-30 hover:bg-white/10 transition-colors">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: REVENUE                                             -->
+        <!-- ============================================================ -->
+        <div id="sec-revenue" class="admin-section space-y-6">
+          <h2 class="text-lg font-extrabold uppercase tracking-wider text-white">Revenue Overview</h2>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="text-[11px] font-mono text-gray-400 uppercase font-bold mb-2">Gross Revenue</div>
+              <div id="rev-total" class="text-2xl font-extrabold text-white font-mono">--</div>
+              <div class="text-[10px] font-mono text-gray-500 mt-1">All-time</div>
+            </div>
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="text-[11px] font-mono text-gray-400 uppercase font-bold mb-2">Paid Enrollments</div>
+              <div id="rev-enrollments" class="text-2xl font-extrabold text-emerald-400 font-mono">--</div>
+              <div class="text-[10px] font-mono text-emerald-500/50 mt-1">Converted</div>
+            </div>
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="text-[11px] font-mono text-gray-400 uppercase font-bold mb-2">Partner Commission</div>
+              <div id="rev-commission" class="text-2xl font-extrabold text-tx-amber font-mono">--</div>
+              <div class="text-[10px] font-mono text-amber-500/50 mt-1">Owed to tieups</div>
+            </div>
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="text-[11px] font-mono text-gray-400 uppercase font-bold mb-2">Net Revenue</div>
+              <div id="rev-net" class="text-2xl font-extrabold text-tx-cyan font-mono">--</div>
+              <div class="text-[10px] font-mono text-gray-500 mt-1">After commissions</div>
+            </div>
+          </div>
+          <!-- Financial Audit Ledger Table -->
+          <div class="glass-card rounded-2xl overflow-hidden border border-white/8">
+            <div class="p-5 border-b border-white/8 flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-extrabold text-white uppercase tracking-wider">Accounting & Transactions Ledger</h3>
+                <p class="text-[11px] font-mono text-gray-400 mt-0.5">Real-time double-entry audit records synced from Stripe and state enrollment engine.</p>
+              </div>
+              <button onclick="loadTransactions()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-mono text-gray-300 flex items-center gap-1.5 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">refresh</span>
+                <span>Refresh</span>
+              </button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-mono">
+                <thead>
+                  <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px] bg-white/[0.02]">
+                    <th class="py-3 px-4">Date / Time</th>
+                    <th class="py-3 px-4">Order Ref</th>
+                    <th class="py-3 px-4">Student</th>
+                    <th class="py-3 px-4">Tier</th>
+                    <th class="py-3 px-4">Gross</th>
+                    <th class="py-3 px-4">Stripe Fee</th>
+                    <th class="py-3 px-4">Net</th>
+                    <th class="py-3 px-4">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="transactions-table-body" class="divide-y divide-white/5">
+                  <tr><td colspan="8" class="py-8 text-center text-gray-500 font-mono">Loading transaction ledger...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: PARTNERSHIPS (TIEUPS)                               -->
+        <!-- ============================================================ -->
+        <div id="sec-partnerships" class="admin-section space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <div>
+              <h2 class="text-lg font-extrabold uppercase tracking-wider text-white">Driving School Tieups</h2>
+              <p class="text-xs text-gray-400 mt-1">Manage partnerships with driving schools. Each partner gets a unique referral code for revenue sharing.</p>
+            </div>
+            <button onclick="openPartnerModal()" class="px-4 py-2.5 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-tx-amber/25 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">add</span>
+              <span>Add Partner</span>
+            </button>
+          </div>
+
+          <!-- Stats Row -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-card p-4 rounded-xl">
+              <div class="text-[10px] font-mono text-gray-500 uppercase font-bold">Active Partners</div>
+              <div id="p-active" class="text-xl font-extrabold text-white font-mono mt-1">--</div>
+            </div>
+            <div class="glass-card p-4 rounded-xl">
+              <div class="text-[10px] font-mono text-gray-500 uppercase font-bold">Total Referrals</div>
+              <div id="p-referrals" class="text-xl font-extrabold text-tx-cyan font-mono mt-1">--</div>
+            </div>
+            <div class="glass-card p-4 rounded-xl">
+              <div class="text-[10px] font-mono text-gray-500 uppercase font-bold">Revenue Generated</div>
+              <div id="p-revenue" class="text-xl font-extrabold text-emerald-400 font-mono mt-1">--</div>
+            </div>
+            <div class="glass-card p-4 rounded-xl">
+              <div class="text-[10px] font-mono text-gray-500 uppercase font-bold">Commission Owed</div>
+              <div id="p-owed" class="text-xl font-extrabold text-tx-amber font-mono mt-1">--</div>
+            </div>
+          </div>
+
+          <!-- Partners Table -->
+          <div class="glass-card rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-mono">
+                <thead>
+                  <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px] bg-white/[0.02]">
+                    <th class="py-3 px-4">Partner</th>
+                    <th class="py-3 px-4">Referral Code</th>
+                    <th class="py-3 px-4">Commission</th>
+                    <th class="py-3 px-4">Referrals</th>
+                    <th class="py-3 px-4">Revenue</th>
+                    <th class="py-3 px-4">Status</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="partners-table-body" class="divide-y divide-white/5">
+                  <tr><td colspan="7" class="py-10 text-center text-gray-500">
+                    <span class="material-symbols-outlined text-[32px] text-gray-600 block mb-2">handshake</span>
+                    No partnerships yet. Click "Add Partner" to create your first tieup.
+                  </td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: COUPONS                                             -->
+        <!-- ============================================================ -->
+        <div id="sec-coupons" class="admin-section space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-lg font-extrabold uppercase tracking-wider text-white">Promo & Partner Coupons</h2>
+              <p class="text-xs text-gray-400 mt-1">Manage state discount promo codes and affiliate referral coupon waiving rules.</p>
+            </div>
+            <button onclick="openCouponModal()" class="px-4 py-2.5 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-lg shadow-tx-amber/25 flex items-center gap-2 shrink-0">
+              <span class="material-symbols-outlined text-[18px]">add</span>
+              <span>Create Promo Coupon</span>
+            </button>
+          </div>
+
+          <!-- Coupons Table -->
+          <div class="glass-card rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-mono">
+                <thead>
+                  <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px] bg-white/[0.02]">
+                    <th class="py-3 px-4">Coupon Code</th>
+                    <th class="py-3 px-4">Type</th>
+                    <th class="py-3 px-4">Partner</th>
+                    <th class="py-3 px-4">Discount</th>
+                    <th class="py-3 px-4">Uses</th>
+                    <th class="py-3 px-4">Expires</th>
+                    <th class="py-3 px-4">Status</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="coupons-table-body" class="divide-y divide-white/5">
+                  <tr><td colspan="8" class="py-10 text-center text-gray-500">Loading coupons...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: WITHDRAWALS                                         -->
+        <!-- ============================================================ -->
+        <div id="sec-withdrawals" class="admin-section space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-lg font-extrabold uppercase tracking-wider text-white">Partner Withdrawal Requests</h2>
+              <p class="text-xs text-gray-400 mt-1">Review and process partner payout requests. No automatic payouts (TDLR manual compliance).</p>
+            </div>
+            <button onclick="loadWithdrawals()" class="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-mono text-xs font-bold border border-white/8 flex items-center gap-1.5 shrink-0">
+              <span class="material-symbols-outlined text-[16px]">refresh</span>
+              <span>Refresh</span>
+            </button>
+          </div>
+
+          <!-- Withdrawals Table -->
+          <div class="glass-card rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-mono">
+                <thead>
+                  <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px] bg-white/[0.02]">
+                    <th class="py-3 px-4">Partner</th>
+                    <th class="py-3 px-4">Amount</th>
+                    <th class="py-3 px-4">Payment Method</th>
+                    <th class="py-3 px-4">Payment Details</th>
+                    <th class="py-3 px-4">Requested At</th>
+                    <th class="py-3 px-4">Status</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="withdrawals-table-body" class="divide-y divide-white/5">
+                  <tr><td colspan="7" class="py-10 text-center text-gray-500">Loading withdrawals...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: TEAM                                                -->
+        <!-- ============================================================ -->
+        <div id="sec-team" class="admin-section space-y-6">
+          <h2 class="text-lg font-extrabold uppercase tracking-wider text-white">Admin Team Management</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Invite Form -->
+            <div class="lg:col-span-5 glass-card p-6 rounded-2xl flex flex-col">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="w-8 h-8 rounded-lg bg-tx-amber/15 text-tx-amber border border-tx-amber/30 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[18px]">person_add</span>
+                </div>
+                <h3 class="text-sm font-extrabold text-white tracking-tight uppercase">Invite Admin</h3>
+              </div>
+              <p class="text-xs text-gray-400 mb-5 leading-relaxed">Grant secure admin access by email. The recipient must sign in with Google using the invited address.</p>
+
+              <form id="invite-admin-form" onsubmit="handleSendAccess(event)" novalidate class="space-y-4">
+                <div>
+                  <label for="invite-email-input" class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1.5">Email Address</label>
+                  <div class="relative">
+                    <input type="email" id="invite-email-input" placeholder="name@domain.com" autocomplete="email"
+                      class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm font-mono focus:outline-none focus:border-tx-amber focus:ring-1 focus:ring-tx-amber transition-colors"
+                      oninput="handleEmailInput(this.value)">
+                    <div id="input-valid-icon" class="hidden absolute right-3 top-3 text-emerald-400">
+                      <span class="material-symbols-outlined text-[20px]">check</span>
+                    </div>
+                  </div>
+                  <p id="email-error-msg" class="hidden text-[11px] font-mono text-rose-400 mt-1.5">Enter a valid email address.</p>
+                </div>
+                <p class="text-[11px] text-gray-400 leading-relaxed">We'll send a secure link that expires in 24 hours. The person must sign up with Google using this email address.</p>
+                <button type="submit" id="send-access-btn" disabled
+                  class="w-full py-3 px-5 rounded-xl bg-tx-amber hover:bg-tx-dark-amber disabled:bg-white/10 disabled:text-gray-500 disabled:cursor-not-allowed text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-lg shadow-tx-amber/25 disabled:shadow-none flex items-center justify-center gap-2">
+                  <span id="btn-spinner" class="hidden animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+                  <span id="btn-label">Send access</span>
+                  <span id="btn-icon" class="material-symbols-outlined text-[16px]">send</span>
+                </button>
+              </form>
+
+              <div id="sent-confirmation-banner" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono flex items-start gap-2.5">
+                <span class="material-symbols-outlined text-emerald-400 text-[18px] shrink-0 mt-0.5">check_circle</span>
+                <div>
+                  <div id="sent-confirmation-text" class="font-bold">Invitation sent.</div>
+                  <div class="text-[10px] text-emerald-400/80 mt-0.5">The recipient must open the link and sign in with Google within 24 hours.</div>
+                </div>
+              </div>
+              <div id="send-failed-banner" class="hidden mt-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-300 text-xs font-mono flex items-start gap-2.5">
+                <span class="material-symbols-outlined text-rose-400 text-[18px] shrink-0 mt-0.5">error</span>
+                <div>
+                  <div id="send-failed-text" class="font-bold">Unable to send invitation.</div>
+                  <div class="text-[10px] text-rose-400/80 mt-0.5">Please check the address and retry.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Invitations + Admins -->
+            <div class="lg:col-span-7 space-y-6">
+              <!-- Pending Invitations -->
+              <div class="glass-card p-5 rounded-2xl">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px] text-amber-400">hourglass_top</span>
+                    <span class="text-xs font-bold uppercase text-white">Pending Invitations</span>
+                    <span id="pending-count-badge" class="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-white/10 text-gray-400 font-bold">0</span>
+                  </div>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-xs font-mono">
+                    <thead>
+                      <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px]">
+                        <th class="py-2 px-3">Email</th>
+                        <th class="py-2 px-3">Status</th>
+                        <th class="py-2 px-3">Expires</th>
+                        <th class="py-2 px-3 text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="pending-invitations-body" class="divide-y divide-white/5">
+                      <tr><td colspan="4" class="py-6 text-center text-gray-500">Loading...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Active Admins -->
+              <div class="glass-card p-5 rounded-2xl">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px] text-tx-amber">verified_user</span>
+                    <span class="text-xs font-bold uppercase text-white">Active Administrators</span>
+                    <span id="admins-count-badge" class="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-tx-amber/15 text-tx-amber font-bold">1</span>
+                  </div>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-xs font-mono">
+                    <thead>
+                      <tr class="border-b border-white/8 text-gray-500 uppercase text-[10px]">
+                        <th class="py-2 px-3">Administrator</th>
+                        <th class="py-2 px-3">Role</th>
+                        <th class="py-2 px-3 text-right">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="active-admins-body" class="divide-y divide-white/5">
+                      <tr><td colspan="3" class="py-6 text-center text-gray-500">Loading...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: PRICING CONFIGURATION                               -->
+        <!-- ============================================================ -->
+        <div id="sec-pricing" class="admin-section space-y-6">
+
+          <!-- Section Header -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-white/8">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-tx-amber to-amber-700 flex items-center justify-center text-white shadow-lg shadow-tx-amber/20">
+                <span class="material-symbols-outlined text-[26px]">price_change</span>
+              </div>
+              <div>
+                <h2 class="text-lg font-black text-white tracking-tight uppercase">Live Pricing & Tuition Controls</h2>
+                <p class="text-xs text-gray-400 font-mono mt-0.5">Configure statutory course tuition and certificate fees dynamically across all checkout & landing pages.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="checkout.html" target="_blank" class="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-mono text-xs border border-white/10 transition-all flex items-center gap-1.5 font-bold">
+                <span class="material-symbols-outlined text-[15px]">open_in_new</span>
+                <span>Preview Checkout</span>
+              </a>
+              <button onclick="loadPricing()" class="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-mono text-xs border border-white/10 transition-all flex items-center gap-1.5 font-bold">
+                <span class="material-symbols-outlined text-[15px]">refresh</span>
+                <span>Reload</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3 KPI Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Course Price KPI -->
+            <div class="glass-card p-5 rounded-2xl border border-white/8">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Standard Course Tuition</span>
+                <span class="w-8 h-8 rounded-lg bg-tx-amber/15 text-tx-amber flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[18px]">school</span>
+                </span>
+              </div>
+              <div id="kpi-course-price" class="text-2xl font-black font-mono text-white">$38.00</div>
+              <div class="text-[10px] font-mono text-gray-500 mt-1">TDLR 6-Hour Certification (ADE-1317)</div>
+            </div>
+
+            <!-- Rush Cert KPI -->
+            <div class="glass-card p-5 rounded-2xl border border-white/8">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Priority Rush Delivery</span>
+                <span class="w-8 h-8 rounded-lg bg-blue-500/15 text-blue-400 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[18px]">electric_bolt</span>
+                </span>
+              </div>
+              <div id="kpi-rush-price" class="text-2xl font-black font-mono text-white">$9.99</div>
+              <div class="text-[10px] font-mono text-gray-500 mt-1">Same-Day Electronic Certificate</div>
+            </div>
+
+            <!-- Total Express KPI -->
+            <div class="glass-card p-5 rounded-2xl border border-white/8">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Total Express Package</span>
+                <span class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[18px]">verified</span>
+                </span>
+              </div>
+              <div id="kpi-total-express" class="text-2xl font-black font-mono text-emerald-400">$47.99</div>
+              <div class="text-[10px] font-mono text-gray-500 mt-1">Course + Rush Combined</div>
+            </div>
+          </div>
+
+          <!-- Pricing Edit Form & Live Preview Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Edit Form (7 cols) -->
+            <div class="lg:col-span-7 glass-card p-6 rounded-2xl border border-white/8">
+              <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/8">
+                <span class="material-symbols-outlined text-[20px] text-tx-amber">tune</span>
+                <h3 class="text-sm font-extrabold text-white uppercase">Set New Prices</h3>
+              </div>
+
+              <form id="pricing-form" onsubmit="handleSavePricing(event)" class="space-y-5">
+                <div>
+                  <label class="block text-xs font-mono uppercase text-gray-300 font-bold mb-1.5 flex items-center justify-between">
+                    <span>Course Base Price (Tuition) *</span>
+                    <span class="text-[10px] text-gray-500 font-normal">Min $1.00</span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-tx-amber font-mono font-bold">$</span>
+                    <input 
+                      type="number" 
+                      id="input-price-course" 
+                      required 
+                      min="1.00" 
+                      max="999.00" 
+                      step="0.01" 
+                      placeholder="38.00"
+                      oninput="updatePricingPreview()"
+                      class="w-full pl-8 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-base font-mono font-bold placeholder-gray-500 focus:outline-none focus:border-tx-amber focus:ring-1 focus:ring-tx-amber transition-all"
+                    >
+                  </div>
+                  <p class="text-[11px] text-gray-400 font-mono mt-1">Base price charged to students on checkout and referenced in promo coupon calculations.</p>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-mono uppercase text-gray-300 font-bold mb-1.5 flex items-center justify-between">
+                    <span>Rush Certificate Delivery Fee *</span>
+                    <span class="text-[10px] text-gray-500 font-normal">Set to $0.00 for free</span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-tx-amber font-mono font-bold">$</span>
+                    <input 
+                      type="number" 
+                      id="input-price-rush" 
+                      required 
+                      min="0.00" 
+                      max="999.00" 
+                      step="0.01" 
+                      placeholder="9.99"
+                      oninput="updatePricingPreview()"
+                      class="w-full pl-8 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-base font-mono font-bold placeholder-gray-500 focus:outline-none focus:border-tx-amber focus:ring-1 focus:ring-tx-amber transition-all"
+                    >
+                  </div>
+                  <p class="text-[11px] text-gray-400 font-mono mt-1">Optional add-on fee for same-day priority electronic certificate dispatch.</p>
+                </div>
+
+                <!-- Last Modified info -->
+                <div class="p-3 rounded-xl bg-white/5 border border-white/8 flex items-center justify-between text-xs font-mono text-gray-400">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[16px] text-gray-500">history</span>
+                    <span>Last Updated: <strong id="pricing-last-updated" class="text-gray-300 font-mono">--</strong></span>
+                  </div>
+                  <div class="text-[10px] text-gray-500" id="pricing-updated-by">By: System</div>
+                </div>
+
+                <div class="pt-2 flex items-center justify-end gap-3">
+                  <button 
+                    type="button" 
+                    onclick="resetPricingDefaults()" 
+                    class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-mono text-xs uppercase font-bold border border-white/10 transition-colors"
+                  >
+                    Reset Defaults
+                  </button>
+                  <button 
+                    type="submit" 
+                    id="pricing-save-btn" 
+                    class="px-6 py-2.5 rounded-xl bg-tx-amber hover:bg-tx-dark-amber text-white font-mono text-xs uppercase font-bold shadow-lg shadow-tx-amber/25 transition-all flex items-center gap-2"
+                  >
+                    <span id="pricing-save-spinner" class="hidden animate-spin rounded-full h-3.5 w-3.5 border-2 border-white border-t-transparent"></span>
+                    <span id="pricing-save-label">Save & Push Live</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Live Student Checkout Preview (5 cols) -->
+            <div class="lg:col-span-5 glass-card p-6 rounded-2xl border border-white/8 space-y-4">
+              <div class="flex items-center gap-2 pb-3 border-b border-white/8">
+                <span class="material-symbols-outlined text-[20px] text-emerald-400">visibility</span>
+                <h3 class="text-sm font-extrabold text-white uppercase">Live Student Preview</h3>
+              </div>
+
+              <div class="p-4 rounded-xl bg-[#090d18] border border-white/10 space-y-3 font-mono text-xs">
+                <div class="flex justify-between items-center text-gray-400 pb-2 border-b border-white/10">
+                  <span>Checkout Item</span>
+                  <span>Amount</span>
+                </div>
+                <div class="flex justify-between items-center text-white">
+                  <span>6-Hr Adult Driver Ed</span>
+                  <span id="preview-course-val" class="font-bold text-tx-amber">$38.00</span>
+                </div>
+                <div class="flex justify-between items-center text-gray-300">
+                  <span>Rush Certificate (Opt.)</span>
+                  <span id="preview-rush-val" class="font-bold text-gray-300">+$9.99</span>
+                </div>
+                <div class="pt-2 border-t border-white/10 flex justify-between items-center text-sm font-bold text-white">
+                  <span>Standard Total:</span>
+                  <span id="preview-std-total" class="font-mono text-emerald-400">$38.00</span>
+                </div>
+                <div class="flex justify-between items-center text-sm font-bold text-white">
+                  <span>Express Total:</span>
+                  <span id="preview-exp-total" class="font-mono text-emerald-400">$47.99</span>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono space-y-1">
+                <div class="flex items-center gap-1.5 font-bold">
+                  <span class="material-symbols-outlined text-[16px]">bolt</span>
+                  <span>Instant Multi-Page Sync</span>
+                </div>
+                <p class="text-[11px] text-amber-200/80">Saving updates the Cloud SQL database and invalidates in-memory cache instantly. Next time any student loads the landing page or checkout, Stripe line items and UI reflect the updated prices immediately.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- ADD PARTNER MODAL                                                -->
+  <!-- ================================================================ -->
+  <div id="partner-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
+    <div class="glass-card rounded-2xl w-full max-w-lg mx-4 p-6 border border-white/10 shadow-2xl">
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[22px] text-tx-amber">add_business</span>
+          <h3 class="text-base font-extrabold text-white uppercase">Add Driving School Partner</h3>
+        </div>
+        <button onclick="closePartnerModal()" class="p-1 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form id="partner-form" onsubmit="handleCreatePartner(event)" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2">
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Driving School Name *</label>
+            <input type="text" id="p-name" required placeholder="ABC Driving School" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Contact Name</label>
+            <input type="text" id="p-contact" placeholder="John Smith" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Contact Email *</label>
+            <input type="email" id="p-email" required placeholder="contact@school.com" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Contact Phone</label>
+            <input type="tel" id="p-phone" placeholder="(555) 123-4567" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Commission %</label>
+            <div class="relative">
+              <input type="number" id="p-commission" value="10" min="1" max="50" step="0.5" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber pr-8">
+              <span class="absolute right-3 top-2.5 text-gray-500 text-sm">%</span>
+            </div>
+          </div>
+          <div class="col-span-2">
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Notes</label>
+            <textarea id="p-notes" rows="2" placeholder="Agreement details, special terms..." class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber resize-none"></textarea>
+          </div>
+        </div>
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <button type="button" onclick="closePartnerModal()" class="px-4 py-2.5 rounded-lg bg-white/5 text-gray-300 font-bold text-xs uppercase border border-white/10 hover:bg-white/10 transition-colors">Cancel</button>
+          <button type="submit" id="partner-submit-btn" class="px-5 py-2.5 rounded-lg bg-tx-amber hover:bg-tx-dark-amber text-white font-bold text-xs uppercase shadow-lg shadow-tx-amber/25 transition-all flex items-center gap-1.5">
+            <span id="partner-btn-spinner" class="hidden animate-spin rounded-full h-3 w-3 border-2 border-white border-t-transparent"></span>
+            <span id="partner-btn-label">Create Partnership</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- CREATE PROMO COUPON MODAL                                        -->
+  <!-- ================================================================ -->
+  <div id="coupon-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
+    <div class="glass-card rounded-2xl w-full max-w-md mx-4 p-6 border border-white/10 shadow-2xl">
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[22px] text-tx-amber">confirmation_number</span>
+          <h3 class="text-base font-extrabold text-white uppercase">Create Promo Coupon</h3>
+        </div>
+        <button onclick="closeCouponModal()" class="p-1 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form id="coupon-form" onsubmit="handleCreateCoupon(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Coupon Code *</label>
+          <input type="text" id="c-code" required placeholder="e.g. SAVE20 or SUMMER10" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono uppercase placeholder-gray-500 focus:outline-none focus:border-tx-amber">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Discount Type</label>
+            <select id="c-type" onchange="updateDiscountLabel()" class="w-full px-3 py-2.5 rounded-lg bg-[#0e1422] border border-white/10 text-white text-sm font-mono focus:outline-none focus:border-tx-amber">
+              <option value="PERCENT">Percentage (%)</option>
+              <option value="FLAT_CENTS">Flat Dollar ($)</option>
+            </select>
+          </div>
+          <div>
+            <label id="c-val-label" class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Discount %</label>
+            <input type="number" id="c-val" required min="1" step="1" placeholder="20" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Max Uses</label>
+            <input type="number" id="c-uses" min="1" placeholder="Unlimited" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono placeholder-gray-500 focus:outline-none focus:border-tx-amber">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-gray-400 font-bold mb-1">Expires Date</label>
+            <input type="date" id="c-expires" class="w-full px-3 py-2.5 rounded-lg bg-[#0e1422] border border-white/10 text-white text-sm font-mono focus:outline-none focus:border-tx-amber">
+          </div>
+        </div>
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <button type="button" onclick="closeCouponModal()" class="px-4 py-2.5 rounded-lg bg-white/5 text-gray-300 font-bold text-xs uppercase border border-white/10 hover:bg-white/10 transition-colors">Cancel</button>
+          <button type="submit" id="coupon-submit-btn" class="px-5 py-2.5 rounded-lg bg-tx-amber hover:bg-tx-dark-amber text-white font-bold text-xs uppercase shadow-lg shadow-tx-amber/25 transition-all flex items-center gap-1.5">
+            <span id="coupon-btn-spinner" class="hidden animate-spin rounded-full h-3 w-3 border-2 border-white border-t-transparent"></span>
+            <span id="coupon-btn-label">Create Coupon</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ================================================================ -->
+  <!-- JAVASCRIPT                                                       -->
+  <!-- ================================================================ -->
+  <script>
+    const API = (location.port === '8080')
+      ? 'http://localhost:8080'
+      : 'https://tx-ade-api-1004296326114.us-central1.run.app';
+    const PRIMARY_ADMIN = 'admin@texasade.org';
+    const SUPER_ADMINS = ['admin@texasade.org'];
+    let currentUser = null;
+    let studentPage = 1;
+    let studentSearchTimer = null;
+    let overviewCache = null;
+
+    // ── Auth headers helper ──
+    function authHeaders(extra = {}) {
+      const h = { 'Content-Type': 'application/json', ...extra };
+      const t = localStorage.getItem('tx_session_token');
+      if (t) h['Authorization'] = `Bearer ${t}`;
+      return h;
+    }
+    function authFetch(url, opts = {}) {
+      return fetch(url, { ...opts, headers: authHeaders(opts.headers), credentials: 'include' });
+    }
+
+    // ── Navigation ──
+    function switchSection(id) {
+      document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      const sec = document.getElementById('sec-' + id);
+      const nav = document.querySelector(`[data-nav="${id}"]`);
+      if (sec) sec.classList.add('active');
+      if (nav) nav.classList.add('active');
+      const titles = { dashboard:'Dashboard', students:'Student Registry', revenue:'Revenue', partnerships:'Driving School Tieups', coupons:'Promo & Partner Coupons', withdrawals:'Withdrawal Requests', pricing:'Live Pricing & Fees', team:'Admin Team' };
+      document.getElementById('page-title').textContent = titles[id] || id;
+      // Load data for section
+      if (id === 'revenue') { renderRevenue(); loadTransactions(); }
+      if (id === 'students') loadStudents(1);
+      if (id === 'partnerships') loadPartnerships();
+      if (id === 'coupons') loadCoupons();
+      if (id === 'withdrawals') loadWithdrawals();
+      if (id === 'pricing') loadPricing();
+      if (id === 'team' || id === 'dashboard') loadOverview();
+      if (id === 'revenue') renderRevenue();
+    }
+    function refreshCurrentSection() {
+      const active = document.querySelector('.admin-section.active');
+      if (active) {
+        const id = active.id.replace('sec-', '');
+        overviewCache = null;
+        switchSection(id);
+      }
+    }
+
+    // ── Authoritative Server-Gated Auth Guard ──
+    async function verifyAccess() {
+      const token = localStorage.getItem('tx_session_token');
+      const userDataStr = localStorage.getItem('tx_user_data');
+      let localUser = null;
+      if (userDataStr) {
+        try { localUser = JSON.parse(userDataStr); } catch (_) {}
+      }
+
+      // If no token or no user data, reject immediately without DOM display
+      if (!token || !localUser || localUser.role !== 'ADMIN') {
+        console.warn('[ADMIN SECURITY] Unauthorized: Session token missing.');
+        window.location.replace('signin.html');
+        return;
+      }
+
+      // Authoritative Backend Validation: Query server before showing console
+      try {
+        const res = await authFetch(`${API}/api/v1/auth/me`);
+        if (!res.ok) {
+          console.warn('[ADMIN SECURITY] Backend rejected auth token.');
+          localStorage.removeItem('tx_session_token');
+          window.location.replace('signin.html');
+          return;
+        }
+        const data = await res.json();
+        if (!data.user || data.user.role !== 'ADMIN') {
+          console.warn('[ADMIN SECURITY] User account lacks ADMIN role.');
+          window.location.replace('player.html');
+          return;
+        }
+        currentUser = data.user;
+      } catch (err) {
+        // In offline dev mode only, verify localUser has verified ADMIN role
+        if (localUser.role !== 'ADMIN') {
+          window.location.replace('signin.html');
+          return;
+        }
+        currentUser = localUser;
+      }
+
+      // Render Admin Console solely after verified authorization
+      const isSuper = (currentUser.email && currentUser.email.toLowerCase() === PRIMARY_ADMIN);
+      document.getElementById('sidebar-email').textContent = currentUser.email || PRIMARY_ADMIN;
+      document.getElementById('sidebar-role').textContent = isSuper ? 'SUPER ADMIN' : 'ADMIN';
+      document.getElementById('sidebar-avatar').textContent = (currentUser.fullName || currentUser.email || 'A').slice(0, 1).toUpperCase();
+      document.getElementById('admin-body').style.display = 'flex';
+
+      await loadOverview();
+    }
+
+    // ── Load Overview Data (Dashboard + Team) ──
+    async function loadOverview() {
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/overview`);
+        if (res.ok) {
+          const d = await res.json();
+          overviewCache = d;
+          // Metrics
+          if (d.stats) {
+            document.getElementById('m-students').textContent = d.stats.totalStudents || 0;
+            document.getElementById('m-active').textContent = d.stats.activeEnrollments || 0;
+            document.getElementById('m-completed').textContent = d.stats.completedCourses || 0;
+            document.getElementById('m-revenue').textContent = fmt$(d.stats.totalRevenueCents);
+            document.getElementById('nav-students-count').textContent = d.stats.totalStudents || 0;
+          }
+          // Partnership stats
+          if (d.partnershipStats) {
+            document.getElementById('m-partners').textContent = d.partnershipStats.activePartners || 0;
+            document.getElementById('m-commission').textContent = fmt$(d.partnershipStats.totalCommissionCents);
+            document.getElementById('nav-partners-count').textContent = d.partnershipStats.activePartners || 0;
+          }
+          // Admins
+          renderAdmins(d.admins || [{ email: PRIMARY_ADMIN, fullName: 'Lead Administrator', role: 'ADMIN', status: 'ACTIVE' }]);
+          // Invitations
+          renderInvitations(d.invitations || []);
+          // Recent Students
+          renderDashStudents(d.recentStudents || []);
+          // Revenue
+          renderRevenue();
+          // Pricing
+          if (d.pricing) {
+            const pb = document.getElementById('nav-pricing-badge');
+            if (pb) pb.textContent = d.pricing.coursePriceFormatted || '$38.00';
+          }
+          // Timestamp
+          document.getElementById('last-refreshed').textContent = 'Live Cloud: Updated ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+          return;
+        }
+      } catch(e) {
+        console.warn('API overview fetch fallback:', e.message);
+      }
+
+      // Empty standby state: Never render simulated fake business metrics
+      renderAdmins([]);
+      document.getElementById('m-students').textContent = '0';
+      document.getElementById('m-active').textContent = '0';
+      document.getElementById('m-completed').textContent = '0';
+      document.getElementById('m-revenue').textContent = '$0.00';
+      document.getElementById('nav-students-count').textContent = '0';
+      document.getElementById('last-refreshed').textContent = 'Standby · ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    }
+
+    // ── Render Dashboard Admins ──
+    function renderAdmins(admins) {
+      document.getElementById('admins-count-badge').textContent = admins.length;
+      // Dashboard quick list
+      const dashList = document.getElementById('dash-admins-list');
+      dashList.innerHTML = admins.map(a => {
+        const isS = a.email.toLowerCase() === PRIMARY_ADMIN;
+        return `<div class="flex items-center gap-2">
+          <div class="w-6 h-6 rounded-full ${isS ? 'bg-gradient-to-br from-tx-amber to-amber-700' : 'bg-white/10'} text-white text-[10px] font-bold flex items-center justify-center shrink-0">${(a.fullName||a.email).slice(0,1).toUpperCase()}</div>
+          <span class="text-xs font-mono text-gray-300 truncate">${esc(a.email)}</span>
+          <span class="text-[9px] font-mono px-1.5 py-0.5 rounded ${isS ? 'bg-tx-amber/15 text-tx-amber' : 'bg-white/10 text-gray-400'} font-bold uppercase">${isS?'SUPER':'ADMIN'}</span>
+        </div>`;
+      }).join('');
+      // Full table
+      const tbody = document.getElementById('active-admins-body');
+      tbody.innerHTML = admins.map(a => {
+        const isS = a.email.toLowerCase() === PRIMARY_ADMIN;
+        return `<tr class="hover:bg-white/[0.02]">
+          <td class="py-3 px-3"><div class="font-bold text-gray-200">${esc(a.fullName||a.email)}</div><div class="text-[10px] text-gray-500">${esc(a.email)}</div></td>
+          <td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${isS?'bg-tx-amber/15 text-tx-amber border border-tx-amber/30':'bg-white/10 text-gray-300 border border-white/10'}">${isS?'SUPER ADMIN':'ADMIN'}</span></td>
+          <td class="py-3 px-3 text-right"><span class="text-emerald-400 text-[10px] font-bold flex items-center justify-end gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>ACTIVE</span></td>
+        </tr>`;
+      }).join('');
+    }
+
+    // ── Render Invitations ──
+    function renderInvitations(invitations) {
+      const pending = invitations.filter(i => i.status === 'PENDING');
+      document.getElementById('pending-count-badge').textContent = pending.length;
+      const tbody = document.getElementById('pending-invitations-body');
+      if (!pending.length) {
+        tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-gray-500"><span class="material-symbols-outlined text-[24px] text-gray-600 block mb-1">mark_email_read</span>No pending invitations</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = pending.map(inv => {
+        const exp = new Date(inv.expiresAt);
+        const diff = exp - Date.now();
+        const time = diff > 0 ? `${Math.floor(diff/3.6e6)}h ${Math.floor((diff%3.6e6)/6e4)}m` : 'Expired';
+        return `<tr class="hover:bg-white/[0.02]">
+          <td class="py-2.5 px-3 font-bold text-gray-200">${esc(inv.email)}</td>
+          <td class="py-2.5 px-3"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 text-[10px] font-bold uppercase"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>Pending</span></td>
+          <td class="py-2.5 px-3 text-gray-400 text-[11px]">${time}</td>
+          <td class="py-2.5 px-3 text-right space-x-1">
+            <button onclick="handleResend('${inv.id}','${esc(inv.email)}')" class="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-gray-300 text-[10px] font-bold border border-white/8 uppercase">Resend</button>
+            <button onclick="handleCancel('${inv.id}','${esc(inv.email)}')" class="px-2 py-1 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-[10px] font-bold border border-rose-500/20 uppercase">Cancel</button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    // ── Dashboard Recent Students ──
+    function renderDashStudents(students) {
+      const tbody = document.getElementById('dash-recent-students');
+      if (!students.length) { tbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-500">No students yet</td></tr>`; return; }
+      tbody.innerHTML = students.map(s => {
+        const paid = s.enrollment_status === 'ACTIVE' || s.enrollment_status === 'COMPLETED';
+        const d = s.created_at ? new Date(s.created_at).toLocaleDateString([],{month:'short',day:'numeric'}) : '--';
+        return `<tr class="hover:bg-white/[0.02]">
+          <td class="py-2 px-3"><div class="font-bold text-gray-200 truncate max-w-[160px]">${esc(s.full_name||s.email)}</div><div class="text-[10px] text-gray-500 truncate max-w-[160px]">${esc(s.email)}</div></td>
+          <td class="py-2 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${paid?'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30':'bg-gray-500/15 text-gray-400 border border-gray-500/20'}">${s.enrollment_status||'UNPAID'}</span></td>
+          <td class="py-2 px-3 text-right text-gray-400 text-[10px]">${d}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    // ── Revenue ──
+    async function loadTransactions() {
+      const tbody = document.getElementById('transactions-table-body');
+      if (!tbody) return;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/transactions?limit=50`);
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message || 'Failed to load ledger');
+
+        if (data.summary) {
+          const s = data.summary;
+          if (s.totalGrossCents !== undefined && document.getElementById('rev-total')) {
+            document.getElementById('rev-total').textContent = fmt$(s.totalGrossCents);
+          }
+          if (s.totalNetCents !== undefined && document.getElementById('rev-net')) {
+            document.getElementById('rev-net').textContent = fmt$(s.totalNetCents);
+          }
+        }
+
+        const txs = data.transactions || [];
+        if (!txs.length) {
+          tbody.innerHTML = `<tr><td colspan="8" class="py-10 text-center text-gray-500 font-mono"><span class="material-symbols-outlined text-[32px] text-gray-600 block mb-2">receipt_long</span>No transactions recorded yet in the ledger.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = txs.map(t => {
+          const dateStr = new Date(t.created_at).toLocaleString();
+          const orderRef = (t.stripe_session_id ? t.stripe_session_id.slice(-10).toUpperCase() : (t.id.slice(0, 8).toUpperCase()));
+          const student = t.customer_name || t.user_full_name || t.customer_email || 'Student';
+          const email = t.customer_email || '--';
+          const gross = fmt$(t.gross_amount_cents);
+          const fee = fmt$(t.stripe_fee_cents || 0);
+          const net = fmt$(t.net_amount_cents || (t.gross_amount_cents - (t.stripe_fee_cents || 0)));
+
+          let statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-white/10 text-gray-300">PENDING</span>';
+          if (t.status === 'SUCCEEDED') {
+            statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">SUCCEEDED</span>';
+          } else if (t.status === 'REFUNDED') {
+            statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/15 text-amber-400 border border-amber-500/30">REFUNDED</span>';
+          } else if (t.status === 'FAILED') {
+            statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/15 text-rose-400 border border-rose-500/30">FAILED</span>';
+          }
+
+          const tierBadge = t.tier === 'EXPRESS'
+            ? '<span class="text-amber-400 font-bold">EXPRESS</span>'
+            : '<span class="text-gray-300">STANDARD</span>';
+
+          const promo = t.coupon_code ? `<span class="text-[10px] text-emerald-400 block">${esc(t.coupon_code)}</span>` : '';
+
+          return `<tr class="hover:bg-white/[0.02]">
+            <td class="py-3 px-4 text-gray-400 text-[11px]">${dateStr}</td>
+            <td class="py-3 px-4 font-mono font-bold text-gray-200">${orderRef}</td>
+            <td class="py-3 px-4">
+              <div class="font-bold text-gray-200">${esc(student)}</div>
+              <div class="text-[10px] text-gray-500">${esc(email)}</div>
+            </td>
+            <td class="py-3 px-4 text-gray-300">${tierBadge}${promo}</td>
+            <td class="py-3 px-4 font-bold text-white">${gross}</td>
+            <td class="py-3 px-4 text-gray-400">${fee}</td>
+            <td class="py-3 px-4 font-bold text-emerald-400">${net}</td>
+            <td class="py-3 px-4">${statusBadge}</td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-rose-400 font-mono">${esc(err.message)}</td></tr>`;
+      }
+    }
+
+    function renderRevenue() {
+      if (!overviewCache) return;
+      const rev = overviewCache.stats?.totalRevenueCents || 0;
+      const comm = overviewCache.partnershipStats?.totalCommissionCents || 0;
+      const active = overviewCache.stats?.activeEnrollments || 0;
+      document.getElementById('rev-total').textContent = fmt$(rev);
+      document.getElementById('rev-enrollments').textContent = active;
+      document.getElementById('rev-commission').textContent = fmt$(comm);
+      document.getElementById('rev-net').textContent = fmt$(rev - comm);
+    }
+
+    // ── Students (Paginated) ──
+    async function loadStudents(page = 1) {
+      if (page < 1) return;
+      studentPage = page;
+      const search = document.getElementById('student-search')?.value?.trim() || '';
+      const status = document.getElementById('student-status-filter')?.value || '';
+      const params = new URLSearchParams({ page, limit: 25 });
+      if (search) params.set('search', search);
+      if (status) params.set('status', status);
+      const tbody = document.getElementById('students-table-body');
+      tbody.innerHTML = `<tr><td colspan="4" class="py-10 text-center text-gray-500">Loading students...</td></tr>`;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/students?${params}`);
+        if (!res.ok) throw new Error('Failed to load students');
+        const d = await res.json();
+        const students = d.students || [];
+        if (!students.length) {
+          tbody.innerHTML = `<tr><td colspan="4" class="py-10 text-center text-gray-500">No students found</td></tr>`;
+        } else {
+          tbody.innerHTML = students.map(s => {
+            const paid = s.enrollment_status === 'ACTIVE' || s.enrollment_status === 'COMPLETED';
+            const dt = s.created_at ? new Date(s.created_at).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'}) : '--';
+            return `<tr class="hover:bg-white/[0.02]">
+              <td class="py-3 px-4 font-bold text-gray-200">${esc(s.full_name||'--')}</td>
+              <td class="py-3 px-4 text-gray-400">${esc(s.email)}</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${paid?'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30':'bg-gray-500/15 text-gray-400 border border-gray-500/20'}">${s.enrollment_status||'UNPAID'}</span></td>
+              <td class="py-3 px-4 text-right text-gray-400 text-[10px]">${dt}</td>
+            </tr>`;
+          }).join('');
+        }
+        document.getElementById('students-showing').textContent = `${d.total || 0} students`;
+        document.getElementById('students-page-info').textContent = `Page ${d.page || 1} of ${d.totalPages || 1}`;
+        document.getElementById('students-prev').disabled = (d.page || 1) <= 1;
+        document.getElementById('students-next').disabled = (d.page || 1) >= (d.totalPages || 1);
+      } catch(e) { tbody.innerHTML = `<tr><td colspan="4" class="py-10 text-center text-rose-400">${esc(e.message)}</td></tr>`; }
+    }
+    function debounceStudentSearch() {
+      clearTimeout(studentSearchTimer);
+      studentSearchTimer = setTimeout(() => loadStudents(1), 400);
+    }
+
+    // ── Partnerships ──
+    async function loadPartnerships() {
+      const tbody = document.getElementById('partners-table-body');
+      tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-gray-500">Loading partnerships...</td></tr>`;
+      try {
+        const [listRes, statsRes] = await Promise.all([
+          authFetch(`${API}/api/v1/admin/partnerships`),
+          authFetch(`${API}/api/v1/admin/partnerships/stats`)
+        ]);
+        const listData = listRes.ok ? await listRes.json() : [];
+        const partners = Array.isArray(listData) ? listData : (listData.partnerships || []);
+        const statsData = statsRes.ok ? await statsRes.json() : {};
+        const stats = statsData.stats || statsData || {};
+        // Stats
+        document.getElementById('p-active').textContent = stats.activePartners || stats.active_partners || 0;
+        document.getElementById('p-referrals').textContent = stats.totalReferrals || stats.total_referrals || 0;
+        document.getElementById('p-revenue').textContent = fmt$(stats.totalRevenueCents || stats.total_revenue_cents || 0);
+        document.getElementById('p-owed').textContent = fmt$(stats.unpaidCommissionCents || stats.total_unpaid_commission_cents || 0);
+        if (!partners.length) {
+          tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-gray-500"><span class="material-symbols-outlined text-[32px] text-gray-600 block mb-2">handshake</span>No partnerships yet. Click "Add Partner" to create your first tieup.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = partners.map(p => {
+          const isActive = p.status === 'ACTIVE';
+          const statusCls = isActive ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : p.status === 'PAUSED' ? 'bg-amber-500/15 text-amber-400 border-amber-500/30' : 'bg-rose-500/15 text-rose-400 border-rose-500/30';
+          return `<tr class="hover:bg-white/[0.02]">
+            <td class="py-3 px-4"><div class="font-bold text-gray-200">${esc(p.partner_name)}</div><div class="text-[10px] text-gray-500">${esc(p.contact_email)}</div></td>
+            <td class="py-3 px-4"><code class="px-2 py-1 rounded bg-tx-amber/10 text-tx-amber border border-tx-amber/20 text-[11px] font-bold select-all">${esc(p.referral_code)}</code></td>
+            <td class="py-3 px-4 text-gray-300">${p.commission_percent}%</td>
+            <td class="py-3 px-4 text-gray-300">${p.total_referrals || 0}</td>
+            <td class="py-3 px-4 text-gray-300">${fmt$(p.total_revenue_cents || 0)}</td>
+            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${statusCls}">${p.status}</span></td>
+            <td class="py-3 px-4 text-right space-x-1">
+              <button onclick="copyPartnerPortalLink('${p.id}','${esc(p.partner_name)}')" class="px-2 py-1 rounded bg-tx-amber/15 hover:bg-tx-amber/25 text-tx-amber text-[10px] font-bold border border-tx-amber/30 uppercase inline-flex items-center gap-1" title="Generate & copy portal link for partner"><span class="material-symbols-outlined text-[12px]">link</span>Portal</button>
+              <button onclick="togglePartner('${p.id}','${p.status}')" class="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-gray-300 text-[10px] font-bold border border-white/8 uppercase">${isActive?'Pause':'Activate'}</button>
+              ${p.status !== 'TERMINATED' ? `<button onclick="terminatePartner('${p.id}','${esc(p.partner_name)}')" class="px-2 py-1 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-[10px] font-bold border border-rose-500/20 uppercase">End</button>` : ''}
+            </td>
+          </tr>`;
+        }).join('');
+      } catch(e) { tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-rose-400">${esc(e.message)}</td></tr>`; }
+    }
+
+    function openPartnerModal() {
+      document.getElementById('partner-modal').classList.remove('hidden');
+      document.getElementById('partner-modal').classList.add('flex');
+      document.getElementById('partner-form').reset();
+      document.getElementById('p-commission').value = '10';
+    }
+    function closePartnerModal() {
+      document.getElementById('partner-modal').classList.add('hidden');
+      document.getElementById('partner-modal').classList.remove('flex');
+    }
+
+    async function handleCreatePartner(e) {
+      e.preventDefault();
+      const btn = document.getElementById('partner-submit-btn');
+      const spinner = document.getElementById('partner-btn-spinner');
+      const label = document.getElementById('partner-btn-label');
+      btn.disabled = true; spinner.classList.remove('hidden'); label.textContent = 'Creating...';
+      try {
+        const body = {
+          partnerName: document.getElementById('p-name').value.trim(),
+          contactName: document.getElementById('p-contact').value.trim(),
+          contactEmail: document.getElementById('p-email').value.trim(),
+          contactPhone: document.getElementById('p-phone').value.trim(),
+          commissionPercent: parseFloat(document.getElementById('p-commission').value) || 10,
+          notes: document.getElementById('p-notes').value.trim()
+        };
+        const res = await authFetch(`${API}/api/v1/admin/partnerships`, { method:'POST', body: JSON.stringify(body) });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(`Partnership with ${body.partnerName} created! Code: ${data.partnership?.referral_code || 'generated'}`, true);
+          closePartnerModal();
+          loadPartnerships();
+        } else {
+          showToast(data.message || 'Failed to create partnership', false);
+        }
+      } catch(e) { showToast('Network error: ' + e.message, false); }
+      finally { btn.disabled = false; spinner.classList.add('hidden'); label.textContent = 'Create Partnership'; }
+    }
+
+    async function togglePartner(id, currentStatus) {
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/partnerships/${id}/toggle`, { method:'POST' });
+        if (res.ok) { showToast(`Partnership ${currentStatus==='ACTIVE'?'paused':'activated'}`, true); loadPartnerships(); }
+        else showToast('Failed to toggle partnership', false);
+      } catch(e) { showToast(e.message, false); }
+    }
+    async function terminatePartner(id, name) {
+      if (!confirm(`Terminate partnership with ${name}? This cannot be undone.`)) return;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/partnerships/${id}`, { method:'DELETE' });
+        if (res.ok) { showToast(`Partnership with ${name} terminated`, true); loadPartnerships(); }
+        else showToast('Failed to terminate partnership', false);
+      } catch(e) { showToast(e.message, false); }
+    }
+
+    // ── Copy Partner Portal Link ──
+    async function copyPartnerPortalLink(id, partnerName) {
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/partnerships/${id}/portal-key`, {
+          method: 'POST',
+          body: JSON.stringify({ clientOrigin: location.origin })
+        });
+        const data = await res.json();
+        if (res.ok && data.portalUrl) {
+          await navigator.clipboard.writeText(data.portalUrl);
+          showToast(`Portal link copied for ${partnerName}!`, true);
+        } else {
+          showToast(data.message || 'Failed to generate portal link', false);
+        }
+      } catch(e) {
+        showToast('Error: ' + e.message, false);
+      }
+    }
+
+    // ── Coupons Management ──
+    async function loadCoupons() {
+      const tbody = document.getElementById('coupons-table-body');
+      tbody.innerHTML = `<tr><td colspan="8" class="py-10 text-center text-gray-500">Loading coupons...</td></tr>`;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/coupons`);
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || (res.status === 404 ? 'Admin session expired or access unauthorized. Please re-authenticate.' : `Failed to load coupons (${res.status})`));
+        }
+        const data = await res.json();
+        const coupons = data.coupons || [];
+        document.getElementById('nav-coupons-count').textContent = coupons.length;
+        if (!coupons.length) {
+          tbody.innerHTML = `<tr><td colspan="8" class="py-10 text-center text-gray-500"><span class="material-symbols-outlined text-[32px] text-gray-600 block mb-2">confirmation_number</span>No coupons created yet. Click "Create Promo Coupon" above.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = coupons.map(c => {
+          const isPercent = c.discount_type === 'PERCENT';
+          const isFlat = c.discount_type === 'FLAT_CENTS';
+          let discountStr = 'None (Tracking)';
+          if (isPercent) discountStr = `${c.discount_value}% OFF`;
+          if (isFlat) discountStr = `$${(c.discount_value/100).toFixed(2)} OFF`;
+          const isPartner = c.type === 'PARTNER';
+          const typeCls = isPartner ? 'bg-purple-500/15 text-purple-300 border-purple-500/30' : 'bg-blue-500/15 text-blue-300 border-blue-500/30';
+          const statusCls = c.is_active ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/15 text-rose-400 border-rose-500/30';
+          const expiresStr = c.expires_at ? new Date(c.expires_at).toLocaleDateString() : 'Never';
+          return `<tr class="hover:bg-white/[0.02]">
+            <td class="py-3 px-4"><code class="px-2 py-1 rounded bg-tx-amber/10 text-tx-amber border border-tx-amber/20 text-[11px] font-bold select-all">${esc(c.code)}</code></td>
+            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${typeCls}">${esc(c.type)}</span></td>
+            <td class="py-3 px-4 text-gray-300">${esc(c.partner_name || '—')}</td>
+            <td class="py-3 px-4 font-bold text-gray-200">${discountStr}</td>
+            <td class="py-3 px-4 text-gray-300">${c.current_uses || 0} ${c.max_uses ? '/ ' + c.max_uses : ''}</td>
+            <td class="py-3 px-4 text-gray-400">${expiresStr}</td>
+            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${statusCls}">${c.is_active ? 'ACTIVE' : 'INACTIVE'}</span></td>
+            <td class="py-3 px-4 text-right">
+              ${c.is_active ? `<button onclick="deactivateCoupon('${c.id}','${esc(c.code)}')" class="px-2 py-1 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-[10px] font-bold border border-rose-500/20 uppercase">Deactivate</button>` : '<span class="text-[10px] text-gray-500 font-bold uppercase">Disabled</span>'}
+            </td>
+          </tr>`;
+        }).join('');
+      } catch(e) {
+        tbody.innerHTML = `<tr><td colspan="8" class="py-10 text-center text-rose-400">${esc(e.message)}</td></tr>`;
+      }
+    }
+
+    function openCouponModal() {
+      document.getElementById('coupon-modal').classList.remove('hidden');
+      document.getElementById('coupon-modal').classList.add('flex');
+      document.getElementById('coupon-form').reset();
+      updateDiscountLabel();
+    }
+    function closeCouponModal() {
+      document.getElementById('coupon-modal').classList.add('hidden');
+      document.getElementById('coupon-modal').classList.remove('flex');
+    }
+    function updateDiscountLabel() {
+      const type = document.getElementById('c-type').value;
+      const lbl = document.getElementById('c-val-label');
+      const valInput = document.getElementById('c-val');
+      if (type === 'PERCENT') {
+        lbl.textContent = 'Discount %';
+        valInput.placeholder = '20';
+        valInput.max = '100';
+      } else {
+        lbl.textContent = 'Discount ($)';
+        valInput.placeholder = '10.00';
+        valInput.removeAttribute('max');
+      }
+    }
+    async function handleCreateCoupon(e) {
+      e.preventDefault();
+      const btn = document.getElementById('coupon-submit-btn');
+      const spinner = document.getElementById('coupon-btn-spinner');
+      const label = document.getElementById('coupon-btn-label');
+      btn.disabled = true; spinner.classList.remove('hidden'); label.textContent = 'Creating...';
+      try {
+        const type = document.getElementById('c-type').value;
+        const val = parseFloat(document.getElementById('c-val').value) || 0;
+        const discountValue = type === 'FLAT_CENTS' ? Math.round(val * 100) : val;
+        const body = {
+          code: document.getElementById('c-code').value.trim().toUpperCase(),
+          discountType: type,
+          discountValue,
+          maxUses: parseInt(document.getElementById('c-uses').value, 10) || null,
+          expiresAt: document.getElementById('c-expires').value ? new Date(document.getElementById('c-expires').value).toISOString() : null,
+        };
+        const res = await authFetch(`${API}/api/v1/admin/coupons`, { method: 'POST', body: JSON.stringify(body) });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(`Coupon ${body.code} created successfully!`, true);
+          closeCouponModal();
+          loadCoupons();
+        } else {
+          showToast(data.message || 'Failed to create coupon', false);
+        }
+      } catch(e) { showToast('Network error: ' + e.message, false); }
+      finally { btn.disabled = false; spinner.classList.add('hidden'); label.textContent = 'Create Coupon'; }
+    }
+    async function deactivateCoupon(id, code) {
+      if (!confirm(`Deactivate coupon ${code}? Students will no longer be able to use it.`)) return;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/coupons/${id}`, { method: 'DELETE' });
+        if (res.ok) { showToast(`Coupon ${code} deactivated`, true); loadCoupons(); }
+        else showToast('Failed to deactivate coupon', false);
+      } catch(e) { showToast(e.message, false); }
+    }
+
+    // ── Withdrawals Management ──
+    async function loadWithdrawals() {
+      const tbody = document.getElementById('withdrawals-table-body');
+      tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-gray-500">Loading withdrawal requests...</td></tr>`;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/withdrawals`);
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || (res.status === 404 ? 'Admin session expired or access unauthorized. Please re-authenticate.' : `Failed to load withdrawals (${res.status})`));
+        }
+        const data = await res.json();
+        const withdrawals = data.withdrawals || [];
+        const pendingCount = withdrawals.filter(w => w.status === 'PENDING').length;
+        document.getElementById('nav-withdrawals-count').textContent = pendingCount || withdrawals.length;
+        if (!withdrawals.length) {
+          tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-gray-500"><span class="material-symbols-outlined text-[32px] text-gray-600 block mb-2">account_balance_wallet</span>No withdrawal requests found.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = withdrawals.map(w => {
+          let statusCls = 'bg-amber-500/15 text-amber-300 border-amber-500/30';
+          if (w.status === 'APPROVED') statusCls = 'bg-blue-500/15 text-blue-300 border-blue-500/30';
+          if (w.status === 'PAID') statusCls = 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
+          if (w.status === 'REJECTED') statusCls = 'bg-rose-500/15 text-rose-300 border-rose-500/30';
+          const isPending = w.status === 'PENDING';
+          const isApproved = w.status === 'APPROVED';
+          return `<tr class="hover:bg-white/[0.02]">
+            <td class="py-3 px-4"><div class="font-bold text-gray-200">${esc(w.partner_name)}</div><div class="text-[10px] text-gray-500">${esc(w.contact_email)}</div></td>
+            <td class="py-3 px-4 font-mono font-bold text-emerald-400 text-sm">${fmt$(w.amount_cents)}</td>
+            <td class="py-3 px-4 uppercase font-bold text-gray-300 text-[11px]">${esc(w.payment_method)}</td>
+            <td class="py-3 px-4 text-gray-300 font-mono text-[11px] select-all">${esc(w.payment_details)}</td>
+            <td class="py-3 px-4 text-gray-400 text-[11px]">${new Date(w.created_at).toLocaleDateString()}</td>
+            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${statusCls}">${w.status}</span></td>
+            <td class="py-3 px-4 text-right space-x-1">
+              ${isPending ? `<button onclick="handleApproveWithdrawal('${w.id}')" class="px-2 py-1 rounded bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 text-[10px] font-bold border border-blue-500/30 uppercase">Approve</button>` : ''}
+              ${isPending || isApproved ? `<button onclick="handleMarkPaid('${w.id}','${fmt$(w.amount_cents)}')" class="px-2 py-1 rounded bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 text-[10px] font-bold border border-emerald-500/30 uppercase">Mark Paid</button>` : ''}
+              ${isPending || isApproved ? `<button onclick="handleRejectWithdrawal('${w.id}')" class="px-2 py-1 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-[10px] font-bold border border-rose-500/20 uppercase">Reject</button>` : ''}
+              ${w.status === 'PAID' ? `<span class="text-[10px] font-bold text-emerald-400 font-mono">PAID</span>` : ''}
+              ${w.status === 'REJECTED' ? `<span class="text-[10px] font-bold text-rose-400 font-mono">REJECTED</span>` : ''}
+            </td>
+          </tr>`;
+        }).join('');
+      } catch(e) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-rose-400">${esc(e.message)}</td></tr>`;
+      }
+    }
+
+    async function handleApproveWithdrawal(id) {
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/withdrawals/${id}/approve`, { method: 'POST' });
+        if (res.ok) { showToast('Withdrawal approved', true); loadWithdrawals(); }
+        else showToast('Failed to approve withdrawal', false);
+      } catch(e) { showToast(e.message, false); }
+    }
+    async function handleRejectWithdrawal(id) {
+      const reason = prompt('Enter reason for rejecting this withdrawal:');
+      if (reason === null) return;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/withdrawals/${id}/reject`, { method: 'POST', body: JSON.stringify({ reason }) });
+        if (res.ok) { showToast('Withdrawal rejected', true); loadWithdrawals(); }
+        else showToast('Failed to reject withdrawal', false);
+      } catch(e) { showToast(e.message, false); }
+    }
+    async function handleMarkPaid(id, amountFormatted) {
+      if (!confirm(`Confirm that payout of ${amountFormatted} has been sent to the partner? This will update their paid-out balance.`)) return;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/withdrawals/${id}/paid`, { method: 'POST' });
+        if (res.ok) { showToast(`Withdrawal marked as PAID! Partner balance updated.`, true); loadWithdrawals(); }
+        else showToast('Failed to mark withdrawal as paid', false);
+      } catch(e) { showToast(e.message, false); }
+    }
+
+    // ── Team: Invite Admin ──
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    function handleEmailInput(val) {
+      const v = (val||'').trim();
+      document.getElementById('sent-confirmation-banner').classList.add('hidden');
+      document.getElementById('send-failed-banner').classList.add('hidden');
+      const btn = document.getElementById('send-access-btn');
+      const ico = document.getElementById('input-valid-icon');
+      const inp = document.getElementById('invite-email-input');
+      document.getElementById('email-error-msg').classList.add('hidden');
+      if (!v) { btn.disabled=true; ico.classList.add('hidden'); inp.classList.remove('border-rose-500','border-emerald-500/60'); return; }
+      if (EMAIL_RE.test(v)) { btn.disabled=false; ico.classList.remove('hidden'); inp.classList.remove('border-rose-500'); inp.classList.add('border-emerald-500/60'); }
+      else { btn.disabled=true; ico.classList.add('hidden'); inp.classList.remove('border-emerald-500/60'); }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('invite-email-input')?.addEventListener('blur', function() {
+        if (this.value.trim() && !EMAIL_RE.test(this.value.trim())) {
+          document.getElementById('email-error-msg').classList.remove('hidden');
+          this.classList.add('border-rose-500');
+        }
+      });
+    });
+
+    async function handleSendAccess(e) {
+      e.preventDefault();
+      const inp = document.getElementById('invite-email-input');
+      const email = inp.value.trim().toLowerCase();
+      if (!EMAIL_RE.test(email)) { document.getElementById('email-error-msg').classList.remove('hidden'); return; }
+      setFormSending(true);
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/invitations`, { method:'POST', body: JSON.stringify({ email, clientOrigin: location.origin }) });
+        const data = await res.json().catch(() => ({ message: `Server error (${res.status})` }));
+        if (res.ok && data.success) {
+          if (!data.emailSent && data.inviteUrl) {
+            document.getElementById('sent-confirmation-text').innerHTML = `
+              <div class="text-amber-400 font-bold mb-1">⚠️ Invitation Created (Email Blocked by Sandbox)</div>
+              <div class="text-gray-300 text-[11px] mb-2 leading-relaxed">Resend sandbox only delivers to <b>lokeshpolkam0901@gmail.com</b> until custom domain is verified. You can copy the invite link and share it directly:</div>
+              <div class="flex items-center gap-2 mt-2">
+                <input type="text" readonly value="${data.inviteUrl}" id="direct-invite-url" class="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-[11px] text-tx-amber font-mono select-all">
+                <button type="button" onclick="navigator.clipboard.writeText('${data.inviteUrl}'); showToast('Invite link copied!', true);" class="px-2.5 py-1 bg-tx-amber hover:bg-tx-dark-amber text-white font-bold rounded text-[10px] uppercase shrink-0">Copy</button>
+              </div>
+            `;
+          } else {
+            document.getElementById('sent-confirmation-text').textContent = `Invitation sent to ${email}.`;
+          }
+          document.getElementById('sent-confirmation-banner').classList.remove('hidden');
+          document.getElementById('send-failed-banner').classList.add('hidden');
+          inp.value = ''; inp.classList.remove('border-emerald-500/60','border-rose-500');
+          document.getElementById('input-valid-icon').classList.add('hidden');
+          document.getElementById('send-access-btn').disabled = true;
+          showToast(data.emailSent ? `Invitation sent to ${email}` : `Invite link created (Sandbox)`, true);
+          loadOverview();
+        } else {
+          document.getElementById('send-failed-text').textContent = data.message || 'Unable to send invitation.';
+          document.getElementById('send-failed-banner').classList.remove('hidden');
+          showToast(data.message || 'Failed', false);
+        }
+      } catch(e) {
+        document.getElementById('send-failed-text').textContent = e.message || 'Network error. Please retry.';
+        document.getElementById('send-failed-banner').classList.remove('hidden');
+        showToast('Network error', false);
+      } finally { setFormSending(false); }
+    }
+    function setFormSending(on) {
+      const btn = document.getElementById('send-access-btn');
+      const inp = document.getElementById('invite-email-input');
+      const sp = document.getElementById('btn-spinner');
+      const ic = document.getElementById('btn-icon');
+      const lb = document.getElementById('btn-label');
+      if (on) { btn.disabled=true; inp.disabled=true; sp.classList.remove('hidden'); ic.classList.add('hidden'); lb.textContent='Sending...'; }
+      else { inp.disabled=false; sp.classList.add('hidden'); ic.classList.remove('hidden'); lb.textContent='Send access'; if(EMAIL_RE.test(inp.value.trim())) btn.disabled=false; }
+    }
+    async function handleResend(id, email) {
+      if (!confirm(`Resend invitation to ${email}?`)) return;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/invitations/${id}/resend`, { method:'POST', body: JSON.stringify({ clientOrigin: location.origin }) });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          if (data.inviteUrl && !data.emailSent) {
+            navigator.clipboard.writeText(data.inviteUrl).catch(()=>{});
+            alert(`New invite link created!\n\nEmail delivery was restricted by the Resend sandbox, but the link has been copied to your clipboard:\n\n${data.inviteUrl}`);
+          }
+          showToast(`New invitation generated for ${email}`, true);
+          loadOverview();
+        } else {
+          showToast(data.message || 'Failed to resend', false);
+        }
+      } catch(e) { showToast(e.message, false); }
+    }
+    async function handleCancel(id, email) {
+      if (!confirm(`Cancel invitation for ${email}?`)) return;
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/invitations/${id}/cancel`, { method:'POST' });
+        if (res.ok) { showToast(`Invitation for ${email} cancelled`, true); loadOverview(); }
+        else showToast('Failed to cancel', false);
+      } catch(e) { showToast(e.message, false); }
+    }
+
+    // ── Pricing Management ──
+    async function loadPricing() {
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/pricing`);
+        if (!res.ok) throw new Error('Failed to load pricing');
+        const data = await res.json();
+        const p = data.pricing || {};
+        const courseDollars = (p.coursePriceCents / 100).toFixed(2);
+        const rushDollars = (p.rushPriceCents / 100).toFixed(2);
+
+        const courseInp = document.getElementById('input-price-course');
+        const rushInp = document.getElementById('input-price-rush');
+        if (courseInp) courseInp.value = courseDollars;
+        if (rushInp) rushInp.value = rushDollars;
+
+        const kCourse = document.getElementById('kpi-course-price');
+        const kRush = document.getElementById('kpi-rush-price');
+        const kTotal = document.getElementById('kpi-total-express');
+        const badge = document.getElementById('nav-pricing-badge');
+
+        if (kCourse) kCourse.textContent = `$${courseDollars}`;
+        if (kRush) kRush.textContent = `$${rushDollars}`;
+        if (kTotal) kTotal.textContent = p.totalExpressFormatted || `$${((p.coursePriceCents + p.rushPriceCents) / 100).toFixed(2)}`;
+        if (badge) badge.textContent = `$${courseDollars}`;
+
+        if (p.updatedAt) {
+          const lu = document.getElementById('pricing-last-updated');
+          if (lu) lu.textContent = new Date(p.updatedAt).toLocaleString();
+        }
+        if (p.updatedBy) {
+          const ub = document.getElementById('pricing-updated-by');
+          if (ub) ub.textContent = `By: ${p.updatedBy}`;
+        }
+        updatePricingPreview();
+      } catch (err) {
+        showToast('Error loading live pricing: ' + err.message, false);
+      }
+    }
+
+    function updatePricingPreview() {
+      const cInp = document.getElementById('input-price-course');
+      const rInp = document.getElementById('input-price-rush');
+      const c = parseFloat(cInp ? cInp.value : 38) || 0;
+      const r = parseFloat(rInp ? rInp.value : 9.99) || 0;
+
+      const pCourse = document.getElementById('preview-course-val');
+      const pRush = document.getElementById('preview-rush-val');
+      const pStd = document.getElementById('preview-std-total');
+      const pExp = document.getElementById('preview-exp-total');
+
+      if (pCourse) pCourse.textContent = `$${c.toFixed(2)}`;
+      if (pRush) pRush.textContent = `+$${r.toFixed(2)}`;
+      if (pStd) pStd.textContent = `$${c.toFixed(2)}`;
+      if (pExp) pExp.textContent = `$${(c + r).toFixed(2)}`;
+    }
+
+    function resetPricingDefaults() {
+      const cInp = document.getElementById('input-price-course');
+      const rInp = document.getElementById('input-price-rush');
+      if (cInp) cInp.value = '38.00';
+      if (rInp) rInp.value = '9.99';
+      updatePricingPreview();
+    }
+
+    async function handleSavePricing(e) {
+      e.preventDefault();
+      const coursePrice = parseFloat(document.getElementById('input-price-course').value);
+      const rushPrice = parseFloat(document.getElementById('input-price-rush').value);
+
+      if (isNaN(coursePrice) || coursePrice < 1) {
+        showToast('Course price must be at least $1.00', false);
+        return;
+      }
+      if (isNaN(rushPrice) || rushPrice < 0) {
+        showToast('Rush certificate price cannot be negative', false);
+        return;
+      }
+
+      const btn = document.getElementById('pricing-save-btn');
+      const spinner = document.getElementById('pricing-save-spinner');
+      const label = document.getElementById('pricing-save-label');
+
+      btn.disabled = true;
+      spinner.classList.remove('hidden');
+      label.textContent = 'Saving Live...';
+
+      try {
+        const res = await authFetch(`${API}/api/v1/admin/pricing`, {
+          method: 'PUT',
+          body: JSON.stringify({ coursePrice, rushPrice })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Update failed');
+        }
+
+        showToast(`Pricing updated! Course: ${data.pricing.coursePriceFormatted}, Rush: ${data.pricing.rushPriceFormatted}`, true);
+        await loadPricing();
+      } catch (err) {
+        showToast('Failed to save pricing: ' + err.message, false);
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+        label.textContent = 'Save & Push Live';
+      }
+    }
+
+    // ── Logout ──
+    async function handleAdminLogout() {
+      try { await authFetch(`${API}/api/v1/auth/logout`, { method:'POST' }); } catch(_) {}
+      localStorage.removeItem('tx_session_token');
+      localStorage.removeItem('tx_user_data');
+      localStorage.removeItem('tx_user_active');
+      sessionStorage.clear();
+      window.location.replace('signin.html');
+    }
+
+    // ── Mobile sidebar ──
+    function toggleMobileSidebar() {
+      const s = document.getElementById('sidebar');
+      s.classList.toggle('fixed'); s.classList.toggle('left-0'); s.classList.toggle('top-0');
+      s.classList.toggle('-translate-x-full');
+    }
+
+    // ── Utils ──
+    function fmt$(cents) { return (cents/100).toLocaleString('en-US',{style:'currency',currency:'USD'}); }
+    function esc(s) { if(!s)return''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function showToast(msg, ok=true) {
+      const c = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = `pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl shadow-2xl text-xs font-mono border toast-enter ${ok?'bg-emerald-950/90 text-emerald-200 border-emerald-500/40':'bg-rose-950/90 text-rose-200 border-rose-500/40'}`;
+      t.innerHTML = `<span class="material-symbols-outlined text-[16px] ${ok?'text-emerald-400':'text-rose-400'}">${ok?'check_circle':'error'}</span><span>${esc(msg)}</span>`;
+      c.appendChild(t);
+      setTimeout(()=>{t.classList.replace('toast-enter','toast-exit');setTimeout(()=>t.remove(),300);},4500);
+    }
+
+    // ── Init ──
+    window.addEventListener('DOMContentLoaded', verifyAccess);
+  </script>
+</body>
+</html>

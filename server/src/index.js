@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -10,6 +11,8 @@ const studentRoutes = require('./routes/student');
 const lessonsRoutes = require('./routes/lessons');
 const quizzesRoutes = require('./routes/quizzes');
 const certificatesRoutes = require('./routes/certificates');
+const adminRoutes = require('./routes/admin');
+const partnerRoutes = require('./routes/partner');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -17,22 +20,23 @@ const PORT = process.env.PORT || 8080;
 // Trust Cloud Run / Cloud Load Balancer reverse proxies
 app.set('trust proxy', true);
 
-// CORS configuration
+// CORS configuration: Strict Origin Whitelist (Blocks arbitrary *.vercel.app cross-origin leaks)
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:8080',
   'http://127.0.0.1:3000',
   'http://127.0.0.1:8080',
+  'https://tx-drive.vercel.app',
   'https://app.texasade.org',
   'https://texasade.org',
   'https://courseshell.vercel.app',
 ];
 
 const isOriginAllowed = (origin) => {
-  if (!origin) return true;
+  if (!origin) return true; // Allow server-to-server or non-browser agents
   if (allowedOrigins.includes(origin)) return true;
-  if (origin.endsWith('.vercel.app')) return true;
-  if (process.env.NODE_ENV !== 'production') return true;
+  if (origin.endsWith('.vercel.app') && (origin.includes('tx-drive') || origin.includes('courseshell'))) return true;
+  if (process.env.NODE_ENV !== 'production' && (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1'))) return true;
   return false;
 };
 
@@ -51,14 +55,16 @@ app.use(
   })
 );
 
-// Note: Stripe webhook uses raw body, so mount it before global express.json()
-app.use('/api/v1/billing/webhook', express.raw({ type: 'application/json' }), (req, res, next) => {
-  // Pass through to billing router
-  next();
-});
+// Note: Stripe webhook requires exact raw buffer for HMAC signature verification
+app.use('/api/v1/billing/webhook', express.raw({ type: 'application/json' }));
 
-// Parsers
-app.use(express.json({ limit: '10mb' }));
+// Global JSON parser (bypasses webhook endpoint)
+app.use((req, res, next) => {
+  if (req.originalUrl === '/api/v1/billing/webhook') {
+    return next();
+  }
+  express.json({ limit: '10mb' })(req, res, next);
+});
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -77,6 +83,8 @@ app.use('/api/v1', lessonsRoutes);
 app.use('/api/v1', quizzesRoutes);
 app.use('/api/v1/certificates', certificatesRoutes);
 app.use('/api/v1/public', certificatesRoutes);
+app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/partner', partnerRoutes);
 
 // Health Endpoint
 app.get('/api/v1/health', async (req, res) => {

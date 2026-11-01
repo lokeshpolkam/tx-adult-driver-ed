@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Texas Adult Driver Ed — Topic L03-T04: Move Over & Slow Down Law (TTC § 545.157)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#9a4600',
+            'primary-container': '#e87522',
+            'on-primary': '#ffffff',
+            secondary: '#5f5e5e',
+            border: '#E2E4E0',
+            background: '#f9faf8',
+            surface: '#FFFFFF',
+            'surface-container': '#edeeec',
+            'surface-container-low': '#f3f4f2',
+            'on-surface': '#191c1b'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Responsive 2.5D Simulation Viewport with Locked 16:9 Aspect Ratio */
+    .sim-viewport {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      max-height: 520px;
+      background-image: url('./assets/2_5d/L03_T04_highway.jpg');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    /* Responsive Vehicle Container */
+    .sim-veh {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: filter 0.2s ease, opacity 0.3s ease;
+      will-change: transform, left, top;
+    }
+
+    .sim-veh img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+    }
+
+    /* Responsive Proportional Vehicle Widths */
+    .veh-sedan {
+      width: 9.5%;
+      min-width: 34px;
+      max-width: 95px;
+    }
+
+    .veh-suv {
+      width: 8.8%;
+      min-width: 32px;
+      max-width: 88px;
+    }
+
+    .veh-civ {
+      width: 8.2%;
+      min-width: 30px;
+      max-width: 82px;
+    }
+
+    /* Tactical Vehicle Identity Tag */
+    .veh-tag {
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(7px, 1.1vw, 10px);
+      font-weight: 700;
+      white-space: nowrap;
+      padding: 1px 3px;
+      border-radius: 3px;
+      line-height: 1.1;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+    }
+
+    /* Pulsing & Dash Animations */
+    @keyframes dashMove {
+      to { stroke-dashoffset: -32; }
+    }
+    .animate-dash {
+      animation: dashMove 1.2s linear infinite;
+    }
+
+    @keyframes haloPulse {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.04); }
+    }
+    .halo-pulse {
+      transform-origin: center;
+      animation: haloPulse 2s ease-in-out infinite;
+    }
+
+    /* Range slider custom styling */
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #e87522;
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(232, 117, 34, 0.6);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- TOP APP BAR -->
+  <header class="bg-white border-b border-border sticky top-0 z-50">
+    <div class="w-full max-w-6xl mx-auto flex items-center justify-between px-3 sm:px-6 py-2.5 sm:py-3">
+      <!-- Left: Brand & Course Badge -->
+      <div class="flex items-center space-x-2.5 sm:space-x-3">
+        <div class="w-7 h-7 sm:w-8 sm:h-8 bg-primary-container text-white flex items-center justify-center font-bold text-xs sm:text-sm rounded-lg shadow-xs">
+          TX
+        </div>
+        <div>
+          <span class="font-extrabold text-xs sm:text-base text-on-surface tracking-tight block leading-tight">
+            Texas Adult Driver Education
+          </span>
+          <span class="font-mono text-[9px] sm:text-[10px] text-secondary leading-none">TDLR School #C3284 · ADE-1317</span>
+        </div>
+      </div>
+
+      <!-- Center: Breadcrumbs (Desktop) -->
+      <nav class="hidden md:flex items-center space-x-2 font-mono text-xs text-secondary">
+        <a class="px-2 py-1 rounded hover:text-on-surface hover:bg-surface-container transition-colors" href="home.html">Dashboard</a>
+        <span>/</span>
+        <span class="text-primary font-semibold">Module 03: Right-of-Way</span>
+        <span>/</span>
+        <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-bold text-[11px]">Topic L03-T04</span>
+      </nav>
+
+      <!-- Right: Navigation Actions -->
+      <div class="flex items-center space-x-2">
+        <a href="classroom.html" class="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-lg border border-border text-xs font-semibold text-secondary hover:text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[15px]">open_in_new</span>
+          <span>Classroom Player</span>
+        </a>
+        <a href="#quiz-section" class="px-3 sm:px-4 py-1.5 rounded-lg bg-primary-container text-white text-xs font-bold hover:bg-primary transition-colors flex items-center space-x-1 shadow-xs">
+          <span>Next Topic</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN LESSON CONTENT -->
+  <main class="flex-grow w-full max-w-4xl mx-auto px-3 sm:px-6 py-5 sm:py-8 space-y-6 sm:space-y-8">
+
+    <!-- 0. STATUTORY HEADER SECTION -->
+    <section class="space-y-3">
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+        <span class="font-mono text-[10px] sm:text-xs px-2.5 py-1 bg-surface-container text-secondary rounded font-bold border border-border">
+          MODULE 03 // RIGHT-OF-WAY RULES &amp; SPECIAL CORRIDORS · TOPIC L03-T04
+        </span>
+        <span class="font-mono text-[10px] sm:text-xs px-2 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded font-bold flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          <span>16 TAC § 84.500 Compliant</span>
+        </span>
+        <span class="font-mono text-[10px] sm:text-xs px-2 py-1 bg-amber-50 text-amber-900 border border-amber-200 rounded font-bold">
+          HB 898 (2024 Enforcement)
+        </span>
+      </div>
+
+      <div class="border-l-4 border-primary pl-3 sm:pl-4 py-0.5 space-y-1">
+        <h1 class="text-xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
+          Yielding to Emergency Vehicles: The Texas Move Over / Slow Down Law
+        </h1>
+        <p class="text-xs sm:text-sm text-secondary leading-relaxed">
+          Texas law establishes strict kinetic and spatial buffer zones around stationary emergency vehicles, highway personnel, and tow trucks. Learn the mandatory two-tiered statutory remedy under Texas Transportation Code § 545.157.
+        </p>
+      </div>
+
+      <div class="bg-surface-container-low border border-border rounded-xl p-2.5 sm:p-3 font-mono text-[10px] sm:text-xs text-secondary flex flex-wrap gap-x-3 gap-y-1">
+        <span class="font-bold text-on-surface">STATUTORY CITATIONS:</span>
+        <span class="underline decoration-border">TTC § 545.157 (Move Over / Slow Down)</span>
+        <span class="underline decoration-border">TTC § 545.156 (Yielding to Sirens)</span>
+        <span class="underline decoration-border">HB 898 ($500–$1,250 Fines)</span>
+        <span class="underline decoration-border">TTC § 545.407 (500-Ft Apparatus Rule)</span>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SCENARIO 01: 2.5D TACTICAL ROADWAY SIMULATOR (RESPONSIVE PC & PHONE) -->
+    <!-- =================================================================== -->
+    <section class="bg-white rounded-2xl border border-border shadow-sm p-3.5 sm:p-6 space-y-4">
+      
+      <!-- Stage Header & Telemetry HUD Row (Responsive) -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 pb-3 border-b border-border">
+        <div>
+          <div class="flex items-center gap-1.5 sm:gap-2 mb-0.5">
+            <span class="px-2 py-0.5 rounded bg-primary-container text-white text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+              <span>2.5D Tactical Roadway Simulator</span>
+            </span>
+            <span class="font-mono text-[10px] sm:text-xs text-secondary font-semibold">35° Elevated Isometric View</span>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold text-on-surface tracking-tight">
+            Scenario 01: Stationary State Trooper Traffic Stop on Texas Interstate
+          </h2>
+        </div>
+
+        <!-- Telemetry HUD Badges (3-Col Grid on Mobile, Row on Desktop) -->
+        <div class="grid grid-cols-3 sm:flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+          <div class="px-2 py-1 bg-surface-container-low border border-border rounded-lg text-center sm:text-right font-mono">
+            <span class="text-[8px] sm:text-[9px] text-secondary block leading-none">POSTED</span>
+            <span class="text-[11px] sm:text-xs font-bold text-on-surface">65 MPH</span>
+          </div>
+          <div class="px-2 py-1 bg-amber-50 border border-amber-200 rounded-lg text-center sm:text-right font-mono">
+            <span class="text-[8px] sm:text-[9px] text-amber-800 block leading-none">YOUR SPEED</span>
+            <span id="hudSpeedA" class="text-[11px] sm:text-xs font-bold text-primary-container">65 MPH</span>
+          </div>
+          <div class="px-2 py-1 bg-emerald-50 border border-emerald-200 rounded-lg text-center sm:text-right font-mono">
+            <span class="text-[8px] sm:text-[9px] text-emerald-800 block leading-none">STATUTE</span>
+            <span id="hudMandate" class="text-[11px] sm:text-xs font-bold text-emerald-700">COMPLIANT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- The 2.5D Isometric Simulation Canvas Viewport -->
+      <div id="simStage" class="sim-viewport">
+
+        <!-- SVG TACTICAL GLOW & BUFFER ZONE OVERLAY LAYER -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 1000 520" preserveAspectRatio="none">
+          <defs>
+            <radialGradient id="hazardGlow" cx="64%" cy="43%" r="22%">
+              <stop offset="0%" stop-color="#ef4444" stop-opacity="0.38" />
+              <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.18" />
+              <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+            </radialGradient>
+            <filter id="emeraldNeon" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Stationary Hazard Perimeter Glow Aura on Shoulder -->
+          <ellipse cx="670" cy="215" rx="150" ry="65" fill="url(#hazardGlow)" class="halo-pulse" />
+
+          <!-- Dynamic Safe Lane 2 Buffer Trajectory Highlight Ribbon -->
+          <g id="safeBufferGroup" opacity="0" class="transition-opacity duration-300">
+            <path d="M 380,270 L 760,110" stroke="#10b981" stroke-width="4" stroke-dasharray="10,6" fill="none" class="animate-dash" filter="url(#emeraldNeon)" />
+            <text x="560" y="170" fill="#34d399" font-size="11" font-weight="bold" font-family="monospace" letter-spacing="1">
+              &check; 1-LANE BUFFER CORRIDOR
+            </text>
+          </g>
+        </svg>
+        
+        <!-- TOP HUD OVERLAY ROW (INSIDE SIMULATION) -->
+        <div class="absolute top-2 left-2 right-2 flex items-center justify-between gap-1 pointer-events-none z-30">
+          <div class="bg-black/85 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 text-white font-mono text-[9px] sm:text-xs flex items-center gap-1.5 shrink-0 shadow-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>I-35 &bull; <span id="hudLaneA" class="text-amber-300 font-semibold">Lane 1</span></span>
+          </div>
+
+          <div id="bufferBadge" class="hidden bg-emerald-950/90 backdrop-blur-md px-2.5 py-1 rounded-md border border-emerald-400 text-emerald-300 font-mono text-[9px] sm:text-xs font-bold flex items-center gap-1 shrink-0 shadow-md animate-pulse">
+            <span class="material-symbols-outlined text-[13px] sm:text-[15px] text-emerald-400">shield</span>
+            <span class="hidden sm:inline">SAFE 1-LANE BUFFER</span>
+            <span class="sm:hidden">BUFFERED</span>
+            <span class="text-[8px] sm:text-[10px] text-emerald-400/80 hidden sm:inline">(TTC § 545.157)</span>
+          </div>
+        </div>
+
+        <!-- 1. VEHICLE A (Student Learner Car: Burnt Orange Sedan) -->
+        <div id="vehA" class="sim-veh veh-sedan" style="left: 24%; top: 74%; z-index: 25;">
+          <img src="./assets/2_5d/L03_T04_vehA.png" alt="Learner Vehicle A" />
+          <div id="tagA" class="veh-tag bg-amber-500/90 text-white border border-amber-300">
+            YOU (65 MPH)
+          </div>
+        </div>
+
+        <!-- 2. VEHICLE B (Passing Blue Sedan) -->
+        <div id="vehB" class="sim-veh veh-sedan" style="left: 46%; top: 35.8%; z-index: 20; filter: hue-rotate(195deg) brightness(1.15);">
+          <img src="./assets/2_5d/L03_T04_vehB.png" alt="Adjacent Traffic Vehicle B" />
+          <div class="veh-tag bg-blue-600/90 text-white border border-blue-300">
+            ADJACENT CAR
+          </div>
+        </div>
+
+        <!-- 3. STATIONARY POLICE CRUISER (Texas DPS Interceptor SUV) -->
+        <div id="policeCruiser" class="sim-veh veh-suv" style="left: 61.5%; top: 40.5%; z-index: 18;">
+          <img src="./assets/2_5d/L03_T04_police.png" alt="Texas DPS Trooper Cruiser" />
+          <div class="veh-tag bg-neutral-900/95 text-rose-300 border border-rose-500/60 flex items-center gap-0.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping"></span>
+            <span>TX DPS TROOPER</span>
+          </div>
+        </div>
+
+        <!-- 4. STATIONARY DISABLED MOTORIST VEHICLE -->
+        <div id="civilianCar" class="sim-veh veh-civ" style="left: 71.5%; top: 30.5%; z-index: 16;">
+          <img src="./assets/2_5d/L03_T04_civilian.png" alt="Stopped Disabled Civilian Vehicle" />
+          <div class="veh-tag bg-amber-950/90 text-amber-200 border border-amber-500/50">
+            DISABLED VEHICLE
+          </div>
+        </div>
+
+        <!-- 5. TACTICAL TRAFFIC CONES ALONG SHOULDER FOG LINE -->
+        <div class="absolute pointer-events-none z-17" style="left: 56%; top: 46%; width: 1.2%; min-width: 6px; max-width: 12px;">
+          <svg viewBox="0 0 16 28" class="w-full h-auto drop-shadow-sm">
+            <polygon points="8,1 14,24 2,24" fill="#ff5722" />
+            <polygon points="6,9 10,9 11,14 5,14" fill="#ffffff" />
+            <rect x="0" y="24" width="16" height="4" rx="1" fill="#212121" />
+          </svg>
+        </div>
+        <div class="absolute pointer-events-none z-17" style="left: 58.5%; top: 43.5%; width: 1.2%; min-width: 6px; max-width: 12px;">
+          <svg viewBox="0 0 16 28" class="w-full h-auto drop-shadow-sm">
+            <polygon points="8,1 14,24 2,24" fill="#ff5722" />
+            <polygon points="6,9 10,9 11,14 5,14" fill="#ffffff" />
+            <rect x="0" y="24" width="16" height="4" rx="1" fill="#212121" />
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- STATUTORY MANEUVER SELECTION CARDS (Tactile Buttons) -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-[10px] sm:text-xs font-mono">
+          <span class="font-bold text-secondary uppercase tracking-wider">CHOOSE YOUR STATUTORY MANEUVER (TTC § 545.157):</span>
+          <span class="text-amber-800 font-semibold">Both Options Statutorily Valid</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+          <!-- Option A Button -->
+          <button id="btnOptionA" onclick="setMode('vacate_lane')" class="p-3 text-left border-2 border-primary-container bg-amber-50/70 rounded-xl flex items-start gap-2.5 transition active:scale-[0.99] cursor-pointer shadow-xs">
+            <div class="w-7 h-7 rounded-lg bg-primary-container text-white flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-base">alt_route</span>
+            </div>
+            <div>
+              <span class="font-bold text-xs sm:text-sm text-on-surface block leading-tight">
+                Option A: Vacate Nearest Lane (Move Over)
+              </span>
+              <span class="text-[11px] sm:text-xs text-secondary block mt-0.5 leading-snug">
+                Vacate Lane 1 adjacent to the stopped trooper by merging safely into Lane 2 with an empty 1-lane buffer.
+              </span>
+            </div>
+          </button>
+
+          <!-- Option B Button -->
+          <button id="btnOptionB" onclick="setMode('slow_down')" class="p-3 text-left border-2 border-border bg-white rounded-xl flex items-start gap-2.5 transition active:scale-[0.99] cursor-pointer hover:border-neutral-400">
+            <div class="w-7 h-7 rounded-lg bg-surface-container text-secondary flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-base">speed</span>
+            </div>
+            <div>
+              <span class="font-bold text-xs sm:text-sm text-on-surface block leading-tight">
+                Option B: Decelerate -20 MPH (Slow Down)
+              </span>
+              <span class="text-[11px] sm:text-xs text-secondary block mt-0.5 leading-snug">
+                When adjacent traffic prevents a safe lane change, decelerate to 20 MPH below the posted limit (65 &rarr; 45 MPH).
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- TIMELINE CONTROLS & SCRUBBER ROW -->
+      <div class="bg-surface-container-low border border-border rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs">
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+          <button id="playBtn" onclick="togglePlay()" class="px-3.5 py-1.5 rounded-lg bg-primary-container text-white font-bold flex items-center gap-1.5 hover:bg-primary transition active:scale-95 shadow-xs cursor-pointer text-xs">
+            <span id="playIcon" class="material-symbols-outlined text-[16px]">pause</span>
+            <span id="playText">Pause</span>
+          </button>
+
+          <button onclick="resetSim()" class="p-1.5 rounded-lg border border-border hover:bg-surface-container transition text-secondary cursor-pointer" title="Replay Simulation">
+            <span class="material-symbols-outlined text-[18px]">replay</span>
+          </button>
+
+          <span id="timeDisplay" class="text-secondary font-bold text-xs sm:ml-2">0.0s / 9.0s</span>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:flex-1 sm:max-w-md">
+          <span class="text-[10px] text-secondary shrink-0">TIMELINE:</span>
+          <input id="timelineSlider" type="range" min="0" max="9.0" step="0.05" value="0" class="w-full h-1.5 bg-neutral-300 rounded-lg appearance-none cursor-pointer accent-primary-container" oninput="onScrub(this.value)" />
+        </div>
+      </div>
+
+      <!-- Statutory Mandate Callout Box -->
+      <div id="statutoryExplanation" class="p-3 sm:p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 text-xs text-amber-950 space-y-1">
+        <div class="flex items-center gap-1.5 font-bold text-primary text-xs sm:text-sm">
+          <span class="material-symbols-outlined text-[17px]">gavel</span>
+          <span>Texas Transportation Code § 545.157 Mandate:</span>
+        </div>
+        <p class="leading-relaxed text-[11px] sm:text-xs">
+          On a highway with two or more lanes in the same direction, an approaching motorist <strong>MUST vacate the lane closest to a stationary emergency vehicle</strong> displaying emergency lights. If lane departure is impossible or unsafe, the operator <strong>MUST slow to a speed 20 MPH below the posted speed limit</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SCENARIO 02: SCHOOL BUS STOP PROTOCOL (TTC § 545.066)               -->
+    <!-- =================================================================== -->
+    <section class="bg-white rounded-2xl border border-border shadow-sm p-4 sm:p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-border">
+        <div>
+          <span class="font-mono text-[10px] text-primary font-bold uppercase tracking-wider block">SCENARIO 02 // SCHOOL BUS VISUAL CHECKPOINT</span>
+          <h2 class="text-base sm:text-lg font-bold text-on-surface mt-0.5">
+            School Bus Flashing Alternating Red Lights &amp; Physical Median Rules
+          </h2>
+        </div>
+        <span class="font-mono text-xs bg-surface-container px-2.5 py-1 rounded text-secondary font-bold">TTC § 545.066</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 p-1 bg-surface-container-low rounded-xl border border-border font-mono text-xs">
+        <button id="pill-undivided" onclick="selectBusMode('undivided')" class="py-2 px-3 rounded-lg font-bold bg-white text-primary shadow-xs border border-primary/20 text-left transition cursor-pointer">
+          <span class="block text-[11px]">1. Two-Lane Undivided</span>
+          <span class="text-[9px] text-secondary font-normal">Both Directions Stop</span>
+        </button>
+        <button id="pill-divided" onclick="selectBusMode('divided')" class="py-2 px-3 rounded-lg text-secondary hover:text-on-surface text-left transition cursor-pointer">
+          <span class="block text-[11px]">2. Physical Barrier Median</span>
+          <span class="text-[9px] text-secondary font-normal">Opposing Traffic Proceeds</span>
+        </button>
+        <button id="pill-turnlane" onclick="selectBusMode('turnlane')" class="py-2 px-3 rounded-lg text-secondary hover:text-on-surface text-left transition cursor-pointer">
+          <span class="block text-[11px]">3. Center Turn Lane Only</span>
+          <span class="text-[9px] text-secondary font-normal">Both Directions Must Stop</span>
+        </button>
+      </div>
+
+      <div id="bus-rule-card" class="p-3.5 sm:p-4 rounded-xl bg-surface-container-low border border-border text-xs space-y-1.5">
+        <h3 id="bus-rule-title" class="font-bold text-sm text-on-surface flex items-center gap-1.5 text-primary">
+          <span class="material-symbols-outlined text-[18px]">emergency_home</span>
+          <span>Two-Way Roadway without Median Separation: Absolute Stop Required</span>
+        </h3>
+        <p id="bus-rule-desc" class="text-secondary leading-relaxed text-[11px] sm:text-xs">
+          When a school bus is stopped and operating visual signals (flashing alternating red lights or extended stop arm), drivers approaching from <strong>EITHER direction</strong> must stop before reaching the bus and may NOT proceed until the bus resumes motion, visual signals are deactivated, or the bus driver signals permission.
+        </p>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SCENARIO 03: PEDESTRIANS & VULNERABLE ROAD USERS                    -->
+    <!-- =================================================================== -->
+    <section class="bg-white rounded-2xl border border-border shadow-sm p-4 sm:p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-border">
+        <div>
+          <span class="font-mono text-[10px] text-primary font-bold uppercase tracking-wider block">SCENARIO 03 // VULNERABLE ROAD USERS</span>
+          <h2 class="text-base sm:text-lg font-bold text-on-surface mt-0.5">
+            Pedestrian Right-of-Way in Crosswalks &amp; White Cane Protections
+          </h2>
+        </div>
+        <span class="font-mono text-xs bg-surface-container px-2.5 py-1 rounded text-secondary font-bold">TTC § 552.008</span>
+      </div>
+
+      <div class="p-4 rounded-xl border border-amber-200 bg-amber-50/40 space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-lg">blind</span>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-sm text-on-surface">Texas Human Resources Code § 121.007 // White Cane Law</h3>
+            <p class="text-xs text-secondary leading-relaxed">
+              An operator of a vehicle approaching a pedestrian who is blind and using a white cane or service animal MUST take precautions to avoid injury. The failure to take precautions is a criminal misdemeanor offense.
+            </p>
+          </div>
+        </div>
+
+        <button onclick="verifyPedestrianRule()" class="w-full sm:w-auto px-4 py-2 bg-primary-container text-white text-xs font-bold rounded-lg hover:bg-primary transition cursor-pointer flex items-center justify-center gap-1.5 shadow-xs">
+          <span class="material-symbols-outlined text-[16px]">verified</span>
+          <span>Verify Legal Right-of-Way Rule</span>
+        </button>
+
+        <div id="pedestrian-inline-feedback" class="hidden p-3 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-900 font-mono text-xs space-y-1">
+          <div class="flex items-center gap-1 font-bold text-emerald-800">
+            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+            <span>TEXAS LAW VERIFIED: TTC § 552.008</span>
+          </div>
+          <p class="text-[11px] leading-relaxed">
+            Motorists must yield right-of-way to any pedestrian lawfully within the crosswalk on the half of the roadway on which the vehicle is traveling, or approaching so closely as to be in danger.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER NAVIGATION -->
+    <footer id="quiz-section" class="flex items-center justify-between pt-6 border-t border-border">
+      <a href="classroom.html" class="px-4 py-2 rounded-lg border border-border text-xs font-semibold text-secondary hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+        <span>Previous Topic</span>
+      </a>
+
+      <a href="classroom.html" class="px-5 py-2 rounded-lg bg-primary-container text-white text-xs font-bold hover:bg-primary transition-colors flex items-center gap-1.5 shadow-xs">
+        <span>Next Topic</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT SIMULATION ENGINE -->
+  <script>
+    // ===============================================================
+    // 2.5D TACTICAL ROADWAY SIMULATOR CONTROLLER (CALIBRATED & RESPONSIVE)
+    // ===============================================================
+    function getLane1Y(x) {
+      return 97.0 - (0.96 * x);
+    }
+    function getLane2Y(x) {
+      return 89.5 - (0.96 * x);
+    }
+
+    let simTime = 0.0;
+    const simDuration = 9.0;
+    let isPlaying = true;
+    let animId = null;
+    let lastTimestamp = null;
+    let activeMode = 'vacate_lane'; // 'vacate_lane' or 'slow_down'
+
+    const vehA = document.getElementById('vehA');
+    const vehB = document.getElementById('vehB');
+    const tagA = document.getElementById('tagA');
+    const hudSpeedA = document.getElementById('hudSpeedA');
+    const hudLaneA = document.getElementById('hudLaneA');
+    const hudMandate = document.getElementById('hudMandate');
+    const bufferBadge = document.getElementById('bufferBadge');
+    const safeBufferGroup = document.getElementById('safeBufferGroup');
+    const timelineSlider = document.getElementById('timelineSlider');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const playText = document.getElementById('playText');
+    const btnOptionA = document.getElementById('btnOptionA');
+    const btnOptionB = document.getElementById('btnOptionB');
+
+    window.setMode = function(mode) {
+      activeMode = mode;
+      if (mode === 'vacate_lane') {
+        btnOptionA.className = 'p-3 text-left border-2 border-primary-container bg-amber-50/70 rounded-xl flex items-start gap-2.5 transition active:scale-[0.99] cursor-pointer shadow-xs';
+        btnOptionB.className = 'p-3 text-left border-2 border-border bg-white rounded-xl flex items-start gap-2.5 transition active:scale-[0.99] cursor-pointer hover:border-neutral-400';
+      } else {
+        btnOptionB.className = 'p-3 text-left border-2 border-primary-container bg-amber-50/70 rounded-xl flex items-start gap-2.5 transition active:scale-[0.99] cursor-pointer shadow-xs';
+        btnOptionA.className = 'p-3 text-left border-2 border-border bg-white rounded-xl flex items-start gap-2.5 transition active:scale-[0.99] cursor-pointer hover:border-neutral-400';
+      }
+      updateSimulation(simTime);
+    };
+
+    window.jumpToTime = function(t) {
+      simTime = Math.max(0, Math.min(simDuration, parseFloat(t)));
+      updateSimulation(simTime);
+    };
+
+    function updateSimulation(t) {
+      timelineSlider.value = t.toFixed(2);
+      timeDisplay.innerText = t.toFixed(1) + 's / 9.0s';
+
+      if (activeMode === 'vacate_lane') {
+        // VEHICLE B: Accelerates in Lane 2 and exits scene by t = 3.2s
+        if (t < 3.2) {
+          const progB = t / 3.2;
+          const xB = 46.0 + (38.0 * progB);
+          const yB = getLane2Y(xB);
+          vehB.style.opacity = '1';
+          vehB.style.left = xB.toFixed(2) + '%';
+          vehB.style.top = yB.toFixed(2) + '%';
+        } else {
+          vehB.style.opacity = '0';
+          vehB.style.left = '95%';
+          vehB.style.top = '0%';
+        }
+
+        // VEHICLE A: Smooth transition from Lane 1 to Lane 2
+        let xA, yA, speedA, currentLane;
+        if (t < 3.2) {
+          const p = t / 3.2;
+          xA = 24.0 + (16.0 * p);
+          yA = getLane1Y(xA);
+          speedA = '65 MPH';
+          currentLane = 'Lane 1';
+          tagA.innerText = 'YOU (65 MPH)';
+          tagA.className = 'veh-tag bg-amber-500/90 text-white border border-amber-300';
+          bufferBadge.classList.add('hidden');
+          safeBufferGroup.setAttribute('opacity', '0');
+        } else if (t < 5.6) {
+          const p = (t - 3.2) / 2.4;
+          xA = 40.0 + (18.0 * p);
+          const yL1 = getLane1Y(xA);
+          const yL2 = getLane2Y(xA);
+          yA = yL1 + (yL2 - yL1) * (p * p * (3 - 2 * p));
+          speedA = '60 MPH';
+          currentLane = 'Merging...';
+          tagA.innerText = 'SIGNALING LEFT';
+          tagA.className = 'veh-tag bg-emerald-600/90 text-white border border-emerald-300';
+          bufferBadge.classList.remove('hidden');
+          safeBufferGroup.setAttribute('opacity', '1');
+        } else {
+          const p = (t - 5.6) / 3.4;
+          xA = 58.0 + (16.0 * p);
+          yA = getLane2Y(xA);
+          speedA = '50 MPH';
+          currentLane = 'Lane 2';
+          tagA.innerText = 'YOU (LANE 2)';
+          tagA.className = 'veh-tag bg-emerald-600/90 text-white border border-emerald-300';
+          bufferBadge.classList.remove('hidden');
+          safeBufferGroup.setAttribute('opacity', '1');
+        }
+
+        vehA.style.left = xA.toFixed(2) + '%';
+        vehA.style.top = yA.toFixed(2) + '%';
+        hudSpeedA.innerText = speedA;
+        hudLaneA.innerText = currentLane;
+        hudMandate.innerText = 'COMPLIANT';
+        hudMandate.className = 'text-[11px] sm:text-xs font-bold text-emerald-700';
+
+      } else {
+        // SLOW DOWN MODE: Veh B stays ahead in Lane 2
+        const progB = t / simDuration;
+        const xB = 46.0 + (32.0 * progB);
+        const yB = getLane2Y(xB);
+        vehB.style.opacity = '1';
+        vehB.style.left = xB.toFixed(2) + '%';
+        vehB.style.top = yB.toFixed(2) + '%';
+
+        // Veh A stays in Lane 1, decelerating from 65 to 45 MPH
+        let xA, yA, speedA;
+        if (t < 2.5) {
+          const p = t / 2.5;
+          xA = 24.0 + (10.0 * p);
+          speedA = '65 MPH';
+          tagA.innerText = 'YOU (65 MPH)';
+          tagA.className = 'veh-tag bg-amber-500/90 text-white border border-amber-300';
+        } else if (t < 5.5) {
+          const p = (t - 2.5) / 3.0;
+          xA = 34.0 + (12.0 * p);
+          const spVal = Math.round(65 - (20 * p));
+          speedA = spVal + ' MPH (-20)';
+          tagA.innerText = 'DECELERATING';
+          tagA.className = 'veh-tag bg-amber-600/90 text-white border border-amber-300';
+        } else {
+          const p = (t - 5.5) / 3.5;
+          xA = 46.0 + (14.0 * p);
+          speedA = '45 MPH (-20)';
+          tagA.innerText = 'YOU (45 MPH)';
+          tagA.className = 'veh-tag bg-emerald-600/90 text-white border border-emerald-300';
+        }
+
+        yA = getLane1Y(xA);
+        vehA.style.left = xA.toFixed(2) + '%';
+        vehA.style.top = yA.toFixed(2) + '%';
+        hudSpeedA.innerText = speedA;
+        hudLaneA.innerText = 'Lane 1 (Obstructed)';
+        hudMandate.innerText = (t >= 5.0) ? 'COMPLIANT (-20)' : 'DECELERATING';
+        hudMandate.className = (t >= 5.0) ? 'text-[11px] sm:text-xs font-bold text-emerald-700' : 'text-[11px] sm:text-xs font-bold text-amber-700';
+
+        bufferBadge.classList.add('hidden');
+        safeBufferGroup.setAttribute('opacity', '0');
+      }
+    }
+
+    function animate(timestamp) {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const dt = (timestamp - lastTimestamp) / 1000.0;
+      lastTimestamp = timestamp;
+
+      if (isPlaying) {
+        simTime += dt;
+        if (simTime > simDuration) {
+          simTime = 0.0;
+        }
+        updateSimulation(simTime);
+      }
+      animId = requestAnimationFrame(animate);
+    }
+
+    window.togglePlay = function() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon.innerText = 'pause';
+        playText.innerText = 'Pause';
+      } else {
+        playIcon.innerText = 'play_arrow';
+        playText.innerText = 'Play';
+      }
+    };
+
+    window.resetSim = function() {
+      simTime = 0.0;
+      updateSimulation(0);
+      if (!isPlaying) togglePlay();
+    };
+
+    window.onScrub = function(val) {
+      simTime = parseFloat(val);
+      updateSimulation(simTime);
+    };
+
+    // School Bus Mode Controller
+    window.selectBusMode = function(type) {
+      const p1 = document.getElementById('pill-undivided');
+      const p2 = document.getElementById('pill-divided');
+      const p3 = document.getElementById('pill-turnlane');
+      const title = document.getElementById('bus-rule-title');
+      const desc = document.getElementById('bus-rule-desc');
+
+      [p1, p2, p3].forEach(p => {
+        p.className = 'py-2 px-3 rounded-lg text-secondary hover:text-on-surface text-left transition cursor-pointer';
+      });
+
+      if (type === 'undivided') {
+        p1.className = 'py-2 px-3 rounded-lg font-bold bg-white text-primary shadow-xs border border-primary/20 text-left transition cursor-pointer';
+        title.innerHTML = '<span class="material-symbols-outlined text-[18px]">emergency_home</span><span>Two-Way Roadway without Median Separation: Absolute Stop Required</span>';
+        desc.innerHTML = 'When a school bus is stopped and operating visual signals, drivers approaching from <strong>EITHER direction</strong> must stop and may NOT proceed until signals are deactivated.';
+      } else if (type === 'divided') {
+        p2.className = 'py-2 px-3 rounded-lg font-bold bg-white text-primary shadow-xs border border-primary/20 text-left transition cursor-pointer';
+        title.innerHTML = '<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span><span>Physically Divided Highway (Concrete Barrier or Grass Median)</span>';
+        desc.innerHTML = 'TTC § 545.066(b): If the roadway is <strong>separated by a physical barrier (concrete Jersey barrier or unpaved median)</strong>, traffic traveling in the OPPOSITE direction is NOT required to stop.';
+      } else {
+        p3.className = 'py-2 px-3 rounded-lg font-bold bg-white text-primary shadow-xs border border-primary/20 text-left transition cursor-pointer';
+        title.innerHTML = '<span class="material-symbols-outlined text-[18px] text-rose-600">warning</span><span>Multi-Lane Highway with Center Left-Turn Lane Only: MUST STOP</span>';
+        desc.innerHTML = 'CRITICAL TEXAS ENFORCEMENT: A continuous painted left-turn lane is <strong>NOT a physical barrier</strong>. Drivers in ALL lanes in BOTH directions MUST STOP when red flashers are activated.';
+      }
+    };
+
+    // Pedestrian verification
+    window.verifyPedestrianRule = function() {
+      const fb = document.getElementById('pedestrian-inline-feedback');
+      if (fb) {
+        fb.classList.remove('hidden');
+        fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    };
+
+    // Kick off animation loop
+    animId = requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Student Dashboard | Texas Adult Driver Education (ADE-1317)</title>
+  <meta name="description" content="Texas Adult Driver Education Student Dashboard. Track your 6 clock hours, complete modules, and pass the official TDLR written exam waiver.">
+
+  <!-- Primary Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              200: '#fed7aa',
+              300: '#fdba74',
+              400: '#fb923c',
+              500: '#ea580c', /* Texas Safety Orange */
+              600: '#c2410c',
+              700: '#9a3412',
+              800: '#7c2d12',
+              900: '#431407',
+            },
+            surface: {
+              50: '#fafaf9',
+              100: '#f5f5f4',
+              200: '#e7e5e4',
+              300: '#d6d3d1',
+              400: '#a8a29e',
+              500: '#78716c',
+              600: '#57534e',
+              700: '#44403c',
+              800: '#292524',
+              900: '#1c1917',
+            }
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          boxShadow: {
+            'subtle': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
+            'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
+            'elevated': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.04)',
+            'glow': '0 0 25px -5px rgba(234, 88, 12, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Safe Area & Mobile Viewport Constraints */
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); }
+    * { -webkit-tap-highlight-color: transparent; }
+
+    /* Bulletproof Responsive Viewport Constraint (Zero Horizontal Scroll) */
+    html, body {
+      overflow-x: clip;
+      max-width: 100vw;
+      width: 100%;
+      position: relative;
+      background-color: #fcfcfb;
+    }
+
+    /* Subtle background mesh grid matching landing page */
+    .bg-mesh {
+      background-color: #fcfcfb;
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(254, 215, 170, 0.18) 0px, transparent 45%),
+        radial-gradient(at 90% 15%, rgba(253, 186, 116, 0.18) 0px, transparent 50%),
+        radial-gradient(at 50% 60%, rgba(255, 237, 213, 0.22) 0px, transparent 60%);
+    }
+
+    .subtle-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(15, 23, 42, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.025) 1px, transparent 1px);
+    }
+
+    /* Golden Button Shimmer */
+    .golden-btn-shimmer {
+      background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #c2410c 100%);
+      box-shadow: 0 4px 14px 0 rgba(234, 88, 12, 0.35);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .golden-btn-shimmer:hover {
+      box-shadow: 0 6px 20px 0 rgba(234, 88, 12, 0.45);
+      transform: translateY(-1px);
+    }
+    .golden-btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%);
+      transform: rotate(25deg);
+      animation: shimmerSweep 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    @keyframes shimmerSweep {
+      0% { transform: translateX(-150%) rotate(25deg); }
+      30%, 100% { transform: translateX(150%) rotate(25deg); }
+    }
+
+    /* Webfont glyph box constraint */
+    .material-symbols-outlined {
+      display: inline-block;
+      max-width: 1.5em;
+      max-height: 1.5em;
+      overflow: hidden;
+      vertical-align: middle;
+      line-height: 1;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+
+  <!-- Google Identity Services & TX-ADE Cloud Sync -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    window.__GOOGLE_CLIENT_ID__ = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
+  </script>
+  <script src="cloud_sync.js" defer></script>
+</head>
+
+<body class="bg-mesh subtle-grid text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+  <!-- ========================================================================= -->
+  <!-- TOP APPLICATION NAVBAR -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-2.5 transition-all shadow-subtle pt-safe">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      
+      <!-- Left: Brand Logo -->
+      <a href="home.html" class="flex items-center gap-2.5 shrink-0 group" title="Student Dashboard">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white font-black text-sm sm:text-base shadow-sm group-hover:scale-105 transition-transform">
+          ★
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-xs sm:text-base tracking-tight text-slate-900 uppercase whitespace-nowrap">Texas Driver Ed</span>
+            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 border border-brand-500/20 font-bold uppercase hidden md:inline">ADE-1317</span>
+          </div>
+          <p class="text-[8px] sm:text-[9px] font-mono text-slate-500 uppercase tracking-widest font-semibold whitespace-nowrap">TDLR School #C3284</p>
+        </div>
+      </a>
+
+      <!-- Center: Desktop Navigation Hub -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-xs font-bold text-slate-600 tracking-wide uppercase">
+        <a href="home.html" class="px-3 py-1.5 rounded-lg bg-brand-50 text-brand-600 border border-brand-200/60 transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="player.html" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-brand-500">play_lesson</span>
+          <span>Classroom</span>
+        </a>
+        <button onclick="openResourceModal('practice-quiz')" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-blue-600">assignment</span>
+          <span>Practice Signs</span>
+        </button>
+        <button onclick="openResourceModal('dps-checklist')" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-purple-600">checklist</span>
+          <span>DPS Checklist</span>
+        </button>
+        <button onclick="openResourceModal('handbook')" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-emerald-600">menu_book</span>
+          <span>Handbook</span>
+        </button>
+        <a href="/verify" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-brand-600">verified</span>
+          <span>Verify</span>
+        </a>
+        <a href="/reviews" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-amber-500">star</span>
+          <span>Reviews</span>
+        </a>
+      </nav>
+
+      <!-- Right: Real-time Cloud Sync & Candidate Profile -->
+      <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        
+        <!-- Live Cloud Sync Status Pill -->
+        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[11px] font-mono font-semibold" title="Progress automatically synced to cloud">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>SYNCED</span>
+        </div>
+
+        <!-- Candidate Account Dropdown Menu Toggle -->
+        <div class="relative">
+          <button id="user-profile-btn" onclick="toggleProfileMenu(event)" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 flex items-center justify-center font-bold font-mono text-xs cursor-pointer shadow-subtle transition-all active:scale-95 focus:outline-none" title="Candidate Profile & Settings">
+            <span id="user-avatar-initials">TC</span>
+          </button>
+
+          <!-- Dropdown Card -->
+          <div id="profile-dropdown-menu" class="hidden absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-2xl shadow-elevated p-4 z-50 transition-all font-sans">
+            <div class="flex items-center gap-3 pb-3 mb-2.5 border-b border-slate-100">
+              <div id="dropdown-avatar" class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 text-white flex items-center justify-center font-black font-mono text-sm shadow-sm shrink-0">
+                TC
+              </div>
+              <div class="min-w-0 flex-1">
+                <div id="dropdown-name" class="font-extrabold text-sm text-slate-900 truncate">Texas Driver Candidate</div>
+                <div id="dropdown-email" class="text-xs font-mono text-slate-500 truncate"></div>
+                <div class="text-[10px] font-mono text-emerald-600 font-bold mt-0.5 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span>ADE-1317 Active Enrollment</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-1 text-xs font-medium text-slate-700">
+              <div id="admin-switch-btn" class="hidden mb-1.5">
+                <a href="admin.html" class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 border border-amber-300/80 font-bold transition-colors">
+                  <span class="material-symbols-outlined text-[18px] text-amber-600">admin_panel_settings</span>
+                  <span>Admin Console</span>
+                </a>
+              </div>
+              
+              <a href="player.html" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-900 font-semibold transition-colors">
+                <span class="material-symbols-outlined text-[19px] text-brand-500">play_lesson</span>
+                <span>Open Virtual Classroom</span>
+              </a>
+
+              <button onclick="takeCurrentTest(); toggleProfileMenu(false);" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-900 transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] text-brand-500">quiz</span>
+                <span>Take Active Topic Quiz</span>
+              </button>
+
+              <button onclick="window.location.href='player.html?action=sync'" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-900 transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] text-brand-500">phonelink_setup</span>
+                <span>Cross-Device Progress Sync</span>
+              </button>
+
+              <button onclick="openResourceModal('handbook'); toggleProfileMenu(false);" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] text-slate-400">menu_book</span>
+                <span>Texas Driver Handbook (PDF)</span>
+              </button>
+
+              <button onclick="openResourceModal('dps-checklist'); toggleProfileMenu(false);" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] text-slate-400">checklist</span>
+                <span>DPS Mega Center Checklist</span>
+              </button>
+
+              <div class="pt-2 mt-2 border-t border-slate-100">
+                <button onclick="handleDashboardLogout()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 transition-colors text-left font-bold cursor-pointer">
+                  <span class="material-symbols-outlined text-[19px]">logout</span>
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN STUDENT DASHBOARD WORKSPACE -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-8 space-y-6">
+
+    <!-- Guest / Unauthenticated Welcome Banner (Context-Aware) -->
+    <div id="guest-welcome-banner" class="hidden rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-subtle">
+      <div class="flex items-start sm:items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[24px]">school</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">Candidate Learning Portal</h3>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/20 text-brand-700 font-bold uppercase">TDLR #C3284</span>
+          </div>
+          <p class="text-xs text-slate-600 mt-0.5 leading-snug">Already enrolled? Sign in to save and sync your official 6-hour state certificate. New candidate? Start in minutes.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5 shrink-0">
+        <a href="/" class="px-3 py-1.5 rounded-xl text-xs font-mono font-medium text-slate-600 hover:text-slate-900 transition-colors">Course Info</a>
+        <a href="signin.html" class="px-3.5 py-2 rounded-xl text-xs font-mono font-bold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 transition-all shadow-xs">Sign In</a>
+        <a href="checkout.html" class="px-4 py-2 rounded-xl text-xs font-mono font-bold text-white bg-brand-500 hover:bg-brand-600 transition-all shadow-xs">Enroll ($38)</a>
+      </div>
+    </div>
+
+    <!-- Student Header & Title Section -->
+    <section class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-500 mb-1">
+          <span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span>
+          <span class="font-semibold uppercase tracking-wider">Official Texas Record · Course ADE-1317 · School Lic. #C3284</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          Welcome back, <span id="student-name-display" class="text-brand-500">Driver Candidate</span> 👋
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-2 self-start sm:self-center">
+        <a href="player.html" class="golden-btn-shimmer px-5 py-2.5 rounded-xl text-white font-extrabold text-xs tracking-wider uppercase flex items-center gap-2 shadow-sm">
+          <span>Go to Classroom &rarr;</span>
+          <span class="material-symbols-outlined text-[16px]">play_circle</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- PRIMARY NEXT-ACTION HERO CARD -->
+    <!-- ========================================================================= -->
+    <section class="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-card relative overflow-hidden">
+      <!-- Background subtle decorative watermark -->
+      <div class="absolute -right-10 -bottom-10 text-[180px] font-black text-slate-50/80 select-none pointer-events-none -z-0">
+        ADE
+      </div>
+
+      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        
+        <!-- Left: Lesson Status & Title -->
+        <div class="space-y-3 max-w-2xl">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-brand-500/10 text-brand-600 border border-brand-500/20 text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+              <span>CURRENT ACTIVE TOPIC</span>
+            </span>
+            <span id="active-topic-id" class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono text-xs font-bold border border-slate-200">
+              L01-T01
+            </span>
+            <span class="text-xs font-mono text-slate-500 hidden sm:inline">
+              · ~15-20 Min Instructional Block
+            </span>
+          </div>
+
+          <h2 id="active-topic-title" class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight leading-snug">
+            Value of ADE — Statutory Bounds & Principles
+          </h2>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Texas Transportation Code § 521.1601 mandatory core curriculum. Read lesson slides, listen via audio narration, and complete the short knowledge check to log instructional time.
+          </p>
+
+          <!-- Progress Bar & Topic Counter -->
+          <div class="pt-2 space-y-1.5">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500 font-semibold uppercase">Total Curriculum Completion</span>
+              <span id="progress-topics-counter" class="text-brand-600 font-bold">0 / 76 Topics (0%)</span>
+            </div>
+            <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60">
+              <div id="hero-progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-brand-600 rounded-full transition-all duration-500 shadow-sm" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Primary Action Buttons -->
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0 lg:w-64">
+          <button onclick="resumeCurrentLesson()" class="golden-btn-shimmer px-6 py-4 rounded-2xl text-white font-black text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 group cursor-pointer text-center">
+            <span>Continue Lesson</span>
+            <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">play_arrow</span>
+          </button>
+
+          <button onclick="takeCurrentTest()" class="px-5 py-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/90 text-slate-800 font-mono text-xs font-bold uppercase transition-all flex items-center justify-center gap-2 cursor-pointer text-center">
+            <span class="material-symbols-outlined text-[18px] text-brand-500">quiz</span>
+            <span>Take Topic Test</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4 REGULATORY STATE COMPLIANCE METRIC CARDS -->
+    <!-- ========================================================================= -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      
+      <!-- Card 1: Mandatory Clock Time -->
+      <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-subtle hover:border-slate-300 transition-all flex flex-col justify-between">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <span class="text-[10px] sm:text-xs font-mono font-bold text-slate-500 uppercase tracking-wider">Clock Hours</span>
+          <div class="w-7 h-7 rounded-lg bg-brand-50 text-brand-500 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">timer</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-lg sm:text-2xl font-black font-mono text-slate-900 tracking-tight" id="stat-time-val">
+            00:00:00
+          </div>
+          <div class="text-[10px] sm:text-xs font-mono text-slate-500 mt-1">
+            Mandatory: 06:00:00 (360m)
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Curriculum Completion -->
+      <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-subtle hover:border-slate-300 transition-all flex flex-col justify-between">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <span class="text-[10px] sm:text-xs font-mono font-bold text-slate-500 uppercase tracking-wider">Topics Mastered</span>
+          <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-lg sm:text-2xl font-black font-mono text-slate-900 tracking-tight" id="stat-topics-val">
+            0 / 76
+          </div>
+          <div class="text-[10px] sm:text-xs font-mono text-emerald-600 font-bold mt-1" id="overall-percentage-badge">
+            0% COMPLETE
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Mastery Quizzes Passed -->
+      <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-subtle hover:border-slate-300 transition-all flex flex-col justify-between">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <span class="text-[10px] sm:text-xs font-mono font-bold text-slate-500 uppercase tracking-wider">Mastery Checks</span>
+          <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">assignment_turned_in</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-lg sm:text-2xl font-black font-mono text-slate-900 tracking-tight" id="stat-quizzes-val">
+            0 / 9
+          </div>
+          <div class="text-[10px] sm:text-xs font-mono text-slate-500 mt-1">
+            70% Passing Threshold
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Form ADE-1317 Certificate Status -->
+      <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-subtle hover:border-slate-300 transition-all flex flex-col justify-between">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <span class="text-[10px] sm:text-xs font-mono font-bold text-slate-500 uppercase tracking-wider">ADE-1317 Certificate</span>
+          <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs sm:text-sm font-mono font-bold text-purple-700 truncate uppercase" id="stat-cert-val">
+            IN PROGRESS
+          </div>
+          <div class="text-[10px] sm:text-xs font-mono text-slate-500 mt-1">
+            Waives DPS Written Exam
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 2-COLUMN WORKSPACE: 9-MODULE CURRICULUM (LEFT) + STUDENT TOOLS (RIGHT) -->
+    <!-- ========================================================================= -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 pt-2">
+      
+      <!-- ======================================================================= -->
+      <!-- LEFT COLUMN: INTERACTIVE 9-MODULE TEXAS CURRICULUM ROADMAP (8 COLS) -->
+      <!-- ======================================================================= -->
+      <div class="lg:col-span-8 space-y-6">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+          <div>
+            <h2 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight uppercase flex items-center gap-2">
+              <span class="material-symbols-outlined text-brand-500 text-[22px]">route</span>
+              <span>Texas 9-Module Curriculum Roadmap</span>
+            </h2>
+            <p class="text-xs text-slate-500 font-mono mt-0.5">
+              16 TAC § 84.500 Compliant · All 76 Statutory Topics Listed Below
+            </p>
+          </div>
+          
+          <div class="flex items-center gap-1.5 text-xs font-mono font-semibold text-slate-500">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Self-Paced Navigation</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Module Container -->
+        <div id="module-accordion-container" class="space-y-3.5">
+          <!-- Populated by JavaScript renderModules() -->
+        </div>
+
+        <!-- Texas DPS Mega Center Written Test Waiver Notice -->
+        <div class="rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200/80 p-5 flex items-start gap-3.5 shadow-subtle">
+          <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+            <span class="material-symbols-outlined text-[22px]">verified</span>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-extrabold text-sm sm:text-base text-slate-900">
+              Official Texas DPS Written Test Waiver Guaranteed
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Upon passing the 30-question final exam in Module 9, your serialized Form ADE-1317 certificate waives the written knowledge examination at all Texas Department of Public Safety Mega Centers. You only need to present your certificate and take the in-person vision test.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- RIGHT COLUMN: STATE CERTIFICATE PREVIEW & STUDENT TOOLKIT (4 COLS) -->
+      <!-- ======================================================================= -->
+      <div class="lg:col-span-4 space-y-6">
+        
+        <!-- Official State Certificate Card -->
+        <div class="rounded-3xl bg-white border border-slate-200/90 p-5 shadow-card space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-brand-500/10 text-brand-500 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[18px]">verified_user</span>
+              </div>
+              <h3 class="font-extrabold text-xs uppercase tracking-wider text-slate-900">Official State Record</h3>
+            </div>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold">FORM ADE-1317</span>
+          </div>
+
+          <!-- Certificate Preview Graphic -->
+          <div class="rounded-2xl bg-gradient-to-b from-amber-50/60 to-orange-50/40 border border-amber-200/70 p-4 font-mono space-y-2.5 text-xs text-slate-700 shadow-xs">
+            <div class="flex items-center justify-between text-[10px] text-slate-500 border-b border-amber-200/50 pb-1.5">
+              <span>STATE OF TEXAS</span>
+              <span>16 TAC § 84.500</span>
+            </div>
+
+            <div class="space-y-1">
+              <div class="text-[9px] uppercase tracking-wider text-slate-400 font-bold">Candidate Name</div>
+              <div id="cert-student-name" class="font-bold text-slate-900 text-sm truncate">TEXAS DRIVER CANDIDATE</div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-[10px] pt-1">
+              <div>
+                <div class="text-slate-400 uppercase text-[8px] font-bold">Course Code</div>
+                <div class="font-bold text-slate-800">ADE-1317</div>
+              </div>
+              <div>
+                <div class="text-slate-400 uppercase text-[8px] font-bold">School License</div>
+                <div class="font-bold text-slate-800">#C3284</div>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-amber-200/50 flex items-center justify-between text-[10px]">
+              <div class="flex items-center gap-1 text-emerald-700 font-bold">
+                <span class="material-symbols-outlined text-[14px]">check</span>
+                <span>DPS WAIVER READY</span>
+              </div>
+              <div class="text-slate-400 text-[9px]">TDLR VALIDATED</div>
+            </div>
+          </div>
+
+          <div id="cert-download-btn-container" class="space-y-2">
+            <button onclick="window.location.href='player.html?t=L09-T02&mode=test'" class="w-full py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-xs font-bold uppercase transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <span class="material-symbols-outlined text-[16px] text-brand-500">lock</span>
+              <span>Pass Final Exam to Download</span>
+            </button>
+            <a href="/verify" class="w-full py-2 px-3 rounded-lg border border-slate-200 text-slate-600 hover:text-brand-600 hover:border-brand-200 font-mono text-[11px] font-bold uppercase transition-all flex items-center justify-center gap-1.5">
+              <span class="material-symbols-outlined text-[15px]">verified</span>
+              <span>Verify Any Certificate</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive DPS Mega Center Checklist -->
+        <div class="rounded-3xl bg-white border border-slate-200/90 p-5 shadow-card space-y-3.5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[18px]">checklist</span>
+              </div>
+              <h3 class="font-extrabold text-xs uppercase tracking-wider text-slate-900">DPS Mega Center Checklist</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Bring in Person</span>
+          </div>
+
+          <p class="text-xs text-slate-600 leading-snug">
+            Check off each requirement as you prepare for your Texas DPS Mega Center appointment:
+          </p>
+
+          <div class="space-y-2 text-xs text-slate-700">
+            <label class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
+              <input type="checkbox" id="chk-doc-1" onchange="saveChecklist()" class="mt-0.5 rounded text-brand-500 focus:ring-brand-500 w-4 h-4 border-slate-300">
+              <span><strong>Form ADE-1317 PDF:</strong> Printed state completion certificate</span>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
+              <input type="checkbox" id="chk-doc-2" onchange="saveChecklist()" class="mt-0.5 rounded text-brand-500 focus:ring-brand-500 w-4 h-4 border-slate-300">
+              <span><strong>Proof of Identity:</strong> US Passport, Real ID, or Birth Certificate</span>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
+              <input type="checkbox" id="chk-doc-3" onchange="saveChecklist()" class="mt-0.5 rounded text-brand-500 focus:ring-brand-500 w-4 h-4 border-slate-300">
+              <span><strong>Social Security Card:</strong> Original SSN card or W-2 form</span>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
+              <input type="checkbox" id="chk-doc-4" onchange="saveChecklist()" class="mt-0.5 rounded text-brand-500 focus:ring-brand-500 w-4 h-4 border-slate-300">
+              <span><strong>Two Residency Proofs:</strong> Utility bills, bank stmt, or lease</span>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
+              <input type="checkbox" id="chk-doc-5" onchange="saveChecklist()" class="mt-0.5 rounded text-brand-500 focus:ring-brand-500 w-4 h-4 border-slate-300">
+              <span><strong>DPS Vision Test:</strong> Pass in-person eye exam at the counter</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Quick Study & State Reference Tools -->
+        <div class="rounded-3xl bg-white border border-slate-200/90 p-5 shadow-card space-y-3">
+          <div class="flex items-center gap-2 border-b border-slate-100 pb-2.5">
+            <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">build</span>
+            </div>
+            <h3 class="font-extrabold text-xs uppercase tracking-wider text-slate-900">Candidate Toolset</h3>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <button onclick="openResourceModal('practice-quiz')" class="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200/80 hover:border-blue-200 text-left transition-all group cursor-pointer">
+              <span class="material-symbols-outlined text-blue-600 text-[20px] mb-1 block group-hover:scale-110 transition-transform">assignment</span>
+              <div class="font-bold text-xs text-slate-900">Signs Practice</div>
+              <div class="text-[10px] text-slate-500 font-mono">30 state questions</div>
+            </button>
+
+            <button onclick="openResourceModal('handbook')" class="p-3 rounded-2xl bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-200 text-left transition-all group cursor-pointer">
+              <span class="material-symbols-outlined text-emerald-600 text-[20px] mb-1 block group-hover:scale-110 transition-transform">menu_book</span>
+              <div class="font-bold text-xs text-slate-900">Texas Handbook</div>
+              <div class="text-[10px] text-slate-500 font-mono">Official rules & signs</div>
+            </button>
+
+            <button onclick="window.location.href='player.html?action=sync'" class="p-3 rounded-2xl bg-slate-50 hover:bg-amber-50/60 border border-slate-200/80 hover:border-amber-200 text-left transition-all group cursor-pointer">
+              <span class="material-symbols-outlined text-brand-500 text-[20px] mb-1 block group-hover:scale-110 transition-transform">phonelink_setup</span>
+              <div class="font-bold text-xs text-slate-900">Sync Device</div>
+              <div class="text-[10px] text-slate-500 font-mono">Phone &harr; PC transfer</div>
+            </button>
+
+            <button onclick="openResourceModal('tdlr-info')" class="p-3 rounded-2xl bg-slate-50 hover:bg-purple-50/60 border border-slate-200/80 hover:border-purple-200 text-left transition-all group cursor-pointer">
+              <span class="material-symbols-outlined text-purple-600 text-[20px] mb-1 block group-hover:scale-110 transition-transform">support_agent</span>
+              <div class="font-bold text-xs text-slate-900">TDLR Info</div>
+              <div class="text-[10px] text-slate-500 font-mono">School #C3284 verify</div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MOBILE DOCKED BOTTOM NAVIGATION BAR (ONLY ON MOBILE SCREENS) -->
+  <!-- ========================================================================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 px-6 py-2 flex items-center justify-around pb-safe shadow-lg">
+    <a href="home.html" class="flex flex-col items-center justify-center py-1 px-3 text-brand-500 font-mono text-[11px] font-bold transition-all">
+      <span class="material-symbols-outlined text-[24px]">dashboard</span>
+      <span class="mt-0.5">Dashboard</span>
+    </a>
+
+    <a href="player.html" class="flex flex-col items-center justify-center py-1 px-3 text-slate-500 hover:text-slate-900 font-mono text-[11px] font-medium transition-all">
+      <span class="material-symbols-outlined text-[24px]">play_lesson</span>
+      <span class="mt-0.5">Classroom</span>
+    </a>
+
+    <button onclick="takeCurrentTest()" class="flex flex-col items-center justify-center py-1 px-3 text-slate-500 hover:text-brand-500 font-mono text-[11px] font-medium transition-all cursor-pointer">
+      <span class="material-symbols-outlined text-[24px]">quiz</span>
+      <span class="mt-0.5">Topic Test</span>
+    </button>
+  </nav>
+
+  <!-- ========================================================================= -->
+  <!-- STUDENT RESOURCE MODAL DIALOG -->
+  <!-- ========================================================================= -->
+  <div id="resource-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-lg w-full max-h-[85vh] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-3 h-3 rounded-full bg-brand-500"></div>
+          <h3 id="resource-modal-title" class="font-extrabold text-sm text-slate-900 uppercase tracking-tight">Resource Details</h3>
+        </div>
+        <button onclick="closeResourceModal()" class="text-slate-400 hover:text-slate-700 text-2xl font-bold cursor-pointer transition-colors">&times;</button>
+      </div>
+      <div id="resource-modal-body" class="p-6 overflow-y-auto text-sm text-slate-700 space-y-4">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 flex justify-end">
+        <button onclick="closeResourceModal()" class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-mono text-xs font-bold uppercase transition-colors cursor-pointer">
+          Close Window
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- CORE CLIENT JAVASCRIPT ENGINE & SYLLABUS DATA -->
+  <!-- ========================================================================= -->
+  <script>
+    // 1. Official Course Syllabus Data (All 9 Texas Modules)
+    const COURSE_DATA = {
+      modules: [
+        {
+          id: 1, code: 'MOD 01', title: 'Course Intro & Safety',
+          topics: [
+            { id: 'L01-T01', title: 'Value of ADE — Statutory Bounds & Principles' },
+            { id: 'L01-T02', title: 'Traffic Laws — Framework for Responsible Driving' },
+            { id: 'L01-T03', title: 'Driving is a Privilege — Risk & Consequences' }
+          ]
+        },
+        {
+          id: 2, code: 'MOD 02', title: 'Your License to Drive',
+          topics: [
+            { id: 'L02-T01', title: 'Obtaining, Possessing & Renewing a Texas DL' },
+            { id: 'L02-T02', title: 'License Types, Restrictions & Organ Donation' },
+            { id: 'L02-T03', title: 'Statutory Suspensions & Revocations' },
+            { id: 'L02-T04', title: 'Vehicle Inspection & Registration' },
+            { id: 'L02-T05', title: 'Safety Responsibility Act' },
+            { id: 'L02-T06', title: 'Reduce Risk — License & Registration' },
+            { id: 'L02-T07', title: 'Texas Driving with Disabilities Program' }
+          ]
+        },
+        {
+          id: 3, code: 'MOD 03', title: 'Right-of-Way Rules',
+          topics: [
+            { id: 'L03-T01', title: 'Definition of Right-of-Way' },
+            { id: 'L03-T02', title: 'Traditional & Non-Traditional Intersections' },
+            { id: 'L03-T03', title: 'Accepting or Yielding Right-of-Way' },
+            { id: 'L03-T04', title: 'Move Over & Slow Down Law' },
+            { id: 'L03-T05', title: 'Passing Stopped Emergency Vehicles' },
+            { id: 'L03-T06', title: 'Legal & Responsible Decisions' },
+            { id: 'L03-T07', title: 'Defensive Driving — Anticipate & Respond' }
+          ]
+        },
+        {
+          id: 4, code: 'MOD 04', title: 'Traffic Control Devices',
+          topics: [
+            { id: 'L04-T01', title: 'Signs, Signals, and Markings' },
+            { id: 'L04-T02', title: 'Responding to Traffic Control Devices' },
+            { id: 'L04-T03', title: 'Knowledge to Responsible Decisions' },
+            { id: 'L04-T04', title: 'Applied Risk Reduction' }
+          ]
+        },
+        {
+          id: 5, code: 'MOD 05', title: 'Controlling Traffic Flow',
+          topics: [
+            { id: 'L05-T01', title: 'Definition of Traffic Flow' },
+            { id: 'L05-T02', title: 'Managing Traffic Flow' },
+            { id: 'L05-T03', title: 'Signaling & Communication' },
+            { id: 'L05-T04', title: 'Passing, Turning, and Parking' },
+            { id: 'L05-T05', title: 'Blind Spot Driving' },
+            { id: 'L05-T06', title: 'Safe Following Intervals' },
+            { id: 'L05-T07', title: 'Speed Related to Stopping' },
+            { id: 'L05-T08', title: 'Adjusting to Poor Conditions & Flash Floods' },
+            { id: 'L05-T09', title: 'Texas Speed Limits & Special Corridors' },
+            { id: 'L05-T10', title: 'Vehicle Lights' },
+            { id: 'L05-T11', title: 'Freeway Entry, Travel & Exit' },
+            { id: 'L05-T12', title: 'Fatigue & Highway Hypnosis' },
+            { id: 'L05-T13', title: 'Managing a Vehicle Breakdown' },
+            { id: 'L05-T14', title: 'Controlling a Vehicle in Emergencies' },
+            { id: 'L05-T15', title: 'Winter Driving' },
+            { id: 'L05-T16', title: 'Reduce Risk — Traffic Flow' },
+            { id: 'L05-T17', title: 'Construction & Work Zones' },
+            { id: 'L05-T18', title: 'Litter Prevention & Road Debris' }
+          ]
+        },
+        {
+          id: 6, code: 'MOD 06', title: 'Alcohol & Drug Awareness',
+          topics: [
+            { id: 'L06-T01', title: 'Legal Definition of Intoxication in Texas' },
+            { id: 'L06-T02', title: 'How Alcohol & Drugs Affect Driving' },
+            { id: 'L06-T03', title: 'Adult Penalties — DWI & Assault' },
+            { id: 'L06-T04', title: 'Minor Penalties — Zero Tolerance' },
+            { id: 'L06-T05', title: 'Texas Open Container Law' },
+            { id: 'L06-T06', title: 'Admin License Revocation & Implied Consent' },
+            { id: 'L06-T07', title: 'Reduce Risk — Alcohol & Drug Practices' }
+          ]
+        },
+        {
+          id: 7, code: 'MOD 07', title: 'Sharing the Road',
+          topics: [
+            { id: 'L07-T01', title: 'Categorize Roadway Users' },
+            { id: 'L07-T02', title: 'Good Samaritan Law' },
+            { id: 'L07-T03', title: 'Laws for Sharing the Road' },
+            { id: 'L07-T04', title: 'Responsibilities of a Defensive Driver' },
+            { id: 'L07-T05', title: 'Seatbelts, Open Beds & Unattended Children' },
+            { id: 'L07-T06', title: 'Stopped by Law Enforcement' },
+            { id: 'L07-T07', title: 'Community Safety Education Act (SB 30)' },
+            { id: 'L07-T08', title: 'Aggressive Driving & Avoidance' },
+            { id: 'L07-T09', title: 'Cargo, Safety Chains & Towing' },
+            { id: 'L07-T010', title: 'Carbon Monoxide Poisoning' },
+            { id: 'L07-T011', title: 'Cooperating with Law Enforcement' },
+            { id: 'L07-T012', title: 'Operating Near Oversize Vehicles' },
+            { id: 'L07-T013', title: 'Driving with Disabilities Program' },
+            { id: 'L07-T014', title: 'How to Participate in the Program' },
+            { id: 'L07-T015', title: 'Communication Impediment' },
+            { id: 'L07-T016', title: 'Form DL-101 Verification' },
+            { id: 'L07-T017', title: 'Vehicle Registration TLETS' },
+            { id: 'L07-T018', title: 'Form VTR-216 Router' }
+          ]
+        },
+        {
+          id: 8, code: 'MOD 08', title: 'Managing Risk',
+          topics: [
+            { id: 'L08-T01', title: '7 Keys to Safe Driving' },
+            { id: 'L08-T02', title: 'Four Dangers of Poor Decision Making' },
+            { id: 'L08-T03', title: 'Dangers of Impaired Driving' },
+            { id: 'L08-T04', title: 'Distractions That Affect Driving' },
+            { id: 'L08-T05', title: 'Dangers of Speed & Street Racing' },
+            { id: 'L08-T06', title: 'Risk of Not Wearing a Safety Belt' },
+            { id: 'L08-T07', title: 'Dangers of Driving at Night' },
+            { id: 'L08-T08', title: 'Wireless Communications & Distracted Driving' },
+            { id: 'L08-T09', title: 'Safe Driving Practices' },
+            { id: 'L08-T10', title: 'Human Trafficking Awareness (Julia Wells Act)' }
+          ]
+        },
+        {
+          id: 9, code: 'MOD 09', title: 'Verification Checkpoint & DPS Exam',
+          topics: [
+            { id: 'L09-T01', title: 'Student Identity Verification (16 TAC § 84.500 PVQ Checkpoint)' },
+            { id: 'L09-T02', title: 'Official DPS Highway Sign & Traffic Law Exam (30 Questions)' }
+          ]
+        }
+      ]
+    };
+
+    // Flatten topics for quick lookup
+    const TOPIC_TITLES = {};
+    COURSE_DATA.modules.forEach(m => {
+      m.topics.forEach(t => {
+        TOPIC_TITLES[t.id] = t.title;
+      });
+    });
+
+    // Format seconds into HH:MM:SS
+    function formatTime(totalSeconds) {
+      const h = Math.floor(totalSeconds / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = totalSeconds % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    // 2. Cross-Device Sync Query Token Handling
+    (function handleUrlSync() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('sync') && typeof window.applyCrossDeviceSyncToken === 'function') {
+        window.applyCrossDeviceSyncToken(urlParams.get('sync'));
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } else if ((urlParams.get('restore') === '100' || urlParams.get('restore') === 'all') && typeof window.restoreFullCourseCompletion === 'function') {
+        window.restoreFullCourseCompletion();
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    })();
+
+    // 3. Render 9-Module Interactive Roadmap
+    function renderModules() {
+      const container = document.getElementById('module-accordion-container');
+      if (!container) return;
+
+      const completedTopicsArr = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+      const completedSet = new Set(completedTopicsArr);
+      const activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+
+      let html = '';
+
+      COURSE_DATA.modules.forEach(m => {
+        const total = m.topics.length;
+        const finished = m.topics.filter(t => completedSet.has(t.id)).length;
+        const isComplete = finished === total && total > 0;
+        const hasActive = m.topics.some(t => t.id === activeTopicId);
+
+        let badgeClass = 'bg-slate-100 text-slate-600 border-slate-200';
+        let badgeText = `${finished}/${total} DONE`;
+
+        if (isComplete) {
+          badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200 font-bold';
+          badgeText = '✓ COMPLETED';
+        } else if (hasActive) {
+          badgeClass = 'bg-brand-50 text-brand-600 border-brand-200 font-bold';
+          badgeText = 'IN PROGRESS';
+        }
+
+        const isMod9 = m.id === 9;
+        const cardBorder = isMod9 ? 'border-amber-300/80 bg-gradient-to-r from-white to-amber-50/30' : (hasActive ? 'border-brand-500/60 bg-white' : 'border-slate-200/80 bg-white');
+
+        html += `
+          <div class="rounded-2xl border ${cardBorder} shadow-subtle overflow-hidden transition-all">
+            <!-- Module Bar Header -->
+            <div class="p-4 sm:p-5 flex items-center justify-between gap-3 cursor-pointer select-none hover:bg-slate-50/80 transition-colors" onclick="toggleModule(${m.id})">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl ${isComplete ? 'bg-emerald-100 text-emerald-700' : (hasActive ? 'bg-brand-500 text-white' : 'bg-slate-100 text-slate-600')} flex items-center justify-center font-black font-mono text-xs sm:text-sm shrink-0 shadow-xs">
+                  ${m.id}
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-mono text-slate-400 font-bold uppercase">${m.code}</span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded border ${badgeClass}">${badgeText}</span>
+                  </div>
+                  <h3 class="font-extrabold text-sm sm:text-base text-slate-900 truncate mt-0.5">${m.title}</h3>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 shrink-0">
+                <a href="player.html?t=${m.topics[0].id}&mode=lesson" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-brand-500 hover:text-white text-slate-700 font-mono text-xs font-bold transition-all" onclick="event.stopPropagation()">
+                  <span>${isComplete ? 'Review' : 'Start'}</span>
+                  <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </a>
+                <span id="chevron-mod-${m.id}" class="material-symbols-outlined text-slate-400 transition-transform duration-200">
+                  ${hasActive ? 'expand_less' : 'expand_more'}
+                </span>
+              </div>
+            </div>
+
+            <!-- Expandable Topic List -->
+            <div id="topics-mod-${m.id}" class="${hasActive ? 'block' : 'hidden'} px-4 pb-4 sm:px-5 sm:pb-5 pt-1 border-t border-slate-100 space-y-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                ${m.topics.map(t => {
+                  const done = completedSet.has(t.id);
+                  const isCurrent = t.id === activeTopicId;
+                  return `
+                    <a href="player.html?t=${t.id}&mode=lesson" class="p-2.5 rounded-xl border ${isCurrent ? 'border-brand-500 bg-brand-50/50' : (done ? 'border-slate-200/60 bg-slate-50/50' : 'border-slate-100 bg-white hover:border-slate-300')} flex items-center justify-between gap-2 transition-all group">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <span class="material-symbols-outlined text-[18px] ${done ? 'text-emerald-600' : (isCurrent ? 'text-brand-500' : 'text-slate-300')} shrink-0">
+                          ${done ? 'check_circle' : (isCurrent ? 'play_circle' : 'radio_button_unchecked')}
+                        </span>
+                        <div class="min-w-0">
+                          <div class="text-[9px] font-mono text-slate-400 font-bold">${t.id}</div>
+                          <div class="text-xs font-semibold text-slate-800 truncate group-hover:text-brand-600 transition-colors">${t.title}</div>
+                        </div>
+                      </div>
+                      <span class="material-symbols-outlined text-[16px] text-slate-300 group-hover:translate-x-0.5 group-hover:text-brand-500 transition-all shrink-0">chevron_right</span>
+                    </a>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // Toggle module accordion
+    function toggleModule(id) {
+      const topicEl = document.getElementById(`topics-mod-${id}`);
+      const chevron = document.getElementById(`chevron-mod-${id}`);
+      if (!topicEl) return;
+      if (topicEl.classList.contains('hidden')) {
+        topicEl.classList.remove('hidden');
+        if (chevron) chevron.textContent = 'expand_less';
+      } else {
+        topicEl.classList.add('hidden');
+        if (chevron) chevron.textContent = 'expand_more';
+      }
+    }
+    window.toggleModule = toggleModule;
+
+    // 4. Update Overall Dashboard UI Elements
+    function updateDashboardUI() {
+      const completedTopicsArr = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+      const completedSet = new Set(completedTopicsArr);
+      const activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+      const elapsedSeconds = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+      const userStr = localStorage.getItem('tx_user_data');
+      let user = null;
+      if (userStr) {
+        try { user = JSON.parse(userStr); } catch (_) {}
+      }
+
+      // Guest banner toggle
+      const guestBanner = document.getElementById('guest-welcome-banner');
+      const hasAuthSession = localStorage.getItem('tx_user_active') === 'true' || localStorage.getItem('tx_session_token');
+      if (guestBanner) {
+        if (!user && !hasAuthSession) {
+          guestBanner.classList.remove('hidden');
+        } else {
+          guestBanner.classList.add('hidden');
+        }
+      }
+
+      // Student Profile personalization
+      const studentNameDisplay = document.getElementById('student-name-display');
+      const initialsEl = document.getElementById('user-avatar-initials');
+      const dropAvatar = document.getElementById('dropdown-avatar');
+      const dropName = document.getElementById('dropdown-name');
+      const dropEmail = document.getElementById('dropdown-email');
+      const certStudentName = document.getElementById('cert-student-name');
+
+      const isAdmin = user && (user.role === "ADMIN" || (user.email && user.email.toLowerCase() === "lokeshpolkam0901@gmail.com"));
+      const adminSwitch = document.getElementById("admin-switch-btn");
+      if (adminSwitch) {
+        if (isAdmin) adminSwitch.classList.remove("hidden");
+        else adminSwitch.classList.add("hidden");
+      }
+
+      if (user) {
+        const name = user.fullName || user.firstName || 'Driver Candidate';
+        if (studentNameDisplay) studentNameDisplay.textContent = name;
+        if (dropName) dropName.textContent = name;
+        if (dropEmail) dropEmail.textContent = user.email || '';
+        if (certStudentName) certStudentName.textContent = name.toUpperCase();
+        const initials = name.slice(0, 2).toUpperCase();
+        if (initialsEl) initialsEl.textContent = initials;
+        if (dropAvatar) dropAvatar.textContent = initials;
+      }
+
+      // Stat 1: Clock Time
+      const statTime = document.getElementById('stat-time-val');
+      if (statTime) statTime.textContent = formatTime(elapsedSeconds);
+
+      // Stat 2: Topics Count
+      const statTopics = document.getElementById('stat-topics-val');
+      if (statTopics) statTopics.textContent = `${completedSet.size} / 76`;
+
+      const pct = Math.min(100, Math.round((completedSet.size / 76) * 100));
+      const heroBar = document.getElementById('hero-progress-bar');
+      const pctBadge = document.getElementById('overall-percentage-badge');
+      const topicsCounter = document.getElementById('progress-topics-counter');
+
+      if (heroBar) heroBar.style.width = `${pct}%`;
+      if (pctBadge) pctBadge.textContent = `${pct}% COMPLETE`;
+      if (topicsCounter) topicsCounter.textContent = `${completedSet.size} / 76 Topics (${pct}%)`;
+
+      // Stat 3: Quizzes Passed
+      const statQuizzes = document.getElementById('stat-quizzes-val');
+      if (statQuizzes) statQuizzes.textContent = `${Math.floor(completedSet.size / 8)} / 9`;
+
+      // Stat 4: Certificate Status & Download Action
+      const statCert = document.getElementById('stat-cert-val');
+      const certDownloadBtn = document.getElementById('cert-download-btn-container');
+
+      const certDataRaw = localStorage.getItem('tx_cert_data');
+      let certRecord = null;
+      try { if (certDataRaw) certRecord = JSON.parse(certDataRaw); } catch(e) {}
+
+      if (completedSet.has('L09-T02') || certRecord) {
+        const serial = certRecord?.serialNumber || 'ADE1317-2026-C3284-00001';
+        if (statCert) {
+          statCert.textContent = 'ISSUED & VERIFIED';
+          statCert.className = 'text-xs sm:text-sm font-mono font-black text-emerald-600 truncate uppercase';
+        }
+        if (certDownloadBtn) {
+          certDownloadBtn.innerHTML = `
+            <div class="space-y-2">
+              <a href="/form_ade1317_certificate.pdf" target="_blank" download="Texas_Form_ADE1317_Certificate.pdf" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs font-bold uppercase transition-all shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                <span>Download Form ADE-1317 PDF</span>
+              </a>
+              <a href="/verify?cert=${encodeURIComponent(serial)}" target="_blank" class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-mono text-[11px] font-bold uppercase transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                <span class="material-symbols-outlined text-[16px] text-emerald-400">verified_user</span>
+                <span>Verify Record on State Portal</span>
+              </a>
+              <a href="/reviews" target="_blank" class="w-full py-2.5 px-4 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200/80 font-mono text-[11px] font-bold uppercase transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                <span class="material-symbols-outlined text-[16px] text-amber-500">rate_review</span>
+                <span>Leave Course Feedback</span>
+              </a>
+              <div class="text-[10px] font-mono text-center text-slate-400">
+                Serial: <strong class="text-slate-700">${serial}</strong>
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        if (statCert) {
+          statCert.textContent = 'IN PROGRESS';
+          statCert.className = 'text-xs sm:text-sm font-mono font-bold text-purple-700 truncate uppercase';
+        }
+      }
+
+      // Active Topic in Hero Card
+      const activeTopicIdEl = document.getElementById('active-topic-id');
+      const activeTopicTitle = document.getElementById('active-topic-title');
+      if (activeTopicIdEl) activeTopicIdEl.textContent = activeTopicId;
+      if (activeTopicTitle) activeTopicTitle.textContent = TOPIC_TITLES[activeTopicId] || `Topic ${activeTopicId}`;
+
+      // Refresh Roadmap
+      renderModules();
+    }
+    window.updateDashboardUI = updateDashboardUI;
+
+    // 5. Actions
+    function resumeCurrentLesson() {
+      const activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+      window.location.href = `player.html?t=${activeTopicId}&mode=lesson`;
+    }
+    window.resumeCurrentLesson = resumeCurrentLesson;
+
+    function takeCurrentTest() {
+      const activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+      window.location.href = `player.html?t=${activeTopicId}&mode=test`;
+    }
+    window.takeCurrentTest = takeCurrentTest;
+
+    function toggleProfileMenu(event, forceState) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('profile-dropdown-menu');
+      if (!menu) return;
+      if (typeof forceState === 'boolean') {
+        if (forceState) menu.classList.remove('hidden');
+        else menu.classList.add('hidden');
+      } else {
+        menu.classList.toggle('hidden');
+      }
+    }
+    window.toggleProfileMenu = toggleProfileMenu;
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('profile-dropdown-menu');
+      const btn = document.getElementById('user-profile-btn');
+      if (!menu || menu.classList.contains('hidden')) return;
+      if (btn && btn.contains(e.target)) return;
+      if (!menu.contains(e.target)) menu.classList.add('hidden');
+    });
+
+    async function handleDashboardLogout() {
+      if (typeof window.handleLogout === 'function') {
+        await window.handleLogout();
+      } else {
+        localStorage.removeItem('tx_session_token');
+        localStorage.removeItem('tx_user_data');
+        localStorage.removeItem('tx_user_active');
+        localStorage.removeItem('tx_ade_completed');
+        localStorage.removeItem('tx_ade_active');
+        localStorage.removeItem('tx_ade_time');
+        sessionStorage.clear();
+        window.location.href = '/';
+      }
+    }
+    window.handleDashboardLogout = handleDashboardLogout;
+
+    // 6. Checklist Persistence
+    function saveChecklist() {
+      const state = {};
+      for (let i = 1; i <= 5; i++) {
+        const el = document.getElementById(`chk-doc-${i}`);
+        if (el) state[`chk_${i}`] = el.checked;
+      }
+      localStorage.setItem('tx_dps_checklist', JSON.stringify(state));
+    }
+    window.saveChecklist = saveChecklist;
+
+    function loadChecklist() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('tx_dps_checklist') || '{}');
+        for (let i = 1; i <= 5; i++) {
+          const el = document.getElementById(`chk-doc-${i}`);
+          if (el && typeof saved[`chk_${i}`] === 'boolean') {
+            el.checked = saved[`chk_${i}`];
+          }
+        }
+      } catch (_) {}
+    }
+
+    // 7. Resource Modals
+    function openResourceModal(type) {
+      const modal = document.getElementById('resource-modal');
+      const title = document.getElementById('resource-modal-title');
+      const body = document.getElementById('resource-modal-body');
+      if (!modal || !title || !body) return;
+
+      if (type === 'handbook') {
+        title.textContent = 'Texas Driver Handbook (Official Reference)';
+        body.innerHTML = `
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-amber-900 leading-relaxed">
+              <strong>Official TDLR & DPS Guidelines:</strong> This course curriculum aligns 100% with the Texas Department of Public Safety (DPS) Driver Handbook and Texas Transportation Code § 521.1601.
+            </div>
+            <h4 class="font-extrabold text-slate-900 text-sm">Key State Chapters Covered:</h4>
+            <ul class="list-disc pl-5 space-y-2 text-slate-700">
+              <li><strong>Chapter 2:</strong> Your License to Drive (Under 25 vs 25+ statutory rules)</li>
+              <li><strong>Chapter 4:</strong> Right-of-Way at Intersections & Texas Move Over Law</li>
+              <li><strong>Chapter 5:</strong> Signals, Signs, and Pavement Markings</li>
+              <li><strong>Chapter 9:</strong> Alcohol & Drug Laws (Implied Consent, 0.08 BAC limit, Intoxication Manslaughter)</li>
+              <li><strong>Chapter 10:</strong> Community Safety Education Act (Senate Bill 30 protocol)</li>
+            </ul>
+          </div>
+        `;
+      } else if (type === 'dps-checklist') {
+        title.textContent = 'Texas DPS Appointment Document Checklist';
+        body.innerHTML = `
+          <div class="space-y-4 text-xs sm:text-sm">
+            <p class="text-slate-700">Bring these original documents to your Texas DPS driver license appointment:</p>
+            <div class="space-y-2.5">
+              <div class="flex items-start gap-2.5 p-3 bg-slate-50 border border-slate-200 rounded-2xl">
+                <span class="material-symbols-outlined text-emerald-600 text-[20px] shrink-0">check_circle</span>
+                <div><strong>Form ADE-1317:</strong> Official Certificate of Completion (Downloaded upon passing final exam).</div>
+              </div>
+              <div class="flex items-start gap-2.5 p-3 bg-slate-50 border border-slate-200 rounded-2xl">
+                <span class="material-symbols-outlined text-emerald-600 text-[20px] shrink-0">check_circle</span>
+                <div><strong>Proof of Identity:</strong> US Passport, Real ID, or certified US Birth Certificate.</div>
+              </div>
+              <div class="flex items-start gap-2.5 p-3 bg-slate-50 border border-slate-200 rounded-2xl">
+                <span class="material-symbols-outlined text-emerald-600 text-[20px] shrink-0">check_circle</span>
+                <div><strong>Social Security Card:</strong> Original SSN card or W-2.</div>
+              </div>
+              <div class="flex items-start gap-2.5 p-3 bg-slate-50 border border-slate-200 rounded-2xl">
+                <span class="material-symbols-outlined text-emerald-600 text-[20px] shrink-0">check_circle</span>
+                <div><strong>Two Proofs of Texas Residency:</strong> Utility bill, bank statement, or lease agreement.</div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (type === 'practice-quiz') {
+        title.textContent = 'DPS Practice Knowledge Test Bank';
+        body.innerHTML = `
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-2xl text-blue-900 leading-relaxed">
+              <strong>Texas DPS Exam Practice:</strong> Test your knowledge across official state highway signs and road rules with immediate grading.
+            </div>
+            <p class="text-slate-700">Launch an interactive practice test now:</p>
+            <div class="space-y-2.5">
+              <button onclick="takeCurrentTest(); closeResourceModal();" class="w-full p-4 text-left border border-amber-300 rounded-2xl bg-amber-50 hover:bg-amber-100 transition-colors flex items-center justify-between cursor-pointer">
+                <div>
+                  <div class="font-extrabold text-slate-900 text-sm">Topic Knowledge Check (5 Questions)</div>
+                  <div class="text-xs text-slate-600 font-mono mt-0.5">Quick mastery check on active topic</div>
+                </div>
+                <span class="material-symbols-outlined text-brand-500">arrow_forward</span>
+              </button>
+              <button onclick="window.location.href='player.html?t=L09-T02&mode=test'" class="w-full p-4 text-left border border-blue-200 rounded-2xl bg-blue-50 hover:bg-blue-100 transition-colors flex items-center justify-between cursor-pointer">
+                <div>
+                  <div class="font-extrabold text-slate-900 text-sm">30-Question Official DPS Exam</div>
+                  <div class="text-xs text-slate-600 font-mono mt-0.5">70% passing threshold (Waives DPS kiosk)</div>
+                </div>
+                <span class="material-symbols-outlined text-blue-600">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (type === 'tdlr-info') {
+        title.textContent = 'Texas Licensing & TDLR Compliance';
+        body.innerHTML = `
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-900 leading-relaxed">
+              <strong>State Regulated Standard:</strong> Approved by the Texas Department of Licensing and Regulation (TDLR) under Course ADE-1317 and School License #C3284.
+            </div>
+            <div class="space-y-2 text-slate-700 font-mono text-xs">
+              <div><strong>Statute:</strong> Texas Transportation Code § 521.1601</div>
+              <div><strong>Administrative Code:</strong> 16 TAC § 84.500</div>
+              <div><strong>Instructional Time:</strong> 360 Active Clock Minutes Required</div>
+              <div><strong>Support Email:</strong> support@texasade.org</div>
+            </div>
+          </div>
+        `;
+      }
+
+      modal.classList.remove('hidden');
+    }
+    window.openResourceModal = openResourceModal;
+
+    function closeResourceModal() {
+      const modal = document.getElementById('resource-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.closeResourceModal = closeResourceModal;
+
+    // 8. Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      loadChecklist();
+      updateDashboardUI();
+    });
+  </script>
+
+</body>
+</html>

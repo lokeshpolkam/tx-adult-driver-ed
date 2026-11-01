@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Checkout & Enrollment — Texas Adult Driver Education (ADE-1317)</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Secure checkout for the official TDLR-approved Texas Adult Driver Education course ADE-1317. Complete 100% online for $38. Skip the DPS written exam.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#E87522',
+                            hover: '#D26418',
+                            dark: '#9A4600',
+                            light: '#FFF4ED'
+                        },
+                        surface: {
+                            canvas: '#F6F7F5',
+                            card: '#FFFFFF',
+                            subtle: '#EEEEEC',
+                            border: '#D9DDD8',
+                            dark: '#191B1A',
+                            slate: '#5E6460'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Geist', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Geist & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <style>
+        body { font-family: 'Geist', sans-serif; background-color: #F6F7F5; color: #191B1A; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .card-border { border: 1px solid #D9DDD8; }
+        .input-field {
+            min-height: 44px;
+            font-size: 15px;
+            width: 100%;
+            border-radius: 0.375rem;
+            border: 1px solid #D9DDD8;
+            padding: 0.5rem 0.75rem;
+            background-color: #FFFFFF;
+            transition: border-color 0.15s ease-in-out;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #E87522;
+            box-shadow: 0 0 0 1px #E87522;
+        }
+    </style>
+  <script src="pricing-client.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-surface-dark">
+
+    <!-- Header -->
+    <header class="bg-surface-card border-b border-surface-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2.5">
+                <div class="w-8 h-8 bg-brand-orange flex items-center justify-center rounded-md text-white font-black text-sm">
+                    TX
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight uppercase">
+                        TEXAS ADULT DRIVER ED
+                        <span class="block text-surface-slate font-mono text-[11px] font-normal">TDLR Course ADE-1317 · School #C3284</span>
+                    </h1>
+                </div>
+            </a>
+            <div class="flex items-center gap-5 text-sm font-medium">
+                <a href="player.html" class="flex items-center gap-1 text-surface-slate hover:text-brand-orange font-mono text-xs transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">school</span> Classroom
+                </a>
+                <span class="text-surface-border">|</span>
+                <div class="flex items-center gap-1.5 text-emerald-700 font-mono text-xs font-semibold">
+                    <span class="material-symbols-outlined text-[18px] text-emerald-600">lock</span>
+                    <span class="hidden sm:inline">256-Bit SSL Encrypted</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- SUCCESS STATE (Shown when redirected back with ?status=success or ?payment=success) -->
+        <div id="success-banner" class="hidden mb-10 max-w-3xl mx-auto">
+            <div class="bg-surface-card rounded-xl p-8 card-border shadow-sm border-t-4 border-t-emerald-600 text-center">
+                <div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-outlined text-[32px]">check_circle</span>
+                </div>
+                <span class="text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full inline-block mb-3">
+                    PAYMENT CONFIRMED · ENROLLMENT ACTIVE
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-surface-dark mb-2">Welcome to Texas Adult Driver Ed!</h2>
+                <p class="text-surface-slate text-sm max-w-md mx-auto mb-6">
+                    Your enrollment has been registered with the Texas state registry. An official receipt has been dispatched to your email. All 9 modules are unlocked.
+                </p>
+                <div class="flex justify-center">
+                    <a href="player.html" class="px-8 py-3.5 bg-brand-orange hover:bg-brand-hover text-white font-bold text-xs uppercase tracking-wider rounded-md shadow-sm transition-colors flex items-center gap-2">
+                        <span>ENTER VIRTUAL CLASSROOM</span>
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CANCELLATION NOTICE -->
+        <div id="cancel-banner" class="hidden mb-6 max-w-5xl mx-auto">
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-center justify-between text-xs font-mono text-amber-900">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-600 text-[20px]">info</span>
+                    <span>Your checkout was cancelled or interrupted. You can review your details and try again below.</span>
+                </div>
+                <button onclick="document.getElementById('cancel-banner').classList.add('hidden')" class="text-amber-700 hover:text-amber-950 font-bold">✕</button>
+            </div>
+        </div>
+
+        <!-- CHECKOUT FORM WORKFLOW -->
+        <div id="checkout-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- Left Column (7 cols) - Order Details & Add-ons -->
+            <div class="lg:col-span-7 space-y-6">
+
+                <div>
+                    <div class="flex items-center gap-2 text-xs font-mono font-bold text-surface-slate uppercase tracking-wider mb-2">
+                        <span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span>
+                        <span>16 TAC § 84.500 COMPLIANT | STATE CHECKOUT</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Complete Your Course Enrollment</h2>
+                    <p class="text-surface-slate text-sm mt-1">Official TDLR Course ADE-1317. Fulfills the mandatory 6-hour requirement for Texas drivers.</p>
+                </div>
+
+                <!-- Product Box -->
+                <div class="bg-surface-card rounded-lg p-6 sm:p-7 card-border shadow-sm space-y-6">
+                    <div class="flex items-start justify-between pb-5 border-b border-surface-border">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-brand-light text-brand-orange border border-brand-orange/30 flex items-center justify-center font-black text-xl shrink-0">
+                                TX
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-surface-dark leading-snug">Texas Adult Driver Education (ADE-1317)</h3>
+                                <p class="text-xs text-surface-slate font-mono mt-0.5">Mandatory 6-Hour Certification for Ages 18–24 & Adults 25+</p>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4 text-xs text-surface-slate">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+                                        <span>DPS Written Exam Waived</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+                                        <span>Official Form ADE-1317 Included</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+                                        <span>100% Online & Self-Paced</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+                                        <span>Works on Mobile, Tablet & PC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0 ml-4">
+                            <span id="product-base-price" class="text-2xl font-bold font-mono text-surface-dark">$38.00</span>
+                            <span class="block text-[10px] font-mono text-surface-slate">ONE-TIME FEE</span>
+                        </div>
+                    </div>
+
+                    <!-- Priority Rush Processing Upsell -->
+                    <div class="bg-surface-canvas border border-surface-border rounded-lg p-4 flex items-start justify-between hover:border-brand-orange/50 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <input 
+                                type="checkbox" 
+                                id="rush-cert-checkbox" 
+                                onchange="recalculateTotal()"
+                                class="mt-1 w-4 h-4 rounded text-brand-orange border-surface-border focus:ring-brand-orange cursor-pointer"
+                            />
+                            <div>
+                                <label for="rush-cert-checkbox" class="text-xs font-bold text-surface-dark cursor-pointer flex items-center gap-1.5">
+                                    <span>Same-Day Priority Certificate Delivery</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-100 text-amber-800 font-semibold">OPTIONAL</span>
+                                </label>
+                                <p class="text-[11px] text-surface-slate mt-0.5">Priority electronic processing and instant delivery upon final exam completion.</p>
+                            </div>
+                        </div>
+                        <span id="rush-price-badge" class="text-xs font-mono font-bold text-brand-orange shrink-0 ml-3">+$9.99</span>
+                    </div>
+
+                    <!-- Promo Code Box -->
+                    <div>
+                        <label class="block text-xs font-mono font-bold text-surface-dark uppercase mb-2">
+                            <span>Have a Promo Code?</span>
+                        </label>
+                        <div class="flex gap-2">
+                            <input 
+                                type="text" 
+                                id="promo-input" 
+                                placeholder="Enter promo code (e.g. SAVE50)" 
+                                value=""
+                                class="input-field uppercase tracking-wider font-mono text-xs transition-colors"
+                                onkeydown="if(event.key==='Enter'){event.preventDefault();applyPromoCode();}"
+                            />
+                            <button 
+                                type="button" 
+                                id="btn-apply-promo"
+                                onclick="applyPromoCode()"
+                                class="px-5 py-2.5 bg-surface-dark hover:bg-black text-white rounded-md text-xs font-bold font-mono uppercase transition-colors cursor-pointer shrink-0 disabled:opacity-60 flex items-center justify-center gap-1.5"
+                            >
+                                <span id="btn-apply-promo-text">Apply Code</span>
+                            </button>
+                        </div>
+                        <div id="promo-message" class="text-xs font-mono mt-2.5 p-2 rounded-lg hidden"></div>
+                    </div>
+
+                </div>
+
+                <!-- Trust Highlights -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono text-surface-slate">
+                    <div class="bg-surface-card p-4 rounded-lg card-border shadow-sm flex items-center gap-3">
+                        <span class="material-symbols-outlined text-brand-orange text-[22px]">gavel</span>
+                        <div>TDLR Licensed<br><strong class="text-surface-dark font-sans">School #C3284</strong></div>
+                    </div>
+                    <div class="bg-surface-card p-4 rounded-lg card-border shadow-sm flex items-center gap-3">
+                        <span class="material-symbols-outlined text-emerald-600 text-[22px]">verified_user</span>
+                        <div>Stripe Security<br><strong class="text-surface-dark font-sans">PCI-DSS SAQ-A</strong></div>
+                    </div>
+                    <div class="bg-surface-card p-4 rounded-lg card-border shadow-sm flex items-center gap-3">
+                        <span class="material-symbols-outlined text-blue-600 text-[22px]">history</span>
+                        <div>Auto-Save<br><strong class="text-surface-dark font-sans">Resume Anytime</strong></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column (5 cols) - Order Summary & Payment Button -->
+            <div class="lg:col-span-5">
+                <div class="bg-surface-card rounded-lg p-6 sm:p-7 card-border shadow-sm space-y-6 sticky top-24">
+                    
+                    <div class="flex items-center justify-between pb-4 border-b border-surface-border">
+                        <span class="text-xs font-mono font-bold text-surface-slate uppercase tracking-wider">ORDER SUMMARY</span>
+                        <span class="text-xs font-mono text-emerald-700 font-bold flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                            <span>OFFICIAL PRICING</span>
+                        </span>
+                    </div>
+
+                    <!-- Price Breakdown -->
+                    <div class="space-y-3 text-xs font-mono text-surface-slate">
+                        <div class="flex justify-between">
+                            <span>Course Tuition (ADE-1317):</span>
+                            <span class="text-surface-dark font-bold dyn-price-full" id="summary-base-price">$38.00</span>
+                        </div>
+                        <div id="summary-rush-row" class="hidden justify-between text-amber-800">
+                            <span>Priority Certificate Expediting:</span>
+                            <span class="font-bold" id="summary-rush-amount">+$9.99</span>
+                        </div>
+                        <div id="summary-discount-row" class="hidden justify-between text-emerald-700 font-bold">
+                            <span id="summary-discount-label">Discount Applied:</span>
+                            <span id="summary-discount-amount">-$0.00</span>
+                        </div>
+                        <div class="pt-3 border-t border-surface-border flex justify-between items-baseline">
+                            <span class="text-sm font-bold text-surface-dark uppercase font-sans">Total Due Today:</span>
+                            <span class="text-3xl font-black font-mono text-brand-orange dyn-price-full" id="summary-total-price">$38.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Student Account Verification -->
+                    <div class="bg-surface-canvas border border-surface-border rounded-lg p-4">
+                        <div class="text-[11px] font-mono text-surface-slate uppercase tracking-wider mb-2 font-bold">
+                            STUDENT IDENTITY (16 TAC § 84.500)
+                        </div>
+                        
+                        <!-- When Signed In -->
+                        <div id="auth-signed-in" class="hidden items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-brand-light text-brand-orange border border-brand-orange/30 flex items-center justify-center font-bold text-xs" id="user-avatar-initial">
+                                    S
+                                </div>
+                                <div class="overflow-hidden">
+                                    <div class="text-xs font-bold text-surface-dark truncate" id="user-display-name">Student</div>
+                                    <div class="text-[10px] font-mono text-surface-slate truncate" id="user-display-email">student@example.com</div>
+                                </div>
+                            </div>
+                            <button onclick="handleLogout()" class="text-[10px] font-mono text-surface-slate hover:text-surface-dark px-2 py-1 rounded bg-white border border-surface-border transition-colors">
+                                SWITCH
+                            </button>
+                        </div>
+
+                        <!-- When Signed Out -->
+                        <div id="auth-signed-out" class="space-y-3">
+                            <p class="text-xs text-surface-slate leading-relaxed">
+                                Sign in with Google so your state certificate is tied to your legal identity:
+                            </p>
+                            <div id="google-checkout-btn" class="flex justify-center"></div>
+                            
+                            <!-- 1-Click Universal Sign-in Fallback (For Mobile App & Local Testing) -->
+                            <div class="relative flex py-1 items-center">
+                                <div class="flex-grow border-t border-surface-border"></div>
+                                <span class="flex-shrink mx-2 text-[10px] font-mono text-surface-slate uppercase font-bold">or test sign-in</span>
+                                <div class="flex-grow border-t border-surface-border"></div>
+                            </div>
+                            <!-- Guest bypass button removed -->
+                        </div>
+                    </div>
+
+                    <!-- Primary Action Button -->
+                    <div>
+                        <button 
+                            type="button" 
+                            id="btn-pay-now"
+                            onclick="initiateStripeCheckout()"
+                            class="w-full py-3.5 px-4 bg-brand-orange hover:bg-brand-hover text-white font-bold text-xs font-mono tracking-wider uppercase transition-colors rounded-md shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                            <span id="btn-pay-text">PROCEED TO STRIPE CHECKOUT</span>
+                            <span class="material-symbols-outlined text-[18px]">credit_card</span>
+                        </button>
+                        <p class="text-[10px] font-mono text-surface-slate text-center mt-2.5">
+                            Secure payment hosted by Stripe. Credit cards, Apple Pay & Google Pay accepted.
+                        </p>
+                    </div>
+
+                    <!-- Return to Preview -->
+                    <div class="border-t border-surface-border pt-4 flex items-center justify-between text-xs text-surface-slate">
+                        <span>TDLR License #C3284</span>
+                        <a href="player.html" class="hover:text-brand-orange font-medium underline">Preview Module 1 Free</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-dark text-surface-subtle py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono">
+            <div>
+                <p>&copy; 2026 Texas Adult Driver Education. All rights reserved.</p>
+                <p class="text-surface-slate text-[11px] mt-0.5">TDLR Approved Course ADE-1317 · School License #C3284</p>
+            </div>
+            <div class="flex gap-4 text-surface-slate">
+                <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="mailto:support@texasade.org" class="hover:text-white transition-colors">support@texasade.org</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? 'http://localhost:8080'
+            : 'https://tx-ade-api-1004296326114.us-central1.run.app';
+        const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
+
+        let currentUser = null;
+        let appliedCoupon = null;
+        let basePriceCents = (window.getCoursePricing && window.getCoursePricing().coursePriceCents) || 3800;
+        let configuredRushPriceCents = 999;
+        let rushPriceCents = 0;
+        let discountCents = 0;
+        let finalTotal = 3800;
+
+        // Check URL parameters for status
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'success' || urlParams.get('payment') === 'success') {
+            document.getElementById('success-banner').classList.remove('hidden');
+            document.getElementById('checkout-container').classList.add('hidden');
+            localStorage.setItem('tx_user_active', 'true');
+        } else if (urlParams.get('status') === 'cancelled' || urlParams.get('payment') === 'cancelled') {
+            document.getElementById('cancel-banner').classList.remove('hidden');
+        }
+
+        // Auto-populate & auto-apply promo / partner referral code from URL (?ref=... or ?coupon=...)
+        const urlPromo = urlParams.get('ref') || urlParams.get('coupon') || urlParams.get('promo') || urlParams.get('code');
+        if (urlPromo) {
+            const cleanCode = urlPromo.trim().toUpperCase();
+            const promoInp = document.getElementById('promo-input');
+            if (promoInp) {
+                promoInp.value = cleanCode;
+                setTimeout(() => applyPromoCode(), 200);
+            }
+        }
+
+        async function checkAuth() {
+            const token = localStorage.getItem('tx_session_token');
+            const cachedUserStr = localStorage.getItem('tx_user_data');
+
+            // If no token or no cached user, force sign in state
+            if (!token || !cachedUserStr) {
+                handleLogout();
+                return;
+            }
+
+            try {
+                currentUser = JSON.parse(cachedUserStr);
+                if (currentUser && currentUser.email) {
+                    renderUser();
+                } else {
+                    handleLogout();
+                    return;
+                }
+            } catch (_) {
+                handleLogout();
+                return;
+            }
+
+            // Background validation to ensure token hasn't expired
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.user && data.user.email) {
+                        currentUser = data.user;
+                        localStorage.setItem('tx_user_data', JSON.stringify(data.user));
+                        renderUser();
+                    }
+                } else if (res.status === 401) {
+                    handleLogout();
+                }
+            } catch (_) {}
+        }
+
+        function renderUser() {
+            if (!currentUser || !currentUser.email) return;
+            document.getElementById('auth-signed-in').classList.remove('hidden');
+            document.getElementById('auth-signed-in').classList.add('flex');
+            document.getElementById('auth-signed-out').classList.add('hidden');
+
+            const name = currentUser.fullName || currentUser.name || 'Student';
+            const email = currentUser.email || '';
+            document.getElementById('user-display-name').textContent = name;
+            document.getElementById('user-display-email').textContent = email;
+            document.getElementById('user-avatar-initial').textContent = name.charAt(0).toUpperCase();
+        }
+
+        function renderGoogleButton() {
+            const container = document.getElementById('google-checkout-btn');
+            if (!container) return;
+            if (window.google && window.google.accounts && window.google.accounts.id) {
+                try {
+                    window.google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleGoogleAuthResponse,
+                    });
+                    container.innerHTML = '';
+                    window.google.accounts.id.renderButton(container, {
+                        theme: 'outline',
+                        size: 'large',
+                        type: 'standard',
+                        shape: 'rectangular',
+                        text: 'continue_with',
+                        width: 260
+                    });
+                } catch (e) {
+                    console.warn('Google button init error:', e);
+                }
+            } else {
+                setTimeout(renderGoogleButton, 350);
+            }
+        }
+
+        async function handleGoogleAuthResponse(response) {
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/v1/auth/google`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_token: response.credential })
+                });
+                const data = await res.json();
+                if (res.ok && data.user) {
+                    currentUser = data.user;
+                    localStorage.setItem('tx_user_data', JSON.stringify(data.user));
+                    if (data.token) localStorage.setItem('tx_session_token', data.token);
+                    renderUser();
+                }
+            } catch (err) {
+                console.error('Google Auth Failed', err);
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('tx_session_token');
+            localStorage.removeItem('tx_user_data');
+            currentUser = null;
+            document.getElementById('auth-signed-in').classList.add('hidden');
+            document.getElementById('auth-signed-in').classList.remove('flex');
+            document.getElementById('auth-signed-out').classList.remove('hidden');
+            renderGoogleButton();
+        }
+
+        function recalculateTotal() {
+            const rushChecked = document.getElementById('rush-cert-checkbox').checked;
+            rushPriceCents = rushChecked ? configuredRushPriceCents : 0;
+
+            const rushRow = document.getElementById('summary-rush-row');
+            if (rushChecked) {
+                rushRow.classList.remove('hidden');
+                rushRow.classList.add('flex');
+            } else {
+                rushRow.classList.add('hidden');
+                rushRow.classList.remove('flex');
+            }
+
+            let subtotal = basePriceCents + rushPriceCents;
+            finalTotal = Math.max(0, subtotal - discountCents);
+
+            if (appliedCoupon && appliedCoupon.discountPercent === 100) {
+                finalTotal = 0;
+            }
+
+            document.getElementById('summary-total-price').textContent = `$${(finalTotal / 100).toFixed(2)}`;
+            
+            const payBtnText = document.getElementById('btn-pay-text');
+            if (finalTotal === 0) {
+                payBtnText.textContent = 'ACTIVATE 100% FREE ACCESS';
+            } else {
+                payBtnText.textContent = `PAY $${(finalTotal / 100).toFixed(2)} WITH STRIPE`;
+            }
+        }
+
+        // quickGuestSignIn purged
+
+        async function applyPromoCode() {
+            const codeInput = document.getElementById('promo-input');
+            const msgEl = document.getElementById('promo-message');
+            const applyBtn = document.getElementById('btn-apply-promo');
+            const applyBtnText = document.getElementById('btn-apply-promo-text');
+            const code = (codeInput?.value || '').trim().toUpperCase();
+
+            if (!code) {
+                if (msgEl) {
+                    msgEl.className = 'text-xs font-mono mt-2.5 p-2.5 rounded-lg bg-rose-50 text-rose-800 border border-rose-300 font-semibold block flex items-center gap-2';
+                    msgEl.innerHTML = '<span class="material-symbols-outlined text-[16px] text-rose-600">error</span><span>Please enter a promo or coupon code.</span>';
+                }
+                if (codeInput) codeInput.focus();
+                return;
+            }
+
+            if (applyBtn) {
+                applyBtn.disabled = true;
+                if (applyBtnText) applyBtnText.textContent = 'VALIDATING...';
+            }
+            if (msgEl) {
+                msgEl.className = 'text-xs font-mono mt-2.5 p-2 rounded-lg bg-surface-slate/10 text-surface-dark block';
+                msgEl.textContent = 'Verifying coupon code...';
+            }
+
+            try {
+                const token = localStorage.getItem('tx_session_token');
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                const res = await fetch(`${API_BASE_URL}/api/v1/billing/validate-coupon`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({ code })
+                });
+                const data = await res.json().catch(() => ({}));
+
+                if (res.ok && (data.valid || data.success)) {
+                    appliedCoupon = data;
+                    const discountRow = document.getElementById('summary-discount-row');
+
+                    let discountBadgeText = '';
+                    if (data.discountPercent === 100 || data.finalPriceCents === 0) {
+                        discountCents = basePriceCents;
+                        discountBadgeText = '100% OFF Full Tuition Waiver';
+                        document.getElementById('summary-discount-label').textContent = '100% Tuition Waiver:';
+                        document.getElementById('summary-discount-amount').textContent = `-$${(basePriceCents / 100).toFixed(2)}`;
+                        if (discountRow) {
+                            discountRow.classList.remove('hidden');
+                            discountRow.classList.add('flex');
+                        }
+                    } else if (data.discountPercent) {
+                        discountCents = Math.round(basePriceCents * (data.discountPercent / 100));
+                        discountBadgeText = `${data.discountPercent}% OFF Discount`;
+                        document.getElementById('summary-discount-label').textContent = `${data.discountPercent}% Discount:`;
+                        document.getElementById('summary-discount-amount').textContent = `-$${(discountCents / 100).toFixed(2)}`;
+                        if (discountRow) {
+                            discountRow.classList.remove('hidden');
+                            discountRow.classList.add('flex');
+                        }
+                    } else if (data.discountAmount) {
+                        discountCents = Math.min(basePriceCents, Math.round(data.discountAmount));
+                        const discountDollars = (discountCents / 100).toFixed(2);
+                        discountBadgeText = `$${discountDollars} OFF Discount`;
+                        document.getElementById('summary-discount-label').textContent = 'Promo Discount:';
+                        document.getElementById('summary-discount-amount').textContent = `-$${discountDollars}`;
+                        if (discountRow) {
+                            discountRow.classList.remove('hidden');
+                            discountRow.classList.add('flex');
+                        }
+                    } else {
+                        discountCents = 0;
+                        if (discountRow) {
+                            discountRow.classList.add('hidden');
+                            discountRow.classList.remove('flex');
+                        }
+                    }
+
+                    recalculateTotal();
+
+                    if (codeInput) {
+                        codeInput.classList.remove('border-rose-400');
+                        codeInput.classList.add('border-emerald-500');
+                    }
+                    if (msgEl) {
+                        msgEl.className = 'text-xs font-mono mt-2.5 p-2.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-300 font-bold block flex items-center gap-2';
+                        msgEl.innerHTML = `<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span> <span>🎉 Congratulations! <strong>${escHtml(data.label || code)}</strong> applied: ${discountBadgeText || 'Discount active!'}</span>`;
+                    }
+
+                    if (data.autoEnrolled) {
+                        localStorage.setItem('tx_user_active', 'true');
+                        if (msgEl) {
+                            msgEl.innerHTML += `<div class="mt-1 text-emerald-700">Course unlocked! Opening classroom...</div>`;
+                        }
+                        setTimeout(() => {
+                            window.location.href = data.redirectUrl || 'player.html';
+                        }, 1200);
+                    }
+                } else {
+                    appliedCoupon = null;
+                    discountCents = 0;
+                    const discountRow = document.getElementById('summary-discount-row');
+                    if (discountRow) {
+                        discountRow.classList.add('hidden');
+                        discountRow.classList.remove('flex');
+                    }
+                    recalculateTotal();
+
+                    if (codeInput) {
+                        codeInput.classList.remove('border-emerald-500');
+                        codeInput.classList.add('border-rose-400');
+                    }
+                    if (msgEl) {
+                        msgEl.className = 'text-xs font-mono mt-2.5 p-2.5 rounded-lg bg-rose-50 text-rose-800 border border-rose-300 font-semibold block flex items-center gap-2';
+                        msgEl.innerHTML = `<span class="material-symbols-outlined text-[18px] text-rose-600">error</span> <span>✕ ${escHtml(data.message || 'Invalid or expired promo code. Please check your spelling and try again.')}</span>`;
+                    }
+                }
+            } catch (err) {
+                if (msgEl) {
+                    msgEl.className = 'text-xs font-mono mt-2.5 p-2.5 rounded-lg bg-rose-50 text-rose-800 border border-rose-300 font-semibold block flex items-center gap-2';
+                    msgEl.innerHTML = `<span class="material-symbols-outlined text-[18px] text-rose-600">error</span> <span>✕ Failed to validate code. Please check your connection.</span>`;
+                }
+            } finally {
+                if (applyBtn) {
+                    applyBtn.disabled = false;
+                    if (applyBtnText) applyBtnText.textContent = 'Apply Code';
+                }
+            }
+        }
+
+        function escHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str || '';
+            return div.innerHTML;
+        }
+
+        async function initiateStripeCheckout() {
+            // Client-side payment bypass removed
+            const token = localStorage.getItem('tx_session_token');
+            if (!currentUser || !token || !currentUser.email) {
+                handleLogout();
+                alert('Pursuant to Texas state law (16 TAC § 84.500), please sign in first so your progress is securely registered to your legal identity.');
+                const googleBtn = document.getElementById('google-checkout-btn');
+                if (googleBtn) googleBtn.scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
+            const payBtn = document.getElementById('btn-pay-now');
+            payBtn.disabled = true;
+            payBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            const originalText = document.getElementById('btn-pay-text').textContent;
+            document.getElementById('btn-pay-text').textContent = 'INITIALIZING STRIPE...';
+
+            const rushChecked = document.getElementById('rush-cert-checkbox').checked;
+            const tier = rushChecked ? 'EXPRESS' : 'STANDARD';
+            const couponInput = document.getElementById('promo-input');
+            const couponCode = (appliedCoupon?.code || couponInput?.value || '').trim();
+
+            try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                const res = await fetch(`${API_BASE_URL}/api/v1/billing/create-checkout-session`, {
+                    method: 'POST',
+                    headers,
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        tier,
+                        couponCode,
+                        email: currentUser.email,
+                        fullName: currentUser.fullName || currentUser.name,
+                        clientOrigin: window.location.origin
+                    })
+                });
+
+                const data = await res.json();
+
+                if (res.status === 401) {
+                    handleLogout();
+                    alert(data.message || 'Your session has expired. Please sign in with Google to continue.');
+                    payBtn.disabled = false;
+                    payBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    document.getElementById('btn-pay-text').textContent = originalText;
+                    return;
+                }
+
+                if (data.checkoutUrl) {
+                    window.location.href = data.checkoutUrl;
+                } else if (data.adminBypass || data.simulated) {
+                    localStorage.setItem('tx_user_active', 'true');
+                    window.location.href = 'player.html';
+                } else {
+                    alert(data.message || data.error || 'Unable to start checkout. Please try again.');
+                    payBtn.disabled = false;
+                    payBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    document.getElementById('btn-pay-text').textContent = originalText;
+                }
+            } catch (err) {
+                alert('Network error connecting to payment gateway: ' + err.message);
+                payBtn.disabled = false;
+                payBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                document.getElementById('btn-pay-text').textContent = originalText;
+            }
+        }
+
+        async function fetchLivePricing() {
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/v1/billing/pricing`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.coursePriceCents) {
+                        basePriceCents = data.coursePriceCents;
+                        configuredRushPriceCents = data.rushPriceCents !== undefined ? data.rushPriceCents : 999;
+
+                        const baseEl = document.getElementById('product-base-price');
+                        const sumBaseEl = document.getElementById('summary-base-price');
+                        const rushBadge = document.getElementById('rush-price-badge');
+                        const sumRushAmt = document.getElementById('summary-rush-amount');
+
+                        if (baseEl) baseEl.textContent = data.coursePriceFormatted || `$${(basePriceCents/100).toFixed(2)}`;
+                        if (sumBaseEl) sumBaseEl.textContent = data.coursePriceFormatted || `$${(basePriceCents/100).toFixed(2)}`;
+                        if (rushBadge) rushBadge.textContent = `+${data.rushPriceFormatted || '$9.99'}`;
+                        if (sumRushAmt) sumRushAmt.textContent = `+${data.rushPriceFormatted || '$9.99'}`;
+
+                        recalculateTotal();
+                    }
+                }
+            } catch (err) {
+                console.warn('Fallback to baseline pricing:', err.message);
+            }
+        }
+
+        function initCheckout() {
+            fetchLivePricing();
+            checkAuth();
+            if (urlPromo) {
+                applyPromoCode();
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCheckout);
+        } else {
+            initCheckout();
+        }
+    </script>
+</body>
+</html>

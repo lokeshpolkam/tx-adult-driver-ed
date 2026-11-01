@@ -59,6 +59,7 @@
     .card-border { border: 1px solid #D9DDD8; }
     .focus-ring:focus { outline: 2px solid #E87522; outline-offset: -1px; }
   </style>
+  <script src="pricing-client.js"></script>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-brand selection:text-white">
 
@@ -139,7 +140,7 @@
               onclick="setAuthMode('enroll')" 
               class="py-2.5 px-3 rounded-md text-xs font-mono font-semibold tracking-wider uppercase transition-all text-surface-slate hover:text-surface-dark"
             >
-              New Student ($38)
+              New Student (<span class="dyn-price-int">$38</span>)
             </button>
           </div>
         </div>
@@ -246,8 +247,8 @@
                 <input 
                   type="text" 
                   id="promo-code-input" 
-                  value="TEXAS100"
-                  placeholder="Enter code: TEXAS100" 
+                  value=""
+                  placeholder="Enter coupon code (if any)" 
                   class="flex-1 h-11 px-3.5 bg-white card-border rounded-lg text-sm font-mono uppercase text-surface-dark placeholder:text-surface-slate/60 focus:border-brand focus-ring transition-colors"
                 />
                 <button 
@@ -349,7 +350,7 @@
               </div>
               <div>
                 <div class="text-xs font-bold text-surface-dark">Free Module 1 Preview</div>
-                <div class="text-[11px] text-surface-slate">Start Module 1 completely free before paying. Apply code <strong>TEXAS100</strong> for full tuition waiver.</div>
+                <div class="text-[11px] text-surface-slate">Start Module 1 completely free before paying. Enter state classroom instantly.</div>
               </div>
             </div>
           </div>
@@ -358,8 +359,8 @@
           <div class="pt-4 border-t border-surface-border flex items-center justify-between">
             <span class="text-xs font-mono text-surface-slate">Total Standard Tuition:</span>
             <div class="text-right">
-              <span class="text-xl font-bold font-mono text-surface-dark">$38.00</span>
-              <span class="text-[10px] font-mono text-emerald-600 font-semibold block">Or $0 with code TEXAS100</span>
+              <span class="text-xl font-bold font-mono text-surface-dark dyn-price-full">$38.00</span>
+              
             </div>
           </div>
         </div>
@@ -410,7 +411,9 @@
   <!-- 4. AUTHENTICATION & ENROLLMENT LOGIC SCRIPT -->
   <!-- ========================================================================= -->
   <script>
-    const API_BASE_URL = 'https://tx-ade-api-1004296326114.us-central1.run.app';
+    const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? 'http://localhost:8080'
+      : 'https://tx-ade-api-1004296326114.us-central1.run.app';
     const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
 
     let currentMode = 'signin'; // 'signin' | 'enroll'
@@ -439,7 +442,7 @@
         tabEnroll.className = 'py-2.5 px-3 rounded-md text-xs font-mono font-semibold tracking-wider uppercase transition-all bg-white text-surface-dark shadow-xs';
         tabSignIn.className = 'py-2.5 px-3 rounded-md text-xs font-mono font-semibold tracking-wider uppercase transition-all text-surface-slate hover:text-surface-dark';
         title.textContent = 'New Student Enrollment';
-        subtitle.textContent = 'Enroll in the state-mandated 6-hour adult driver education course ($38 standard tuition or $0 with promo code).';
+        subtitle.textContent = 'Enroll in the state-mandated 6-hour adult driver education course (standard tuition or $0 with promo code).';
         btnLabel.textContent = 'START COURSE / APPLY FEE WAIVER ($0)';
         if (promoContainer) promoContainer.classList.remove('opacity-70');
       } else {
@@ -527,24 +530,9 @@
             localStorage.setItem('tx_session_token', 'google_session_' + Date.now());
           }
           localStorage.setItem('tx_user_data', JSON.stringify(data.user));
-          localStorage.setItem('tx_user_active', 'true');
+          if (data.user && data.user.enrollmentStatus === 'ACTIVE') { localStorage.setItem('tx_user_active', 'true'); } else { localStorage.removeItem('tx_user_active'); }
 
-          // Check if promo code is in input
-          const promoInput = document.getElementById('promo-code-input');
-          const code = (promoInput?.value || '').trim().toUpperCase();
-          if (code === 'TEXAS100') {
-            try {
-              await fetch(`${API_BASE_URL}/api/v1/billing/redeem-coupon`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${data.token || ''}`
-                },
-                credentials: 'include',
-                body: JSON.stringify({ code: 'TEXAS100' })
-              });
-            } catch (_) {}
-          }
+          // Hardcoded promo code bypass removed
 
           showToast(`Welcome, ${data.user.fullName || data.user.email}! Opening classroom...`, true);
           setTimeout(() => {
@@ -609,7 +597,7 @@
       // CRITICAL: Set ALL 3 keys so player.html never asks for login again!
       localStorage.setItem('tx_session_token', token);
       localStorage.setItem('tx_user_data', JSON.stringify(userData));
-      localStorage.setItem('tx_user_active', 'true');
+      if (data.user && data.user.enrollmentStatus === 'ACTIVE') { localStorage.setItem('tx_user_active', 'true'); } else { localStorage.removeItem('tx_user_active'); }
 
       showToast(`Welcome, ${userData.fullName}! Opening Virtual Classroom...`, true);
       setTimeout(() => {
@@ -632,13 +620,8 @@
       feedback.className = 'text-xs font-mono mt-1.5 text-surface-slate block';
       feedback.textContent = 'Validating code with state registry...';
 
-      if (['TEXAS100', 'FREE100', 'TEXASVIP', 'TDLRADMIN'].includes(code)) {
-        localStorage.setItem('tx_user_active', 'true');
-        feedback.className = 'text-xs font-mono mt-1.5 text-emerald-700 font-bold block';
-        feedback.textContent = '✓ 100% OFF Fee Waiver Applied! All 9 modules unlocked ($0 tuition).';
-        showToast('100% Promo Code Activated!', true);
-        return;
-      }
+      // All promo codes must be authoritatively verified via backend API
+      // No client-side bypasses permitted
 
       try {
         const token = localStorage.getItem('tx_session_token');
@@ -653,7 +636,7 @@
         });
         const data = await res.json();
         if (data.success && data.valid) {
-          localStorage.setItem('tx_user_active', 'true');
+          if (data.user && data.user.enrollmentStatus === 'ACTIVE') { localStorage.setItem('tx_user_active', 'true'); } else { localStorage.removeItem('tx_user_active'); }
           feedback.className = 'text-xs font-mono mt-1.5 text-emerald-700 font-bold block';
           feedback.textContent = `✓ ${data.label}: Applied! New tuition: ${data.finalPriceFormatted}`;
           showToast(`Promo Code Applied: ${data.label}`, true);

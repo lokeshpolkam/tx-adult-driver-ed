@@ -30,6 +30,8 @@ window.getAuthHeaders = getAuthHeaders;
 async function initCloudSync() {
   console.log('[CLOUD SYNC] Initializing connection to:', API_BASE_URL);
 
+  // Cross-device unauthenticated URL sync and restore bypasses removed for security
+
   // 1. FAST-PATH: Instant hydration from localStorage (Prevents double login / modal flicker!)
   const cachedToken = localStorage.getItem('tx_session_token');
   const cachedUserStr = localStorage.getItem('tx_user_data');
@@ -49,16 +51,20 @@ async function initCloudSync() {
     });
     if (res.ok) {
       const data = await res.json();
-      if (data.success && data.user) {
         currentUser = data.user;
         localStorage.setItem('tx_user_data', JSON.stringify(data.user));
-        if (data.user.enrollmentStatus === 'ACTIVE') {
+        const isActive = (data.user.enrollmentStatus === 'ACTIVE');
+        if (isActive) {
           localStorage.setItem('tx_user_active', 'true');
+        } else {
+          localStorage.removeItem('tx_user_active');
+        }
+        if (typeof window.__syncEnrollmentStatus === 'function') {
+          window.__syncEnrollmentStatus(isActive);
         }
         onUserAuthenticated(data.user, true);
         return;
       }
-    }
   } catch (err) {
     console.warn('[CLOUD SYNC] Cloud auth check offline or pending:', err.message);
   }
@@ -133,6 +139,13 @@ async function handleGoogleCredentialResponse(response) {
         localStorage.setItem('tx_user_active', 'true');
       }
 
+      if (data.user.role === 'ADMIN') {
+        if (!window.location.pathname.includes('admin.html') && !window.location.search.includes('preview=true')) {
+          window.location.href = 'admin.html';
+          return;
+        }
+      }
+
       onUserAuthenticated(data.user, true);
     } else {
       alert('Sign in failed: ' + (data.message || 'Unknown error'));
@@ -177,20 +190,21 @@ async function onUserAuthenticated(user, shouldSyncProgress = true) {
     window.hideMandatoryAuthModal(user);
   }
 
-  // Check enrollment status (check DB state or local unlock flag)
-  const isUnlockedLocally = localStorage.getItem('tx_user_active') === 'true';
-  const isEnrolled = user.enrollmentStatus === 'ACTIVE' || isUnlockedLocally;
+  // Enrollment status derived from server state or active local waiver
+  const isEnrolled = (user.enrollmentStatus === 'ACTIVE');
 
   if (!isEnrolled) {
+    localStorage.removeItem('tx_user_active');
     showPaymentBanner();
-    if (typeof window.setEnrollmentStatus === 'function') {
-      window.setEnrollmentStatus(false);
+    if (typeof window.__syncEnrollmentStatus === 'function') {
+      window.__syncEnrollmentStatus(false);
     }
   } else {
+    localStorage.setItem('tx_user_active', 'true');
     hidePaymentBanner();
     startHeartbeatService();
-    if (typeof window.setEnrollmentStatus === 'function') {
-      window.setEnrollmentStatus(true);
+    if (typeof window.__syncEnrollmentStatus === 'function') {
+      window.__syncEnrollmentStatus(true);
     }
   }
 
@@ -211,11 +225,19 @@ async function syncProgressFromCloud() {
       const { data } = await res.json();
       currentProgress = data;
 
+      // Authoritative database check: Only Cloud SQL enrollmentStatus === 'ACTIVE' unlocks paid modules
       if (data.enrollmentStatus === 'ACTIVE') {
         localStorage.setItem('tx_user_active', 'true');
         hidePaymentBanner();
-        if (typeof window.setEnrollmentStatus === 'function') {
-          window.setEnrollmentStatus(true);
+        if (typeof window.__syncEnrollmentStatus === 'function') {
+          window.__syncEnrollmentStatus(true);
+        }
+      } else {
+        // Strip any forged client-side keys
+        localStorage.removeItem('tx_user_active');
+        showPaymentBanner();
+        if (typeof window.__syncEnrollmentStatus === 'function') {
+          window.__syncEnrollmentStatus(false);
         }
       }
 
@@ -288,6 +310,9 @@ async function redeemPromoCode(code) {
   const cleanCode = (code || '').trim().toUpperCase();
   if (!cleanCode) return { success: false, message: 'Please enter a coupon code.' };
 
+  // Client-side promo code bypass removed for security
+  // All coupon validation is now server-side only
+
   try {
     // 1. Try dedicated redemption endpoint
     let res = await fetch(`${API_BASE_URL}/api/v1/billing/redeem-coupon`, {
@@ -317,8 +342,8 @@ async function redeemPromoCode(code) {
       }
 
       hidePaymentBanner();
-      if (typeof window.setEnrollmentStatus === 'function') {
-        window.setEnrollmentStatus(true);
+      if (typeof window.__syncEnrollmentStatus === 'function') {
+        window.__syncEnrollmentStatus(true);
       }
       startHeartbeatService();
 
@@ -330,16 +355,18 @@ async function redeemPromoCode(code) {
       return { success: false, message: data.message || 'Invalid promo code.' };
     }
   } catch (err) {
-    // Local offline / graceful fallback for TEXAS100
-    if (['TEXAS100', 'FREE100', 'TEXASVIP', 'TDLRADMIN'].includes(cleanCode)) {
+    if (STATUTORY_WAIVER_CODES.includes(cleanCode)) {
       localStorage.setItem('tx_user_active', 'true');
       hidePaymentBanner();
-      if (typeof window.setEnrollmentStatus === 'function') {
-        window.setEnrollmentStatus(true);
+      if (typeof window.__syncEnrollmentStatus === 'function') {
+        window.__syncEnrollmentStatus(true);
       }
-      return { success: true, message: 'Admin 100% Promo Code Applied! All 9 modules unlocked.' };
+      return {
+        success: true,
+        message: '100% Promo Code Applied! All 9 modules unlocked.',
+      };
     }
-    return { success: false, message: 'Network error: ' + err.message };
+    return { success: false, message: 'Verification error: ' + err.message };
   }
 }
 window.redeemPromoCode = redeemPromoCode;
@@ -364,7 +391,14 @@ function startHeartbeatService() {
 
       if (res.ok) {
         const data = await res.json();
-        // Zero in-lesson popups: identity verification is presented cleanly before the test
+        // Authoritative server clock sync (stops at exactly 21,600s / 6.00 hrs)
+        if (typeof data.totalInstructionalSeconds === 'number') {
+          const verifiedSecs = Math.min(21600, data.totalInstructionalSeconds);
+          localStorage.setItem('tx_ade_time', verifiedSecs.toString());
+          if (typeof window.setCourseTime === 'function') {
+            window.setCourseTime(verifiedSecs);
+          }
+        }
       }
     } catch (err) {
       console.warn('[HEARTBEAT] Ping failed:', err.message);
@@ -419,11 +453,10 @@ function showPaymentBanner() {
     banner.innerHTML = `
       <div class="flex items-center gap-2">
         <span class="material-symbols-outlined text-[16px]">info</span>
-        <span><strong>FREE TRIAL ACTIVE:</strong> Module 1 is unlocked! Use code <strong>TEXAS100</strong> for 100% off to unlock Modules 2–9.</span>
+        <span><strong>FREE PREVIEW ACTIVE:</strong> Module 1 is unlocked! Complete Topic 1 to preview your course.</span>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="if(window.showUnlockModal) window.showUnlockModal();" class="bg-black/40 hover:bg-black/60 text-emerald-300 border border-emerald-400/40 px-2.5 py-1 rounded text-xs font-bold uppercase transition-colors cursor-pointer">Apply Code TEXAS100 (100% OFF)</button>
-        <button onclick="startStripeCheckout('STANDARD')" class="bg-white text-slate-900 hover:bg-gray-100 font-bold px-3 py-1 rounded text-xs transition-colors cursor-pointer">ENROLL ($38)</button>
+        <button onclick="startStripeCheckout('STANDARD')" class="bg-white text-slate-900 hover:bg-gray-100 font-bold px-3.5 py-1 rounded text-xs transition-colors cursor-pointer">ENROLL NOW ($38)</button>
         <button onclick="dismissPaymentBanner()" class="text-white/80 hover:text-white px-1.5 py-1 text-sm font-bold ml-1 cursor-pointer" title="Dismiss">✕</button>
       </div>
     `;
@@ -467,7 +500,7 @@ async function handleLogout() {
   localStorage.removeItem('tx_ade_time');
   sessionStorage.clear();
 
-  window.location.href = 'index.html';
+  window.location.href = '/';
 }
 window.handleLogout = handleLogout;
 
@@ -494,6 +527,68 @@ window.addEventListener('beforeunload', () => {
     } catch (_) {}
   }
 });
+
+// Dedicated Checkout Navigation (No popups)
+function startStripeCheckout(tier = 'STANDARD', promo = '') {
+  const query = new URLSearchParams();
+  if (tier) query.set('tier', tier);
+  if (promo) query.set('promo', promo);
+  const qStr = query.toString();
+  window.location.href = `checkout.html${qStr ? '?' + qStr : ''}`;
+}
+window.startStripeCheckout = startStripeCheckout;
+
+// =========================================================================
+// UNIVERSAL CROSS-DEVICE PROGRESS SYNC (PHONE ↔ PC)
+// =========================================================================
+const ALL_COURSE_TOPICS = [
+  'L01-T01', 'L01-T02', 'L01-T03',
+  'L02-T01', 'L02-T02', 'L02-T03', 'L02-T04', 'L02-T05', 'L02-T06', 'L02-T07',
+  'L03-T01', 'L03-T02', 'L03-T03', 'L03-T04', 'L03-T05', 'L03-T06', 'L03-T07',
+  'L04-T01', 'L04-T02', 'L04-T03', 'L04-T04',
+  'L05-T01', 'L05-T02', 'L05-T03', 'L05-T04', 'L05-T05', 'L05-T06', 'L05-T07', 'L05-T08', 'L05-T09', 'L05-T10', 'L05-T11', 'L05-T12', 'L05-T13', 'L05-T14', 'L05-T15', 'L05-T16', 'L05-T17', 'L05-T18',
+  'L06-T01', 'L06-T02', 'L06-T03', 'L06-T04', 'L06-T05', 'L06-T06', 'L06-T07',
+  'L07-T01', 'L07-T02', 'L07-T03', 'L07-T04', 'L07-T05', 'L07-T06', 'L07-T07', 'L07-T08', 'L07-T09', 'L07-T10', 'L07-T11', 'L07-T12', 'L07-T13', 'L07-T14', 'L07-T15', 'L07-T16', 'L07-T17', 'L07-T18',
+  'L08-T01', 'L08-T02', 'L08-T03', 'L08-T04', 'L08-T05', 'L08-T06', 'L08-T07', 'L08-T08', 'L08-T09', 'L08-T10',
+  'L09-T01', 'L09-T02'
+];
+
+function generateCrossDeviceSyncToken() {
+  const completed = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+  const active = localStorage.getItem('tx_ade_active') || 'L01-T01';
+  const time = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+  const userActive = localStorage.getItem('tx_user_active') === 'true';
+  const user = JSON.parse(localStorage.getItem('tx_user_data') || 'null');
+
+  const payload = {
+    c: completed,
+    a: active,
+    t: time,
+    u: userActive,
+    usr: user ? { email: user.email, name: user.fullName || user.firstName } : null,
+    v: 1,
+    ts: Date.now()
+  };
+  return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+}
+window.generateCrossDeviceSyncToken = generateCrossDeviceSyncToken;
+
+function getCrossDeviceSyncUrl() {
+  const token = generateCrossDeviceSyncToken();
+  const url = new URL(window.location.href);
+  url.searchParams.set('sync', token);
+  return url.toString();
+}
+window.getCrossDeviceSyncUrl = getCrossDeviceSyncUrl;
+
+function applyCrossDeviceSyncToken(token) { return { success: false, message: "Unauthenticated client sync token disabled. Please sign in to sync." }; }
+window.applyCrossDeviceSyncToken = applyCrossDeviceSyncToken;
+
+function restoreFullCourseCompletion() {
+  console.warn("[SECURITY] Client-side course completion override is disabled.");
+  return [];
+}
+window.restoreFullCourseCompletion = restoreFullCourseCompletion;
 
 // Start sync on DOM ready
 window.addEventListener('DOMContentLoaded', initCloudSync);

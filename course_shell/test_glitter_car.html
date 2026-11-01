@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Widened Road & Glittering Orange Supercar Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes sparkle-twinkle {
+      0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.3; }
+      50% { transform: scale(1.3) rotate(45deg); opacity: 1; filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 10px #fbbf24); }
+    }
+    @keyframes car-pulse {
+      0%, 100% { filter: drop-shadow(0 0 12px rgba(232, 117, 34, 0.4)); }
+      50% { filter: drop-shadow(0 0 24px rgba(232, 117, 34, 0.85)); }
+    }
+    .glitter-sparkle-1 { animation: sparkle-twinkle 1.8s ease-in-out infinite; transform-origin: center; }
+    .glitter-sparkle-2 { animation: sparkle-twinkle 2.3s ease-in-out infinite 0.6s; transform-origin: center; }
+    .glitter-sparkle-3 { animation: sparkle-twinkle 2.0s ease-in-out infinite 1.2s; transform-origin: center; }
+  </style>
+</head>
+<body class="bg-slate-50 p-12 flex flex-col items-center justify-center min-h-screen">
+  <h1 class="text-2xl font-black text-slate-900 mb-8 font-mono">WIDENED ROAD & SHINING GLITTERING ORANGE SUPERCAR PREVIEW</h1>
+
+  <div class="w-[800px] h-[500px] bg-white rounded-3xl border border-slate-200 shadow-2xl relative overflow-hidden flex items-center justify-center">
+    <!-- Grid texture matching page -->
+    <div class="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-70"></div>
+
+    <svg viewBox="0 0 800 500" class="w-full h-full relative z-10">
+      <defs>
+        <!-- Wide Road Asphalt Texture / Gradient -->
+        <linearGradient id="wide-road-asphalt" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#334155" stop-opacity="0.32" />
+          <stop offset="50%" stop-color="#1e293b" stop-opacity="0.45" />
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0.38" />
+        </linearGradient>
+
+        <!-- Glittering Metallic Orange Paint Gradient -->
+        <linearGradient id="metallic-orange-paint" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#b43403" />
+          <stop offset="12%" stop-color="#ea580c" />
+          <stop offset="35%" stop-color="#fb923c" />
+          <stop offset="50%" stop-color="#fff7ed" /> <!-- Specular Sun Glint Core -->
+          <stop offset="65%" stop-color="#f97316" />
+          <stop offset="88%" stop-color="#ea580c" />
+          <stop offset="100%" stop-color="#9a3412" />
+        </linearGradient>
+
+        <!-- Orange Neon Chassis Underglow -->
+        <filter id="neon-underglow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+
+        <!-- Volumetric Golden Laser Headlights -->
+        <radialGradient id="laser-headlight-beam" cx="50%" cy="100%" r="90%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+          <stop offset="20%" stop-color="#fef08a" stop-opacity="0.9" />
+          <stop offset="50%" stop-color="#fde047" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#fb923c" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <!-- 1. Ambient Road Glow (Width: 76px) -->
+      <path d="M 100 420 C 300 420, 350 120, 550 120 C 650 120, 750 300, 780 300"
+            fill="none" stroke="rgba(232, 117, 34, 0.12)" stroke-width="76" stroke-linecap="round" />
+
+      <!-- 2. Outer White Frosted Shoulders / Curbs (Width: 54px) -->
+      <path d="M 100 420 C 300 420, 350 120, 550 120 C 650 120, 750 300, 780 300"
+            fill="none" stroke="rgba(255, 255, 255, 0.98)" stroke-width="54" stroke-linecap="round"
+            filter="drop-shadow(0 8px 16px rgba(15, 23, 42, 0.10))" />
+
+      <!-- 3. Guardrail / Edge Guide Lines (Subtle Hairlines on Both Edges) -->
+      <path d="M 100 420 C 300 420, 350 120, 550 120 C 650 120, 750 300, 780 300"
+            fill="none" stroke="#cbd5e1" stroke-width="50" stroke-linecap="round" />
+
+      <!-- 4. Substantial Widened Highway Asphalt Surface (Width: 44px) -->
+      <path d="M 100 420 C 300 420, 350 120, 550 120 C 650 120, 750 300, 780 300"
+            fill="none" stroke="url(#wide-road-asphalt)" stroke-width="44" stroke-linecap="round" />
+
+      <!-- 5. Inner Lane Edge Safety Lines (White Hairlines at Inner Shoulders) -->
+      <path d="M 100 420 C 300 420, 350 120, 550 120 C 650 120, 750 300, 780 300"
+            fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="38" stroke-linecap="round" />
+      <path d="M 100 420 C 300 420, 350 120, 550 120 C 650 120, 750 300, 780 300"
+            fill="none" stroke="url(#wide-road-asphalt)" stroke-width="36" stroke-linecap="round" />
+
+      <!-- 6. Bold Texas Safety Orange Centerline -->
+      <path d="M 100 420 C 300 420, 350 120, 550 120 C 650 120, 750 300, 780 300"
+            fill="none" stroke="#e87522" stroke-width="2.8" stroke-dasharray="10 12" stroke-linecap="round"
+            filter="drop-shadow(0 0 3px rgba(232, 117, 34, 0.5))" />
+
+      <!-- ========================================================================= -->
+      <!-- THE SHINING GLITTERING ORANGE SUPERCAR (Positioned at Curve Apex) -->
+      <!-- ========================================================================= -->
+      <g transform="translate(420, 210) rotate(-65)">
+        
+        <!-- Vibrant Orange Neon Underglow Glow Pool -->
+        <ellipse cx="0" cy="2" rx="20" ry="32" fill="#ea580c" opacity="0.6" filter="url(#neon-underglow)" />
+        <ellipse cx="0" cy="2" rx="14" ry="24" fill="#fb923c" opacity="0.8" filter="url(#neon-underglow)" />
+
+        <!-- High-Power Dual Volumetric Laser Beams (Forward Illumination) -->
+        <g style="mix-blend-mode: screen;" opacity="0.95">
+          <!-- Left Main Beam -->
+          <polygon points="-8,-16 -48,-130 0,-130 -3,-16" fill="url(#laser-headlight-beam)" />
+          <!-- Right Main Beam -->
+          <polygon points="3,-16 0,-130 48,-130 8,-16" fill="url(#laser-headlight-beam)" />
+          <!-- Central Overlap Corona -->
+          <polygon points="-4,-16 -18,-90 18,-90 4,-16" fill="url(#laser-headlight-beam)" opacity="0.7" />
+        </g>
+
+        <!-- Sharp Ground Shadow under Wheels & Diffuser -->
+        <ellipse cx="0" cy="4" rx="16" ry="26" fill="rgba(15, 23, 42, 0.55)" filter="blur(3px)" />
+
+        <!-- 4 Wide Performance Alloy Wheels with Red Brembo Calipers -->
+        <rect x="-14" y="-19" width="3.5" height="10" rx="1.5" fill="#090d16" />
+        <rect x="-12.5" y="-17" width="1.5" height="6" fill="#f8fafc" />
+        <rect x="-11" y="-16" width="1" height="4" fill="#ef4444" />
+
+        <rect x="10.5" y="-19" width="3.5" height="10" rx="1.5" fill="#090d16" />
+        <rect x="11" y="-17" width="1.5" height="6" fill="#f8fafc" />
+        <rect x="10" y="-16" width="1" height="4" fill="#ef4444" />
+
+        <rect x="-14" y="9" width="3.5" height="11" rx="1.5" fill="#090d16" />
+        <rect x="-12.5" y="11" width="1.5" height="7" fill="#f8fafc" />
+        <rect x="-11" y="12" width="1" height="5" fill="#ef4444" />
+
+        <rect x="10.5" y="9" width="3.5" height="11" rx="1.5" fill="#090d16" />
+        <rect x="11" y="11" width="1.5" height="7" fill="#f8fafc" />
+        <rect x="10" y="12" width="1" height="5" fill="#ef4444" />
+
+        <!-- Carbon Fiber Rear Aerodynamic Diffuser Fins -->
+        <path d="M -8 22 L 8 22 L 9 25 L -9 25 Z" fill="#090d16" />
+        <line x1="-4" y1="22" x2="-4" y2="25" stroke="#94a3b8" stroke-width="0.8" />
+        <line x1="0" y1="22" x2="0" y2="25" stroke="#94a3b8" stroke-width="0.8" />
+        <line x1="4" y1="22" x2="4" y2="25" stroke="#94a3b8" stroke-width="0.8" />
+
+        <!-- Sculpted High-Gloss Pearlescent Orange Supercar Body -->
+        <path d="M -10,-22 C -7,-26 7,-26 10,-22 C 12.5,-12 13.5,6 12,20 C 10.5,24 -10.5,24 -12,20 C -13.5,6 -12.5,-12 -10,-22 Z"
+              fill="url(#metallic-orange-paint)" stroke="#ffffff" stroke-width="0.9" />
+
+        <!-- Radiant High-Gloss Metallic Specular Reflection Curvature -->
+        <path d="M -7,-21 C -4,-23 4,-23 7,-21 C 9,-12 9.5,4 8,17 C -8,17 -9,4 -7,-21 Z"
+              fill="none" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.2" />
+
+        <!-- Carbon Fiber Dual Hood Aerodynamic Air Extractors -->
+        <path d="M -7,-19 L -3,-13 L -4,-13 Z" fill="#090d16" opacity="0.85" />
+        <path d="M 7,-19 L 3,-13 L 4,-13 Z" fill="#090d16" opacity="0.85" />
+
+        <!-- Brilliant Pure White Centerline Racing Stripe -->
+        <line x1="0" y1="-24" x2="0" y2="21" stroke="#ffffff" stroke-width="1.6" opacity="0.95" />
+
+        <!-- Tinted Panoramic Canopy with Dual Sun Flares -->
+        <path d="M -7.5,-10 C -5,-16 5,-16 7.5,-10 C 8,-2 7.5,9 6.5,13 C 4,14.5 -4,14.5 -6.5,13 C -7.5,9 -8,-2 -7.5,-10 Z"
+              fill="#090d16" stroke="rgba(255, 255, 255, 0.4)" stroke-width="0.6" />
+        
+        <!-- Windshield Specular Glass Flare Reflection -->
+        <path d="M -5,-12 C -2,-14 2,-14 5,-12 C 3.5,-8 2,2 0,6 C -2,6 -4,0 -5,-12 Z"
+              fill="rgba(255, 255, 255, 0.45)" />
+
+        <!-- Side Mirrors with Glowing Amber LED Indicators -->
+        <rect x="-12.5" y="-12" width="2.5" height="3.5" rx="1" fill="#ea580c" />
+        <circle cx="-12" cy="-10.5" r="1" fill="#fef08a" />
+        <rect x="10" y="-12" width="2.5" height="3.5" rx="1" fill="#ea580c" />
+        <circle cx="12" cy="-10.5" r="1" fill="#fef08a" />
+
+        <!-- Jewel-Eye Quad LED Projector Headlights (Blinding Diamond Brilliance) -->
+        <circle cx="-7" cy="-22" r="2.2" fill="#ffffff" filter="drop-shadow(0 0 4px #ffffff)" />
+        <circle cx="-7" cy="-22" r="1.2" fill="#fef08a" />
+        <circle cx="7" cy="-22" r="2.2" fill="#ffffff" filter="drop-shadow(0 0 4px #ffffff)" />
+        <circle cx="7" cy="-22" r="1.2" fill="#fef08a" />
+
+        <!-- Continuous Red OLED Neon Rear Lightbar with Center CHMSL Glow -->
+        <line x1="-10" y1="21.5" x2="10" y2="21.5" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round"
+              filter="drop-shadow(0 0 4px #ef4444)" />
+        <line x1="-7" y1="21.5" x2="7" y2="21.5" stroke="#fecaca" stroke-width="1.2" stroke-linecap="round" />
+
+        <!-- ================================================================= -->
+        <!-- ANIMATED SHINING GLITTER SPARKLE STARS (Glinting in the Texas Sun) -->
+        <!-- ================================================================= -->
+        <!-- Sparkle 1: Front Left Fender Glint -->
+        <g class="glitter-sparkle-1" transform="translate(-8, -21)">
+          <path d="M 0,-5 Q 0,0 5,0 Q 0,0 0,5 Q 0,0 -5,0 Q 0,0 0,-5 Z" fill="#ffffff" />
+          <circle cx="0" cy="0" r="1.5" fill="#fef08a" />
+        </g>
+
+        <!-- Sparkle 2: Windshield Apex Sun Flare -->
+        <g class="glitter-sparkle-2" transform="translate(4, -8)">
+          <path d="M 0,-4 Q 0,0 4,0 Q 0,0 0,4 Q 0,0 -4,0 Q 0,0 0,-4 Z" fill="#ffffff" />
+          <circle cx="0" cy="0" r="1.2" fill="#fff" />
+        </g>
+
+        <!-- Sparkle 3: Right Rear Muscular Haunch Reflection -->
+        <g class="glitter-sparkle-3" transform="translate(9, 14)">
+          <path d="M 0,-4.5 Q 0,0 4.5,0 Q 0,0 0,4.5 Q 0,0 -4.5,0 Q 0,0 0,-4.5 Z" fill="#ffffff" />
+          <circle cx="0" cy="0" r="1.3" fill="#fde047" />
+        </g>
+      </g>
+    </svg>
+  </div>
+</body>
+</html>

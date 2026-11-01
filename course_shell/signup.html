@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">`n  <title>Texas Adult Driver Education - Sign Up</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Enroll Now | Texas Adult Driver Education Online - ADE-1317</title>
+    <meta name="description" content="Enroll in the TDLR-approved Texas adult driver education course. Complete 100% online. Get your official Form ADE-1317 certificate and skip the DPS written exam.">
+    <link rel="canonical" href="https://tx-drive.vercel.app/enroll">
+    <meta property="og:title" content="Enroll Now | Texas Adult Driver Education">
+    <meta property="og:description" content="Enroll in the TDLR-approved 6-hour Texas adult driver ed course. Skip the DPS exam. Get your ADE-1317 certificate instantly.">
+    <meta property="og:url" content="https://tx-drive.vercel.app/enroll">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
@@ -84,6 +90,7 @@
             display: none;
         }
     </style>
+  <script src="pricing-client.js"></script>
 </head>
 <body class="min-h-screen flex flex-col text-surface-dark">
 
@@ -103,7 +110,7 @@
                 <a href="mailto:support@txade.com" class="hidden sm:flex items-center gap-1 text-surface-slate hover:text-brand-orange">
                     <span class="material-symbols-outlined text-[18px]">help</span> Support
                 </a>
-                <a href="index.html" class="flex items-center gap-1 text-surface-slate hover:text-brand-orange">
+                <a href="/" class="flex items-center gap-1 text-surface-slate hover:text-brand-orange">
                     <span class="material-symbols-outlined text-[18px]">home</span> Home
                 </a>
             </div>
@@ -271,11 +278,11 @@
                     <div class="bg-surface-canvas p-4 rounded border border-surface-border flex items-center justify-between">
                         <div>
                             <p class="text-xs text-surface-slate font-mono mb-1">TOTAL COST</p>
-                            <p class="text-2xl font-bold font-mono">$38.00</p>
+                            <p class="text-2xl font-bold font-mono dyn-price-full">$38.00</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-[10px] text-surface-slate uppercase">Promo code?</p>
-                            <p class="text-xs font-mono font-medium text-green-700">TEXAS100 = $0.00</p>
+                            <p class="text-[10px] text-surface-slate uppercase">STATE APPROVAL</p>
+                            <p class="text-xs font-mono font-medium text-surface-slate">TDLR ADE-1317</p>
                         </div>
                     </div>
                 </div>
@@ -321,7 +328,9 @@
 
     <!-- Scripts -->
     <script>
-        const API_BASE_URL = 'https://tx-ade-api-1004296326114.us-central1.run.app';
+        const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? 'http://localhost:8080'
+            : 'https://tx-ade-api-1004296326114.us-central1.run.app';
         const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
 
         // --- UI Interactions ---
@@ -494,8 +503,10 @@
             showToast(`Welcome, ${name}! Redirecting...`, true);
             
             setTimeout(() => {
-                if (data.user.enrollmentStatus === 'UNPAID') {
-                    window.location.href = 'player.html'; // Fallback to player.html until checkout.html built
+                if (data.user && (data.user.role === 'ADMIN')) {
+                    window.location.href = 'admin.html';
+                } else if (data.user && data.user.enrollmentStatus === 'UNPAID') {
+                    window.location.href = 'checkout.html';
                 } else {
                     window.location.href = 'player.html';
                 }

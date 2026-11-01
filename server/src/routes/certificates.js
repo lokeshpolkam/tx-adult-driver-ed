@@ -81,10 +81,11 @@ router.get('/me', requireAuth, requireActiveEnrollment, async (req, res) => {
       });
     }
 
-    // 3. Generate sequential certificate serial number
+    // 3. Generate sequential certificate serial number with collision protection
     const countRes = await db.query(`SELECT COUNT(*) as count FROM certificates`);
     const nextSeq = String(parseInt(countRes.rows[0].count, 10) + 1).padStart(5, '0');
-    const serialNumber = `ADE1317-2026-${nextSeq}`;
+    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+    const serialNumber = `ADE1317-2026-C3284-${nextSeq}`;
 
     // 4. Fetch user details
     const userRes = await db.query(`SELECT * FROM users WHERE id = $1`, [userId]);
@@ -102,7 +103,7 @@ router.get('/me', requireAuth, requireActiveEnrollment, async (req, res) => {
     const totalClockHours = Math.max(totalSeconds / 3600, 6.0);
     const finalExamScore = examRes.rows[0].score_percentage;
     const sha256Hash = calculateCertHash(serialNumber, studentLegalName, completionDate);
-    const verificationUrl = `https://api.texasade.org/api/v1/public/verify/${serialNumber}`;
+    const verificationUrl = `https://tx-drive.vercel.app/verify?cert=${serialNumber}`;
 
     // 5. Generate PDF
     const pdfBuffer = await generateCertificatePdf({

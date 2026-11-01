@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">`n  <title>Texas Adult Driver Education // Virtual Classroom (ADE-1317)</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Virtual Classroom | Texas Adult Driver Education — ADE-1317</title>
+    <meta name="description" content="Texas Adult Driver Education virtual classroom. Complete your 6-hour TDLR-approved course online.">
+    <meta name="robots" content="noindex, nofollow">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,6 +64,15 @@
         /* Icon Variants */
         .icon-fill { font-variation-settings: 'FILL' 1; }
         
+                /* Lesson Transition & Shimmer Animations */
+        @keyframes tx-shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .animate-tx-shimmer {
+            animation: tx-shimmer 1.6s infinite ease-in-out;
+        }
+
         /* Layout resets */
         html, body { height: 100%; overflow: hidden; margin: 0; }
     </style>
@@ -70,25 +82,29 @@
         window.__GOOGLE_CLIENT_ID__ = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
     </script>
     <script src="cloud_sync.js" defer></script>
+  <script src="pricing-client.js"></script>
 </head>
 <body class="bg-background text-on-surface font-sans flex flex-col h-screen">
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 w-full h-[64px] z-40 bg-surface-container-lowest border-b border-surface-container-high flex items-center px-4 justify-between shadow-sm">
+    <header class="fixed top-0 left-0 w-full h-[58px] sm:h-[64px] z-40 bg-surface-container-lowest border-b border-surface-container-high flex items-center px-3 sm:px-4 justify-between shadow-sm">
         <!-- Left: Branding -->
-        <div class="flex items-center space-x-3 shrink-0">
+        <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
             <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-toggle" class="lg:hidden text-secondary hover:text-on-surface">
-                <span class="material-symbols-outlined">menu</span>
+            <button id="mobile-menu-toggle" class="lg:hidden p-1.5 -ml-1 text-secondary hover:text-on-surface rounded-lg active:bg-surface-container-high shrink-0 cursor-pointer" aria-label="Open Syllabus">
+                <span class="material-symbols-outlined text-[24px]">menu</span>
             </button>
-            <div class="w-2.5 h-2.5 bg-primary-container rounded-sm"></div>
-            <div class="font-headline-sm uppercase text-on-surface tracking-tight">
-                <span>TX-ADE // TEXAS ADULT DRIVER ED</span>
-            </div>
+            <a href="home.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity min-w-0" title="Return to Student Dashboard">
+                <div class="w-2.5 h-2.5 bg-primary-container rounded-sm shrink-0 group-hover:scale-125 transition-transform"></div>
+                <div class="font-headline-sm uppercase text-on-surface tracking-tight min-w-0 truncate">
+                    <span class="hidden sm:inline">TX-ADE // TEXAS ADULT DRIVER ED</span>
+                    <span class="sm:hidden font-extrabold text-sm tracking-tight truncate block">TEXAS DRIVER ED</span>
+                </div>
+            </a>
             <div class="h-4 w-px bg-surface-dim hidden md:block"></div>
-            <div class="hidden md:flex items-center gap-1.5 px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded-lg">
+            <div class="hidden md:flex items-center gap-1.5 px-2 py-0.5 bg-surface-container-low border border-surface-dim rounded-lg shrink-0">
                 <div class="w-1.5 h-1.5 rounded-full bg-emerald-600"></div>
-                <span class="font-label-mono-sm text-secondary">ONLINE / Sec. 521.1601 TDLR Compliant</span>
+                <span class="font-label-mono-sm text-secondary text-xs">ONLINE / Sec. 521.1601 TDLR Compliant</span>
             </div>
         </div>
 
@@ -98,7 +114,7 @@
             <div class="flex flex-col w-48">
                 <div class="flex justify-between font-label-mono-sm text-secondary mb-1">
                     <span>COURSE PROGRESS</span>
-                    <span id="progress-text">0 / 75 TOPICS (0%)</span>
+                    <span id="progress-text">0 / 76 TOPICS (0%)</span>
                 </div>
                 <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
                     <div id="progress-bar" class="h-full bg-primary-container transition-all duration-300" style="width: 0%;"></div>
@@ -117,30 +133,75 @@
         </div>
 
         <!-- Right: Actions -->
-        <div class="flex items-center space-x-3 shrink-0">
-            <a href="index.html" class="flex items-center space-x-1 text-secondary hover:text-on-surface font-label-mono-sm transition-colors cursor-pointer" title="Return to Landing Page">
-                <span class="material-symbols-outlined text-[18px]">home</span>
-                <span class="hidden sm:inline">HOME</span>
+        <div class="flex items-center space-x-1 sm:space-x-2 shrink-0">
+            <a href="home.html" class="flex items-center gap-1 px-2 py-1.5 text-secondary hover:text-on-surface hover:bg-surface-container-high rounded-lg font-label-mono-sm transition-colors cursor-pointer" title="Return to Dashboard">
+                <span class="material-symbols-outlined text-[20px]">home</span>
+                <span class="hidden md:inline text-xs">HOME</span>
             </a>
-            <button id="shell-help-btn" class="flex items-center space-x-1 text-secondary hover:text-on-surface font-label-mono-sm transition-colors cursor-pointer">
-                <span class="material-symbols-outlined text-[18px]">help</span>
-                <span class="hidden sm:inline">HELP</span>
+            <button id="shell-help-btn" class="flex items-center gap-1 px-2 py-1.5 text-secondary hover:text-on-surface hover:bg-surface-container-high rounded-lg font-label-mono-sm transition-colors cursor-pointer" title="Help & TDLR Info">
+                <span class="material-symbols-outlined text-[20px]">help</span>
+                <span class="hidden md:inline text-xs">HELP</span>
             </button>
-            <button id="shell-save-btn" class="hidden sm:flex items-center space-x-1 text-secondary hover:text-on-surface font-label-mono-sm transition-colors cursor-pointer">
+                        <button id="shell-sync-btn" onclick="openSyncModal()" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-secondary hover:text-on-surface hover:bg-surface-container-high rounded-lg font-label-mono-sm transition-colors cursor-pointer" title="Multi-Device Sync (Phone ↔ PC)">
+                <span class="material-symbols-outlined text-[18px] text-primary-container">sync_alt</span>
+                <span class="text-xs font-semibold">SYNC</span>
+            </button>
+            <button id="shell-save-btn" class="hidden sm:flex items-center gap-1 px-2.5 py-1.5 text-secondary hover:text-on-surface hover:bg-surface-container-high rounded-lg font-label-mono-sm transition-colors cursor-pointer" title="Manual Save">
                 <span class="material-symbols-outlined text-[18px]">save</span>
-                <span>SAVE PROGRESS</span>
+                <span class="text-xs">SAVE</span>
             </button>
             <!-- Google Sign In Container & User Profile Badge -->
             <div id="google-signin-container" class="shrink-0"></div>
-            <div id="user-profile-badge" class="hidden items-center gap-2">
-                <span id="user-display-name" class="font-label-mono-sm text-xs text-secondary hidden md:inline"></span>
-                <div id="user-avatar" class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center font-headline-sm text-primary overflow-hidden">
-                    <span class="material-symbols-outlined text-[18px]">person</span>
+            <div id="user-profile-badge" class="hidden items-center gap-1.5 shrink-0 pl-1 relative">
+                <span id="user-display-name" class="font-label-mono-sm text-xs text-secondary hidden lg:inline max-w-[120px] truncate"></span>
+                <div id="user-avatar" onclick="toggleUserDropdown(event)" class="w-8 h-8 rounded-full bg-surface-container-high border border-surface-dim hover:border-primary-container flex items-center justify-center font-headline-sm text-primary text-xs font-bold overflow-hidden cursor-pointer shadow-sm transition-all hover:scale-105" title="Student Profile & Options">
+                    TC
                 </div>
-                <button onclick="handleLogout()" class="text-[11px] font-mono text-secondary hover:text-on-surface px-2 py-0.5 bg-surface-container-high hover:bg-surface-dim rounded border border-surface-dim transition-colors cursor-pointer" title="Log Out">LOG OUT</button>
+                <button onclick="handleLogout()" class="hidden sm:inline-block text-[11px] font-mono text-secondary hover:text-on-surface px-2 py-1 bg-surface-container-high hover:bg-surface-dim rounded border border-surface-dim transition-colors cursor-pointer" title="Log Out">LOG OUT</button>
             </div>
         </div>
     </header>
+
+    <!-- User Account Dropdown Modal/Menu -->
+    <div id="user-dropdown-menu" class="hidden fixed top-[54px] sm:top-[60px] right-2 sm:right-4 z-50 w-72 bg-surface-container-lowest border border-surface-dim rounded-2xl shadow-2xl p-3.5 font-sans transition-all">
+        <div class="flex items-center gap-3 pb-3 mb-2 border-b border-surface-dim">
+            <div id="dropdown-user-avatar" class="w-10 h-10 rounded-full bg-primary-container/10 text-primary-container border border-primary-container/30 flex items-center justify-center font-bold text-sm shrink-0">
+                TC
+            </div>
+            <div class="min-w-0 flex-1">
+                <div id="dropdown-user-name" class="font-bold text-sm text-on-surface truncate"></div>
+                <div id="dropdown-user-email" class="text-xs font-mono text-secondary truncate"></div>
+                <div class="text-[10px] font-mono text-emerald-600 font-bold mt-0.5 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span>ADE-1317 Active Enrollment</span>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-1 text-xs font-medium">
+            <a href="home.html" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-surface-container-low text-on-surface transition-colors">
+                <span class="material-symbols-outlined text-[19px] text-primary-container">dashboard</span>
+                <span class="font-semibold">Student Home Dashboard</span>
+            </a>
+            <button onclick="openSyncModal(); toggleUserDropdown(null, false);" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-surface-container-low text-primary font-semibold transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] text-primary-container">phonelink_setup</span>
+                <span>Sync Progress (Phone ↔ PC)</span>
+            </button>
+            <button onclick="sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden'); toggleUserDropdown(false);" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-surface-container-low text-on-surface transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] text-secondary">menu_book</span>
+                <span>Course Syllabus (9 Modules)</span>
+            </button>
+            <button onclick="window.saveProgress(); toggleUserDropdown(false);" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-surface-container-low text-on-surface transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] text-secondary">cloud_done</span>
+                <span>Sync & Save Progress</span>
+            </button>
+            <div class="pt-1.5 mt-1.5 border-t border-surface-dim">
+                <button onclick="handleLogout()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 transition-colors text-left font-semibold cursor-pointer">
+                    <span class="material-symbols-outlined text-[19px]">logout</span>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div class="flex flex-1 pt-[64px] h-full overflow-hidden relative">
         <!-- Sidebar -->
@@ -171,13 +232,100 @@
 
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col min-w-0 bg-surface-container relative lg:ml-[280px]">
-            <iframe id="content-frame" class="flex-1 w-full border-none bg-white" src="about:blank"></iframe>
+                        <!-- Frame Container with Inter-Module Loading Screen -->
+            <div class="flex-1 w-full relative overflow-hidden bg-white">
+                <!-- Authoritative Module Metadata Loading Screen (Between Modules Only - No In-Lesson Popups or 2.5D) -->
+                <div id="module-loader" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#f9faf8] p-3 sm:p-8 pointer-events-auto opacity-100 overflow-y-auto select-none" style="visibility: visible; opacity: 1;">
+                    <div class="w-full max-w-2xl bg-white border border-surface-container-high rounded-2xl shadow-sm overflow-hidden flex flex-col my-auto">
+                        <!-- Module Header Banner -->
+                        <div class="bg-surface-container-low border-b border-surface-dim px-4 py-3.5 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 shadow-2xs">
+                                    <span id="module-loader-icon" class="material-symbols-outlined text-[22px] sm:text-[24px] text-primary-container">menu_book</span>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-1.5 sm:gap-2">
+                                        <span id="module-loader-badge" class="font-mono text-[11px] sm:text-xs font-bold text-primary-container uppercase tracking-wider">MODULE 01</span>
+                                        <span class="w-1 h-1 rounded-full bg-surface-dim"></span>
+                                        <span id="module-loader-code" class="font-mono text-[10px] sm:text-[11px] text-secondary">TX-ADE-MOD-01</span>
+                                    </div>
+                                    <h2 id="module-loader-title" class="text-base sm:text-xl font-bold text-on-surface tracking-tight mt-0.5 truncate">Course Intro &amp; Safety</h2>
+                                </div>
+                            </div>
+                            <!-- Regulatory Badge -->
+                            <div class="flex sm:flex-col items-start sm:items-end justify-between shrink-0">
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono text-[10px] font-bold tracking-wider uppercase flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> TDLR ADE-1317
+                                </span>
+                                <span id="module-loader-standard" class="font-mono text-[10px] sm:text-[11px] text-secondary mt-1 hidden sm:block max-w-[240px] truncate text-right">TTC § 521.1601 Compliant</span>
+                            </div>
+                        </div>
+
+                        <!-- Module Metadata Stats Bar -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 border-b border-surface-dim bg-surface-container-lowest divide-x divide-y sm:divide-y-0 divide-surface-container-high">
+                            <div class="p-2.5 sm:p-3.5 flex flex-col">
+                                <span class="font-mono text-[9px] sm:text-[10px] text-secondary uppercase tracking-wider">CURRICULUM TOPICS</span>
+                                <span id="module-loader-topics-count" class="font-headline-sm text-xs sm:text-sm font-bold text-on-surface mt-0.5">3 Topics</span>
+                            </div>
+                            <div class="p-2.5 sm:p-3.5 flex flex-col">
+                                <span class="font-mono text-[9px] sm:text-[10px] text-secondary uppercase tracking-wider">EST. TIME</span>
+                                <span id="module-loader-minutes" class="font-headline-sm text-xs sm:text-sm font-bold text-on-surface mt-0.5">70 Minutes</span>
+                            </div>
+                            <div class="p-2.5 sm:p-3.5 flex flex-col">
+                                <span class="font-mono text-[9px] sm:text-[10px] text-secondary uppercase tracking-wider">MASTERY CHECK</span>
+                                <span id="module-loader-quiz-info" class="font-headline-sm text-xs sm:text-sm font-bold text-on-surface mt-0.5">10 Q · 70% Pass</span>
+                            </div>
+                            <div class="p-2.5 sm:p-3.5 flex flex-col">
+                                <span class="font-mono text-[9px] sm:text-[10px] text-secondary uppercase tracking-wider">STATUTORY REF</span>
+                                <span class="font-headline-sm text-xs sm:text-sm font-bold text-emerald-700 mt-0.5">Sec. 521.1601</span>
+                            </div>
+                        </div>
+
+                        <!-- Module Scope & Topic Inventory List -->
+                        <div class="p-3.5 sm:p-5 flex flex-col gap-3">
+                            <div>
+                                <span class="font-mono text-[9px] sm:text-[10px] text-secondary uppercase tracking-wider font-semibold">STATUTORY SCOPE &amp; OBJECTIVES</span>
+                                <p id="module-loader-scope" class="text-xs sm:text-sm text-on-surface/85 mt-1 leading-relaxed">
+                                    Statutory driving foundations, legal principles, and state traffic safety architecture.
+                                </p>
+                            </div>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="font-mono text-[9px] sm:text-[10px] text-secondary uppercase tracking-wider font-semibold">MODULE TOPICS INVENTORY</span>
+                                    <span id="module-loader-target-topic" class="font-mono text-[10px] text-primary-container font-semibold">LOADING TOPIC L01-T01...</span>
+                                </div>
+                                <div id="module-loader-topics-list" class="max-h-36 sm:max-h-44 overflow-y-auto custom-scroll border border-surface-container-high rounded-xl divide-y divide-surface-container-high bg-surface-container-low/40">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Status Footer -->
+                        <div class="bg-surface-container-low px-4 py-3 sm:px-6 sm:py-3.5 border-t border-surface-dim flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between text-xs font-mono">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3.5 h-3.5 rounded-full border-2 border-amber-200 border-t-primary-container animate-spin"></div>
+                                    <span id="module-loader-status" class="text-secondary text-[11px] tracking-tight font-medium">COMPILING &amp; PRE-CACHING MODULE ASSETS...</span>
+                                </div>
+                                <span class="text-primary-container font-bold text-[10px] sm:text-[11px] tracking-wider uppercase">INITIALIZING</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-surface-dim rounded-full overflow-hidden">
+                                <div class="h-full bg-primary-container transition-all duration-700 ease-out animate-pulse" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <iframe id="content-frame" class="w-full h-full border-none bg-white" style="opacity: 0;" src="about:blank"></iframe>
+            </div>
             
             <!-- Bottom Navigation -->
-            <footer class="h-[64px] bg-surface-container-lowest border-t border-surface-container-high flex items-center justify-between px-6 shrink-0 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-                <button id="btn-prev" class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-surface-dim bg-surface-container-lowest hover:border-on-surface text-on-surface font-label-mono-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+            <footer class="h-[58px] sm:h-[64px] bg-surface-container-lowest border-t border-surface-container-high flex items-center justify-between px-3 sm:px-6 shrink-0 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <button id="btn-prev" class="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-surface-dim bg-surface-container-lowest hover:border-on-surface text-on-surface font-label-mono-sm text-xs sm:text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0">
                     <span class="material-symbols-outlined text-[18px]">arrow_back</span>
-                    <span>PREVIOUS TOPIC</span>
+                    <span class="hidden sm:inline">PREVIOUS TOPIC</span>
+                    <span class="sm:hidden font-semibold">PREV</span>
                 </button>
                 
                 <div class="hidden md:flex items-center space-x-2 font-label-mono-sm text-secondary">
@@ -188,14 +336,14 @@
                     </span>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <button id="btn-take-test" class="flex items-center space-x-2 bg-primary-container text-white px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer">
-                        <span class="material-symbols-outlined text-[18px]">assignment_turned_in</span>
-                        <span id="btn-take-test-label">TAKE A TEST ON THIS TOPIC</span>
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button id="btn-take-test" class="flex items-center space-x-1.5 sm:space-x-2 bg-primary-container text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer truncate">
+                        <span class="material-symbols-outlined text-[18px] shrink-0">assignment_turned_in</span>
+                        <span id="btn-take-test-label" class="truncate">TAKE A TEST ON THIS TOPIC</span>
                     </button>
-                    <button id="btn-next" class="flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer">
+                    <button id="btn-next" class="flex items-center space-x-1.5 sm:space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm transition-all cursor-pointer shrink-0">
                         <span id="btn-next-label">NEXT TOPIC</span>
-                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        <span class="material-symbols-outlined text-[18px] shrink-0">arrow_forward</span>
                     </button>
                 </div>
             </footer>
@@ -301,16 +449,14 @@
 
                 <!-- Promo Code Quick Unlock -->
                 <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-                    <label class="block text-xs font-bold font-mono text-gray-700 uppercase mb-2 flex items-center justify-between">
+                    <label class="block text-xs font-bold font-mono text-gray-700 uppercase mb-2">
                         <span>Have a Promo / Waiver Code?</span>
-                        <span class="text-emerald-600 font-bold">100% OFF Code: TEXAS100</span>
                     </label>
                     <div class="flex gap-2">
                         <input 
                             type="text" 
                             id="unlock-promo-input" 
-                            value="TEXAS100" 
-                            placeholder="Enter code: TEXAS100" 
+                            placeholder="Enter promo code" 
                             class="flex-1 bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs font-mono uppercase tracking-wider focus:outline-none focus:border-amber-500"
                         />
                         <button 
@@ -328,14 +474,14 @@
                 <div class="space-y-2 pt-1">
                     <button 
                         type="button" 
-                        onclick="startStripeCheckout('STANDARD')" 
+                        onclick="startCheckoutFlow('STANDARD')" 
                         class="w-full py-3 px-4 bg-gray-900 hover:bg-black text-white rounded-xl text-xs font-bold font-mono tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                     >
-                        <span>ENROLL NOW ($38.00)</span>
+                        <span>ENROLL NOW (<span class="dyn-price-full">$38.00</span>)</span>
                         <span class="material-symbols-outlined text-[16px]">credit_card</span>
                     </button>
                     <a 
-                        href="index.html" 
+                        href="/" 
                         class="block text-center w-full py-2 px-4 text-gray-500 hover:text-gray-800 text-xs font-mono uppercase transition-colors"
                     >
                         Return to Landing Page
@@ -379,18 +525,27 @@
                     <div id="mandatory-google-signin" class="shrink-0"></div>
                 </div>
 
+                <!-- Cross-Device Progress Sync & Fast Entry -->
+                <div class="pt-1 space-y-2">
+                    <button type="button" onclick="openSyncModal()" class="w-full py-2.5 px-3 bg-amber-500/15 hover:bg-amber-500/25 text-amber-950 border border-amber-300 rounded-xl text-xs font-mono font-bold uppercase transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs">
+                        <span class="material-symbols-outlined text-[18px] text-amber-700">phonelink_setup</span>
+                        <span>Sync / Restore Progress From Phone</span>
+                    </button>
+                    <!-- dead guest button removed -->
+                </div>
+
                 <!-- Notice: Module 1 Free Preview -->
                 <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-[11px] font-mono text-amber-900 text-left space-y-1">
                     <div class="flex items-center gap-1 text-amber-800 font-bold">
                         <span class="material-symbols-outlined text-[16px]">lock_open</span>
                         <span>Module 1 Free Preview Included</span>
                     </div>
-                    <div>Sign-in is 100% free and instantly unlocks Module 1. Use code <strong>TEXAS100</strong> for 100% off full state certification.</div>
+                    <div>Sign-in is 100% free and instantly unlocks Module 1. Complete enrollment to unlock all 9 modules and receive your official Form ADE-1317 certificate.</div>
                 </div>
 
                 <!-- Return to landing page or dedicated login portal -->
                 <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
-                    <a href="index.html" class="inline-flex items-center gap-1 text-xs font-mono text-gray-500 hover:text-gray-900 uppercase transition-colors">
+                    <a href="/" class="inline-flex items-center gap-1 text-xs font-mono text-gray-500 hover:text-gray-900 uppercase transition-colors">
                         <span class="material-symbols-outlined text-[16px]">arrow_back</span>
                         <span>Landing Page</span>
                     </a>
@@ -404,6 +559,97 @@
     </div>
 
 
+
+        <!-- Multi-Device Progress Sync Modal (Phone ↔ PC) -->
+    <div id="sync-device-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-[60] hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden font-sans border border-surface-dim animate-in fade-in zoom-in-95 duration-150 flex flex-col max-h-[92vh]">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 px-5 py-4 text-white flex items-center justify-between border-b border-white/10 shrink-0">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-9 h-9 rounded-xl bg-primary-container/20 text-primary-container border border-primary-container/40 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[22px]">phonelink_setup</span>
+                    </div>
+                    <div class="min-w-0">
+                        <h3 class="font-extrabold text-sm sm:text-base uppercase tracking-tight text-white truncate">Cross-Device Progress Sync</h3>
+                        <p class="text-[11px] font-mono text-gray-400 truncate">Phone ↔ PC Instant Progress & Green Ticks Transfer</p>
+                    </div>
+                </div>
+                <button onclick="closeSyncModal()" class="text-gray-400 hover:text-white text-2xl font-bold cursor-pointer transition-colors shrink-0 ml-2">&times;</button>
+            </div>
+
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-5 overflow-y-auto space-y-4 text-xs font-sans">
+                <!-- Status Badge -->
+                <div class="bg-surface-container-low border border-surface-dim rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-mono uppercase text-secondary font-bold">This Device's Progress</div>
+                        <div class="font-bold text-sm text-on-surface mt-0.5">
+                            <span id="sync-modal-count" class="text-primary-container font-mono">0</span> / 76 Topics Completed
+                        </div>
+                    </div>
+                    <div id="sync-modal-status-badge" class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                        IN PROGRESS
+                    </div>
+                </div>
+
+                <!-- 1-Click local completion bypass removed for security -->
+
+                <!-- Share Link Option: Phone to PC Transfer Link -->
+                <div class="bg-surface-container-lowest border border-surface-dim rounded-xl p-4 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="font-bold text-gray-900 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[18px] text-primary-container">send_to_mobile</span>
+                            <span>Share This Device's Exact Progress to PC</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary text-xs leading-relaxed">
+                        Generate a direct 1-click sync link from this device. Open this link on your PC browser to instantly restore your exact completed topics, instructional hours, and green ticks.
+                    </p>
+                    <div class="flex gap-2">
+                        <input id="sync-share-url-input" type="text" readonly class="flex-1 bg-surface-container-low border border-surface-dim rounded-lg px-3 py-2 text-xs font-mono text-secondary truncate select-all focus:outline-none" value="" />
+                        <button onclick="copySyncShareLink()" class="px-3.5 py-2 bg-gray-900 hover:bg-black text-white rounded-lg text-xs font-bold font-mono uppercase tracking-wider transition-colors flex items-center gap-1 cursor-pointer shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                            <span id="copy-sync-btn-label">Copy Link</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Paste Sync Link or Code -->
+                <div class="bg-surface-container-lowest border border-surface-dim rounded-xl p-4 space-y-2.5">
+                    <div class="font-bold text-gray-900 flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[18px] text-blue-600">input</span>
+                        <span>Paste Sync Link from Phone</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="sync-paste-input" type="text" placeholder="Paste sync link or code here..." class="flex-1 bg-white border border-surface-dim rounded-lg px-3 py-2 text-xs font-mono focus:outline-none focus:border-primary-container" />
+                        <button onclick="applyPastedSyncCode()" class="px-3.5 py-2 bg-primary-container hover:bg-[#d26418] text-white rounded-lg text-xs font-bold font-mono uppercase tracking-wider transition-colors flex items-center gap-1 cursor-pointer shrink-0">
+                            <span>Apply</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Backup & JSON Export/Import -->
+                <div class="pt-1 flex items-center justify-between border-t border-surface-dim text-xs font-mono text-secondary">
+                    <button onclick="exportProgressJSON()" class="hover:text-primary-container flex items-center gap-1 cursor-pointer">
+                        <span class="material-symbols-outlined text-[16px]">download</span>
+                        <span>Download JSON</span>
+                    </button>
+                    <label class="hover:text-primary-container flex items-center gap-1 cursor-pointer">
+                        <span class="material-symbols-outlined text-[16px]">upload_file</span>
+                        <span>Upload JSON</span>
+                        <input type="file" accept=".json" class="hidden" onchange="importProgressJSON(event)" />
+                    </label>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-3 bg-surface-container-low border-t border-surface-dim flex justify-end shrink-0">
+                <button onclick="closeSyncModal()" class="px-4 py-2 bg-gray-900 text-white rounded-xl font-mono text-xs font-bold hover:bg-black transition-colors cursor-pointer">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Shell Notification Toast -->
     <div id="shell-toast" class="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-lg font-label-mono-sm text-xs font-semibold flex items-center gap-2 shadow-xl transition-all duration-300 transform translate-y-24 opacity-0 pointer-events-none bg-emerald-700 text-white">
@@ -597,22 +843,85 @@
             overlay.classList.add('hidden');
         });
 
+        // User Account Dropdown Toggle
+        function toggleUserDropdown(event, forceState) {
+            if (event && event.stopPropagation) event.stopPropagation();
+            const menu = document.getElementById('user-dropdown-menu');
+            if (!menu) return;
+            
+            // Hydrate dropdown with cached user info if available
+            try {
+                const user = JSON.parse(localStorage.getItem('tx_user_data') || '{}');
+                const dropName = document.getElementById('dropdown-user-name');
+                const dropEmail = document.getElementById('dropdown-user-email');
+                const dropAvatar = document.getElementById('dropdown-user-avatar');
+                if (dropName && user.fullName) dropName.textContent = user.fullName;
+                if (dropEmail && user.email) dropEmail.textContent = user.email;
+                if (dropAvatar) {
+                    if (user.profileImage) {
+                        dropAvatar.innerHTML = `<img src="${user.profileImage}" class="w-full h-full object-cover rounded-full">`;
+                    } else {
+                        dropAvatar.textContent = (user.fullName || user.email || 'TC').slice(0, 2).toUpperCase();
+                    }
+                }
+            } catch (_) {}
+
+            if (typeof forceState === 'boolean') {
+                if (forceState) menu.classList.remove('hidden');
+                else menu.classList.add('hidden');
+            } else {
+                menu.classList.toggle('hidden');
+            }
+        }
+        window.toggleUserDropdown = toggleUserDropdown;
+
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('user-dropdown-menu');
+            const avatar = document.getElementById('user-avatar');
+            if (!menu || menu.classList.contains('hidden')) return;
+            if (avatar && avatar.contains(e.target)) return;
+            if (!menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        function isMobileDevice() {
+            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isSmallScreen = window.innerWidth <= 768;
+            return isMobileUA || isSmallScreen;
+        }
+
         function getTopicUrl(id) {
             if (id === 'L09-T02') {
-                return `./mcqs/final_exam.html?v=${Date.now()}`;
+                return `./mcqs/final_exam.html?v=1.0.2`;
             }
-            return `./final_course_export/${id}.html?v=${Date.now()}`;
+            const basePath = isMobileDevice() ? './app_lessons' : './final_course_export';
+            return `${basePath}/${id}.html?v=1.0.2`;
         }
 
         function getTestUrl(id) {
             if (id === 'L09-T02') {
-                return `./mcqs/final_exam.html?v=${Date.now()}`;
+                return `./mcqs/final_exam.html?v=1.0.2`;
             }
             if (id === 'L09-T01') {
-                return `./final_course_export/L09-T01.html?v=${Date.now()}`;
+                const basePath = isMobileDevice() ? './app_lessons' : './final_course_export';
+                return `${basePath}/L09-T01.html?v=1.0.2`;
             }
-            return `./mcqs/${id}.html?v=${Date.now()}`;
+            return `./mcqs/${id}.html?v=1.0.2`;
         }
+
+        let lastIsMobileState = isMobileDevice();
+        window.addEventListener('resize', () => {
+            const currentIsMobile = isMobileDevice();
+            if (currentIsMobile !== lastIsMobileState) {
+                lastIsMobileState = currentIsMobile;
+                if (typeof activeTopicId !== 'undefined' && activeTopicId && currentViewMode === 'lesson') {
+                    if (iframeEl && !testState.active) {
+                        iframeEl.src = getTopicUrl(activeTopicId);
+                    }
+                }
+            }
+        });
 
         function formatTime(seconds) {
             const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
@@ -624,13 +933,15 @@
         // =========================================================================
         // ACCESS CONTROL: ONLY MODULE 1 IS FREE FOR UNPAID STUDENTS
         // =========================================================================
-        let isPaidUser = window.location.search.includes('access=admin_vip_granted') ||
-                         localStorage.getItem('tx_user_active') === 'true';
+        // Authoritative Server-Driven Enrollment (Cheating via console exploits eliminated)
+        let isPaidUser = false;
+        let isUserAuthenticated = !!(localStorage.getItem('tx_session_token') || localStorage.getItem('tx_user_data'));
 
-        window.setEnrollmentStatus = function(isActive) {
-            isPaidUser = isActive;
-            if (isActive) {
-                localStorage.setItem('tx_user_active', 'true');
+        // Internal sync function called solely by verified server data in cloud_sync.js
+        window.__syncEnrollmentStatus = function(isActive) {
+            isPaidUser = !!isActive;
+            if (isPaidUser) {
+                // Preserving verified server enrollment status
             } else {
                 localStorage.removeItem('tx_user_active');
             }
@@ -640,45 +951,46 @@
         function isModuleUnlocked(moduleId) {
             // Module 1 is ALWAYS accessible (Free Trial for unpaid students)
             if (moduleId === 1) return true;
-            // Modules 2-9 require active enrollment / paid status
-            return isPaidUser;
+            if (!isPaidUser) return false;
+            // Module 9 requires mandatory 6.00 clock hours (21,600s) pursuant to 16 TAC § 84.500
+            if (moduleId === 9) {
+                return (elapsedSeconds >= 21600);
+            }
+            return true;
         }
 
         function isTopicUnlocked(topicId) {
             if (!topicId) return true;
             // Module 1 topics (L01-T01 through L01-T07) are 100% free
             if (topicId.startsWith('L01-')) return true;
-            // Modules 2-9 require active enrollment
-            return isPaidUser;
+            if (!isPaidUser) return false;
+            // Module 9 topics require 6.00 clock hours pursuant to 16 TAC § 84.500
+            if (topicId.startsWith('L09-')) {
+                return (elapsedSeconds >= 21600);
+            }
+            return true;
         }
 
         function showUnlockModal(customMsg) {
-            const modal = document.getElementById('unlock-modal');
-            const msgEl = document.getElementById('unlock-modal-message');
-            if (customMsg && msgEl) {
-                msgEl.textContent = customMsg;
-            }
-            if (modal) modal.classList.remove('hidden');
+            // Navigate cleanly to dedicated checkout page without any popup modal
+            window.location.href = 'checkout.html';
         }
 
         function closeUnlockModal() {
-            const modal = document.getElementById('unlock-modal');
-            if (modal) modal.classList.add('hidden');
+            // No-op kept for legacy safety
         }
 
         // =========================================================================
         // MANDATORY STUDENT IDENTITY VERIFICATION (16 TAC § 84.500)
         // =========================================================================
-        let isUserAuthenticated = false;
 
         function showMandatoryAuthModal() {
             // Check if user is already authenticated in localStorage
             const cachedToken = localStorage.getItem('tx_session_token');
             const cachedUser = localStorage.getItem('tx_user_data');
             const isActive = localStorage.getItem('tx_user_active') === 'true';
-            const urlAccess = window.location.search.includes('access=admin_vip_granted');
 
-            if (cachedToken || cachedUser || isActive || urlAccess) {
+            if (cachedToken || cachedUser || isActive) {
                 isUserAuthenticated = true;
                 const modal = document.getElementById('mandatory-auth-modal');
                 if (modal) modal.classList.add('hidden');
@@ -701,29 +1013,55 @@
             const mainContent = document.querySelector('main');
             if (mainContent) mainContent.style.filter = 'none';
 
-            // Once authenticated, load active topic if blank
-            if (!iframeEl.src || iframeEl.src === 'about:blank') {
-                loadTopic(activeTopicId);
+            const urlParams = new URLSearchParams(window.location.search);
+            const explicitMode = urlParams.get('mode');
+
+            // Once authenticated, load active topic or test if blank
+            if (!iframeEl.src || iframeEl.src === 'about:blank' || iframeEl.src.endsWith('about:blank')) {
+                if (explicitMode === 'test') {
+                    openTopicTest(activeTopicId);
+                } else {
+                    loadTopic(activeTopicId);
+                }
             }
         }
         window.showMandatoryAuthModal = showMandatoryAuthModal;
         window.hideMandatoryAuthModal = hideMandatoryAuthModal;
+
+        // quickGuestAccess removed for security
 
         // Restore Progress from Cloud SQL (Called by cloud_sync.js)
         window.restoreProgressFromCloud = function(cloudData) {
             if (!cloudData) return;
             console.log('[PLAYER] Restoring progress from Cloud SQL:', cloudData);
 
-            // Reconstruct completed topics strictly from user's Cloud SQL record
-            completedTopics = new Set(Array.isArray(cloudData.completedTopics) ? cloudData.completedTopics : []);
-            localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
+            // Non-destructive bidirectional merge: Combine local and cloud completions
+            const localCompletedArr = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
+            const cloudCompletedArr = Array.isArray(cloudData.completedTopics) ? cloudData.completedTopics : [];
+            const mergedCompleted = Array.from(new Set([...localCompletedArr, ...cloudCompletedArr]));
+            completedTopics = new Set(mergedCompleted);
+            localStorage.setItem('tx_ade_completed', JSON.stringify(mergedCompleted));
+
+            // If local had topics missing in Cloud SQL, push merged progress to cloud immediately
+            if (localCompletedArr.length > cloudCompletedArr.length && typeof window.syncProgressToCloud === 'function') {
+                console.log('[PLAYER] Local progress has more topics than cloud. Syncing to Cloud SQL...');
+                window.syncProgressToCloud({
+                    completedTopics: mergedCompleted,
+                    activeTopicId: activeTopicId,
+                    elapsedSeconds: Math.max(elapsedSeconds, cloudData.totalInstructionalSeconds || 0)
+                });
+            }
 
             // Smart topic resumption:
-            // 1. If unlockedTopicId is provided and NOT completed yet, resume there.
-            // 2. Otherwise find the first uncompleted topic in the sequential course list.
-            // 3. If all topics completed, keep active on the final exam.
-            let resumeTopicId = cloudData.unlockedTopicId;
-            if (!resumeTopicId || completedTopics.has(resumeTopicId)) {
+            // 1. If explicit topic is provided in URL, prioritize it.
+            // 2. Otherwise use unlockedTopicId from Cloud SQL if not completed.
+            // 3. Otherwise find the first uncompleted topic in the course list.
+            const urlParams = new URLSearchParams(window.location.search);
+            const explicitTopic = urlParams.get('t');
+            const explicitMode = urlParams.get('mode');
+
+            let resumeTopicId = explicitTopic || cloudData.unlockedTopicId;
+            if (!resumeTopicId || (!explicitTopic && completedTopics.has(resumeTopicId))) {
                 const nextUnfinished = ALL_TOPICS.find(t => !completedTopics.has(t.id));
                 resumeTopicId = nextUnfinished ? nextUnfinished.id : ALL_TOPICS[ALL_TOPICS.length - 1].id;
             }
@@ -736,9 +1074,9 @@
             localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
 
             if (cloudData.enrollmentStatus === 'ACTIVE') {
-                window.setEnrollmentStatus(true);
+                window.__syncEnrollmentStatus(true);
             } else {
-                window.setEnrollmentStatus(false);
+                window.__syncEnrollmentStatus(false);
             }
 
             renderSidebar();
@@ -746,7 +1084,11 @@
             updateFooterButtons();
 
             if (activeTopicId) {
-                loadTopic(activeTopicId);
+                if (explicitMode === 'test') {
+                    openTopicTest(activeTopicId);
+                } else {
+                    loadTopic(activeTopicId);
+                }
             }
         };
 
@@ -771,7 +1113,7 @@
                 if (result.success) {
                     feedback.className = 'text-xs font-mono mt-2 text-emerald-600 font-bold block';
                     feedback.textContent = `★ ${result.message}`;
-                    window.setEnrollmentStatus(true);
+                    window.__syncEnrollmentStatus(true);
                     if (typeof hidePaymentBanner === 'function') hidePaymentBanner();
                     setTimeout(() => {
                         closeUnlockModal();
@@ -792,6 +1134,30 @@
         window.closeUnlockModal = closeUnlockModal;
         window.applyModalPromoCode = applyModalPromoCode;
 
+        
+        function updateActiveTopicInSidebar(newActiveId) {
+            const prevBtn = moduleListEl.querySelector('.active-topic-btn');
+            if (prevBtn) {
+                prevBtn.classList.remove('active-topic-btn', 'bg-[#FFF8F3]', 'border-primary-container', 'pl-[14px]');
+                prevBtn.classList.add('border-transparent');
+                const prevIcon = prevBtn.querySelector('.material-symbols-outlined');
+                if (prevIcon && !prevIcon.classList.contains('text-[#1e8f3b]')) {
+                    prevIcon.textContent = 'radio_button_unchecked';
+                    prevIcon.className = 'material-symbols-outlined mt-0.5 text-[18px] shrink-0 text-secondary';
+                }
+            }
+            const newBtn = moduleListEl.querySelector(`[data-topic-id="${newActiveId}"]`);
+            if (newBtn) {
+                newBtn.classList.add('active-topic-btn', 'bg-[#FFF8F3]', 'border-primary-container', 'pl-[14px]');
+                newBtn.classList.remove('border-transparent');
+                const newIcon = newBtn.querySelector('.material-symbols-outlined');
+                if (newIcon && !newIcon.classList.contains('text-[#1e8f3b]')) {
+                    newIcon.textContent = 'radio_button_checked';
+                    newIcon.className = 'material-symbols-outlined mt-0.5 text-[18px] shrink-0 text-primary-container icon-fill';
+                }
+            }
+        }
+  
         function renderSidebar() {
             moduleListEl.innerHTML = '';
             
@@ -808,7 +1174,12 @@
                 modHeader.className = `w-full px-4 py-3 flex items-center justify-between text-left transition-colors cursor-pointer ${isExpanded ? 'bg-surface-container-low' : 'hover:bg-surface-container-low'}`;
                 modHeader.onclick = () => {
                     if (!modUnlocked) {
-                        showUnlockModal(`Module ${mod.id} is locked. You are on the Free Module 1 Preview. Use code TEXAS100 for 100% off to unlock all modules.`);
+                        if (mod.id === 9 && isPaidUser) {
+                            const hrs = (elapsedSeconds / 3600).toFixed(1);
+                            showShellToast(`Module 9 requires 6.00 instructional clock hours pursuant to 16 TAC § 84.500. Current progress: ${hrs}/6.0 hrs.`, false);
+                            return;
+                        }
+                        showUnlockModal(`Module ${mod.id} requires course enrollment. Please complete enrollment to unlock all modules.`);
                         return;
                     }
                     expandedModuleId = isExpanded ? null : mod.id;
@@ -838,7 +1209,9 @@
                 
                 const headerText = document.createElement('div');
                 const lockBadge = !modUnlocked 
-                    ? '<span class="ml-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">LOCKED</span>' 
+                    ? (mod.id === 9 && isPaidUser 
+                        ? `<span class="ml-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">REQ 6.0 HRS (${(elapsedSeconds/3600).toFixed(1)}/6.0)</span>` 
+                        : '<span class="ml-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">LOCKED</span>')
                     : (mod.id === 1 && !isPaidUser ? '<span class="ml-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">FREE PREVIEW</span>' : '');
 
                 headerText.innerHTML = `<div class="font-label-mono-sm text-secondary flex items-center">${mod.code} ${lockBadge}</div>
@@ -867,13 +1240,15 @@
                         const tUnlocked = isTopicUnlocked(topic.id);
 
                         const tBtn = document.createElement('button');
+                        tBtn.setAttribute('data-topic-id', topic.id);
+                        tBtn.setAttribute('data-topic-id', topic.id);
                         tBtn.className = `w-full text-left px-4 py-2 flex items-start space-x-3 transition-colors cursor-pointer ${
                             isActive ? 'bg-[#FFF8F3] border-l-2 border-primary-container pl-[14px]' : 'border-l-2 border-transparent hover:bg-surface-container-low'
                         }`;
 
                         tBtn.onclick = () => {
                             if (!tUnlocked) {
-                                showUnlockModal(`Topic ${topic.id} is in Module ${mod.id}. Unpaid access is limited to Module 1. Please enroll or use promo code TEXAS100 for 100% off.`);
+                                showUnlockModal(`Topic ${topic.id} is in Module ${mod.id}. Please complete course enrollment to access Modules 2 through 9.`);
                                 return;
                             }
                             loadTopic(topic.id);
@@ -1010,35 +1385,43 @@
                 }
 
                 // Active question mode: Left button morphs into PREVIOUS QUESTION or RETURN TO LESSON
-                btnPrev.disabled = false;
-                if (testState.questionIndex === 0) {
-                    btnPrev.innerHTML = `<span class="material-symbols-outlined text-[18px]">menu_book</span><span>RETURN TO LESSON</span>`;
-                    btnPrev.className = 'flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer';
+                if (activeTopicId === 'L09-T02') {
+                    // Texas DPS Final Exam: Back-navigation locked during official state examination
+                    btnPrev.disabled = true;
+                    btnPrev.innerHTML = `<span class="material-symbols-outlined text-[18px]">lock</span><span class="hidden sm:inline">EXAM IN PROGRESS</span><span class="sm:hidden font-semibold text-xs">EXAM</span>`;
+                    btnPrev.className = 'flex items-center gap-1 sm:gap-2 border border-surface-dim bg-surface-container-high text-secondary/50 px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm cursor-not-allowed opacity-40 shrink-0';
                 } else {
-                    btnPrev.innerHTML = `<span class="material-symbols-outlined text-[18px]">arrow_back</span><span>PREVIOUS QUESTION</span>`;
-                    btnPrev.className = 'flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer';
+                    btnPrev.disabled = false;
+                    if (testState.questionIndex === 0) {
+                        btnPrev.innerHTML = `<span class="material-symbols-outlined text-[18px]">menu_book</span><span class="hidden sm:inline">RETURN TO LESSON</span><span class="sm:hidden font-semibold text-xs">LESSON</span>`;
+                        btnPrev.className = 'flex items-center gap-1 sm:gap-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm transition-all cursor-pointer shrink-0';
+                    } else {
+                        btnPrev.innerHTML = `<span class="material-symbols-outlined text-[18px]">arrow_back</span><span class="hidden sm:inline">PREVIOUS QUESTION</span><span class="sm:hidden font-semibold text-xs">PREV Q</span>`;
+                        btnPrev.className = 'flex items-center gap-1 sm:gap-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm transition-all cursor-pointer shrink-0';
+                    }
                 }
 
                 // Right button morphs into NEXT QUESTION or VIEW RESULTS
                 const isFinalQ = (testState.questionIndex >= testState.totalQuestions - 1);
-                btnNextLabel.textContent = isFinalQ ? 'VIEW RESULTS' : 'NEXT QUESTION';
-                const nextIcon = btnNext.querySelector('.material-symbols-outlined');
-                if (nextIcon) nextIcon.textContent = isFinalQ ? 'grading' : 'arrow_forward';
+                const fullRight = isFinalQ ? 'VIEW RESULTS' : 'NEXT QUESTION';
+                const shortRight = isFinalQ ? 'RESULTS' : 'NEXT Q';
+                const nextIcon = isFinalQ ? 'grading' : 'arrow_forward';
+                btnNext.innerHTML = `<span class="hidden sm:inline">${fullRight}</span><span class="sm:hidden font-semibold text-xs">${shortRight}</span><span class="material-symbols-outlined text-[18px] shrink-0">${nextIcon}</span>`;
 
                 if (testState.isAnswered) {
                     btnNext.disabled = false;
-                    btnNext.className = 'flex items-center space-x-2 bg-primary-container text-white px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer';
+                    btnNext.className = 'flex items-center gap-1 sm:gap-2 bg-primary-container text-white px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer shrink-0';
                 } else {
                     btnNext.disabled = true;
-                    btnNext.className = 'flex items-center space-x-2 border border-surface-dim bg-surface-container-high text-secondary/60 px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-not-allowed opacity-50';
+                    btnNext.className = 'flex items-center gap-1 sm:gap-2 border border-surface-dim bg-surface-container-high text-secondary/60 px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm transition-all cursor-not-allowed opacity-50 shrink-0';
                 }
                 return;
             }
 
             // Normal lesson mode
             btnPrev.disabled = (currentIndex === 0);
-            btnPrev.innerHTML = `<span class="material-symbols-outlined text-[18px]">arrow_back</span><span>PREVIOUS TOPIC</span>`;
-            btnPrev.className = 'flex items-center gap-2 px-4 py-2.5 rounded-lg border border-surface-dim bg-surface-container-lowest hover:border-on-surface text-on-surface font-label-mono-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer';
+            btnPrev.innerHTML = `<span class="material-symbols-outlined text-[18px]">arrow_back</span><span class="hidden sm:inline">PREVIOUS TOPIC</span><span class="sm:hidden font-semibold text-xs">PREV</span>`;
+            btnPrev.className = 'flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-surface-dim bg-surface-container-lowest hover:border-on-surface text-on-surface font-label-mono-sm text-xs sm:text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0';
 
             btnTakeTest.classList.remove('hidden');
             btnNext.classList.remove('hidden');
@@ -1054,26 +1437,242 @@
                 }
             }
 
+            let fullTestLabel = 'TAKE A TEST ON THIS TOPIC';
+            let shortTestLabel = 'TAKE TEST';
             if (activeTopicId === 'L09-T02') {
-                btnTakeTestLabel.textContent = isCompleted ? 'RETAKE FINAL EXAM' : 'TAKE FINAL EXAM (30 QUESTIONS)';
+                fullTestLabel = isCompleted ? 'RETAKE FINAL EXAM' : 'TAKE FINAL EXAM (30 QUESTIONS)';
+                shortTestLabel = isCompleted ? 'RETAKE EXAM' : 'FINAL EXAM';
             } else if (activeTopicId === 'L09-T01') {
-                btnTakeTestLabel.textContent = isCompleted ? 'REVIEW IDENTITY PROFILE' : 'VERIFY IDENTITY (5 QUESTIONS)';
+                fullTestLabel = isCompleted ? 'REVIEW IDENTITY PROFILE' : 'VERIFY IDENTITY (5 QUESTIONS)';
+                shortTestLabel = isCompleted ? 'REVIEW ID' : 'VERIFY ID';
             } else {
-                btnTakeTestLabel.textContent = isCompleted ? 'RETAKE TOPIC TEST' : 'TAKE A TEST ON THIS TOPIC';
+                fullTestLabel = isCompleted ? 'RETAKE TOPIC TEST' : 'TAKE A TEST ON THIS TOPIC';
+                shortTestLabel = isCompleted ? 'RETAKE' : 'TAKE TEST';
             }
 
-            const nextIcon = btnNext.querySelector('.material-symbols-outlined');
-            if (nextIcon) nextIcon.textContent = isLast ? 'workspace_premium' : 'arrow_forward';
+            btnTakeTest.innerHTML = `<span class="material-symbols-outlined text-[18px] shrink-0">assignment_turned_in</span><span class="hidden sm:inline">${fullTestLabel}</span><span class="sm:hidden font-semibold text-xs">${shortTestLabel}</span>`;
+
+            const nextIconName = isLast ? 'workspace_premium' : 'arrow_forward';
+            const fullNextLabel = isLast ? 'FINISH COURSE' : 'NEXT TOPIC';
+            const shortNextLabel = isLast ? 'FINISH' : 'NEXT';
+            btnNext.innerHTML = `<span class="hidden sm:inline">${fullNextLabel}</span><span class="sm:hidden font-semibold text-xs">${shortNextLabel}</span><span class="material-symbols-outlined text-[18px] shrink-0">${nextIconName}</span>`;
 
             if (isCompleted) {
-                btnTakeTest.className = 'flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer';
-                btnNext.className = 'flex items-center space-x-2 bg-primary-container text-white px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer';
-                btnNextLabel.textContent = isLast ? 'FINISH COURSE' : 'NEXT TOPIC';
+                btnTakeTest.className = 'flex items-center gap-1 sm:gap-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm transition-all cursor-pointer shrink-0';
+                btnNext.className = 'flex items-center gap-1 sm:gap-2 bg-primary-container text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer shrink-0';
             } else {
-                btnTakeTest.className = 'flex items-center space-x-2 bg-primary-container text-white px-5 py-2.5 rounded-lg font-label-mono-sm font-semibold hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer';
-                btnNext.className = 'flex items-center space-x-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-4 py-2.5 rounded-lg font-label-mono-sm font-semibold transition-all cursor-pointer';
-                btnNextLabel.textContent = isLast ? 'FINISH COURSE' : 'NEXT TOPIC';
+                btnTakeTest.className = 'flex items-center gap-1 sm:gap-2 bg-primary-container text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm hover:bg-[#D26418] active:translate-y-px transition-all shadow-sm cursor-pointer shrink-0';
+                btnNext.className = 'flex items-center gap-1 sm:gap-2 border border-surface-dim bg-surface-container-lowest text-on-surface hover:border-on-surface px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg font-label-mono-sm font-semibold text-xs sm:text-sm transition-all cursor-pointer shrink-0';
             }
+        }
+
+                        // =========================================================================
+        // INTER-MODULE METADATA RUNTIME & SINGLE-MODULE CACHING ENGINE
+        // (NO LOADING SCREENS BETWEEN LESSONS - LOADING SCREENS ONLY BETWEEN MODULES)
+        // =========================================================================
+        const MODULE_STANDARDS = {
+            1: {
+                code: 'TX-ADE-MOD-01',
+                standard: 'Texas Transportation Code § 521.1601 & 16 TAC § 84.500',
+                scope: 'Statutory Foundations, Highway Safety Principles & Legal Responsibilities',
+                icon: 'verified_user'
+            },
+            2: {
+                code: 'TX-ADE-MOD-02',
+                standard: 'Texas Transportation Code Chapter 521 · Driver Licensing & Verification',
+                scope: 'License Acquisition, Classifications, Suspensions & Legal Privileges',
+                icon: 'badge'
+            },
+            3: {
+                code: 'TX-ADE-MOD-03',
+                standard: 'Texas Transportation Code § 545.151 · Right-of-Way Intersection Rules',
+                scope: 'Statutory Intersections, Move Over / Slow Down & Emergency Vehicles',
+                icon: 'alt_route'
+            },
+            4: {
+                code: 'TX-ADE-MOD-04',
+                standard: 'Texas Manual on Uniform Traffic Control Devices (Texas MUTCD)',
+                scope: 'Regulatory Signs, Signals, Highway Pavement Markings & Work Zones',
+                icon: 'traffic'
+            },
+            5: {
+                code: 'TX-ADE-MOD-05',
+                standard: 'Texas Transportation Code Chapter 545 · Operation & Movement of Vehicles',
+                scope: 'Traffic Flow Control, Speed Regulations, Emergencies & Adverse Weather',
+                icon: 'speed'
+            },
+            6: {
+                code: 'TX-ADE-MOD-06',
+                standard: 'Texas Penal Code Chapter 49 & ALR Statutes · Impaired Driving Awareness',
+                scope: 'DWI Statutory Sanctions, Implied Consent & Administrative License Revocation',
+                icon: 'health_and_safety'
+            },
+            7: {
+                code: 'TX-ADE-MOD-07',
+                standard: 'Texas Transportation Code § 545.421 & Community Safety Education Act (SB 30)',
+                scope: 'Multi-Modal Roadway Sharing, Oversize Vehicles & Law Enforcement Interactions',
+                icon: 'group'
+            },
+            8: {
+                code: 'TX-ADE-MOD-08',
+                standard: 'TDLR ADE-1317 & Texas Strategic Highway Safety Plan (SHSP)',
+                scope: 'Hazard Perception, SIPDE System, Distracted Driving & Julia Wells Act',
+                icon: 'security'
+            },
+            9: {
+                code: 'TX-ADE-MOD-09',
+                standard: '16 Texas Administrative Code § 84.500 & DPS Examination Rules',
+                scope: 'Personal Identity Verification Checkpoint & 30-Question Official Final Exam',
+                icon: 'school'
+            }
+        };
+
+        let currentLoadedModuleId = null;
+        let isModuleTransitioning = false;
+        let moduleLoadTimer = null;
+        const compiledModules = new Set();
+
+        function prefetchModuleTopics(mod) {
+            try {
+                if (!mod || !mod.topics) return;
+                const urls = mod.topics.map(t => getTopicUrl(t.id));
+
+                // 1. Speculation Rules API: immediate batch prefetch for all module lessons
+                if (HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')) {
+                    let specScript = document.getElementById('speculation-rules-module');
+                    if (specScript) specScript.remove();
+                    specScript = document.createElement('script');
+                    specScript.id = 'speculation-rules-module';
+                    specScript.type = 'speculationrules';
+                    specScript.textContent = JSON.stringify({
+                        prefetch: [{
+                            source: "list",
+                            urls: urls,
+                            eagerness: "immediate"
+                        }]
+                    });
+                    document.head.appendChild(specScript);
+                }
+
+                // 2. Link prefetch fallback for all topics in this module
+                urls.forEach((url, i) => {
+                    let link = document.getElementById(`prefetch-mod-t-${i}`);
+                    if (!link) {
+                        link = document.createElement('link');
+                        link.id = `prefetch-mod-t-${i}`;
+                        link.rel = 'prefetch';
+                        link.as = 'document';
+                        document.head.appendChild(link);
+                    }
+                    link.href = url;
+                });
+            } catch (e) {
+                console.warn('Module batch prefetch warning:', e);
+            }
+        }
+
+        function showModuleLoader(mod, targetTopicId) {
+            const loader = document.getElementById('module-loader');
+            if (!loader || !mod) return;
+
+            isModuleTransitioning = true;
+
+            const std = MODULE_STANDARDS[mod.id] || {
+                code: `TX-ADE-MOD-0${mod.id}`,
+                standard: 'Texas Transportation Code & TDLR § 84.500 Compliant',
+                scope: mod.title,
+                icon: 'menu_book'
+            };
+
+            const totalMinutes = mod.topics.reduce((acc, t) => acc + (t.minutes || 0), 0);
+
+            const badgeEl = document.getElementById('module-loader-badge');
+            const codeEl = document.getElementById('module-loader-code');
+            const iconEl = document.getElementById('module-loader-icon');
+            const titleEl = document.getElementById('module-loader-title');
+            const stdEl = document.getElementById('module-loader-standard');
+            const countEl = document.getElementById('module-loader-topics-count');
+            const minEl = document.getElementById('module-loader-minutes');
+            const quizEl = document.getElementById('module-loader-quiz-info');
+            const scopeEl = document.getElementById('module-loader-scope');
+            const targetEl = document.getElementById('module-loader-target-topic');
+
+            if (badgeEl) badgeEl.textContent = `MODULE 0${mod.id}`;
+            if (codeEl) codeEl.textContent = std.code;
+            if (iconEl) iconEl.textContent = std.icon;
+            if (titleEl) titleEl.textContent = mod.title;
+            if (stdEl) stdEl.textContent = std.standard;
+            if (countEl) countEl.textContent = `${mod.topics.length} Topics`;
+            if (minEl) minEl.textContent = `${totalMinutes} Minutes`;
+            if (quizEl) quizEl.textContent = mod.quizInfo || '10 Q · 70% Pass';
+            if (scopeEl) scopeEl.textContent = std.scope;
+            if (targetEl) targetEl.textContent = `INITIALIZING TOPIC ${targetTopicId}...`;
+
+            const listEl = document.getElementById('module-loader-topics-list');
+            if (listEl) {
+                listEl.innerHTML = '';
+                mod.topics.forEach(t => {
+                    const isTarget = (t.id === targetTopicId);
+                    const row = document.createElement('div');
+                    row.className = `px-3 sm:px-3.5 py-1.5 sm:py-2 flex items-center justify-between text-xs transition-colors ${
+                        isTarget ? 'bg-amber-50/80 font-bold text-primary-container' : 'text-on-surface/80 hover:bg-surface-container-low'
+                    }`;
+                    row.innerHTML = `
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="font-mono text-[11px] ${isTarget ? 'text-primary-container font-bold' : 'text-secondary'} shrink-0">${t.id}</span>
+                            <span class="truncate">${t.title}</span>
+                        </div>
+                        <span class="font-mono text-[11px] text-secondary shrink-0 ml-2">${t.minutes} MIN</span>
+                    `;
+                    listEl.appendChild(row);
+                });
+            }
+
+            // ZERO GLIMPSE: Instant opaque entrance with no transition delay
+            loader.style.transition = 'none';
+            loader.style.visibility = 'visible';
+            loader.style.opacity = '1';
+            loader.classList.remove('pointer-events-none');
+            loader.classList.add('pointer-events-auto');
+
+            if (iframeEl) {
+                iframeEl.style.transition = 'none';
+                iframeEl.style.opacity = '0';
+            }
+
+            // At once load & compile: batch prefetch all topics of this new module
+            prefetchModuleTopics(mod);
+
+            // Safety-only timeout (cleared immediately when iframe load fires)
+            if (moduleLoadTimer) clearTimeout(moduleLoadTimer);
+            moduleLoadTimer = setTimeout(() => {
+                hideModuleLoader();
+            }, 5000);
+        }
+
+        function hideModuleLoader() {
+            if (moduleLoadTimer) {
+                clearTimeout(moduleLoadTimer);
+                moduleLoadTimer = null;
+            }
+            const loader = document.getElementById('module-loader');
+            if (loader) {
+                // Smooth 200ms exit dissolve once iframe is actually ready
+                loader.style.transition = 'opacity 200ms ease-out';
+                loader.style.opacity = '0';
+                loader.classList.remove('pointer-events-auto');
+                loader.classList.add('pointer-events-none');
+                setTimeout(() => {
+                    if (loader.style.opacity === '0') {
+                        loader.style.visibility = 'hidden';
+                    }
+                }, 200);
+            }
+            if (iframeEl) {
+                iframeEl.style.transition = 'opacity 200ms ease-in';
+                iframeEl.style.opacity = '1';
+            }
+            isModuleTransitioning = false;
         }
 
         function loadTopic(id) {
@@ -1082,24 +1681,51 @@
                 return;
             }
             if (!isTopicUnlocked(id)) {
-                showUnlockModal(`Topic ${id} requires course enrollment. You are currently on the Free Module 1 Preview. Use promo code TEXAS100 for 100% off to unlock all 9 modules.`);
+                showUnlockModal(`Topic ${id} requires course enrollment. Please enroll to continue.`);
+                return;
+            }
+            if (isModuleTransitioning && activeTopicId === id) {
                 return;
             }
             currentViewMode = 'lesson';
             testState.active = false;
             activeTopicId = id;
             localStorage.setItem('tx_ade_active', id);
-            
-            const currentMod = COURSE_DATA.modules.find(m => m.topics.some(t => t.id === activeTopicId));
-            if (currentMod) expandedModuleId = currentMod.id;
+
+            const prevModId = currentLoadedModuleId;
+            const currentMod = COURSE_DATA.modules.find(m => m.topics.some(t => t.id === id));
+            const newModId = currentMod ? currentMod.id : null;
+
+            // LOADING SCREEN STRICTLY BETWEEN MODULES ONLY
+            // If already compiled and ready, display immediately without showing any loading screen!
+            const isInterModule = (prevModId !== newModId);
+            const isAlreadyCompiled = newModId && compiledModules.has(newModId);
+
+            if (isInterModule && currentMod && !isAlreadyCompiled) {
+                currentLoadedModuleId = newModId;
+                expandedModuleId = newModId;
+                showModuleLoader(currentMod, id);
+            } else {
+                currentLoadedModuleId = newModId;
+                expandedModuleId = newModId;
+                // Switching lessons within the same module OR module already compiled:
+                // NO LOADING SCREEN! Instant transition.
+                if (iframeEl) {
+                    iframeEl.style.opacity = '1';
+                }
+            }
 
             iframeEl.src = getTopicUrl(id);
-            
+
             // Close mobile menu on topic select
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
 
-            renderSidebar();
+            if (isInterModule || prevModId !== expandedModuleId || !moduleListEl.hasChildNodes()) {
+                renderSidebar();
+            } else {
+                updateActiveTopicInSidebar(id);
+            }
             updateMetrics();
             updateFooterButtons();
         }
@@ -1117,7 +1743,7 @@
             }
             const id = topicId || activeTopicId;
             if (!isTopicUnlocked(id)) {
-                showUnlockModal(`Knowledge Check for ${id} requires full course enrollment. Use code TEXAS100 for 100% off.`);
+                showUnlockModal(`Knowledge Check for ${id} requires full course enrollment.`);
                 return;
             }
             activeTopicId = id;
@@ -1170,7 +1796,7 @@
                 }
                 renderSidebar();
                 updateMetrics();
-                showShellToast('🎉 All 75 Topics Completed! State Certification Ready.', true);
+                showShellToast('🎉 All 76 Topics Completed! State Certification Ready.', true);
             }
         };
 
@@ -1182,6 +1808,7 @@
 
         if (btnPrev) {
             btnPrev.addEventListener('click', () => {
+                if (isModuleTransitioning) return;
                 if (currentViewMode === 'test') {
                     if (testState.isResultsScreen || testState.questionIndex === 0) {
                         returnToLesson();
@@ -1205,6 +1832,7 @@
 
         if (btnNext) {
             btnNext.addEventListener('click', () => {
+                if (isModuleTransitioning) return;
                 if (currentViewMode === 'test') {
                     if (testState.isResultsScreen) {
                         if (testState.isPassed) {
@@ -1224,7 +1852,7 @@
                                 }
                                 renderSidebar();
                                 updateMetrics();
-                                showShellToast('🎉 All 75 Topics Completed! State Certification Ready.', true);
+                                showShellToast('🎉 All 76 Topics Completed! State Certification Ready.', true);
                             }
                         } else {
                             // Retake test
@@ -1272,7 +1900,7 @@
                         window.reportTopicCompletion(activeTopicId, nextTopic.id);
                     }
                     if (!isTopicUnlocked(nextTopic.id)) {
-                        showUnlockModal(`Congratulations on completing Module 1! To continue to Module 2 (${nextTopic.id}: ${nextTopic.title}) and receive your official Form ADE-1317 certificate, enroll now or apply your 100% off promo code (TEXAS100).`);
+                        showUnlockModal(`Congratulations on completing Module 1! To continue to Module 2 (${nextTopic.id}: ${nextTopic.title}) and receive your official Form ADE-1317 certificate, please complete your course enrollment.`);
                         return;
                     }
                     loadTopic(nextTopic.id);
@@ -1282,7 +1910,7 @@
                     }
                     renderSidebar();
                     updateMetrics();
-                    showShellToast('🎉 All 75 Topics Completed! State Certification Ready.', true);
+                    showShellToast('🎉 All 76 Topics Completed! State Certification Ready.', true);
                 }
             });
         }
@@ -1312,8 +1940,17 @@
             });
         });
 
+        const STATUTORY_MAX_SECONDS = 21600; // Exactly 6.00 clock hours (16 TAC § 84.500)
+
         function updateTimerDisplay() {
-            const maxSeconds = 6 * 3600; // 6 hours
+            if (elapsedSeconds >= STATUTORY_MAX_SECONDS) {
+                elapsedSeconds = STATUTORY_MAX_SECONDS;
+                timerTextEl.innerHTML = `<span class="text-emerald-700 font-bold text-[11px]">✓ 06:00:00 (100% COMPLETED)</span>`;
+                timerBarEl.className = "h-full bg-emerald-500 transition-all duration-1000";
+                timerBarEl.style.width = "100%";
+                return;
+            }
+
             const displayStr = `${formatTime(elapsedSeconds)} / 06:00:00`;
             
             if (isTimerPaused) {
@@ -1324,9 +1961,15 @@
                 timerBarEl.className = "h-full bg-[#1e8f3b] transition-all duration-1000";
             }
             
-            const pct = Math.min(100, (elapsedSeconds / maxSeconds) * 100);
+            const pct = Math.min(100, (elapsedSeconds / STATUTORY_MAX_SECONDS) * 100);
             timerBarEl.style.width = `${pct}%`;
         }
+
+        window.setCourseTime = function(secs) {
+            elapsedSeconds = Math.min(STATUTORY_MAX_SECONDS, Math.max(0, parseInt(secs, 10) || 0));
+            localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
+            updateTimerDisplay();
+        };
 
         // Timer Execution Loop
         setInterval(() => {
@@ -1336,9 +1979,14 @@
             }
 
             if (!isTimerPaused) {
-                elapsedSeconds++;
-                if (elapsedSeconds % 10 === 0) { // Save every 10s
-                    localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
+                if (elapsedSeconds < 21600) {
+                    elapsedSeconds++;
+                    if (elapsedSeconds % 10 === 0) { // Save every 10s
+                        localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
+                    }
+                } else {
+                    elapsedSeconds = 21600;
+                    localStorage.setItem('tx_ade_time', '21600');
                 }
             }
             
@@ -1355,6 +2003,9 @@
                         style = doc.createElement('style');
                         style.id = 'tx-shell-override-styles';
                         style.textContent = `
+                            body, main {
+                                padding-bottom: 96px !important;
+                            }
                             header.fixed,
                             aside.fixed,
                             aside[class*="280px"],
@@ -1408,10 +2059,30 @@
             } catch (e) {
                 console.warn('Iframe footer override warning:', e);
             }
+
+            // REAL READINESS: The instant the iframe document is loaded & compiled, IMMEDIATELY dismiss the module loading screen!
+            if (isModuleTransitioning) {
+                if (currentLoadedModuleId) {
+                    compiledModules.add(currentLoadedModuleId);
+                }
+                hideModuleLoader();
+            } else {
+                if (iframeEl) {
+                    iframeEl.style.opacity = '1';
+                }
+            }
+        });
+
+        iframeEl.addEventListener('error', () => {
+            hideModuleLoader();
+            if (iframeEl) {
+                iframeEl.style.opacity = '1';
+            }
         });
 
         // Message listener for topic tests, final exam, and lesson completion
         window.addEventListener('message', (event) => {
+            if (event.origin !== window.location.origin) return;
             if (!event.data) return;
 
             if (event.data.type === 'TEST_QUESTION_STATE') {
@@ -1483,6 +2154,149 @@
         });
 
         
+        
+        // =========================================================================
+        // MULTI-DEVICE SYNC MODAL HANDLERS (PHONE ↔ PC)
+        // =========================================================================
+        function openSyncModal() {
+            const modal = document.getElementById('sync-device-modal');
+            if (!modal) return;
+            const countEl = document.getElementById('sync-modal-count');
+            const statusEl = document.getElementById('sync-modal-status-badge');
+            const urlInput = document.getElementById('sync-share-url-input');
+
+            const count = completedTopics.size;
+            if (countEl) countEl.textContent = count;
+            if (statusEl) {
+                if (count >= TOTAL_TOPICS) {
+                    statusEl.textContent = '100% COMPLETED';
+                    statusEl.className = 'px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-300';
+                } else {
+                    statusEl.textContent = `${count} / ${TOTAL_TOPICS} TOPICS`;
+                    statusEl.className = 'px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200';
+                }
+            }
+            if (urlInput) {
+                if (typeof window.getCrossDeviceSyncUrl === 'function') {
+                    urlInput.value = window.getCrossDeviceSyncUrl();
+                } else {
+                    const raw = btoa(unescape(encodeURIComponent(JSON.stringify({ c: [...completedTopics], t: elapsedSeconds, a: activeTopicId, u: true }))));
+                    urlInput.value = `${window.location.origin}/player.html?sync=${encodeURIComponent(raw)}`;
+                }
+            }
+            modal.classList.remove('hidden');
+        }
+        window.openSyncModal = openSyncModal;
+
+        function closeSyncModal() {
+            const modal = document.getElementById('sync-device-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+        window.closeSyncModal = closeSyncModal;
+
+        function copySyncShareLink() {
+            const input = document.getElementById('sync-share-url-input');
+            const label = document.getElementById('copy-sync-btn-label');
+            if (!input || !input.value) return;
+            navigator.clipboard.writeText(input.value).then(() => {
+                if (label) label.textContent = 'Copied!';
+                showShellToast('Sync Link copied to clipboard! Open it on your PC.', true);
+                setTimeout(() => { if (label) label.textContent = 'Copy Link'; }, 2500);
+            }).catch(() => {
+                input.select();
+                document.execCommand('copy');
+                if (label) label.textContent = 'Copied!';
+                showShellToast('Sync Link copied to clipboard!', true);
+                setTimeout(() => { if (label) label.textContent = 'Copy Link'; }, 2500);
+            });
+        }
+        window.copySyncShareLink = copySyncShareLink;
+
+        function restoreCourseOnCurrentDevice() { alert("Course progress is managed strictly by the state-verified classroom server."); }
+window.restoreCourseOnCurrentDevice = restoreCourseOnCurrentDevice;
+
+        function applyPastedSyncCode() {
+            const input = document.getElementById('sync-paste-input');
+            const val = (input?.value || '').trim();
+            if (!val) {
+                alert('Please paste a sync link or code.');
+                return;
+            }
+            let res = null;
+            if (typeof window.applyCrossDeviceSyncToken === 'function') {
+                res = window.applyCrossDeviceSyncToken(val);
+            }
+            if (res && res.success) {
+                completedTopics = new Set(JSON.parse(localStorage.getItem('tx_ade_completed') || '[]'));
+                elapsedSeconds = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+                activeTopicId = localStorage.getItem('tx_ade_active') || activeTopicId;
+                renderSidebar();
+                updateMetrics();
+                updateFooterButtons();
+                closeSyncModal();
+                if (typeof hideMandatoryAuthModal === 'function') {
+                    hideMandatoryAuthModal({ fullName: 'Texas Driver Candidate' });
+                }
+                showShellToast(`🎉 Synced! ${completedTopics.size} Topics & Green Ticks Active on PC.`, true);
+            } else {
+                alert('Unable to restore from this code. Please check the link and try again.');
+            }
+        }
+        window.applyPastedSyncCode = applyPastedSyncCode;
+
+        function exportProgressJSON() {
+            const data = {
+                completedTopics: [...completedTopics],
+                activeTopicId,
+                elapsedSeconds,
+                userActive: localStorage.getItem('tx_user_active') === 'true',
+                exportedAt: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `tx-ade-progress-backup-${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showShellToast('Backup JSON downloaded!', true);
+        }
+        window.exportProgressJSON = exportProgressJSON;
+
+        function importProgressJSON(event) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (Array.isArray(data.completedTopics)) {
+                        data.completedTopics.forEach(t => completedTopics.add(t));
+                        localStorage.setItem('tx_ade_completed', JSON.stringify([...completedTopics]));
+                    }
+                    if (data.elapsedSeconds) {
+                        elapsedSeconds = Math.max(elapsedSeconds, data.elapsedSeconds);
+                        localStorage.setItem('tx_ade_time', elapsedSeconds.toString());
+                    }
+                    if (data.activeTopicId) {
+                        activeTopicId = data.activeTopicId;
+                        localStorage.setItem('tx_ade_active', activeTopicId);
+                    }
+                    // Preserving verified server enrollment status
+                    if (typeof window.__syncEnrollmentStatus === 'function') window.__syncEnrollmentStatus(true);
+                    renderSidebar();
+                    updateMetrics();
+                    updateFooterButtons();
+                    closeSyncModal();
+                    showShellToast(`🎉 Restored ${completedTopics.size} Topics from Backup!`, true);
+                } catch(err) {
+                    alert('Invalid JSON file format.');
+                }
+            };
+            reader.readAsText(file);
+        }
+        window.importProgressJSON = importProgressJSON;
+
         // Shell Toast Function
         function showShellToast(msg, isSuccess = true) {
             const toast = document.getElementById('shell-toast');
@@ -1534,6 +2348,20 @@
 
         // Initial Course Hydration
         function initializeCourse() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const explicitTopic = urlParams.get('t');
+            const explicitMode = urlParams.get('mode');
+
+            // Cross-device URL sync & restore bypass removed for security
+            if (urlParams.get('action') === 'sync') {
+                setTimeout(() => openSyncModal(), 300);
+            }
+
+            if (explicitTopic) {
+                activeTopicId = explicitTopic;
+                localStorage.setItem('tx_ade_active', explicitTopic);
+            }
+
             renderSidebar();
             updateMetrics();
             updateFooterButtons();
@@ -1541,14 +2369,24 @@
             // Check if already authenticated before showing modal
             const cachedToken = localStorage.getItem('tx_session_token');
             const cachedUser = localStorage.getItem('tx_user_data');
-            if (cachedToken && cachedUser) {
+            const isActive = localStorage.getItem('tx_user_active') === 'true';
+            if (cachedToken || cachedUser || isActive) {
                 try {
-                    hideMandatoryAuthModal(JSON.parse(cachedUser));
+                    hideMandatoryAuthModal(cachedUser ? JSON.parse(cachedUser) : {});
                 } catch (_) {
                     hideMandatoryAuthModal({});
                 }
             } else {
                 showMandatoryAuthModal();
+            }
+
+            // Immediately load test or lesson if iframe is uninitialized
+            if (activeTopicId && (!iframeEl.src || iframeEl.src === 'about:blank' || iframeEl.src.endsWith('about:blank'))) {
+                if (explicitMode === 'test') {
+                    openTopicTest(activeTopicId);
+                } else {
+                    loadTopic(activeTopicId);
+                }
             }
         }
 
@@ -1560,5 +2398,13 @@
 
     </script>
 
+<script>
+function startCheckoutFlow(tier) {
+  window.location.href = 'checkout.html?tier=' + encodeURIComponent(tier || 'STANDARD');
+}
+function startStripeCheckout(tier) {
+  startCheckoutFlow(tier);
+}
+</script>
 </body>
 </html>

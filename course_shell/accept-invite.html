@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Accept Admin Invitation | Texas Adult Driver Education</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tx-amber': '#e87522',
+            'tx-dark-amber': '#9a4600',
+            'tx-navy': '#070a10',
+            'tx-card': '#0e1526',
+            'tx-border': '#1e293b',
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      background-color: #070a10;
+      color: #f3f4f6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .glass-card {
+      background: rgba(14, 21, 38, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-tx-amber selection:text-white">
+
+  <!-- Minimal Header -->
+  <header class="w-full border-b border-white/10 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-tx-amber to-amber-700 flex items-center justify-center font-black text-white text-base shadow-lg shadow-tx-amber/30">
+        TX
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-sm tracking-tight text-white uppercase">Texas Adult Driver Ed</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-tx-amber border border-amber-500/20 font-semibold uppercase">Admin Portal</span>
+        </div>
+      </div>
+    </div>
+    <div class="text-[11px] font-mono text-gray-400">TDLR ADE-1317</div>
+  </header>
+
+  <!-- Main Card Container -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-lg glass-card rounded-2xl p-6 sm:p-8 border border-white/10">
+      
+      <!-- 1. LOADING STATE -->
+      <div id="state-loading" class="text-center py-10">
+        <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-tx-amber border-t-transparent mb-4"></div>
+        <h2 class="text-lg font-bold text-white mb-1">Verifying Invitation Link</h2>
+        <p class="text-sm font-mono text-gray-400">Communicating with Texas ADE security services...</p>
+      </div>
+
+      <!-- 2. VALID INVITATION STATE -->
+      <div id="state-valid" class="hidden">
+        <div class="w-12 h-12 rounded-2xl bg-tx-amber/15 border border-tx-amber/30 text-tx-amber flex items-center justify-center mb-5 mx-auto">
+          <span class="material-symbols-outlined text-[28px]">admin_panel_settings</span>
+        </div>
+
+        <h1 class="text-xl sm:text-2xl font-black text-center text-white uppercase tracking-tight mb-2">
+          Accept Admin Invitation
+        </h1>
+        <p class="text-xs sm:text-sm text-gray-300 text-center mb-6">
+          You have been granted administrator access to Texas Adult Driver Education.
+        </p>
+
+        <!-- Invited Email Box -->
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
+          <div class="text-[11px] font-mono uppercase text-gray-400 mb-1">Invitation Issued For</div>
+          <div id="invited-email-display" class="font-mono text-sm sm:text-base font-bold text-tx-amber break-all">
+            --
+          </div>
+          <div class="text-[11px] font-mono text-gray-400 mt-2 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[14px] text-amber-400">schedule</span>
+            <span>Link expires in 24 hours · Single use only</span>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <p class="text-xs text-gray-300 mb-5 leading-relaxed">
+          To complete your onboarding, click below and sign in with Google using <strong id="invited-email-helper" class="text-white">your invited email</strong>.
+        </p>
+
+        <!-- Google Sign-In Mount -->
+        <div class="flex flex-col items-center justify-center min-h-[48px] mb-4">
+          <div id="google-signin-mount" class="w-full flex justify-center"></div>
+        </div>
+
+        <!-- Inline Status/Error Banner -->
+        <div id="auth-error-banner" class="hidden mt-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-mono leading-relaxed"></div>
+        <div id="auth-success-banner" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-mono leading-relaxed text-center"></div>
+      </div>
+
+      <!-- 3. ERROR / EXPIRED / INVALID STATE -->
+      <div id="state-error" class="hidden text-center py-6">
+        <div class="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center mb-5 mx-auto">
+          <span class="material-symbols-outlined text-[28px]">link_off</span>
+        </div>
+
+        <h2 id="error-title" class="text-xl font-black text-white uppercase tracking-tight mb-2">
+          Invitation Link Expired or Invalid
+        </h2>
+        
+        <p id="error-message" class="text-sm text-gray-300 mb-6 leading-relaxed">
+          This invitation is expired, cancelled, or already used. Please contact an administrator for a new invitation.
+        </p>
+
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-400 mb-6 text-left font-mono">
+          <div class="text-gray-300 font-bold mb-1">What happened?</div>
+          <ul class="list-disc pl-4 space-y-1">
+            <li>Invitation tokens expire after 24 hours for security.</li>
+            <li>Tokens can only be activated once.</li>
+            <li>If the invitation was resent, the previous link was invalidated.</li>
+          </ul>
+        </div>
+
+        <a href="signin.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-xs uppercase tracking-wider transition-colors border border-white/10">
+          <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+          <span>Return to Sign In</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-4 text-center text-xs font-mono text-gray-500 border-t border-white/5">
+    Texas Department of Licensing and Regulation (TDLR) Course ADE-1317 · School #C3284
+  </footer>
+
+  <script>
+    const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'http://localhost:8080'
+      : 'https://tx-ade-api-1004296326114.us-central1.run.app';
+
+    const GOOGLE_CLIENT_ID = '1004296326114-dq4t23m4evubp6jv6jovjd955ju808jc.apps.googleusercontent.com';
+
+    // State elements
+    const stateLoading = document.getElementById('state-loading');
+    const stateValid = document.getElementById('state-valid');
+    const stateError = document.getElementById('state-error');
+    const errorTitle = document.getElementById('error-title');
+    const errorMessage = document.getElementById('error-message');
+    const invitedEmailDisplay = document.getElementById('invited-email-display');
+    const invitedEmailHelper = document.getElementById('invited-email-helper');
+    const authErrorBanner = document.getElementById('auth-error-banner');
+    const authSuccessBanner = document.getElementById('auth-success-banner');
+
+    let currentToken = '';
+    let targetEmail = '';
+
+    function showErrorState(title, message) {
+      stateLoading.classList.add('hidden');
+      stateValid.classList.add('hidden');
+      stateError.classList.remove('hidden');
+      if (title) errorTitle.textContent = title;
+      if (message) errorMessage.textContent = message;
+    }
+
+    function showBannerError(msg) {
+      authErrorBanner.textContent = msg;
+      authErrorBanner.classList.remove('hidden');
+      authSuccessBanner.classList.add('hidden');
+    }
+
+    function showBannerSuccess(msg) {
+      authSuccessBanner.textContent = msg;
+      authSuccessBanner.classList.remove('hidden');
+      authErrorBanner.classList.add('hidden');
+    }
+
+    // 1. Verify invitation token on load
+    async function verifyInvitation() {
+      const urlParams = new URLSearchParams(window.location.search);
+      currentToken = urlParams.get('token');
+
+      if (!currentToken) {
+        showErrorState(
+          'Missing Invitation Token',
+          'No invitation token was found in the link. Please open the exact link sent to your email.'
+        );
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/admin/invitations/verify?token=${encodeURIComponent(currentToken.trim())}`);
+        const data = await res.json();
+
+        if (res.ok && data.valid) {
+          targetEmail = data.invitedEmail;
+          invitedEmailDisplay.textContent = targetEmail;
+          invitedEmailHelper.textContent = targetEmail;
+
+          stateLoading.classList.add('hidden');
+          stateValid.classList.remove('hidden');
+
+          // Initialize Google Identity Services
+          initGoogleSignIn();
+        } else {
+          showErrorState(
+            data.reason === 'EXPIRED' ? 'Invitation Expired' :
+            data.reason === 'CANCELLED' ? 'Invitation Cancelled' :
+            data.reason === 'ALREADY_USED' ? 'Invitation Already Used' : 'Invalid Invitation Link',
+            data.message || 'This invitation is not valid. Please contact an administrator for a new invitation.'
+          );
+        }
+      } catch (err) {
+        console.error('Verify error:', err);
+        showErrorState('Network Error', 'Unable to verify invitation link. Please check your connection and refresh the page.');
+      }
+    }
+
+    // 2. Initialize Google Sign-in button
+    function initGoogleSignIn() {
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if (window.google && window.google.accounts && window.google.accounts.id) {
+          clearInterval(interval);
+          try {
+            window.google.accounts.id.initialize({
+              client_id: GOOGLE_CLIENT_ID,
+              callback: handleGoogleAuthResponse,
+              auto_select: false,
+            });
+
+            window.google.accounts.id.renderButton(
+              document.getElementById('google-signin-mount'),
+              {
+                theme: 'filled_blue',
+                size: 'large',
+                text: 'continue_with',
+                shape: 'rectangular',
+                width: 320,
+              }
+            );
+          } catch (e) {
+            console.error('GSI Init Error:', e);
+            showBannerError('Failed to initialize Google Sign-In. Please refresh the page.');
+          }
+        } else if (attempts > 20) {
+          clearInterval(interval);
+          showBannerError('Google services took too long to load. Please disable ad-blockers and refresh.');
+        }
+      }, 300);
+    }
+
+    // 3. Callback from Google Sign-In
+    async function handleGoogleAuthResponse(response) {
+      if (!response || !response.credential) {
+        showBannerError('Google authentication was cancelled or failed. Please try again.');
+        return;
+      }
+
+      authErrorBanner.classList.add('hidden');
+      showBannerSuccess('Verifying credentials and activating admin access...');
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/admin/invitations/accept`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            token: currentToken,
+            id_token: response.credential,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          // Store token and user data
+          if (data.token) {
+            localStorage.setItem('tx_session_token', data.token);
+          }
+          if (data.user) {
+            localStorage.setItem('tx_user_data', JSON.stringify(data.user));
+          }
+          localStorage.setItem('tx_user_active', 'true');
+
+          showBannerSuccess('★ Administrator access granted! Opening Admin Console...');
+          
+          setTimeout(() => {
+            window.location.href = data.redirectUrl || 'admin.html';
+          }, 1200);
+        } else {
+          // Detailed failure message
+          const msg = data.message || 'Failed to accept invitation.';
+          showBannerError(msg);
+        }
+      } catch (err) {
+        console.error('Accept invite error:', err);
+        showBannerError('Network error completing invitation acceptance. Please try again.');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', verifyInvitation);
+  </script>
+</body>
+</html>

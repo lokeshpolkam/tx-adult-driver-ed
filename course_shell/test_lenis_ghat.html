@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lenis Ghat Road Scrollytelling Prototype</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              200: '#fed7aa',
+              300: '#fdba74',
+              400: '#fb923c',
+              500: '#e87522', // Official Texas Safety Orange
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+              900: '#7c2d12',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lenis CSS -->
+  <style>
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #fafaf9;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+    
+    /* Road Glow and Bridge Shadows */
+    .road-shadow {
+      filter: drop-shadow(0 12px 24px rgba(15, 23, 42, 0.08));
+    }
+    .bridge-shadow {
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.22));
+    }
+    .headlight-beam {
+      mix-blend-mode: screen;
+    }
+  </style>
+</head>
+<body class="relative">
+
+  <!-- ========================================================================= -->
+  <!-- FULL PAGE GHAT ROAD SVG CANVAS (Underpass Layer: z-0) -->
+  <!-- ========================================================================= -->
+  <div id="road-canvas-container" class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+    <svg id="road-svg" class="w-full h-full" viewBox="0 0 1440 6000" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Asphalt Gradient -->
+        <linearGradient id="asphalt-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#334155" stop-opacity="0.22" />
+          <stop offset="50%" stop-color="#1e293b" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0.25" />
+        </linearGradient>
+
+        <!-- Headlight Beam Gradient -->
+        <radialGradient id="headlight-beam-grad" cx="50%" cy="100%" r="90%">
+          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9" />
+          <stop offset="40%" stop-color="#fde047" stop-opacity="0.45" />
+          <stop offset="100%" stop-color="#fde047" stop-opacity="0" />
+        </radialGradient>
+
+        <!-- Bridge Glow Gradient -->
+        <linearGradient id="bridge-deck" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#e2e8f0" />
+          <stop offset="50%" stop-color="#ffffff" />
+          <stop offset="100%" stop-color="#cbd5e1" />
+        </linearGradient>
+      </defs>
+
+      <!-- 1. Road Under-Glow / Ambient Terrain Track -->
+      <path id="ghat-path-glow" d="M 720 180 C 850 350, 1100 450, 1080 750 C 1060 1000, 400 1150, 320 1450 C 240 1750, 1150 1850, 1100 2300 C 1050 2700, 250 2900, 300 3400 C 350 3800, 1200 4000, 1150 4600 C 1100 5100, 720 5400, 720 5850" 
+            fill="none" stroke="rgba(232, 117, 34, 0.12)" stroke-width="84" stroke-linecap="round" />
+
+      <!-- 2. Frosted Outer Curbs & Safety Shoulders -->
+      <path id="ghat-path-curb" d="M 720 180 C 850 350, 1100 450, 1080 750 C 1060 1000, 400 1150, 320 1450 C 240 1750, 1150 1850, 1100 2300 C 1050 2700, 250 2900, 300 3400 C 350 3800, 1200 4000, 1150 4600 C 1100 5100, 720 5400, 720 5850" 
+            fill="none" stroke="rgba(255, 255, 255, 0.9)" stroke-width="56" stroke-linecap="round" class="road-shadow" />
+
+      <!-- 3. Translucent Mountain Asphalt Ribbon -->
+      <path id="ghat-path-surface" d="M 720 180 C 850 350, 1100 450, 1080 750 C 1060 1000, 400 1150, 320 1450 C 240 1750, 1150 1850, 1100 2300 C 1050 2700, 250 2900, 300 3400 C 350 3800, 1200 4000, 1150 4600 C 1100 5100, 720 5400, 720 5850" 
+            fill="none" stroke="url(#asphalt-grad)" stroke-width="44" stroke-linecap="round" />
+
+      <!-- 4. Texas Safety Orange Glowing Dashed Centerline -->
+      <path id="ghat-path-center" d="M 720 180 C 850 350, 1100 450, 1080 750 C 1060 1000, 400 1150, 320 1450 C 240 1750, 1150 1850, 1100 2300 C 1050 2700, 250 2900, 300 3400 C 350 3800, 1200 4000, 1150 4600 C 1100 5100, 720 5400, 720 5850" 
+            fill="none" stroke="#e87522" stroke-width="3" stroke-dasharray="14 18" stroke-linecap="round" opacity="0.9" />
+
+      <!-- 5. Checkered Finish Line at Bottom (Y=5850) -->
+      <g transform="translate(680, 5840)">
+        <rect x="0" y="0" width="80" height="12" fill="#0f172a" rx="2" />
+        <rect x="0" y="0" width="10" height="6" fill="#ffffff" />
+        <rect x="20" y="0" width="10" height="6" fill="#ffffff" />
+        <rect x="40" y="0" width="10" height="6" fill="#ffffff" />
+        <rect x="60" y="0" width="10" height="6" fill="#ffffff" />
+        <rect x="10" y="6" width="10" height="6" fill="#ffffff" />
+        <rect x="30" y="6" width="10" height="6" fill="#ffffff" />
+        <rect x="50" y="6" width="10" height="6" fill="#ffffff" />
+        <rect x="70" y="6" width="10" height="6" fill="#ffffff" />
+      </g>
+
+      <!-- 6. THE CAR SPRITE (Rendered inside the SVG) -->
+      <g id="svg-car" transform="translate(720, 180) rotate(0)">
+        
+        <!-- Twin Forward Projected Headlight Cones -->
+        <g class="headlight-beam" opacity="0.85">
+          <!-- Left Headlight Cone -->
+          <polygon points="-8,-14 -32,-90 0,-90 -4,-14" fill="url(#headlight-beam-grad)" />
+          <!-- Right Headlight Cone -->
+          <polygon points="4,-14 0,-90 32,-90 8,-14" fill="url(#headlight-beam-grad)" />
+        </g>
+
+        <!-- Car Drop Shadow -->
+        <ellipse cx="0" cy="4" rx="14" ry="24" fill="rgba(15, 23, 42, 0.4)" filter="blur(3px)" />
+
+        <!-- Car Chassis (Aerodynamic Sports Coupe) -->
+        <rect x="-11" y="-22" width="22" height="44" rx="8" fill="#e87522" stroke="#c2410c" stroke-width="1.5" />
+        
+        <!-- Texas White Racing Center Stripe -->
+        <rect x="-2" y="-22" width="4" height="44" fill="#ffffff" opacity="0.9" />
+
+        <!-- Windshield & Glass Canopy -->
+        <path d="M -8 -8 L 8 -8 L 6 10 L -6 10 Z" fill="#0f172a" rx="2" />
+        <path d="M -7 -14 L 7 -14 L 8 -9 L -8 -9 Z" fill="#1e293b" opacity="0.95" />
+
+        <!-- Front LED Headlight Points -->
+        <circle cx="-7" cy="-20" r="2.5" fill="#fef08a" />
+        <circle cx="7" cy="-20" r="2.5" fill="#fef08a" />
+        <circle cx="-7" cy="-20" r="1.2" fill="#ffffff" />
+        <circle cx="7" cy="-20" r="1.2" fill="#ffffff" />
+
+        <!-- Rear Red LED Taillights -->
+        <rect x="-9" y="20" width="4" height="2" rx="1" fill="#ef4444" />
+        <rect x="5" y="20" width="4" height="2" rx="1" fill="#ef4444" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- HIGHWAY OVERPASS BRIDGES (Elevated Layer: z-25) -->
+  <!-- ========================================================================= -->
+  <!-- Overpass Bridge 1: Flying OVER Section 1 / Section 2 divider -->
+  <div class="absolute top-[1380px] left-[200px] w-[240px] pointer-events-none z-20">
+    <div class="px-4 py-2 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-300 shadow-2xl flex items-center gap-3">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+      <span class="text-[11px] font-mono font-black text-slate-800 uppercase tracking-wider">
+        🌉 Hill Country Flyover Bridge (Z-20 Overpass)
+      </span>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- PAGE CONTENT (Z-10: Sits ON TOP of background road, producing UNDERPASSES) -->
+  <!-- ========================================================================= -->
+  <main class="relative z-10 max-w-6xl mx-auto px-6 py-12 space-y-36">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="pt-8 text-center max-w-3xl mx-auto space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 text-xs font-mono font-bold text-slate-800 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+        Official Texas TDLR ADE-1317 Course
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+        Don't sit in a crowded classroom on a Saturday.<br>
+        <span class="text-brand-500 underline decoration-brand-200 decoration-wavy">Finish 100% from your bed.</span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-medium">
+        Watch the Texas highway weave through the entire page as you scroll. Notice how the road dips <em>behind</em> comparison tables and soars <em>over</em> flyovers.
+      </p>
+
+      <div class="pt-4 flex justify-center gap-4">
+        <a href="#pricing" class="px-8 py-4 rounded-2xl bg-brand-500 text-white font-extrabold text-base shadow-xl hover:bg-brand-600 transition-all shadow-brand-500/25">
+          Start for $38 Flat &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- 4 STEPS SECTION: ROAD WEAVES IN-BETWEEN CARDS -->
+    <section id="how-it-works" class="space-y-10">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-mono font-extrabold uppercase text-brand-600 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
+          The Serpentine Switchbacks
+        </span>
+        <h2 class="text-3xl font-black text-slate-900">4 Steps. Woven Between The Mountain Curves.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative">
+        
+        <!-- Step 1 (Left) -->
+        <div class="p-8 rounded-3xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-xl space-y-4 relative">
+          <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 font-mono font-black text-lg flex items-center justify-center border border-brand-200">
+            01
+          </div>
+          <h3 class="text-xl font-black text-slate-900">Sign Up in 30 Seconds</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Instant Google sign-in. $38 all-inclusive tuition with zero DPS surprises.
+          </p>
+        </div>
+
+        <!-- Step 2 (Right) -->
+        <div class="p-8 rounded-3xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-xl space-y-4 relative">
+          <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 font-mono font-black text-lg flex items-center justify-center border border-brand-200">
+            02
+          </div>
+          <h3 class="text-xl font-black text-slate-900">Finish 100% From Your Bed</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Listen to full audio narration on your smartphone while relaxing. Auto-saves every 30s.
+          </p>
+        </div>
+
+        <!-- Step 3 (Left) -->
+        <div class="p-8 rounded-3xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-xl space-y-4 relative">
+          <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 font-mono font-black text-lg flex items-center justify-center border border-brand-200">
+            03
+          </div>
+          <h3 class="text-xl font-black text-slate-900">Pass Official DPS Exam Online</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Take the 30-question state exam in Module 9. Score 70%+. Free unlimited retakes.
+          </p>
+        </div>
+
+        <!-- Step 4 (Right) -->
+        <div class="p-8 rounded-3xl bg-brand-500 text-white shadow-2xl space-y-4 relative">
+          <div class="w-12 h-12 rounded-2xl bg-white text-brand-600 font-mono font-black text-lg flex items-center justify-center">
+            04
+          </div>
+          <h3 class="text-xl font-black text-white">Download Serialized Certificate</h3>
+          <p class="text-sm text-brand-100 leading-relaxed">
+            Download your official Form ADE-1317 PDF immediately. Hand to DPS, skip written line!
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DPS COMPARISON TABLE: THE UNDERPASS (ROAD PASSES BEHIND TABLE) -->
+    <section id="comparison" class="space-y-8 relative">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-mono font-extrabold uppercase text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
+          ⚠️ Scenic Underpass Zone Ahead
+        </span>
+        <h2 class="text-3xl font-black text-slate-900">Watch The Highway Dip Behind This Table</h2>
+        <p class="text-sm text-slate-500">
+          The frosted glass allows you to see the road and car headlights shining right through the table!
+        </p>
+      </div>
+
+      <!-- The Underpass Glass Card (z-20 relative) -->
+      <div class="relative z-20 p-8 sm:p-12 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-300 shadow-2xl space-y-8">
+        <div class="flex items-center justify-between pb-6 border-b border-slate-200">
+          <div>
+            <span class="text-xs font-mono font-extrabold text-brand-600 uppercase">HIGHWAY UNDERPASS TUNNEL</span>
+            <h3 class="text-2xl font-black text-slate-900">Commercial Classroom vs. TX-ADE Online</h3>
+          </div>
+          <span class="px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-mono font-bold">
+            Frosted Glass Stacking Context
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+          <div class="space-y-4 p-6 rounded-2xl bg-rose-50/70 border border-rose-200">
+            <h4 class="font-extrabold text-rose-700">The Old Saturday Classroom</h4>
+            <ul class="space-y-2 text-slate-700 text-xs font-mono">
+              <li>✕ 6 Hours trapped on hard metal folding chairs</li>
+              <li>✕ Stand in 100-degree Texas heat at the DPS kiosk</li>
+              <li>✕ $75 to $110 overpriced school tuition</li>
+              <li>✕ Fail by 1 question? Wait a month to rebook</li>
+            </ul>
+          </div>
+
+          <div class="space-y-4 p-6 rounded-2xl bg-emerald-50/70 border-2 border-emerald-400">
+            <h4 class="font-extrabold text-emerald-800">The TX-ADE Bed Fast-Track</h4>
+            <ul class="space-y-2 text-slate-800 text-xs font-mono">
+              <li>✓ Finish 100% from your bed in pajamas</li>
+              <li>✓ Full audio narration while driving or relaxing</li>
+              <li>✓ Official state written test taken at home</li>
+              <li>✓ $38 flat all-inclusive · Instant ADE-1317 PDF</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING & FINISH LINE -->
+    <section id="pricing" class="text-center space-y-8 pt-12 pb-24">
+      <div class="space-y-2">
+        <span class="text-xs font-mono font-extrabold uppercase text-brand-600 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
+          🏁 Mile 9: Checkered Finish Line
+        </span>
+        <h2 class="text-4xl font-black text-slate-900">Arrive at Your Official Texas Certificate</h2>
+      </div>
+
+      <div class="max-w-md mx-auto p-10 rounded-3xl bg-white/95 backdrop-blur-md border-2 border-brand-500 shadow-2xl space-y-6">
+        <div class="text-5xl font-black text-slate-900">$38</div>
+        <div class="text-sm text-slate-500 font-mono">All-Inclusive · No Hidden Fees</div>
+        <ul class="text-xs text-left space-y-2 font-mono text-slate-700">
+          <li>✓ State-Approved ADE-1317 Curriculum</li>
+          <li>✓ Official DPS Written Exam Included Online</li>
+          <li>✓ Instant Certificate PDF Download</li>
+          <li>✓ Free Audio Narration on All Devices</li>
+        </ul>
+        <button class="w-full py-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-extrabold text-base shadow-lg transition-all">
+          Enroll Now & Finish Today &rarr;
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- LENIS SMOOTH SCROLL SCRIPT & DYNAMIC CAR TRACKING -->
+  <!-- ========================================================================= -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    // 1. Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // 2. SVG Ghat Road Car Tracking
+    const path = document.getElementById('ghat-path-center');
+    const car = document.getElementById('svg-car');
+    
+    if (path && car) {
+      const pathLength = path.getTotalLength();
+      
+      let currentProgress = 0;
+      let targetProgress = 0;
+
+      lenis.on('scroll', (e) => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (maxScroll > 0) {
+          targetProgress = Math.max(0, Math.min(1, e.scroll / maxScroll));
+        }
+      });
+
+      // Smooth Animation Loop
+      function updateCarPosition() {
+        // Lerp for smooth automotive inertia
+        currentProgress += (targetProgress - currentProgress) * 0.12;
+
+        const distance = currentProgress * pathLength;
+        const pt = path.getPointAtLength(distance);
+        
+        // Calculate tangent angle
+        const delta = 2.0;
+        const ptAhead = path.getPointAtLength(Math.min(pathLength, distance + delta));
+        const ptBehind = path.getPointAtLength(Math.max(0, distance - delta));
+        
+        const dx = ptAhead.x - ptBehind.x;
+        const dy = ptAhead.y - ptBehind.y;
+        
+        // Formula: tangent angle facing down (+Y)
+        const angle = (Math.atan2(dy, dx) * 180 / Math.PI) + 90;
+
+        car.setAttribute('transform', `translate(${pt.x.toFixed(1)}, ${pt.y.toFixed(1)}) rotate(${angle.toFixed(1)})`);
+
+        requestAnimationFrame(updateCarPosition);
+      }
+      requestAnimationFrame(updateCarPosition);
+    }
+  </script>
+</body>
+</html>

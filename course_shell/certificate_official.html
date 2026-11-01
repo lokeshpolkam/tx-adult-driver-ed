@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Official Form ADE-1317 Certificate — State of Texas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:ital,wght@0,600;0,700;0,800;0,900;1,700;1,900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    @page {
+      size: letter landscape;
+      margin: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #F1F5F9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cert-page {
+      width: 11in;
+      height: 8.5in;
+      position: relative;
+      background: #F8FAFC;
+      padding: 0.35in;
+      overflow: hidden;
+      margin: auto;
+    }
+    .cockpit-frame {
+      width: 100%;
+      height: 100%;
+      border: 3.5px solid #0F172A;
+      border-radius: 16px;
+      padding: 0.35in 0.45in 0.25in 0.45in;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      background: #FFFFFF;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .speedlines-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 9px;
+      background: linear-gradient(90deg, #EA580C 0%, #F59E0B 40%, #0F172A 100%);
+    }
+    .speedlines-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      background: linear-gradient(90deg, #0F172A 0%, #EA580C 70%, #F59E0B 100%);
+    }
+    .top-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: #EA580C;
+      color: #FFFFFF;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+    }
+    .title-large {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: #0F172A;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .sub-hud {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #EA580C;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+    .badge-top-tier {
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+    }
+    .driver-box {
+      text-align: center;
+      margin: 4px 0;
+      position: relative;
+      z-index: 2;
+    }
+    .driver-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: #64748B;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .driver-name {
+      font-family: 'Outfit', sans-serif;
+      font-style: italic;
+      font-size: 38px;
+      font-weight: 900;
+      color: #0F172A;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 4px auto 6px auto;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      text-align: center;
+      display: block;
+      width: 100%;
+      max-width: 92%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .speed-pill {
+      display: inline-block;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #166534;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 14px;
+      border-radius: 100px;
+    }
+    .telemetry-hud {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+    }
+    .hud-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-left: 3.5px solid #EA580C;
+      border-radius: 8px;
+      padding: 8px 14px;
+    }
+    .hud-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #64748B;
+      text-transform: uppercase;
+    }
+    .hud-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-top: 2px;
+    }
+    .waiver-strip {
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 9.5px;
+      color: #7C2D12;
+      line-height: 1.4;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      padding-top: 4px;
+    }
+    .hash-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px;
+      color: #64748B;
+      line-height: 1.4;
+      max-width: 440px;
+    }
+    .qr-hud-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cert-page" id="printable-certificate">
+    <div class="cockpit-frame">
+      <div class="speedlines-top"></div>
+      <div class="speedlines-bottom"></div>
+
+      <!-- HUD Header -->
+      <div class="top-hud">
+        <div class="brand-block">
+          <div class="logo-box">TX</div>
+          <div>
+            <div class="title-large">Texas Adult Driver Education</div>
+            <div class="sub-hud">OFFICIAL FORM ADE-1317 · TDLR LICENSE #C3284 · 16 TAC § 84.500</div>
+          </div>
+        </div>
+
+        <div class="badge-top-tier">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B">
+            <polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/>
+          </svg>
+          <span>STATE CERTIFIED GRADUATE</span>
+        </div>
+      </div>
+
+      <!-- Driver Hero Banner -->
+      <div class="driver-box">
+        <div class="driver-label">LICENSED COURSE GRADUATE</div>
+        <div class="driver-name" id="student-name-val">SAMPLE STUDENT</div>
+        <div class="speed-pill">
+          ★ COMPLETED 6.00 CLOCK HOURS & PASSED OFFICIAL DPS KNOWLEDGE EXAM ★
+        </div>
+      </div>
+
+      <!-- Cockpit Telemetry HUD -->
+      <div class="telemetry-hud">
+        <div class="hud-card">
+          <div class="hud-lbl">Certificate Serial #</div>
+          <div class="hud-val" id="serial-val" style="color: #EA580C;">ADE1317-2026-C3284-00001</div>
+        </div>
+        <div class="hud-card">
+          <div class="hud-lbl">Instructional Time</div>
+          <div class="hud-val" id="hours-val">6.00 CLOCK HOURS</div>
+        </div>
+        <div class="hud-card">
+          <div class="hud-lbl">DPS Exam Score</div>
+          <div class="hud-val" id="score-val" style="color: #16A34A;">96.7% (PASSED)</div>
+        </div>
+        <div class="hud-card">
+          <div class="hud-lbl">Issue Date</div>
+          <div class="hud-val" id="date-val">NOVEMBER 1, 2026</div>
+        </div>
+      </div>
+
+      <!-- Roadway Legal Strip -->
+      <div class="waiver-strip">
+        <strong>TEXAS DPS MEGA CENTER WRITTEN TEST EXEMPTION (TTC § 521.1601):</strong>
+        This certifies that the student has completed the state-authorized 6-hour adult driving curriculum and successfully passed the DPS written test online. Present this official Form ADE-1317 directly to DPS examiners to bypass testing.
+      </div>
+
+      <!-- HUD Footer -->
+      <div class="footer-row">
+        <div class="hash-text">
+          <strong style="color: #0F172A;">CRYPTOGRAPHIC AUDIT HASH (SHA-256):</strong><br>
+          <span id="hash-val">fc99be304ea9647688681efb9512cf38206b3683a48e897910243bc6f32cf8e</span><br>
+          <span style="color: #94A3B8;">Audited state registry compliance record · Texas ADE-1317</span>
+        </div>
+
+        <!-- Authorized Signature -->
+        <div style="text-align: center; width: 150px;">
+          <svg style="height: 26px; margin: 0 auto;" viewBox="0 0 160 36">
+            <path d="M 10,25 Q 35,5 50,22 T 85,14 Q 105,28 120,8 T 150,20" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div style="border-top: 1px solid #0F172A; font-size: 8.5px; font-weight: 700; color: #0F172A; text-transform: uppercase;">
+            Director of Training
+          </div>
+          <div style="font-size: 7.5px; color: #64748B;">TDLR School #C3284</div>
+        </div>
+
+        <div class="qr-hud-box">
+          <img src="data:image/png;base64,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" style="width: 54px; height: 54px;" alt="QR Verification">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 700; color: #EA580C; text-transform: uppercase;">
+            SCAN FOR DPS<br>REGISTRY<br>RECORD
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Hydrate dynamic params if provided via query or localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      let name = params.get('name') || (localStorage.getItem('tx_user_data') ? JSON.parse(localStorage.getItem('tx_user_data')).fullName : null);
+      const certParam = params.get('cert');
+      const shouldPrint = (params.get('print') === 'true');
+      
+      let certData = localStorage.getItem('tx_cert_data') ? JSON.parse(localStorage.getItem('tx_cert_data')) : null;
+
+      if (certParam) {
+        const roster = JSON.parse(localStorage.getItem('tx_certificates_roster') || '{}');
+        if (roster[certParam]) {
+          certData = roster[certParam];
+        }
+      }
+
+      if (certData) {
+        if (certData.studentLegalName) name = certData.studentLegalName;
+        if (certData.serialNumber) document.getElementById('serial-val').textContent = certData.serialNumber;
+        if (certData.finalExamScore) document.getElementById('score-val').textContent = certData.finalExamScore;
+        if (certData.sha256Hash) document.getElementById('hash-val').textContent = certData.sha256Hash;
+        if (certData.completionDate) document.getElementById('date-val').textContent = certData.completionDate;
+      }
+
+      if (name) {
+        document.getElementById('student-name-val').textContent = name.toUpperCase();
+      }
+
+      const activeSerial = document.getElementById('serial-val').textContent.trim();
+      const qrEl = document.querySelector('.qr-hud-box img');
+      if (qrEl && activeSerial) {
+        qrEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=' + encodeURIComponent('https://tx-drive.vercel.app/verify?cert=' + activeSerial);
+      }
+
+      if (shouldPrint) {
+        setTimeout(() => {
+          window.print();
+        }, 600);
+      }
+    });
+  </script>
+</body>
+</html>
