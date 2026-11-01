@@ -793,6 +793,7 @@
         // State Management
         let completedTopics = new Set(JSON.parse(localStorage.getItem('tx_ade_completed') || '[]'));
         let activeTopicId = localStorage.getItem('tx_ade_active') || ALL_TOPICS[0].id;
+        window.getActiveTopicId = function() { return activeTopicId; };
         let elapsedSeconds = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
         let expandedModuleId = COURSE_DATA.modules.find(m => m.topics.some(t => t.id === activeTopicId))?.id || 1;
         let currentViewMode = 'lesson'; // 'lesson' | 'test'
@@ -1054,17 +1055,55 @@
 
             // Smart topic resumption:
             // 1. If explicit topic is provided in URL, prioritize it.
-            // 2. Otherwise use unlockedTopicId from Cloud SQL if not completed.
-            // 3. Otherwise find the first uncompleted topic in the course list.
+            // 2. Otherwise use where the student stopped last time (localStorage tx_ade_active).
+            // 3. Otherwise use server lastActiveTopic / unlockedTopicId.
+            // 4. Otherwise find first uncompleted topic (nextUnfinished).
+            // 5. If fresh user, strictly start at Topic 1 Lesson 1 (L01-T01).
             const urlParams = new URLSearchParams(window.location.search);
             const explicitTopic = urlParams.get('t');
             const explicitMode = urlParams.get('mode');
 
-            let resumeTopicId = explicitTopic || cloudData.unlockedTopicId;
-            if (!resumeTopicId || (!explicitTopic && completedTopics.has(resumeTopicId))) {
-                const nextUnfinished = ALL_TOPICS.find(t => !completedTopics.has(t.id));
-                resumeTopicId = nextUnfinished ? nextUnfinished.id : ALL_TOPICS[ALL_TOPICS.length - 1].id;
+            let resumeTopicId = null;
+
+            if (explicitTopic && ALL_TOPICS.some(t => t.id === explicitTopic)) {
+                resumeTopicId = explicitTopic;
+            } else {
+                const storedActive = localStorage.getItem('tx_ade_active');
+                const serverActive = cloudData.lastActiveTopic || cloudData.unlockedTopicId;
+
+                // Priority A: Stored active topic if it is NOT yet completed
+                if (storedActive && ALL_TOPICS.some(t => t.id === storedActive) && !completedTopics.has(storedActive)) {
+                    resumeTopicId = storedActive;
+                }
+                // Priority B: Server last active topic if NOT yet completed
+                else if (serverActive && ALL_TOPICS.some(t => t.id === serverActive) && !completedTopics.has(serverActive)) {
+                    resumeTopicId = serverActive;
+                }
+                // Priority C: Next uncompleted topic in curriculum sequence
+                else {
+                    const nextUnfinished = ALL_TOPICS.find(t => !completedTopics.has(t.id));
+                    resumeTopicId = nextUnfinished ? nextUnfinished.id : 'L01-T01';
+                }
             }
+
+            // Fresh User Rule: If no topics completed, strictly L01-T01
+            if (completedTopics.size === 0 && !explicitTopic) {
+                resumeTopicId = 'L01-T01';
+            }
+
+            // TDLR Progression Guard: Cannot enter Module 9 (L09-T01 PVQ or L09-T02 Final Exam)
+            // unless all 74 lessons in Modules 1-8 are 100% completed!
+            const mod9Topics = ['L09-T01', 'L09-T02'];
+            if (mod9Topics.includes(resumeTopicId) && !explicitTopic) {
+                const priorTopics = ALL_TOPICS.filter(t => !mod9Topics.includes(t.id));
+                const allPriorCompleted = priorTopics.every(t => completedTopics.has(t.id));
+                if (!allPriorCompleted) {
+                    console.warn('[PROGRESSION GUARD] Student has not finished Modules 1-8. Redirecting to first uncompleted topic.');
+                    const firstUnfinished = ALL_TOPICS.find(t => !completedTopics.has(t.id));
+                    resumeTopicId = firstUnfinished ? firstUnfinished.id : 'L01-T01';
+                }
+            }
+
             activeTopicId = resumeTopicId;
             localStorage.setItem('tx_ade_active', activeTopicId);
 
@@ -1691,6 +1730,10 @@
             testState.active = false;
             activeTopicId = id;
             localStorage.setItem('tx_ade_active', id);
+            window.__ACTIVE_TOPIC_ID__ = id;
+            if (typeof window.syncActiveTopicToServer === 'function') {
+                window.syncActiveTopicToServer(id);
+            }
 
             const prevModId = currentLoadedModuleId;
             const currentMod = COURSE_DATA.modules.find(m => m.topics.some(t => t.id === id));
@@ -2357,9 +2400,36 @@ window.restoreCourseOnCurrentDevice = restoreCourseOnCurrentDevice;
                 setTimeout(() => openSyncModal(), 300);
             }
 
-            if (explicitTopic) {
+            if (explicitTopic && ALL_TOPICS.some(t => t.id === explicitTopic)) {
                 activeTopicId = explicitTopic;
                 localStorage.setItem('tx_ade_active', explicitTopic);
+            } else {
+                const storedActive = localStorage.getItem('tx_ade_active');
+                if (storedActive && ALL_TOPICS.some(t => t.id === storedActive) && !completedTopics.has(storedActive)) {
+                    activeTopicId = storedActive;
+                } else {
+                    const nextUncompleted = ALL_TOPICS.find(t => !completedTopics.has(t.id));
+                    activeTopicId = nextUncompleted ? nextUncompleted.id : 'L01-T01';
+                    localStorage.setItem('tx_ade_active', activeTopicId);
+                }
+            }
+
+            // Fresh User Rule on initialize: If no topics completed, strictly L01-T01
+            if (completedTopics.size === 0 && !explicitTopic) {
+                activeTopicId = 'L01-T01';
+                localStorage.setItem('tx_ade_active', activeTopicId);
+            }
+
+            // TDLR Progression Guard on initialize
+            const mod9Topics = ['L09-T01', 'L09-T02'];
+            if (mod9Topics.includes(activeTopicId) && !explicitTopic) {
+                const priorTopics = ALL_TOPICS.filter(t => !mod9Topics.includes(t.id));
+                const allPriorCompleted = priorTopics.every(t => completedTopics.has(t.id));
+                if (!allPriorCompleted) {
+                    const firstUnfinished = ALL_TOPICS.find(t => !completedTopics.has(t.id));
+                    activeTopicId = firstUnfinished ? firstUnfinished.id : 'L01-T01';
+                    localStorage.setItem('tx_ade_active', activeTopicId);
+                }
             }
 
             renderSidebar();

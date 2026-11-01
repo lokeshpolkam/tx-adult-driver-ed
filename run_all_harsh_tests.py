@@ -10,7 +10,8 @@ test_suites = [
     ('Milestone 3: Examination, Grading & Integrity Bypasses', 'test_milestone3_harsh.py'),
     ('Milestone 4: Certificate Generation & Verification', 'test_milestone4_harsh.py'),
     ('Milestone 5: Authentication, Security & Privacy', 'test_milestone5_harsh.py'),
-    ('Milestone 6: Mobile Layout, UX & Forms', 'test_milestone6_harsh.py')
+    ('Milestone 6: Mobile Layout, UX & Forms', 'test_milestone6_harsh.py'),
+    ('Milestone 7: Topic Resumption & TDLR Progression Guard', 'test_resumption_harsh.py')
 ]
 
 print("==========================================================================")
@@ -33,7 +34,7 @@ for title, script in test_suites:
 
 if all_passed:
     print("\n==========================================================================")
-    print("ALL 6 MILESTONES PASSED HARSH ATTACK TESTING WITH ZERO VULNERABILITIES!")
+    print("ALL 7 MILESTONES PASSED HARSH ATTACK TESTING WITH ZERO VULNERABILITIES!")
     print("==========================================================================")
 else:
     print("\nSUITE FAILED. Stopping for investigation.")

@@ -27,9 +27,9 @@ router.get('/progress', requireAuth, async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // Fetch user profile
+    // Fetch user profile including last_active_topic
     const userRes = await db.query(
-      `SELECT id, email, full_name, legal_first_name, legal_last_name, date_of_birth, dl_or_ssn_last4, role, enrollment_status FROM users WHERE id = $1`,
+      `SELECT id, email, full_name, legal_first_name, legal_last_name, date_of_birth, dl_or_ssn_last4, role, enrollment_status, last_active_topic FROM users WHERE id = $1`,
       [userId]
     );
     const user = userRes.rows[0];
@@ -44,24 +44,38 @@ router.get('/progress', requireAuth, async (req, res) => {
     );
 
     const completedTopics = [];
-    let unlockedTopicId = 'L01-T01';
     let totalInstructionalSeconds = 0;
 
     for (const t of topicsRes.rows) {
       totalInstructionalSeconds += (t.instructional_seconds || 0);
       if (t.status === 'COMPLETED') {
         completedTopics.push(t.topic_id);
-      } else if (t.status === 'UNLOCKED' || t.status === 'IN_PROGRESS') {
-        unlockedTopicId = t.topic_id;
       }
     }
 
     const completedSet = new Set(completedTopics);
-    // Ensure unlockedTopicId always points to the next uncompleted topic
-    if (completedSet.has(unlockedTopicId) || (unlockedTopicId === 'L01-T01' && completedSet.has('L01-T01'))) {
-      const nextUncompleted = ALL_TOPIC_IDS.find(id => !completedSet.has(id));
-      unlockedTopicId = nextUncompleted || ALL_TOPIC_IDS[ALL_TOPIC_IDS.length - 1];
+
+    // 1. Next uncompleted topic strictly in sequential curriculum order
+    const nextUncompleted = ALL_TOPIC_IDS.find(id => !completedSet.has(id)) || 'L01-T01';
+
+    // 2. Determine last active topic where user stopped:
+    let lastActiveTopic = user?.last_active_topic || 'L01-T01';
+    if (!ALL_TOPIC_IDS.includes(lastActiveTopic)) {
+      lastActiveTopic = nextUncompleted;
     }
+
+    // 3. TDLR Progression Guard: A student cannot be placed on Module 9 (L09-T01 PVQ or L09-T02 Final Exam)
+    // unless all 74 instructional topics in Modules 1 through 8 have been completed!
+    const mod9Topics = ['L09-T01', 'L09-T02'];
+    if (mod9Topics.includes(lastActiveTopic)) {
+      const priorTopics = ALL_TOPIC_IDS.filter(id => !mod9Topics.includes(id));
+      const allPriorCompleted = priorTopics.every(id => completedSet.has(id));
+      if (!allPriorCompleted) {
+        lastActiveTopic = nextUncompleted;
+      }
+    }
+
+    const unlockedTopicId = lastActiveTopic;
 
     // Check PVQ setup
     const pvqRes = await db.query(
@@ -93,6 +107,8 @@ router.get('/progress', requireAuth, async (req, res) => {
         completedTopicsCount: completedTopics.length,
         totalTopics: ALL_TOPIC_IDS.length,
         unlockedTopicId,
+        lastActiveTopic,
+        nextUncompletedTopicId: nextUncompleted,
         progressPercentage: Math.round((completedTopics.length / ALL_TOPIC_IDS.length) * 100),
         totalInstructionalSeconds,
         requiredSeconds: 21600, // 6 hours mandated by TDLR
@@ -162,6 +178,12 @@ router.post('/progress/complete', requireAuth, async (req, res) => {
       }
     }
 
+    const nextActive = targetNextTopicId || topicId;
+    if (nextActive && ALL_TOPIC_IDS.includes(nextActive)) {
+      db.query(`UPDATE users SET last_active_topic = $1, updated_at = NOW() WHERE id = $2`, [nextActive, userId])
+        .catch(err => console.error('[UPDATE LAST ACTIVE TOPIC ERROR]', err.message));
+    }
+
     return res.json({ success: true, message: `Topic ${topicId} marked as completed` });
   } catch (err) {
     console.error('[COMPLETE PROGRESS ERROR]', err);
@@ -182,6 +204,8 @@ router.post('/progress/sync', requireAuth, async (req, res) => {
 
     // Update bookmark / active topic position if valid
     if (activeTopicId && ALL_TOPIC_IDS.includes(activeTopicId)) {
+      db.query(`UPDATE users SET last_active_topic = $1, updated_at = NOW() WHERE id = $2`, [activeTopicId, userId])
+        .catch(err => console.error('[UPDATE LAST ACTIVE TOPIC ERROR]', err.message));
       const activeModId = parseInt(activeTopicId.substring(1, 3), 10) || 1;
       if (activeModId === 1 || isEnrolled) {
         await db.query(
@@ -279,6 +303,12 @@ router.post('/heartbeat', requireAuth, requireActiveEnrollment, async (req, res)
         pvqDue: false,
         pvqChallenge: null,
       });
+    }
+
+    // Update student's last active topic in users table
+    if (topicId && ALL_TOPIC_IDS.includes(topicId)) {
+      db.query(`UPDATE users SET last_active_topic = $1, updated_at = NOW() WHERE id = $2`, [topicId, userId])
+        .catch(err => console.error('[UPDATE LAST ACTIVE TOPIC ERROR]', err.message));
     }
 
     // Cap delta so cumulative time cannot exceed exactly 21,600 seconds

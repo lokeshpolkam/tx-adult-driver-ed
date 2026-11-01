@@ -255,6 +255,22 @@ async function syncProgressFromCloud() {
 }
 window.syncProgressFromCloud = syncProgressFromCloud;
 
+// Synchronize student's active topic position to Cloud SQL
+async function syncActiveTopicToServer(topicId) {
+  if (!topicId || !localStorage.getItem('tx_session_token')) return;
+  try {
+    await fetch(`${API_BASE_URL}/api/v1/student/progress/sync`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      credentials: 'include',
+      body: JSON.stringify({ activeTopicId: topicId })
+    });
+  } catch (err) {
+    // Non-blocking background sync
+  }
+}
+window.syncActiveTopicToServer = syncActiveTopicToServer;
+
 // Report topic completion to Cloud SQL
 async function reportTopicCompletion(topicId, nextTopicId) {
   try {

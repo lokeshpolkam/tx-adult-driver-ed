@@ -871,7 +871,21 @@
 
       const completedTopicsArr = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
       const completedSet = new Set(completedTopicsArr);
-      const activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+      let activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+
+      // TDLR Progression Guard: If activeTopicId is L09-T01 or L09-T02 but Modules 1-8 are not completed,
+      // fallback to the first uncompleted topic or L01-T01!
+      const mod9Topics = ['L09-T01', 'L09-T02'];
+      if (mod9Topics.includes(activeTopicId)) {
+        const allTopicKeys = Object.keys(TOPIC_TITLES);
+        const priorTopics = allTopicKeys.filter(id => !mod9Topics.includes(id));
+        const allPriorCompleted = priorTopics.length > 0 && priorTopics.every(id => completedSet.has(id));
+        if (!allPriorCompleted) {
+          const firstUnfinished = allTopicKeys.find(id => !completedSet.has(id));
+          activeTopicId = firstUnfinished || 'L01-T01';
+          localStorage.setItem('tx_ade_active', activeTopicId);
+        }
+      }
 
       let html = '';
 
@@ -972,7 +986,21 @@
     function updateDashboardUI() {
       const completedTopicsArr = JSON.parse(localStorage.getItem('tx_ade_completed') || '[]');
       const completedSet = new Set(completedTopicsArr);
-      const activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+      let activeTopicId = localStorage.getItem('tx_ade_active') || 'L01-T01';
+
+      // TDLR Progression Guard: If activeTopicId is L09-T01 or L09-T02 but Modules 1-8 are not completed,
+      // fallback to the first uncompleted topic or L01-T01!
+      const mod9Topics = ['L09-T01', 'L09-T02'];
+      if (mod9Topics.includes(activeTopicId)) {
+        const allTopicKeys = Object.keys(TOPIC_TITLES);
+        const priorTopics = allTopicKeys.filter(id => !mod9Topics.includes(id));
+        const allPriorCompleted = priorTopics.length > 0 && priorTopics.every(id => completedSet.has(id));
+        if (!allPriorCompleted) {
+          const firstUnfinished = allTopicKeys.find(id => !completedSet.has(id));
+          activeTopicId = firstUnfinished || 'L01-T01';
+          localStorage.setItem('tx_ade_active', activeTopicId);
+        }
+      }
       const elapsedSeconds = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
       const userStr = localStorage.getItem('tx_user_data');
       let user = null;
@@ -999,7 +1027,7 @@
       const dropEmail = document.getElementById('dropdown-email');
       const certStudentName = document.getElementById('cert-student-name');
 
-      const isAdmin = user && (user.role === "ADMIN" || (user.email && user.email.toLowerCase() === "lokeshpolkam0901@gmail.com"));
+      const isAdmin = user && (user.role === "ADMIN" || (user.email && user.email.toLowerCase() === (window.__PRIMARY_ADMIN_EMAIL__ || 'admin@texasade.org').toLowerCase()));
       const adminSwitch = document.getElementById("admin-switch-btn");
       if (adminSwitch) {
         if (isAdmin) adminSwitch.classList.remove("hidden");

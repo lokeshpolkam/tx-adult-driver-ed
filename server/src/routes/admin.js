@@ -6,8 +6,8 @@ const { verifySessionJwt, verifyGoogleIdToken, mintSessionJwt } = require('../au
 const { sendAdminInvitationEmail } = require('../email');
 const { getPricing, invalidatePricingCache } = require('../pricing');
 
-const PRIMARY_ADMIN_EMAIL = 'lokeshpolkam0901@gmail.com';
-const SUPER_ADMIN_EMAILS = ['lokeshpolkam0901@gmail.com', 'lokeshpolkam@gmail.com'];
+const PRIMARY_ADMIN_EMAIL = process.env.PRIMARY_ADMIN_EMAIL || 'admin@texasade.org';
+const SUPER_ADMIN_EMAILS = [PRIMARY_ADMIN_EMAIL];
 
 // Auto-initialize admin tables if needed
 async function initAdminTables() {
@@ -27,7 +27,7 @@ async function initAdminTables() {
       CREATE INDEX IF NOT EXISTS idx_admin_invitations_email ON admin_invitations(invited_email);
       CREATE INDEX IF NOT EXISTS idx_admin_invitations_token ON admin_invitations(token_hash);
       CREATE INDEX IF NOT EXISTS idx_admin_invitations_status ON admin_invitations(status);
-      UPDATE users SET role = 'ADMIN' WHERE LOWER(email) IN ('lokeshpolkam0901@gmail.com', 'lokeshpolkam@gmail.com');
+      UPDATE users SET role = 'ADMIN' WHERE LOWER(email) = LOWER(PRIMARY_ADMIN_EMAIL);
 
       CREATE TABLE IF NOT EXISTS partnerships (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -352,7 +352,7 @@ router.get('/overview', requireAdmin, async (req, res) => {
     const adminsRes = await db.query(`
       SELECT id, email, full_name, role, created_at, updated_at
       FROM users
-      WHERE role = 'ADMIN' OR LOWER(email) IN ('lokeshpolkam0901@gmail.com', 'lokeshpolkam@gmail.com')
+      WHERE role = 'ADMIN' OR LOWER(email) = LOWER(PRIMARY_ADMIN_EMAIL)
       ORDER BY created_at ASC
     `);
 
