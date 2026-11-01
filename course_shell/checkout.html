@@ -190,26 +190,6 @@
                         </div>
                     </div>
 
-                    <!-- Priority Rush Processing Upsell -->
-                    <div class="bg-surface-canvas border border-surface-border rounded-lg p-4 flex items-start justify-between hover:border-brand-orange/50 transition-colors">
-                        <div class="flex items-start gap-3">
-                            <input 
-                                type="checkbox" 
-                                id="rush-cert-checkbox" 
-                                onchange="recalculateTotal()"
-                                class="mt-1 w-4 h-4 rounded text-brand-orange border-surface-border focus:ring-brand-orange cursor-pointer"
-                            />
-                            <div>
-                                <label for="rush-cert-checkbox" class="text-xs font-bold text-surface-dark cursor-pointer flex items-center gap-1.5">
-                                    <span>Same-Day Priority Certificate Delivery</span>
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-100 text-amber-800 font-semibold">OPTIONAL</span>
-                                </label>
-                                <p class="text-[11px] text-surface-slate mt-0.5">Priority electronic processing and instant delivery upon final exam completion.</p>
-                            </div>
-                        </div>
-                        <span id="rush-price-badge" class="text-xs font-mono font-bold text-brand-orange shrink-0 ml-3">+$9.99</span>
-                    </div>
-
                     <!-- Promo Code Box -->
                     <div>
                         <label class="block text-xs font-mono font-bold text-surface-dark uppercase mb-2">
@@ -273,10 +253,6 @@
                         <div class="flex justify-between">
                             <span>Course Tuition (ADE-1317):</span>
                             <span class="text-surface-dark font-bold dyn-price-full" id="summary-base-price">$38.00</span>
-                        </div>
-                        <div id="summary-rush-row" class="hidden justify-between text-amber-800">
-                            <span>Priority Certificate Expediting:</span>
-                            <span class="font-bold" id="summary-rush-amount">+$9.99</span>
                         </div>
                         <div id="summary-discount-row" class="hidden justify-between text-emerald-700 font-bold">
                             <span id="summary-discount-label">Discount Applied:</span>
@@ -381,7 +357,6 @@
         let currentUser = null;
         let appliedCoupon = null;
         let basePriceCents = (window.getCoursePricing && window.getCoursePricing().coursePriceCents) || 3800;
-        let configuredRushPriceCents = 999;
         let rushPriceCents = 0;
         let discountCents = 0;
         let finalTotal = 3800;
@@ -517,19 +492,8 @@
         }
 
         function recalculateTotal() {
-            const rushChecked = document.getElementById('rush-cert-checkbox').checked;
-            rushPriceCents = rushChecked ? configuredRushPriceCents : 0;
-
-            const rushRow = document.getElementById('summary-rush-row');
-            if (rushChecked) {
-                rushRow.classList.remove('hidden');
-                rushRow.classList.add('flex');
-            } else {
-                rushRow.classList.add('hidden');
-                rushRow.classList.remove('flex');
-            }
-
-            let subtotal = basePriceCents + rushPriceCents;
+            rushPriceCents = 0;
+            let subtotal = basePriceCents;
             finalTotal = Math.max(0, subtotal - discountCents);
 
             if (appliedCoupon && appliedCoupon.discountPercent === 100) {
@@ -701,8 +665,7 @@
             const originalText = document.getElementById('btn-pay-text').textContent;
             document.getElementById('btn-pay-text').textContent = 'INITIALIZING STRIPE...';
 
-            const rushChecked = document.getElementById('rush-cert-checkbox').checked;
-            const tier = rushChecked ? 'EXPRESS' : 'STANDARD';
+            const tier = 'STANDARD';
             const couponInput = document.getElementById('promo-input');
             const couponCode = (appliedCoupon?.code || couponInput?.value || '').trim();
 
@@ -760,17 +723,12 @@
                     const data = await res.json();
                     if (data.coursePriceCents) {
                         basePriceCents = data.coursePriceCents;
-                        configuredRushPriceCents = data.rushPriceCents !== undefined ? data.rushPriceCents : 999;
 
                         const baseEl = document.getElementById('product-base-price');
                         const sumBaseEl = document.getElementById('summary-base-price');
-                        const rushBadge = document.getElementById('rush-price-badge');
-                        const sumRushAmt = document.getElementById('summary-rush-amount');
 
                         if (baseEl) baseEl.textContent = data.coursePriceFormatted || `$${(basePriceCents/100).toFixed(2)}`;
                         if (sumBaseEl) sumBaseEl.textContent = data.coursePriceFormatted || `$${(basePriceCents/100).toFixed(2)}`;
-                        if (rushBadge) rushBadge.textContent = `+${data.rushPriceFormatted || '$9.99'}`;
-                        if (sumRushAmt) sumRushAmt.textContent = `+${data.rushPriceFormatted || '$9.99'}`;
 
                         recalculateTotal();
                     }
