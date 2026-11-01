@@ -27,12 +27,22 @@ router.get('/progress', requireAuth, async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // Fetch user profile including last_active_topic
+    // Fetch user profile including last_active_topic and self-healing active enrollment check
     const userRes = await db.query(
-      `SELECT id, email, full_name, legal_first_name, legal_last_name, date_of_birth, dl_or_ssn_last4, role, enrollment_status, last_active_topic FROM users WHERE id = $1`,
+      `SELECT id, email, full_name, legal_first_name, legal_last_name, date_of_birth, dl_or_ssn_last4, role,
+              CASE 
+                WHEN enrollment_status = 'ACTIVE' THEN 'ACTIVE'
+                WHEN EXISTS (SELECT 1 FROM enrollments WHERE user_id = users.id AND status IN ('ACTIVE', 'SUCCEEDED', 'COMPLETED')) THEN 'ACTIVE'
+                ELSE enrollment_status
+              END AS enrollment_status,
+              last_active_topic 
+       FROM users WHERE id = $1`,
       [userId]
     );
     const user = userRes.rows[0];
+    if (user && user.enrollment_status === 'ACTIVE') {
+      db.query(`UPDATE users SET enrollment_status = 'ACTIVE', updated_at = NOW() WHERE id = $1 AND enrollment_status != 'ACTIVE'`, [userId]).catch(() => {});
+    }
 
     // Fetch completed topics and instructional time
     const topicsRes = await db.query(

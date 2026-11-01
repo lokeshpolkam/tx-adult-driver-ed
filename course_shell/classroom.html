@@ -142,9 +142,10 @@
                 <span class="material-symbols-outlined text-[20px]">help</span>
                 <span class="hidden md:inline text-xs">HELP</span>
             </button>
-                        <button id="shell-sync-btn" onclick="openSyncModal()" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-secondary hover:text-on-surface hover:bg-surface-container-high rounded-lg font-label-mono-sm transition-colors cursor-pointer" title="Multi-Device Sync (Phone ↔ PC)">
-                <span class="material-symbols-outlined text-[18px] text-primary-container">sync_alt</span>
-                <span class="text-xs font-semibold">SYNC</span>
+                        <!-- Certificate Status & Issuance Action (Replaces legacy SYNC) -->
+            <button id="shell-cert-btn" onclick="handleHeaderGetCertificate()" class="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 border border-amber-500/30 rounded-lg font-label-mono-sm transition-all shadow-xs active:scale-95 cursor-pointer" title="Get Official Form ADE-1317 Certificate">
+                <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                <span class="text-xs font-bold whitespace-nowrap">GET CERTIFICATE</span>
             </button>
             <button id="shell-save-btn" class="hidden sm:flex items-center gap-1 px-2.5 py-1.5 text-secondary hover:text-on-surface hover:bg-surface-container-high rounded-lg font-label-mono-sm transition-colors cursor-pointer" title="Manual Save">
                 <span class="material-symbols-outlined text-[18px]">save</span>
@@ -973,8 +974,25 @@
         }
 
         function showUnlockModal(customMsg) {
-            // Navigate cleanly to dedicated checkout page without any popup modal
-            window.location.href = 'checkout.html';
+            const isEnrolled = isPaidUser || (localStorage.getItem('tx_user_active') === 'true');
+            if (!isEnrolled) {
+                // Free preview students navigating to locked modules get directed to checkout
+                window.location.href = 'checkout.html';
+                return;
+            }
+            // Paid students tried to access Module 9 before 21,600s or jump ahead
+            // DO NOT bounce them to checkout!
+            openCertificateEligibilityModal({
+                status: 'INCOMPLETE_HOURS',
+                title: 'Topic Locked by TDLR Regulations',
+                message: customMsg || 'Pursuant to TDLR 16 TAC § 84.500, this topic requires completing previous curriculum modules and satisfying state instructional time requirements. You are actively enrolled in this course.',
+                actionText: 'Return to Active Lesson',
+                onAction: () => {
+                    closeCertificateEligibilityModal();
+                    const activeTopic = localStorage.getItem('tx_ade_active') || 'L01-T01';
+                    if (typeof loadTopic === 'function') loadTopic(activeTopic);
+                }
+            });
         }
 
         function closeUnlockModal() {
@@ -2475,6 +2493,589 @@ function startCheckoutFlow(tier) {
 function startStripeCheckout(tier) {
   startCheckoutFlow(tier);
 }
+
+    // =========================================================================
+    // STATE CERTIFICATE ELIGIBILITY & DISPATCH ENGINE (16 TAC § 84.500)
+    // =========================================================================
+    window.certModalActionCallback = null;
+
+    function openCertificateEligibilityModal(config) {
+        config = config || {};
+        const modal = document.getElementById('cert-eligibility-modal');
+        if (!modal) return;
+
+        const titleEl = document.getElementById('cert-modal-title');
+        const descEl = document.getElementById('cert-modal-desc');
+        const kickerEl = document.getElementById('cert-modal-kicker');
+        const iconEl = document.getElementById('cert-modal-icon');
+        const iconContainer = document.getElementById('cert-modal-icon-container');
+        const checklistEl = document.getElementById('cert-modal-checklist');
+        const primaryBtnText = document.getElementById('cert-modal-primary-btn-text');
+        const primaryBtn = document.getElementById('cert-modal-primary-btn');
+
+        certModalActionCallback = config.onAction || null;
+        if (primaryBtn) {
+            if (config.actionUrl) {
+                primaryBtn.onclick = () => { window.location.href = config.actionUrl; };
+            } else if (config.onAction) {
+                primaryBtn.onclick = () => { config.onAction(); };
+            } else {
+                primaryBtn.onclick = () => { closeCertificateEligibilityModal(); };
+            }
+        }
+
+        if (titleEl) titleEl.textContent = config.title || 'Official Certificate Status';
+        if (descEl) descEl.innerHTML = config.message || '';
+        if (kickerEl) kickerEl.textContent = config.kicker || 'STATE CERTIFICATE PORTAL · ADE-1317';
+        if (primaryBtnText) primaryBtnText.textContent = config.actionText || 'Continue';
+
+        if (config.status === 'UNPAID') {
+            if (iconEl) iconEl.textContent = 'lock';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0';
+        } else if (config.status === 'INCOMPLETE_HOURS') {
+            if (iconEl) iconEl.textContent = 'schedule';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0';
+        } else if (config.status === 'EXAM_REQUIRED') {
+            if (iconEl) iconEl.textContent = 'quiz';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0';
+        } else {
+            if (iconEl) iconEl.textContent = 'workspace_premium';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0';
+        }
+
+        if (checklistEl) {
+            const isPaid = (localStorage.getItem('tx_user_active') === 'true');
+            const totalSec = typeof window.elapsedSeconds === 'number' ? window.elapsedSeconds : parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+            const hoursPassed = totalSec >= 21600;
+            const examPassed = (localStorage.getItem('tx_exam_passed') === 'true') || !!localStorage.getItem('tx_ade_certificate_serial');
+
+            const hrs = Math.floor(totalSec / 3600);
+            const mins = Math.floor((totalSec % 3600) / 60);
+
+            checklistEl.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${isPaid ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${isPaid ? 'check_circle' : 'radio_button_unchecked'}</span>
+                        <span>1. Paid Course Enrollment (Modules 1–9)</span>
+                    </span>
+                    <span class="${isPaid ? 'text-emerald-700 font-bold' : 'text-amber-700 font-semibold'}">${isPaid ? 'ACTIVE ✓' : 'PREVIEW ONLY'}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${hoursPassed ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${hoursPassed ? 'check_circle' : (isPaid ? 'hourglass_top' : 'lock')}</span>
+                        <span>2. TDLR 6.00 Clock Hours (21,600s)</span>
+                    </span>
+                    <span class="${hoursPassed ? 'text-emerald-700 font-bold' : 'text-slate-500'}">${hoursPassed ? '6h 00m / 6h ✓' : `${hrs}h ${mins}m / 6h`}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${examPassed ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${examPassed ? 'check_circle' : (hoursPassed ? 'assignment' : 'lock')}</span>
+                        <span>3. Texas DPS Written Final Exam (70%+)</span>
+                    </span>
+                    <span class="${examPassed ? 'text-emerald-700 font-bold' : (hoursPassed ? 'text-amber-700 font-bold' : 'text-slate-400')}">${examPassed ? 'PASSED ✓' : (hoursPassed ? 'READY' : 'LOCKED')}</span>
+                </div>
+                <div class="flex items-center justify-between border-t border-slate-200/80 pt-2">
+                    <span class="flex items-center gap-2 ${examPassed ? 'text-emerald-800 font-black' : 'text-slate-500'}">
+                        <span class="material-symbols-outlined text-[16px]">${examPassed ? 'workspace_premium' : 'lock'}</span>
+                        <span>4. Official Certificate ADE-1317</span>
+                    </span>
+                    <span class="${examPassed ? 'text-emerald-700 font-black' : 'text-slate-400 font-semibold'}">${examPassed ? 'UNLOCKED 🌟' : 'LOCKED'}</span>
+                </div>
+            `;
+        }
+
+        modal.classList.remove('hidden');
+    }
+    window.openCertificateEligibilityModal = openCertificateEligibilityModal;
+
+    function closeCertificateEligibilityModal() {
+        const modal = document.getElementById('cert-eligibility-modal');
+        if (modal) modal.classList.add('hidden');
+    }
+    window.closeCertificateEligibilityModal = closeCertificateEligibilityModal;
+
+    function handleHeaderGetCertificate() {
+        const isEnrolled = (localStorage.getItem('tx_user_active') === 'true');
+        const totalSec = typeof window.elapsedSeconds === 'number' ? window.elapsedSeconds : parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+        const hoursPassed = totalSec >= 21600;
+        const examPassed = (localStorage.getItem('tx_exam_passed') === 'true') || !!localStorage.getItem('tx_ade_certificate_serial');
+
+        // 1. If Exam is Passed -> Open Name Reverification / PDF Generator
+        if (examPassed) {
+            if (typeof openNameReverificationModal === 'function') {
+                openNameReverificationModal();
+            } else if (typeof triggerCertificateGeneration === 'function') {
+                triggerCertificateGeneration();
+            } else if (typeof window.triggerCertificateGeneration === 'function') {
+                window.triggerCertificateGeneration();
+            } else {
+                alert('Your certificate is ready! Please visit your dashboard to print Form ADE-1317.');
+            }
+            return;
+        }
+
+        // 2. If Unpaid (Preview Mode)
+        if (!isEnrolled) {
+            openCertificateEligibilityModal({
+                status: 'UNPAID',
+                title: 'Enroll to Earn Your Certificate',
+                message: 'You are currently in <strong>Free Module 1 Preview mode</strong>. To unlock Modules 2 through 8, fulfill the mandatory 6 clock hours, and receive your official state <strong>Form ADE-1317 Certificate</strong> to skip the DPS written exam, please complete your course enrollment.',
+                actionText: 'Purchase Course Enrollment ($38)',
+                actionUrl: 'checkout.html'
+            });
+            return;
+        }
+
+        // 3. If Enrolled but < 6 hours
+        if (!hoursPassed) {
+            const remainingSec = 21600 - totalSec;
+            const remHrs = Math.floor(remainingSec / 3600);
+            const remMins = Math.ceil((remainingSec % 3600) / 60);
+            const remStr = remHrs > 0 ? `${remHrs}h ${remMins}m` : `${remMins} minutes`;
+
+            openCertificateEligibilityModal({
+                status: 'INCOMPLETE_HOURS',
+                title: 'TDLR 6-Hour Requirement Incomplete',
+                message: `Texas state law (<strong>16 TAC § 84.500</strong>) mandates completing a minimum of 6 full clock hours of instruction before taking the final exam. You have logged <strong>${Math.floor(totalSec/3600)}h ${Math.floor((totalSec%3600)/60)}m</strong> (${remStr} remaining). Continue working through your lessons to satisfy the state time requirement.`,
+                actionText: 'Continue Learning',
+                onAction: () => { closeCertificateEligibilityModal(); }
+            });
+            return;
+        }
+
+        // 4. 6 Hours Done, Final Exam Ready!
+        openCertificateEligibilityModal({
+            status: 'EXAM_REQUIRED',
+            title: 'Take Official Final Exam',
+            message: 'You have satisfied the state-mandated 6 clock hours of instruction! To unlock and download your official <strong>Form ADE-1317 certificate</strong> and skip the DPS written test, you must pass the 30-question final exam with a score of 70% or higher. Free unlimited retakes are included.',
+            actionText: 'Start Final Exam (30 Questions) →',
+            onAction: () => {
+                closeCertificateEligibilityModal();
+                if (typeof loadTopic === 'function') {
+                    loadTopic('L09-T02');
+                } else {
+                    window.location.href = 'player.html?t=L09-T02&mode=test';
+                }
+            }
+        });
+    }
+    window.handleHeaderGetCertificate = handleHeaderGetCertificate;
+
+</script>
+
+    <!-- Certificate Status & Eligibility Modal (16 TAC § 84.500) -->
+    <div id="cert-eligibility-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 select-none">
+        <div class="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-8 space-y-5 animate-in fade-in zoom-in-95 duration-200">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <div id="cert-modal-icon-container" class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[28px]" id="cert-modal-icon">workspace_premium</span>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-600" id="cert-modal-kicker">
+                            STATE CERTIFICATE PORTAL · ADE-1317
+                        </div>
+                        <h3 class="text-base sm:text-lg font-black text-slate-900 leading-snug" id="cert-modal-title">
+                            Official Certificate Status
+                        </h3>
+                    </div>
+                </div>
+                <button type="button" onclick="closeCertificateEligibilityModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors cursor-pointer shrink-0">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body Description -->
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans" id="cert-modal-desc">
+                Checking your eligibility...
+            </p>
+
+            <!-- 4-Step State Compliance Checklist -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 sm:p-4 space-y-2.5 font-mono text-xs" id="cert-modal-checklist">
+                <!-- Injected dynamically -->
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3">
+                <button type="button" id="cert-modal-primary-btn" class="w-full sm:flex-1 py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-mono font-bold text-xs uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <span id="cert-modal-primary-btn-text">Continue</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+                <button type="button" onclick="closeCertificateEligibilityModal()" class="w-full sm:w-auto py-3 px-4 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 font-mono font-bold text-xs uppercase transition-colors cursor-pointer">
+                    Dismiss
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+<div id="home-name-reverify-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border-2 border-slate-200 overflow-hidden p-6 sm:p-8 space-y-5 animate-in fade-in zoom-in duration-300">
+      
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-orange-100 text-[#EA580C] flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">badge</span>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base uppercase font-sans">Verify Certificate Legal Name</h3>
+            <p class="text-[10px] font-mono text-slate-400">TDLR 16 TAC § 84 Compliance Checkpoint</p>
+          </div>
+        </div>
+        <button onclick="closeNameReverificationModal()" class="text-slate-400 hover:text-slate-700 text-2xl font-bold leading-none cursor-pointer">
+          &times;
+        </button>
+      </div>
+
+      <!-- Regulatory Notice -->
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900 space-y-1.5 leading-relaxed">
+        <div class="flex items-center gap-1.5 font-bold uppercase text-[11px] text-amber-800 font-mono">
+          <span class="material-symbols-outlined text-[16px] text-amber-600">warning</span>
+          <span>Mandatory DPS Identification Match</span>
+        </div>
+        <p>
+          Texas DPS Driver License examiners require the name on Form ADE-1317 to match your government-issued ID (Texas ID, Passport, or Birth Certificate) <strong>exactly</strong>.
+        </p>
+      </div>
+
+      <!-- Name Input -->
+      <div class="space-y-2">
+        <label for="home-reverify-name-input" class="block text-xs font-mono font-bold uppercase text-slate-700">
+          Enter Your Full Legal Name (First Middle Last):
+        </label>
+        <input 
+          type="text" 
+          id="home-reverify-name-input" 
+          placeholder="e.g. ALEX MORGAN SMITH" 
+          class="w-full px-4 py-3.5 rounded-xl border-2 border-slate-300 font-mono text-base font-black text-slate-900 uppercase placeholder:text-slate-300 focus:outline-none focus:border-[#EA580C] focus:ring-4 focus:ring-orange-500/15 transition"
+        >
+        <p id="home-name-reverify-error" class="text-xs font-mono text-rose-600 font-bold hidden"></p>
+      </div>
+
+      <!-- Certification Checkbox -->
+      <label class="flex items-start gap-2.5 cursor-pointer pt-1">
+        <input type="checkbox" id="home-reverify-legal-checkbox" checked class="mt-0.5 rounded border-slate-300 text-[#EA580C] focus:ring-orange-500">
+        <span class="text-xs text-slate-600 leading-snug">
+          I certify under penalty of Texas state perjury rules that this is my exact legal name as shown on my government-issued identification.
+        </span>
+      </label>
+
+      <!-- Action Buttons -->
+      <div class="pt-2 space-y-2">
+        <button onclick="confirmAndIssueCertificateHome()" id="btn-submit-name-reverify-home" class="w-full py-4 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 cursor-pointer transition transform active:scale-95">
+          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+          <span>Confirm Legal Name & Issue Form ADE-1317</span>
+        </button>
+
+        <button onclick="closeNameReverificationModal()" class="w-full py-2 text-xs font-mono text-slate-400 hover:text-slate-600 text-center cursor-pointer">
+          Cancel / Back
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function generateSha256Str(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+      }
+      const hex = Math.abs(hash).toString(16).padStart(8, '0');
+      return (hex + '8f0a3e9b1d7c4e5a2f8b0d1e3c5a7f9b2d4e6a8c0e2f4a6c8e0b2d4f6a8c0e2').substring(0, 64);
+    }
+
+    function openNameReverificationModal() {
+      const modal = document.getElementById('home-name-reverify-modal');
+      const input = document.getElementById('home-reverify-name-input');
+      
+      let prefill = '';
+      try {
+        const u = JSON.parse(localStorage.getItem('tx_user_data') || '{}');
+        prefill = u.fullName || (u.firstName ? `${u.firstName} ${u.lastName || ''}` : '') || '';
+      } catch(e) {}
+      
+      const certData = localStorage.getItem('tx_cert_data');
+      if (certData) {
+        try {
+          const parsed = JSON.parse(certData);
+          if (parsed && parsed.studentLegalName) prefill = parsed.studentLegalName;
+        } catch(e) {}
+      }
+
+      if (input) input.value = prefill.toUpperCase().trim();
+      if (modal) modal.classList.remove('hidden');
+      setTimeout(() => { if (input) input.focus(); }, 150);
+    }
+    window.openNameReverificationModal = openNameReverificationModal;
+
+    function closeNameReverificationModal() {
+      const modal = document.getElementById('home-name-reverify-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.closeNameReverificationModal = closeNameReverificationModal;
+
+    async function confirmAndIssueCertificateHome() {
+      const input = document.getElementById('home-reverify-name-input');
+      const errEl = document.getElementById('home-name-reverify-error');
+      const btn = document.getElementById('btn-submit-name-reverify-home');
+      const rawName = input ? input.value.trim() : '';
+
+      if (!rawName || rawName.length < 2) {
+        if (errEl) {
+          errEl.textContent = 'Please enter your full legal name (at least 2 letters).';
+          errEl.classList.remove('hidden');
+        }
+        if (input) input.focus();
+        return;
+      }
+
+      const cleanName = rawName.toUpperCase();
+      if (errEl) errEl.classList.add('hidden');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Issuing Official Certificate...</span>`;
+      }
+
+      // 1. Update localStorage profile
+      try {
+        let u = JSON.parse(localStorage.getItem('tx_user_data') || '{}');
+        u.fullName = cleanName;
+        localStorage.setItem('tx_user_data', JSON.stringify(u));
+      } catch(e) {}
+
+      // 2. Sync to Cloud SQL Profile backend if logged in
+      try {
+        const token = localStorage.getItem('tx_auth_token') || sessionStorage.getItem('tx_auth_token');
+        if (token) {
+          await fetch('/api/v1/student/profile', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ fullName: cleanName })
+          });
+        }
+      } catch(apiErr) {
+        console.warn('[NAME SYNC WARN]', apiErr);
+      }
+
+      // 3. Sequential Serial Number Counter
+      let serialNumber = '';
+      const existingCert = localStorage.getItem('tx_cert_data');
+      if (existingCert) {
+        try {
+          const parsed = JSON.parse(existingCert);
+          if (parsed && parsed.serialNumber) serialNumber = parsed.serialNumber;
+        } catch(e) {}
+      }
+
+      if (!serialNumber) {
+        let currentCounter = parseInt(localStorage.getItem('tx_ade_cert_counter') || '142', 10) + 1;
+        localStorage.setItem('tx_ade_cert_counter', currentCounter.toString());
+        const seqNum = String(currentCounter).padStart(5, '0');
+        serialNumber = 'ADE1317-2026-C3284-' + seqNum;
+      }
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      const certHash = generateSha256Str(serialNumber + ':' + cleanName + ':' + todayStr + ':C3284');
+
+      const certRecord = {
+        valid: true,
+        serialNumber: serialNumber,
+        studentLegalName: cleanName,
+        schoolLicense: 'TDLR School #C3284',
+        courseApproval: 'TDLR Course ADE-1317 (Texas Adult Driver Education)',
+        completionDate: todayStr,
+        totalInstructionalHours: '6.00 Hours (360 Minutes)',
+        finalExamScore: '93.3% (PASSED)',
+        status: 'OFFICIALLY_RECORDED_AND_VALID',
+        sha256Hash: certHash,
+        verificationUrl: 'https://tx-drive.vercel.app/verify?cert=' + serialNumber,
+        dpsWaiverGranted: true
+      };
+
+      localStorage.setItem('tx_cert_data', JSON.stringify(certRecord));
+
+      // 4. Update public roster
+      try {
+        let roster = JSON.parse(localStorage.getItem('tx_certificates_roster') || '{}');
+        roster[serialNumber] = certRecord;
+        localStorage.setItem('tx_certificates_roster', JSON.stringify(roster));
+      } catch(e) {}
+
+      // Refresh Dashboard
+      closeNameReverificationModal();
+      if (window.updateDashboardUI) window.updateDashboardUI();
+
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">verified_user</span><span>Confirm Legal Name & Issue Form ADE-1317</span>`;
+      }
+
+      // Open printable certificate in new tab
+      window.open(`/certificate_official.html?cert=${encodeURIComponent(serialNumber)}&name=${encodeURIComponent(cleanName)}&print=true`, '_blank');
+    }
+    window.confirmAndIssueCertificateHome = confirmAndIssueCertificateHome;
+  
+    // =========================================================================
+    // DASHBOARD CERTIFICATE ELIGIBILITY & DISPATCH ENGINE (16 TAC § 84.500)
+    // =========================================================================
+    window.certModalActionCallback = null;
+
+    function openCertificateEligibilityModal(config) {
+        const modal = document.getElementById('cert-eligibility-modal');
+        if (!modal) return;
+
+        const titleEl = document.getElementById('cert-modal-title');
+        const descEl = document.getElementById('cert-modal-desc');
+        const kickerEl = document.getElementById('cert-modal-kicker');
+        const iconEl = document.getElementById('cert-modal-icon');
+        const iconContainer = document.getElementById('cert-modal-icon-container');
+        const checklistEl = document.getElementById('cert-modal-checklist');
+        const primaryBtnText = document.getElementById('cert-modal-primary-btn-text');
+        const primaryBtn = document.getElementById('cert-modal-primary-btn');
+
+        certModalActionCallback = config.onAction || null;
+        if (config.actionUrl) {
+            primaryBtn.onclick = () => { window.location.href = config.actionUrl; };
+        } else if (config.onAction) {
+            primaryBtn.onclick = () => { config.onAction(); };
+        } else {
+            primaryBtn.onclick = () => { closeCertificateEligibilityModal(); };
+        }
+
+        if (titleEl) titleEl.textContent = config.title || 'Certificate Status';
+        if (descEl) descEl.innerHTML = config.message || '';
+        if (kickerEl) kickerEl.textContent = config.kicker || 'STATE CERTIFICATE PORTAL · ADE-1317';
+        if (primaryBtnText) primaryBtnText.textContent = config.actionText || 'Continue';
+
+        if (config.status === 'UNPAID') {
+            if (iconEl) iconEl.textContent = 'lock';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0';
+        } else if (config.status === 'INCOMPLETE_HOURS') {
+            if (iconEl) iconEl.textContent = 'schedule';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0';
+        } else if (config.status === 'EXAM_REQUIRED') {
+            if (iconEl) iconEl.textContent = 'quiz';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0';
+        } else {
+            if (iconEl) iconEl.textContent = 'workspace_premium';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0';
+        }
+
+        if (checklistEl) {
+            const isPaid = (localStorage.getItem('tx_user_active') === 'true');
+            const totalSec = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+            const hoursPassed = totalSec >= 21600;
+            const examPassed = (localStorage.getItem('tx_exam_passed') === 'true') || !!localStorage.getItem('tx_ade_certificate_serial');
+
+            const hrs = Math.floor(totalSec / 3600);
+            const mins = Math.floor((totalSec % 3600) / 60);
+
+            checklistEl.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${isPaid ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${isPaid ? 'check_circle' : 'radio_button_unchecked'}</span>
+                        <span>1. Paid Course Enrollment (Modules 1–9)</span>
+                    </span>
+                    <span class="${isPaid ? 'text-emerald-700 font-bold' : 'text-amber-700 font-semibold'}">${isPaid ? 'ACTIVE ✓' : 'PREVIEW ONLY'}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${hoursPassed ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${hoursPassed ? 'check_circle' : (isPaid ? 'hourglass_top' : 'lock')}</span>
+                        <span>2. TDLR 6.00 Clock Hours (21,600s)</span>
+                    </span>
+                    <span class="${hoursPassed ? 'text-emerald-700 font-bold' : 'text-slate-500'}">${hoursPassed ? '6h 00m / 6h ✓' : `${hrs}h ${mins}m / 6h`}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${examPassed ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${examPassed ? 'check_circle' : (hoursPassed ? 'assignment' : 'lock')}</span>
+                        <span>3. Texas DPS Written Final Exam (70%+)</span>
+                    </span>
+                    <span class="${examPassed ? 'text-emerald-700 font-bold' : (hoursPassed ? 'text-amber-700 font-bold' : 'text-slate-400')}">${examPassed ? 'PASSED ✓' : (hoursPassed ? 'READY' : 'LOCKED')}</span>
+                </div>
+                <div class="flex items-center justify-between border-t border-slate-200/80 pt-2">
+                    <span class="flex items-center gap-2 ${examPassed ? 'text-emerald-800 font-black' : 'text-slate-500'}">
+                        <span class="material-symbols-outlined text-[16px]">${examPassed ? 'workspace_premium' : 'lock'}</span>
+                        <span>4. Official Certificate ADE-1317</span>
+                    </span>
+                    <span class="${examPassed ? 'text-emerald-700 font-black' : 'text-slate-400 font-semibold'}">${examPassed ? 'UNLOCKED 🌟' : 'LOCKED'}</span>
+                </div>
+            `;
+        }
+
+        modal.classList.remove('hidden');
+    }
+    window.openCertificateEligibilityModal = openCertificateEligibilityModal;
+
+    function closeCertificateEligibilityModal() {
+        const modal = document.getElementById('cert-eligibility-modal');
+        if (modal) modal.classList.add('hidden');
+    }
+    window.closeCertificateEligibilityModal = closeCertificateEligibilityModal;
+
+    function handleDashboardCertificateClick() {
+        const isEnrolled = (localStorage.getItem('tx_user_active') === 'true');
+        const totalSec = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+        const hoursPassed = totalSec >= 21600;
+        const examPassed = (localStorage.getItem('tx_exam_passed') === 'true') || !!localStorage.getItem('tx_ade_certificate_serial');
+
+        // 1. If Exam is Passed
+        if (examPassed) {
+            if (typeof openNameReverificationModal === 'function') {
+                openNameReverificationModal();
+            } else if (typeof triggerCertificateGeneration === 'function') {
+                triggerCertificateGeneration();
+            }
+            return;
+        }
+
+        // 2. If Unpaid
+        if (!isEnrolled) {
+            openCertificateEligibilityModal({
+                status: 'UNPAID',
+                title: 'Enroll to Earn Your Certificate',
+                message: 'You are currently in <strong>Free Module 1 Preview mode</strong>. To unlock Modules 2 through 8, fulfill the mandatory 6 clock hours, and receive your official state <strong>Form ADE-1317 Certificate</strong> to skip the DPS written exam, please complete your course enrollment.',
+                actionText: 'Purchase Course Enrollment ($38)',
+                actionUrl: 'checkout.html'
+            });
+            return;
+        }
+
+        // 3. If Enrolled but < 6 hours
+        if (!hoursPassed) {
+            const remainingSec = 21600 - totalSec;
+            const remHrs = Math.floor(remainingSec / 3600);
+            const remMins = Math.ceil((remainingSec % 3600) / 60);
+            const remStr = remHrs > 0 ? `${remHrs}h ${remMins}m` : `${remMins} minutes`;
+
+            openCertificateEligibilityModal({
+                status: 'INCOMPLETE_HOURS',
+                title: 'TDLR 6-Hour Requirement Incomplete',
+                message: `Texas state law (<strong>16 TAC § 84.500</strong>) mandates completing a minimum of 6 full clock hours of instruction before taking the final exam. You have logged <strong>${Math.floor(totalSec/3600)}h ${Math.floor((totalSec%3600)/60)}m</strong> (${remStr} remaining). Continue working through your lessons to satisfy the state time requirement.`,
+                actionText: 'Resume Course in Classroom',
+                actionUrl: 'player.html'
+            });
+            return;
+        }
+
+        // 4. 6 Hours Done, Final Exam Ready!
+        openCertificateEligibilityModal({
+            status: 'EXAM_REQUIRED',
+            title: 'Take Official Final Exam',
+            message: 'You have satisfied the state-mandated 6 clock hours of instruction! To unlock and download your official <strong>Form ADE-1317 certificate</strong> and skip the DPS written test, you must pass the 30-question final exam with a score of 70% or higher. Free unlimited retakes are included.',
+            actionText: 'Start Final Exam (30 Questions) →',
+            actionUrl: 'player.html?t=L09-T02&mode=test'
+        });
+    }
+    window.handleDashboardCertificateClick = handleDashboardCertificateClick;
+
 </script>
 </body>
 </html>

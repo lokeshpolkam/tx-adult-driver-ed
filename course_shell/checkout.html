@@ -105,6 +105,36 @@
     <!-- Main Content -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
 
+        <!-- ALREADY ENROLLED STATE (Shown when student is already active) -->
+        <div id="already-enrolled-banner" class="hidden mb-10 max-w-2xl mx-auto">
+            <div class="bg-emerald-50 border-2 border-emerald-300 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-card">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto shadow-xs">
+                    <span class="material-symbols-outlined text-[36px]">verified_user</span>
+                </div>
+                <div class="space-y-1">
+                    <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/80 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                        OFFICIAL STATE ENROLLMENT ACTIVE
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-black text-emerald-950 font-sans tracking-tight">
+                        You Are Already Enrolled!
+                    </h2>
+                </div>
+                <p class="text-xs font-mono text-emerald-900 leading-relaxed max-w-lg mx-auto">
+                    Your student account (<strong id="enrolled-user-email">Student</strong>) is fully verified and actively enrolled in Texas Adult Driver Education (ADE-1317). Your payment or state waiver is securely recorded. You do not need to pay again.
+                </p>
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a href="player.html" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-mono font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-[18px]">play_lesson</span>
+                        <span>Go to Virtual Classroom &rarr;</span>
+                    </a>
+                    <a href="home.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white border border-emerald-300 hover:bg-emerald-100/50 text-emerald-800 font-mono font-bold text-xs uppercase transition-all flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-[18px]">dashboard</span>
+                        <span>Student Dashboard</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- SUCCESS STATE (Shown when redirected back with ?status=success or ?payment=success) -->
         <div id="success-banner" class="hidden mb-10 max-w-3xl mx-auto">
             <div class="bg-surface-card rounded-xl p-8 card-border shadow-sm border-t-4 border-t-emerald-600 text-center">
@@ -383,7 +413,7 @@
         }
 
         async function checkAuth() {
-            const token = localStorage.getItem('tx_session_token');
+            const token = localStorage.getItem('tx_session_token') || localStorage.getItem('tx_auth_token');
             const cachedUserStr = localStorage.getItem('tx_user_data');
 
             // If no token or no cached user, force sign in state
@@ -396,6 +426,19 @@
                 currentUser = JSON.parse(cachedUserStr);
                 if (currentUser && currentUser.email) {
                     renderUser();
+                    // If user is already actively enrolled in course, display already enrolled state
+                    const isLocalActive = localStorage.getItem('tx_user_active') === 'true';
+                    const isUserActive = currentUser.enrollmentStatus === 'ACTIVE';
+                    if (isLocalActive || isUserActive) {
+                        const alreadyBanner = document.getElementById('already-enrolled-banner');
+                        const checkoutContainer = document.getElementById('checkout-container');
+                        const enrolledEmail = document.getElementById('enrolled-user-email');
+                        if (alreadyBanner) alreadyBanner.classList.remove('hidden');
+                        if (checkoutContainer) checkoutContainer.classList.add('hidden');
+                        if (enrolledEmail && currentUser.email) {
+                            enrolledEmail.textContent = currentUser.email;
+                        }
+                    }
                 } else {
                     handleLogout();
                     return;
@@ -538,7 +581,7 @@
             }
 
             try {
-                const token = localStorage.getItem('tx_session_token');
+                const token = localStorage.getItem('tx_session_token') || localStorage.getItem('tx_auth_token');
                 const headers = { 'Content-Type': 'application/json' };
                 if (token) headers['Authorization'] = `Bearer ${token}`;
 
@@ -650,7 +693,7 @@
 
         async function initiateStripeCheckout() {
             // Client-side payment bypass removed
-            const token = localStorage.getItem('tx_session_token');
+            const token = localStorage.getItem('tx_session_token') || localStorage.getItem('tx_auth_token');
             if (!currentUser || !token || !currentUser.email) {
                 handleLogout();
                 alert('Pursuant to Texas state law (16 TAC § 84.500), please sign in first so your progress is securely registered to your legal identity.');

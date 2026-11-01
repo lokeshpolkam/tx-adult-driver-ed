@@ -566,7 +566,7 @@
           </div>
 
           <div id="cert-download-btn-container" class="space-y-2">
-            <button onclick="window.location.href='player.html?t=L09-T02&mode=test'" class="w-full py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-xs font-bold uppercase transition-all flex items-center justify-center gap-2 cursor-pointer">
+            <button onclick="handleDashboardCertificateClick()" id="dashboard-cert-download-btn" class="w-full py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-xs font-bold uppercase transition-all flex items-center justify-center gap-2 cursor-pointer">
               <span class="material-symbols-outlined text-[16px] text-brand-500">lock</span>
               <span>Pass Final Exam to Download</span>
             </button>
@@ -1579,7 +1579,208 @@
       window.open(`/certificate_official.html?cert=${encodeURIComponent(serialNumber)}&name=${encodeURIComponent(cleanName)}&print=true`, '_blank');
     }
     window.confirmAndIssueCertificateHome = confirmAndIssueCertificateHome;
-  </script>
+  
+    // =========================================================================
+    // DASHBOARD CERTIFICATE ELIGIBILITY & DISPATCH ENGINE (16 TAC § 84.500)
+    // =========================================================================
+    let certModalActionCallback = null;
+
+    function openCertificateEligibilityModal(config) {
+        const modal = document.getElementById('cert-eligibility-modal');
+        if (!modal) return;
+
+        const titleEl = document.getElementById('cert-modal-title');
+        const descEl = document.getElementById('cert-modal-desc');
+        const kickerEl = document.getElementById('cert-modal-kicker');
+        const iconEl = document.getElementById('cert-modal-icon');
+        const iconContainer = document.getElementById('cert-modal-icon-container');
+        const checklistEl = document.getElementById('cert-modal-checklist');
+        const primaryBtnText = document.getElementById('cert-modal-primary-btn-text');
+        const primaryBtn = document.getElementById('cert-modal-primary-btn');
+
+        certModalActionCallback = config.onAction || null;
+        if (config.actionUrl) {
+            primaryBtn.onclick = () => { window.location.href = config.actionUrl; };
+        } else if (config.onAction) {
+            primaryBtn.onclick = () => { config.onAction(); };
+        } else {
+            primaryBtn.onclick = () => { closeCertificateEligibilityModal(); };
+        }
+
+        if (titleEl) titleEl.textContent = config.title || 'Certificate Status';
+        if (descEl) descEl.innerHTML = config.message || '';
+        if (kickerEl) kickerEl.textContent = config.kicker || 'STATE CERTIFICATE PORTAL · ADE-1317';
+        if (primaryBtnText) primaryBtnText.textContent = config.actionText || 'Continue';
+
+        if (config.status === 'UNPAID') {
+            if (iconEl) iconEl.textContent = 'lock';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0';
+        } else if (config.status === 'INCOMPLETE_HOURS') {
+            if (iconEl) iconEl.textContent = 'schedule';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0';
+        } else if (config.status === 'EXAM_REQUIRED') {
+            if (iconEl) iconEl.textContent = 'quiz';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0';
+        } else {
+            if (iconEl) iconEl.textContent = 'workspace_premium';
+            if (iconContainer) iconContainer.className = 'w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0';
+        }
+
+        if (checklistEl) {
+            const isPaid = (localStorage.getItem('tx_user_active') === 'true');
+            const totalSec = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+            const hoursPassed = totalSec >= 21600;
+            const examPassed = (localStorage.getItem('tx_exam_passed') === 'true') || !!localStorage.getItem('tx_ade_certificate_serial');
+
+            const hrs = Math.floor(totalSec / 3600);
+            const mins = Math.floor((totalSec % 3600) / 60);
+
+            checklistEl.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${isPaid ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${isPaid ? 'check_circle' : 'radio_button_unchecked'}</span>
+                        <span>1. Paid Course Enrollment (Modules 1–9)</span>
+                    </span>
+                    <span class="${isPaid ? 'text-emerald-700 font-bold' : 'text-amber-700 font-semibold'}">${isPaid ? 'ACTIVE ✓' : 'PREVIEW ONLY'}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${hoursPassed ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${hoursPassed ? 'check_circle' : (isPaid ? 'hourglass_top' : 'lock')}</span>
+                        <span>2. TDLR 6.00 Clock Hours (21,600s)</span>
+                    </span>
+                    <span class="${hoursPassed ? 'text-emerald-700 font-bold' : 'text-slate-500'}">${hoursPassed ? '6h 00m / 6h ✓' : `${hrs}h ${mins}m / 6h`}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 ${examPassed ? 'text-emerald-700 font-bold' : 'text-slate-600'}">
+                        <span class="material-symbols-outlined text-[16px]">${examPassed ? 'check_circle' : (hoursPassed ? 'assignment' : 'lock')}</span>
+                        <span>3. Texas DPS Written Final Exam (70%+)</span>
+                    </span>
+                    <span class="${examPassed ? 'text-emerald-700 font-bold' : (hoursPassed ? 'text-amber-700 font-bold' : 'text-slate-400')}">${examPassed ? 'PASSED ✓' : (hoursPassed ? 'READY' : 'LOCKED')}</span>
+                </div>
+                <div class="flex items-center justify-between border-t border-slate-200/80 pt-2">
+                    <span class="flex items-center gap-2 ${examPassed ? 'text-emerald-800 font-black' : 'text-slate-500'}">
+                        <span class="material-symbols-outlined text-[16px]">${examPassed ? 'workspace_premium' : 'lock'}</span>
+                        <span>4. Official Certificate ADE-1317</span>
+                    </span>
+                    <span class="${examPassed ? 'text-emerald-700 font-black' : 'text-slate-400 font-semibold'}">${examPassed ? 'UNLOCKED 🌟' : 'LOCKED'}</span>
+                </div>
+            `;
+        }
+
+        modal.classList.remove('hidden');
+    }
+    window.openCertificateEligibilityModal = openCertificateEligibilityModal;
+
+    function closeCertificateEligibilityModal() {
+        const modal = document.getElementById('cert-eligibility-modal');
+        if (modal) modal.classList.add('hidden');
+    }
+    window.closeCertificateEligibilityModal = closeCertificateEligibilityModal;
+
+    function handleDashboardCertificateClick() {
+        const isEnrolled = (localStorage.getItem('tx_user_active') === 'true');
+        const totalSec = parseInt(localStorage.getItem('tx_ade_time') || '0', 10);
+        const hoursPassed = totalSec >= 21600;
+        const examPassed = (localStorage.getItem('tx_exam_passed') === 'true') || !!localStorage.getItem('tx_ade_certificate_serial');
+
+        // 1. If Exam is Passed
+        if (examPassed) {
+            if (typeof openNameReverificationModal === 'function') {
+                openNameReverificationModal();
+            } else if (typeof triggerCertificateGeneration === 'function') {
+                triggerCertificateGeneration();
+            }
+            return;
+        }
+
+        // 2. If Unpaid
+        if (!isEnrolled) {
+            openCertificateEligibilityModal({
+                status: 'UNPAID',
+                title: 'Enroll to Earn Your Certificate',
+                message: 'You are currently in <strong>Free Module 1 Preview mode</strong>. To unlock Modules 2 through 8, fulfill the mandatory 6 clock hours, and receive your official state <strong>Form ADE-1317 Certificate</strong> to skip the DPS written exam, please complete your course enrollment.',
+                actionText: 'Purchase Course Enrollment ($38)',
+                actionUrl: 'checkout.html'
+            });
+            return;
+        }
+
+        // 3. If Enrolled but < 6 hours
+        if (!hoursPassed) {
+            const remainingSec = 21600 - totalSec;
+            const remHrs = Math.floor(remainingSec / 3600);
+            const remMins = Math.ceil((remainingSec % 3600) / 60);
+            const remStr = remHrs > 0 ? `${remHrs}h ${remMins}m` : `${remMins} minutes`;
+
+            openCertificateEligibilityModal({
+                status: 'INCOMPLETE_HOURS',
+                title: 'TDLR 6-Hour Requirement Incomplete',
+                message: `Texas state law (<strong>16 TAC § 84.500</strong>) mandates completing a minimum of 6 full clock hours of instruction before taking the final exam. You have logged <strong>${Math.floor(totalSec/3600)}h ${Math.floor((totalSec%3600)/60)}m</strong> (${remStr} remaining). Continue working through your lessons to satisfy the state time requirement.`,
+                actionText: 'Resume Course in Classroom',
+                actionUrl: 'player.html'
+            });
+            return;
+        }
+
+        // 4. 6 Hours Done, Final Exam Ready!
+        openCertificateEligibilityModal({
+            status: 'EXAM_REQUIRED',
+            title: 'Take Official Final Exam',
+            message: 'You have satisfied the state-mandated 6 clock hours of instruction! To unlock and download your official <strong>Form ADE-1317 certificate</strong> and skip the DPS written test, you must pass the 30-question final exam with a score of 70% or higher. Free unlimited retakes are included.',
+            actionText: 'Start Final Exam (30 Questions) →',
+            actionUrl: 'player.html?t=L09-T02&mode=test'
+        });
+    }
+    window.handleDashboardCertificateClick = handleDashboardCertificateClick;
+
+</script>
+
+
+    <!-- Certificate Status & Eligibility Modal (16 TAC § 84.500) -->
+    <div id="cert-eligibility-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 select-none">
+        <div class="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-8 space-y-5 animate-in fade-in zoom-in-95 duration-200">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <div id="cert-modal-icon-container" class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[28px]" id="cert-modal-icon">workspace_premium</span>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-600" id="cert-modal-kicker">
+                            STATE CERTIFICATE PORTAL · ADE-1317
+                        </div>
+                        <h3 class="text-base sm:text-lg font-black text-slate-900 leading-snug" id="cert-modal-title">
+                            Official Certificate Status
+                        </h3>
+                    </div>
+                </div>
+                <button type="button" onclick="closeCertificateEligibilityModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors cursor-pointer shrink-0">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body Description -->
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans" id="cert-modal-desc">
+                Checking your eligibility...
+            </p>
+
+            <!-- 4-Step State Compliance Checklist -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 sm:p-4 space-y-2.5 font-mono text-xs" id="cert-modal-checklist">
+                <!-- Injected dynamically -->
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3">
+                <button type="button" id="cert-modal-primary-btn" class="w-full sm:flex-1 py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-mono font-bold text-xs uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <span id="cert-modal-primary-btn-text">Continue</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+                <button type="button" onclick="closeCertificateEligibilityModal()" class="w-full sm:w-auto py-3 px-4 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 font-mono font-bold text-xs uppercase transition-colors cursor-pointer">
+                    Dismiss
+                </button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

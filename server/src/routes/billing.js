@@ -380,6 +380,20 @@ router.post('/create-checkout-session', optionalAuth, async (req, res) => {
     const cleanCoupon = couponCode.trim().toUpperCase();
     const returnBase = clientOrigin || process.env.CLIENT_URL || 'http://localhost:8080';
 
+    // Check if student is already actively enrolled (Prevents double payment)
+    const activeCheck = await db.query(
+      `SELECT enrollment_status FROM users WHERE id = $1`,
+      [userId]
+    );
+    if (activeCheck.rows[0]?.enrollment_status === 'ACTIVE') {
+      return res.json({
+        success: true,
+        alreadyEnrolled: true,
+        checkoutUrl: `${returnBase}/player.html`,
+        message: 'You are already actively enrolled in this course.'
+      });
+    }
+
     // Handle Admin inspection bypass codes (Requires ADMIN_SECRET)
     if (['TEXASVIP', 'TDLRADMIN'].includes(cleanCoupon)) {
       const adminSecret = req.headers['x-admin-secret'] || req.body?.adminSecret;
