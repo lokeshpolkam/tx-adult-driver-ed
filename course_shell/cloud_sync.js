@@ -472,11 +472,12 @@ function showPaymentBanner() {
         <span><strong>FREE PREVIEW ACTIVE:</strong> Module 1 is unlocked! Complete Topic 1 to preview your course.</span>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="startStripeCheckout('STANDARD')" class="bg-white text-slate-900 hover:bg-gray-100 font-bold px-3.5 py-1 rounded text-xs transition-colors cursor-pointer">ENROLL NOW ($38)</button>
+        <button onclick="startStripeCheckout('STANDARD')" class="bg-white text-slate-900 hover:bg-gray-100 font-bold px-3.5 py-1 rounded text-xs transition-colors cursor-pointer">ENROLL NOW (<span class="dyn-price-int">$38</span>)</button>
         <button onclick="dismissPaymentBanner()" class="text-white/80 hover:text-white px-1.5 py-1 text-sm font-bold ml-1 cursor-pointer" title="Dismiss">✕</button>
       </div>
     `;
     document.body.appendChild(banner);
+    if (typeof window.getCoursePricing === "function") { try { window.getCoursePricing(); } catch(_) {} }
   }
 }
 

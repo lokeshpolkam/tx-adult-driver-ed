@@ -18,7 +18,7 @@
     : ''; // Relative path leverages Vercel vercel.json rewrite to Cloud Run
 
   const CACHE_KEY = 'tx_pricing_cache';
-  const CACHE_TTL_MS = 60 * 1000; // 1-minute client cache to prevent repeated fetches
+  const CACHE_TTL_MS = 5 * 1000; // 1-minute client cache to prevent repeated fetches
 
   let cachedPricing = null;
 

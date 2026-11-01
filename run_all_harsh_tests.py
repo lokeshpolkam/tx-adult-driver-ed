@@ -11,11 +11,12 @@ test_suites = [
     ('Milestone 4: Certificate Generation & Verification', 'test_milestone4_harsh.py'),
     ('Milestone 5: Authentication, Security & Privacy', 'test_milestone5_harsh.py'),
     ('Milestone 6: Mobile Layout, UX & Forms', 'test_milestone6_harsh.py'),
-    ('Milestone 7: Topic Resumption & TDLR Progression Guard', 'test_resumption_harsh.py')
+    ('Milestone 7: Topic Resumption & TDLR Progression Guard', 'test_resumption_harsh.py'),
+    ('Milestone 8: Dynamic Pricing, Blank /verify & Legal Name Reverification', 'test_all_four_fixes_harsh.py')
 ]
 
 print("==========================================================================")
-print("RUNNING COMPLETE SUITE OF ALL 6 HARSH ATTACK TESTS")
+print("RUNNING COMPLETE MASTER HARSH TEST SUITE (ALL 8 MILESTONES)")
 print("==========================================================================")
 
 all_passed = True
@@ -24,9 +25,9 @@ for title, script in test_suites:
     print(f"\n>>> EXECUTING: {title} ({script})")
     result = subprocess.run([sys.executable, script], capture_output=True, text=True, encoding='utf-8')
     if result.returncode == 0:
-        print(f"✓ {title}: PASSED")
+        print(f"[OK] {title}: PASSED")
     else:
-        print(f"✗ {title}: FAILED!")
+        print(f"[FAIL] {title}: FAILED!")
         print(result.stdout)
         print(result.stderr)
         all_passed = False
@@ -34,7 +35,7 @@ for title, script in test_suites:
 
 if all_passed:
     print("\n==========================================================================")
-    print("ALL 7 MILESTONES PASSED HARSH ATTACK TESTING WITH ZERO VULNERABILITIES!")
+    print("ALL 8 MILESTONES PASSED HARSH ATTACK TESTING WITH ZERO VULNERABILITIES!")
     print("==========================================================================")
 else:
     print("\nSUITE FAILED. Stopping for investigation.")

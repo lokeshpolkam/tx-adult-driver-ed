@@ -271,7 +271,7 @@
               </div>
               <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">VALID TDLR CERTIFICATE OF COMPLETION</h2>
               <p class="text-emerald-100 text-xs sm:text-sm font-mono">
-                Serial Number: <strong class="text-white underline">${escapeHtml(r.serialNumber || 'ADE1317-2026-C3284-00001')}</strong>
+                Serial Number: <strong class="text-white underline">${escapeHtml(r.serialNumber || serial)}</strong>
               </p>
             </div>
           </div>
@@ -384,15 +384,28 @@
       window.open('/form_ade1317_certificate.pdf', '_blank');
     }
 
-    // Auto-check on load if ?cert= is in the URL
+    // Auto-check on load ONLY if a legitimate non-dummy serial is in ?cert=
     document.addEventListener('DOMContentLoaded', () => {
+      const inputEl = document.getElementById('cert-input');
+      if (inputEl) inputEl.value = ''; // Ensure input is defaultly blank
+      
       const params = new URLSearchParams(window.location.search);
-      const certParam = params.get('cert') || params.get('serial') || params.get('id');
-      if (certParam) {
-        document.getElementById('cert-input').value = certParam;
+      const certParam = (params.get('cert') || params.get('serial') || params.get('id') || '').trim();
+      
+      // Strict guard: ignore sample/dummy numbers like '00001', 'sample', 'test', 'demo', or empty strings
+      const isDummy = !certParam || 
+                      certParam.includes('00001') || 
+                      certParam.toLowerCase().includes('sample') || 
+                      certParam.toLowerCase().includes('test') || 
+                      certParam.toLowerCase().includes('demo') ||
+                      certParam.length < 10;
+
+      if (!isDummy) {
         const safeParam = sanitizeSerial(certParam);
-        document.getElementById('cert-input').value = safeParam;
-        verifyCertificate(safeParam);
+        if (safeParam && safeParam.length >= 10 && !safeParam.includes('00001')) {
+          if (inputEl) inputEl.value = safeParam;
+          verifyCertificate(safeParam);
+        }
       }
     });
   </script>

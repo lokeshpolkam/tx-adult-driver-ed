@@ -57,6 +57,13 @@ with sync_playwright() as p:
 
     # Verify Results Screen Elements
     page.wait_for_selector('#results-container:not(.hidden)')
+    
+    # Complete user-requested Legal Name Reverification flow
+    page.evaluate("""() => {
+        if (window.openNameReverificationModal) window.openNameReverificationModal();
+        if (window.confirmAndIssueCertificate) window.confirmAndIssueCertificate();
+    }""")
+
     issued_name = page.inner_text('#issued-legal-name')
     print(f"Issued Legal Name on Screen: '{issued_name}'")
     assert issued_name == 'ALEXANDER HAMILTON', f"Expected ALEXANDER HAMILTON, got '{issued_name}'"

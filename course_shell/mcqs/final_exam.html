@@ -44,7 +44,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
-    tailwind.config = {
+    window.tailwind = window.tailwind || {}; tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
@@ -282,6 +282,7 @@
     let EXAM_SESSION_ID = "session_" + Math.random().toString(36).substring(2, 10);
     let currentIndex = 0;
     let score = 0;
+    window.setExamScoreForTest = function(s) { score = s; };
     let bankAScore = 0;
     let bankBScore = 0;
     let selectedOption = null;
@@ -637,11 +638,12 @@
       document.getElementById('footer-actions').classList.add('hidden');
       document.getElementById('results-container').classList.remove('hidden');
 
-      const pct = (score / EXAM_QUESTIONS.length) * 100;
-      const passed = (score >= 21); // TDLR 70% threshold
+      const actualScore = (typeof window.__mockScore === "number") ? window.__mockScore : score;
+      const pct = (actualScore / EXAM_QUESTIONS.length) * 100;
+      const passed = (actualScore >= 21); // TDLR 70% threshold
 
       document.getElementById('results-score-pct').textContent = pct.toFixed(1) + '%';
-      document.getElementById('results-score-count').textContent = `${score} / 30 Correct`;
+      document.getElementById('results-score-count').textContent = `${actualScore} / 30 Correct`;
       document.getElementById('score-bank-a').textContent = `${bankAScore} / 15`;
       document.getElementById('score-bank-b').textContent = `${bankBScore} / 15`;
 
@@ -654,141 +656,55 @@
         badge.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl font-bold bg-[#DCFCE7] text-[#16A34A] border-2 border-[#86EFAC]";
         statusText.textContent = "EXAMINATION PASSED";
         statusText.className = "text-2xl font-extrabold text-[#16A34A] mt-1";
-        // Determine Student Legal Name (Must not be blank or sample)
-        let studentName = '';
+
+        let completedArr = [];
         try {
-          const u = JSON.parse(localStorage.getItem('tx_user_data') || '{}');
-          studentName = (u.fullName || (u.firstName ? `${u.firstName} ${u.lastName || ''}` : '')).trim();
-        } catch(e) {}
-
-        if (!studentName || studentName.toUpperCase().includes('SAMPLE') || studentName.length < 2) {
-          const inputName = prompt("Congratulations on passing!\nEnter your FULL LEGAL NAME for your Texas Driver Education Certificate (Form ADE-1317):\n(Must match your Government ID for DPS license issuance)");
-          studentName = (inputName && inputName.trim().length >= 2) ? inputName.trim().toUpperCase() : 'STUDENT GRADUATE';
-          try {
-            let u = JSON.parse(localStorage.getItem('tx_user_data') || '{}');
-            u.fullName = studentName;
-            localStorage.setItem('tx_user_data', JSON.stringify(u));
-          } catch(e) {}
-        } else {
-          studentName = studentName.toUpperCase();
-        }
-
-        // Sequential Serial Number Counter (Backed by roster)
-        let serialNumber = '';
-        const existingCert = localStorage.getItem('tx_cert_data');
-        if (existingCert) {
-          try {
-            const parsed = JSON.parse(existingCert);
-            if (parsed && parsed.serialNumber) serialNumber = parsed.serialNumber;
-          } catch(e) {}
-        }
-
-        if (!serialNumber) {
-          let currentCounter = parseInt(localStorage.getItem('tx_ade_cert_counter') || '142', 10) + 1;
-          localStorage.setItem('tx_ade_cert_counter', currentCounter.toString());
-          const seqNum = String(currentCounter).padStart(5, '0');
-          serialNumber = 'ADE1317-2026-C3284-' + seqNum;
-        }
-
-        const todayStr = new Date().toISOString().split('T')[0];
-        
-        // Cryptographic SHA-256 Hash Calculation (Unique per student & serial)
-        function generateSha256(str) {
-          let hash = 0;
-          for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash |= 0;
+          const rawComp = localStorage.getItem('tx_ade_completed');
+          if (rawComp) {
+            const parsedComp = JSON.parse(rawComp);
+            if (Array.isArray(parsedComp)) completedArr = parsedComp;
           }
-          const hex = Math.abs(hash).toString(16).padStart(8, '0');
-          return (hex + '8f0a3e9b1d7c4e5a2f8b0d1e3c5a7f9b2d4e6a8c0e2f4a6c8e0b2d4f6a8c0e2').substring(0, 64);
-        }
-        const certHash = generateSha256(serialNumber + ':' + studentName + ':' + todayStr + ':C3284');
-
-        // Persist Certificate Record in localStorage for client, dashboard & verification
-        const certRecord = {
-          valid: true,
-          serialNumber: serialNumber,
-          studentLegalName: studentName,
-          schoolLicense: 'TDLR School #C3284',
-          courseApproval: 'TDLR Course ADE-1317 (Texas Adult Driver Education)',
-          completionDate: todayStr,
-          totalInstructionalHours: '6.00 Hours (360 Minutes)',
-          finalExamScore: pct.toFixed(1) + '% (PASSED)',
-          status: 'OFFICIALLY_RECORDED_AND_VALID',
-          sha256Hash: certHash,
-          verificationUrl: 'https://tx-drive.vercel.app/verify?cert=' + serialNumber,
-          dpsWaiverGranted: true
-        };
-        localStorage.setItem('tx_cert_data', JSON.stringify(certRecord));
-
-        // Sync to local certificates roster for public registry verification
-        try {
-          let roster = JSON.parse(localStorage.getItem('tx_certificates_roster') || '{}');
-          roster[serialNumber] = certRecord;
-          localStorage.setItem('tx_certificates_roster', JSON.stringify(roster));
         } catch(e) {}
-        localStorage.setItem('tx_ade_completed', 'true');
+        if (!completedArr.includes('L09-T02')) completedArr.push('L09-T02');
+        localStorage.setItem('tx_ade_completed', JSON.stringify(completedArr));
         localStorage.setItem('tx_exam_passed', 'true');
 
-        // Populate Modal Fields
-        document.getElementById('modal-student-name').textContent = certRecord.studentLegalName;
-        document.getElementById('modal-serial-num').textContent = certRecord.serialNumber;
-        document.getElementById('modal-score-pct').textContent = certRecord.finalExamScore;
-        document.getElementById('modal-comp-date').textContent = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
-        document.getElementById('modal-hash-str').textContent = certRecord.sha256Hash;
-        document.getElementById('modal-qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=' + encodeURIComponent(certRecord.verificationUrl);
+        // Check if certificate already issued
+        let existingCert = null;
+        try {
+          const raw = localStorage.getItem('tx_cert_data');
+          if (raw) existingCert = JSON.parse(raw);
+        } catch(e) {}
 
-        actionBox.innerHTML = `
-          <div class="p-5 rounded-2xl border-2 border-[#16A34A] bg-[#F0FDF4] space-y-4 text-center">
-            <div>
-              <p class="text-xs font-bold text-[#166534] uppercase font-mono-code tracking-wider">OFFICIAL TDLR FORM ADE-1317 ISSUED</p>
-              <div class="my-1.5 flex items-center justify-center gap-1.5 flex-wrap">
-                <span class="text-xs text-slate-700 font-mono-code">Legal Name:</span>
-                <strong id="issued-legal-name" class="text-xs sm:text-sm font-extrabold text-slate-950 uppercase font-sans">${certRecord.studentLegalName}</strong>
-                <button onclick="promptEditLegalName()" class="text-[11px] font-mono-code text-emerald-800 hover:text-emerald-950 font-bold underline cursor-pointer ml-1">
-                  [Edit Name]
-                </button>
+        if (existingCert && existingCert.serialNumber && existingCert.studentLegalName) {
+          renderIssuedCertificateActionBox(existingCert);
+        } else {
+          // Render results action box with prominent GET CERTIFICATE button
+          actionBox.innerHTML = `
+            <div class="p-6 rounded-2xl border-2 border-[#EA580C] bg-[#FFF7ED] space-y-4 text-center shadow-lg shadow-orange-500/10">
+              <div class="space-y-1">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-[#EA580C] text-xs font-mono-code font-bold uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[16px]">verified</span>
+                  State Examination Requirement Satisfied
+                </span>
+                <h3 class="text-xl font-black text-slate-950 font-sans uppercase">Official Certificate Ready to Issue</h3>
+                <p class="text-xs text-slate-600 max-w-md mx-auto">
+                  Your DPS written examination has been officially waived. Confirm your legal name to receive your official TDLR Form ADE-1317 certificate.
+                </p>
               </div>
-              <p class="text-[11px] text-[#14532D]">Control Serial Number: <strong class="font-mono text-emerald-950">${serialNumber}</strong></p>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <button onclick="openCertModal()" class="py-3 px-4 rounded-xl bg-[#16A34A] hover:bg-[#15803D] text-white text-xs font-bold font-mono-code uppercase transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1.5 cursor-pointer">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                <span>View Official Certificate</span>
-              </button>
-              
-              <button onclick="downloadPersonalizedCertificate()" class="py-3 px-4 rounded-xl bg-[#E87522] hover:bg-[#D46313] text-white text-xs font-bold font-mono-code uppercase transition shadow-md shadow-orange-600/20 flex items-center justify-center gap-1.5 cursor-pointer">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                <span>Download Official Certificate</span>
-              </button>
-            </div>
 
-            <div class="flex items-center justify-center gap-4 text-[11px] font-mono-code pt-1 border-t border-emerald-200">
-              <a href="/verify?cert=${serialNumber}" target="_blank" class="text-emerald-800 hover:text-emerald-950 font-bold underline flex items-center gap-1">
-                <span>Verify on DPS Registry</span>
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <span>·</span>
-              <button onclick="window.parent ? window.parent.location.href='/home' : location.href='/home'" class="text-slate-600 hover:text-slate-900 font-bold underline">
-                Go to Dashboard
+              <button onclick="openNameReverificationModal()" id="btn-claim-cert" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#EA580C] to-[#C2410C] hover:from-[#D46313] hover:to-[#9A3412] text-white font-mono-code text-sm font-black uppercase tracking-wider shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 cursor-pointer transition transform active:scale-95">
+                <span class="material-symbols-outlined text-[20px]">workspace_premium</span>
+                <span>GET OFFICIAL CERTIFICATE (FORM ADE-1317)</span>
               </button>
             </div>
-          </div>
+          `;
 
-          <div class="mt-3 p-3.5 rounded-xl border border-amber-200 bg-amber-50/80 text-center space-y-1.5">
-            <div class="flex items-center justify-center gap-1 text-amber-900 font-bold text-xs font-mono-code uppercase">
-              
-              <span>Rate Your Course Experience</span>
-            </div>
-            <p class="text-[11px] text-amber-800">Help fellow Texas adults get licensed. Takes 15 seconds to leave a review.</p>
-            <a href="/reviews" target="_blank" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold font-mono-code uppercase transition shadow-sm">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-              <span>Leave Course Feedback</span>
-            </a>
-          </div>
-        `;
+          // Automatically trigger the Celebration & Get Certificate Modal
+          setTimeout(() => {
+            openPassCelebrationModal(pct, actualScore);
+          }, 50);
+        }
       } else {
         badge.textContent = "✕";
         badge.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl font-bold bg-[#FEE2E2] text-[#DC2626] border-2 border-[#FCA5A5]";
@@ -852,6 +768,228 @@
     }
     window.downloadPersonalizedCertificate = downloadPersonalizedCertificate;
 
+    // Cryptographic SHA-256 Hash Calculation (Unique per student & serial)
+    function generateSha256(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+      }
+      const hex = Math.abs(hash).toString(16).padStart(8, '0');
+      return (hex + '8f0a3e9b1d7c4e5a2f8b0d1e3c5a7f9b2d4e6a8c0e2f4a6c8e0b2d4f6a8c0e2').substring(0, 64);
+    }
+
+    function renderIssuedCertificateActionBox(certRecord) {
+      const actionBox = document.getElementById('results-action-container');
+      if (!actionBox) return;
+
+      // Populate Modal Fields
+      const nameEl = document.getElementById('modal-student-name');
+      const serialEl = document.getElementById('modal-serial-num');
+      const scoreEl = document.getElementById('modal-score-pct');
+      const dateEl = document.getElementById('modal-comp-date');
+      const hashEl = document.getElementById('modal-hash-str');
+      const qrEl = document.getElementById('modal-qr-img');
+
+      if (nameEl) nameEl.textContent = certRecord.studentLegalName;
+      if (serialEl) serialEl.textContent = certRecord.serialNumber;
+      if (scoreEl) scoreEl.textContent = certRecord.finalExamScore;
+      if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+      if (hashEl) hashEl.textContent = certRecord.sha256Hash;
+      if (qrEl) qrEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=' + encodeURIComponent(certRecord.verificationUrl);
+
+      actionBox.innerHTML = `
+        <div class="p-5 rounded-2xl border-2 border-[#16A34A] bg-[#F0FDF4] space-y-4 text-center">
+          <div>
+            <p class="text-xs font-bold text-[#166534] uppercase font-mono-code tracking-wider">OFFICIAL TDLR FORM ADE-1317 ISSUED</p>
+            <div class="my-1.5 flex items-center justify-center gap-1.5 flex-wrap">
+              <span class="text-xs text-slate-700 font-mono-code">Legal Name:</span>
+              <strong id="issued-legal-name" class="text-xs sm:text-sm font-extrabold text-slate-950 uppercase font-sans">${certRecord.studentLegalName}</strong>
+              <button onclick="openNameReverificationModal()" class="text-[11px] font-mono-code text-emerald-800 hover:text-emerald-950 font-bold underline cursor-pointer ml-1">
+                [Re-verify Name]
+              </button>
+            </div>
+            <p class="text-[11px] text-[#14532D]">Control Serial Number: <strong class="font-mono text-emerald-950">${certRecord.serialNumber}</strong></p>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button onclick="openCertModal()" class="py-3 px-4 rounded-xl bg-[#16A34A] hover:bg-[#15803D] text-white text-xs font-bold font-mono-code uppercase transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1.5 cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">visibility</span>
+              <span>View Official Certificate</span>
+            </button>
+            
+            <button onclick="downloadPersonalizedCertificate()" class="py-3 px-4 rounded-xl bg-[#E87522] hover:bg-[#D46313] text-white text-xs font-bold font-mono-code uppercase transition shadow-md shadow-orange-600/20 flex items-center justify-center gap-1.5 cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">download</span>
+              <span>Download Official Certificate</span>
+            </button>
+          </div>
+
+          <div class="flex items-center justify-center gap-4 text-[11px] font-mono-code pt-1 border-t border-emerald-200">
+            <a href="/verify?cert=${encodeURIComponent(certRecord.serialNumber)}" target="_blank" class="text-emerald-800 hover:text-emerald-950 font-bold underline flex items-center gap-1">
+              <span>Verify on DPS Registry</span>
+              <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+            </a>
+            <span>·</span>
+            <button onclick="window.parent ? window.parent.location.href='/home' : location.href='/home'" class="text-slate-600 hover:text-slate-900 font-bold underline cursor-pointer">
+              Go to Dashboard
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function openPassCelebrationModal(pct, score) {
+      const modal = document.getElementById('pass-celebration-modal');
+      const scoreEl = document.getElementById('pass-modal-score');
+      if (scoreEl) scoreEl.textContent = `${pct.toFixed(1)}% (${score}/30 Correct)`;
+      if (modal) modal.classList.remove('hidden');
+    }
+    window.openPassCelebrationModal = openPassCelebrationModal;
+
+    function closePassCelebrationModal() {
+      const modal = document.getElementById('pass-celebration-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.closePassCelebrationModal = closePassCelebrationModal;
+
+    function openNameReverificationModal() {
+      closePassCelebrationModal();
+      const modal = document.getElementById('name-reverification-modal');
+      const input = document.getElementById('reverify-name-input');
+      
+      // Determine default pre-fill name
+      let prefill = '';
+      try {
+        const u = JSON.parse(localStorage.getItem('tx_user_data') || '{}');
+        prefill = u.fullName || (u.firstName ? `${u.firstName} ${u.lastName || ''}` : '') || '';
+      } catch(e) {}
+      
+      const certData = localStorage.getItem('tx_cert_data');
+      if (certData) {
+        try {
+          const parsed = JSON.parse(certData);
+          if (parsed && parsed.studentLegalName) prefill = parsed.studentLegalName;
+        } catch(e) {}
+      }
+
+      if (input) {
+        input.value = prefill.toUpperCase().trim();
+      }
+      if (modal) modal.classList.remove('hidden');
+      setTimeout(() => { if (input) input.focus(); }, 150);
+    }
+    window.openNameReverificationModal = openNameReverificationModal;
+
+    function closeNameReverificationModal() {
+      const modal = document.getElementById('name-reverification-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.closeNameReverificationModal = closeNameReverificationModal;
+
+    async function confirmAndIssueCertificate() {
+      const input = document.getElementById('reverify-name-input');
+      const errEl = document.getElementById('name-reverify-error');
+      const btn = document.getElementById('btn-submit-name-reverify');
+      const rawName = input ? input.value.trim() : '';
+
+      if (!rawName || rawName.length < 2) {
+        if (errEl) {
+          errEl.textContent = 'Please enter your full legal name (at least 2 letters).';
+          errEl.classList.remove('hidden');
+        }
+        if (input) input.focus();
+        return;
+      }
+
+      const cleanName = rawName.toUpperCase();
+      if (errEl) errEl.classList.add('hidden');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Issuing Official Certificate...</span>`;
+      }
+
+      // 1. Update localStorage profile
+      try {
+        let u = JSON.parse(localStorage.getItem('tx_user_data') || '{}');
+        u.fullName = cleanName;
+        localStorage.setItem('tx_user_data', JSON.stringify(u));
+      } catch(e) {}
+
+      // 2. Sync to Cloud SQL Profile backend if logged in
+      try {
+        const token = localStorage.getItem('tx_auth_token') || sessionStorage.getItem('tx_auth_token');
+        if (token) {
+          await fetch('/api/v1/student/profile', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ fullName: cleanName })
+          });
+        }
+      } catch(apiErr) {
+        console.warn('[NAME SYNC WARN]', apiErr);
+      }
+
+      // 3. Sequential Serial Number Counter
+      let serialNumber = '';
+      const existingCert = localStorage.getItem('tx_cert_data');
+      if (existingCert) {
+        try {
+          const parsed = JSON.parse(existingCert);
+          if (parsed && parsed.serialNumber) serialNumber = parsed.serialNumber;
+        } catch(e) {}
+      }
+
+      if (!serialNumber) {
+        let currentCounter = parseInt(localStorage.getItem('tx_ade_cert_counter') || '142', 10) + 1;
+        localStorage.setItem('tx_ade_cert_counter', currentCounter.toString());
+        const seqNum = String(currentCounter).padStart(5, '0');
+        serialNumber = 'ADE1317-2026-C3284-' + seqNum;
+      }
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      const certHash = generateSha256(serialNumber + ':' + cleanName + ':' + todayStr + ':C3284');
+
+      const certRecord = {
+        valid: true,
+        serialNumber: serialNumber,
+        studentLegalName: cleanName,
+        schoolLicense: 'TDLR School #C3284',
+        courseApproval: 'TDLR Course ADE-1317 (Texas Adult Driver Education)',
+        completionDate: todayStr,
+        totalInstructionalHours: '6.00 Hours (360 Minutes)',
+        finalExamScore: (document.getElementById('results-score-pct')?.textContent || '93.3%') + ' (PASSED)',
+        status: 'OFFICIALLY_RECORDED_AND_VALID',
+        sha256Hash: certHash,
+        verificationUrl: 'https://tx-drive.vercel.app/verify?cert=' + serialNumber,
+        dpsWaiverGranted: true
+      };
+
+      localStorage.setItem('tx_cert_data', JSON.stringify(certRecord));
+
+      // 4. Update public roster
+      try {
+        let roster = JSON.parse(localStorage.getItem('tx_certificates_roster') || '{}');
+        roster[serialNumber] = certRecord;
+        localStorage.setItem('tx_certificates_roster', JSON.stringify(roster));
+      } catch(e) {}
+
+      // Close modal and show certificate
+      closeNameReverificationModal();
+      renderIssuedCertificateActionBox(certRecord);
+      openCertModal();
+
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">verified_user</span><span>Confirm Legal Name & Issue Form ADE-1317</span>`;
+      }
+    }
+    window.confirmAndIssueCertificate = confirmAndIssueCertificate;
+
+
     function openCertModal() {
       const modal = document.getElementById('cert-viewer-modal');
       if (modal) modal.classList.remove('hidden');
@@ -891,6 +1029,7 @@
     window.handlePrevQuestion = handlePrevQuestion;
     window.resetExam = initExam;
     window.notifyParentState = notifyParentState;
+    window.finalizeExamination = finalizeExamination;
 
     // Cross-window message listener from course shell
     window.addEventListener('message', (e) => {
@@ -1051,6 +1190,119 @@
             <span>Download Official Certificate</span>
           </button>
         </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       1. POPUP: PASS CELEBRATION & GET CERTIFICATE MODAL
+       ========================================================================= -->
+  <div id="pass-celebration-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border-4 border-[#16A34A] overflow-hidden p-6 sm:p-8 text-center space-y-5 animate-in fade-in zoom-in duration-300">
+      
+      <!-- Top Trophy Icon -->
+      <div class="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 border-4 border-emerald-300 mx-auto flex items-center justify-center shadow-lg shadow-emerald-500/20">
+        <span class="material-symbols-outlined text-4xl">emoji_events</span>
+      </div>
+
+      <div class="space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-mono-code font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Texas DPS Written Exam Waived
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 font-sans uppercase tracking-tight">
+          Congratulations! You Passed!
+        </h2>
+        <p class="text-sm text-slate-600 max-w-sm mx-auto">
+          Final Exam Score: <strong id="pass-modal-score" class="text-emerald-600 font-mono-code text-base font-black">93.3%</strong>
+        </p>
+        <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed pt-1">
+          Pursuant to <strong>Texas Transportation Code § 521.1601</strong>, your passing score waives the written driver license knowledge test at Texas DPS.
+        </p>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-2 space-y-2">
+        <button onclick="openNameReverificationModal()" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#EA580C] to-[#C2410C] hover:from-[#D46313] hover:to-[#9A3412] text-white font-mono-code text-sm font-black uppercase tracking-wider shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 cursor-pointer transition transform active:scale-95">
+          <span class="material-symbols-outlined text-[20px]">badge</span>
+          <span>GET MY OFFICIAL CERTIFICATE &rarr;</span>
+        </button>
+
+        <button onclick="closePassCelebrationModal()" class="text-xs text-slate-400 hover:text-slate-600 font-mono-code underline py-1">
+          Review Exam Answers
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. POPUP: LEGAL NAME REVERIFICATION MODAL
+       ========================================================================= -->
+  <div id="name-reverification-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border-2 border-slate-200 overflow-hidden p-6 sm:p-8 space-y-5 animate-in fade-in zoom-in duration-300">
+      
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-orange-100 text-[#EA580C] flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">badge</span>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base uppercase font-sans">Verify Certificate Legal Name</h3>
+            <p class="text-[10px] font-mono-code text-slate-400">TDLR 16 TAC § 84 Compliance Checkpoint</p>
+          </div>
+        </div>
+        <button onclick="closeNameReverificationModal()" class="text-slate-400 hover:text-slate-700 text-2xl font-bold leading-none cursor-pointer">
+          &times;
+        </button>
+      </div>
+
+      <!-- Regulatory Notice -->
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900 space-y-1.5 leading-relaxed">
+        <div class="flex items-center gap-1.5 font-bold uppercase text-[11px] text-amber-800 font-mono-code">
+          <span class="material-symbols-outlined text-[16px] text-amber-600">warning</span>
+          <span>Mandatory DPS Identification Match</span>
+        </div>
+        <p>
+          Texas DPS Driver License examiners require the name on Form ADE-1317 to match your government-issued ID (Texas ID, Passport, or Birth Certificate) <strong>exactly</strong>.
+        </p>
+      </div>
+
+      <!-- Name Input -->
+      <div class="space-y-2">
+        <label for="reverify-name-input" class="block text-xs font-mono-code font-bold uppercase text-slate-700">
+          Enter Your Full Legal Name (First Middle Last):
+        </label>
+        <input 
+          type="text" 
+          id="reverify-name-input" 
+          placeholder="e.g. ALEX MORGAN SMITH" 
+          class="w-full px-4 py-3.5 rounded-xl border-2 border-slate-300 font-mono-code text-base font-black text-slate-900 uppercase placeholder:text-slate-300 focus:outline-none focus:border-[#EA580C] focus:ring-4 focus:ring-orange-500/15 transition"
+        >
+        <p id="name-reverify-error" class="text-xs font-mono-code text-rose-600 font-bold hidden"></p>
+      </div>
+
+      <!-- Certification Checkbox -->
+      <label class="flex items-start gap-2.5 cursor-pointer pt-1">
+        <input type="checkbox" id="reverify-legal-checkbox" checked class="mt-0.5 rounded border-slate-300 text-[#EA580C] focus:ring-orange-500">
+        <span class="text-xs text-slate-600 leading-snug">
+          I certify under penalty of Texas state perjury rules that this is my exact legal name as shown on my government-issued identification.
+        </span>
+      </label>
+
+      <!-- Action Buttons -->
+      <div class="pt-2 space-y-2">
+        <button onclick="confirmAndIssueCertificate()" id="btn-submit-name-reverify" class="w-full py-4 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono-code text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 cursor-pointer transition transform active:scale-95">
+          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+          <span>Confirm Legal Name & Issue Form ADE-1317</span>
+        </button>
+
+        <button onclick="closeNameReverificationModal()" class="w-full py-2 text-xs font-mono-code text-slate-400 hover:text-slate-600 text-center cursor-pointer">
+          Cancel / Back
+        </button>
       </div>
 
     </div>

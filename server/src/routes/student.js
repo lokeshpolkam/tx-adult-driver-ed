@@ -487,6 +487,18 @@ router.put('/profile', requireAuth, async (req, res) => {
       [userId, cleanFullName, legalFirstName, legalLastName, dob, cleanLast4]
     );
 
+    // Keep issued certificate record synchronized with student's verified legal name
+    if (cleanFullName) {
+      try {
+        await db.query(
+          `UPDATE certificates SET student_legal_name = $2 WHERE user_id = $1`,
+          [userId, cleanFullName.toUpperCase()]
+        );
+      } catch (certSyncErr) {
+        console.warn('[CERT SYNC NOTICE]', certSyncErr.message);
+      }
+    }
+
     return res.json({
       success: true,
       user: updateRes.rows[0],
