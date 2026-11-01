@@ -1482,6 +1482,163 @@
 
     </div>
   </section>
+  <!-- ========================================================================= -->
+  <!-- 6. INTERACTIVE SIGNATURE DPS EXAM TEST-DRIVE (2.5D INTERSECTION) -->
+  <!-- ========================================================================= -->
+  <section id="sample-exam-question" class="relative z-10 py-12 sm:py-16 md:py-20 px-3 sm:px-6 md:px-8 border-b border-slate-200/60 bg-transparent">
+    <div id="live-question-card" class="car-reactive-target max-w-3xl mx-auto bg-white p-4 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-card reveal-item space-y-4 sm:space-y-6">
+      
+      <!-- Card Header: Title & Test-Drive Status Tracker -->
+      <div class="flex items-center justify-between pb-3.5 border-b border-slate-100 gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse shrink-0"></span>
+          <span class="text-[11px] sm:text-xs font-mono font-black text-slate-900 uppercase tracking-wider truncate">
+            OFFICIAL DPS EXAM PREVIEW
+          </span>
+        </div>
+        
+        <!-- Live Passing Score Counter / Badge -->
+        <div id="exam-score-badge" class="shrink-0 text-[10px] sm:text-xs font-mono font-black px-2.5 sm:px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1.5 transition-all">
+          <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse" id="exam-score-dot"></span>
+          <span id="exam-score-text" class="text-slate-800 font-extrabold">TTC § 545.151 SCENARIO</span>
+        </div>
+      </div>
+
+      <!-- 2.5D TACTICAL INTERSECTION SIMULATOR (Official Texas DPS Question) -->
+      <div id="exam-scenario-25d" class="space-y-4 sm:space-y-6 block">
+        
+        <!-- Scenario Sub-Header -->
+        <div class="flex items-center justify-between font-mono text-[9px] sm:text-xs">
+          <span class="font-bold uppercase tracking-wider text-brand-600 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+            <span>2.5D PERSPECTIVE DIORAMA</span>
+          </span>
+          <span class="text-brand-700 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200 font-extrabold uppercase">
+            TTC § 545.151
+          </span>
+        </div>
+
+        <!-- 3-Col Compact Real-time Telemetry HUD (Phone-Resized) -->
+        <div class="grid grid-cols-3 gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-xs">
+          <div class="p-2 sm:p-2.5 bg-slate-50 rounded-xl text-center border border-slate-200">
+            <span class="text-slate-500 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">POSTED</span>
+            <span class="font-black text-slate-900 text-[11px] sm:text-sm">25 MPH</span>
+          </div>
+          <div class="p-2 sm:p-2.5 bg-amber-50 rounded-xl text-center border border-amber-200">
+            <span class="text-amber-800 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">VEH A (YOU)</span>
+            <span id="m-hud-vehA" class="font-black text-amber-900 text-[11px] sm:text-sm truncate block">Approaching</span>
+          </div>
+          <div class="p-2 sm:p-2.5 bg-emerald-50 rounded-xl text-center border border-emerald-200">
+            <span class="text-emerald-800 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">VEH B (RIGHT)</span>
+            <span id="m-hud-vehB" class="font-black text-emerald-800 text-[11px] sm:text-sm truncate block">Priority Pass</span>
+          </div>
+        </div>
+
+        <!-- Locked 16:9 Tactical Viewport (Zero Overflow on 390px Mobile) -->
+        <div class="relative w-full aspect-[16/9] max-h-[260px] sm:max-h-[340px] bg-[#14181F] border-2 border-slate-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl select-none">
+          <img src="assets/2_5d/L03_T01_clean_intersection.jpg" 
+               alt="Texas Uncontrolled Intersection 2.5D Diorama" 
+               class="absolute inset-0 w-full h-full object-cover pointer-events-none z-0" />
+
+          <!-- Overlay Status Badges -->
+          <div class="absolute top-2 sm:top-3 left-2 sm:left-3 right-2 sm:right-3 flex items-center justify-between gap-1 pointer-events-none z-30 font-mono text-[8px] sm:text-[9px]">
+            <span class="bg-black/85 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-white border border-white/20 font-bold">
+              UNCONTROLLED 4-WAY JUNCTION
+            </span>
+            <span id="m-statute-text" class="bg-emerald-950/90 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-emerald-300 font-black border border-emerald-400">
+              STEP 1: APPROACH
+            </span>
+          </div>
+
+          <!-- Vehicle A Sprite (Red Sedan - Yielding from SW to NE) -->
+          <div id="vehA-m" class="absolute pointer-events-none z-20 will-change-transform w-[14%] sm:w-[11%]" style="left: 28%; top: 68%; transform: translate(-50%, -50%);">
+            <img src="assets/2_5d/L03_T01_vehA.png" alt="Vehicle A" class="w-full h-auto drop-shadow-lg" />
+            <div class="absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black/90 text-rose-300 border border-rose-500/80 px-1 py-0.2 sm:px-1.5 sm:py-0.5 rounded font-mono text-[7px] sm:text-[8px] font-bold shadow-xs">
+              VEH A (YOU)
+            </div>
+            <div id="brake-glow-m" class="absolute bottom-1 left-1.5 w-2 h-2 rounded-full bg-red-600 blur-[1px] opacity-0 transition-opacity"></div>
+          </div>
+
+          <!-- Vehicle B Sprite (Royal Blue Sedan - Priority from SE to NW) -->
+          <div id="vehB-m" class="absolute pointer-events-none z-20 will-change-transform w-[14%] sm:w-[11%]" style="left: 72%; top: 64%; transform: translate(-50%, -50%);">
+            <img src="assets/2_5d/L03_T01_vehB.png" alt="Vehicle B" class="w-full h-auto drop-shadow-lg" />
+            <div class="absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-blue-950/90 text-blue-200 border border-blue-400 px-1 py-0.2 sm:px-1.5 sm:py-0.5 rounded font-mono text-[7px] sm:text-[8px] font-bold shadow-xs">
+              VEH B (RIGHT)
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Interactive Playback Step Pills (2x2 Grid on Mobile, 4-Col on Desktop) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px]">
+          <button type="button" onclick="setMobileSimStep(1)" id="m-step-1" class="p-2 sm:p-2.5 rounded-xl border-2 border-brand-500 bg-amber-50/70 font-bold text-slate-900 text-left transition active:scale-95 shadow-xs cursor-pointer">
+            <span class="block text-[8px] text-brand-600 font-extrabold uppercase">STEP 01</span>
+            <span class="text-[11px] sm:text-xs truncate block font-bold">1. Approach</span>
+          </button>
+          <button type="button" onclick="setMobileSimStep(2)" id="m-step-2" class="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-left transition active:scale-95 cursor-pointer">
+            <span class="block text-[8px] text-slate-400 font-extrabold uppercase">STEP 02</span>
+            <span class="text-[11px] sm:text-xs truncate block font-bold">2. A Yields</span>
+          </button>
+          <button type="button" onclick="setMobileSimStep(3)" id="m-step-3" class="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-left transition active:scale-95 cursor-pointer">
+            <span class="block text-[8px] text-slate-400 font-extrabold uppercase">STEP 03</span>
+            <span class="text-[11px] sm:text-xs truncate block font-bold">3. B Clears</span>
+          </button>
+          <button type="button" onclick="setMobileSimStep(4)" id="m-step-4" class="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-left transition active:scale-95 cursor-pointer">
+            <span class="block text-[8px] text-slate-400 font-extrabold uppercase">STEP 04</span>
+            <span class="text-[11px] sm:text-xs truncate block font-bold">4. A Proceeds</span>
+          </button>
+        </div>
+
+        <!-- Question Prompt -->
+        <div class="space-y-1.5 pt-2 border-t border-slate-100">
+          <div class="text-[10px] sm:text-[11px] font-mono text-brand-700 uppercase font-black tracking-wider flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm">quiz</span>
+            <span>Official Texas DPS Written Exam Question:</span>
+          </div>
+          <h3 class="text-sm sm:text-lg font-black text-slate-900 leading-snug">
+            You arrive at an uncontrolled four-way intersection in Vehicle A at the exact same moment as Vehicle B approaching from your right. Who has the legal right-of-way?
+          </h3>
+        </div>
+
+        <!-- Interactive Question Choices (A, B, C) -->
+        <div class="space-y-2 pt-1" id="sample-quiz-25d">
+          
+          <!-- Option A (Correct) -->
+          <button type="button" onclick="answerSample(1)" id="quiz-opt-1" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
+            <span class="flex items-center gap-2.5 sm:gap-3">
+              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">A</span>
+              <span class="font-sans text-xs sm:text-sm text-slate-800">You (Vehicle A) must yield the right-of-way to the vehicle on your right (Vehicle B).</span>
+            </span>
+            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
+          </button>
+
+          <!-- Option B (Wrong) -->
+          <button type="button" onclick="answerSample(2)" id="quiz-opt-2" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
+            <span class="flex items-center gap-2.5 sm:gap-3">
+              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">B</span>
+              <span class="font-sans text-xs sm:text-sm text-slate-800">Vehicle B must yield to you because you are traveling on the through street.</span>
+            </span>
+            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
+          </button>
+
+          <!-- Option C (Wrong) -->
+          <button type="button" onclick="answerSample(3)" id="quiz-opt-3" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
+            <span class="flex items-center gap-2.5 sm:gap-3">
+              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">C</span>
+              <span class="font-sans text-xs sm:text-sm text-slate-800">Whichever vehicle accelerates faster into the intersection has legal precedence.</span>
+            </span>
+            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
+          </button>
+
+        </div>
+
+        <!-- Feedback Container for Scenario 1 -->
+        <div id="quiz-feedback" class="hidden mt-3 sm:mt-4 p-4 sm:p-5 rounded-2xl text-xs font-mono shadow-sm"></div>
+
+      </div>
+
+    </div>
+  </section>
+
 
   <!-- ========================================================================= -->
   <!-- 6. INTERACTIVE AUDIO PREVIEW WIDGET (AUDIOBOOK-STYLE LEARNING) -->
@@ -1860,342 +2017,6 @@
     </div>
   </section>
 
-  <!-- ========================================================================= -->
-  <!-- 10. INTERACTIVE SIGNATURE DPS EXAM TEST-DRIVE (JOINED DUAL SCENARIOS) -->
-  <!-- ========================================================================= -->
-  <section id="sample-exam-question" class="relative z-10 py-12 sm:py-16 md:py-20 px-3 sm:px-6 md:px-8 border-b border-slate-200/60 bg-transparent">
-    <div id="live-question-card" class="car-reactive-target max-w-3xl mx-auto bg-white p-4 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-card reveal-item space-y-4 sm:space-y-6">
-      
-      <!-- Card Header: Title & Test-Drive Score Tracker -->
-      <div class="flex items-center justify-between pb-3.5 border-b border-slate-100 gap-2">
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse shrink-0"></span>
-          <span class="text-[11px] sm:text-xs font-mono font-black text-slate-900 uppercase tracking-wider truncate">
-            OFFICIAL DPS EXAM PREVIEW
-          </span>
-        </div>
-        
-        <!-- Live Passing Score Counter -->
-        <div id="exam-score-badge" class="shrink-0 text-[10px] sm:text-xs font-mono font-black px-2.5 sm:px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1.5 transition-all">
-          <span class="w-2 h-2 rounded-full bg-slate-400" id="exam-score-dot"></span>
-          <span>SCORE:</span>
-          <span id="exam-score-text" class="text-brand-600 font-extrabold">0 / 2 PASSED</span>
-        </div>
-      </div>
-
-      <!-- Dual Scenario Interactive Switcher Tabs (Phone Optimized 2-Col Grid) -->
-      <div class="grid grid-cols-2 gap-1.5 sm:gap-2 p-1 sm:p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200">
-        
-        <!-- Tab 1: 2.5D Intersection -->
-        <button id="tab-btn-25d" type="button" onclick="switchExamTab('25d')" class="py-2 sm:py-2.5 px-2 rounded-xl text-center font-mono font-extrabold text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-white text-slate-900 shadow-sm border border-slate-200">
-          <span class="text-xs sm:text-sm">🕹️</span>
-          <span class="truncate">Q1: 2.5D Junction</span>
-          <span id="tab-1-check" class="hidden text-emerald-600 font-black text-xs">✓</span>
-        </button>
-
-        <!-- Tab 2: Move Over Act -->
-        <button id="tab-btn-moveover" type="button" onclick="switchExamTab('moveover')" class="py-2 sm:py-2.5 px-2 rounded-xl text-center font-mono font-bold text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 hover:text-slate-900 border border-transparent">
-          <span class="text-xs sm:text-sm">🚨</span>
-          <span class="truncate">Q2: Move Over Act</span>
-          <span id="tab-2-check" class="hidden text-emerald-600 font-black text-xs">✓</span>
-        </button>
-
-      </div>
-
-      <!-- ===================================================== -->
-      <!-- SCENARIO 1: 2.5D TACTICAL INTERSECTION SIMULATOR      -->
-      <!-- ===================================================== -->
-      <div id="exam-scenario-25d" class="space-y-4 sm:space-y-6 block">
-        
-        <!-- Scenario 1 Sub-Header -->
-        <div class="flex items-center justify-between font-mono text-[9px] sm:text-xs">
-          <span class="font-bold uppercase tracking-wider text-brand-600 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
-            <span>2.5D PERSPECTIVE DIORAMA</span>
-          </span>
-          <span class="text-brand-700 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200 font-extrabold uppercase">
-            TTC § 545.151
-          </span>
-        </div>
-
-        <!-- 3-Col Compact Real-time Telemetry HUD (Phone-Resized) -->
-        <div class="grid grid-cols-3 gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-xs">
-          <div class="p-2 sm:p-2.5 bg-slate-50 rounded-xl text-center border border-slate-200">
-            <span class="text-slate-500 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">POSTED</span>
-            <span class="font-black text-slate-900 text-[11px] sm:text-sm">25 MPH</span>
-          </div>
-          <div class="p-2 sm:p-2.5 bg-amber-50 rounded-xl text-center border border-amber-200">
-            <span class="text-amber-800 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">VEH A (YOU)</span>
-            <span id="m-hud-vehA" class="font-black text-amber-900 text-[11px] sm:text-sm truncate block">Approaching</span>
-          </div>
-          <div class="p-2 sm:p-2.5 bg-emerald-50 rounded-xl text-center border border-emerald-200">
-            <span class="text-emerald-800 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">VEH B (RIGHT)</span>
-            <span id="m-hud-vehB" class="font-black text-emerald-800 text-[11px] sm:text-sm truncate block">Priority Pass</span>
-          </div>
-        </div>
-
-        <!-- Locked 16:9 Tactical Viewport (Zero Overflow on 390px Mobile) -->
-        <div class="relative w-full aspect-[16/9] max-h-[260px] sm:max-h-[340px] bg-[#14181F] border-2 border-slate-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl select-none">
-          <img src="assets/2_5d/L03_T01_clean_intersection.jpg" 
-               alt="Texas Uncontrolled Intersection 2.5D Diorama" 
-               class="absolute inset-0 w-full h-full object-cover pointer-events-none z-0" />
-
-          <!-- Overlay Status Badges -->
-          <div class="absolute top-2 sm:top-3 left-2 sm:left-3 right-2 sm:right-3 flex items-center justify-between gap-1 pointer-events-none z-30 font-mono text-[8px] sm:text-[9px]">
-            <span class="bg-black/85 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-white border border-white/20 font-bold">
-              UNCONTROLLED 4-WAY JUNCTION
-            </span>
-            <span id="m-statute-text" class="bg-emerald-950/90 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-emerald-300 font-black border border-emerald-400">
-              STEP 1: APPROACH
-            </span>
-          </div>
-
-          <!-- Vehicle A Sprite (Red Sedan - Yielding from SW to NE) -->
-          <div id="vehA-m" class="absolute pointer-events-none z-20 will-change-transform w-[14%] sm:w-[11%]" style="left: 28%; top: 68%; transform: translate(-50%, -50%);">
-            <img src="assets/2_5d/L03_T01_vehA.png" alt="Vehicle A" class="w-full h-auto drop-shadow-lg" />
-            <div class="absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black/90 text-rose-300 border border-rose-500/80 px-1 py-0.2 sm:px-1.5 sm:py-0.5 rounded font-mono text-[7px] sm:text-[8px] font-bold shadow-xs">
-              VEH A (YOU)
-            </div>
-            <div id="brake-glow-m" class="absolute bottom-1 left-1.5 w-2 h-2 rounded-full bg-red-600 blur-[1px] opacity-0 transition-opacity"></div>
-          </div>
-
-          <!-- Vehicle B Sprite (Royal Blue Sedan - Priority from SE to NW) -->
-          <div id="vehB-m" class="absolute pointer-events-none z-20 will-change-transform w-[14%] sm:w-[11%]" style="left: 72%; top: 64%; transform: translate(-50%, -50%);">
-            <img src="assets/2_5d/L03_T01_vehB.png" alt="Vehicle B" class="w-full h-auto drop-shadow-lg" />
-            <div class="absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-blue-950/90 text-blue-200 border border-blue-400 px-1 py-0.2 sm:px-1.5 sm:py-0.5 rounded font-mono text-[7px] sm:text-[8px] font-bold shadow-xs">
-              VEH B (RIGHT)
-            </div>
-          </div>
-        </div>
-
-        <!-- 4 Interactive Playback Step Pills (2x2 Grid on Mobile, 4-Col on Desktop) -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px]">
-          <button type="button" onclick="setMobileSimStep(1)" id="m-step-1" class="p-2 sm:p-2.5 rounded-xl border-2 border-brand-500 bg-amber-50/70 font-bold text-slate-900 text-left transition active:scale-95 shadow-xs cursor-pointer">
-            <span class="block text-[8px] text-brand-600 font-extrabold uppercase">STEP 01</span>
-            <span class="text-[11px] sm:text-xs truncate block font-bold">1. Approach</span>
-          </button>
-          <button type="button" onclick="setMobileSimStep(2)" id="m-step-2" class="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-left transition active:scale-95 cursor-pointer">
-            <span class="block text-[8px] text-slate-400 font-extrabold uppercase">STEP 02</span>
-            <span class="text-[11px] sm:text-xs truncate block font-bold">2. A Yields</span>
-          </button>
-          <button type="button" onclick="setMobileSimStep(3)" id="m-step-3" class="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-left transition active:scale-95 cursor-pointer">
-            <span class="block text-[8px] text-slate-400 font-extrabold uppercase">STEP 03</span>
-            <span class="text-[11px] sm:text-xs truncate block font-bold">3. B Clears</span>
-          </button>
-          <button type="button" onclick="setMobileSimStep(4)" id="m-step-4" class="p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-left transition active:scale-95 cursor-pointer">
-            <span class="block text-[8px] text-slate-400 font-extrabold uppercase">STEP 04</span>
-            <span class="text-[11px] sm:text-xs truncate block font-bold">4. A Proceeds</span>
-          </button>
-        </div>
-
-        <!-- Question Prompt -->
-        <div class="space-y-1.5 pt-2 border-t border-slate-100">
-          <div class="text-[10px] sm:text-[11px] font-mono text-brand-700 uppercase font-black tracking-wider flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-sm">quiz</span>
-            <span>DPS Written Exam Scenario 1 of 2:</span>
-          </div>
-          <h3 class="text-sm sm:text-lg font-black text-slate-900 leading-snug">
-            You arrive at an uncontrolled four-way intersection in Vehicle A at the exact same moment as Vehicle B approaching from your right. Who has the legal right-of-way?
-          </h3>
-        </div>
-
-        <!-- Interactive Question Choices (A, B, C) -->
-        <div class="space-y-2 pt-1" id="sample-quiz-25d">
-          
-          <!-- Option A (Correct) -->
-          <button type="button" onclick="answerSample(1)" id="quiz-opt-1" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
-            <span class="flex items-center gap-2.5 sm:gap-3">
-              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">A</span>
-              <span class="font-sans text-xs sm:text-sm text-slate-800">You (Vehicle A) must yield the right-of-way to the vehicle on your right (Vehicle B).</span>
-            </span>
-            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
-          </button>
-
-          <!-- Option B (Wrong) -->
-          <button type="button" onclick="answerSample(2)" id="quiz-opt-2" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
-            <span class="flex items-center gap-2.5 sm:gap-3">
-              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">B</span>
-              <span class="font-sans text-xs sm:text-sm text-slate-800">Vehicle B must yield to you because you are traveling on the through street.</span>
-            </span>
-            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
-          </button>
-
-          <!-- Option C (Wrong) -->
-          <button type="button" onclick="answerSample(3)" id="quiz-opt-3" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
-            <span class="flex items-center gap-2.5 sm:gap-3">
-              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">C</span>
-              <span class="font-sans text-xs sm:text-sm text-slate-800">Whichever vehicle accelerates faster into the intersection has legal precedence.</span>
-            </span>
-            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
-          </button>
-
-        </div>
-
-        <!-- Feedback Container for Scenario 1 -->
-        <div id="quiz-feedback" class="hidden mt-3 sm:mt-4 p-4 sm:p-5 rounded-2xl text-xs font-mono shadow-sm"></div>
-
-      </div>
-
-      <!-- ===================================================== -->
-      <!-- SCENARIO 2: TEXAS MOVE OVER / SLOW DOWN ACT           -->
-      <!-- ===================================================== -->
-      <div id="exam-scenario-moveover" class="space-y-4 sm:space-y-6 hidden">
-        
-        <!-- Scenario 2 Sub-Header -->
-        <div class="flex items-center justify-between font-mono text-[9px] sm:text-xs">
-          <span class="font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-            <span>TEXAS HIGHWAY CORRIDOR</span>
-          </span>
-          <span class="text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200 font-extrabold uppercase">
-            TTC § 545.157
-          </span>
-        </div>
-
-        <!-- 3-Col Compact Real-time Telemetry HUD -->
-        <div class="grid grid-cols-3 gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-xs">
-          <div class="p-2 sm:p-2.5 bg-slate-50 rounded-xl text-center border border-slate-200">
-            <span class="text-slate-500 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">POSTED</span>
-            <span class="font-black text-slate-900 text-[11px] sm:text-sm">70 MPH</span>
-          </div>
-          <div class="p-2 sm:p-2.5 bg-rose-50 rounded-xl text-center border border-rose-200">
-            <span class="text-rose-800 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">SHOULDER HAZARD</span>
-            <span class="font-black text-rose-900 text-[11px] sm:text-sm truncate block">Patrol Cruiser</span>
-          </div>
-          <div class="p-2 sm:p-2.5 bg-blue-50 rounded-xl text-center border border-blue-200">
-            <span class="text-blue-800 block leading-none text-[8px] sm:text-[9px] uppercase font-bold">LEGAL MANDATE</span>
-            <span class="font-black text-blue-800 text-[11px] sm:text-sm truncate block">-20 MPH / Vacate</span>
-          </div>
-        </div>
-
-        <!-- Locked 16:9 Vector Highway Viewport (Phone Responsive) -->
-        <div class="relative w-full aspect-[16/9] max-h-[260px] sm:max-h-[340px] bg-slate-950 border-2 border-slate-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl select-none">
-          <svg viewBox="0 0 560 210" preserveAspectRatio="xMidYMid meet" class="w-full h-full select-none block">
-            <!-- Multi-lane Texas Highway Surface -->
-            <rect x="0" y="24" width="560" height="162" fill="#1e293b" />
-            
-            <!-- Shoulder Boundary Lines -->
-            <line x1="0" y1="24" x2="560" y2="24" stroke="#ffffff" stroke-width="2.5" />
-            <line x1="0" y1="186" x2="560" y2="186" stroke="#fbbf24" stroke-width="3" />
-            
-            <!-- Dashed Lane Dividers -->
-            <line x1="0" y1="78" x2="560" y2="78" stroke="#ffffff" stroke-dasharray="14,10" stroke-width="1.8" opacity="0.6" />
-            <line x1="0" y1="132" x2="560" y2="132" stroke="#ffffff" stroke-dasharray="14,10" stroke-width="1.8" opacity="0.6" />
-            
-            <!-- Speed Limit Sign -->
-            <rect x="14" y="30" width="66" height="32" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1" />
-            <text x="21" y="42" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold">SPEED LIMIT</text>
-            <text x="32" y="56" fill="#f8fafc" font-family="'Geist', sans-serif" font-size="13" font-weight="900">70</text>
-
-            <!-- Stationary Texas State Trooper Patrol Cruiser on Right Shoulder -->
-            <g transform="translate(390, 138)">
-              <!-- Cruiser Body (Black and White Texas DPS livery) -->
-              <rect x="0" y="0" width="72" height="34" rx="6" fill="#0f172a" stroke="#cbd5e1" stroke-width="1.5" />
-              <!-- White Doors/Roof Center -->
-              <rect x="18" y="0" width="36" height="34" fill="#f8fafc" />
-              <rect x="10" y="5" width="52" height="24" rx="3" fill="#1e293b" />
-              
-              <!-- Flashing Red & Blue LED Emergency Lightbar on Roof -->
-              <rect x="27" y="2" width="8" height="4" rx="1" fill="#ef4444" class="police-light-red" />
-              <rect x="37" y="2" width="8" height="4" rx="1" fill="#3b82f6" class="police-light-blue" />
-              
-              <!-- State Trooper Badge Label -->
-              <text x="24" y="21" fill="#0f172a" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="900">DPS</text>
-              <rect x="-8" y="38" width="88" height="15" rx="3" fill="#dc2626" />
-              <text x="-2" y="49" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">STOPPED PATROL</text>
-            </g>
-
-            <!-- Option 1 Path: Vacate into Left Lane (Curving Emerald Arrow) -->
-            <path d="M 120 152 Q 180 152, 230 105 Q 260 62, 320 54" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="6,4" />
-            <polygon points="328,54 316,48 318,58" fill="#10b981" />
-            
-            <!-- Option 2 Path: Slow to 50 MPH in Center Lane (Cyan Arrow) -->
-            <line x1="120" y1="105" x2="330" y2="105" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="6,4" />
-            <polygon points="338,105 326,100 328,109" fill="#38bdf8" />
-
-            <!-- Approaching Civilian Vehicle -->
-            <g transform="translate(60, 136)">
-              <rect x="0" y="0" width="60" height="32" rx="6" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-              <rect x="12" y="5" width="36" height="22" rx="3" fill="#0f172a" />
-              <text x="14" y="19" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">YOU (70 MPH)</text>
-            </g>
-
-            <!-- Action Labels on Paths -->
-            <g transform="translate(195, 40)">
-              <rect x="0" y="0" width="125" height="18" rx="4" fill="#065f46" stroke="#34d399" stroke-width="1" />
-              <text x="6" y="13" fill="#a7f3d0" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">✓ OPTION 1: VACATE LANE</text>
-            </g>
-
-            <g transform="translate(135, 94)">
-              <rect x="0" y="0" width="135" height="18" rx="4" fill="#075985" stroke="#38bdf8" stroke-width="1" />
-              <text x="6" y="13" fill="#bae6fd" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">✓ OPTION 2: SLOW TO 50 MPH</text>
-            </g>
-
-            <!-- Legal Citation Header -->
-            <rect x="165" y="4" width="230" height="16" rx="4" fill="#dc2626" />
-            <text x="171" y="15" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">TX MOVE OVER / SLOW DOWN ACT § 545.157</text>
-          </svg>
-        </div>
-
-        <!-- Question Prompt -->
-        <div class="space-y-1.5 pt-2 border-t border-slate-100">
-          <div class="text-[10px] sm:text-[11px] font-mono text-blue-700 uppercase font-black tracking-wider flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-sm">local_police</span>
-            <span>DPS Written Exam Scenario 2 of 2:</span>
-          </div>
-          <h3 class="text-sm sm:text-lg font-black text-slate-900 leading-snug">
-            You are driving 70 MPH on a Texas highway. Ahead on the shoulder, a Texas DPS Highway Patrol cruiser is stopped with emergency lights flashing. Under Texas law, what are you legally required to do?
-          </h3>
-        </div>
-
-        <!-- Interactive Question Choices (A, B, C, D) -->
-        <div class="space-y-2 pt-1" id="sample-quiz-moveover">
-          
-          <!-- Option A (Correct) -->
-          <button type="button" onclick="answerMoveOver(1)" id="quiz2-opt-1" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
-            <span class="flex items-center gap-2.5 sm:gap-3">
-              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">A</span>
-              <span class="font-sans text-xs sm:text-sm text-slate-800">Vacate the lane closest to the stopped patrol vehicle, or slow down to at least 20 MPH below the speed limit (50 MPH).</span>
-            </span>
-            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
-          </button>
-
-          <!-- Option B (Wrong) -->
-          <button type="button" onclick="answerMoveOver(2)" id="quiz2-opt-2" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
-            <span class="flex items-center gap-2.5 sm:gap-3">
-              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">B</span>
-              <span class="font-sans text-xs sm:text-sm text-slate-800">Maintain your current speed (70 MPH) but activate four-way emergency hazard flashers to alert trailing drivers.</span>
-            </span>
-            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
-          </button>
-
-          <!-- Option C (Wrong) -->
-          <button type="button" onclick="answerMoveOver(3)" id="quiz2-opt-3" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
-            <span class="flex items-center gap-2.5 sm:gap-3">
-              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">C</span>
-              <span class="font-sans text-xs sm:text-sm text-slate-800">Come to an immediate complete stop in your active travel lane until the state trooper waves you forward.</span>
-            </span>
-            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
-          </button>
-
-          <!-- Option D (Wrong) -->
-          <button type="button" onclick="answerMoveOver(4)" id="quiz2-opt-4" class="w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all font-mono text-xs text-slate-800 flex items-center justify-between group shadow-xs active:scale-[0.99] cursor-pointer">
-            <span class="flex items-center gap-2.5 sm:gap-3">
-              <span class="w-6 h-6 rounded-md bg-white border border-slate-300 flex items-center justify-center font-black text-[11px] text-slate-700 group-hover:border-brand-500 group-hover:text-brand-600 shrink-0">D</span>
-              <span class="font-sans text-xs sm:text-sm text-slate-800">Sound your horn twice to alert roadside emergency personnel and accelerate past quickly.</span>
-            </span>
-            <span class="material-symbols-outlined text-slate-400 text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity shrink-0">radio_button_unchecked</span>
-          </button>
-
-        </div>
-
-        <!-- Feedback Container for Scenario 2 -->
-        <div id="quiz-feedback-moveover" class="hidden mt-3 sm:mt-4 p-4 sm:p-5 rounded-2xl text-xs font-mono shadow-sm"></div>
-
-      </div>
-
-    </div>
-  </section>
 
   <!-- ========================================================================= -->
   <!-- 11. THE 9-MODULE CURRICULUM SYLLABUS -->
@@ -2903,60 +2724,24 @@
       draw();
     }
 
-    // 5. Dual Scenario Interactive Engine (2.5D Intersection + Move Over Act)
+    // 5. Interactive 2.5D Exam Simulator Engine (TTC § 545.151)
     let passedQ1 = false;
-    let passedQ2 = false;
 
-    // A. Tab Switcher
-    function switchExamTab(tabId) {
-      const tab25d = document.getElementById('tab-btn-25d');
-      const tabMove = document.getElementById('tab-btn-moveover');
-      const sec25d = document.getElementById('exam-scenario-25d');
-      const secMove = document.getElementById('exam-scenario-moveover');
-
-      if (tabId === '25d') {
-        if (sec25d) sec25d.classList.remove('hidden');
-        if (secMove) secMove.classList.add('hidden');
-        if (tab25d) {
-          tab25d.className = 'py-2 sm:py-2.5 px-2 rounded-xl text-center font-mono font-extrabold text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-white text-slate-900 shadow-sm border border-slate-200';
-        }
-        if (tabMove) {
-          tabMove.className = 'py-2 sm:py-2.5 px-2 rounded-xl text-center font-mono font-bold text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 hover:text-slate-900 border border-transparent';
-        }
-      } else {
-        if (sec25d) sec25d.classList.add('hidden');
-        if (secMove) secMove.classList.remove('hidden');
-        if (tabMove) {
-          tabMove.className = 'py-2 sm:py-2.5 px-2 rounded-xl text-center font-mono font-extrabold text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-white text-slate-900 shadow-sm border border-slate-200';
-        }
-        if (tab25d) {
-          tab25d.className = 'py-2 sm:py-2.5 px-2 rounded-xl text-center font-mono font-bold text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 hover:text-slate-900 border border-transparent';
-        }
-      }
-    }
+    // A. Tab Switcher Stub (for backwards compatibility)
+    function switchExamTab(tabId) {}
 
     // B. Live Score Tracking
     function updateExamScore() {
       const scoreBadge = document.getElementById('exam-score-badge');
       const scoreDot = document.getElementById('exam-score-dot');
       const scoreText = document.getElementById('exam-score-text');
-      const tab1Check = document.getElementById('tab-1-check');
-      const tab2Check = document.getElementById('tab-2-check');
 
-      if (passedQ1 && tab1Check) tab1Check.classList.remove('hidden');
-      if (passedQ2 && tab2Check) tab2Check.classList.remove('hidden');
-
-      const count = (passedQ1 ? 1 : 0) + (passedQ2 ? 1 : 0);
-
-      if (count === 1) {
-        if (scoreText) scoreText.innerText = '1 / 2 PASSED';
-        if (scoreDot) scoreDot.className = 'w-2 h-2 rounded-full bg-brand-500 animate-ping';
-      } else if (count === 2) {
+      if (passedQ1) {
         if (scoreBadge) {
           scoreBadge.className = 'shrink-0 text-[10px] sm:text-xs font-mono font-black px-2.5 sm:px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1.5 shadow-sm';
         }
         if (scoreDot) scoreDot.className = 'w-2 h-2 rounded-full bg-emerald-600';
-        if (scoreText) scoreText.innerHTML = '<span class="text-emerald-700">2 / 2 PASSED! 100% 🌟</span>';
+        if (scoreText) scoreText.innerHTML = '<span class="text-emerald-700 font-extrabold">100% PASSED · EXAM READY 🌟</span>';
       }
     }
 
@@ -3003,36 +2788,36 @@
         if (hudB) hudB.innerText = 'CROSSING (25 MPH)';
         if (brakeGlow) brakeGlow.style.opacity = '1';
         if (statuteText) statuteText.innerText = 'STEP 2: A YIELDS';
-      } else if (time < 6.0) {
+      } else if (time < 5.8) {
         activeStep = 3;
-        const p = (time - 4.2) / 1.8;
-        xA = 38.0 + (10.0 * p);
-        yA = 64.5 - (8.5 * p);
-        xB = 46.0 - (20.0 * p);
-        yB = 48.0 - (17.0 * p);
-        vehB.style.opacity = '1.0';
-        if (hudA) hudA.innerText = 'Accelerating';
-        if (hudB) hudB.innerText = 'CLEARED';
-        if (brakeGlow) brakeGlow.style.opacity = '0';
+        const pB2 = (time - 4.2) / 1.6;
+        xA = 38.0;
+        yA = 64.5;
+        xB = 46.0 - (26.0 * pB2);
+        yB = 48.0 - (22.0 * pB2);
+        vehB.style.opacity = Math.max(0, 1.0 - (pB2 * 0.8)).toString();
+        if (hudA) hudA.innerText = 'WAITING (CLEARING)';
+        if (hudB) hudB.innerText = 'INTERSECTION CLEARED';
+        if (brakeGlow) brakeGlow.style.opacity = '1';
         if (statuteText) statuteText.innerText = 'STEP 3: B CLEARS';
       } else {
         activeStep = 4;
-        const p = (time - 6.0) / 2.0;
-        xA = 48.0 + (22.0 * p);
-        yA = 56.0 - (16.0 * p);
-        xB = 26.0 - (10.0 * p);
-        yB = 31.0 - (8.0 * p);
-        vehB.style.opacity = Math.max(0.0, 1.0 - p).toFixed(2);
-        if (hudA) hudA.innerText = 'PROCEEDING';
-        if (hudB) hudB.innerText = 'Gone';
+        const pA2 = (time - 5.8) / 2.2;
+        xA = 38.0 + (32.0 * pA2);
+        yA = 64.5 - (22.0 * pA2);
+        xB = 20.0;
+        yB = 26.0;
+        vehB.style.opacity = '0.0';
+        if (hudA) hudA.innerText = 'PROCEEDING (15 MPH)';
+        if (hudB) hudB.innerText = 'CLEARED';
         if (brakeGlow) brakeGlow.style.opacity = '0';
         if (statuteText) statuteText.innerText = 'STEP 4: A PROCEEDS';
       }
 
-      vehA.style.left = xA.toFixed(2) + '%';
-      vehA.style.top = yA.toFixed(2) + '%';
-      vehB.style.left = xB.toFixed(2) + '%';
-      vehB.style.top = yB.toFixed(2) + '%';
+      vehA.style.left = xA.toFixed(1) + '%';
+      vehA.style.top = yA.toFixed(1) + '%';
+      vehB.style.left = xB.toFixed(1) + '%';
+      vehB.style.top = yB.toFixed(1) + '%';
 
       for (let s = 1; s <= 4; s++) {
         const btn = document.getElementById('m-step-' + s);
@@ -3046,30 +2831,45 @@
       }
     }
 
-    function run25DSimLoop(now) {
-      if (!lastSimTime) lastSimTime = now;
-      const dt = (now - lastSimTime) / 1000.0;
-      lastSimTime = now;
+    function stepSimAnim(timestamp) {
+      if (!lastSimTime) lastSimTime = timestamp;
+      const dt = (timestamp - lastSimTime) / 1000.0;
+      lastSimTime = timestamp;
 
       if (isSimPlaying) {
-        simTime += dt;
-        if (simTime > simDuration) simTime = 0.0;
+        simTime = (simTime + dt) % simDuration;
         update25DView(simTime);
       }
-      simAnimFrame = requestAnimationFrame(run25DSimLoop);
+      simAnimFrame = requestAnimationFrame(stepSimAnim);
     }
 
-    window.setMobileSimStep = function(step) {
+    function playSim() {
+      isSimPlaying = true;
+      lastSimTime = performance.now();
+      if (!simAnimFrame) {
+        simAnimFrame = requestAnimationFrame(stepSimAnim);
+      }
+    }
+
+    function pauseSim() {
+      isSimPlaying = false;
+      if (simAnimFrame) {
+        cancelAnimationFrame(simAnimFrame);
+        simAnimFrame = null;
+      }
+    }
+
+    function setMobileSimStep(step) {
+      pauseSim();
       const stepTimes = { 1: 0.5, 2: 2.8, 3: 4.8, 4: 6.8 };
       simTime = stepTimes[step] || 0.0;
       update25DView(simTime);
-    };
-
-    if (vehA && vehB) {
-      simAnimFrame = requestAnimationFrame(run25DSimLoop);
     }
 
-    // D. Answer Scenario 1 (2.5D Intersection)
+    // Start simulation immediately
+    playSim();
+
+    // D. Answer Scenario 1 (2.5D Intersection TTC § 545.151)
     function answerSample(option) {
       const opt1 = document.getElementById('quiz-opt-1');
       const opt2 = document.getElementById('quiz-opt-2');
@@ -3084,28 +2884,32 @@
       if (option === 1) {
         opt1.className = 'w-full p-3 sm:p-4 rounded-xl text-left bg-emerald-50 border-2 border-emerald-500 font-mono text-xs text-emerald-950 font-bold shadow-md cursor-pointer';
         fb.className = 'mt-3 sm:mt-4 p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs font-mono space-y-3 block shadow-sm';
+        
         fb.innerHTML = `
           <div class="font-black flex items-center gap-2 text-emerald-800 text-xs sm:text-sm">
             <span class="material-symbols-outlined text-base sm:text-lg text-emerald-600">check_circle</span>
-            <span>100% CORRECT! (Texas Transportation Code § 545.151)</span>
+            <span>100% CORRECT! (Texas Right-of-Way TTC § 545.151)</span>
           </div>
           <p class="text-xs text-emerald-900 leading-relaxed font-sans">
-            Under Texas law, when two vehicles enter an uncontrolled intersection at approximately the same time, the operator of the vehicle on the left (<strong>Vehicle A</strong>) <strong>MUST yield the right-of-way</strong> to the vehicle on the right (<strong>Vehicle B</strong>). Watch the 2.5D simulation above: Vehicle A yields, Vehicle B passes first!
+            Under <strong>Texas Transportation Code § 545.151</strong>, when two vehicles approach an uncontrolled intersection at approximately the same time, the operator on the left (Vehicle A) must yield the right-of-way to the vehicle on the right (Vehicle B).
           </p>
-          <div class="pt-3 border-t border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-            <div class="text-[11px] font-mono text-emerald-800 font-bold flex items-center gap-1">
-              <span>Official DPS Question 1</span>
-              <span class="bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded text-[10px]">PASSED ✓</span>
+          <div class="p-3 bg-emerald-100 rounded-xl border border-emerald-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="text-base sm:text-lg">🎉</span>
+              <span class="font-black text-emerald-950 text-xs sm:text-sm">You passed this official question! Skip the DPS written test online.</span>
             </div>
-            <button type="button" onclick="switchExamTab('moveover')" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 active:scale-95 text-white font-mono font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer">
-              <span>Next Question: Move Over Law</span>
-              <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </button>
+            <a href="signup.html" class="w-full sm:w-auto px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl font-black text-xs transition flex items-center justify-center gap-1.5 shadow-sm text-center">
+              <span>Enroll Now · <span class="dyn-price-int">$38</span></span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+          <div class="pt-2 border-t border-emerald-200 flex items-center justify-between text-[11px] font-mono text-emerald-700">
+            <span>Official DPS State Question</span>
+            <span class="font-bold">PASSED ✓</span>
           </div>
         `;
         passedQ1 = true;
         updateExamScore();
-        setMobileSimStep(2);
         fireConfetti();
       } else {
         const wrong = option === 2 ? opt2 : opt3;
@@ -3130,73 +2934,7 @@
       }
     }
 
-    // E. Answer Scenario 2 (Texas Move Over Act § 545.157)
-    function answerMoveOver(option) {
-      const opt1 = document.getElementById('quiz2-opt-1');
-      const opt2 = document.getElementById('quiz2-opt-2');
-      const opt3 = document.getElementById('quiz2-opt-3');
-      const opt4 = document.getElementById('quiz2-opt-4');
-      const fb = document.getElementById('quiz-feedback-moveover');
-
-      const allOpts = [opt1, opt2, opt3, opt4].filter(Boolean);
-      allOpts.forEach(o => {
-        o.className = 'w-full p-3 sm:p-4 rounded-xl text-left bg-slate-50 border border-slate-200 font-mono text-xs text-slate-700 transition-all cursor-pointer';
-      });
-
-      if (option === 1) {
-        opt1.className = 'w-full p-3 sm:p-4 rounded-xl text-left bg-emerald-50 border-2 border-emerald-500 font-mono text-xs text-emerald-950 font-bold shadow-md cursor-pointer';
-        fb.className = 'mt-3 sm:mt-4 p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs font-mono space-y-3 block shadow-sm';
-        
-        let extraBanner = '';
-        if (passedQ1) {
-          extraBanner = `
-            <div class="p-3 bg-emerald-100 rounded-xl border border-emerald-300 flex items-center justify-between gap-2">
-              <span class="font-bold text-emerald-950 text-xs">🎉 PERFECT SCORE (2 / 2)! YOU ARE READY TO PASS THE DPS EXAM!</span>
-              <a href="#pricing" class="px-3 py-1.5 bg-brand-500 text-white rounded-lg font-bold text-xs hover:bg-brand-600 transition shrink-0">Enroll Now &rarr;</a>
-            </div>
-          `;
-        }
-
-        fb.innerHTML = `
-          <div class="font-black flex items-center gap-2 text-emerald-800 text-xs sm:text-sm">
-            <span class="material-symbols-outlined text-base sm:text-lg text-emerald-600">check_circle</span>
-            <span>100% CORRECT! (Texas Move Over / Slow Down Act § 545.157)</span>
-          </div>
-          <p class="text-xs text-emerald-900 leading-relaxed font-sans">
-            Under <strong>Texas Transportation Code § 545.157</strong>, when approaching a stopped emergency vehicle with flashing emergency lights, drivers must either <strong>vacate the lane closest to the vehicle</strong> on multi-lane highways, OR <strong>slow down to 20 MPH below the posted speed limit</strong> (50 MPH in a 70 MPH zone).
-          </p>
-          ${extraBanner}
-          <div class="pt-2 border-t border-emerald-200 flex items-center justify-between text-[11px] font-mono text-emerald-700">
-            <span>Official DPS Question 2</span>
-            <span class="font-bold">PASSED ✓</span>
-          </div>
-        `;
-        passedQ2 = true;
-        updateExamScore();
-        fireConfetti();
-      } else {
-        const wrongMap = { 2: opt2, 3: opt3, 4: opt4 };
-        const wrong = wrongMap[option];
-        if (wrong) {
-          wrong.className = 'w-full p-3 sm:p-4 rounded-xl text-left bg-rose-50 border-2 border-rose-500 font-mono text-xs text-rose-950 font-bold shadow-sm cursor-pointer';
-        }
-        opt1.className = 'w-full p-3 sm:p-4 rounded-xl text-left bg-emerald-50/80 border border-emerald-400 font-mono text-xs text-emerald-900 cursor-pointer';
-        fb.className = 'mt-3 sm:mt-4 p-4 sm:p-5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-950 text-xs font-mono space-y-2 block shadow-sm';
-        fb.innerHTML = `
-          <div class="font-black flex items-center gap-2 text-rose-800 text-xs sm:text-sm">
-            <span class="material-symbols-outlined text-base sm:text-lg text-rose-600">cancel</span>
-            <span>INCORRECT (The Statutory Requirement is A)</span>
-          </div>
-          <p class="text-xs text-rose-900 leading-relaxed font-sans">
-            Activating hazard flashers, stopping dead in a travel lane, or honking does not satisfy Texas law. Under TTC § 545.157, you must either move over one lane or reduce your speed by 20 MPH.
-          </p>
-          <div class="pt-2 border-t border-rose-200 flex items-center justify-between text-[11px] font-mono text-rose-700">
-            <span>Review: Module 3, Topic 4</span>
-            <span class="font-bold">Free Unlimited Retakes Included</span>
-          </div>
-        `;
-      }
-    }
+    function answerMoveOver(option) {}
 
     // 6. Active Student Session Detection
     document.addEventListener('DOMContentLoaded', () => {
