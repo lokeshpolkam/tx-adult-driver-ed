@@ -316,35 +316,33 @@
         </div>
       </div>
 
-      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
-      <div id="sim-controls-dock" class="space-y-2 pt-1">
-        <!-- 3A. Live Telemetry & Phase Display Pill -->
-        <div id="sim-telemetry-pill" class="w-full px-2.5 py-2 rounded-lg bg-surface-sub border border-hairline flex items-center justify-between text-[10.5px] font-mono">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-valid animate-pulse"></span>
-            <span id="sim-telemetry-phase" class="text-carbon font-semibold uppercase">PHASE 01: THRESHOLD BRAKING (20 MPH)</span>
+              <!-- Tier 3: External Mobile Control Dock -->
+        <div id="sim-controls-dock" class="space-y-2 pt-1">
+          <!-- 3A. Live Telemetry & Phase Display Pill (Clean 1-Line Status) -->
+          <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+            <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE 01: THRESHOLD BRAKING (20 MPH)</span>
           </div>
-          <span id="sim-telemetry-fps" class="text-slate">60 FPS DETERMINISTIC</span>
-        </div>
 
-        <!-- 3C. DPS 4-Skill Scenario Selector Tabs (All Touch Targets >= 44x44px) -->
-        <div class="grid grid-cols-2 gap-1.5 pt-1 border-t border-hairline">
-          <button type="button" onclick="selectSimScenario('control')" id="btn-scenario-control" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-orange-50/60 text-left transition-all">
-            <span class="font-mono text-[9px] font-bold text-safety uppercase block whitespace-nowrap">01 // CONTROL</span>
-            <span class="font-sans text-xs text-carbon font-bold leading-tight">Threshold Braking</span>
-          </button>
-          <button type="button" onclick="selectSimScenario('observation')" id="btn-scenario-observation" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface text-left transition-all">
-            <span class="font-mono text-[9px] font-bold text-slate uppercase block whitespace-nowrap">02 // OBSERVATION</span>
-            <span class="font-sans text-xs text-carbon font-bold leading-tight">12–15s Scan Cone</span>
-          </button>
-          <button type="button" onclick="selectSimScenario('positioning')" id="btn-scenario-positioning" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface text-left transition-all">
-            <span class="font-mono text-[9px] font-bold text-slate uppercase block whitespace-nowrap">03 // POSITIONING</span>
-            <span class="font-sans text-xs text-carbon font-bold leading-tight">&le; 18" Curb Centering</span>
-          </button>
-          <button type="button" onclick="selectSimScenario('signaling')" id="btn-scenario-signaling" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface text-left transition-all">
-            <span class="font-mono text-[9px] font-bold text-slate uppercase block whitespace-nowrap">04 // SIGNALING</span>
-            <span class="font-sans text-xs text-carbon font-bold leading-tight">&ge; 100 Ft Intent</span>
-          </button>
+          <!-- 3C. DPS 4-Skill Scenario Selector Tabs (Clean 4-Segmented Control, Touch Targets >= 44x44px) -->
+          <div class="grid grid-cols-4 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+            <button type="button" onclick="selectSimScenario('control')" id="btn-scenario-control" 
+              class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+              <span>Braking</span>
+            </button>
+            <button type="button" onclick="selectSimScenario('observation')" id="btn-scenario-observation" 
+              class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+              <span>Scanning</span>
+            </button>
+            <button type="button" onclick="selectSimScenario('positioning')" id="btn-scenario-positioning" 
+              class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+              <span>Parking</span>
+            </button>
+            <button type="button" onclick="selectSimScenario('signaling')" id="btn-scenario-signaling" 
+              class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+              <span>Signaling</span>
+            </button>
+          </div>
         </div>
 
         <!-- 3D. Reactive Statutory Detail Card -->
@@ -1039,15 +1037,13 @@
       document.getElementById('sim-card-metric').textContent = scen.metric;
       document.getElementById('sim-telemetry-phase').textContent = scen.phase;
 
-      ['control', 'observation', 'positioning', 'signaling'].forEach(k => {
+            ['control', 'observation', 'positioning', 'signaling'].forEach(k => {
         const btn = document.getElementById(`btn-scenario-${k}`);
         if (!btn) return;
         if (k === scenKey) {
-          btn.className = "touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-orange-50/60 text-left transition-all";
-          btn.querySelector('span:first-child').className = "font-mono text-[9px] font-bold text-safety uppercase block whitespace-nowrap";
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
         } else {
-          btn.className = "touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface text-left transition-all";
-          btn.querySelector('span:first-child').className = "font-mono text-[9px] font-bold text-slate uppercase block whitespace-nowrap";
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
         }
       });
     }
