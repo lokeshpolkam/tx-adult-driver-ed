@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Stopping Distance Dynamics &amp; Friction Scaling &mdash; Texas Adult Driver Ed (L05-T07)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Global Base Styles & Mobile Ergonomics Standards -->
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .bg-obsidian-grid {
+      background-size: 1.5rem 1.5rem;
+      background-image: 
+        linear-gradient(to right, #1F2622 1px, transparent 1px),
+        linear-gradient(to bottom, #1F2622 1px, transparent 1px);
+    }
+    .touch-target {
+      min-width: 48px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .touch-target, button, a {
+      min-height: 48px;
+    }
+    a.touch-target {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(1.08); }
+    }
+    .animate-aura {
+      animation: pulseAura 2s ease-in-out infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  
+
+  <!-- MAIN CONTAINER (Strict Phone Viewport 360px - 430px) -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4 overflow-x-hidden">
+
+    <!-- 02. EDITORIAL HERO TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 bg-tech-grid fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-surface-sub text-carbon border border-hairline px-2 py-0.5 rounded">MODULE 05</span>
+        <span class="bg-safety-light text-safety border border-safety/30 px-2 py-0.5 rounded">TOPIC 07 OF 18</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 22 MIN READ</span>
+        <span class="bg-neutral-100 text-slate border border-neutral-300 px-2 py-0.5 rounded">TDLR ADE-1317</span>
+      </div>
+
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Stopping Distance Dynamics, Friction Scaling &amp; Roadway Surface Hazards
+      </h2>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Total stopping distance is governed by immutable Newtonian physics: it combines mental cognitive latency (<strong>Perception Distance</strong>), physical motor actuation (<strong>Reaction Distance</strong>), and mechanical kinetic energy dissipation (<strong>Braking Distance</strong>). Crucially, kinetic energy increases with the <em>square of speed</em> (<span class="font-mono font-bold text-carbon">KE &prop; v&sup2;</span>), meaning doubling your speed quadruples braking distance. Drivers must rigorously calibrate travel speed to roadway friction coefficients under Texas Transportation Code &sect; 545.351.
+      </p>
+
+      <div class="pt-2 border-t border-hairline flex flex-wrap items-center gap-2 font-mono text-[10px] text-slate">
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-valid">verified</span>
+          TTC &sect; 545.351 (Basic Speed Rule)
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-safety">gavel</span>
+          TTC &sect; 545.062 &amp; &sect; 547.302
+        </span>
+      </div>
+
+      <!-- 3 Key Metric Badges -->
+      <div class="grid grid-cols-3 gap-2 pt-1 font-mono text-center">
+        <div class="bg-surface-sub border border-hairline p-2 rounded-xl">
+          <span class="text-[8px] text-slate uppercase block">50 MPH DRY STOP</span>
+          <span class="text-xs font-bold text-safety mt-0.5 block">229 FEET</span>
+        </div>
+        <div class="bg-surface-sub border border-hairline p-2 rounded-xl">
+          <span class="text-[8px] text-slate uppercase block">KINETIC ENERGY</span>
+          <span class="text-xs font-bold text-hazard mt-0.5 block">4X AT 2X SPEED</span>
+        </div>
+        <div class="bg-surface-sub border border-hairline p-2 rounded-xl">
+          <span class="text-[8px] text-slate uppercase block">BRIDGE ICE GRIP</span>
+          <span class="text-xs font-bold text-purple-700 mt-0.5 block">&mu; = 0.08 (9X)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. THREE.JS 3D INTERACTIVE SIMULATION (3-TIER ARCHITECTURE) -->
+    <section class="space-y-3" id="simulation-section">
+      <!-- Tier 1: Technical & Editorial Header -->
+      <div class="bg-white border border-hairline rounded-2xl p-4 shadow-xs space-y-2">
+        <div class="flex items-center justify-between pb-2 border-b border-hairline">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+            <span class="font-mono text-[10px] font-bold text-carbon uppercase tracking-wider">3D PHYSICS CALIBRATION LAB</span>
+          </div>
+          <span id="sim-active-badge" class="font-mono text-[10px] px-2 py-0.5 rounded font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            30 MPH SAFE STOP
+          </span>
+        </div>
+        <div>
+          <span class="font-mono text-[10px] text-safety font-bold uppercase tracking-wider block">FEATURE F16 // TTC § 545.351</span>
+          <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+            Quadratic Stopping Distance Physics &amp; Hazard Dilemma
+          </h3>
+          <p class="font-sans text-xs text-slate mt-1 leading-relaxed">
+            Observe the kinetic reality of the 3-stage stopping equation. Doubling speed from 30 to 60 MPH quadruples friction braking distance (<span class="font-mono font-bold text-carbon">KE &prop; v&sup2;</span>), turning a safe halt into an inescapable 48 MPH collision.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tier 2: Pure 16:9 Viewport (Zero buttons or overlays inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-2xl overflow-hidden bg-[#0C1014] border border-hairline shadow-sm">
+        <iframe
+          id="sim-frame"
+          src="../driving_rule_animations_suite/simulations/L05_T07_stopping_distances_and_speed_limits.html?clean=1"
+          class="w-full h-full border-0 block"
+          title="3D Quadratic Stopping Distance Physics Simulation"
+          loading="lazy"
+          allow="fullscreen"
+        ></iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (All touch targets >= 48px) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">SYSTEM ACTIVE</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-4 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>30 Mph</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>60 Mph</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Wet Pavement</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(4)" id="btn-scenario-4" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Hazard 150\</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PEDAGOGICAL DEEP DIVE 1: THE MATHEMATICS OF STOPPING DISTANCE -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase">KINEMATIC CODEX // TTC &sect; 545.351</span>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">PHYSICS FORMULA</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-sm sm:text-base text-carbon leading-snug">
+        The Complete Stopping Equation: Perception, Reaction &amp; Mechanical Braking
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Total stopping distance is not instantaneous. When an emergency hazard appears in the road ahead, a vehicle travels through three sequential mechanical and biological phases before reaching zero velocity:
+      </p>
+
+      <!-- 3-Phase Mathematical Breakdown Cards -->
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-sky-700 uppercase">1. PERCEPTION DISTANCE (0.75s)</strong>
+            <span class="font-mono text-[9px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200">COGNITIVE SIGHTING</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            The distance traveled from the instant the driver's eyes register an obstruction until the cognitive brain recognizes it as a collision hazard. Standard human visual perception latency averages <strong>0.75 seconds</strong>. At 50 MPH (73.3 ft/s), the vehicle covers <strong>55 feet</strong> with zero driver awareness.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-amber-700 uppercase">2. REACTION DISTANCE (0.75s)</strong>
+            <span class="font-mono text-[9px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">MOTOR ACTUATION</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            The distance traveled while the motor nervous system lifts the right foot off the accelerator pedal and moves it onto the brake pedal. This physical movement takes an additional <strong>0.75 seconds</strong>. Combined with perception, the total <strong>1.5-second reaction window</strong> consumes <span class="font-mono font-bold text-carbon">2.2 &times; v</span> feet (110 feet at 50 MPH) before brake pads touch rotors.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-rose-700 uppercase">3. BRAKING DISTANCE (FRICTION DISSIPATION)</strong>
+            <span class="font-mono text-[9px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">KINETIC HEAT</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            The distance traveled from the moment brake friction is applied until the vehicle comes to a complete halt. Governed by the equation <span class="font-mono font-bold text-carbon">d_brake = v&sup2; / (2 &mu; g)</span>. On dry asphalt (&mu; &approx; 0.80) at 50 MPH, mechanical braking requires <strong>119 feet</strong>, yielding a total stopping footprint of <strong>229 feet</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quadratic Kinetic Energy Proof Callout -->
+      <div class="p-3 rounded-xl bg-safety-light border border-safety/30 space-y-1 text-xs">
+        <div class="flex items-center gap-1.5 text-safety-deep font-bold font-mono text-[11px]">
+          <span class="material-symbols-outlined text-sm">functions</span>
+          <span>THE QUADRATIC VELOCITY LAW: KE = &frac12; m v&sup2;</span>
+        </div>
+        <p class="text-slate text-[11px] leading-relaxed">
+          Because kinetic energy scales with velocity squared (<span class="font-mono font-bold">v&sup2;</span>), increasing speed does <strong>NOT</strong> produce a linear increase in stopping distance. If you double your speed from <strong>30 MPH to 60 MPH</strong>, kinetic energy increases by <strong>(2)&sup2; = 400% (4&times;)</strong>. Braking distance quadruples from <strong>43 feet to 171 feet</strong>! Tripling speed to 90 MPH increases braking distance by <strong>(3)&sup2; = 9&times;</strong>.
+        </p>
+      </div>
+
+      <!-- Texas Official Driver Handbook Benchmark Table -->
+      <div class="pt-2 space-y-1.5">
+        <div class="flex items-center justify-between font-mono text-[10px] text-slate">
+          <span class="font-bold uppercase text-carbon">Official Texas Driver Handbook Benchmarks</span>
+          <span>Dry Level Pavement</span>
+        </div>
+        <div class="overflow-x-auto border border-hairline rounded-xl overflow-hidden shadow-2xs">
+          <table class="w-full text-left font-mono text-xs">
+            <thead class="bg-surface-sub text-[10px] text-slate font-bold border-b border-hairline">
+              <tr>
+                <th class="p-2 border-r border-hairline">SPEED</th>
+                <th class="p-2 border-r border-hairline">REACTION (1.5s)</th>
+                <th class="p-2 border-r border-hairline">BRAKING</th>
+                <th class="p-2 text-safety-deep">TOTAL STOP</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline bg-white">
+              <tr class="hover:bg-neutral-50">
+                <td class="p-2 font-bold border-r border-hairline">20 MPH</td>
+                <td class="p-2 border-r border-hairline text-slate">44 FT</td>
+                <td class="p-2 border-r border-hairline text-slate">19 FT</td>
+                <td class="p-2 font-bold text-carbon">63 FEET</td>
+              </tr>
+              <tr class="hover:bg-neutral-50">
+                <td class="p-2 font-bold border-r border-hairline">30 MPH</td>
+                <td class="p-2 border-r border-hairline text-slate">66 FT</td>
+                <td class="p-2 border-r border-hairline text-slate">43 FT</td>
+                <td class="p-2 font-bold text-carbon">109 FEET</td>
+              </tr>
+              <tr class="hover:bg-neutral-50">
+                <td class="p-2 font-bold border-r border-hairline">40 MPH</td>
+                <td class="p-2 border-r border-hairline text-slate">88 FT</td>
+                <td class="p-2 border-r border-hairline text-slate">76 FT</td>
+                <td class="p-2 font-bold text-carbon">164 FEET</td>
+              </tr>
+              <tr class="hover:bg-neutral-50 bg-safety-light/40">
+                <td class="p-2 font-bold border-r border-hairline text-safety-deep">50 MPH</td>
+                <td class="p-2 border-r border-hairline text-slate">110 FT</td>
+                <td class="p-2 border-r border-hairline text-slate">119 FT</td>
+                <td class="p-2 font-bold text-safety-deep">229 FEET</td>
+              </tr>
+              <tr class="hover:bg-neutral-50">
+                <td class="p-2 font-bold border-r border-hairline">60 MPH</td>
+                <td class="p-2 border-r border-hairline text-slate">132 FT</td>
+                <td class="p-2 border-r border-hairline text-slate">171 FT</td>
+                <td class="p-2 font-bold text-carbon">303 FEET</td>
+              </tr>
+              <tr class="hover:bg-neutral-50">
+                <td class="p-2 font-bold border-r border-hairline">70 MPH</td>
+                <td class="p-2 border-r border-hairline text-slate">154 FT</td>
+                <td class="p-2 border-r border-hairline text-slate">233 FT</td>
+                <td class="p-2 font-bold text-carbon">387 FEET</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Human Factors & Reaction Latency Inflation -->
+      <div class="space-y-2 pt-2 border-t border-hairline text-xs">
+        <div class="flex items-center justify-between">
+          <strong class="font-mono text-[11px] text-carbon uppercase font-bold">PHYSIOLOGICAL VARIABLES INFLATING REACTION LATENCY</strong>
+          <span class="font-mono text-[9px] text-hazard bg-hazard/10 px-1.5 py-0.5 rounded font-bold">TTC § 545.4251</span>
+        </div>
+        <p class="text-slate text-[11px] leading-relaxed">
+          The 1.5-second benchmark ($0.75\text{s}$ perception $+ 0.75\text{s}$ reaction) assumes an alert, sober, well-rested driver operating in daylight. In real-world driving conditions, physiological and cognitive impairments dramatically inflate reaction latency:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-[10px]">
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <span class="text-hazard font-bold block uppercase">&bull; DISTRACTED DRIVING / TEXTING:</span>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              Glancing at a mobile device for 4.6 seconds at 55 MPH covers the entire length of a football field (371 feet) blind. Reading a text message delays reaction time by an average of <strong>1.0 to 1.5 additional seconds</strong>.
+            </p>
+          </div>
+
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <span class="text-amber-700 font-bold block uppercase">&bull; FATIGUE &amp; CIRCADIAN DROWSINESS:</span>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              Being awake for 18 consecutive hours impairs cognitive reaction latency equivalently to a Blood Alcohol Concentration (BAC) of 0.05%. Micro-sleeps of 2 to 3 seconds mean a vehicle travels over 200 feet before mental perception begins.
+            </p>
+          </div>
+
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <span class="text-rose-700 font-bold block uppercase">&bull; ALCOHOL &amp; CHEMICAL IMPAIRMENT:</span>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              Even sub-legal BAC levels (0.02% to 0.05%) depress neurological synaptic firing rates. Reaction latency inflates from 1.5 seconds to <strong>2.5 or 3.0 seconds</strong>, adding 100+ feet of unbraked travel at highway velocities.
+            </p>
+          </div>
+
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <span class="text-slate font-bold block uppercase">&bull; ADVERSE WEATHER VISIBILITY:</span>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              Dense fog, blinding Texas thunderstorms, or twilight shadows obscure target contrast. The visual cortex requires up to <strong>2.0 seconds</strong> merely to distinguish a stalled chassis from ambient background shadows.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 05. PRIMARY CAD WIDGET: PERCEPTION-REACTION-BRAKING DYNAMICS CAD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>STOPPING DYNAMICS // TTC &sect; 545.351</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h3 class="font-sans font-bold text-base text-carbon leading-tight">Perception &bull; Reaction &bull; Braking Dynamics</h3>
+        <p class="font-sans text-xs text-slate mt-1">Tap the 4 numbered milestone nodes or velocity toggles to trace human latency and hydraulic braking force.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 220) with Responsive Container -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l07-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l07-perc-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#0284C7" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#0284C7" stop-opacity="0.2" />
+            </linearGradient>
+            <linearGradient id="l07-react-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#D97706" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#D97706" stop-opacity="0.2" />
+            </linearGradient>
+            <linearGradient id="l07-brake-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BA1A1A" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#BA1A1A" stop-opacity="0.2" />
+            </linearGradient>
+          </defs>
+
+          <!-- Canvas background -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="#0C1014" />
+
+          <!-- Roadbed Surface -->
+          <rect x="15" y="105" width="310" height="60" rx="3" fill="#182026" stroke="#253545" stroke-width="1" />
+          <line x1="15" y1="135" x2="325" y2="135" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="10 8" />
+
+          <!-- Distance Scale Marker -->
+          <g stroke="#475569" stroke-width="0.8">
+            <line x1="25" y1="172" x2="315" y2="172" />
+            <line x1="25" y1="168" x2="25" y2="176" />
+            <line x1="97.5" y1="170" x2="97.5" y2="174" />
+            <line x1="170" y1="168" x2="170" y2="176" />
+            <line x1="242.5" y1="170" x2="242.5" y2="174" />
+            <line x1="315" y1="168" x2="315" y2="176" />
+          </g>
+          <text x="25" y="184" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">0'</text>
+          <text x="97.5" y="184" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">60'</text>
+          <text x="170" y="184" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">120'</text>
+          <text x="242.5" y="184" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">180'</text>
+          <text x="315" y="184" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">240'</text>
+
+          <!-- Emergency Hazard (Stalled Vehicle) at X = 305 -->
+          <g transform="translate(305, 120)" pointer-events="none">
+            <rect x="-8" y="-14" width="16" height="28" rx="2" fill="#BA1A1A" stroke="#FFFFFF" stroke-width="1" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#FFFFFF" text-anchor="middle">HAZARD</text>
+            <circle cx="0" cy="-18" r="3" fill="#EF4444" />
+          </g>
+
+          <!-- Stopping Phase Horizontal Color Bars -->
+          <g transform="translate(25, 45)" pointer-events="none">
+            <!-- Phase 1: Perception -->
+            <rect id="l07-seg-perc" x="0" y="0" width="60" height="14" rx="2" fill="url(#l07-perc-grad)" stroke="#0284C7" stroke-width="1" />
+            <text id="l07-seg-perc-txt" x="30" y="10" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">PERC (55')</text>
+            
+            <!-- Phase 2: Reaction -->
+            <rect id="l07-seg-react" x="60" y="0" width="60" height="14" rx="2" fill="url(#l07-react-grad)" stroke="#D97706" stroke-width="1" />
+            <text id="l07-seg-react-txt" x="90" y="10" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">REACT (55')</text>
+            
+            <!-- Phase 3: Braking -->
+            <rect id="l07-seg-brake" x="120" y="0" width="125" height="14" rx="2" fill="url(#l07-brake-grad)" stroke="#BA1A1A" stroke-width="1" />
+            <text id="l07-seg-brake-txt" x="182" y="10" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">BRAKE (119')</text>
+          </g>
+
+          <!-- Total Bracket Indicator -->
+          <path id="l07-total-bracket" d="M 25 38 L 25 32 L 270 32 L 270 38" fill="none" stroke="#FFFFFF" stroke-width="1.2" pointer-events="none" />
+          <text id="l07-total-txt" x="147" y="27" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="800" fill="#38BDF8" text-anchor="middle">
+            TOTAL STOPPING FOOTPRINT: 229 FEET AT 50 MPH
+          </text>
+
+          <!-- EGO CAR POSITION ON ROAD -->
+          <g id="l07-ego-car" transform="translate(45, 120)" pointer-events="none">
+            <rect x="-14" y="-8" width="28" height="16" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1" />
+            <rect x="-4" y="-6" width="8" height="12" rx="1.5" fill="#7C2D12" />
+            <!-- Headlights -->
+            <rect x="13" y="-7" width="1.5" height="3" fill="#FEF08A" />
+            <rect x="13" y="4" width="1.5" height="3" fill="#FEF08A" />
+          </g>
+
+          <!-- 4 STEP NODES (Visual indicators only - interactive buttons placed externally below) -->
+          <!-- Node 1: Sighting (X=25, Y=78) -->
+          <g id="l07-node-1" transform="translate(25, 78)" pointer-events="none">
+            <circle cx="0" cy="0" r="9" fill="#0284C7" stroke="#FFFFFF" stroke-width="1.5" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FFFFFF" text-anchor="middle">1</text>
+          </g>
+
+          <!-- Node 2: Foot Transfer (X=85, Y=78) -->
+          <g id="l07-node-2" transform="translate(85, 78)" pointer-events="none">
+            <circle cx="0" cy="0" r="9" fill="#D97706" stroke="#FFFFFF" stroke-width="1.5" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FFFFFF" text-anchor="middle">2</text>
+          </g>
+
+          <!-- Node 3: Brake Clamp (X=145, Y=78) -->
+          <g id="l07-node-3" transform="translate(145, 78)" pointer-events="none">
+            <circle cx="0" cy="0" r="9" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.5" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FFFFFF" text-anchor="middle">3</text>
+          </g>
+
+          <!-- Node 4: Complete Stop (X=270, Y=78) -->
+          <g id="l07-node-4" transform="translate(270, 78)" pointer-events="none">
+            <circle cx="0" cy="0" r="9" fill="#10B981" stroke="#FFFFFF" stroke-width="1.5" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FFFFFF" text-anchor="middle">4</text>
+          </g>
+
+          <!-- Bottom Status Pill -->
+          <g transform="translate(10, 196)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="16" rx="3" fill="#06090C" stroke="#1E293B" stroke-width="0.8" />
+            <circle id="l07-cad1-dot" cx="8" cy="8" r="3.5" fill="#38BDF8" />
+            <text id="l07-cad1-phase" x="18" y="11" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#E2E8F0">
+              TIMELINE: STEP 1 OF 4 // HAZARD PERCEPTION LATENCY (0.75s)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 4-Step Milestone Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l07-step-1" onclick="selectL07Step(1)" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-sky-600 bg-sky-50 text-sky-700 font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>1. Sighting</span>
+          <span class="text-[9px] font-normal">0.75s Latency</span>
+        </button>
+        <button id="l07-step-2" onclick="selectL07Step(2)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>2. Transfer</span>
+          <span class="text-[9px] text-slate font-normal">0.75s Reaction</span>
+        </button>
+        <button id="l07-step-3" onclick="selectL07Step(3)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>3. Clamp</span>
+          <span class="text-[9px] text-slate font-normal">Hydraulic Bite</span>
+        </button>
+        <button id="l07-step-4" onclick="selectL07Step(4)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>4. Halt</span>
+          <span class="text-[9px] text-slate font-normal">0 MPH Complete</span>
+        </button>
+      </div>
+
+      <!-- Velocity Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="l07-spd-30" onclick="setL07Speed(30)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>30 MPH</span>
+          <span class="text-[9px] text-slate font-normal">109' Total</span>
+        </button>
+        <button id="l07-spd-50" onclick="setL07Speed(50)" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>50 MPH</span>
+          <span class="text-[9px] text-safety-deep font-normal">229' Total</span>
+        </button>
+        <button id="l07-spd-70" onclick="setL07Speed(70)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>70 MPH</span>
+          <span class="text-[9px] text-slate font-normal">387' Total</span>
+        </button>
+      </div>
+
+      <!-- Telemetry HUD -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Perception Lag</span>
+          <span id="l07-hud-perc" class="text-xs font-bold text-sky-600">55 FT (0.75s)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Reaction Transfer</span>
+          <span id="l07-hud-react" class="text-xs font-bold text-amber-600">55 FT (0.75s)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Braking Friction</span>
+          <span id="l07-hud-brake" class="text-xs font-bold text-red-600">119 FT (DRY)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Total Distance</span>
+          <span id="l07-hud-total" class="text-xs font-bold text-carbon">229 FEET</span>
+        </div>
+      </div>
+
+      <!-- Reactive Explanation Card -->
+      <div id="l07-cad1-card" class="bg-surface-sub border-l-4 border-sky-500 p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l07-card-tag" class="text-[10px] font-mono font-bold text-sky-600 uppercase">PHASE 1: PERCEPTION</span>
+          <span id="l07-card-cite" class="text-[10px] font-mono text-slate">TTC &sect; 545.351</span>
+        </div>
+        <h4 id="l07-card-title" class="font-sans font-bold text-sm text-carbon">Cognitive Hazard Identification (0.75 Seconds)</h4>
+        <p id="l07-card-desc" class="text-xs text-slate leading-relaxed">
+          Human visual processing takes an average of 0.75 seconds from the moment a hazard enters sight until the brain recognizes the danger. During this phase, zero deceleration occurs; at 50 MPH, the vehicle covers 55 feet at undiminished speed.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. PEDAGOGICAL DEEP DIVE 2: SURFACE FRICTION, THERMAL DYNAMICS & ABS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase">FRICTION ANALYSIS // COEFFICIENT &mu;</span>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">THERMODYNAMICS</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-sm sm:text-base text-carbon leading-snug">
+        Friction Degradation, Bridge Ice Physics &amp; ABS Stomp-Stay-Steer Protocol
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Braking distance is fundamentally determined by the coefficient of friction (<span class="font-mono font-bold text-carbon">&mu;</span>) between tire rubber and the road surface. When environmental conditions change from dry asphalt to water or ice, available grip plummets catastrophically:
+      </p>
+
+      <!-- Road Surface Comparison Matrix -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-valid uppercase">DRY ASPHALT (&mu; = 0.80)</strong>
+            <span class="font-mono text-[9px] text-valid bg-valid/10 px-1.5 py-0.5 rounded">1.0X BASELINE</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Full mechanical adhesion. Rubber compounds interlock directly with macroscopic aggregate surface texture. 50 MPH braking requires 119 feet.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-amber-700 uppercase">WET ROADWAY (&mu; = 0.35)</strong>
+            <span class="font-mono text-[9px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">2.2X BRAKING</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Thin water film acts as a hydraulic lubricant. Braking distance more than doubles to 262 feet, pushing total 50 MPH stop to 372 feet.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-hazard uppercase">PACKED SNOW (&mu; = 0.20)</strong>
+            <span class="font-mono text-[9px] text-hazard bg-hazard/10 px-1.5 py-0.5 rounded">3.6X BRAKING</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Snow packs into tire tread sipes, preventing direct asphalt contact. Braking distance balloons to 428 feet, requiring severe speed reductions.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-purple-700 uppercase">BRIDGE BLACK ICE (&mu; = 0.08)</strong>
+            <span class="font-mono text-[9px] text-purple-700 bg-purple-50 px-1.5 py-0.5 rounded">8.5X–9.0X CATASTROPHIC</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Near-zero frictional resistance. Braking distance extends to over 1,071 feet (nearly a quarter mile!), making high-speed stops mathematically impossible.
+          </p>
+        </div>
+      </div>
+
+      <!-- Why Bridges Freeze First: Thermal Physics -->
+      <div class="p-3.5 rounded-xl bg-purple-50 border border-purple-200 space-y-1.5 text-xs">
+        <div class="flex items-center gap-1.5 text-purple-900 font-bold font-mono text-[11px]">
+          <span class="material-symbols-outlined text-sm text-purple-700">ac_unit</span>
+          <span>THERMODYNAMIC REALITY: WHY ELEVATED BRIDGES FREEZE FIRST</span>
+        </div>
+        <p class="text-purple-950 text-[11px] leading-relaxed">
+          Every winter in Texas, warning signs proclaim <em>"BRIDGE MAY BE ICY"</em>. The physics is straightforward: standard roadways rest atop massive earthen groundbeds that absorb and store solar geothermal energy during the day, insulating the asphalt against rapid freezing. In contrast, <strong>elevated bridge decks and overpasses are suspended in midair</strong>. Cold freezing air circulates freely across both the upper driving surface <em>and the uninsulated undercarriage</em> simultaneously. As a result, bridge structures lose heat twice as fast, forming transparent, invisible <strong>black ice</strong> when adjacent surface streets remain wet!
+        </p>
+      </div>
+
+      <!-- ABS Braking Technique: Stomp, Stay, Steer -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2 text-xs">
+        <div class="flex items-center justify-between">
+          <strong class="font-mono text-[11px] text-carbon uppercase font-bold">ANTI-LOCK BRAKING SYSTEM (ABS) ENGINEERING</strong>
+          <span class="font-mono text-[9px] text-valid bg-valid/10 px-1.5 py-0.5 rounded font-bold">STOMP &bull; STAY &bull; STEER</span>
+        </div>
+        <p class="text-slate text-[11px] leading-relaxed">
+          Modern vehicles utilize four-channel computer-controlled Anti-lock Braking Systems (ABS). Wheel speed sensors detect impending rotational lockup at the threshold of adhesion. The hydraulic electronic control unit (HECU) pulses caliper fluid pressure <strong>15 to 20 times per second</strong>&mdash;far faster than human reflexes.
+        </p>
+        <div class="p-2.5 rounded-lg bg-hazard/10 border border-hazard/30 text-[11px] text-hazard flex items-start gap-2">
+          <span class="material-symbols-outlined text-sm mt-0.5 shrink-0">warning</span>
+          <span>
+            <strong>NEVER PUMP ABS BRAKES:</strong> On non-ABS antique cars, drivers pumped brakes to unlock wheels. On modern vehicles with ABS, manually pumping the pedal repeatedly releases hydraulic line pressure, defeats the onboard computer, and extends total stopping distance by <strong>30% to 50%</strong>. Instead, <strong>STOMP</strong> the pedal with maximum force, <strong>STAY</strong> pressed hard through pedal vibrations, and <strong>STEER</strong> around the hazard.
+          </span>
+        </div>
+      </div>
+
+      <!-- Tire Mechanics, Tread Depth & Pressure Calibration -->
+      <div class="space-y-2 pt-2 border-t border-hairline text-xs">
+        <div class="flex items-center justify-between">
+          <strong class="font-mono text-[11px] text-carbon uppercase font-bold">TIRE PNEUMATICS, HYDRODYNAMIC SIPING &amp; LEGAL STANDARDS</strong>
+          <span class="font-mono text-[9px] text-slate bg-surface-sub px-1.5 py-0.5 rounded border border-hairline">TTC § 547.612</span>
+        </div>
+        <p class="text-slate text-[11px] leading-relaxed">
+          The four palm-sized contact patches of your tires are the single mechanical link transmitting braking friction to the earth. When tire health is compromised, available coefficient &mu; plummets even on clean asphalt:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-[10px]">
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <div class="flex items-center justify-between text-carbon font-bold">
+              <span>STATUTORY TREAD MINIMUM</span>
+              <span class="text-hazard bg-hazard/10 px-1 py-0.5 rounded">&ge; 2/32 INCH</span>
+            </div>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              Under TTC &sect; 547.612, tires with less than 2/32" of tread depth are legally unsafe and fail Texas annual safety inspection. Use the Lincoln penny test: insert a penny head-first into the tread groove; if the top of Lincoln's head is visible, the tire is unlawful.
+            </p>
+          </div>
+
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <div class="flex items-center justify-between text-carbon font-bold">
+              <span>WET WEATHER SAFETY TREAD</span>
+              <span class="text-valid bg-valid/10 px-1 py-0.5 rounded">&ge; 4/32 INCH</span>
+            </div>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              While 2/32" is the legal floor, wet stopping distances double once tread wears below 4/32". Deep longitudinal circumferential grooves and micro-sipes are required to pump gallons of standing water away from the contact patch every second.
+            </p>
+          </div>
+
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <div class="flex items-center justify-between text-carbon font-bold">
+              <span>UNDER-INFLATION HAZARD</span>
+              <span class="text-amber-700 bg-amber-50 px-1 py-0.5 rounded">SHOULDER WEAR</span>
+            </div>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              Under-inflated tires sag in the center, riding solely on the outer shoulders. This reduces the effective contact patch, causes severe heat buildup (tire blowout risk), and creates water trapping pockets that trigger premature hydroplaning.
+            </p>
+          </div>
+
+          <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline space-y-1">
+            <div class="flex items-center justify-between text-carbon font-bold">
+              <span>OVER-INFLATION HAZARD</span>
+              <span class="text-rose-700 bg-rose-50 px-1 py-0.5 rounded">CENTER BULGE</span>
+            </div>
+            <p class="font-sans text-[10px] text-slate leading-normal">
+              Over-inflated tires balloon in the center of the tread, drastically shrinking the square inches of rubber touching the road. Braking distance extends significantly on dry roads, and vehicle bounce degrades suspension compliance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 07. SECONDARY CAD WIDGET: ROAD SURFACE FRICTION MULTIPLIER MATRIX -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>FRICTION COEFFICIENT MATRIX</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          ROAD CONDITIONS
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h3 class="font-sans font-bold text-base text-carbon leading-tight">Surface Friction &amp; Stopping Distance Matrix</h3>
+        <p class="font-sans text-xs text-slate mt-1">Tap surface types below to visualize stopping distance expansion under wet, snowy, and freezing Texas roads.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 180) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l07-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="#0C1014" />
+
+          <!-- Horizontal Bar 1: Dry Asphalt (mu = 0.80) -->
+          <g transform="translate(20, 25)">
+            <rect x="0" y="0" width="300" height="22" rx="3" fill="#1E293B" opacity="0.6" />
+            <rect x="0" y="0" width="114.5" height="22" rx="3" fill="#1F6F43" />
+            <text x="8" y="14" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#FFFFFF">DRY ASPHALT (&mu;=0.80) &bull; 229 FT (1.0x)</text>
+          </g>
+
+          <!-- Horizontal Bar 2: Wet Roadway (mu = 0.35) -->
+          <g transform="translate(20, 55)">
+            <rect x="0" y="0" width="300" height="22" rx="3" fill="#1E293B" opacity="0.6" />
+            <rect x="0" y="0" width="186" height="22" rx="3" fill="#D97706" />
+            <text x="8" y="14" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#FFFFFF">WET ROADWAY (&mu;=0.35) &bull; 372 FT (2.2x)</text>
+          </g>
+
+          <!-- Horizontal Bar 3: Packed Snow / Slush (mu = 0.20) -->
+          <g transform="translate(20, 85)">
+            <rect x="0" y="0" width="300" height="22" rx="3" fill="#1E293B" opacity="0.6" />
+            <rect x="0" y="0" width="269" height="22" rx="3" fill="#BA1A1A" />
+            <text x="8" y="14" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#FFFFFF">PACKED SNOW (&mu;=0.20) &bull; 538 FT (3.6x)</text>
+          </g>
+
+          <!-- Horizontal Bar 4: Elevated Bridge Ice (mu = 0.08) -->
+          <g transform="translate(20, 115)">
+            <rect x="0" y="0" width="300" height="22" rx="3" fill="#1E293B" opacity="0.6" />
+            <rect x="0" y="0" width="300" height="22" rx="3" fill="#7C3AED" />
+            <text x="8" y="14" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#FFFFFF">ELEVATED BRIDGE ICE (&mu;=0.08) &bull; 1,181 FT (9.0x)</text>
+          </g>
+
+          <!-- Bottom Advisory Banner -->
+          <g transform="translate(20, 148)" pointer-events="none">
+            <rect x="0" y="0" width="300" height="22" rx="3" fill="#090D10" stroke="#334155" stroke-width="0.8" />
+            <circle id="l07-surf-dot" cx="12" cy="11" r="4" fill="#7C3AED" />
+            <text id="l07-surf-txt" x="22" y="14" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#E2E8F0">
+              CAUTION: ELEVATED BRIDGES FREEZE FIRST (AIR CIRCULATES ABOVE &amp; BELOW)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Surface Mode Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l07-btn-dry" onclick="selectL07Surface('dry')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>Dry Asphalt</span>
+          <span class="text-[9px] text-valid font-normal">&mu;=0.80 (1.0x)</span>
+        </button>
+        <button id="l07-btn-wet" onclick="selectL07Surface('wet')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>Wet Road</span>
+          <span class="text-[9px] text-warning font-normal">&mu;=0.35 (2.2x)</span>
+        </button>
+        <button id="l07-btn-snow" onclick="selectL07Surface('snow')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>Packed Snow</span>
+          <span class="text-[9px] text-hazard font-normal">&mu;=0.20 (3.6x)</span>
+        </button>
+        <button id="l07-btn-ice" onclick="selectL07Surface('ice')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-purple-600 bg-purple-50 text-purple-700 font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>Bridge Ice</span>
+          <span class="text-[9px] text-purple-700 font-normal">&mu;=0.08 (9.0x)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 08. PEDAGOGICAL DEEP DIVE 3: OVERDRIVING HEADLIGHTS & HEAVY VEHICLE DISPARITY -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase">STATUTORY COMPLIANCE // TTC &sect; 545.351</span>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">NIGHT SIGHTLINES</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-sm sm:text-base text-carbon leading-snug">
+        The Peril of "Overdriving Headlights" &amp; Commercial Vehicle Stopping Physics
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Under Texas Transportation Code &sect; 545.351(a), an operator may never drive at a speed greater than is reasonable and prudent under existing conditions. Posted speed limit signs represent the statutory maximum for daylight and dry roads. At night or in inclement weather, exceeding your visual sightline is a primary cause of lethal rear-end collisions:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-carbon uppercase">OVERDRIVING LOW BEAMS (THE 123-FT BLIND TRAP)</strong>
+            <span class="font-mono text-[9px] text-hazard bg-hazard/10 px-1.5 py-0.5 rounded font-bold">TTC &sect; 547.302</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Standard passenger car low-beam headlamps throw clean illumination approximately <strong>150 to 180 feet</strong> forward. However, at <strong>60 MPH</strong>, a driver requires <strong>303 feet</strong> to stop completely. Cruising at 60 MPH on unlit Texas country roads means you are "overdriving your headlights" by <strong>123 feet</strong>: if a stalled pickup truck or cattle appears at the edge of your low beams, collision is 100% physically unavoidable even if you slam on the brakes instantly!
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-carbon uppercase">COMMERCIAL SEMI-TRUCK BRAKING DISPARITY</strong>
+            <span class="font-mono text-[9px] text-safety bg-safety-light px-1.5 py-0.5 rounded font-bold">80,000 LBS GVWR</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            A fully loaded 18-wheel tractor-trailer weighing 80,000 lbs traveling at 55 MPH requires <strong>300 to 400+ feet</strong> to stop&mdash;nearly double the distance of a passenger sedan. In addition to massive kinetic momentum (<span class="font-mono">m</span>), pneumatic air-brake systems suffer from an inherent mechanical air transmission lag of <strong>0.3 to 0.5 seconds</strong>. Cutting into the safety buffer ahead of a commercial truck deprives the professional driver of their mandatory stopping envelope.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 09. PEDAGOGICAL DEEP DIVE 4: EMERGENCY SKID DYNAMICS & TRACTION RECOVERY -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase">TRACTION RESTORATION // TTC § 545.351</span>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">SKID CONTROL</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-sm sm:text-base text-carbon leading-snug">
+        Emergency Skid Dynamics: Understeer, Oversteer &amp; Directional Steering Recovery
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        A skid occurs when the physical braking, turning, or acceleration demands placed on tires exceed the available coefficient of friction (<span class="font-mono font-bold text-carbon">&mu;</span>). When grip breaks, kinetic friction is always lower than static rolling friction. Regaining vehicle control requires counter-intuitive driver actions:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <!-- Understeer Card -->
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-sky-700 uppercase">FRONT-WHEEL SKID (UNDERSTEER)</strong>
+            <span class="font-mono text-[9px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded font-bold">PLOWING</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            <strong>Physics:</strong> Front tires break traction while steering into a curve. The vehicle continues plowing straight ahead along its original momentum vector regardless of steering wheel rotation.
+          </p>
+          <p class="text-carbon font-mono text-[10px] font-bold bg-white p-2 rounded border border-hairline">
+            RECOVERY: Smoothly ease off the accelerator. Do NOT turn the wheel sharper (which worsens tire scrubbing). Straighten the wheel slightly to allow rubber to re-interlock with aggregate, then guide the vehicle gently along the turn.
+          </p>
+        </div>
+
+        <!-- Oversteer Card -->
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+          <div class="flex items-center justify-between">
+            <strong class="font-mono text-[11px] text-rose-700 uppercase">REAR-WHEEL SKID (OVERSTEER)</strong>
+            <span class="font-mono text-[9px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded font-bold">FISHTAILING</span>
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            <strong>Physics:</strong> Rear tires break traction during braking or cornering. The rear chassis swings outward toward the outside of the curve, threatening a complete 180-degree spinout.
+          </p>
+          <p class="text-carbon font-mono text-[10px] font-bold bg-white p-2 rounded border border-hairline">
+            RECOVERY: Release the brake pedal immediately. Steer smoothly in the exact direction the rear of the vehicle is sliding (counter-steering). As the vehicle realigns, immediately counter-steer back to prevent a secondary snap-back pendulum spin.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-xl bg-valid/10 border border-valid/30 flex items-start gap-2 text-xs">
+        <span class="material-symbols-outlined text-valid text-base mt-0.5 shrink-0">check_circle</span>
+        <div class="space-y-0.5">
+          <strong class="font-mono text-[10px] text-valid uppercase font-bold block">THE GOLDEN RULE OF SKID MANAGEMENT:</strong>
+          <span class="text-slate text-[11px] leading-relaxed">
+            Never slam on the brakes during an unrecoverable skid unless a collision is imminent and ABS is actively engaged. Braking locks tire contact patches, converting rolling directional traction into sliding friction and stripping the driver of 100% of steering authority. Look down the center of your intended travel lane and guide the vehicle with steady, controlled steering inputs.
+          </span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10. KNOWLEDGE EVALUATION & ANTI-TAMPER ASSESSMENT -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-4 fluid-card">
+      <div class="space-y-1 pb-2 border-b border-hairline">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">KNOWLEDGE VERIFICATION</span>
+          <span class="text-[10px] font-mono text-slate">3 STATUTORY SCENARIOS</span>
+        </div>
+        <h3 class="text-lg font-bold text-carbon">Stopping Distance Mastery Exam</h3>
+        <p class="text-xs text-slate">Verify your comprehension of kinetic energy scaling, dry road benchmarks, and ABS modulation:</p>
+      </div>
+
+      <!-- QUESTION 1 -->
+      <article <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T07 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="mcq-container-1" class="p-3.5 rounded-xl border border-hairline space-y-2.5 bg-surface-sub/50">
+        <div class="flex items-center justify-between text-[11px] font-mono">
+          <span class="font-bold text-slate">QUESTION 1 OF 3</span>
+          <span class="text-[10px] font-bold text-safety bg-safety-light px-1.5 py-0.5 rounded border border-safety/30">KINETIC ENERGY LAW</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          When a passenger vehicle doubles its cruising velocity from 30 mph to 60 mph, how does its braking distance change?
+        </p>
+        <div class="space-y-1.5 text-xs">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Braking distance doubles in direct linear proportion to vehicle speed</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Braking distance quadruples because kinetic energy increases with the square of velocity</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Braking distance triples due to moderate mechanical heating of the brake calipers</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Braking distance remains identical provided antilock brakes are equipped</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </article>
+
+      <!-- QUESTION 2 -->
+      <article id="mcq-container-2" class="p-3.5 rounded-xl border border-hairline space-y-2.5 bg-surface-sub/50">
+        <div class="flex items-center justify-between text-[11px] font-mono">
+          <span class="font-bold text-slate">QUESTION 2 OF 3</span>
+          <span class="text-[10px] font-bold text-safety bg-safety-light px-1.5 py-0.5 rounded border border-safety/30">STATUTORY BENCHMARK</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under ideal dry pavement conditions, what is the total stopping distance for a passenger car traveling at 50 mph?
+        </p>
+        <div class="space-y-1.5 text-xs">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Approximately 75 feet total stopping distance</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Approximately 229 feet total stopping distance including reaction time</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Approximately 450 feet total stopping distance</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Approximately 120 feet total stopping distance</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </article>
+
+      <!-- QUESTION 3 -->
+      <article id="mcq-container-3" class="p-3.5 rounded-xl border border-hairline space-y-2.5 bg-surface-sub/50">
+        <div class="flex items-center justify-between text-[11px] font-mono">
+          <span class="font-bold text-slate">QUESTION 3 OF 3</span>
+          <span class="text-[10px] font-bold text-valid bg-valid/10 px-1.5 py-0.5 rounded border border-valid/30">ABS TECHNIQUE</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          What is the correct driver pedal technique during an emergency stop in an ABS-equipped vehicle?
+        </p>
+        <div class="space-y-1.5 text-xs">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Pump the brake pedal rapidly up and down to prevent brake caliper lockup</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Shift transmission into neutral and engage the emergency mechanical handbrake</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Stomp firmly on the brake pedal, stay hard on the pedal, and steer around the hazard</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Tap the pedal gently three times and release steering wheel control completely</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </article>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 10. SECONDARY FOOTER NAVIGATION -->
+    <nav class="bg-white border border-hairline rounded-xl p-3 shadow-xs flex items-center justify-between">
+      <a href="L05-T06.html" class="touch-target min-h-[48px] px-3 py-2.5 rounded-lg border border-hairline bg-surface-sub hover:bg-white text-xs font-mono font-bold text-carbon flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        <span>PREV: L05-T06</span>
+      </a>
+      <a href="L05-T08.html" class="touch-target min-h-[48px] px-3 py-2.5 rounded-lg bg-safety hover:bg-safety-deep text-xs font-mono font-bold text-white flex items-center gap-1.5 transition-colors shadow-xs">
+        <span>NEXT: L05-T08</span>
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+      </a>
+    </nav>
+
+  
+    <!-- TECHNICAL FOOTER & NEXT TOPIC GATEWAY -->
+    <footer class="pt-2 pb-6 space-y-3">
+      <div class="flex items-center justify-between gap-3">
+        <a href="L05-T06.html" class="touch-target min-h-[48px] flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-white border border-hairline hover:bg-surface-sub text-xs font-bold text-carbon transition" style="min-height: 48px;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREVIOUS TOPIC</span>
+        </a>
+        <a href="L05-T08.html" class="touch-target min-h-[48px] flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-safety text-white hover:bg-safety-deep text-xs font-bold transition shadow-sm" style="min-height: 48px;">
+          <span>NEXT TOPIC</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 07
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- COMPLETE EMBEDDED JAVASCRIPT STATE ENGINES -->
+  <script>
+    // ==============================================================================
+    // L05-T07 JAVASCRIPT STATE ENGINE
+    // ==============================================================================
+    const l07State = {
+      speed: 50,
+      step: 1,
+      surface: 'ice'
+    };
+
+    const l07SpeedData = {
+      30: { perc: 33, react: 33, brake: 43, total: 109, pW: 36, rW: 36, bW: 47, bracketW: 119 },
+      50: { perc: 55, react: 55, brake: 119, total: 229, pW: 60, rW: 60, bW: 125, bracketW: 245 },
+      70: { perc: 77, react: 77, brake: 233, total: 387, pW: 84, rW: 84, bW: 200, bracketW: 368 }
+    };
+
+    function setL07Speed(mph) {
+      l07State.speed = mph;
+      const d = l07SpeedData[mph];
+      if (!d) return;
+
+      // Scale bars
+      const pSeg = document.getElementById('l07-seg-perc');
+      const rSeg = document.getElementById('l07-seg-react');
+      const bSeg = document.getElementById('l07-seg-brake');
+
+      if (pSeg) pSeg.setAttribute('width', d.pW);
+      if (rSeg) {
+        rSeg.setAttribute('x', d.pW);
+        rSeg.setAttribute('width', d.rW);
+      }
+      if (bSeg) {
+        bSeg.setAttribute('x', d.pW + d.rW);
+        bSeg.setAttribute('width', Math.min(180, d.bW));
+      }
+
+      const pTxt = document.getElementById('l07-seg-perc-txt');
+      if (pTxt) {
+        pTxt.setAttribute('x', d.pW / 2);
+        pTxt.textContent = `PERC (${d.perc}')`;
+      }
+
+      const rTxt = document.getElementById('l07-seg-react-txt');
+      if (rTxt) {
+        rTxt.setAttribute('x', d.pW + d.rW / 2);
+        rTxt.textContent = `REACT (${d.react}')`;
+      }
+
+      const bTxt = document.getElementById('l07-seg-brake-txt');
+      if (bTxt) {
+        bTxt.setAttribute('x', d.pW + d.rW + Math.min(180, d.bW) / 2);
+        bTxt.textContent = `BRAKE (${d.brake}')`;
+      }
+
+      const totTxt = document.getElementById('l07-total-txt');
+      if (totTxt) {
+        totTxt.textContent = `TOTAL STOPPING FOOTPRINT: ${d.total} FEET AT ${mph} MPH`;
+      }
+
+      // HUD elements
+      const hPerc = document.getElementById('l07-hud-perc');
+      if (hPerc) hPerc.textContent = `${d.perc} FT (0.75s)`;
+      const hReact = document.getElementById('l07-hud-react');
+      if (hReact) hReact.textContent = `${d.react} FT (0.75s)`;
+      const hBrake = document.getElementById('l07-hud-brake');
+      if (hBrake) hBrake.textContent = `${d.brake} FT (DRY)`;
+      const hTot = document.getElementById('l07-hud-total');
+      if (hTot) hTot.textContent = `${d.total} FEET`;
+
+      // Buttons toggle
+      [30, 50, 70].forEach(s => {
+        const btn = document.getElementById(`l07-spd-${s}`);
+        if (btn) {
+          if (s === mph) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center';
+          }
+        }
+      });
+    }
+
+    const l07StepData = {
+      1: {
+        tag: 'PHASE 1: PERCEPTION',
+        title: 'Cognitive Hazard Identification (0.75 Seconds)',
+        desc: 'Human visual processing takes an average of 0.75 seconds from the moment a hazard enters sight until the brain recognizes the danger. During this phase, zero deceleration occurs; at 50 MPH, the vehicle covers 55 feet at undiminished speed.',
+        color: '#0284C7',
+        status: 'TIMELINE: STEP 1 OF 4 // HAZARD PERCEPTION LATENCY (0.75s)'
+      },
+      2: {
+        tag: 'PHASE 2: REACTION',
+        title: 'Physical Foot Transfer Latency (0.75 Seconds)',
+        desc: 'Once the hazard is registered, the motor nervous system signals the driver foot to pivot off the accelerator and depress the brake pedal. This physical movement takes an additional 0.75 seconds, traveling another 55 feet without any brake clamping force.',
+        color: '#D97706',
+        status: 'TIMELINE: STEP 2 OF 4 // FOOT TRANSFER REACTION LATENCY (0.75s)'
+      },
+      3: {
+        tag: 'PHASE 3: BRAKING ENGAGEMENT',
+        title: 'Hydraulic Caliper Clamping & ABS Pulsing',
+        desc: 'Hydraulic fluid pressure clamps brake pads onto spinning rotors. Modern ABS computers pulse 15–20 times per second to prevent wheel lockup. Drivers must "Stomp, Stay, and Steer" without pumping the pedal.',
+        color: '#DC2626',
+        status: 'TIMELINE: STEP 3 OF 4 // HYDRAULIC ABS BRAKE MODULATION'
+      },
+      4: {
+        tag: 'PHASE 4: COMPLETE HALT',
+        title: 'Kinetic Energy Dissipation to Zero Velocity',
+        desc: 'Friction between tire tread contact patches and asphalt completely converts vehicle kinetic energy into thermal heat, bringing the vehicle to a full stop. On dry pavement at 50 MPH, braking requires 119 feet, yielding a total stop of 229 feet.',
+        color: '#10B981',
+        status: 'TIMELINE: STEP 4 OF 4 // COMPLETE HALT (229 FT TOTAL FOOTPRINT)'
+      }
+    };
+
+    function selectL07Step(stepNum) {
+      l07State.step = stepNum;
+      const d = l07StepData[stepNum];
+      if (!d) return;
+
+      const card = document.getElementById('l07-cad1-card');
+      if (card) {
+        card.style.borderLeftColor = d.color;
+      }
+      const cTag = document.getElementById('l07-card-tag');
+      if (cTag) {
+        cTag.textContent = d.tag;
+        cTag.style.color = d.color;
+      }
+      const cTitle = document.getElementById('l07-card-title');
+      if (cTitle) cTitle.textContent = d.title;
+      const cDesc = document.getElementById('l07-card-desc');
+      if (cDesc) cDesc.textContent = d.desc;
+
+      const dot = document.getElementById('l07-cad1-dot');
+      if (dot) dot.setAttribute('fill', d.color);
+      const status = document.getElementById('l07-cad1-phase') || document.getElementById('l07-cad1-status');
+      if (status) status.textContent = d.status;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    // ==============================================================================
+    // SIMULATION 3-TIER POSTMESSAGE BRIDGE (L05-T07)
+    // ==============================================================================
+    const simScenarios_L05T07 = {
+      1: {
+        badge: '30 MPH SAFE STOP',
+        badgeBg: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+        actionText: 'ACTIVE: 30 MPH DECELERATION',
+        cadenceText: 'SAFE STOP (144 FT) // BUFFER MAINTAINED',
+        banner: '30 MPH Benchmark: Perception (66\') + Reaction (33\') + Braking (45\') = 144 ft total. Stops safely before 150-ft obstacle.'
+      },
+      2: {
+        badge: '60 MPH (4X KE)',
+        badgeBg: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
+        actionText: 'ACTIVE: 60 MPH QUADRATIC DISSIPATION',
+        cadenceText: 'QUADRATIC EXPANSION (378 FT) // 4X BRAKING ENERGY',
+        banner: '60 MPH Physics Law: Doubling speed from 30 to 60 MPH quadruples kinetic energy and braking distance (180 ft). Total stop = 378 ft.'
+      },
+      3: {
+        badge: 'WET PAVEMENT',
+        badgeBg: 'bg-sky-500/10 text-sky-400 border border-sky-500/20',
+        actionText: 'ACTIVE: REDUCED FRICTION (MU = 0.35)',
+        cadenceText: 'WET ASPHALT MULTIPLIER // 2.2X BRAKING EXTENSION',
+        banner: 'Wet Roadway Friction: Water layer acts as hydraulic lubricant, extending braking by 2.2x and demanding severe speed reduction.'
+      },
+      4: {
+        badge: 'HAZARD 150\' CRASH',
+        badgeBg: 'bg-rose-500/10 text-rose-400 border border-rose-500/20',
+        actionText: 'CRITICAL: 150-FT OBSTACLE DILEMMA',
+        cadenceText: 'FATAL IMPACT AT 48 MPH // ZERO MECHANICAL BRAKING REACHED',
+        banner: 'Catastrophic Dilemma: At 60 MPH, pre-braking distance (198 ft) exceeds the 150-ft obstacle gap, causing direct impact at 48 MPH!'
+      }
+    };
+
+    let activeSimScenario_L05T07 = 1;
+    let simPaused_L05T07 = false;
+
+    function selectSimScenario(scenNum) {
+      activeSimScenario_L05T07 = scenNum;
+      const data = simScenarios_L05T07[scenNum];
+      if (!data) return;
+
+      const badgeEl = document.getElementById('sim-active-badge');
+      if (badgeEl) {
+        badgeEl.textContent = data.badge;
+        badgeEl.className = `font-mono text-[10px] px-2 py-0.5 rounded font-bold uppercase ${data.badgeBg}`;
+      }
+      const actEl = document.getElementById('sim-hud-action');
+      if (actEl) actEl.textContent = data.actionText;
+      const cadEl = document.getElementById('sim-hud-cadence');
+      if (cadEl) cadEl.textContent = data.cadenceText;
+      const banEl = document.getElementById('sim-instructional-banner');
+      if (banEl) banEl.textContent = data.banner;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+
+      dispatchSimAction('setScenario', { scenario: scenNum });
+    }
+
+    function dispatchSimAction(action, payload = {}) {
+      const iframe = document.getElementById('sim-frame');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({
+          action: action,
+          type: action,
+          scenario: payload.scenario || activeSimScenario_L05T07,
+          ...payload
+        }, '*');
+      }
+    }
+
+    function toggleSimPause() {
+      simPaused_L05T07 = !simPaused_L05T07;
+      dispatchSimAction(simPaused_L05T07 ? 'pause' : 'play');
+      const icon = document.getElementById('sim-btn-play-icon');
+      const label = document.getElementById('sim-btn-play-label');
+      if (icon) icon.textContent = simPaused_L05T07 ? 'play_arrow' : 'pause';
+      if (label) label.textContent = simPaused_L05T07 ? 'RESUME' : 'PAUSE';
+    }
+
+    function resetSimPlayback() {
+      simPaused_L05T07 = false;
+      const icon = document.getElementById('sim-btn-play-icon');
+      const label = document.getElementById('sim-btn-play-label');
+      if (icon) icon.textContent = 'pause';
+      if (label) label.textContent = 'PAUSE';
+      dispatchSimAction('restart');
+      dispatchSimAction('setScenario', { scenario: activeSimScenario_L05T07 });
+    }
+
+    function openSimFullscreen() {
+      const container = document.getElementById('sim-viewport-container');
+      if (!container) return;
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    window.addEventListener('message', (event) => {
+      if (event.data && (event.data.type === 'simTelemetry' || event.data.event === 'telemetry')) {
+        const d = event.data;
+        if (d.status) {
+          const cadEl = document.getElementById('sim-hud-cadence');
+          if (cadEl) cadEl.textContent = d.status;
+        }
+      }
+    });
+
+    const l07SurfaceData = {
+      dry: {
+        txt: 'DRY ASPHALT: 229 FT TOTAL STOP // FULL ADHESION (1.0x BASELINE)',
+        dot: '#1F6F43',
+        btnClass: 'border-2 border-valid bg-valid/10 text-valid'
+      },
+      wet: {
+        txt: 'WET ROADWAY: 372 FT TOTAL STOP // BRAKING EXTENDS 2.2x',
+        dot: '#D97706',
+        btnClass: 'border-2 border-warning bg-warning/10 text-warning'
+      },
+      snow: {
+        txt: 'PACKED SNOW: 538 FT TOTAL STOP // BRAKING EXTENDS 3.6x',
+        dot: '#BA1A1A',
+        btnClass: 'border-2 border-hazard bg-hazard/10 text-hazard'
+      },
+      ice: {
+        txt: 'CAUTION: ELEVATED BRIDGES FREEZE FIRST (AIR CIRCULATES ABOVE & BELOW)',
+        dot: '#7C3AED',
+        btnClass: 'border-2 border-purple-600 bg-purple-50 text-purple-700'
+      }
+    };
+
+    function selectL07Surface(surf) {
+      l07State.surface = surf;
+      const d = l07SurfaceData[surf];
+      if (!d) return;
+
+      const dot = document.getElementById('l07-surf-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const txt = document.getElementById('l07-surf-txt');
+      if (txt) txt.textContent = d.txt;
+
+      ['dry', 'wet', 'snow', 'ice'].forEach(s => {
+        const btn = document.getElementById(`l07-btn-${s}`);
+        if (btn) {
+          if (s === surf) {
+            btn.className = `touch-target min-h-[48px] p-2 rounded-xl font-mono text-xs font-bold transition flex flex-col items-center justify-center ${d.btnClass}`;
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center';
+          }
+        }
+      });
+    }
+
+    // ==============================================================================
+    // KNOWLEDGE EVALUATION & ANTI-CHEATING MCQ SCORING ENGINE
+    // ==============================================================================
+    let currentScore = 0;
+    const answeredScenarios = {};
+
+        const mcqFeedback = {
+      1: {
+        correct: "<strong>&check; CORRECT (KINETIC ENERGY LAW):</strong> By physical law (KE = &frac12;mv&sup2;), kinetic energy scales with the square of velocity. When velocity doubles from 30 mph to 60 mph, the vehicle carries four times (4&times;) the kinetic energy, quadrupling braking distance from 43 feet to 171 feet on dry asphalt.",
+        incorrect: "<strong>&cross; INCORRECT (KINETIC ENERGY LAW):</strong> Braking distance does NOT scale linearly with speed. Because kinetic energy is proportional to velocity squared (v&sup2;), doubling speed from 30 mph to 60 mph quadruples stopping energy and braking distance (4&times;)."
+      },
+      2: {
+        correct: "<strong>&check; CORRECT (STATUTORY BENCHMARK):</strong> Official Texas Driver Handbook Chapter 5 mandates that under ideal conditions at 50 mph, perception-reaction latency accounts for 110 feet (1.5 seconds) and mechanical braking consumes 119 feet, requiring a non-negotiable total of 229 feet of clear road to halt.",
+        incorrect: "<strong>&cross; INCORRECT (STATUTORY BENCHMARK):</strong> According to the Texas Driver Handbook, total stopping distance at 50 mph on dry level pavement is 229 feet (110 ft thinking + 119 ft braking). 63 ft corresponds to 20 mph, 109 ft to 30 mph, and 387 ft to 70 mph."
+      },
+      3: {
+        correct: "<strong>&check; CORRECT (ABS TECHNIQUE):</strong> Anti-lock Braking Systems automatically pulse hydraulic caliper pressure 15 to 20 times per second to prevent wheel lockup. Drivers must 'Stomp, Stay, and Steer' without manually pumping the pedal, which drops hydraulic line pressure and extends stopping distance by 30% to 50%.",
+        incorrect: "<strong>&cross; INCORRECT (ABS TECHNIQUE):</strong> Never manually pump ABS brakes. Pumping releases line pressure and confuses wheel speed sensors. Drivers must stomp firmly on the pedal, stay pressed hard through vibrations, and steer calmly around obstacles."
+      }
+    };
+
+        const TOPIC_ID = 'L05-T07';
+    
+    const answered = { 1: false, 2: false, 3: false };
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "KINETIC ENERGY LAW",
+            "statutoryRationale": "By physical law (KE = ½mv²), kinetic energy scales with the square of velocity. When velocity doubles from 30 mph to 60 mph, the vehicle carries four times (4×) the kinetic energy, quadrupling braking distance from 43 feet to 171 feet on dry asphalt."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "STATUTORY BENCHMARK",
+            "statutoryRationale": "Official Texas Driver Handbook Chapter 5 mandates that under ideal conditions at 50 mph, perception-reaction latency accounts for 110 feet (1.5 seconds) and mechanical braking consumes 119 feet, requiring a non-negotiable total of 229 feet of clear road to halt."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "ABS TECHNIQUE",
+            "statutoryRationale": "Anti-lock Braking Systems automatically pulse hydraulic caliper pressure 15 to 20 times per second to prevent wheel lockup. Drivers must 'Stomp, Stay, and Steer' without manually pumping the pedal, which drops hydraulic line pressure and extends stopping distance by 30% to 50%."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // Initialize state on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      setL07Speed(50);
+      selectL07Step(1);
+      selectL07Surface('ice');
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

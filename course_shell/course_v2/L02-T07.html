@@ -287,6 +287,8 @@
       </div>
 
       <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
       <div id="sim-controls-dock" class="space-y-2 pt-1">
         <!-- Clean 1-Line Status Pill -->
         <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
@@ -305,7 +307,7 @@
           </button>
           <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
             class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
-            <span>DL-101</span>
+            <span>Dl-101</span>
           </button>
         </div>
 
@@ -1274,17 +1276,17 @@
       if (metricEl) metricEl.textContent = scen.metric;
       if (phaseEl) phaseEl.textContent = scen.phase;
 
-      for (let i = 1; i <= 3; i++) {
-        const btn = document.getElementById('sim-tab-scen' + i) || document.getElementById('btn-scenario-' + i);
-        if (btn) {
-          const activeId = (typeof scenNum !== 'undefined') ? scenNum : ((typeof scId !== 'undefined') ? scId : 1);
-          if (i === activeId) {
-            btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
-          } else {
-            btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
-          }
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
         }
-      }
+      });
     }
 
     function openSimFullscreen() {

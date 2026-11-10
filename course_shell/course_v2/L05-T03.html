@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Appropriate Communication &amp; Signaling — Texas Adult Driver Ed (L05-T03)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Design System Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Global Base Styles & Utility Classes -->
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target, button, a {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 48px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    a.touch-target {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseBlinker {
+      0%, 100% { opacity: 0.95; }
+      50% { opacity: 0.15; }
+    }
+    .animate-blinker {
+      animation: pulseBlinker 0.65s ease-in-out infinite;
+    }
+    .pulse-ring {
+      animation: pulseBlinker 1.1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS (STICKY) -->
+    
+
+    <!-- 02. LESSON TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-safety/10 text-safety border border-safety/30 px-2 py-0.5 rounded">TTC &sect; 545.104</span>
+        <span class="bg-surface-sub text-slate border border-hairline px-2 py-0.5 rounded">TTC &sect; 545.107</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 18 MIN READ</span>
+      </div>
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Appropriate Communication &amp; Signaling: The 100-Ft Rule, Hand Signals &amp; Hazard Lights
+      </h2>
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Master statutory communication requirements under Texas Transportation Code &sect;&sect; 545.104, 545.105, 545.106, 545.107, and 547.501. Explore the mandatory 100-foot continuous advance signaling rule, the temporal physics of driver reaction latency, the three codified Texas hand-and-arm gestures for electrical failures, authorized hazard flasher restrictions, and legal horn jurisprudence.
+      </p>
+    </section>
+
+    <!-- 03. 3D DRIVING SIMULATION: COMPLETE UI SEPARATION (PHONE-FIRST 360px-430px) -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <!-- Tier 1: Scenario Header (Off & Above Viewport) -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-bold text-carbon uppercase tracking-wider">3D DRIVING SIMULATION // EMBEDDED WEBGL</span>
+        </div>
+        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-sub text-safety-deep border border-hairline">
+          TTC § 545.104 • ADE-1317
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">100-Ft Continuous Signal Roadway Laser Caliper</h2>
+        <p class="text-xs text-slate mt-0.5">Statutory 100-foot advance signaling requirement before turning or changing lanes (TTC § 545.104).</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L05_T03_turn_signals_and_passing.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">APPROACHING 100-FT CALIPER // SIGNAL ACTIVE</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>100-Ft Caliper</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>60 Mph</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Hazard Demo</span>
+          </button>
+        </div>
+
+        <!-- 3D. Scenario Educational Narrative Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span id="sim-card-badge" class="font-mono text-[10px] font-bold text-safety uppercase">STATUTORY MANDATE 01 // 100-FOOT ADVANCE SIGNAL</span>
+            <span id="sim-card-statute" class="font-mono text-[10px] text-slate bg-white px-1.5 py-0.5 rounded border border-hairline">TTC § 545.104(b)</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-xs text-carbon">Mandatory 100-Foot Continuous Signal Before Turn or Lane Change</h4>
+          <p id="sim-card-desc" class="font-sans text-xs text-slate leading-relaxed">
+            Texas law commands continuous turn signal activation for at least 100 feet before initiating any turn or lateral movement. Trailing vehicles recognize intent and cooperatively yield.
+          </p>
+          <div class="pt-1 border-t border-hairline flex items-center justify-between text-[10px] font-mono">
+            <span class="text-slate uppercase">LEGAL STATUS:</span>
+            <span id="sim-card-metric" class="font-bold text-valid">100-FT COMPLIANT // COOPERATIVE GAP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. TEXTBOOK PROSE 1: THE 100-FOOT ADVANCE SIGNALING MANDATE -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">settings_input_antenna</span>
+        <span class="font-bold text-carbon">STATUTORY MANDATE &bull; TTC &sect; 545.104</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        The Physics &amp; Legal Duty of Continuous Advance Signaling
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Under <strong>Texas Transportation Code &sect; 545.104(b)</strong>, an operator intending to turn right or left <em>shall signal continuously for not less than the last 100 feet</em> of vehicle movement immediately before the turn. Signaling as you steer into the intersection, or tapping the blinker after initiating a lateral maneuver, constitutes an explicit statutory moving violation.
+      </p>
+
+      <!-- Speed vs Time Table -->
+      <div class="bg-surface-sub p-3 rounded-xl border border-hairline space-y-2">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">
+          SPEED VS 100-FOOT TRANSIT TIME (HUMAN LATENCY THRESHOLD)
+        </span>
+        <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">30 MPH (44.0 FT/S)</span>
+            <span class="font-bold text-valid">2.27 SECONDS</span>
+            <span class="text-[9px] text-slate block mt-0.5">Adequate human reaction window</span>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">45 MPH (66.0 FT/S)</span>
+            <span class="font-bold text-safety">1.52 SECONDS</span>
+            <span class="text-[9px] text-slate block mt-0.5">Marginal reaction buffer</span>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">55 MPH (80.7 FT/S)</span>
+            <span class="font-bold text-hazard">1.24 SECONDS</span>
+            <span class="text-[9px] text-slate block mt-0.5">Below average 1.5s reaction latency</span>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">70 MPH (102.7 FT/S)</span>
+            <span class="font-bold text-hazard">0.97 SECONDS</span>
+            <span class="text-[9px] text-slate block mt-0.5">Severe collision compression zone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-1.5 text-xs text-slate leading-relaxed">
+        <p>
+          <strong>The "False Intent" Trap:</strong> Activating your turn signal prematurely before passing an intermediate driveway or intersection misleads cross-traffic into believing you are turning prior to their position. Always pass all preceding driveways before engaging your 100-foot continuous blinker.
+        </p>
+        <p>
+          <strong>Immediate Signal Cancellation (TTC &sect; 545.104(c)):</strong> An operator shall terminate the signal immediately after completing the maneuver. Leaving a blinker flashing induces following and opposing drivers into disastrous false-intent right-of-way assumptions.
+        </p>
+        <p>
+          <strong>Early Turn Lane Entry (DPS Handbook Ch. 6):</strong> On multi-lane thoroughfares, drivers must position themselves into the designated turn lane at least <em>one-half block early</em> (~150 to 200 feet). If you cannot safely reach the turn lane by this distance, you are legally obligated to proceed straight and circle the block rather than executing a hazardous last-second cut across active lanes.
+        </p>
+      </div>
+
+      <!-- Case Study 1: The False Intent Collision -->
+      <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200/80 space-y-1.5 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">car_crash</span>
+          <span>CASE STUDY: THE FALSE-INTENT T-BONE COLLISION (WESTHEIMER RD, HOUSTON)</span>
+        </div>
+        <p class="text-slate leading-relaxed">
+          Driver A is cruising at 40 mph on an urban arterial intending to turn right at a signalized intersection 300 feet ahead. Driver A engages the right turn blinker 250 feet early. However, an un-signalized shopping center driveway sits 120 feet before the intersection. Driver B, waiting to turn left out of the shopping center driveway, observes Driver A's right turn signal, assumes Driver A is turning into the shopping plaza, and accelerates into the travel lane. Driver A continues straight toward the intersection and broadsides Driver B at 38 mph.
+        </p>
+        <p class="text-slate leading-relaxed font-semibold">
+          <em>Legal Finding:</em> Under Texas comparative fault doctrine (Texas Civil Practice &amp; Remedies Code &sect; 33.001), while Driver B failed to yield right-of-way, Driver A's premature false-intent signal contributed directly to the crash causation, barring full recovery and establishing contributory negligence.
+        </p>
+      </div>
+    </article>
+
+    <!-- 05. SUBAGENT DELIVERED WIDGET 1: 100-FOOT SIGNAL DISTANCE CALIPER -->
+    <section class="bg-white border border-hairline rounded-2xl p-3.5 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <!-- Section Header & Technical Badge -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>CALIPER CAD // TTC § 545.104</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          100-FT CONTINUOUS
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">INTERACTIVE CAD 01</span>
+        <h3 class="font-sans font-bold text-base text-carbon leading-tight">100-Foot Turn Signal Distance Caliper &amp; Lane Entry Simulator</h3>
+        <p class="font-sans text-xs text-slate mt-0.5">
+          Tap distance nodes along the approach corridor or select control tabs below to inspect statutory signaling points, braking zones, and apex trajectory.
+        </p>
+      </div>
+
+      <!-- SVG Canvas 1: 340 x 220 Phone Optimized -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex items-center justify-center">
+        <svg id="caliper-canvas" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="amber-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#E87522" stop-opacity="0.95" />
+              <stop offset="60%" stop-color="#E87522" stop-opacity="0.4" />
+              <stop offset="100%" stop-color="#E87522" stop-opacity="0.0" />
+            </radialGradient>
+            <filter id="veh-drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.5"/>
+            </filter>
+          </defs>
+
+          <!-- Outer CAD Blueprint Roadway Frame -->
+          <rect x="2" y="2" width="336" height="216" rx="8" fill="#141816" stroke="#252D28" stroke-width="1.5" />
+
+          <!-- Technical Header Marks -->
+          <text x="12" y="16" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill="#E87522" letter-spacing="1">STATUTORY CALIPER // TTC § 545.104</text>
+          <text x="328" y="16" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="600" fill="#5A605C" text-anchor="end">100-FT CONTINUOUS BROADCAST</text>
+
+          <!-- North-South Through Street (x: 55 to 190, y: 24 to 214) -->
+          <rect x="55" y="24" width="135" height="190" fill="#1A201C" />
+          <!-- East-West Intersecting Cross Street at Top (y: 24 to 74) -->
+          <rect x="55" y="24" width="275" height="50" fill="#1A201C" />
+
+          <!-- Road Curbs & Turning Radius Corner -->
+          <path d="M 55 74 L 190 74 L 190 214" fill="none" stroke="#5A605C" stroke-width="2" />
+          <path d="M 190 74 Q 212 74 212 52" fill="none" stroke="#FFFFFF" stroke-width="2" />
+
+          <!-- Double Solid Yellow Centerline (North-South) -->
+          <line x1="120" y1="74" x2="120" y2="214" stroke="#F1C40F" stroke-width="1.8" />
+          <line x1="123" y1="74" x2="123" y2="214" stroke="#F1C40F" stroke-width="1.8" />
+
+          <!-- White Transverse Stop Line at Intersection (y=74) -->
+          <line x1="123" y1="74" x2="190" y2="74" stroke="#FFFFFF" stroke-width="3" />
+
+          <!-- ======================================================= -->
+          <!-- CALIBRATED STATUTORY DISTANCE CALIPER RULER (RIGHT SIDE)-->
+          <!-- 0 FT (y=74), 50 FT (y=114), 100 FT (y=154), 200 FT (y=204) -->
+          <!-- ======================================================= -->
+          <line x1="205" y1="74" x2="205" y2="204" stroke="#5A605C" stroke-width="1.5" />
+
+          <!-- 0 FT Mark (Intersection Curb Apex) -->
+          <line x1="200" y1="74" x2="215" y2="74" stroke="#FFFFFF" stroke-width="2" />
+          <text x="220" y="77" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#FFFFFF">0 FT (APEX)</text>
+
+          <!-- 50 FT Mark (Deceleration Threshold) -->
+          <line x1="200" y1="114" x2="212" y2="114" stroke="#FFA048" stroke-width="1.5" />
+          <text x="220" y="117" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="600" fill="#FFA048">50 FT (BRAKE)</text>
+
+          <!-- 100 FT Mark (CRITICAL STATUTORY MANDATE) -->
+          <line x1="123" y1="154" x2="215" y2="154" stroke="#E87522" stroke-width="2" stroke-dasharray="4 2" />
+          <rect x="220" y="146" width="108" height="16" rx="3" fill="#141816" stroke="#E87522" stroke-width="1" />
+          <text x="274" y="157" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#FFA048" text-anchor="middle">★ 100 FT (SIGNAL ON)</text>
+
+          <!-- 200 FT Mark (Lane Entry & Mirror Scan) -->
+          <line x1="200" y1="204" x2="212" y2="204" stroke="#5A605C" stroke-width="1.5" />
+          <text x="220" y="207" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="600" fill="#CBD5E1">200 FT (SCAN)</text>
+
+          <!-- Moving Subject Vehicle with Dynamic Blinker Light -->
+          <g id="caliper-car" transform="translate(148, 140)" filter="url(#veh-drop-shadow)">
+            <!-- Amber Blinking Beacon (Active at <= 100 FT) -->
+            <circle id="blinker-right" cx="24" cy="4" r="6" fill="#F1C40F" opacity="0.9" class="animate-pulse" />
+            <!-- Vehicle Body (Traveling North, turning East) -->
+            <rect x="0" y="0" width="24" height="34" rx="4" fill="#0077C8" stroke="#FFFFFF" stroke-width="1.2" />
+            <rect x="3" y="6" width="18" height="6" rx="1.5" fill="#E0F2FE" />
+            <rect x="4" y="24" width="16" height="4" rx="1" fill="#94A3B8" />
+            <circle cx="4" cy="2" r="1.5" fill="#FEF08A" />
+            <circle cx="20" cy="2" r="1.5" fill="#FEF08A" />
+            <text x="12" y="18" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FFFFFF" text-anchor="middle">YOU</text>
+          </g>
+
+          <!-- Turn Trajectory Arc into Cross Street -->
+          <path id="trajectory-turn" d="M 160 140 L 160 74 Q 160 48 240 48" fill="none" stroke="#F1C40F" stroke-width="2.2" stroke-dasharray="6 4" opacity="0.6" />
+        </svg>
+      </div>
+
+      <!-- Synced Control Tabs (Guaranteed Touch Target min-h-[48px]) -->
+      <div class="grid grid-cols-4 gap-1 pt-1">
+        <button id="btn-cal-1" onclick="setCaliperStep(1)" class="touch-target min-h-[48px] p-1.5 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-slate">1. 200 FT</span>
+          <span class="text-[7px] font-mono text-slate truncate">Scan &amp; Lane</span>
+        </button>
+        <button id="btn-cal-2" onclick="setCaliperStep(2)" class="touch-target min-h-[48px] p-1.5 rounded-xl border-2 border-safety bg-safety-light text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-safety">2. 100 FT</span>
+          <span class="text-[7px] font-mono text-slate truncate">Signal ON ★</span>
+        </button>
+        <button id="btn-cal-3" onclick="setCaliperStep(3)" class="touch-target min-h-[48px] p-1.5 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-slate">3. 50 FT</span>
+          <span class="text-[7px] font-mono text-slate truncate">Brake 12 MPH</span>
+        </button>
+        <button id="btn-cal-4" onclick="setCaliperStep(4)" class="touch-target min-h-[48px] p-1.5 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-slate">4. 0 FT</span>
+          <span class="text-[7px] font-mono text-slate truncate">Apex Turn</span>
+        </button>
+      </div>
+
+      <!-- Reactive Detailed Telemetry Panel -->
+      <div id="caliper-detail-card" class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between border-b border-hairline pb-1.5">
+          <span id="cal-card-badge" class="font-mono text-[10px] font-bold text-safety uppercase">MANDATORY SIGNAL POINT</span>
+          <span id="cal-card-statute" class="font-mono text-[10px] text-slate bg-white px-1.5 py-0.5 rounded border border-hairline">TTC § 545.104(b)</span>
+        </div>
+        <h4 id="cal-card-title" class="font-sans font-bold text-xs text-carbon">100 Feet Prior: Continuous Blinker Activation</h4>
+        <p id="cal-card-desc" class="font-sans text-xs text-slate leading-relaxed">
+          Texas Transportation Code § 545.104(b) explicitly commands continuous signal broadcast for not less than the last 100 feet. At 30 MPH, 100 ft is covered in ~2.3 seconds. Tapping the signal too late blinds trailing motorists.
+        </p>
+        <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">SIGNAL STATUS</span>
+            <span id="cal-card-m1" class="font-bold text-safety">ACTIVE (FLASHING AMBER)</span>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">LEGAL DUTY</span>
+            <span id="cal-card-m2" class="font-bold text-valid">MANDATORY &ge; 100 FT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. TEXTBOOK PROSE 2: TEXAS HAND SIGNALS & HAZARD FLASHERS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">front_hand</span>
+        <span class="font-bold text-carbon">MANUAL SIGNALS &bull; TTC &sect; 545.107</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Official Texas Hand &amp; Arm Gestures &amp; Hazard Flashers
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        When a motor vehicle's electrical signal lamps are inoperative, obscured by dirt, or washed out by glaring direct sunlight, <strong>Texas Transportation Code &sect; 545.107</strong> mandates that the driver communicate intended maneuvers using standardized hand-and-arm gestures from the driver's window:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-safety block uppercase">LEFT TURN (180&deg;)</span>
+          <p class="text-[11px] text-slate mt-1">Arm and hand extended straight horizontally beyond the window sill.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-valid block uppercase">RIGHT TURN (90&deg; UP)</span>
+          <p class="text-[11px] text-slate mt-1">Arm and hand extended upward at a right angle with open palm facing forward.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-hazard block uppercase">STOP / SLOW (90&deg; DOWN)</span>
+          <p class="text-[11px] text-slate mt-1">Arm and hand extended downward at a right angle with palm facing rearward.</p>
+        </div>
+      </div>
+
+      <!-- Deceleration Cue & Mechanical Lamps Codex -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">lightbulb</span>
+          <span>MECHANICAL LAMP MANDATES &amp; BRAKE LIGHT PULSING</span>
+        </div>
+        <ul class="space-y-1.5 text-slate leading-snug">
+          <li>&bull; <strong>Mandatory Mechanical Signal Lamps (TTC &sect; 545.106):</strong> Hand signals are legally prohibited and mechanical electric turn lamps are required if the distance from the steering post center to the left outside body edge exceeds <strong>24 inches (2 feet)</strong>, or if the distance from the steering post to the rear limit of the vehicle body/load exceeds <strong>14 feet</strong>.</li>
+          <li>&bull; <strong>Brake Light Pulsing / Deceleration Cue (TTC &sect; 545.105):</strong> An operator shall not stop or suddenly decrease vehicle speed without first giving an appropriate signal. Tapping the brake pedal 2 to 3 times before applying full stopping pressure flashes the brake lamps, alerting trailing drivers before significant deceleration occurs.</li>
+        </ul>
+      </div>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">warning</span>
+          <span>EMERGENCY HAZARD FLASHER RESTRICTIONS (TTC &sect; 547.501)</span>
+        </div>
+        <p class="text-slate leading-relaxed">
+          Four-way hazard flashers are legally restricted to vehicles that are disabled, stopped on the roadway or shoulder, or operating in an authorized emergency convoy/funeral procession. <strong>Cruising in ordinary rain with hazard flashers illuminated is unlawful in Texas</strong> because it overrides turn blinkers, masks brake lights, and creates severe cognitive confusion for trailing motorists.
+        </p>
+      </div>
+
+      <!-- Emergency Roadside Breakdown Staging Procedure -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">build</span>
+          <span>EMERGENCY ROADSIDE BREAKDOWN STAGING PROTOCOL</span>
+        </div>
+        <ol class="list-decimal list-inside space-y-1.5 text-slate leading-relaxed">
+          <li><strong>Steer Completely Off Pavement:</strong> Pull as far onto the paved right shoulder as safely possible, ensuring the entire vehicle body clears the active travel lane by at least 3 feet.</li>
+          <li><strong>Activate 4-Way Hazard Lamps (TTC &sect; 547.501):</strong> Immediately engage the hazard flasher switch to alert oncoming and trailing traffic from all directions.</li>
+          <li><strong>Triangular Reflective Warning Setup (TTC &sect; 547.502):</strong> Place warning markers/flares at three calibrated distances behind the disabled vehicle:
+            <ul class="list-disc list-inside pl-4 pt-1 space-y-0.5 font-mono text-[10px]">
+              <li>Marker 1: 10 feet directly behind the vehicle on the traffic side.</li>
+              <li>Marker 2: 100 feet behind the vehicle centered on the shoulder.</li>
+              <li>Marker 3: 200 to 300 feet behind the vehicle to warn high-speed highway traffic before crests or curves.</li>
+            </ul>
+          </li>
+          <li><strong>Occupant Safety Protocol:</strong> If on a high-speed interstate or during darkness, occupants must remain inside the vehicle with seatbelts securely fastened, or step behind the roadside metal guardrail barrier if safe to do so.</li>
+        </ol>
+      </div>
+
+      <div class="p-3 bg-red-50/50 rounded-xl border border-red-200 text-xs text-slate leading-relaxed">
+        <strong class="text-hazard font-bold font-mono">TEXAS HORN JURISPRUDENCE (TTC &sect; 547.501):</strong>
+        Every motor vehicle must have a horn audible from at least <strong>200 feet</strong> under normal conditions. Texas law commands that a driver shall sound the horn <em>only when reasonably necessary to ensure safe operation</em> (preventing an immediate collision). Sounding the horn out of anger, road rage, or to vent frustration at traffic delays is prohibited.
+      </div>
+    </article>
+
+    <!-- 07. SUBAGENT DELIVERED WIDGET 2: HAND SIGNALS & HAZARD FLASHER HUD -->
+    <section class="bg-white border border-hairline rounded-2xl p-3.5 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <!-- Section Header & Technical Badge -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>COMMUNICATION HUD // TTC § 545.107</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          MANUAL &amp; HAZARD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">INTERACTIVE CAD 02</span>
+        <h3 class="font-sans font-bold text-base text-carbon leading-tight">Texas Hand &amp; Arm Signals + Emergency Hazard Flasher HUD</h3>
+        <p class="font-sans text-xs text-slate mt-0.5">
+          Toggle the 3 Texas hand signals to verify statutory arm angles (TTC § 545.107) and inspect legal emergency 4-way flasher restrictions (TTC § 547.501).
+        </p>
+      </div>
+
+      <!-- SVG Canvas 2: 340 x 180 Phone Optimized -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex items-center justify-center">
+        <svg id="hand-hazard-canvas" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dark HUD Blueprint Surface -->
+          <rect x="2" y="2" width="336" height="176" rx="8" fill="#141816" stroke="#252D28" stroke-width="1.5" />
+
+          <!-- Technical Header Marks -->
+          <text x="12" y="16" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill="#E87522" letter-spacing="1">COMMUNICATION HUD // TTC § 545.107 &amp; § 547.501</text>
+          <text x="328" y="16" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="600" fill="#5A605C" text-anchor="end">MANUAL &amp; HAZARD BROADCAST</text>
+
+          <!-- LEFT HALF: DRIVER WINDOW & ARTICULATED ARM (x: 10 to 175) -->
+          <rect x="10" y="26" width="165" height="142" rx="6" fill="#1A201C" stroke="#2B352E" stroke-width="1" />
+          <text x="20" y="40" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#E87522">DRIVER WINDOW SIGHTLINE</text>
+
+          <!-- Car Door Silhouette & Window Opening -->
+          <rect x="20" y="50" width="145" height="106" rx="4" fill="#141816" stroke="#5A605C" stroke-width="1.2" />
+          <!-- Window Glass Frame -->
+          <rect x="30" y="56" width="125" height="60" rx="3" fill="#25302A" stroke="#38453E" stroke-width="1" />
+
+          <!-- Driver Torso Silhouette -->
+          <circle cx="110" cy="85" r="14" fill="#475569" stroke="#94A3B8" stroke-width="1" />
+          <path d="M 95 116 C 95 98, 125 98, 125 116 Z" fill="#334155" />
+
+          <!-- ARTICULATED DRIVER LEFT ARM -->
+          <!-- Shoulder Pivot at (95, 88), Upper Arm Horizontal to (62, 88) -->
+          <line x1="95" y1="88" x2="62" y2="88" stroke="#F6AD55" stroke-width="6" stroke-linecap="round" />
+
+          <!-- Forearm Dynamic Vector (Toggled between Horizontal, Up 90°, Down 90°) -->
+          <g id="dynamic-forearm">
+            <!-- Default: Left Turn (Horizontal 180°) -->
+            <line id="forearm-line" x1="62" y1="88" x2="28" y2="88" stroke="#F6AD55" stroke-width="5" stroke-linecap="round" />
+            <circle id="hand-palm" cx="24" cy="88" r="4.5" fill="#ED8936" />
+          </g>
+
+          <!-- Visual Gesture Angle Caliper Label -->
+          <rect id="badge-arm-angle" x="25" y="125" width="135" height="18" rx="3" fill="#0A0D0C" stroke="#F6AD55" stroke-width="0.8" />
+          <text id="txt-arm-gesture" x="92.5" y="137" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#FFA048" text-anchor="middle">HORIZONTAL 180° = LEFT TURN</text>
+
+          <!-- RIGHT HALF: 4-WAY EMERGENCY HAZARD FLASHER HUD (x: 180 to 330) -->
+          <rect x="180" y="26" width="150" height="142" rx="6" fill="#1A201C" stroke="#2B352E" stroke-width="1" />
+          <text x="190" y="40" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#E87522">4-WAY HAZARDS</text>
+
+          <!-- Top-Down Car Silhouette with 4 Flashing Amber Lamps -->
+          <g transform="translate(230, 48)">
+            <rect x="0" y="0" width="48" height="74" rx="7" fill="#1E293B" stroke="#64748B" stroke-width="1.5" />
+            <rect x="6" y="16" width="36" height="14" rx="2" fill="#334155" />
+            <rect x="8" y="50" width="32" height="10" rx="2" fill="#334155" />
+
+            <!-- 4 Hazard Lights (controlled via JS opacity) -->
+            <circle id="flasher-fl" cx="5" cy="5" r="5" fill="#F1C40F" opacity="0.2" class="animate-pulse" />
+            <circle id="flasher-fr" cx="43" cy="5" r="5" fill="#F1C40F" opacity="0.2" class="animate-pulse" />
+            <circle id="flasher-rl" cx="5" cy="69" r="5" fill="#F1C40F" opacity="0.2" class="animate-pulse" />
+            <circle id="flasher-rr" cx="43" cy="69" r="5" fill="#F1C40F" opacity="0.2" class="animate-pulse" />
+
+            <!-- Hazard Warning Triangle Glyph -->
+            <polygon points="24,30 16,44 32,44" fill="#BA1A1A" stroke="#FFFFFF" stroke-width="1" />
+            <text x="24" y="42" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="900" fill="#FFFFFF" text-anchor="middle">!</text>
+          </g>
+
+          <rect id="badge-hazard-panel" x="190" y="132" width="130" height="24" rx="3" fill="#0A0D0C" stroke="#BA1A1A" stroke-width="1" />
+          <text id="txt-hazard-rule" x="255" y="143" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FF5C5C" text-anchor="middle">DISABLED VEHICLE ONLY</text>
+          <text x="255" y="152" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="600" fill="#CBD5E1" text-anchor="middle">ILLEGAL WHILE CRUISING IN RAIN</text>
+        </svg>
+      </div>
+
+      <!-- Synced Control Tabs (Guaranteed Touch Target min-h-[48px]) -->
+      <div class="grid grid-cols-4 gap-1 pt-1">
+        <button id="btn-sig-1" onclick="setSignalMode(1)" class="touch-target min-h-[48px] p-1.5 rounded-xl border-2 border-safety bg-safety-light text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-safety">1. LEFT TURN</span>
+          <span class="text-[7px] font-mono text-slate truncate">180° Horizontal</span>
+        </button>
+        <button id="btn-sig-2" onclick="setSignalMode(2)" class="touch-target min-h-[48px] p-1.5 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-slate">2. RIGHT TURN</span>
+          <span class="text-[7px] font-mono text-slate truncate">90° Upward</span>
+        </button>
+        <button id="btn-sig-3" onclick="setSignalMode(3)" class="touch-target min-h-[48px] p-1.5 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-slate">3. STOP/SLOW</span>
+          <span class="text-[7px] font-mono text-slate truncate">90° Downward</span>
+        </button>
+        <button id="btn-sig-4" onclick="setSignalMode(4)" class="touch-target min-h-[48px] p-1.5 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <span class="font-mono text-[8px] font-bold text-slate">4. HAZARDS</span>
+          <span class="text-[7px] font-mono text-slate truncate">Emergency Only</span>
+        </button>
+      </div>
+
+      <!-- Reactive Detailed Telemetry Panel -->
+      <div id="signal-detail-card" class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between border-b border-hairline pb-1.5">
+          <span id="sig-card-badge" class="font-mono text-[10px] font-bold text-safety uppercase">MANUAL HAND SIGNAL: LEFT TURN</span>
+          <span id="sig-card-statute" class="font-mono text-[10px] text-slate bg-white px-1.5 py-0.5 rounded border border-hairline">TTC § 545.107(1)</span>
+        </div>
+        <h4 id="sig-card-title" class="font-sans font-bold text-xs text-carbon">Left Arm Fully Extended Horizontally (180°)</h4>
+        <p id="sig-card-desc" class="font-sans text-xs text-slate leading-relaxed">
+          Extend driver's left hand and arm horizontally out the window. This universal visual broadcast is required when electric signals fail or when glare obscures amber lamps. Clear, rigid posture prevents trailing confusion.
+        </p>
+        <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">GESTURE ANGLE</span>
+            <span id="sig-card-m1" class="font-bold text-safety">HORIZONTAL (180°)</span>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">STATUTORY DUTY</span>
+            <span id="sig-card-m2" class="font-bold text-valid">MANDATORY IF LAMPS FAIL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. TEXTBOOK PROSE 3: SAFE LANE CHANGING & MERGING -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">swap_horiz</span>
+        <span class="font-bold text-carbon">LANE CHANGING &bull; TTC &sect; 545.060</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Signaling Indicates Intent ONLY &mdash; Never Right-of-Way
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        A fundamental tenet of Texas traffic law: <strong>activating a turn signal does not grant right-of-way</strong>. Under <strong>TTC &sect; 545.060</strong>, an operator on a roadway divided into lanes shall drive as nearly as practical entirely within a single lane and <em>may not move from the lane unless that movement can be made safely</em>.
+      </p>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">visibility</span>
+          <span>THE 4-STEP S.M.O.G. LANE CHANGE PROTOCOL</span>
+        </div>
+        <ul class="space-y-1.5 text-slate leading-snug">
+          <li>&bull; <strong>S &mdash; Signal:</strong> Broadcast intention continuously for at least 100 feet prior to moving laterally.</li>
+          <li>&bull; <strong>M &mdash; Mirrors:</strong> Check rearview mirror for trailing vehicles and side exterior mirror for adjacent lane clearance.</li>
+          <li>&bull; <strong>O &mdash; Over-the-Shoulder Check:</strong> Perform a mandatory 90-degree chin-to-shoulder head check to inspect the B-pillar optical blind spot.</li>
+          <li>&bull; <strong>G &mdash; Go Smoothly:</strong> Glide smoothly across the lane line into the target lane without sudden brake taps or hesitation, maintaining flow velocity. Cancel signal immediately upon arrival.</li>
+        </ul>
+      </div>
+
+      <!-- Statutory Penalty & Violation Schedule Table -->
+      <div class="bg-surface-sub p-3 rounded-xl border border-hairline space-y-2">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">
+          TEXAS STATUTORY CITATION &amp; PENALTY CODEX
+        </span>
+        <div class="space-y-1.5 text-xs font-mono">
+          <div class="bg-white p-2 rounded-lg border border-hairline flex items-center justify-between">
+            <div>
+              <span class="font-bold text-carbon block">TTC &sect; 545.104</span>
+              <span class="text-[9px] text-slate">Failure to signal turn &ge; 100 ft continuously</span>
+            </div>
+            <span class="font-bold text-hazard text-[10px] bg-hazard/10 px-2 py-0.5 rounded border border-hazard/30">CLASS C // $165-$250</span>
+          </div>
+
+          <div class="bg-white p-2 rounded-lg border border-hairline flex items-center justify-between">
+            <div>
+              <span class="font-bold text-carbon block">TTC &sect; 545.104(c)</span>
+              <span class="text-[9px] text-slate">Failure to cancel turn signal post-maneuver</span>
+            </div>
+            <span class="font-bold text-hazard text-[10px] bg-hazard/10 px-2 py-0.5 rounded border border-hazard/30">FALSE-INTENT CITATION</span>
+          </div>
+
+          <div class="bg-white p-2 rounded-lg border border-hairline flex items-center justify-between">
+            <div>
+              <span class="font-bold text-carbon block">TTC &sect; 545.105</span>
+              <span class="text-[9px] text-slate">Unsignaled sudden stop or speed decrease</span>
+            </div>
+            <span class="font-bold text-hazard text-[10px] bg-hazard/10 px-2 py-0.5 rounded border border-hazard/30">CLASS C // REAR-END CRASH</span>
+          </div>
+
+          <div class="bg-white p-2 rounded-lg border border-hairline flex items-center justify-between">
+            <div>
+              <span class="font-bold text-carbon block">TTC &sect; 547.501</span>
+              <span class="text-[9px] text-slate">Cruising with hazard flashers in rain</span>
+            </div>
+            <span class="font-bold text-hazard text-[10px] bg-hazard/10 px-2 py-0.5 rounded border border-hazard/30">PROHIBITED USE // $200</span>
+          </div>
+
+          <div class="bg-white p-2 rounded-lg border border-hairline flex items-center justify-between">
+            <div>
+              <span class="font-bold text-carbon block">TTC &sect; 545.060</span>
+              <span class="text-[9px] text-slate">Unsafe lane departure / sideswipe incursion</span>
+            </div>
+            <span class="font-bold text-hazard text-[10px] bg-hazard/10 px-2 py-0.5 rounded border border-hazard/30">CLASS C // 2 DRIVER PTS</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        <strong>Passing Clearance (TTC &sect; 545.054):</strong> When overtaking on the left, an operator must return to the authorized lane before coming within <strong>200 feet</strong> of an oncoming vehicle.
+      </p>
+    </article>
+
+    <!-- 09. THREE STRICT VERIFICATION MCQS -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-valid text-sm">quiz</span>
+          <span class="font-bold text-carbon">STATUTORY VERIFICATION AUDIT</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">
+          3 MANDATORY CHECKS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T03 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- MCQ 1: Option B MUST BE STRICTLY CORRECT -->
+      <div class="space-y-2.5" id="mcq-container-1">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 01 // TURN SIGNAL ADVANCE DISTANCE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 545.104, when is a driver required to activate their turn signal prior to executing a turn?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] At least 50 feet prior to starting the turn.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Continuously for not less than the last 100 feet of movement of the vehicle before the turn (TTC &sect; 545.104(b)).</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Only when other vehicles are visibly trailing within 200 feet.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Immediately upon entering the intersection turning radius.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 2: Option B CORRECT -->
+      <div class="space-y-2.5" id="mcq-container-2">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 02 // HAND AND ARM SIGNALS</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Your vehicle's electrical turn signal lamps suddenly fail while driving in bright daylight. How must you signal an intended right turn under Texas Transportation Code &sect; 545.107?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Extend your left arm straight out horizontally through the driver's window.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Extend your left arm through the window and bend it upward at a 90-degree angle with palm facing forward (TTC &sect; 545.107(2)).</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Extend your left arm downward at a 90-degree angle toward the pavement.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Wave your left arm back and forth rapidly above the vehicle roof.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 3: Option C CORRECT -->
+      <div class="space-y-2.5" id="mcq-container-3">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 03 // EMERGENCY HAZARD LAMPS &amp; HORNS</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          When are Texas drivers legally permitted to illuminate their emergency 4-way hazard flashers under Texas Transportation Code &sect; 547.501?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] While driving below the speed limit on a freeway during heavy rainfall to alert trailing drivers.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Whenever parking illegally in a designated loading or fire zone for less than five minutes.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] When the vehicle is stopped or disabled on the roadway/shoulder, or during an authorized emergency convoy or funeral procession (TTC &sect; 547.501).</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] To signal to oncoming traffic that a law enforcement vehicle is conducting speed enforcement ahead.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 10. NEXT LESSON NAVIGATION FOOTER -->
+    <footer class="pt-2 pb-6 space-y-3">
+      <div class="flex items-center justify-between gap-3">
+        <a href="L05-T02.html" class="touch-target flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-white border border-hairline hover:bg-surface-sub text-xs font-bold text-carbon transition" style="min-height: 48px;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREVIOUS TOPIC</span>
+        </a>
+        <a href="L05-T04.html" class="touch-target flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-safety text-white hover:bg-safety-deep text-xs font-bold transition shadow-sm" style="min-height: 48px;">
+          <span>NEXT: MANEUVERS &amp; PARKING</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 03
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE: MCQS & INTERACTIVE SVGS -->
+  <script>
+    // =========================================================================
+    // 1. DYNAMIC MCQ STATE ENGINE & ANTI-CHEAT LOCKOUT
+    // =========================================================================
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+    
+    // Q1 MUST BE 'B' (Incrementing score to SCORE: 1 / 3)
+                const TOPIC_ID = 'L05-T03';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.104(b) SIGNALING TURNS",
+            "statutoryRationale": "Texas Transportation Code § 545.104(b) commands that an operator intending to turn right or left shall signal continuously for not less than the last 100 feet before the turn. Signaling must be terminated immediately after completing the maneuver."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TTC § 545.107(2) HAND AND ARM SIGNALS",
+            "statutoryRationale": "Under Texas Transportation Code § 545.107(2), a right turn is signaled manually by extending the left hand and arm upward at a 90-degree angle. An arm extended straight horizontally indicates a left turn, while bending downward at 90° indicates stop or slow."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 547.501 AUDIBLE & HAZARD DEVICES",
+            "statutoryRationale": "Hazard lamps are warning indicators strictly for stopped, disabled, or stalled vehicles. Using hazard flashers while moving in ordinary rain is misleading because it disables turn signal functionality and confuses trailing traffic."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // =========================================================================
+    // 2. SVG 1: 100-FOOT TURN SIGNAL DISTANCE CALIPER STATE ENGINE
+    // =========================================================================
+    const caliperSteps = {
+      1: {
+        badge: "EARLY APPROACH & LANE SETUP",
+        badgeClass: "text-slate",
+        statute: "DPS HANDBOOK CH. 6",
+        title: "200 Feet Prior: Mirror Scan & Lane Entry",
+        desc: "Position into the designated turn lane at least 1/2 block early (~200 ft). Perform chin-to-shoulder mirror check for bicycles or passing vehicles. Do not activate signal yet if other driveways precede the target turn to avoid false-intent traps.",
+        m1: "STANDBY (OFF)",
+        m2: "PROCEED IN LANE",
+        carY: 185,
+        blinkerOpacity: "0"
+      },
+      2: {
+        badge: "MANDATORY SIGNAL POINT",
+        badgeClass: "text-safety",
+        statute: "TTC § 545.104(b)",
+        title: "100 Feet Prior: Continuous Blinker Activation",
+        desc: "Texas Transportation Code § 545.104(b) explicitly commands continuous signal broadcast for not less than the last 100 feet. At 30 MPH, 100 ft is covered in ~2.3 seconds. Tapping the signal too late blinds trailing motorists and creates rear-end risks.",
+        m1: "ACTIVE (FLASHING AMBER)",
+        m2: "MANDATORY ≥ 100 FT",
+        carY: 140,
+        blinkerOpacity: "1"
+      },
+      3: {
+        badge: "CONTROLLED DECELERATION ZONE",
+        badgeClass: "text-safety",
+        statute: "TTC § 545.101",
+        title: "50 Feet Prior: Smooth Braking to 10–15 MPH",
+        desc: "With signal continuing to flash, apply smooth brake pressure to decelerate to turning speed before initiating steering input. Never brake suddenly mid-turn. Keep front wheels pointed straight while waiting for pedestrians or gaps.",
+        m1: "CONTINUOUS FLASH",
+        m2: "DECELERATING TO 12 MPH",
+        carY: 98,
+        blinkerOpacity: "1"
+      },
+      4: {
+        badge: "APEX TURN & AUTO-CANCEL",
+        badgeClass: "text-valid",
+        statute: "TTC § 545.104(c)",
+        title: "0 Feet: Maneuver Execution & Signal Shutoff",
+        desc: "Execute turn hugging the right curb smoothly. Under TTC § 545.104(c), signal must be terminated immediately upon completing the maneuver. Leaving a signal flashing post-turn is illegal and creates deadly false-intent traps for cross traffic.",
+        m1: "CANCELLED / OFF",
+        m2: "MANEUVER COMPLETED",
+        carY: 58,
+        blinkerOpacity: "0"
+      }
+    };
+
+    function setCaliperStep(stepId) {
+      const data = caliperSteps[stepId];
+      if (!data) return;
+
+      // Move Car and Toggle Blinker
+      const car = document.getElementById('caliper-car');
+      if (car) {
+        car.setAttribute('transform', `translate(148, ${data.carY})`);
+      }
+      const blinker = document.getElementById('blinker-right');
+      if (blinker) {
+        blinker.setAttribute('opacity', data.blinkerOpacity);
+      }
+
+      // Update Detail Card
+      const badgeEl = document.getElementById('cal-card-badge');
+      if (badgeEl) {
+        badgeEl.textContent = data.badge;
+        badgeEl.className = `font-mono text-[10px] font-bold ${data.badgeClass} uppercase`;
+      }
+      const statuteEl = document.getElementById('cal-card-statute');
+      if (statuteEl) statuteEl.textContent = data.statute;
+      const titleEl = document.getElementById('cal-card-title');
+      if (titleEl) titleEl.textContent = data.title;
+      const descEl = document.getElementById('cal-card-desc');
+      if (descEl) descEl.textContent = data.desc;
+      const m1El = document.getElementById('cal-card-m1');
+      if (m1El) m1El.textContent = data.m1;
+      const m2El = document.getElementById('cal-card-m2');
+      if (m2El) m2El.textContent = data.m2;
+
+      // Update Buttons
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    // =========================================================================
+    // 3. SVG 2: TEXAS HAND & ARM SIGNALS + HAZARD FLASHER STATE ENGINE
+    // =========================================================================
+    const signalModes = {
+      1: {
+        badge: "MANUAL HAND SIGNAL: LEFT TURN",
+        badgeClass: "text-safety",
+        statute: "TTC § 545.107(1)",
+        title: "Left Arm Fully Extended Horizontally (180°)",
+        desc: "Extend driver's left hand and arm horizontally out the window. This universal visual broadcast is required when electric signals fail or when glare obscures amber lamps. Clear, rigid posture prevents trailing confusion.",
+        m1: "HORIZONTAL (180°)",
+        m2: "MANDATORY IF LAMPS FAIL",
+        armGestureText: "HORIZONTAL 180° = LEFT TURN",
+        forearmX2: 28, forearmY2: 88,
+        palmX: 24, palmY: 88,
+        hazardsFlashing: false
+      },
+      2: {
+        badge: "MANUAL HAND SIGNAL: RIGHT TURN",
+        badgeClass: "text-safety",
+        statute: "TTC § 545.107(2)",
+        title: "Left Hand and Arm Bent Upward at 90° Angle",
+        desc: "Extend upper arm horizontally, bending forearm upward at 90° with open palm facing forward. Tells trailing and oncoming traffic that you intend to turn right or pull into a curbside parking space.",
+        m1: "BENT UPWARD (90°)",
+        m2: "RIGHT TURN SIGNAL",
+        armGestureText: "BENT UPWARD 90° = RIGHT TURN",
+        forearmX2: 62, forearmY2: 54,
+        palmX: 62, palmY: 50,
+        hazardsFlashing: false
+      },
+      3: {
+        badge: "MANUAL HAND SIGNAL: STOP / SLOW",
+        badgeClass: "text-hazard",
+        statute: "TTC § 545.107(3)",
+        title: "Left Hand and Arm Bent Downward at 90° Angle",
+        desc: "Extend upper arm horizontally, bending forearm downward at 90° toward the roadway pavement with palm facing backward. Immediately alerts trailing vehicles of an abrupt deceleration or complete stop.",
+        m1: "BENT DOWNWARD (90°)",
+        m2: "STOP / SLOW DOWN",
+        armGestureText: "BENT DOWNWARD 90° = STOP/SLOW",
+        forearmX2: 62, forearmY2: 122,
+        palmX: 62, palmY: 126,
+        hazardsFlashing: false
+      },
+      4: {
+        badge: "EMERGENCY HAZARD FLASHER REGULATION",
+        badgeClass: "text-valid",
+        statute: "TTC § 547.501",
+        title: "Simultaneous 4-Way Flashing: Disabled Vehicles Only",
+        desc: "Four-way hazard flashers are strictly reserved for disabled vehicles, roadside breakdowns, or authorized emergency convoys. Cruising in rain with hazards flashing is ILLEGAL in Texas because it overrides turn blinkers and confuses following traffic.",
+        m1: "4-CORNER FLASHING",
+        m2: "DISABLED/STOPPED ONLY",
+        armGestureText: "HAZARD FLASHER SWITCH ENGAGED",
+        forearmX2: 62, forearmY2: 88,
+        palmX: 62, palmY: 88,
+        hazardsFlashing: true
+      }
+    };
+
+    function setSignalMode(modeId) {
+      const data = signalModes[modeId];
+      if (!data) return;
+
+      // Update SVG Arm
+      const fLine = document.getElementById('forearm-line');
+      if (fLine) {
+        fLine.setAttribute('x2', data.forearmX2);
+        fLine.setAttribute('y2', data.forearmY2);
+      }
+      const palm = document.getElementById('hand-palm');
+      if (palm) {
+        palm.setAttribute('cx', data.palmX);
+        palm.setAttribute('cy', data.palmY);
+      }
+      const gestureText = document.getElementById('txt-arm-gesture');
+      if (gestureText) {
+        gestureText.textContent = data.armGestureText;
+      }
+
+      // Toggle Hazard Flashers
+      const flashers = ['flasher-fl', 'flasher-fr', 'flasher-rl', 'flasher-rr'];
+      flashers.forEach(fid => {
+        const el = document.getElementById(fid);
+        if (!el) return;
+        el.setAttribute('opacity', data.hazardsFlashing ? '1' : '0.2');
+      });
+
+      // Update Detail Card
+      const badgeEl = document.getElementById('sig-card-badge');
+      if (badgeEl) {
+        badgeEl.textContent = data.badge;
+        badgeEl.className = `font-mono text-[10px] font-bold ${data.badgeClass} uppercase`;
+      }
+      const statuteEl = document.getElementById('sig-card-statute');
+      if (statuteEl) statuteEl.textContent = data.statute;
+      const titleEl = document.getElementById('sig-card-title');
+      if (titleEl) titleEl.textContent = data.title;
+      const descEl = document.getElementById('sig-card-desc');
+      if (descEl) descEl.textContent = data.desc;
+      const m1El = document.getElementById('sig-card-m1');
+      if (m1El) m1El.textContent = data.m1;
+      const m2El = document.getElementById('sig-card-m2');
+      if (m2El) m2El.textContent = data.m2;
+
+      // Update Buttons
+      [1, 2, 3, 4].forEach(id => {
+        const btn = document.getElementById(`btn-sig-${id}`);
+        if (!btn) return;
+        const title = btn.querySelector('span.font-mono');
+        if (id === modeId) {
+          btn.className = "touch-target min-h-[48px] p-1.5 rounded-xl border-2 border-safety bg-safety-light text-left flex flex-col justify-center transition-all";
+          if (title) title.className = "font-mono text-[8px] font-bold text-safety";
+        } else {
+          btn.className = "touch-target min-h-[48px] p-1.5 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all";
+          if (title) title.className = "font-mono text-[8px] font-bold text-slate";
+        }
+      });
+    }
+
+    // =========================================================================
+    // 4. 3D SIMULATION BRIDGE & INTERACTION DOCK
+    // =========================================================================
+    const simScenarios_L05T03 = {
+      1: {
+        badge: "STATUTORY MANDATE 01 // 100-FOOT ADVANCE SIGNAL",
+        statute: "TTC § 545.104(b)",
+        title: "Mandatory 100-Foot Continuous Signal Before Turn or Lane Change",
+        desc: "Texas law commands continuous turn signal activation for at least 100 feet before initiating any turn or lateral movement. Trailing vehicles recognize intent and cooperatively yield.",
+        metric: "100-FT COMPLIANT // COOPERATIVE GAP",
+        phase: "APPROACHING 100-FT CALIPER // SIGNAL ACTIVE"
+      },
+      2: {
+        badge: "SPEED SCALING // 60 MPH HIGHWAY ADVANCE",
+        statute: "TTC § 545.104 & SPEED PHYSICS",
+        title: "High-Speed Anticipatory Signaling at 60 MPH",
+        desc: "At 60 mph, 100 feet is traversed in just 1.13 seconds. Safe highway operations require signaling 200+ feet in advance to permit human perception-reaction latency in trailing vehicles.",
+        metric: "EXPANDED HEADWAY // 200+ FT BUFFER",
+        phase: "HIGHWAY SPEED (60 MPH) // EXPAND SIGNAL TO 200+ FT"
+      },
+      3: {
+        badge: "HAZARD DEMO // LATE SIGNAL & PANIC BRAKING",
+        statute: "TTC § 545.104(b) VIOLATION",
+        title: "Sudden Last-Second Turn Without Statutory Advance Signal",
+        desc: "Failing to signal continuously for 100 feet forces trailing motorists into abrupt threshold panic braking, producing shockwave collisions and moving citations.",
+        metric: "CRITICAL FAILURE // STATUTORY VIOLATION",
+        phase: "HAZARD: NO ADVANCE SIGNAL AT 100-FT MARKER"
+      }
+    };
+
+    function selectSimScenario(scId) {
+      const data = simScenarios_L05T03[scId];
+      if (!data) return;
+      const bEl = document.getElementById('sim-card-badge');
+      const sEl = document.getElementById('sim-card-statute');
+      const tEl = document.getElementById('sim-card-title');
+      const dEl = document.getElementById('sim-card-desc');
+      const mEl = document.getElementById('sim-card-metric');
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (bEl) bEl.textContent = data.badge;
+      if (sEl) sEl.textContent = data.statute;
+      if (tEl) tEl.textContent = data.title;
+      if (dEl) dEl.textContent = data.desc;
+      if (mEl) mEl.textContent = data.metric;
+      if (pEl) pEl.textContent = data.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+      dispatchSimAction('setScenario', { scenario: scId });
+    }
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', function(e) {
+      if (!e.data || e.data.event !== 'telemetry') return;
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (pEl && e.data.phase) {
+        pEl.textContent = e.data.phase;
+      }
+    });
+
+    // =========================================================================
+    // 5. INITIALIZE DEFAULT STATES ON DOM LOAD
+    // =========================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      setCaliperStep(2);
+      setSignalMode(1);
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

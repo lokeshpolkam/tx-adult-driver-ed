@@ -246,11 +246,11 @@
             </button>
 
             <!-- Scrubber Track & Draggable Thumb -->
-            <div id="media-scrubber-track" class="relative flex-1 h-5 flex items-center cursor-pointer touch-none group">
+            <div id="media-progress-track" class="relative flex-1 h-5 flex items-center cursor-pointer touch-none group">
               <div class="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
-                <div id="media-scrubber-fill" class="h-full bg-safety rounded-full" style="width: 0%;"></div>
+                <div id="media-progress-fill" class="h-full bg-safety rounded-full" style="width: 0%;"></div>
               </div>
-              <div id="media-scrubber-thumb" class="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white rounded-full shadow-md border-2 border-safety pointer-events-none" style="left: 0%;"></div>
+              <div id="media-progress-thumb" class="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white rounded-full shadow-md border-2 border-safety pointer-events-none" style="left: 0%;"></div>
             </div>
 
             <span id="media-timestamp" class="text-[10px] font-mono text-white/90 shrink-0 font-medium">0:00 / 0:06</span>
@@ -269,15 +269,16 @@
       </div>
 
       <!-- Tier 3: External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
       <div id="sim-controls-dock" class="space-y-2 pt-1">
-        <!-- 3A. Live Telemetry & Phase Display Pill (Clean 1-Line Status) -->
+        <!-- Clean 1-Line Status Pill -->
         <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-hazard animate-pulse shrink-0"></span>
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
           <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">SPEEDING INFRACTION RECORDED (+2 POINTS)</span>
         </div>
-
-        <!-- 3C. Pedagogical Scenario Selector Tabs (Clean 3-Segmented Control, Touch Targets >= 44x44px) -->
-        <div class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
           <button type="button" onclick="selectPointsSimScenario('points')" id="btn-scenario-points" 
             class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
             <span>Points</span>
@@ -291,7 +292,6 @@
             <span>Towing</span>
           </button>
         </div>
-      </div>
 
         <!-- 3D. Reactive Statutory Detail Card -->
         <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">

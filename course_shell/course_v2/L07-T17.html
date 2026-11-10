@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Vehicle Registration TLETS Verification &amp; In-Car MDT Telecommunications — Texas Adult Driver Ed (L07-T17)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    .crt-grid {
+      background-size: 100% 4px;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.25) 50%, transparent 50%);
+    }
+    @keyframes scanline {
+      0% { transform: translateY(0%); }
+      100% { transform: translateY(100%); }
+    }
+    .animate-scanline {
+      animation: scanline 2.5s linear infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / STATUTORY OVERVIEW CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          TXDMV TLETS PRE-CONTACT PATHWAY
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 17 OF 18</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Vehicle Registration TLETS Verification &amp; MDT Queries
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          The <strong>Samuel Allen Law (Senate Bill 976)</strong> established real-time pre-contact notification through the Texas Law Enforcement Telecommunications System (TLETS).
+        </p>
+      </div>
+
+      <!-- Statutory Citations Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Authorizing Statute</div>
+          <div class="font-bold text-carbon">TTC § 502.061</div>
+          <div class="text-[9px] text-slate mt-0.5">Senate Bill 976 (86th Leg.)</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Telecommunications Grid</div>
+          <div class="font-bold text-safety">TLETS / CJIS L4</div>
+          <div class="text-[9px] text-slate mt-0.5">MDT Pre-Approach Alert</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs">
+        <span class="material-symbols-outlined text-emerald-600 text-base flex-shrink-0">shield</span>
+        <span class="leading-tight"><strong>Tactical Pre-Contact Advantage:</strong> Unlike a driver license inspected at the window, TLETS alerts peace officers <em>in the cruiser before they ever approach</em> the vehicle.</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: LIVE TLETS IN-CAR MDT QUERY SIMULATION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">terminal</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            In-Car MDT Telecommunications Scanner
+          </h2>
+        </div>
+        <span id="mdt-status-chip" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">
+          TLETS LIVE
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Simulate an in-car Texas Highway Patrol Mobile Data Terminal (MDT) query. Type a license plate or tap the query button to cross-reference TxDMV records against the TLETS repository.
+      </p>
+
+      <!-- Terminal Console Metaphor -->
+      <div class="bg-[#111111] rounded-xl border border-[#333634] p-3 text-white space-y-3 shadow-md relative overflow-hidden font-mono">
+        <!-- Terminal Header Bar -->
+        <div class="flex items-center justify-between border-b border-[#252826] pb-2 text-[10px]">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-stone-300 font-bold">DPS-TLETS // ONBOARD CONSOLE v4.19</span>
+          </div>
+          <div class="flex items-center gap-2 text-stone-400">
+            <span>UNIT: TX-DPS-744</span>
+            <span id="terminal-clock" class="text-emerald-400 font-bold">12:00:00 CST</span>
+          </div>
+        </div>
+
+        <!-- Query Input Bar -->
+        <div class="bg-black/60 rounded-lg p-2.5 border border-[#252826] space-y-2">
+          <div class="flex items-center justify-between text-[9px] text-stone-400">
+            <span>QUERY LICENSE PLATE (TX DMV DATABASE)</span>
+            <span class="text-safety">CHANNEL: D10-AUSTIN</span>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <div class="flex-1 flex items-center gap-1.5 bg-[#1A1E1C] px-2.5 py-1 min-h-[48px] rounded border border-[#3A403D]">
+              <span class="text-[10px] text-safety font-bold">TX</span>
+              <input id="plate-input" type="text" value="J83-B921" class="bg-transparent text-white font-bold text-xs uppercase tracking-wider outline-none w-full font-mono min-h-[44px]" style="min-height: 44px; min-width: 44px;">
+            </div>
+            <button id="query-btn" onclick="runTletsQuery()" class="touch-target min-h-[48px] px-3 py-1.5 rounded bg-safety text-white text-xs font-bold hover:bg-safety-deep transition flex items-center justify-center gap-1 shadow-xs">
+              <span class="material-symbols-outlined text-sm">search</span>
+              <span>QUERY TLETS</span>
+            </button>
+          </div>
+
+          <!-- Quick Plate Selectors -->
+          <div class="flex items-center gap-1.5 pt-1 overflow-x-auto text-[9px]">
+            <span class="text-stone-500 font-mono">TEST PLATES:</span>
+            <button type="button" onclick="loadPlate('J83-B921')" class="touch-target min-h-[44px] px-2.5 py-2 rounded bg-[#222724] text-safety font-mono border border-safety/30 hover:bg-[#2C3430] flex items-center justify-center">
+              J83-B921 (ASD)
+            </button>
+            <button type="button" onclick="loadPlate('K49-X204')" class="touch-target min-h-[44px] px-2.5 py-2 rounded bg-[#222724] text-stone-300 font-mono border border-stone-700 hover:bg-[#2C3430] flex items-center justify-center">
+              K49-X204 (CLEAN)
+            </button>
+            <button type="button" onclick="loadPlate('P77-L915')" class="touch-target min-h-[44px] px-2.5 py-2 rounded bg-[#222724] text-emerald-400 font-mono border border-emerald-700/40 hover:bg-[#2C3430] flex items-center justify-center">
+              P77-L915 (DEAF)
+            </button>
+          </div>
+        </div>
+
+        <!-- Scanning State Indicator (Hidden by Default) -->
+        <div id="scan-state" class="hidden py-3 text-center space-y-1">
+          <div class="w-full h-1 bg-emerald-950 rounded overflow-hidden">
+            <div class="w-1/2 h-full bg-emerald-400 animate-scanline"></div>
+          </div>
+          <div class="text-[10px] text-emerald-400 animate-pulse">
+            CROSS-REFERENCING TX-DMV WITH TLETS REPOSITORY...
+          </div>
+        </div>
+
+        <!-- Telemetry Data Grid (4 Cells) -->
+        <div class="grid grid-cols-2 gap-2 text-[10px]">
+          <div class="bg-[#181D1A] p-2 rounded border border-[#28302C]">
+            <span class="text-stone-500 block text-[8px]">MAKE / MODEL:</span>
+            <span class="text-stone-200 font-bold">2022 SILVER SEDAN</span>
+          </div>
+          <div class="bg-[#181D1A] p-2 rounded border border-[#28302C]">
+            <span class="text-stone-500 block text-[8px]">COUNTY:</span>
+            <span class="text-stone-200 font-bold">TRAVIS (AUSTIN, TX)</span>
+          </div>
+          <div class="bg-[#181D1A] p-2 rounded border border-[#28302C]">
+            <span class="text-stone-500 block text-[8px]">REG STATUS:</span>
+            <span class="text-emerald-400 font-bold">VALID // 10-25</span>
+          </div>
+          <div class="bg-[#181D1A] p-2 rounded border border-[#28302C]">
+            <span class="text-stone-500 block text-[8px]">WARRANTS:</span>
+            <span class="text-emerald-400 font-bold">NEGATIVE (0)</span>
+          </div>
+        </div>
+
+        <!-- High-Visibility TLETS Alert Banner -->
+        <div id="tlets-alert" class="p-3 rounded-lg bg-orange-950/80 border-2 border-safety text-white space-y-1.5 crt-grid">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-safety animate-ping"></span>
+              <span class="text-[10px] font-bold text-safety uppercase tracking-wider">PRIORITY ADVISORY // TLETS FLAG: CODE-IMPD</span>
+            </div>
+            <span class="text-[9px] text-stone-300 font-mono">TTC § 502.061</span>
+          </div>
+          <div class="text-xs font-bold text-white tracking-wide">
+            &ldquo;NOTICE: Communication Impediment &mdash; Approach with awareness.&rdquo;
+          </div>
+          <p class="text-[10px] text-stone-300 leading-relaxed font-sans">
+            Registered owner or customary operator has a medically diagnosed condition that may impede verbal/expressive interaction (Autism Spectrum, PTSD, Deaf/Hard of Hearing, Speech Limitation).
+          </p>
+          <div class="pt-1.5 border-t border-orange-800/60 flex items-center justify-between text-[9px] text-stone-400">
+            <span>PRE-CONTACT TACTICAL MANDATE</span>
+            <span class="text-emerald-400 font-bold">TCOLE COURSE 4055 ACTIVE</span>
+          </div>
+        </div>
+
+        <!-- Action Drawers Toggle Bar -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button id="btn-protocol" onclick="toggleDrawer('protocol')" class="touch-target py-2 px-2 rounded bg-[#202623] hover:bg-[#2A332E] text-stone-300 text-[10px] font-bold border border-[#333C37] flex items-center justify-center gap-1 transition">
+            <span class="material-symbols-outlined text-sm text-safety">contact_support</span>
+            <span>INSPECT PROTOCOL</span>
+          </button>
+          <button id="btn-statute" onclick="toggleDrawer('statute')" class="touch-target py-2 px-2 rounded bg-[#202623] hover:bg-[#2A332E] text-stone-300 text-[10px] font-bold border border-[#333C37] flex items-center justify-center gap-1 transition">
+            <span class="material-symbols-outlined text-sm text-emerald-400">menu_book</span>
+            <span>VIEW STATUTE</span>
+          </button>
+        </div>
+
+        <!-- Drawer Content 1: Protocol -->
+        <div id="drawer-protocol" class="hidden p-2.5 rounded bg-[#161B18] border border-[#2B3530] text-[10px] font-sans text-stone-300 space-y-1">
+          <div class="font-bold font-mono text-safety uppercase text-[9px]">TCOLE Course 4055 Field Guidelines:</div>
+          <ul class="list-disc pl-4 space-y-0.5 leading-tight">
+            <li>Allow 10–15 seconds latency for verbal comprehension before repeating commands.</li>
+            <li>Do not interpret motor stimming, shaking, or lack of eye contact as threat gestures.</li>
+            <li>Permit communication cards, mobile tablet typing, or written dialogue notes.</li>
+          </ul>
+        </div>
+
+        <!-- Drawer Content 2: Statute -->
+        <div id="drawer-statute" class="hidden p-2.5 rounded bg-[#161B18] border border-[#2B3530] text-[10px] font-sans text-stone-300 space-y-1">
+          <div class="font-bold font-mono text-emerald-400 uppercase text-[9px]">Texas Transportation Code § 502.061:</div>
+          <p class="leading-tight">
+            Enacted by the 86th Texas Legislature (Senate Bill 976, The Samuel Allen Law). Form VTR-216 permits vehicle owners to register an impediment flag confidentially. Zero stickers on car exterior; access strictly limited to law enforcement MDTs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. CAD SVG 1: PATROL TELECOMMUNICATIONS ARCHITECTURE CAD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">cell_tower</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Patrol Telecommunications Architecture CAD
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">SB 976 // TLETS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Trace the real-time data link connecting the stopped vehicle plate to the patrol cruiser cockpit. Tap any node or button to inspect transmission stages.
+      </p>
+
+      <!-- SVG Viewport -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="cad-tlets-arch" viewBox="0 0 340 220" class="w-full h-auto max-w-[340px] mx-auto block rounded-lg border border-[#222B25] bg-[#0E1311] shadow-inner select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tlets-arch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#101713" />
+              <stop offset="100%" stop-color="#070B09" />
+            </linearGradient>
+            <pattern id="tlets-arch-grid" width="16" height="16" patternUnits="userSpaceOnUse">
+              <path d="M 16 0 L 0 0 0 16" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+            </pattern>
+          </defs>
+
+          <!-- Canvas -->
+          <rect width="340" height="220" fill="url(#tlets-arch-bg)" rx="8" />
+          <rect width="340" height="220" fill="url(#tlets-arch-grid)" rx="8" />
+
+          <!-- Top Telemetry Header -->
+          <text x="14" y="20" fill="#6B7280" font-family="monospace" font-size="9" letter-spacing="1">PATROL TELECOMMUNICATIONS PIPELINE // SB 976</text>
+          <text x="326" y="20" fill="#E87522" font-family="monospace" font-size="9" text-anchor="end" font-weight="bold">TTC § 502.061</text>
+          <line x1="14" y1="27" x2="326" y2="27" stroke="#222B25" stroke-width="1" />
+
+          <!-- Antenna Radiation / Data Stream Arcs -->
+          <path d="M 170 58 A 30 30 0 0 0 140 85" stroke="#E87522" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.6" />
+          <path d="M 170 58 A 30 30 0 0 1 200 85" stroke="#E87522" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.6" />
+
+          <!-- Node 1: Stopped Vehicle (Left) -->
+          <g id="node-veh" class="cursor-pointer" onclick="selectTletsArch(1)">
+            <rect id="rect-veh" x="20" y="65" width="80" height="75" rx="8" fill="#16201B" stroke="#374151" stroke-width="1.5" />
+            <path d="M 35 105 L 42 90 H 78 L 85 105 Z" fill="#2A3830" stroke="#9CA3AF" stroke-width="1" />
+            <rect x="44" y="103" width="32" height="12" rx="2" fill="#111827" stroke="#E87522" stroke-width="1" />
+            <text x="60" y="112" fill="#F9FAFB" font-family="monospace" font-size="6.5" font-weight="bold" text-anchor="middle">TX J83-B921</text>
+            <text x="60" y="132" fill="#D1D5DB" font-family="sans-serif" font-size="8" font-weight="bold" text-anchor="middle">STOPPED VEH</text>
+            <circle cx="60" cy="102" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Node 2: TLETS Network / Relay Tower (Center) -->
+          <g id="node-tower" class="cursor-pointer" onclick="selectTletsArch(2)">
+            <rect id="rect-tower" x="130" y="55" width="80" height="85" rx="8" fill="#16201B" stroke="#E87522" stroke-width="2" />
+            <path d="M 170 65 L 160 105 H 180 Z" stroke="#E87522" stroke-width="1.5" fill="none" />
+            <line x1="163" y1="80" x2="177" y2="80" stroke="#E87522" stroke-width="1.5" />
+            <line x1="161" y1="92" x2="179" y2="92" stroke="#E87522" stroke-width="1.5" />
+            <circle cx="170" cy="65" r="3" fill="#E87522" class="animate-ping" />
+            <text x="170" y="122" fill="#D1D5DB" font-family="sans-serif" font-size="8" font-weight="bold" text-anchor="middle">TLETS RELAY</text>
+            <text x="170" y="132" fill="#9CA3AF" font-family="monospace" font-size="7" text-anchor="middle">CJIS LEVEL 4</text>
+            <circle cx="170" cy="97" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Node 3: Patrol Cruiser MDT Cockpit (Right) -->
+          <g id="node-patrol" class="cursor-pointer" onclick="selectTletsArch(3)">
+            <rect id="rect-patrol" x="240" y="65" width="80" height="75" rx="8" fill="#16201B" stroke="#374151" stroke-width="1.5" />
+            <rect x="252" y="75" width="56" height="36" rx="3" fill="#0A0F0D" stroke="#10B981" stroke-width="1.5" />
+            <rect x="256" y="80" width="48" height="6" fill="#10B981" opacity="0.3" />
+            <text x="280" y="85" fill="#10B981" font-family="monospace" font-size="5.5" font-weight="bold" text-anchor="middle">FLAG: IMPD</text>
+            <rect x="256" y="90" width="30" height="4" fill="#374151" />
+            <text x="280" y="132" fill="#D1D5DB" font-family="sans-serif" font-size="8" font-weight="bold" text-anchor="middle">PATROL MDT</text>
+            <circle cx="280" cy="102" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Dynamic Telemetry Readout -->
+          <rect x="14" y="155" width="312" height="52" rx="6" fill="#131A16" stroke="#222B25" stroke-width="1" />
+          <circle id="tlets-arch-dot" cx="28" cy="172" r="4" fill="#E87522" class="animate-pulse" />
+          <text id="tlets-arch-step" x="40" y="175" fill="#F9FAFB" font-family="monospace" font-size="10" font-weight="bold">STAGE 2: TLETS SECURE TELECOMMUNICATIONS</text>
+          <text id="tlets-arch-desc" x="40" y="193" fill="#9CA3AF" font-family="sans-serif" font-size="8.5">Plate cross-referenced against TxDMV database over encrypted CJIS channel.</text>
+        </svg>
+      </div>
+
+      <!-- Tactile Stage Selector Buttons -->
+      <div class="grid grid-cols-3 gap-2 pt-1">
+        <button id="btn-tlets-1" onclick="selectTletsArch(1)" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-[9px] text-slate font-mono">NODE 01</span>
+          <span>PLATE READ</span>
+        </button>
+        <button id="btn-tlets-2" onclick="selectTletsArch(2)" class="cad-btn cad-btn-active touch-target">
+          <span class="text-[9px] text-safety font-mono">NODE 02</span>
+          <span>TLETS RELAY</span>
+        </button>
+        <button id="btn-tlets-3" onclick="selectTletsArch(3)" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-[9px] text-slate font-mono">NODE 03</span>
+          <span>MDT ALERT</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Explanatory Card -->
+      <div id="tlets-detail-card" class="bg-surface-sub border-l-4 border-safety p-3 rounded-xl space-y-1 text-xs">
+        <div class="flex items-center justify-between">
+          <span id="tlets-tag" class="font-mono text-[9px] font-bold text-safety uppercase">TLETS INFRASTRUCTURE</span>
+          <span id="tlets-cite" class="font-mono text-[9px] text-slate">TTC § 502.061</span>
+        </div>
+        <h4 id="tlets-title" class="font-bold text-carbon text-xs">Encrypted Law Enforcement Relay</h4>
+        <p id="tlets-desc" class="text-slate leading-relaxed">
+          The Texas Law Enforcement Telecommunications System bridges TxDMV vehicle registration files directly to mobile data terminals in patrol cars statewide, operating under strict CJIS Level 4 federal encryption standards.
+        </p>
+      </div>
+    </section>
+
+    <!-- 05. CAD SVG 2: TLETS VEHICLE REGISTRATION & PLATE QUERY FLAG CAD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">monitor</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            MDT Onboard Telemetry HUD CAD
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-emerald-600 font-bold">CJIS LEVEL 4</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Tap the priority advisory banner or data fields on the CRT screen below to toggle officer response protocol summaries:
+      </p>
+
+      <!-- SVG Viewport -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="cad-tlets-flag" viewBox="0 0 340 180" class="w-full h-auto max-w-[340px] mx-auto block rounded-lg border border-[#222B25] bg-[#0E1311] shadow-inner select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tlets-flag-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#121815" />
+              <stop offset="100%" stop-color="#080C0A" />
+            </linearGradient>
+          </defs>
+
+          <!-- Canvas -->
+          <rect width="340" height="180" fill="url(#tlets-flag-bg)" rx="8" />
+
+          <!-- CRT MDT Frame -->
+          <rect x="12" y="12" width="316" height="156" rx="6" fill="#0A0E0C" stroke="#25332A" stroke-width="1.5" />
+          <rect x="18" y="18" width="304" height="24" fill="#16221B" />
+          <text x="26" y="34" fill="#10B981" font-family="monospace" font-size="9" font-weight="bold">DPS-TLETS // ONBOARD TERMINAL v4.19</text>
+          <text x="314" y="34" fill="#E87522" font-family="monospace" font-size="9" text-anchor="end" font-weight="bold">SECURE CHANNEL</text>
+
+          <!-- Alert Banner inside Screen -->
+          <g id="node-tlets-banner" class="cursor-pointer" onclick="toggleTletsDetail()">
+            <rect id="rect-mdt-banner" x="22" y="50" width="296" height="50" rx="4" fill="#241B12" stroke="#E87522" stroke-width="1.5" />
+            <circle cx="36" cy="68" r="5" fill="#E87522" class="animate-ping" />
+            <circle cx="36" cy="68" r="5" fill="#E87522" />
+            <text x="48" y="65" fill="#E87522" font-family="monospace" font-size="8" font-weight="bold">PRIORITY ADVISORY // TTC § 502.061</text>
+            <text x="48" y="79" fill="#FFFFFF" font-family="sans-serif" font-size="9" font-weight="bold">COMMUNICATION IMPEDIMENT REGISTERED</text>
+            <text x="48" y="91" fill="#D1D5DB" font-family="sans-serif" font-size="7.5">Owner/operator diagnosed with condition impeding verbal interaction.</text>
+            <circle cx="170" cy="75" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Telemetry Row -->
+          <g transform="translate(22, 108)">
+            <rect width="94" height="34" rx="4" fill="#141E18" stroke="#222B25" stroke-width="1" />
+            <text x="8" y="14" fill="#6B7280" font-family="monospace" font-size="7">PLATE REG</text>
+            <text x="8" y="27" fill="#10B981" font-family="monospace" font-size="9" font-weight="bold">TX J83-B921</text>
+          </g>
+
+          <g transform="translate(123, 108)">
+            <rect width="94" height="34" rx="4" fill="#141E18" stroke="#222B25" stroke-width="1" />
+            <text x="8" y="14" fill="#6B7280" font-family="monospace" font-size="7">TIMING</text>
+            <text x="8" y="27" fill="#E87522" font-family="monospace" font-size="9" font-weight="bold">PRE-APPROACH</text>
+          </g>
+
+          <g transform="translate(224, 108)">
+            <rect width="94" height="34" rx="4" fill="#141E18" stroke="#222B25" stroke-width="1" />
+            <text x="8" y="14" fill="#6B7280" font-family="monospace" font-size="7">EXTERIOR DECAL</text>
+            <text x="8" y="27" fill="#EF4444" font-family="monospace" font-size="9" font-weight="bold">NONE ($0.00)</text>
+          </g>
+
+          <!-- Tap Prompt -->
+          <text x="170" y="158" fill="#6B7280" font-family="monospace" font-size="7" text-anchor="middle">TAP ALERT BANNER TO TOGGLE TCOLE PROTOCOL BRIEF</text>
+        </svg>
+      </div>
+
+      <!-- Quick Toggle Buttons -->
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button id="btn-hud-timing" onclick="setHudMode('timing')" class="cad-btn cad-btn-active touch-target">
+          <span class="text-[9px] text-safety font-mono">TACTICAL ADVANTAGE</span>
+          <span>PRE-APPROACH NOTICE</span>
+        </button>
+        <button id="btn-hud-privacy" onclick="setHudMode('privacy')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-[9px] text-slate font-mono">CIVILIAN PRIVACY</span>
+          <span>NO EXTERIOR STICKERS</span>
+        </button>
+      </div>
+
+      <!-- Reactive HUD Detail Box -->
+      <div id="hud-detail-box" class="p-3 rounded-lg bg-surface-sub border border-hairline text-xs space-y-1">
+        <div class="font-bold text-carbon text-xs">Cruiser Cockpit Awareness Prior to Approach</div>
+        <p class="text-slate leading-relaxed">
+          Because the TLETS query completes before the peace officer exits the cruiser, the officer prepares communication accommodations in advance, preventing misunderstandings before physical contact occurs.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. 3D DRIVING SIMULATION: HIGH-OCCUPANCY VEHICLE (HOV) & MANAGED LANES -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 my-4 fluid-card">
+      <!-- Section Header -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 224.153 &bull; HIGH-OCCUPANCY VEHICLE &amp; MANAGED LANES</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L07_T17_hov_lanes.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: SOLID DOUBLE WHITE ENFORCEMENT</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Double White</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Legal Ingress</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Speed Differenti</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. TEXAS STATUTORY PEDAGOGICAL COMPENDIUM & COMPARATIVE TABLES -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">gavel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          The Samuel Allen Law &amp; Pre-Contact Strategy
+        </h2>
+      </div>
+
+      <!-- Pedagogy Card 1: Legislative Genesis & Samuel Allen Law -->
+      <div class="space-y-2">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Origins of Senate Bill 976 (86th Texas Legislature)
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          The Samuel Allen Law was named in honor of Samuel Allen, a young Texas driver with Asperger&rsquo;s Syndrome who endured an intensely stressful law enforcement encounter when officers mistook his natural lack of eye contact and nervous vocal hesitations for intoxication and evasiveness.
+        </p>
+        <p class="text-xs text-slate leading-relaxed">
+          To solve this problem statewide, the Texas Legislature enacted <strong>Texas Transportation Code § 502.061</strong>, linking communication impediment disclosures directly to the state vehicle registration database.
+        </p>
+      </div>
+
+      <!-- Pedagogy Card 2: Dual Program Structural Comparison Table -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Comparison: Form DL-101 (DPS) vs Form VTR-216 (TxDMV)
+        </h3>
+
+        <!-- Responsive Comparison Table -->
+        <div class="overflow-x-auto rounded-lg border border-hairline">
+          <table class="w-full text-left text-xs font-sans">
+            <thead class="bg-surface-sub font-mono text-[10px] uppercase text-slate border-b border-hairline">
+              <tr>
+                <th class="p-2.5 font-bold">Feature</th>
+                <th class="p-2.5 font-bold">Form DL-101 (DPS)</th>
+                <th class="p-2.5 font-bold">Form VTR-216 (TxDMV)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-[11px] text-carbon">
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Primary Target</td>
+                <td class="p-2.5 text-slate">Person-Centric (Driver License/ID)</td>
+                <td class="p-2.5 text-safety font-bold">Vehicle-Centric (License Plate)</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Notification Timing</td>
+                <td class="p-2.5 text-slate">At Car Window (during ID review)</td>
+                <td class="p-2.5 text-emerald-700 font-bold">Pre-Approach (in patrol cruiser)</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Display Location</td>
+                <td class="p-2.5 text-slate">Code 08 on card reverse face</td>
+                <td class="p-2.5 text-slate">TLETS electronic database flag</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Authorized Medical Signers</td>
+                <td class="p-2.5 text-slate">Licensed Physicians (M.D./D.O.) only</td>
+                <td class="p-2.5 text-slate">Physicians, Psychologists, or MHPs</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Filing Location</td>
+                <td class="p-2.5 text-slate">Texas DPS Driver License Office</td>
+                <td class="p-2.5 text-slate">County Tax Assessor-Collector</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 3: Household / Dependent Vehicle Rule -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Family &amp; Caregiver Vehicle Registration (43 TAC § 217.46)
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          A crucial provision of 43 TAC § 217.46 allows parents, spouses, and legal guardians to place the TLETS indicator on personal motor vehicles that are <strong>regularly operated by or used to transport a family member or dependent</strong> who has a certified communication impediment. The person with the medical condition does not need to own or hold title to the vehicle.
+        </p>
+      </div>
+
+      <!-- Pedagogy Card 4: Confidentiality & Protection Against Public Labeling -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          Zero External Markers &amp; CJIS Data Safeguards
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          Under Texas law, the vehicle receives <strong>no exterior bumper stickers, window emblems, or special license plate symbols</strong>. Publicizing a disability on the vehicle exterior could make vulnerable drivers targets for predatory crime. The indicator exists exclusively in secure, encrypted law enforcement networks.
+        </p>
+      </div>
+
+      <!-- Pedagogy Card 5: Pre-Approach De-Escalation Case Study -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Roadside De-Escalation Case Study (Highway 290 Stop)
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          Consider how TLETS pre-contact notification transforms officer tactics during a night-time traffic stop:
+        </p>
+        <div class="space-y-2">
+          <div class="p-3 rounded-lg bg-emerald-50/80 border border-emerald-200 text-xs space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px] text-emerald-800 font-bold">
+              <span>PRE-CONTACT TLETS NOTIFICATION ACTIVE</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-100">SB 976 PROTOCOL</span>
+            </div>
+            <p class="text-emerald-950 leading-relaxed text-[11px]">
+              <strong>Cruiser Phase:</strong> Deputy runs plate TX J83-B921. MDT flashes priority advisory banner: &ldquo;NOTICE: Communication Impediment &mdash; Approach with awareness.&rdquo;
+            </p>
+            <p class="text-emerald-900 leading-relaxed text-[11px]">
+              <strong>Approach Phase:</strong> The deputy dims high-beam spotlights, avoids barking urgent commands, and walks up to the driver door prepared for a 15-second response latency buffer.
+            </p>
+            <p class="text-emerald-900 leading-relaxed text-[11px]">
+              <strong>Window Contact:</strong> The driver does not make eye contact and rocks slightly while reaching for insurance. Because the deputy was forewarned, zero escalation occurs, and the encounter concludes safely.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 6: Form VTR-216 Submission & Vehicle Transfer -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          County Submission &amp; Vehicle Sale Lifecycle
+        </h3>
+        <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 text-xs space-y-2">
+          <div class="font-bold text-carbon">Administrative Steps under TxDMV Guidelines:</div>
+          <ol class="list-decimal pl-4 space-y-1 text-slate leading-relaxed">
+            <li><strong>Filing with County Tax Assessor:</strong> Submit executed Form VTR-216 (or Form VTR-29-CD) at your county tax assessor-collector&rsquo;s office during annual registration renewal or via mail directly to TxDMV.</li>
+            <li><strong>Zero Registration Surcharge:</strong> Adding or removing the TLETS indicator is statutorily free ($0.00 state fee).</li>
+            <li><strong>Vehicle Transfer / Sale:</strong> If the vehicle is sold or title is transferred, the communication impediment marker remains tied to the owner&rsquo;s registration record and is removed from the vehicle record when new license plates are issued to the buyer.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 7: Legal Protections Under Texas Penal Code § 38.02 -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          Texas Penal Code § 38.02 Safeguards (Failure to Identify)
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          Under Texas Penal Code § 38.02, a lawfully detained driver is required to provide their name, residence address, and date of birth to a peace officer upon request. For drivers with speech apraxia, autism-related sensory shutdown, or extreme auditory latency:
+        </p>
+        <ul class="text-xs text-slate space-y-1.5 list-disc pl-4 leading-relaxed">
+          <li><strong>Document Tendering Satisfies Identification:</strong> Handing over an unexpired Texas Driver License or ID card physically fulfills the statutory requirement under § 38.02 without requiring instantaneous vocal fluency.</li>
+          <li><strong>Protection Against False Refusal Charges:</strong> The active TLETS indicator establishes evidence in dispatch logs that the motorist has a recognized medical communication barrier, legally barring misinterpretation of delayed speech as criminal non-compliance.</li>
+          <li><strong>Use of Alternative Augmentative Communication (AAC):</strong> Drivers may legally utilize smartphone speech synthesizers, communication boards, or typed messages to state their identifying details.</li>
+        </ul>
+      </div>
+
+      <!-- Pedagogy Card 8: Officer 4-Step Pre-Approach Checklist -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          TCOLE Course 4055 Tactical Field Verification Checklist
+        </h3>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline space-y-1">
+            <span class="font-mono text-[9px] font-bold text-safety uppercase">STEP 1: SENSORY DAMPENING</span>
+            <div class="font-bold text-carbon text-[11px]">Mute Sirens &amp; Strobe Lighting</div>
+            <p class="text-[10px] text-slate leading-tight">Turn off auxiliary sirens and switch roof strobes to low-power amber/red to prevent sensory seizures or autistic overload.</p>
+          </div>
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline space-y-1">
+            <span class="font-mono text-[9px] font-bold text-safety uppercase">STEP 2: VOICE CALIBRATION</span>
+            <div class="font-bold text-carbon text-[11px]">Measured &amp; Clear Tone</div>
+            <p class="text-[10px] text-slate leading-tight">Speak in an even, composed pitch without shouting. Issue single-part instructions rather than complex multi-command sequences.</p>
+          </div>
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline space-y-1">
+            <span class="font-mono text-[9px] font-bold text-safety uppercase">STEP 3: 15-SECOND BUFFER</span>
+            <div class="font-bold text-carbon text-[11px]">Cognitive Processing Window</div>
+            <p class="text-[10px] text-slate leading-tight">Provide a 10-to-15 second processing latency before expecting a verbal answer or repeating a question.</p>
+          </div>
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline space-y-1">
+            <span class="font-mono text-[9px] font-bold text-safety uppercase">STEP 4: VISUAL ACCOMMODATION</span>
+            <div class="font-bold text-carbon text-[11px]">Alternative Media Acceptance</div>
+            <p class="text-[10px] text-slate leading-tight">Welcome communication cards, Texas visor aids, or typed digital notes without suspecting roadside evasiveness.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. FORMATIVE ASSESSMENT GATE (3 STATUTORY SCENARIOS) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Formative Assessment Gate
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">3 SCENARIO MCQS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Demonstrate mastery of Texas vehicle registration TLETS notification statutes under the Samuel Allen Law. Complete all questions to advance to Topic 18.
+      </p>
+
+      <!-- MCQ Question 1 (Option B Strictly Correct) -->
+      <div <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L07-T17 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="mcq-container-1" class="space-y-3 pt-2">
+        <div class="flex items-start justify-between gap-2">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700">QUESTION 1 OF 3</span>
+          <span class="text-[10px] font-mono text-slate">TTC § 502.061</span>
+        </div>
+        <p class="text-xs font-medium text-carbon leading-relaxed">
+          <strong>Scenario:</strong> Deputy Miller initiates a traffic stop on a sedan traveling along Highway 290 for a broken taillight. Before opening his patrol vehicle door to approach the driver, Deputy Miller types the sedan&rsquo;s Texas license plate into his onboard Mobile Data Terminal (MDT) to query the Texas Law Enforcement Telecommunications System (TLETS). Under Texas Transportation Code § 502.061 (enacted via Senate Bill 976, the Samuel Allen Law), what critical operational advantage does the vehicle registration TLETS notification provide to Deputy Miller prior to physical contact?
+        </p>
+
+        <div class="space-y-2">
+          <button id="q1-opt-a" onclick="checkMCQ(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[A]</strong> It grants Deputy Miller statutory authority to conduct a warrantless search of the vehicle cabin and seize all personal electronics.</span>
+            <span id="q1-icon-a" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-b" onclick="checkMCQ(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[B]</strong> It displays a confidential priority alert on the MDT informing the officer of a registered communication impediment prior to approaching the vehicle, allowing him to de-escalate and adapt his communication approach.</span>
+            <span id="q1-icon-b" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-c" onclick="checkMCQ(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[C]</strong> It automatically activates an exterior loudspeaker siren on the stopped vehicle that announces the driver&rsquo;s medical diagnosis to nearby pedestrians.</span>
+            <span id="q1-icon-c" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-d" onclick="checkMCQ(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[D]</strong> It instructs the deputy that the driver has complete legal immunity from all Texas traffic statutes and must be released immediately without inquiry.</span>
+            <span id="q1-icon-d" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q1-explanation" class="hidden p-3 rounded-lg text-xs leading-relaxed space-y-1"></div>
+      </div>
+
+      <!-- MCQ Question 2 -->
+      <div id="mcq-container-2" class="space-y-3 pt-3 border-t border-hairline">
+        <div class="flex items-start justify-between gap-2">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700">QUESTION 2 OF 3</span>
+          <span class="text-[10px] font-mono text-slate">TCOLE COURSE 4055</span>
+        </div>
+        <p class="text-xs font-medium text-carbon leading-relaxed">
+          <strong>Scenario:</strong> An adult driver diagnosed with Autism Spectrum Disorder is pulled over late at night by a Texas state trooper. The vehicle&rsquo;s registration record contains an active TLETS communication impediment indicator. In accordance with Texas Commission on Law Enforcement (TCOLE Course 4055) de-escalation standards mandated under the Samuel Allen Law, how should the peace officer adapt their tactical procedure during this stop?
+        </p>
+
+        <div class="space-y-2">
+          <button id="q2-opt-a" onclick="checkMCQ(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[A]</strong> Turn off or dim emergency flashing lights if safe off the travel lane, speak in a calm modulated tone, allow a 10-to-15-second response latency buffer, and permit alternative written or digital communication without suspecting non-compliance.</span>
+            <span id="q2-icon-a" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-b" onclick="checkMCQ(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[B]</strong> Order the driver to exit the vehicle immediately and shout repeated commands at maximum volume to determine cognitive comprehension.</span>
+            <span id="q2-icon-b" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-c" onclick="checkMCQ(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[C]</strong> Direct high-intensity searchlights straight into the driver&rsquo;s eyes while demanding instant verbal responses within two seconds.</span>
+            <span id="q2-icon-c" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-d" onclick="checkMCQ(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[D]</strong> Assume the motorist is intoxicated by illegal narcotics and immediately administer a physical roadside balance test before speaking.</span>
+            <span id="q2-icon-d" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q2-explanation" class="hidden p-3 rounded-lg text-xs leading-relaxed space-y-1"></div>
+      </div>
+
+      <!-- MCQ Question 3 -->
+      <div id="mcq-container-3" class="space-y-3 pt-3 border-t border-hairline">
+        <div class="flex items-start justify-between gap-2">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700">QUESTION 3 OF 3</span>
+          <span class="text-[10px] font-mono text-slate">43 TAC § 217.46</span>
+        </div>
+        <p class="text-xs font-medium text-carbon leading-relaxed">
+          <strong>Scenario:</strong> A family in Plano regularly uses their family SUV to transport their non-verbal 16-year-old son, who has cerebral palsy and speech mutism. The vehicle is titled and registered under the mother&rsquo;s name. The mother wants to know if she can enroll the SUV in the TLETS communication impediment program. Under Texas Transportation Code § 502.061 and 43 TAC § 217.46, is the mother permitted to register her vehicle for the TLETS indicator if she herself does not have a communication impediment?
+        </p>
+
+        <div class="space-y-2">
+          <button id="q3-opt-a" onclick="checkMCQ(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[A]</strong> No, because Texas statute strictly restricts registration indicators to vehicles owned exclusively by the person with the certified disability.</span>
+            <span id="q3-icon-a" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-b" onclick="checkMCQ(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[B]</strong> No, because only commercial wheelchair transport vehicles or municipal medical transport vans qualify for TLETS inclusion.</span>
+            <span id="q3-icon-b" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-c" onclick="checkMCQ(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[C]</strong> Yes, because Texas law expressly authorizes a vehicle owner to place the communication impediment marker on any vehicle that is regularly operated by, or used to transport, a household member or dependent with a qualifying condition.</span>
+            <span id="q3-icon-c" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-d" onclick="checkMCQ(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[D]</strong> Yes, but only if the mother installs an illuminated commercial taxi roof sign declaring the passenger&rsquo;s condition.</span>
+            <span id="q3-icon-d" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q3-explanation" class="hidden p-3 rounded-lg text-xs leading-relaxed space-y-1"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. LESSON CONCLUSION & CONTINUATION LINK -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-carbon">TOPIC L07-T17 COMPLETE</span>
+        <span class="text-[10px] font-mono text-emerald-600 font-bold flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          VALIDATED
+        </span>
+      </div>
+      <p class="text-xs text-slate leading-relaxed">
+        You have satisfied statutory mastery for Texas TLETS vehicle registration queries under the Samuel Allen Law. Advance to Topic 18 for the Module 7 Grand Finale Capstone on Form VTR-216 routing.
+      </p>
+      <a href="L07-T18.html" class="touch-target w-full py-3 px-4 rounded-xl bg-safety text-white font-bold text-center flex items-center justify-center gap-2 hover:bg-safety-deep transition shadow-xs text-sm">
+        <span>CONTINUE TO TOPIC 18 (MODULE 7 FINALE)</span>
+        <span class="material-symbols-outlined text-base">arrow_forward</span>
+      </a>
+    </section>
+
+  
+    <!-- 09. CURRICULUM NAVIGATION & STATUTORY COMPLIANCE FOOTER -->
+    <footer class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <span>COURSE CURRICULUM SEQUENCE</span>
+        <span class="text-safety font-bold">TOPIC 17 OF 18 &bull; MODULE 07</span>
+      </div>
+
+      <!-- Navigation Buttons (min-h-[48px]) -->
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pt-1 select-none">
+        <a href="L07-T16.html" class="touch-target flex-1 min-w-[80px] h-12 py-2.5 px-3 rounded-xl bg-surface-sub hover:bg-neutral-200 active:scale-98 text-carbon font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-hairline shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>PREV</span>
+        </a>
+        <a href="index.html" class="touch-target w-auto shrink-0 h-12 py-2.5 px-4 rounded-xl bg-surface-sub hover:bg-neutral-200 active:scale-98 text-carbon font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-hairline shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-[18px]">grid_view</span>
+          <span>HUB</span>
+        </a>
+        <a href="L07-T18.html" class="touch-target flex-1 min-w-[80px] h-12 py-2.5 px-3 rounded-xl bg-safety hover:bg-safety-deep active:scale-98 text-white font-mono text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span>NEXT</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="pt-2 border-t border-hairline/80 text-center font-mono text-[9px] text-slate space-y-1">
+        <p>TEXAS ADULT DRIVER EDUCATION &bull; ADE-1317 &bull; TDLR LICENSED CURRICULUM</p>
+        <p>Texas Transportation Code &sect; 224.153 &bull; HOV &amp; Managed Lanes Regulatory Standards</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE -->
+  <script>
+    // Audio Feedback Utility
+    function playBeep(freq = 880, duration = 0.08) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    // --- 01. Terminal Realtime Clock ---
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const el = document.getElementById('terminal-clock');
+      if (el) el.textContent = `${h}:${m}:${s} CST`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // --- 02. Live TLETS MDT Query Engine ---
+    const plateDatabase = {
+      'J83-B921': {
+        make: '2022 SILVER SEDAN',
+        county: 'TRAVIS (AUSTIN, TX)',
+        status: 'VALID // 10-25',
+        warrants: 'NEGATIVE (0)',
+        flag: true,
+        title: '“NOTICE: Communication Impediment — Approach with awareness.”',
+        desc: 'Registered owner or customary operator has a medically diagnosed condition that may impede verbal/expressive interaction (Autism Spectrum, PTSD, Deaf/Hard of Hearing, Speech Limitation).'
+      },
+      'K49-X204': {
+        make: '2020 BLUE SUV',
+        county: 'HARRIS (HOUSTON, TX)',
+        status: 'VALID // 10-25',
+        warrants: 'NEGATIVE (0)',
+        flag: false,
+        title: 'STANDARD REGISTRATION RECORD // ZERO TLETS FLAGS',
+        desc: 'Standard passenger motor vehicle registration. No statutory communication impediment disclosure on file under TTC § 502.061.'
+      },
+      'P77-L915': {
+        make: '2023 WHITE PICKUP',
+        county: 'BEXAR (SAN ANTONIO, TX)',
+        status: 'VALID // 10-25',
+        warrants: 'NEGATIVE (0)',
+        flag: true,
+        title: '“NOTICE: Communication Impediment — Approach with awareness.”',
+        desc: 'Customary operator or dependent registered with physiological communication impediment (Severe Hearing Impairment / Lip-reading dependence).'
+      }
+    };
+
+    function loadPlate(plateNum) {
+      document.getElementById('plate-input').value = plateNum;
+      runTletsQuery();
+    }
+
+    function runTletsQuery() {
+      const btn = document.getElementById('query-btn');
+      const scanState = document.getElementById('scan-state');
+      const alertBanner = document.getElementById('tlets-alert');
+      const plateVal = document.getElementById('plate-input').value.trim().toUpperCase();
+
+      playBeep(987, 0.08);
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined text-sm animate-spin">refresh</span><span>SCANNING...</span>`;
+      scanState.classList.remove('hidden');
+      alertBanner.classList.add('opacity-40');
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-symbols-outlined text-sm">search</span><span>QUERY TLETS</span>`;
+        scanState.classList.add('hidden');
+        alertBanner.classList.remove('opacity-40');
+        alertBanner.classList.add('border-white');
+
+        const record = plateDatabase[plateVal] || plateDatabase['J83-B921'];
+
+        if (record.flag) {
+          alertBanner.className = 'p-3 rounded-lg bg-orange-950/80 border-2 border-safety text-white space-y-1.5 crt-grid';
+          alertBanner.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-safety animate-ping"></span>
+                <span class="text-[10px] font-bold text-safety uppercase tracking-wider">PRIORITY ADVISORY // TLETS FLAG: CODE-IMPD</span>
+              </div>
+              <span class="text-[9px] text-stone-300 font-mono">TTC § 502.061</span>
+            </div>
+            <div class="text-xs font-bold text-white tracking-wide">${record.title}</div>
+            <p class="text-[10px] text-stone-300 leading-relaxed font-sans">${record.desc}</p>
+            <div class="pt-1.5 border-t border-orange-800/60 flex items-center justify-between text-[9px] text-stone-400">
+              <span>PRE-CONTACT TACTICAL MANDATE</span>
+              <span class="text-emerald-400 font-bold">TCOLE COURSE 4055 ACTIVE</span>
+            </div>
+          `;
+          playBeep(1174, 0.15);
+        } else {
+          alertBanner.className = 'p-3 rounded-lg bg-stone-900 border-2 border-stone-600 text-stone-300 space-y-1.5 crt-grid';
+          alertBanner.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-500"></span>
+                <span class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">ROUTINE REGISTRATION // NO IMPEDIMENT FLAG</span>
+              </div>
+              <span class="text-[9px] text-stone-400 font-mono">TxDMV VALID</span>
+            </div>
+            <div class="text-xs font-bold text-white tracking-wide">${record.title}</div>
+            <p class="text-[10px] text-stone-400 leading-relaxed font-sans">${record.desc}</p>
+            <div class="pt-1.5 border-t border-stone-800 flex items-center justify-between text-[9px] text-stone-500">
+              <span>STANDARD ROADSIDE CONTACT</span>
+              <span class="text-stone-400 font-bold">ROUTINE TRAFFIC STOP</span>
+            </div>
+          `;
+          playBeep(659, 0.1);
+        }
+
+        setTimeout(() => {
+          if (record.flag) {
+            alertBanner.classList.remove('border-white');
+            alertBanner.classList.add('border-safety');
+          }
+        }, 300);
+      }, 900);
+    }
+
+    function toggleDrawer(name) {
+      playBeep(587, 0.05);
+      const protocol = document.getElementById('drawer-protocol');
+      const statute = document.getElementById('drawer-statute');
+      if (name === 'protocol') {
+        protocol.classList.toggle('hidden');
+        statute.classList.add('hidden');
+      } else {
+        statute.classList.toggle('hidden');
+        protocol.classList.add('hidden');
+      }
+    }
+
+    // --- 03. Telecommunications Architecture CAD Engine ---
+    const tletsArchData = {
+      1: {
+        title: 'STAGE 1: VEHICLE REGISTRATION RADAR / OCR',
+        desc: 'Patrol cruiser radar or officer optical query inputs stopped plate TX J83-B921 into onboard console.',
+        cite: 'TTC § 502.061(a)',
+        tag: 'STAGE 01 RADAR',
+        color: '#E87522'
+      },
+      2: {
+        title: 'STAGE 2: TLETS SECURE TELECOMMUNICATIONS',
+        desc: 'Plate cross-referenced against TxDMV database over encrypted CJIS Level 4 secure carrier channel.',
+        cite: 'TTC § 502.061',
+        tag: 'STAGE 02 RELAY',
+        color: '#3B82F6'
+      },
+      3: {
+        title: 'STAGE 3: IN-CAR MDT PRE-CONTACT NOTIFICATION',
+        desc: 'Priority alert displays on officer screen BEFORE approaching vehicle, initiating TCOLE de-escalation protocols.',
+        cite: 'TCOLE COURSE 4055',
+        tag: 'STAGE 03 MDT ALERT',
+        color: '#10B981'
+      }
+    };
+
+    function selectTletsArch(num) {
+      playBeep(659, 0.06);
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+
+      const d = tletsArchData[num];
+      document.getElementById('tlets-arch-step').textContent = d.title;
+      document.getElementById('tlets-arch-desc').textContent = d.desc;
+      document.getElementById('tlets-arch-dot').setAttribute('fill', d.color);
+
+      document.getElementById('tlets-tag').textContent = d.tag;
+      document.getElementById('tlets-cite').textContent = d.cite;
+      document.getElementById('tlets-title').textContent = d.title;
+      document.getElementById('tlets-desc').textContent = d.desc;
+    }
+
+    // --- 04. MDT Flag HUD State ---
+    function toggleTletsDetail() {
+      playBeep(880, 0.08);
+      const box = document.getElementById('hud-detail-box');
+      box.classList.toggle('border-safety');
+      box.innerHTML = `
+        <div class="font-bold text-safety text-xs">TCOLE Course 4055 Mandate: Pre-Approach Calibration</div>
+        <p class="text-slate leading-relaxed">
+          The peace officer is trained to adjust lighting, dim strobes if safe off the travel lanes, and avoid sudden shouted commands. The driver is not presumed to be hostile or uncooperative.
+        </p>
+      `;
+    }
+
+    function setHudMode(mode) {
+      playBeep(523, 0.06);
+      const btnTiming = document.getElementById('btn-hud-timing');
+      const btnPrivacy = document.getElementById('btn-hud-privacy');
+      const box = document.getElementById('hud-detail-box');
+
+      if (mode === 'timing') {
+        btnTiming.className = 'cad-btn cad-btn-active touch-target';
+        btnPrivacy.className = 'cad-btn cad-btn-inactive touch-target';
+        box.innerHTML = `
+          <div class="font-bold text-carbon text-xs">Tactical Advantage: Pre-Approach Notification</div>
+          <p class="text-slate leading-relaxed">
+            Unlike Form DL-101 (which is only seen once the officer physically reaches the driver window and receives the card), Form VTR-216 informs the officer before they step out of the cruiser.
+          </p>
+        `;
+      } else {
+        btnTiming.className = 'cad-btn cad-btn-inactive touch-target';
+        btnPrivacy.className = 'cad-btn cad-btn-active touch-target';
+        box.innerHTML = `
+          <div class="font-bold text-carbon text-xs">Absolute Privacy: Zero Public Decals or Stickers</div>
+          <p class="text-slate leading-relaxed">
+            Texas statute strictly prohibits any exterior vehicle labels, roof signs, or window stickers. Only authorized law enforcement personnel querying TLETS can view the communication impediment flag.
+          </p>
+        `;
+      }
+    }
+
+    // --- 05. Formative MCQ Assessment Engine ---
+    const answers = { 1: 'B', 2: 'A', 3: 'C' };
+    const answered = { 1: false, 2: false, 3: false };
+    let currentScore = 0;
+
+            const TOPIC_ID = 'L07-T17';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 502.061",
+            "statutoryRationale": "Under Texas Transportation Code § 502.061 (The Samuel Allen Law / SB 976), registering a communication impediment through TxDMV links the notation to the vehicle's license plate in TLETS. When an officer runs the plate, the MDT displays a priority advisory banner BEFORE the officer approaches the vehicle window, enabling tactical de-escalation."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "A",
+            "statute": "TCOLE Course 4055 / SB 976",
+            "statutoryRationale": "Under TCOLE de-escalation protocols pursuant to Senate Bill 976, peace officers alerted to a communication impediment are trained to reduce sensory stimulation (dimming flashing strobes when safe), speak in a calm modulated voice, grant a 10–15 second cognitive processing buffer, and accept alternative written communication."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 502.061 & 43 TAC § 217.46",
+            "statutoryRationale": "Under 43 TAC § 217.46 and TTC § 502.061, a vehicle owner may apply for a communication impediment marker on the registration of any vehicle that is regularly operated by, or used to transport, a household member or dependent with a certified condition. The disabled individual does not need to own or hold title to the vehicle."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // 3D SIMULATION HOST DOCK CONTROLLER (F27 HOV & MANAGED LANES)
+    // ------------------------------------------------------------------------
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // SOLID DOUBLE WHITE LINE VIOLATION",
+        statute: "TTC &sect; 224.153",
+        title: "PROHIBITED CROSSING OF SOLID DOUBLE WHITE DELINEATION",
+        desc: "Crossing solid double white lines separating general-purpose lanes from HOV / Express lanes is strictly illegal and carries heavy statutory fines.",
+        metric: "CROSSING BARRIER: <strong class='text-carbon font-mono'>STRICTLY ILLEGAL ($200 FINE)</strong>",
+        phase: "PHASE: SOLID DOUBLE WHITE ENFORCEMENT"
+      },
+      2: {
+        badge: "SCENARIO 02 // PYLON BARRIER TRANSITION & LEGAL INGRESS",
+        statute: "TTC &sect; 224.153(c)",
+        title: "LEGAL ACCESS VIA BROKEN WHITE WEAVING ZONE",
+        desc: "Ingress and egress are legally permitted only at designated dashed pavement openings where warning pylons transition to merge zones.",
+        metric: "ENTRY PERMITTED: <strong class='text-carbon font-mono'>DASHED INGRESS OPENING ONLY</strong>",
+        phase: "PHASE: LEGAL HOV INGRESS"
+      },
+      3: {
+        badge: "SCENARIO 03 // 40 MPH SPEED DIFFERENTIAL BUFFER",
+        statute: "TTC &sect; 545.060",
+        title: "HIGH-SPEED BUFFER ADJACENT TO STOPPED TRAFFIC",
+        desc: "When general-purpose lanes are queued at 15 mph and HOV lane moves at 55 mph, maintain 40 mph differential buffer and scan for illegal cutters.",
+        metric: "SPEED DIFFERENTIAL: <strong class='text-carbon font-mono'>40 MPH SENSORY SCAN ZONE</strong>",
+        phase: "PHASE: SPEED DIFFERENTIAL SCAN"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      playBeep(480, 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Psychomotor &amp; Perceptual Impairment HUD / Drug Synergism — Texas Adult Driver Ed (L06-T02)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Global Base Styles & Phone Touch Standards -->
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    /* Universal Mobile Touch Target Hardening (TDLR ADE-1317 Offline Parity Standard) */
+    .touch-target, button, a {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 48px !important;
+      min-height: 48px !important;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+    a.touch-target {
+      display: inline-flex !important;
+      min-height: 48px !important;
+      min-width: 48px !important;
+    }
+    select, input[type="range"], input[type="text"], input[type="number"] {
+      min-height: 48px !important;
+      height: 48px !important;
+      touch-action: manipulation;
+    }
+    label.touch-target, .toggle-container {
+      min-height: 48px !important;
+      min-width: 48px !important;
+      display: inline-flex !important;
+      align-items: center;
+      touch-action: manipulation;
+    }
+    input[type="checkbox"] {
+      min-width: 48px !important;
+      min-height: 48px !important;
+      width: 48px !important;
+      height: 48px !important;
+      cursor: pointer;
+      touch-action: manipulation;
+      flex-shrink: 0;
+      accent-color: #E87522;
+    }
+    .overflow-x-auto {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.06); }
+    }
+    .animate-aura {
+      animation: pulseAura 2s ease-in-out infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / CURRICULUM BANNER -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-safety bg-safety-light px-2.5 py-0.5 rounded-full border border-safety/30">
+          <span class="w-2 h-2 rounded-full bg-safety"></span>
+          <span>TDLR ADE-1317 CURRICULUM</span>
+        </div>
+        <span class="text-[10px] font-mono text-slate">TPC &sect; 49.01(2) &bull; TPC &sect; 49.10</span>
+      </div>
+
+      <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-carbon leading-tight font-sans">
+        Psychomotor &amp; Perceptual Impairment HUD: Drug Synergism &amp; Cognitive Degradation
+      </h1>
+
+      <p class="text-xs text-slate font-sans leading-relaxed">
+        Chemical intoxication in Texas does not begin with slurred speech or physical staggering&mdash;it begins with the quiet dismantling of executive judgment and risk calculation at blood alcohol concentrations as low as 0.02%. As depressants and controlled substances cross the blood-brain barrier, ocular muscles freeze into constricted tunnel vision, synaptic transmission slows adding 88+ feet of unbraked vehicle travel at 60 MPH, and multi-substance combinations trigger exponential synergistic multiplication ($1 + 1 = 3\text{ to }10$). Under Texas Penal Code &sect; 49.10, holding a doctor&rsquo;s prescription provides absolute zero legal defense against Driving While Intoxicated.
+      </p>
+
+      <!-- Metric Badges Row -->
+      <div class="grid grid-cols-3 gap-2 pt-1 font-mono text-center">
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">First Lost</span>
+          <span class="text-xs font-bold text-safety">JUDGMENT (0.02%)</span>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Stopping Deficit</span>
+          <span class="text-xs font-bold text-hazard">+88 FT AT 60 MPH</span>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Synergy Factor</span>
+          <span class="text-xs font-bold text-hazard">1+1 = 3 TO 10x</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. STATUTORY FRAMEWORK & PHARMACOLOGICAL DOCTRINE -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">gavel</span>
+          <span class="font-bold">TEXAS PENAL CODE &amp; TTC CHAPTER 521 // SUBSTANCE JURISPRUDENCE</span>
+        </div>
+        <span class="text-safety font-bold bg-safety-light px-2 py-0.5 rounded border border-safety/30 text-[10px]">STATUTE AUDIT</span>
+      </div>
+
+      <!-- Statute Card 1: TPC § 49.01(2) (Clinical Loss of Faculties) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TPC &sect; 49.01(2) &bull; CLINICAL INTOXICATION DEFINITION</span>
+          <span class="text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">ALL SUBSTANCES</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          Under Texas Penal Code &sect; 49.01(2)(A), intoxication is defined as <em>&ldquo;not having the normal use of mental or physical faculties by reason of the introduction of alcohol, a controlled substance, a drug, a dangerous drug, a combination of two or more of those substances, or any other substance into the body.&rdquo;</em> This behavioral standard operates completely independent of chemical BAC limits: any driver whose divided attention or coordination is compromised is guilty of DWI.
+        </p>
+        <div class="bg-white p-2.5 rounded-lg border border-hairline font-mono text-[11px] text-slate space-y-1">
+          <div class="text-carbon font-bold">&bull; Dual-Track Legal Mechanism: Number vs. Clinical Impairment</div>
+          <div>While 0.08 BAC establishes strict per se guilt under Prong 2 (&sect; 49.01(2)(B)), Prong 1 empowers Texas peace officers to arrest and prosecutors to convict motorists operating with zero alcohol in their system who are impaired by prescription medications, over-the-counter sleep aids, or cannabis.</div>
+        </div>
+      </div>
+
+      <!-- Statute Card 2: TPC § 49.10 (Prescription Is No Defense) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TPC &sect; 49.10 &bull; NO PRESCRIPTION DEFENSE</span>
+          <span class="text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">ABSOLUTE LIABILITY</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          Texas Penal Code &sect; 49.10 explicitly establishes: <em>&ldquo;The fact that the defendant is or has been entitled to use the alcohol, controlled substance, drug, dangerous drug, or other substance is not a defense.&rdquo;</em> Holding a valid physician prescription, taking medicine exactly as directed by a pharmacist label, or consuming an over-the-counter medication confers zero legal immunity against a DWI charge if the driver&rsquo;s normal faculties are impaired.
+        </p>
+      </div>
+
+      <!-- Statute Card 3: TTC Chapter 521 & § 521.372 (Automatic Suspension for Drug Convictions) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC CHAPTER 521 &bull; ADMINISTRATIVE &amp; STATUTORY SANCTIONS</span>
+          <span class="text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">MANDATORY SUSPENSION</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          <strong>TTC &sect; 521.372 (Automatic Suspension; License Denial):</strong> A person's driver's license is automatically suspended on final conviction of any drug offense under the Texas Controlled Substances Act, Texas Dangerous Drug Act, or federal drug laws. The mandatory suspension is strictly <strong>180 days</strong> from final conviction. If the person has no license, DPS must deny license issuance for 180 days.
+        </p>
+        <div class="bg-white p-2.5 rounded-lg border border-hairline font-mono text-[11px] text-slate space-y-1">
+          <div class="text-carbon font-bold">&bull; Administrative Due Process &amp; ALR Notice (TTC &sect; 521.295):</div>
+          <div>Under TTC &sect; 521.295, DPS provides written notice specifying suspension grounds and dates. The driver has 15 days to request an Administrative License Revocation (ALR) hearing to contest the action.</div>
+        </div>
+      </div>
+
+      <!-- Hepatic Metabolism & Zero-Order Elimination Box -->
+      <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-3">
+        <span class="material-symbols-outlined text-amber-600 text-xl shrink-0 mt-0.5">timer</span>
+        <div class="space-y-1">
+          <div class="text-xs font-mono font-bold text-amber-900 uppercase">Biological Elimination &bull; Zero-Order Kinetics</div>
+          <p class="text-xs text-amber-900/90 font-sans leading-relaxed">
+            The human liver eliminates alcohol through enzymatic oxidation (alcohol dehydrogenase) at an unalterable biological rate of approximately <strong>0.015 g/dL per hour</strong> (roughly one standard drink per hour). Cold showers, black coffee, intense exercise, and energy drinks do <em>NOT</em> accelerate metabolic clearance. Coffee merely produces a &ldquo;wide-awake drunk&rdquo; whose reaction latency and tunnel vision remain lethally impaired. Only the passage of <strong>time</strong> cures intoxication.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. AUTHORITATIVE 3D SIMULATION CONTAINER (L06-T02) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>PHYSICS SIMULATOR // METABOLIC ELIMINATION</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          TABC § 106.041 • TPC § 49.10 • TTC § 521.372
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Alcohol Absorption, Zero-Order Metabolic Elimination & Sobriety Timeline</h2>
+        <p class="text-xs text-slate mt-0.5">Simulate constant liver hepatic oxidation rate (0.015 g/dL/hr), myth busting (cold showers and coffee have 0% impact), and next-morning residual alcohol impairment.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md" style="aspect-ratio: 16/9;">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L06_T02_metabolic_elimination.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Metabolic Elimination Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">SCENARIO 1: 3 DRINKS // PEAK BAC 0.065% // ELIMINATION RATE -0.015%/HR // 4.3H TO SOBER</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>3 Drinks</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>6 Drinks</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Myth Busting</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">METABOLIC PROFILE 01 // 3 DRINKS</span>
+            <span id="sim-card-statute" class="text-slate">TABC § 106.041 & TPC § 49.01</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Moderate Consumption: 3 Standard Drinks</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            3 standard drinks reach peak BAC ~0.065%. At fixed zero-order liver elimination rate of 0.015% per hour, complete clearance requires 4.3 hours. Even after 2 hours, BAC remains ~0.035%.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- 05. CAD ENGINE 01: PSYCHOMOTOR & PERCEPTUAL IMPAIRMENT HUD -->
+    <!-- L06-T02 PRIMARY CAD WIDGET: PSYCHOMOTOR & PERCEPTUAL IMPAIRMENT HUD -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TPC &sect; 49.01(2) &bull; COGNITIVE DECOMPOSITION</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Psychomotor &amp; Perceptual Impairment HUD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap the 4 cognitive stages to simulate perspective tunnel vision, reaction latency expansion, and stopping distance physics.</p>
+      </div>
+
+      <!-- SVG Viewport: Responsive max-w-[340px] container -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l02-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l02-cockpit-sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#050807" />
+              <stop offset="100%" stop-color="#0F1713" />
+            </linearGradient>
+            <linearGradient id="l02-asphalt-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1E2822" />
+              <stop offset="100%" stop-color="#121A15" />
+            </linearGradient>
+            <radialGradient id="l02-tunnel-mask" cx="50%" cy="50%" r="50%">
+              <stop offset="35%" stop-color="#000000" stop-opacity="0" />
+              <stop offset="85%" stop-color="#000000" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#000000" stop-opacity="0.95" />
+            </radialGradient>
+          </defs>
+
+          <!-- Night Highway Sky / Distant Horizon Base -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="url(#l02-cockpit-sky)" stroke="#222B25" stroke-width="1" />
+
+          <!-- TOP STAGE SELECTOR NODES (Y: 10 to 65) -->
+          <g transform="translate(0, 10)">
+            <!-- Node 1: Judgment -->
+            <g id="l02-cad1-stage-1" transform="translate(48, 26)">
+              <rect x="-34" y="-18" width="68" height="36" rx="5" fill="#141E18" stroke="#E87522" stroke-width="1.8" />
+              <text x="0" y="-6" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#E87522" text-anchor="middle">STAGE 1</text>
+              <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">JUDGMENT</text>
+              <text x="0" y="11" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#6EE7B7" text-anchor="middle">0.02-0.04 BAC</text>
+              <circle id="l02-cad1-pulse-s1" cx="0" cy="0" r="26" fill="none" stroke="#E87522" stroke-width="1" opacity="0.4" class="animate-pulse" />
+              <!-- Transparent Hitbox (r=28 guarantees >= 44x44px touch target) -->
+              <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('stage1_judgment')" role="button" tabindex="0" aria-label="Stage 1: Frontal Lobe Judgment Impairment" />
+            </g>
+
+            <!-- Node 2: Vision -->
+            <g id="l02-cad1-stage-2" transform="translate(128, 26)">
+              <rect x="-34" y="-18" width="68" height="36" rx="5" fill="#121815" stroke="#25352C" stroke-width="1" />
+              <text x="0" y="-6" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#94A3B8" text-anchor="middle">STAGE 2</text>
+              <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">TUNNEL VISION</text>
+              <text x="0" y="11" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#7DD3FC" text-anchor="middle">0.05-0.07 BAC</text>
+              <circle id="l02-cad1-pulse-s2" cx="0" cy="0" r="26" fill="none" stroke="#38BDF8" stroke-width="1" opacity="0" />
+              <!-- Transparent Hitbox -->
+              <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('stage2_vision')" role="button" tabindex="0" aria-label="Stage 2: Occipital Tunnel Vision Impairment" />
+            </g>
+
+            <!-- Node 3: Reaction -->
+            <g id="l02-cad1-stage-3" transform="translate(208, 26)">
+              <rect x="-34" y="-18" width="68" height="36" rx="5" fill="#121815" stroke="#25352C" stroke-width="1" />
+              <text x="0" y="-6" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#94A3B8" text-anchor="middle">STAGE 3</text>
+              <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">REACTION LAG</text>
+              <text x="0" y="11" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#FCA5A5" text-anchor="middle">0.08+ PER SE</text>
+              <circle id="l02-cad1-pulse-s3" cx="0" cy="0" r="26" fill="none" stroke="#EF4444" stroke-width="1" opacity="0" />
+              <!-- Transparent Hitbox -->
+              <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('stage3_reaction')" role="button" tabindex="0" aria-label="Stage 3: Synaptic Perception-Reaction Delay" />
+            </g>
+
+            <!-- Node 4: Motor Ataxia -->
+            <g id="l02-cad1-stage-4" transform="translate(288, 26)">
+              <rect x="-34" y="-18" width="68" height="36" rx="5" fill="#121815" stroke="#25352C" stroke-width="1" />
+              <text x="0" y="-6" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#94A3B8" text-anchor="middle">STAGE 4</text>
+              <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">MOTOR ATAXIA</text>
+              <text x="0" y="11" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#FBBF24" text-anchor="middle">0.10+ COLLAPSE</text>
+              <circle id="l02-cad1-pulse-s4" cx="0" cy="0" r="26" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0" />
+              <!-- Transparent Hitbox -->
+              <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('stage4_motor')" role="button" tabindex="0" aria-label="Stage 4: Gross Motor Ataxia and Loss of Control" />
+            </g>
+          </g>
+
+          <!-- PERSPECTIVE ROADWAY VIEWPORT (Y: 55 to 190) -->
+          <g id="l02-cad1-roadway">
+            <!-- Asphalt Perspective Polygon -->
+            <polygon points="170,82 175,82 315,190 25,190" fill="url(#l02-asphalt-grad)" stroke="#2D3A32" stroke-width="1" />
+            <!-- Highway Centerline Dash -->
+            <line x1="172.5" y1="84" x2="172.5" y2="100" stroke="#FFFFFF" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.6" />
+            <line x1="172.5" y1="102" x2="172.5" y2="135" stroke="#FBBF24" stroke-width="1.4" stroke-dasharray="4 4" />
+            <line x1="172.5" y1="138" x2="172.5" y2="190" stroke="#FBBF24" stroke-width="2.2" stroke-dasharray="8 6" />
+
+            <!-- Roadside Shoulder Guidelines -->
+            <line x1="170" y1="82" x2="25" y2="190" stroke="#FFFFFF" stroke-width="1.2" opacity="0.8" />
+            <line x1="175" y1="82" x2="315" y2="190" stroke="#FFFFFF" stroke-width="1.2" opacity="0.8" />
+
+            <!-- Lead Hazard Vehicle at Horizon -->
+            <g transform="translate(172.5, 96)" pointer-events="none">
+              <rect x="-10" y="-6" width="20" height="12" rx="2" fill="#BA1A1A" stroke="#FFFFFF" stroke-width="0.8" />
+              <circle cx="-6" cy="3" r="1.5" fill="#EF4444" />
+              <circle cx="6" cy="3" r="1.5" fill="#EF4444" />
+              <text x="0" y="-8" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#EF4444" text-anchor="middle">LEAD HAZARD</text>
+            </g>
+
+            <!-- Dynamic Stopping Distance Caliper Bar -->
+            <g id="l02-cad1-caliper" transform="translate(172.5, 150)">
+              <!-- Baseline Braking Zone (Green) -->
+              <line x1="-50" y1="0" x2="15" y2="0" stroke="#10B981" stroke-width="3" stroke-linecap="round" />
+              <!-- Latency Reaction Deficit Zone (Red Expandable) -->
+              <line id="l02-cad1-lag-bar" x1="15" y1="0" x2="55" y2="0" stroke="#EF4444" stroke-width="3" stroke-linecap="round" opacity="0.1" />
+              <circle cx="-50" cy="0" r="3" fill="#10B981" />
+              <circle id="l02-cad1-lag-tip" cx="55" cy="0" r="3" fill="#EF4444" opacity="0.1" />
+              <text id="l02-cad1-dist-txt" x="0" y="-6" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#FFFFFF" text-anchor="middle">
+                STOPPING DISTANCE: 303.4 FT (SOBER 1.5s)
+              </text>
+            </g>
+
+            <!-- Dynamic Tunnel Vision Vignette Overlay -->
+            <rect id="l02-cad1-vignette" x="15" y="65" width="310" height="126" rx="6" fill="url(#l02-tunnel-mask)" pointer-events="none" opacity="0" />
+          </g>
+
+          <!-- Bottom SVG Readout Bar -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060907" stroke="#1A241E" stroke-width="0.8" />
+            <circle id="l02-cad1-dot" cx="10" cy="9" r="3.5" fill="#E87522" />
+            <text id="l02-cad1-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              STAGE 1: FRONTAL LOBE INHIBITION &bull; RISK BLINDNESS AT BAC 0.02%
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (Touch Target min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l02-cad1-btn-1" onclick="setL02Cad1Mode('stage1_judgment')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">1. Judgment</span>
+          <span class="text-[9px] text-safety-deep font-normal">0.02-0.04% BAC</span>
+        </button>
+        <button id="l02-cad1-btn-2" onclick="setL02Cad1Mode('stage2_vision')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">2. Tunnel Vision</span>
+          <span class="text-[9px] text-slate font-normal">0.05-0.07% BAC</span>
+        </button>
+        <button id="l02-cad1-btn-3" onclick="setL02Cad1Mode('stage3_reaction')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">3. Reaction Lag</span>
+          <span class="text-[9px] text-slate font-normal">0.08%+ Per Se</span>
+        </button>
+        <button id="l02-cad1-btn-4" onclick="setL02Cad1Mode('stage4_motor')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">4. Motor Ataxia</span>
+          <span class="text-[9px] text-slate font-normal">0.10%+ Collapse</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l02-cad1-card" class="bg-surface-sub border-l-4 border-safety p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l02-cad1-card-tag" class="text-[10px] font-mono font-bold text-safety uppercase">STAGE 1: COGNITIVE SUPPRESSION</span>
+          <span id="l02-cad1-card-cite" class="text-[10px] font-mono text-slate">BAC 0.02% &ndash; 0.04%</span>
+        </div>
+        <h3 id="l02-cad1-card-title" class="font-sans font-bold text-sm text-carbon">Frontal Lobe Inhibitory Breakdown &amp; False Confidence</h3>
+        <p id="l02-cad1-card-desc" class="text-xs text-slate leading-relaxed">
+          Judgment and risk assessment are the very first faculties degraded by alcohol. At BAC levels as low as 0.02%, the prefrontal cortex relaxes inhibition. The driver falsely feels completely sober and confident, leading to aggressive gap acceptance errors, delayed hazard anticipation, and risky passing maneuvers before any physical slurring or stumbling occurs.
+        </p>
+        <div id="l02-cad1-card-meta" class="pt-1 text-[11px] font-mono text-slate border-t border-hairline/80 flex items-center justify-between">
+          <span>PERCEPTION LAG: Normal 1.5s</span>
+          <span class="text-safety font-bold">FRONTAL CORTEX AFFECTED FIRST</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. SCIENTIFIC DEEP DIVE: STOPPING KINEMATICS & REACTION PHYSICS -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">calculate</span>
+          <span class="font-bold">ENGINEERING DYNAMICS // KINEMATIC STOPPING MATRIX</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          PHYSICS FORMULA
+        </span>
+      </div>
+
+      <div>
+        <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+          Reaction Time Expansion &amp; Stopping Distance Physics
+        </h3>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          Total stopping distance is mathematically governed by perception-reaction distance plus mechanical braking distance:
+        </p>
+      </div>
+
+      <!-- Formula Container -->
+      <div class="p-3 bg-surface-sub border border-hairline rounded-xl font-mono text-xs text-carbon space-y-1.5 overflow-x-auto no-scrollbar">
+        <div class="text-safety font-bold">D_total = (v &times; 1.467 &times; t_pr) + (v&sup2; / (30 &times; f))</div>
+        <div class="text-[11px] text-slate">
+          Where v = speed (MPH), t_pr = perception-reaction time (seconds), and f = friction coefficient (&approx; 0.70 on dry asphalt).
+        </div>
+      </div>
+
+      <!-- Comparative Velocity Table -->
+      <div class="overflow-x-auto no-scrollbar" style="overflow-x: auto; width: 100%; max-width: 100%; -webkit-overflow-scrolling: touch;">
+        <table class="w-full text-left font-mono text-xs border border-hairline rounded-xl overflow-hidden">
+          <thead class="bg-surface-sub text-[10px] text-slate uppercase border-b border-hairline">
+            <tr>
+              <th class="p-2.5">Speed</th>
+              <th class="p-2.5">Sober (1.5s Lag)</th>
+              <th class="p-2.5">Impaired (2.5s Lag)</th>
+              <th class="p-2.5 text-hazard">Unbraked Deficit</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            <tr class="hover:bg-canvas">
+              <td class="p-2.5 font-bold text-carbon">30 MPH</td>
+              <td class="p-2.5">108.9 ft</td>
+              <td class="p-2.5">152.9 ft</td>
+              <td class="p-2.5 text-hazard font-bold">+44.0 ft (3 Car Lengths)</td>
+            </tr>
+            <tr class="hover:bg-canvas">
+              <td class="p-2.5 font-bold text-carbon">45 MPH</td>
+              <td class="p-2.5">195.4 ft</td>
+              <td class="p-2.5">261.4 ft</td>
+              <td class="p-2.5 text-hazard font-bold">+66.0 ft (4.5 Car Lengths)</td>
+            </tr>
+            <tr class="hover:bg-canvas bg-safety-light/30">
+              <td class="p-2.5 font-bold text-safety-deep">60 MPH</td>
+              <td class="p-2.5">303.4 ft</td>
+              <td class="p-2.5">391.4 ft</td>
+              <td class="p-2.5 text-hazard font-bold">+88.0 ft (6 Car Lengths)</td>
+            </tr>
+            <tr class="hover:bg-canvas">
+              <td class="p-2.5 font-bold text-carbon">70 MPH</td>
+              <td class="p-2.5">387.8 ft</td>
+              <td class="p-2.5">490.5 ft</td>
+              <td class="p-2.5 text-hazard font-bold">+102.7 ft (7 Car Lengths)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-[11px] text-slate font-sans leading-relaxed">
+        <strong>The Lethal Consequence:</strong> At 60 MPH, traveling an additional 88 feet unbraked means that by the time an impaired driver even touches the pedal, a sober driver would have already completely stopped. In urban night driving, this 88-foot margin is the direct difference between stopping cleanly before a pedestrian crosswalk and an unavoidable fatal impact.
+      </div>
+    </section>
+
+    <!-- 07. CAD ENGINE 02: DRUG CLASSIFICATION & SYNERGISTIC MULTIPLICATION MATRIX -->
+    <!-- L06-T02 SECONDARY CAD WIDGET: DRUG CLASSIFICATION & SYNERGISTIC MATRIX -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TPC &sect; 49.01(2) &bull; TPC &sect; 49.10</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          PHARMACO MATRIX
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Drug Classification &amp; Synergistic Multiplication Matrix</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap the drug class nodes to inspect central nervous system suppression, rebound fatigue, and the deadly synergistic multiplier.</p>
+      </div>
+
+      <!-- SVG Viewport: Responsive max-w-[340px] container -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l02-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l02-matrix-bg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0A0E0C" />
+              <stop offset="100%" stop-color="#050806" />
+            </linearGradient>
+            <radialGradient id="l02-syn-pulse" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#EF4444" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#7F1D1D" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <!-- Background Canvas Base -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="url(#l02-matrix-bg)" stroke="#1F2923" stroke-width="1" />
+
+          <!-- Synaptic Connection Vectors from 4 Input Nodes to Central Hub -->
+          <g stroke-width="1.4" fill="none">
+            <!-- Path from Node 1 (Depressants) -->
+            <path id="l02-cad2-vec-1" d="M 50,65 L 50,90 Q 50,110 120,110 L 140,110" stroke="#38BDF8" opacity="0.4" />
+            <!-- Path from Node 2 (Stimulants) -->
+            <path id="l02-cad2-vec-2" d="M 130,65 L 130,85 Q 130,105 145,110" stroke="#F59E0B" opacity="0.3" />
+            <!-- Path from Node 3 (Cannabis) -->
+            <path id="l02-cad2-vec-3" d="M 210,65 L 210,85 Q 210,105 195,110" stroke="#10B981" opacity="0.3" />
+            <!-- Path from Node 4 (Synergy) -->
+            <path id="l02-cad2-vec-4" d="M 290,65 L 290,90 Q 290,110 220,110 L 200,110" stroke="#EF4444" opacity="0.8" stroke-dasharray="3 2" />
+          </g>
+
+          <!-- TOP 4 PHARMACOLOGICAL CLASS NODES (Y: 28 to 68) -->
+          <!-- Node 1: CNS Depressants (X=50) -->
+          <g id="l02-cad2-node-dep" transform="translate(50, 42)">
+            <rect x="-34" y="-20" width="68" height="40" rx="5" fill="#0E161B" stroke="#38BDF8" stroke-width="1.8" />
+            <circle cx="-18" cy="-8" r="4" fill="#38BDF8" />
+            <text x="2" y="-5" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#38BDF8">DEPRESSANT</text>
+            <text x="0" y="4" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">ALCOHOL / RX</text>
+            <text x="0" y="13" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#7DD3FC" text-anchor="middle">SEDATION</text>
+            <circle id="l02-cad2-pulse-dep" cx="0" cy="0" r="26" fill="none" stroke="#38BDF8" stroke-width="1" opacity="0.4" class="animate-pulse" />
+            <!-- Transparent Hitbox (r=28) -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('depressants')" role="button" tabindex="0" aria-label="CNS Depressants and Sedatives Class" />
+          </g>
+
+          <!-- Node 2: CNS Stimulants (X=130) -->
+          <g id="l02-cad2-node-stim" transform="translate(130, 42)">
+            <rect x="-34" y="-20" width="68" height="40" rx="5" fill="#18140D" stroke="#3D2E16" stroke-width="1" />
+            <circle cx="-18" cy="-8" r="4" fill="#F59E0B" />
+            <text x="2" y="-5" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#F59E0B">STIMULANT</text>
+            <text x="0" y="4" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">AMPHETAMINE</text>
+            <text x="0" y="13" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#FDE68A" text-anchor="middle">REBOUND FATIGUE</text>
+            <circle id="l02-cad2-pulse-stim" cx="0" cy="0" r="26" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0" />
+            <!-- Transparent Hitbox -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('stimulants')" role="button" tabindex="0" aria-label="CNS Stimulants and Rebound Fatigue Class" />
+          </g>
+
+          <!-- Node 3: Cannabis / THC (X=210) -->
+          <g id="l02-cad2-node-can" transform="translate(210, 42)">
+            <rect x="-34" y="-20" width="68" height="40" rx="5" fill="#0D1712" stroke="#1D3627" stroke-width="1" />
+            <circle cx="-18" cy="-8" r="4" fill="#10B981" />
+            <text x="2" y="-5" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#10B981">CANNABIS</text>
+            <text x="0" y="4" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">THC / WEED</text>
+            <text x="0" y="13" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#A7F3D0" text-anchor="middle">SPACE DISTORT</text>
+            <circle id="l02-cad2-pulse-can" cx="0" cy="0" r="26" fill="none" stroke="#10B981" stroke-width="1" opacity="0" />
+            <!-- Transparent Hitbox -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('cannabis')" role="button" tabindex="0" aria-label="Cannabinoids and Space Distortion Class" />
+          </g>
+
+          <!-- Node 4: Synergistic Multiplier (X=290) -->
+          <g id="l02-cad2-node-syn" transform="translate(290, 42)">
+            <rect x="-34" y="-20" width="68" height="40" rx="5" fill="#201111" stroke="#EF4444" stroke-width="1.8" />
+            <circle cx="-18" cy="-8" r="4" fill="#EF4444" />
+            <text x="2" y="-5" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#EF4444">SYNERGY</text>
+            <text x="0" y="4" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">ALC + DRUGS</text>
+            <text x="0" y="13" font-family="'JetBrains Mono', monospace" font-size="4.2" fill="#FCA5A5" text-anchor="middle">1 + 1 = 5 to 10</text>
+            <circle id="l02-cad2-pulse-syn" cx="0" cy="0" r="26" fill="none" stroke="#EF4444" stroke-width="1" opacity="0.6" class="animate-pulse" />
+            <!-- Transparent Hitbox -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('synergy')" role="button" tabindex="0" aria-label="Synergistic Multiplier: Mixing Alcohol and Medications" />
+          </g>
+
+          <!-- CENTRAL NERVOUS SYSTEM RECEPTOR HUB (X=170, Y=115) -->
+          <g id="l02-cad2-hub" transform="translate(170, 115)">
+            <circle id="l02-cad2-hub-glow" cx="0" cy="0" r="28" fill="url(#l02-syn-pulse)" opacity="0.6" />
+            <rect x="-56" y="-18" width="112" height="36" rx="6" fill="#141E19" stroke="#E87522" stroke-width="1.5" />
+            <text id="l02-cad2-hub-title" x="0" y="-5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">
+              CENTRAL NERVOUS SYSTEM
+            </text>
+            <text id="l02-cad2-hub-sub" x="0" y="4" font-family="'JetBrains Mono', monospace" font-size="5.2" font-weight="700" fill="#E87522" text-anchor="middle">
+              SYNAPTIC RECEPTOR HUB
+            </text>
+            <text id="l02-cad2-hub-stat" x="0" y="12" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#94A3B8" text-anchor="middle">
+              TPC § 49.10: NO RX DEFENSE
+            </text>
+          </g>
+
+          <!-- Bottom SVG Readout Bar -->
+          <g transform="translate(10, 154)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060907" stroke="#1A241E" stroke-width="0.8" />
+            <circle id="l02-cad2-dot" cx="10" cy="9" r="3.5" fill="#EF4444" />
+            <text id="l02-cad2-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              SYNERGY: ALCOHOL + RX DRUGS MULTIPLIES IMPAIRMENT (1 + 1 = 5 TO 10x)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (Touch Target min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l02-cad2-btn-1" onclick="setL02Cad2Mode('depressants')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Depressants</span>
+          <span class="text-[9px] text-slate font-normal">Sedatives / Benadryl</span>
+        </button>
+        <button id="l02-cad2-btn-2" onclick="setL02Cad2Mode('stimulants')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Stimulants</span>
+          <span class="text-[9px] text-slate font-normal">Rebound Crash</span>
+        </button>
+        <button id="l02-cad2-btn-3" onclick="setL02Cad2Mode('cannabis')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Cannabis</span>
+          <span class="text-[9px] text-slate font-normal">Time/Space Skew</span>
+        </button>
+        <button id="l02-cad2-btn-4" onclick="setL02Cad2Mode('synergy')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Synergism</span>
+          <span class="text-[9px] text-safety-deep font-normal">1+1=5 to 10 &bull; TPC &sect; 49.10</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Card -->
+      <div id="l02-cad2-card" class="bg-surface-sub border-l-4 border-hazard p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l02-cad2-card-tag" class="text-[10px] font-mono font-bold text-hazard uppercase">THE SYNERGISTIC MULTIPLIER</span>
+          <span id="l02-cad2-card-cite" class="text-[10px] font-mono text-slate">TPC &sect; 49.10 // PHARMACOLOGY</span>
+        </div>
+        <h3 id="l02-cad2-card-title" class="font-sans font-bold text-sm text-carbon">Exponential Synaptic Depression (1 + 1 = 5 to 10)</h3>
+        <p id="l02-cad2-card-desc" class="text-xs text-slate leading-relaxed">
+          Combining alcohol with other central nervous system depressants (such as tranquilizers, prescription opioids, or over-the-counter antihistamines) does not produce additive impairment&mdash;it triggers exponential synergism ($1 + 1 = 5\text{ to }10$). The combination can cause sudden loss of consciousness or respiratory failure at the steering wheel. Under Texas Penal Code &sect; 49.10, holding a valid doctor prescription is legally NO defense to DWI.
+        </p>
+        <div id="l02-cad2-card-meta" class="pt-1 text-[11px] font-mono text-slate border-t border-hairline/80 flex items-center justify-between">
+          <span>TPC § 49.10: NO RX DEFENSE</span>
+          <span class="text-hazard font-bold">BLACKOUT &bull; COMA HAZARD</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. INTERACTIVE SCENARIO MCQS (3 QUESTIONS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">quiz</span>
+          <span class="font-bold">KNOWLEDGE CHECK // TPC &sect; 49.01 &amp; &sect; 49.10</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          3 SCENARIOS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L06-T02 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- QUESTION 1: TARGET OPTION B STRICTLY CORRECT -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 01 &bull; ALCOHOL METABOLISM &amp; ELIMINATION</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          An individual consumes three 12-ounce beers (5% ABV) over an hour at a dinner gathering. When discussing their fitness to drive, a friend suggests drinking two cups of black coffee and running in place to burn off the alcohol before taking the highway. What is the physiological and scientific reality of alcohol metabolism?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Caffeinated coffee increases liver enzyme production, clearing alcohol three times faster</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] The human liver eliminates alcohol at a fixed biological rate of roughly 0.015 g/dL per hour, and only the passage of time can lower BAC and restore sobriety</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Heavy cardiovascular exercise expels 80% of systemic alcohol through sweat glands within 20 minutes</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Cold showers contract peripheral blood vessels, instantly lowering blood alcohol concentration</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 2: OPTION B CORRECT -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 02 &bull; POLYSUBSTANCE SYNERGISTIC INTERACTION</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A driver suffering from acute seasonal allergies takes a standard over-the-counter antihistamine (diphenhydramine) and later drinks a single glass of wine (5 oz at 12% ABV) with dinner. While driving home, the motorist experiences profound dizziness, heavy eyelid droop, and drifts over the center stripe. What pharmacological phenomenon caused this severe impairment?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] The antagonistic neutralization effect, where the antihistamine converts wine ethanol into sugar</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] The synergistic effect, where combining central nervous system depressants produces an exponential multiplication of impairment far greater than the sum of their individual effects</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] A benign allergic flare-up that has no legal standing under Texas DWI statutes</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Acute metabolic tolerance, which temporarily speeds up motor reaction latency</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 3: OPTION C CORRECT -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 03 &bull; COGNITIVE DECOMPOSITION ORDER</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          As blood alcohol concentration begins rising in the human bloodstream, which critical driving faculty is the very first to be dismantled by central nervous system depression?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Manual physical muscular coordination and steering wheel grip strength</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Auditory frequency detection of sirens and horns in adjacent traffic</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Executive judgment, risk assessment, and self-criticism</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Color differentiation between red and green illuminated traffic signals</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. STATUTORY REINSTATEMENT FRAMEWORK // TTC CHAPTER 521 MANDATES -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">verified_user</span>
+          <span class="font-bold">TTC CHAPTER 521 // REINSTATEMENT PROTOCOL</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          DPS MANDATE
+        </span>
+      </div>
+
+      <div>
+        <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+          Driver's License Reinstatement Requirements &amp; Sanctions
+        </h3>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          Suspension under Texas Transportation Code Chapter 521 does not lift automatically after 180 days. Reinstatement requires completing three statutory prerequisites:
+        </p>
+      </div>
+
+      <!-- Reinstatement 3-Tier Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-xs font-bold text-valid block uppercase">1. DOEP COURSE</span>
+          <p class="text-[11px] font-sans text-slate">Complete a 15-hour TDLR-certified Drug Offender Education Program under TTC &sect; 521.374. Failure to complete makes suspension indefinite.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-xs font-bold text-safety block uppercase">2. REINSTATEMENT FEE</span>
+          <p class="text-[11px] font-sans text-slate">Remit statutory administrative reinstatement fees ($100 ALR fee under TTC &sect; 521.313 and &sect; 521.377) to the Department of Public Safety.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-xs font-bold text-hazard block uppercase">3. SR-22 INSURANCE</span>
+          <p class="text-[11px] font-sans text-slate">File and maintain an active SR-22 Certificate of Financial Responsibility with DPS for two continuous years as proof of required liability coverage.</p>
+        </div>
+      </div>
+    </section>
+
+        <!-- 09. LESSON GATEWAY & NAVIGATION FOOTER -->
+    <footer class="pt-4 pb-8 space-y-3">
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+        <a href="L06-T01.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-xs" style="min-height: 48px; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREV: L06-T01</span>
+        </a>
+        <a href="index.html" class="touch-target min-h-[48px] w-auto shrink-0 px-3.5 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-slate hover:text-carbon font-mono text-xs font-bold transition flex items-center justify-center gap-1 shadow-xs" aria-label="Course Hub" style="min-height: 48px; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-base">apps</span>
+          <span>HUB</span>
+        </a>
+        <a href="L06-T03.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] p-2.5 rounded-xl border-2 border-safety bg-safety text-white font-mono text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-xs hover:bg-safety-deep" style="min-height: 48px; touch-action: manipulation;">
+          <span>NEXT: TOPIC 03: SENSORY & VISION</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) • Module 06 Topic 02
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINES & EVALUATION SCRIPTS -->
+  <script>
+    // ==============================================================================
+    // 1. MCQ SCORING ENGINE (QUESTION 1 OPTION [ B ] STRICTLY CORRECT)
+    // ==============================================================================
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+            const TOPIC_ID = 'L06-T02';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TDLR ADE STANDARDS // BIO-KINETIC ELIMINATION",
+            "statutoryRationale": "Under Texas driver education standards and medical science, the human body metabolizes alcohol through zero-order kinetics at an unalterable rate of approximately 0.015 g/dL per hour (about one standard drink per hour). Coffee, cold showers, exercise, and greasy foods have zero effect on liver enzymatic breakdown (alcohol dehydrogenase). Coffee merely creates an alert, wide-awake intoxicated driver. Only time eliminates alcohol."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TPC § 49.01(2) & TPC § 49.10 // PHARMACOLOGY",
+            "statutoryRationale": "Under Texas Penal Code § 49.01(2) and medical jurisprudence, combining alcohol with other drugs (prescription, OTC, or illicit) triggers a synergistic effect. The depressant qualities interact exponentially rather than additively (e.g. 1 + 1 = 3 to 10), causing acute sedation, delayed synaptic firing, and severe cognitive tunneling. Under TPC § 49.10, having a lawful prescription or using legal OTC medication is not a defense to DWI."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TEXAS DRIVER HANDBOOK CH. 10 // NEUROLOGICAL CASCADE",
+            "statutoryRationale": "Neurological research and Texas Driver Handbook curriculum establish that judgment, executive reasoning, and risk calculation are degraded first—at BAC levels as low as 0.02% to 0.04%—long before visible motor stumbling, slurred speech, or gross physical uncoordination occur. Because judgment fails first, an impaired individual loses the cognitive ability to recognize their own impairment and falsely believes they are fully capable of driving."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ==============================================================================
+    // 2. L06-T02 CAD ENGINE 01: PSYCHOMOTOR IMPAIRMENT HUD STATE ENGINE
+    // ==============================================================================
+    const l02Cad1Data = {
+      stage1_judgment: {
+        status: "STAGE 1: FRONTAL LOBE INHIBITION • RISK BLINDNESS AT BAC 0.02%",
+        dotColor: "#E87522",
+        tag: "STAGE 1: COGNITIVE SUPPRESSION",
+        cite: "BAC 0.02% – 0.04%",
+        title: "Frontal Lobe Inhibitory Breakdown & False Confidence",
+        desc: "Judgment and risk assessment are the very first faculties degraded by alcohol. At BAC levels as low as 0.02%, prefrontal cortex inhibition fails. The driver falsely feels confident, resulting in risky passing maneuvers and tailgating, long before any motor stumbling emerges.",
+        distText: "STOPPING DISTANCE: 303.4 FT (SOBER 1.5s)",
+        lagOpacity: "0.1",
+        vignetteOpacity: "0.0",
+        meta1: "PERCEPTION LAG: Baseline 1.5s",
+        meta2: "FRONTAL CORTEX SUPPRESSION",
+        accentBorder: "border-safety",
+        tagColor: "text-safety"
+      },
+      stage2_vision: {
+        status: "STAGE 2: OCCIPITAL CORRIDOR COLLAPSE • PERIPHERAL TUNNEL VISION (BAC 0.05%)",
+        dotColor: "#38BDF8",
+        tag: "STAGE 2: SENSORY COLLAPSE",
+        cite: "BAC 0.05% – 0.07%",
+        title: "Peripheral Vision Field Narrowing & Pupil Glare Blindness",
+        desc: "Alcohol suppresses the ocular motor muscles and occipital lobe. Normal 180-degree peripheral vision narrows into a constricted tunnel cone of less than 40 degrees. Drivers become completely blind to pedestrians stepping from curbs or vehicles entering from side streets. Glare recovery latency from oncoming headlights triples from 1s to 3s.",
+        distText: "STOPPING DISTANCE: 347.4 FT (+44 FT AT 60 MPH)",
+        lagOpacity: "0.5",
+        vignetteOpacity: "0.75",
+        meta1: "VISUAL CONE: Narrows 180° → 40°",
+        meta2: "GLARE RECOVERY: 3.0s Delay",
+        accentBorder: "border-sky-500",
+        tagColor: "text-sky-600"
+      },
+      stage3_reaction: {
+        status: "STAGE 3: SYNAPTIC TRANSMISSION LAG • STOPPING DISTANCE COLLAPSE (BAC 0.08%)",
+        dotColor: "#EF4444",
+        tag: "STAGE 3: REACTION LATENCY",
+        cite: "BAC 0.08% PER SE (TPC § 49.01)",
+        title: "Synaptic Transmission Latency Adds 88+ Unbraked Feet",
+        desc: "At 0.08 BAC, central nervous system neural transmission slows drastically. Perception-reaction time expands from 1.5s to 2.5s. At 60 MPH (88 ft/sec), the vehicle travels an additional 88 FEET before the driver's foot even touches the brake pedal. Total stopping distance expands from 303.4 ft to 391.4 ft (nearly 6 car lengths).",
+        distText: "STOPPING DISTANCE: 391.4 FT (+88 FT UNBRAKED!)",
+        lagOpacity: "1.0",
+        vignetteOpacity: "0.85",
+        meta1: "REACTION TIME: 1.5s → 2.5s (+1.0s)",
+        meta2: "UNBRAKED TRAVEL: +88.0 Feet",
+        accentBorder: "border-hazard",
+        tagColor: "text-hazard"
+      },
+      stage4_motor: {
+        status: "STAGE 4: GROSS MOTOR ATAXIA • TOTAL DUAL-TASK STEERING FAILURE (BAC 0.10%+)",
+        dotColor: "#F59E0B",
+        tag: "STAGE 4: MOTOR COLLAPSE",
+        cite: "BAC 0.10%+ AT EXTREME HAZARD",
+        title: "Cerebellar Motor Incoordination & Multi-Task Disruption",
+        desc: "At BAC 0.10% and above, the cerebellum loses motor calibration. Drivers suffer severe ataxia: over-correcting steering, weaving across double yellow lines, and failing divided-attention tasks. Drivers cannot maintain speed while checking rearview mirrors or scanning road signs, leading to fatal runoff and head-on collisions.",
+        distText: "STOPPING DISTANCE: 479.4 FT (+176 FT CATASTROPHIC)",
+        lagOpacity: "1.0",
+        vignetteOpacity: "0.95",
+        meta1: "CEREBELLAR ATAXIA: Severe Weaving",
+        meta2: "DUAL-TASK FAILURE: Complete",
+        accentBorder: "border-amber-500",
+        tagColor: "text-amber-600"
+      }
+    };
+
+    function setL02Cad1Mode(stageKey) {
+      const data = l02Cad1Data[stageKey];
+      if (!data) return;
+
+      // 1. Update SVG Status & Dot
+      const statusElem = document.getElementById('l02-cad1-status');
+      const dotElem = document.getElementById('l02-cad1-dot');
+      if (statusElem) statusElem.textContent = data.status;
+      if (dotElem) dotElem.setAttribute('fill', data.dotColor);
+
+      // 2. Update SVG Graphic Overlays (Vignette, Caliper Bar, & Text)
+      const vignette = document.getElementById('l02-cad1-vignette');
+      const lagBar = document.getElementById('l02-cad1-lag-bar');
+      const lagTip = document.getElementById('l02-cad1-lag-tip');
+      const distTxt = document.getElementById('l02-cad1-dist-txt');
+
+      if (vignette) vignette.setAttribute('opacity', data.vignetteOpacity);
+      if (lagBar) lagBar.setAttribute('opacity', data.lagOpacity);
+      if (lagTip) lagTip.setAttribute('opacity', data.lagOpacity);
+      if (distTxt) distTxt.textContent = data.distText;
+
+      // 3. Update Node Borders & Pulses
+      const stages = ['stage1_judgment', 'stage2_vision', 'stage3_reaction', 'stage4_motor'];
+      stages.forEach((sKey, idx) => {
+        const stageNum = idx + 1;
+        const stageBox = document.querySelector(`#l02-cad1-stage-${stageNum} rect`);
+        const stagePulse = document.getElementById(`l02-cad1-pulse-s${stageNum}`);
+
+        if (stageBox) {
+          if (sKey === stageKey) {
+            stageBox.setAttribute('stroke', data.dotColor);
+            stageBox.setAttribute('stroke-width', '1.8');
+          } else {
+            stageBox.setAttribute('stroke', '#25352C');
+            stageBox.setAttribute('stroke-width', '1');
+          }
+        }
+        if (stagePulse) {
+          stagePulse.setAttribute('opacity', sKey === stageKey ? '0.4' : '0');
+        }
+      });
+
+      // 4. Update Buttons
+      stages.forEach((sKey, idx) => {
+        const btn = document.getElementById(`l02-cad1-btn-${idx + 1}`);
+        if (btn) {
+          if (sKey === stageKey) {
+            btn.className = "touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center";
+          } else {
+            btn.className = "touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center";
+          }
+        }
+      });
+
+      // 5. Update Card
+      const card = document.getElementById('l02-cad1-card');
+      const cardTag = document.getElementById('l02-cad1-card-tag');
+      const cardCite = document.getElementById('l02-cad1-card-cite');
+      const cardTitle = document.getElementById('l02-cad1-card-title');
+      const cardDesc = document.getElementById('l02-cad1-card-desc');
+      const cardMeta = document.getElementById('l02-cad1-card-meta');
+
+      if (card) card.className = `bg-surface-sub border-l-4 ${data.accentBorder} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      if (cardTag) {
+        cardTag.className = `text-[10px] font-mono font-bold ${data.tagColor} uppercase`;
+        cardTag.textContent = data.tag;
+      }
+      if (cardCite) cardCite.textContent = data.cite;
+      if (cardTitle) cardTitle.textContent = data.title;
+      if (cardDesc) cardDesc.textContent = data.desc;
+      if (cardMeta) {
+        cardMeta.innerHTML = `<span>${data.meta1}</span><span class="${data.tagColor} font-bold">${data.meta2}</span>`;
+      }
+    }
+
+    // ==============================================================================
+    // 3. L06-T02 CAD ENGINE 02: DRUG CLASSIFICATION & SYNERGISTIC MATRIX STATE ENGINE
+    // ==============================================================================
+    const l02Cad2Data = {
+      depressants: {
+        status: "CLASS: CNS DEPRESSANTS • TRANQUILIZERS, SEDATIVES & ANTIHISTAMINES",
+        dotColor: "#38BDF8",
+        tag: "CENTRAL NERVOUS SYSTEM DEPRESSANTS",
+        cite: "TPC § 49.01(2) // PHARMACOLOGY",
+        title: "Sedation, Synaptic Slowing & Over-The-Counter Hazards",
+        desc: "CNS depressants (including alcohol, tranquilizers, sedatives, sleeping pills, and OTC antihistamines like diphenhydramine) slow brain electrical activity. OTC cold and allergy medicines can induce sedation equivalent to a 0.05%–0.08% BAC. Drivers experience delayed reaction times, drowsy micro-sleep episodes, and inability to monitor mirrors while steering.",
+        hubTitle: "CNS DEPRESSION ACTIVE",
+        hubSub: "SYNAPTIC FIRING SLOWED",
+        hubStat: "SEDATION & TRACKING DEFICIT",
+        meta1: "EXAMPLES: Benadryl, Xanax, Valium",
+        meta2: "Mimics 0.05%-0.08% BAC",
+        accentBorder: "border-sky-500",
+        tagColor: "text-sky-600",
+        glowOpacity: "0.2"
+      },
+      stimulants: {
+        status: "CLASS: CNS STIMULANTS • AGGRESSIVE FALSE CONFIDENCE & REBOUND CRASH",
+        dotColor: "#F59E0B",
+        tag: "CENTRAL NERVOUS SYSTEM STIMULANTS",
+        cite: "TPC § 49.01(2) // PHARMACOLOGY",
+        title: "Hyper-Arousal Followed by Catastrophic Rebound Fatigue",
+        desc: "CNS stimulants (such as amphetamines, methamphetamine, and cocaine) produce temporary hyper-alertness, reckless risk-taking, and erratic tailgating. Once the chemical wears off, the driver suffers sudden, catastrophic 'rebound fatigue'—often falling asleep instantaneously at 70 MPH without warning, triggering fatal lane departure collisions.",
+        hubTitle: "CNS STIMULATION PEAK",
+        hubSub: "CRASH REBOUND HYPERSOMNIA",
+        hubStat: "SUDDEN SLEEP COLLAPSE",
+        meta1: "EXAMPLES: Adderall, Meth, Cocaine",
+        meta2: "Severe Rebound Micro-Sleep",
+        accentBorder: "border-amber-500",
+        tagColor: "text-amber-600",
+        glowOpacity: "0.3"
+      },
+      cannabis: {
+        status: "CLASS: CANNABINOIDS (THC) • DISTORTED TIME, SPACE & LATERAL WEAVING",
+        dotColor: "#10B981",
+        tag: "CANNABINOIDS & HALLUCINOGENS",
+        cite: "TPC § 49.01(2) // DRE PROTOCOL",
+        title: "Spatial Distortion, Slowed Decision-Making & Lane Weaving",
+        desc: "Marijuana (THC) impairs the brain's ability to gauge time, speed, and distance. Drivers under the influence of cannabis struggle to track lane centerlines, exhibit slow brake reaction initiation, and suffer severe divided-attention degradation. They frequently drive excessively slowly while drifting across highway lane boundaries.",
+        hubTitle: "TEMPORAL DISTORTION",
+        hubSub: "LATERAL TRACKING FAILURE",
+        hubStat: "TIME & DISTANCE CORRUPTED",
+        meta1: "EFFECT: Inability to Center Lane",
+        meta2: "Delayed Emergency Braking",
+        accentBorder: "border-emerald-500",
+        tagColor: "text-emerald-600",
+        glowOpacity: "0.2"
+      },
+      synergy: {
+        status: "SYNERGY: ALCOHOL + RX DRUGS MULTIPLIES IMPAIRMENT (1 + 1 = 5 TO 10x)",
+        dotColor: "#EF4444",
+        tag: "THE SYNERGISTIC MULTIPLIER",
+        cite: "TPC § 49.10 // PHARMACOLOGY",
+        title: "Exponential Synaptic Depression (1 + 1 = 5 to 10)",
+        desc: "Combining alcohol with other central nervous system depressants (such as tranquilizers, prescription opioids, or over-the-counter antihistamines) does not produce additive impairment—it triggers exponential synergism (1 + 1 = 5 to 10). The combination can cause sudden loss of consciousness or respiratory failure at the steering wheel. Under Texas Penal Code § 49.10, holding a valid doctor prescription is legally NO defense to DWI.",
+        hubTitle: "SYSTEM OVERLOAD // SYNAPSE BLOCK",
+        hubSub: "EXPONENTIAL MULTIPLICATION (1+1=5-10)",
+        hubStat: "TPC § 49.10: NO RX DEFENSE",
+        meta1: "TPC § 49.10: NO RX DEFENSE",
+        meta2: "BLACKOUT • COMA HAZARD",
+        accentBorder: "border-hazard",
+        tagColor: "text-hazard",
+        glowOpacity: "0.85"
+      }
+    };
+
+    function setL02Cad2Mode(modeKey) {
+      const data = l02Cad2Data[modeKey];
+      if (!data) return;
+
+      // 1. Update SVG Status & Dot
+      const statusElem = document.getElementById('l02-cad2-status');
+      const dotElem = document.getElementById('l02-cad2-dot');
+      if (statusElem) statusElem.textContent = data.status;
+      if (dotElem) dotElem.setAttribute('fill', data.dotColor);
+
+      // 2. Update Central Hub Labels & Glow
+      const hubTitle = document.getElementById('l02-cad2-hub-title');
+      const hubSub = document.getElementById('l02-cad2-hub-sub');
+      const hubStat = document.getElementById('l02-cad2-hub-stat');
+      const hubGlow = document.getElementById('l02-cad2-hub-glow');
+
+      if (hubTitle) hubTitle.textContent = data.hubTitle;
+      if (hubSub) hubSub.textContent = data.hubSub;
+      if (hubStat) hubStat.textContent = data.hubStat;
+      if (hubGlow) hubGlow.setAttribute('opacity', data.glowOpacity);
+
+      // 3. Update Input Node Strokes & Pulses
+      const nodes = [
+        { key: 'depressants', boxId: '#l02-cad2-node-dep rect', pulseId: 'l02-cad2-pulse-dep', stroke: '#38BDF8' },
+        { key: 'stimulants', boxId: '#l02-cad2-node-stim rect', pulseId: 'l02-cad2-pulse-stim', stroke: '#F59E0B' },
+        { key: 'cannabis', boxId: '#l02-cad2-node-can rect', pulseId: 'l02-cad2-pulse-can', stroke: '#10B981' },
+        { key: 'synergy', boxId: '#l02-cad2-node-syn rect', pulseId: 'l02-cad2-pulse-syn', stroke: '#EF4444' }
+      ];
+
+      nodes.forEach(n => {
+        const box = document.querySelector(n.boxId);
+        const pulse = document.getElementById(n.pulseId);
+        if (box) {
+          if (n.key === modeKey) {
+            box.setAttribute('stroke', n.stroke);
+            box.setAttribute('stroke-width', '1.8');
+          } else {
+            box.setAttribute('stroke', '#222F26');
+            box.setAttribute('stroke-width', '1');
+          }
+        }
+        if (pulse) {
+          pulse.setAttribute('opacity', n.key === modeKey ? '0.5' : '0');
+        }
+      });
+
+      // 4. Update Buttons
+      const btnKeys = ['depressants', 'stimulants', 'cannabis', 'synergy'];
+      btnKeys.forEach((key, idx) => {
+        const btn = document.getElementById(`l02-cad2-btn-${idx + 1}`);
+        if (btn) {
+          if (key === modeKey) {
+            btn.className = "touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center";
+          } else {
+            btn.className = "touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center";
+          }
+        }
+      });
+
+      // 5. Update Card
+      const card = document.getElementById('l02-cad2-card');
+      const cardTag = document.getElementById('l02-cad2-card-tag');
+      const cardCite = document.getElementById('l02-cad2-card-cite');
+      const cardTitle = document.getElementById('l02-cad2-card-title');
+      const cardDesc = document.getElementById('l02-cad2-card-desc');
+      const cardMeta = document.getElementById('l02-cad2-card-meta');
+
+      if (card) card.className = `bg-surface-sub border-l-4 ${data.accentBorder} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      if (cardTag) {
+        cardTag.className = `text-[10px] font-mono font-bold ${data.tagColor} uppercase`;
+        cardTag.textContent = data.tag;
+      }
+      if (cardCite) cardCite.textContent = data.cite;
+      if (cardTitle) cardTitle.textContent = data.title;
+      if (cardDesc) cardDesc.textContent = data.desc;
+      if (cardMeta) {
+        cardMeta.innerHTML = `<span>${data.meta1}</span><span class="${data.tagColor} font-bold">${data.meta2}</span>`;
+      }
+    }
+
+    // Initialize Default Interactive CAD States on Page Load
+    
+    // =============================================================
+    // 3D SIMULATION HOST CONTROLLER & SCENARIO MANAGER (L06-T02)
+    // =============================================================
+    const simScenarios_L06T02 = {1: {'badge': 'METABOLIC PROFILE 01 // 3 DRINKS', 'statute': 'TABC § 106.041 & TPC § 49.01', 'title': 'Moderate Consumption: 3 Standard Drinks', 'desc': '3 standard drinks reach peak BAC ~0.065%. At fixed zero-order liver elimination rate of 0.015% per hour, complete clearance requires 4.3 hours. Even after 2 hours, BAC remains ~0.035%.', 'phase': 'SCENARIO 1: 3 DRINKS // PEAK BAC 0.065% // ELIMINATION RATE -0.015%/HR // 4.3H TO SOBER'}, 2: {'badge': 'METABOLIC PROFILE 02 // 6 DRINKS', 'statute': 'TPC § 49.04 & § 49.04(d)', 'title': 'Binge Consumption & Next-Morning Residual BAC', 'desc': '6 standard drinks produce peak BAC ~0.145%. Clearing this volume requires nearly 10 hours. After 7 hours of sleep, morning residual BAC is still 0.040%, creating illegal impairment for driving to work.', 'phase': 'SCENARIO 2: 6 DRINKS // PEAK BAC 0.145% // RESIDUAL 0.040% AFTER 7H SLEEP // MORNING-AFTER DWI'}, 3: {'badge': 'METABOLIC PROFILE 03 // MYTH DISMANTLING', 'statute': 'FORENSIC TOXICOLOGY', 'title': 'Myth Dismantling: Coffee, Cold Showers & Exercise', 'desc': 'Scientific tests prove that black coffee, cold water, and physical exertion produce ZERO increase in liver enzymatic clearance rate. Alcohol elimination remains strictly fixed at 0.015g/dL per hour.', 'phase': 'SCENARIO 3: MYTH BUSTING // COFFEE & SHOWERS DO NOT ACCELERATE 0.015%/HR HEPATIC CLEARANCE'}};
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      dispatchSimAction('setScenario', { scenario: scenNum, value: scenNum });
+      const scen = simScenarios_L06T02[scenNum];
+      if (!scen) return;
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.textContent = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.event === 'telemetry' || e.data.type === 'telemetry')) {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      selectSimScenario(1);
+      setL02Cad1Mode('stage1_judgment');
+      setL02Cad2Mode('synergy');
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

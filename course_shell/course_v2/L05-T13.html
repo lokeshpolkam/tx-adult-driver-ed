@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Shoulder Breakdown Geometry &amp; Emergency Triangle Placement &mdash; Texas Adult Driver Ed (L05-T13)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Global Base Styles & Phone Touch Standards -->
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target {
+      min-width: 44px;
+      min-height: 44px;
+    }
+    /* Enforcement of minimum touch targets and flex baseline for hyperlinks */
+    a.touch-target, a {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+      align-items: center;
+      justify-content: center;
+    }
+    button.touch-target, button {
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.06); }
+    }
+    .animate-aura {
+      animation: pulseAura 2s ease-in-out infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4 overflow-x-hidden">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS (STICKY) -->
+    
+
+    <!-- 02. EDITORIAL HERO TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-surface-sub text-carbon border border-hairline px-2 py-0.5 rounded">MODULE 05</span>
+        <span class="bg-safety-light text-safety border border-safety/30 px-2 py-0.5 rounded">TOPIC 13 OF 18</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 18 MIN READ</span>
+        <span class="bg-neutral-100 text-slate border border-neutral-300 px-2 py-0.5 rounded">TDLR ADE-1317</span>
+      </div>
+
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Shoulder Breakdown Geometry &amp; Emergency Triangle Placement
+      </h2>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Master statutory roadside clearance, emergency distress signaling, and geometric warning triangle placement under Texas Transportation Code &sect;&sect; 545.301, 545.058, 547.501, 545.157, and 545.305. Discover how the 10-ft, 100-ft, and 200-ft triangle array creates an optical deceleration funnel for approaching 70 MPH traffic, explore offside passenger evacuation behind safety barriers, and enforce the Texas Move Over / Slow Down mandate.
+      </p>
+
+      <div class="pt-2 border-t border-hairline flex flex-wrap items-center gap-2 font-mono text-[10px] text-slate">
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-valid">verified</span>
+          TTC &sect; 545.301 (Roadway Stoppage Ban)
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-safety">warning</span>
+          TTC &sect; 547.501 (Hazard Lamps 500 Ft)
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-sky-600">local_police</span>
+          TTC &sect; 545.157 (Move Over / Slow Down)
+        </span>
+      </div>
+    </section>
+
+    <!-- 03. 3D DRIVING SIMULATION: COMPLETE UI SEPARATION (PHONE-FIRST 360px-430px) -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <!-- Tier 1: Scenario Header (Off & Above Viewport) -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-bold text-carbon uppercase tracking-wider">3D DRIVING SIMULATION // EMBEDDED WEBGL</span>
+        </div>
+        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-sub text-safety-deep border border-hairline">
+          TTC § 545.301 &amp; § 547.501 • ADE-1317
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Managing a Vehicle Breakdown &amp; Warning Triangles</h2>
+        <p class="text-xs text-slate mt-0.5">Statutory shoulder pull-off, hazard lamps, triangle placement array (10', 100', 200'), and occupant evacuation.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L05_T13_vehicle_breakdown.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">SHOULDER STOP // HAZARD LIGHTS ACTIVE</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Shoulder Pull</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Triangles 10'/10</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>EVACUATION Offsi</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY RULE 01 // ROADWAY CLEARANCE MANDATE</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.301 &amp; § 545.058</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Complete Shoulder Clearance &amp; Hazard Activation</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            Never stop in an active travel lane. Coast completely onto the paved shoulder (TTC § 545.058) and immediately activate hazard lamps visible from at least 500 feet (TTC § 547.501).
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">STATUTORY PROTOCOL:</span>
+            <span id="sim-card-metric" class="text-valid font-bold">CLEAR OF MAIN-TRAVELED WAY</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PEDAGOGICAL ARTICLE 1: ROADWAY CLEARANCE & STOPPAGE JURISPRUDENCE -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 01</span>
+        <span class="text-[10px] font-mono text-slate">ROADWAY CLEARANCE MANDATE</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        Texas Transportation Code &sect; 545.301 &amp; The Lethal Risk of Active Lane Stoppage
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        When an engine shuts off, a serpentine belt snaps, or a tire blows out on a Texas interstate, the operator’s single overriding objective is to clear the active travel lanes. Texas Transportation Code &sect; 545.301 establishes an absolute prohibition:
+      </p>
+
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono text-xs font-bold text-hazard uppercase">TTC &sect; 545.301 STATUTORY CODIFICATION:</div>
+        <p class="text-slate italic leading-relaxed">
+          "An operator may not stop, park, or leave standing an attended or unattended vehicle on the paved or main-traveled part of a highway outside a business or residence district unless: (1) stopping off the main-traveled part is not practical; (2) an unobstructed width of highway opposite the vehicle is left for the free passage of other vehicles; and (3) a clear view of the stopped vehicle is available from a distance of 200 feet in each direction."
+        </p>
+      </div>
+
+      <div class="space-y-1.5 text-xs text-slate leading-relaxed">
+        <h4 class="font-sans font-bold text-xs text-carbon uppercase tracking-wide">The Physics of Kinetic Closing Velocity:</h4>
+        <p>
+          At 70 MPH, approaching traffic covers 102.67 feet every second and requires a certified stopping distance of at least 387 feet (154 ft reaction distance + 233 ft dry braking distance). A disabled vehicle remaining in an active travel lane is functionally invisible at night until approaching headlights sweep across its rear reflectors at 150 to 200 feet.
+        </p>
+        <p>
+          At that distance, a trailing driver traveling at 70 MPH has less than 1.5 seconds to perceive, react, and brake—guaranteeing a catastrophic high-speed underride or T-bone impact. Under <strong>TTC &sect; 545.058</strong>, an operator is explicitly permitted to drive on an improved shoulder to decelerate and bring a disabled vehicle to a stop. Even if driving on a flat tire ruins the alloy wheel rim, coast completely onto the shoulder; a damaged wheel costs a few hundred dollars, whereas stopping in a live lane costs human lives.
+        </p>
+      </div>
+    </article>
+
+    <!-- 05. INTERACTIVE CAD ENGINE 01: SHOULDER BREAKDOWN GEOMETRY -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>BREAKDOWN GEOMETRY // TTC &sect; 545.301 &amp; &sect; 545.058</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Shoulder Breakdown Geometry &amp; Warning Triangle Array CAD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap triangle placement markers or evacuation zones to inspect the statutory 10-ft, 100-ft, and 200-ft deceleration envelope.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 220) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l13-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l13-grass-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#14261C" />
+              <stop offset="100%" stop-color="#0F1D15" />
+            </linearGradient>
+            <linearGradient id="l13-shoulder-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#262F2A" />
+              <stop offset="100%" stop-color="#1B221E" />
+            </linearGradient>
+            <radialGradient id="l13-hazard-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.0" />
+            </radialGradient>
+          </defs>
+
+          <!-- Background Canvas Base -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="#0E1210" />
+
+          <!-- Grassy Embankment (Safe Refuge Zone: Y: 0 to 48) -->
+          <rect x="0" y="0" width="340" height="48" fill="url(#l13-grass-grad)" />
+          <text x="12" y="16" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#34D399">GRASS EMBANKMENT REFUGE (SAFE OCCUPANT AREA)</text>
+
+          <!-- Steel Beam Guardrail Barrier at Y = 48 -->
+          <g stroke="#94A3B8" stroke-width="2.2" stroke-dasharray="14 6">
+            <line x1="0" y1="48" x2="340" y2="48" />
+          </g>
+          <!-- Guardrail Posts -->
+          <g stroke="#475569" stroke-width="1.8">
+            <line x1="20" y1="45" x2="20" y2="51" />
+            <line x1="60" y1="45" x2="60" y2="51" />
+            <line x1="100" y1="45" x2="100" y2="51" />
+            <line x1="140" y1="45" x2="140" y2="51" />
+            <line x1="180" y1="45" x2="180" y2="51" />
+            <line x1="220" y1="45" x2="220" y2="51" />
+            <line x1="260" y1="45" x2="260" y2="51" />
+            <line x1="300" y1="45" x2="300" y2="51" />
+          </g>
+
+          <!-- Paved Improved Shoulder (12 FT Lateral Buffer: Y: 50 to 118) -->
+          <rect x="0" y="50" width="340" height="68" fill="url(#l13-shoulder-grad)" stroke="#2D3A32" stroke-width="0.8" />
+          <text x="12" y="62" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#94A3B8">IMPROVED SHOULDER (12 FT LATERAL CLEARANCE // TTC § 545.058)</text>
+
+          <!-- Solid White Edge Line (Fog Line at Y = 118) -->
+          <line x1="0" y1="118" x2="340" y2="118" stroke="#FFFFFF" stroke-width="2.5" />
+
+          <!-- Active Travel Lane 1 (65–75 MPH: Y: 120 to 175) -->
+          <rect x="0" y="120" width="340" height="55" fill="#131715" />
+          <line x1="0" y1="175" x2="340" y2="175" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="12 8" />
+          <text x="12" y="146" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B">ACTIVE HIGHWAY TRAVEL LANE (70 MPH TRAFFIC // TTC § 545.301 PROHIBITED STOP)</text>
+
+          <!-- Approaching High-Speed Vehicle in Active Lane (X=40, Y=145) -->
+          <g transform="translate(40, 146)" pointer-events="none">
+            <rect x="-14" y="-8" width="28" height="16" rx="2.5" fill="#334155" stroke="#FFFFFF" stroke-width="0.8" />
+            <polygon points="14,-4 30,-6 30,6 14,4" fill="#FEF08A" opacity="0.4" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">70 MPH</text>
+          </g>
+
+          <!-- Distance Caliper Measuring Ticks Behind Disabled Car (Rear bumper at X = 250) -->
+          <g stroke="#38BDF8" stroke-width="1" opacity="0.8">
+            <line x1="50" y1="114" x2="250" y2="114" />
+            <line x1="50" y1="110" x2="50" y2="118" />
+            <line x1="150" y1="110" x2="150" y2="118" />
+            <line x1="240" y1="110" x2="240" y2="118" />
+            <line x1="250" y1="108" x2="250" y2="118" />
+          </g>
+          <text x="50" y="110" font-family="'JetBrains Mono', monospace" font-size="4" fill="#38BDF8" text-anchor="middle">200 FT</text>
+          <text x="150" y="110" font-family="'JetBrains Mono', monospace" font-size="4" fill="#38BDF8" text-anchor="middle">100 FT</text>
+          <text x="238" y="110" font-family="'JetBrains Mono', monospace" font-size="4" fill="#38BDF8" text-anchor="middle">10 FT</text>
+
+          <!-- 3rd Warning Triangle (200 FT behind along shoulder edge: X=50, Y=65) -->
+          <g id="l13-tri-3" transform="translate(50, 68)">
+            <polygon points="0,-8 7,5 -7,5" fill="#EA580C" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <polygon points="0,-4 3,3 -3,3" fill="#0E1210" pointer-events="none" />
+            <g transform="translate(0, -13)" pointer-events="none">
+              <rect x="-18" y="-5" width="36" height="9" rx="2" fill="#0F172A" stroke="#EA580C" stroke-width="0.7" />
+              <text x="0" y="2" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">#3: 200 FT</text>
+            </g>
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad1Node('tri3')" aria-label="3rd Warning Triangle 200 FT Node" />
+          </g>
+
+          <!-- 2nd Warning Triangle (100 FT behind in shoulder center: X=150, Y=84) -->
+          <g id="l13-tri-2" transform="translate(150, 84)">
+            <polygon points="0,-8 7,5 -7,5" fill="#EA580C" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <polygon points="0,-4 3,3 -3,3" fill="#0E1210" pointer-events="none" />
+            <g transform="translate(0, -13)" pointer-events="none">
+              <rect x="-18" y="-5" width="36" height="9" rx="2" fill="#0F172A" stroke="#EA580C" stroke-width="0.7" />
+              <text x="0" y="2" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">#2: 100 FT</text>
+            </g>
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad1Node('tri2')" aria-label="2nd Warning Triangle 100 FT Node" />
+          </g>
+
+          <!-- 1st Warning Triangle (10 FT behind on traffic side: X=238, Y=98) -->
+          <g id="l13-tri-1" transform="translate(238, 98)">
+            <polygon points="0,-8 7,5 -7,5" fill="#EA580C" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <polygon points="0,-4 3,3 -3,3" fill="#0E1210" pointer-events="none" />
+            <g transform="translate(0, -13)" pointer-events="none">
+              <rect x="-16" y="-5" width="32" height="9" rx="2" fill="#0F172A" stroke="#EA580C" stroke-width="0.7" />
+              <text x="0" y="2" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">#1: 10 FT</text>
+            </g>
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad1Node('tri1')" aria-label="1st Warning Triangle 10 FT Node" />
+          </g>
+
+          <!-- Disabled Vehicle on Shoulder (X=275, Y=84) -->
+          <g id="l13-disabled-car" transform="translate(275, 84)">
+            <circle cx="-14" cy="-8" r="8" fill="url(#l13-hazard-glow)" pointer-events="none" />
+            <circle cx="-14" cy="8" r="8" fill="url(#l13-hazard-glow)" pointer-events="none" />
+            <circle cx="14" cy="-8" r="8" fill="url(#l13-hazard-glow)" pointer-events="none" />
+            <circle cx="14" cy="8" r="8" fill="url(#l13-hazard-glow)" pointer-events="none" />
+            <rect x="-14" y="-8" width="28" height="16" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1.2" pointer-events="none" />
+            <rect x="-4" y="-6" width="8" height="12" rx="1.5" fill="#7C2D12" pointer-events="none" />
+            <line x1="14" y1="-7" x2="22" y2="-12" stroke="#FFFFFF" stroke-width="2" pointer-events="none" />
+            <line x1="-8" y1="-8" x2="-8" y2="-18" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <polygon points="-8,-18 0,-15 -8,-12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.5" pointer-events="none" />
+            <circle cx="0" cy="0" r="3" fill="#FEF08A" pointer-events="none" />
+            <g transform="translate(0, -15)" pointer-events="none">
+              <rect x="-24" y="-5" width="48" height="10" rx="2" fill="#0F172A" stroke="#E87522" stroke-width="0.8" />
+              <text x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">DISABLED CAR</text>
+            </g>
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad1Node('car')" aria-label="Disabled Vehicle Node" />
+          </g>
+
+          <!-- Occupant Refuge Group Behind Guardrail (X=275, Y=28) -->
+          <g id="l13-occupants-refuge" transform="translate(275, 28)">
+            <circle cx="-8" cy="0" r="4" fill="#34D399" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <circle cx="4" cy="0" r="4" fill="#34D399" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <circle cx="16" cy="0" r="4" fill="#34D399" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <g transform="translate(4, -10)" pointer-events="none">
+              <rect x="-30" y="-4" width="60" height="9" rx="2" fill="#064E3B" stroke="#34D399" stroke-width="0.8" />
+              <text x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">SAFE REFUGE BEHIND RAIL</text>
+            </g>
+            <circle cx="4" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad1Node('refuge')" aria-label="Occupant Embankment Refuge Node" />
+          </g>
+
+          <!-- Bottom SVG Status Bar -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l13-cad1-dot" cx="10" cy="9" r="3.5" fill="#10B981" />
+            <text id="l13-cad1-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              TRIANGLE ARRAY: 10 FT / 100 FT / 200 FT DEPLOYED // TTC § 545.301 COMPLIANT
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l13-btn-1" onclick="setL13Cad1Node('all')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">3-Triangle Array</span>
+          <span class="text-[9px] text-safety-deep font-normal">10' / 100' / 200'</span>
+        </button>
+        <button id="l13-btn-2" onclick="setL13Cad1Node('tri1')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">10 FT Triangle</span>
+          <span class="text-[9px] text-slate font-normal">Traffic-Side Corner</span>
+        </button>
+        <button id="l13-btn-3" onclick="setL13Cad1Node('tri3')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">200 FT Triangle</span>
+          <span class="text-[9px] text-slate font-normal">High-Speed Warning</span>
+        </button>
+        <button id="l13-btn-4" onclick="setL13Cad1Node('refuge')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Safe Egress</span>
+          <span class="text-[9px] text-slate font-normal">Offside Embankment</span>
+        </button>
+      </div>
+
+      <!-- Live Telemetry HUD -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Shoulder Buffer</span>
+          <span id="l13-hud-shoulder" class="text-xs font-bold text-valid">12 FT PAVED CLEAR</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Warning Envelope</span>
+          <span id="l13-hud-envelope" class="text-xs font-bold text-safety">200 FT REARWARD</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Sight Decel Time</span>
+          <span id="l13-hud-sight" class="text-xs font-bold text-valid">1.95s WARNING</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Roadside Law</span>
+          <span id="l13-hud-cite" class="text-xs font-bold text-valid">TTC § 545.301 / 058</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Reactive Explanation Card -->
+      <div id="l13-cad1-card" class="bg-surface-sub border-l-4 border-valid p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l13-card-tag" class="text-[10px] font-mono font-bold text-valid uppercase">FULL WARNING ARRAY DEPLOYMENT</span>
+          <span id="l13-card-cite" class="text-[10px] font-mono text-slate">TTC § 545.301 &amp; TX HANDBOOK</span>
+        </div>
+        <h3 id="l13-card-title" class="font-sans font-bold text-sm text-carbon">Tri-Point Warning Geometry Creates Optical Deceleration Funnel</h3>
+        <p id="l13-card-desc" class="text-xs text-slate leading-relaxed">
+          Stopping on paved travel lanes outside business districts is strictly illegal under TTC § 545.301. Coast completely onto the improved shoulder (TTC § 545.058). To alert oncoming 70 MPH traffic requiring nearly 400 feet to stop, deploy 3 reflective warning triangles: (1) 10 FT behind vehicle on traffic side; (2) 100 FT behind in shoulder center; (3) 200 FT behind along outer shoulder edge. All occupants must evacuate through passenger-side doors and retreat behind the steel guardrail.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. PEDAGOGICAL ARTICLE 2: TRIANGLE PLACEMENT GEOMETRY & PHYSICS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 02</span>
+        <span class="text-[10px] font-mono text-slate">WARNING GEOMETRY &amp; SIGHT DISTANCE</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        The Tri-Point Optical Deceleration Funnel: 10 FT, 100 FT, and 200 FT
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Commercial driver standards (49 CFR &sect; 392.22) and Texas Department of Public Safety guidelines establish a precise, non-negotiable geometric spacing for deploying three reflective emergency warning triangles behind a disabled vehicle:
+      </p>
+
+      <div class="space-y-2">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-safety flex items-center justify-between">
+            <span>TRIANGLE 1 &bull; 10 FEET BEHIND VEHICLE</span>
+            <span>TRAFFIC-SIDE BUMPER</span>
+          </div>
+          <p class="text-xs text-slate leading-relaxed">
+            Placed exactly 10 feet behind the vehicle chassis, aligned with the traffic-side corner (left rear). This triangle outlines the physical envelope of your car for overtaking motorists, preventing glancing sideswipe strikes.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-safety flex items-center justify-between">
+            <span>TRIANGLE 2 &bull; 100 FEET BEHIND VEHICLE</span>
+            <span>CENTER OF SHOULDER</span>
+          </div>
+          <p class="text-xs text-slate leading-relaxed">
+            Positioned 100 feet back in the exact center of the shoulder. It serves as an optical mid-range beacon that anchors approaching drivers' focus away from live traffic lanes and onto the shoulder buffer.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-safety flex items-center justify-between">
+            <span>TRIANGLE 3 &bull; 200 FEET BEHIND VEHICLE</span>
+            <span>OUTER SHOULDER EDGE</span>
+          </div>
+          <p class="text-xs text-slate leading-relaxed">
+            Stationed 200 feet behind along the outer edge of the shoulder. At 70 MPH (102.7 ft/s), this device delivers nearly 2.0 seconds of advance cognitive warning, prompting approaching drivers to shift into adjacent travel lanes early.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-neutral-900 text-white p-3 rounded-xl space-y-1 font-mono text-xs">
+        <div class="text-[#E87522] font-bold text-[10px] uppercase">CRESTS &amp; CURVES SIGHT ADJUSTMENT:</div>
+        <p class="font-sans text-[11px] text-neutral-300 leading-relaxed">
+          If your vehicle is disabled within 500 feet of a blind hill crest or highway curve, federal and Texas rules mandate extending the rearmost triangle 100 to 500 feet back over the crest or around the bend to provide approaching drivers with unobstructed line-of-sight.
+        </p>
+      </div>
+    </article>
+
+    <!-- 07. INTERACTIVE CAD ENGINE 02: HAZARD LIGHTING & TOW ESCALATION LADDER -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TOW ESCALATION // TTC &sect; 545.305 &amp; &sect; 545.157</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          LEGAL LADDER
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Hazard Lighting &amp; Law Enforcement Tow Escalation Ladder</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap escalation rungs to review hazard flasher mandates (TTC § 547.501), Move Over / Slow Down 20 MPH rules, and 48-hr impoundment authority.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 180) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l13-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Base -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="#101412" />
+
+          <!-- Step 1: Immediate Hazard Flasher Activation (TTC § 547.501) -->
+          <g id="l13-rung-1" transform="translate(20, 24)">
+            <rect id="l13-rung1-bg" x="0" y="0" width="300" height="34" rx="4" fill="#1E293B" opacity="0.6" stroke="#F59E0B" stroke-width="1.2" />
+            <circle cx="18" cy="17" r="10" fill="#F59E0B" />
+            <text x="18" y="21" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#000000" text-anchor="middle">1</text>
+            <text x="36" y="15" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF">HAZARD LAMPS &amp; DOME LIGHT (TTC § 547.501)</text>
+            <text x="36" y="26" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#94A3B8">VISIBLE 500 FT IN SUNLIGHT // ILLUMINATE INTERIOR AT NIGHT</text>
+            <circle cx="150" cy="17" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad2Stage('stage1')" aria-label="Hazard Lighting Stage 1 Node" />
+          </g>
+
+          <!-- Step 2: Move Over / Slow Down Perimeter (TTC § 545.157) -->
+          <g id="l13-rung-2" transform="translate(20, 66)">
+            <rect id="l13-rung2-bg" x="0" y="0" width="300" height="34" rx="4" fill="#1E293B" opacity="0.6" stroke="#475569" stroke-width="0.8" />
+            <circle cx="18" cy="17" r="10" fill="#3B82F6" />
+            <text x="18" y="21" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#FFFFFF" text-anchor="middle">2</text>
+            <text x="36" y="15" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF">MOVE OVER / SLOW DOWN 20 MPH (TTC § 545.157)</text>
+            <text x="36" y="26" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#94A3B8">VACATE ADJACENT LANE OR DROP SPEED 20 MPH // $500–$1,250 FINE</text>
+            <circle cx="150" cy="17" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad2Stage('stage2')" aria-label="Move Over Law Stage 2 Node" />
+          </g>
+
+          <!-- Step 3: Law Enforcement Tow Escalation (TTC § 545.305) -->
+          <g id="l13-rung-3" transform="translate(20, 108)">
+            <rect id="l13-rung3-bg" x="0" y="0" width="300" height="34" rx="4" fill="#1E293B" opacity="0.6" stroke="#475569" stroke-width="0.8" />
+            <circle cx="18" cy="17" r="10" fill="#EF4444" />
+            <text x="18" y="21" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#FFFFFF" text-anchor="middle">3</text>
+            <text x="36" y="15" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF">POLICE REMOVAL &amp; 48-HR ABANDONMENT (TTC § 545.305)</text>
+            <text x="36" y="26" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#94A3B8">IMMEDIATE TOW IF OBSTRUCTING // 48-HR RIGHT-OF-WAY IMPOUND</text>
+            <circle cx="150" cy="17" r="28" fill="transparent" class="cursor-pointer" onclick="setL13Cad2Stage('stage3')" aria-label="Police Tow Ladder Stage 3 Node" />
+          </g>
+
+          <!-- Status Pill -->
+          <g transform="translate(20, 150)" pointer-events="none">
+            <rect x="0" y="0" width="300" height="20" rx="3" fill="#090D0B" stroke="#1F2937" stroke-width="0.8" />
+            <circle id="l13-cad2-dot" cx="12" cy="10" r="3.5" fill="#F59E0B" />
+            <text id="l13-cad2-status" x="22" y="13.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FBBF24">
+              STAGE 1: 4-WAY EMERGENCY FLASHERS ACTIVATED // VISIBLE 500 FT
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Stage Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="l13-pbtn-1" onclick="setL13Cad2Stage('stage1')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>1. Hazard Circuit</span>
+          <span class="text-[9px] text-safety-deep font-normal">TTC § 547.501</span>
+        </button>
+        <button id="l13-pbtn-2" onclick="setL13Cad2Stage('stage2')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>2. Move Over</span>
+          <span class="text-[9px] text-slate font-normal">Drop 20 MPH</span>
+        </button>
+        <button id="l13-pbtn-3" onclick="setL13Cad2Stage('stage3')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>3. Police Tow</span>
+          <span class="text-[9px] text-slate font-normal">48-Hr Impound</span>
+        </button>
+      </div>
+
+      <!-- Tactical HUD Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Light Visibility</span>
+          <span id="l13-hud2-vis" class="text-xs font-bold text-valid">500 FT SUNLIGHT</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Traffic Speed Drop</span>
+          <span id="l13-hud2-drop" class="text-xs font-bold text-safety">-20 MPH MANDATE</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Tow Clock</span>
+          <span id="l13-hud2-tow" class="text-xs font-bold text-carbon">48 HOURS MAX</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Statute Reference</span>
+          <span id="l13-hud2-cite" class="text-xs font-bold text-valid">TTC § 545.157</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l13-cad2-card" class="bg-surface-sub border-l-4 border-safety p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l13-card2-tag" class="text-[10px] font-mono font-bold text-safety uppercase">STAGE 1: EMERGENCY HAZARD ILLUMINATION</span>
+          <span id="l13-card2-cite" class="text-[10px] font-mono text-slate">TTC § 547.501</span>
+        </div>
+        <h3 id="l13-card2-title" class="font-sans font-bold text-sm text-carbon">Mandatory 4-Way Flasher Circuit &amp; Night Dome Light</h3>
+        <p id="l13-card2-desc" class="text-xs text-slate leading-relaxed">
+          Immediately upon experiencing vehicle disablement, activate the vehicular hazard warning flashers. Under TTC § 547.501, flashers must be visible from a distance of at least 500 feet in plain sunlight. At night, state safety rules mandate illuminating the interior overhead dome light; the white cabin illumination provides approaching high-speed drivers with depth perception and silhouette visibility long before headlights pick up exterior paint.
+        </p>
+      </div>
+    </section>
+
+    <!-- 08. PEDAGOGICAL ARTICLE 3: OCCUPANT EVACUATION & SAFE REFUGE -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 03</span>
+        <span class="text-[10px] font-mono text-slate">OCCUPANT SAFETY &amp; DISTRESS</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        Passenger-Side Evacuation, Guardrail Buffer &amp; Distress Signaling
+      </h3>
+
+      <div class="space-y-2 text-xs text-slate leading-relaxed">
+        <p>
+          One of the most catastrophic errors a stranded motorist can commit is remaining seated inside a disabled vehicle parked on a highway shoulder, or worse, stepping out into the driver-side traffic lane. Highway shoulders are high-risk collision zones frequently entered by drifting, fatigued, or distracted drivers.
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2 text-xs">
+        <div class="font-mono text-xs font-bold text-carbon">THE 4-STEP EVACUATION PROTOCOL:</div>
+        <ol class="text-slate list-decimal list-inside space-y-1.5 leading-relaxed font-sans">
+          <li><strong>Egress via Offside (Passenger) Doors:</strong> Never open a driver-side door toward active traffic. All occupants must exit through the right-hand doors facing the grassy ditch.</li>
+          <li><strong>Climb Over the Guardrail:</strong> Move immediately over the steel barrier or concrete divider. The guardrail acts as a structural energy deflector against errant vehicles.</li>
+          <li><strong>Retreat Up the Embankment:</strong> Stand at least 20 to 30 feet away from the roadway on high ground. Never stand directly in front of or behind the disabled vehicle.</li>
+          <li><strong>Display Universal Distress Signals:</strong> Raise the vehicle hood completely (universal mechanical distress) and tie a white cloth or bright garment to the antenna or door handle.</li>
+        </ol>
+      </div>
+
+      <!-- Traffic-Side Flat Tire Warning -->
+      <div class="p-3.5 rounded-xl bg-hazard-light border border-hazard/30 space-y-1.5">
+        <div class="flex items-center gap-1.5 font-mono text-xs font-bold text-hazard">
+          <span class="material-symbols-outlined text-sm">dangerous</span>
+          CRITICAL DANGER: CHANGING TRAFFIC-SIDE TIRES ON FREEWAY SHOULDERS
+        </div>
+        <p class="text-xs text-hazard leading-relaxed">
+          Never attempt to jack up a vehicle and change a left-side (traffic-facing) flat tire on a narrow highway shoulder. Kneeling in or near an active travel lane exposes your body to passing mirrors and 80,000-lb commercial trucks traveling at 75 MPH. Stay safely behind the guardrail and call for TxDOT HERO roadside assistance, highway patrol, or a professional tow operator equipped with illuminated arrow boards.
+        </p>
+      </div>
+    </article>
+
+    <!-- 09. PEDAGOGICAL ARTICLE 4: MOVE OVER / SLOW DOWN & ABANDONMENT TOWS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 04</span>
+        <span class="text-[10px] font-mono text-slate">LEGAL STATUTES &amp; TOWING</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        Texas Move Over / Slow Down Act &amp; 48-Hour Right-of-Way Removal
+      </h3>
+
+      <div class="space-y-2 text-xs text-slate leading-relaxed">
+        <p>
+          Two vital sections of the Texas Transportation Code govern the legal environment surrounding stationary roadside vehicles:
+        </p>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-sky-600 flex items-center justify-between">
+            <span>TTC &sect; 545.157: MOVE OVER OR SLOW DOWN</span>
+            <span>$500 &ndash; $1,250 FINE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            When approaching a stationary emergency vehicle, tow truck, TxDOT HERO unit, or utility truck stopped on the roadside with amber, blue, or red flashers active, passing drivers must:
+          </p>
+          <ul class="list-disc list-inside space-y-0.5 text-slate font-mono text-[11px] pt-1">
+            <li>Vacate the lane closest to the stationary vehicle on a highway with 2 or more lanes in the same direction; OR</li>
+            <li>Slow down to a speed <strong>20 MPH below the posted speed limit</strong> (or to 5 MPH if the posted limit is under 25 MPH).</li>
+          </ul>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-hazard flex items-center justify-between">
+            <span>TTC &sect; 545.305: REMOVAL OF DISABLED VEHICLES</span>
+            <span>IMMEDIATE OR 48-HR TOW</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Law enforcement officers are authorized to remove disabled vehicles under two clear criteria:
+          </p>
+          <ul class="list-disc list-inside space-y-0.5 text-slate font-mono text-[11px] pt-1">
+            <li><strong>Immediate Tow:</strong> If the vehicle obstructs an active travel lane, creates a traffic hazard, or is operated by an arrested driver.</li>
+            <li><strong>48-Hour Ceiling:</strong> If safely parked on the right-of-way outside an urban district, the owner has up to 48 hours to remove the vehicle before it is impounded as abandoned property under TTC &sect; 545.305(a)(10).</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10. INTERACTIVE KNOWLEDGE EVALUATION (3 SCENARIO MCQS) -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-sm text-valid">quiz</span>
+          <span>STATUTORY KNOWLEDGE EVALUATION</span>
+        </div>
+        <span class="font-mono text-[10px] text-valid bg-valid-light px-2 py-0.5 rounded border border-valid/30 font-bold">
+          3 SCENARIOS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T13 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <div class="space-y-1">
+        <h3 class="font-sans font-bold text-base text-carbon">Roadside Breakdown Examination</h3>
+        <p class="text-xs text-slate">Answer all 3 state examination scenarios. Instant feedback cites exact Texas statutes.</p>
+      </div>
+
+      <!-- QUESTION 1 (Option B strictly correct) -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 01 &bull; TRIANGLE GEOMETRY</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          When placing three emergency reflective warning triangles behind a vehicle disabled on the shoulder of a high-speed Texas highway, what is the mandated placement geometry?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Group all three triangles directly adjacent to the rear bumper in a tight triangular cluster</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Place the first triangle 10 feet behind the vehicle, the second 100 feet behind, and the third 200 feet behind</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Place triangles 50 feet, 75 feet, and 100 feet ahead of the vehicle in the oncoming lane</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Space the triangles exactly 500 feet apart along the center median divider</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 02 &bull; TTC &sect; 545.157</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          Under the Texas Move Over / Slow Down law (TTC &sect; 545.157), what must a driver do when approaching a stationary emergency or service vehicle stopped on the highway with warning lights flashing?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Sound the horn twice and accelerate past to clear the congestion zone quickly</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Vacate the lane closest to the vehicle on a multi-lane highway, or slow to 20 MPH below the posted speed limit</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Stop completely in the active travel lane until an officer waves you through</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Shift into the center suicide turn lane and maintain the posted speed limit</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 03 &bull; TTC &sect; 545.305</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 545.305, after how many hours of continuous standing on a highway right-of-way outside an urban district may an unattended disabled vehicle be impounded/towed by law enforcement as abandoned?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] 12 hours</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] 24 hours</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] 48 hours</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] 72 hours</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. NAVIGATION FOOTER -->
+    <footer class="pt-4 pb-8 space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <a href="L05-T12.html" class="touch-target min-h-[48px] px-4 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-xs" style="display: inline-flex; min-height: 48px; height: 48px; align-items: center; justify-content: center;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>TOPIC 12</span>
+        </a>
+        <a href="L05-T14.html" class="touch-target min-h-[48px] px-5 py-2.5 rounded-xl border-2 border-safety bg-safety text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-xs hover:bg-safety-deep" style="display: inline-flex; min-height: 48px; height: 48px; align-items: center; justify-content: center;">
+          <span>TOPIC 14: SKID RECOVERY</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 13
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE -->
+  <script>
+    // ==============================================================================
+    // 1. MCQ SCORING ENGINE (QUESTION 1 OPTION [ B ] STRICTLY CORRECT)
+    // ==============================================================================
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+                const TOPIC_ID = 'L05-T13';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "49 CFR § 392.22 & TEXAS DRIVER HANDBOOK CH. 5",
+            "statutoryRationale": "Under standard safety protocols recognized in Texas Driver Handbook Ch. 5 and commercial motor vehicle safety rules (49 CFR § 392.22), warning triangles must be deployed at 10 feet (traffic side of rear bumper), 100 feet (center of shoulder), and 200 feet behind the disabled vehicle to give approaching 70 MPH traffic sufficient perception-reaction time."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TTC § 545.157 (TEXAS MOVE OVER / SLOW DOWN ACT)",
+            "statutoryRationale": "TTC § 545.157 mandates that drivers approaching stationary emergency vehicles, tow trucks, TxDOT vehicles, or service vehicles displaying flashing lamps must vacate the lane closest to the vehicle if road conditions permit, or slow to a speed 20 MPH below the posted limit (or 5 MPH if posted under 25 MPH)."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 545.305(a)(10) (ABANDONED VEHICLE IMPOUNDMENT)",
+            "statutoryRationale": "Under TTC § 545.305(a)(10), a peace officer or law enforcement agency may remove and impound a vehicle that is unattended on a highway right-of-way outside an urban district for 48 hours or more. Immediate towing is authorized if the vehicle blocks traffic or creates a severe safety hazard."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ==============================================================================
+    // 2. PRIMARY CAD STATE ENGINE (L05-T13)
+    // ==============================================================================
+    const l13Cad1State = {
+      node: 'all'
+    };
+
+    const l13Cad1Data = {
+      all: {
+        shoulder: '12 FT PAVED CLEAR',
+        envelope: '200 FT REARWARD',
+        sight: '1.95s WARNING',
+        cite: 'TTC § 545.301 / 058',
+        dot: '#10B981',
+        status: 'TRIANGLE ARRAY: 10 FT / 100 FT / 200 FT DEPLOYED // TTC § 545.301 COMPLIANT',
+        tag: 'FULL WARNING ARRAY DEPLOYMENT',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Tri-Point Warning Geometry Creates Optical Deceleration Funnel',
+        desc: 'Stopping on paved travel lanes outside business districts is strictly illegal under TTC § 545.301. Coast completely onto the improved shoulder (TTC § 545.058). To alert oncoming 70 MPH traffic requiring nearly 400 feet to stop, deploy 3 reflective warning triangles: (1) 10 FT behind vehicle on traffic side; (2) 100 FT behind in shoulder center; (3) 200 FT behind along outer shoulder edge. All occupants must evacuate through passenger-side doors and retreat behind the steel guardrail.'
+      },
+      tri1: {
+        shoulder: '10 FT SPACING',
+        envelope: '10 FT CORNER',
+        sight: 'LATERAL CHASSIS',
+        cite: 'TX DPS STANDARD',
+        dot: '#F59E0B',
+        status: 'TRIANGLE 1: 10 FT BEHIND REAR BUMPER ON TRAFFIC-SIDE CHASSIS CORNER',
+        tag: 'LATERAL CLEARANCE MARKER',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Marking the Vehicle Envelope at 10 Feet',
+        desc: 'The first triangle is placed exactly 10 feet behind the rear bumper, positioned on the traffic side of the vehicle. This device outlines the vehicle chassis width for passing motorists, preventing sideswipe collisions in low-light and nighttime conditions.'
+      },
+      tri2: {
+        shoulder: '100 FT SPACING',
+        envelope: '100 FT BUFFER',
+        sight: 'MID-RANGE CUE',
+        cite: 'TX DPS STANDARD',
+        dot: '#10B981',
+        status: 'TRIANGLE 2: 100 FT BEHIND VEHICLE IN DIRECT CENTER OF SHOULDER',
+        tag: 'MID-COURSE LANE ALIGNMENT',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Center Shoulder Positioning at 100 Feet',
+        desc: 'The second warning triangle stands 100 feet behind the vehicle in the direct center of the shoulder. It creates an optical stepping stone that reinforces the emergency perimeter, confirming that the obstacle ahead is stationary and completely off the active lane.'
+      },
+      tri3: {
+        shoulder: '200 FT SPACING',
+        envelope: '200 FT ADVANCE',
+        sight: '1.95s REACTION',
+        cite: 'TTC § 545.301',
+        dot: '#E87522',
+        status: 'TRIANGLE 3: 200 FT BEHIND ALONG OUTER EDGE // CRITICAL ADVANCE WARNING',
+        tag: 'HIGH-SPEED ADVANCE WARNING',
+        tagClass: 'text-safety',
+        borderClass: 'border-safety',
+        title: 'Advance Warning Device at 200 Feet Along Shoulder Edge',
+        desc: 'Positioned 200 feet behind the vehicle along the shoulder edge, the third triangle gives approaching 70 MPH drivers 1.95 seconds of advance perception time to execute lane changes. On roads with hills or sharp curves, extend this triangle 100 to 500 feet back over the crest to eliminate blind-spot collisions.'
+      },
+      refuge: {
+        shoulder: 'OFF-ROAD REFUGE',
+        envelope: 'GUARDRAIL BARRIER',
+        sight: 'ZERO EXPOSURE',
+        cite: 'TDLR ADE-1317',
+        dot: '#10B981',
+        status: 'SAFE REFUGE: PASSENGER-SIDE EGRESS BEHIND STEEL GUARDRAIL',
+        tag: 'SAFE PEDESTRIAN REFUGE',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Never Remain Inside Vehicle or Stand Along Highway Shoulder',
+        desc: 'Standing beside or directly behind a disabled car on an interstate shoulder carries extreme fatality risks from drifting or distracted motorists. All passengers must exit exclusively through the offside (right) passenger doors and climb over the steel guardrail onto the grassy embankment. If barriers or steep drop-offs make exiting unsafe, remain buckled inside with hazard lights on.'
+      },
+      car: {
+        shoulder: '12 FT CLEARANCE',
+        envelope: 'HAZARDS + HOOD',
+        sight: 'DISTRESS ACTIVE',
+        cite: 'TTC § 547.501',
+        dot: '#E87522',
+        status: 'DISTRESS PROTOCOL: RAISED HOOD + WHITE CLOTH ON ANTENNA + FLASHERS',
+        tag: 'UNIVERSAL DISTRESS PROTOCOL',
+        tagClass: 'text-safety',
+        borderClass: 'border-safety',
+        title: 'Raising the Hood and Displaying White Distress Cloth',
+        desc: 'Under Texas DPS protocols, raising the vehicle hood is the universal signal of mechanical breakdown, visible to Texas Highway Patrol and TxDOT HERO units from over 500 feet away. Tie a white cloth or bright garment to the antenna or door handle to confirm driver distress.'
+      }
+    };
+
+    function setL13Cad1Node(node) {
+      l13Cad1State.node = node;
+      const d = l13Cad1Data[node];
+
+      ['all', 'tri1', 'tri3', 'refuge'].forEach((n, idx) => {
+        const btn = document.getElementById(`l13-btn-${idx + 1}`);
+        if (btn) {
+          if (n === node) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l13-cad1-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l13-cad1-status');
+      if (st) st.textContent = d.status;
+
+      document.getElementById('l13-hud-shoulder').textContent = d.shoulder;
+      document.getElementById('l13-hud-envelope').textContent = d.envelope;
+      document.getElementById('l13-hud-sight').textContent = d.sight;
+      document.getElementById('l13-hud-cite').textContent = d.cite;
+
+      const card = document.getElementById('l13-cad1-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l13-card-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l13-card-title').textContent = d.title;
+      document.getElementById('l13-card-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. SECONDARY CAD STATE ENGINE (L05-T13)
+    // ==============================================================================
+    const l13Cad2State = {
+      stage: 'stage1'
+    };
+
+    const l13Cad2Data = {
+      stage1: {
+        vis: '500 FT SUNLIGHT',
+        drop: 'FLASHERS ON',
+        tow: 'STANDBY',
+        cite: 'TTC § 547.501',
+        dot: '#F59E0B',
+        status: 'STAGE 1: 4-WAY EMERGENCY FLASHERS ACTIVATED // VISIBLE 500 FT',
+        tag: 'STAGE 1: EMERGENCY HAZARD ILLUMINATION',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Mandatory 4-Way Flasher Circuit & Night Dome Light',
+        desc: 'Immediately upon experiencing vehicle disablement, activate the vehicular hazard warning flashers. Under TTC § 547.501, flashers must be visible from a distance of at least 500 feet in plain sunlight. At night, state safety rules mandate illuminating the interior overhead dome light; the white cabin illumination provides approaching high-speed drivers with depth perception and silhouette visibility long before headlights pick up exterior paint.',
+        r1Stroke: '#F59E0B', r2Stroke: '#475569', r3Stroke: '#475569'
+      },
+      stage2: {
+        vis: 'LANE VACATED',
+        drop: '-20 MPH MANDATE',
+        tow: 'SAFE PERIMETER',
+        cite: 'TTC § 545.157',
+        dot: '#3B82F6',
+        status: 'STAGE 2: TEXAS MOVE OVER / SLOW DOWN ACT // VACATE LANE OR DROP 20 MPH',
+        tag: 'STAGE 2: MOVE OVER / SLOW DOWN COMPLIANCE',
+        tagClass: 'text-sky-500',
+        borderClass: 'border-sky-500',
+        title: 'Approaching Drivers Must Vacate Adjacent Lane or Reduce Speed',
+        desc: 'Under TTC § 545.157, passing vehicles approaching stationary emergency vehicles, TxDOT HERO units, or service vehicles displaying flashing lamps must vacate the lane closest to the vehicle on multi-lane highways, or reduce their speed to 20 MPH below the posted speed limit (or 5 MPH if the limit is under 25 MPH). Violations carry fines of $500 to $1,250, escalating to Class A misdemeanors if injury results.',
+        r1Stroke: '#475569', r2Stroke: '#3B82F6', r3Stroke: '#475569'
+      },
+      stage3: {
+        vis: 'IMMEDIATE REMOVAL',
+        drop: 'LANES BLOCKED',
+        tow: '48-HR WINDOW',
+        cite: 'TTC § 545.305',
+        dot: '#EF4444',
+        status: 'STAGE 3: LAW ENFORCEMENT TOW AUTHORITY // 48-HR ABANDONMENT IMPOUND',
+        tag: 'STAGE 3: LAW ENFORCEMENT TOW ESCALATION',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Statutory Impoundment Authority Under TTC § 545.305',
+        desc: 'Texas Transportation Code § 545.305 grants peace officers absolute authority to immediately remove and impound any disabled vehicle that obstructs an active travel lane. If a disabled vehicle is safely positioned on the right-of-way outside an urban district, the owner has a statutory ceiling of 48 hours to arrange private recovery before law enforcement tows the vehicle at the owner’s expense.',
+        r1Stroke: '#475569', r2Stroke: '#475569', r3Stroke: '#EF4444'
+      }
+    };
+
+    function setL13Cad2Stage(stage) {
+      l13Cad2State.stage = stage;
+      const d = l13Cad2Data[stage];
+
+      ['stage1', 'stage2', 'stage3'].forEach((s, idx) => {
+        const btn = document.getElementById(`l13-pbtn-${idx + 1}`);
+        if (btn) {
+          if (s === stage) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l13-cad2-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l13-cad2-status');
+      if (st) {
+        st.textContent = d.status;
+        st.setAttribute('fill', d.dot);
+      }
+
+      const r1 = document.getElementById('l13-rung1-bg');
+      if (r1) r1.setAttribute('stroke', d.r1Stroke);
+      const r2 = document.getElementById('l13-rung2-bg');
+      if (r2) r2.setAttribute('stroke', d.r2Stroke);
+      const r3 = document.getElementById('l13-rung3-bg');
+      if (r3) r3.setAttribute('stroke', d.r3Stroke);
+
+      document.getElementById('l13-hud2-vis').textContent = d.vis;
+      document.getElementById('l13-hud2-drop').textContent = d.drop;
+      document.getElementById('l13-hud2-tow').textContent = d.tow;
+      document.getElementById('l13-hud2-cite').textContent = d.cite;
+
+      const card = document.getElementById('l13-cad2-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l13-card2-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l13-card2-title').textContent = d.title;
+      document.getElementById('l13-card2-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. 3D WEBGL SIMULATION CONTROLLER (L05-T13)
+    // ==============================================================================
+    const simScenarios_L05T13 = {
+      1: {
+        badge: "STATUTORY RULE 01 // ROADWAY CLEARANCE MANDATE",
+        statute: "TTC § 545.301 & § 545.058",
+        title: "Complete Shoulder Clearance & Hazard Activation",
+        desc: "Never stop in an active travel lane. Coast completely onto the paved shoulder (TTC § 545.058) and immediately activate hazard lamps visible from at least 500 feet (TTC § 547.501).",
+        metric: "CLEAR OF MAIN-TRAVELED WAY",
+        phase: "SHOULDER STOP // HAZARD LIGHTS ACTIVE"
+      },
+      2: {
+        badge: "STATUTORY RULE 02 // TRIANGLE SPACING ARRAY",
+        statute: "49 CFR § 392.22 & TX DPS",
+        title: "Deploy 3 Triangles at 10 Ft, 100 Ft, and 200 Ft",
+        desc: "Place the first triangle 10 ft behind on the traffic-side corner; the second 100 ft behind in the center of the shoulder; and the third 200 ft behind along the outer shoulder edge to establish an optical deceleration funnel.",
+        metric: "OPTICAL DECELERATION FUNNEL COMPLETE",
+        phase: "TRIANGLE ARRAY DEPLOYED: 10' / 100' / 200'"
+      },
+      3: {
+        badge: "STATUTORY RULE 03 // PASSENGER EVACUATION & MOVE OVER",
+        statute: "TTC § 545.157 & SAFETY PROTOCOL",
+        title: "Offside Passenger Egress Behind Safety Guardrail",
+        desc: "All passengers must exit exclusively through right-side (passenger) doors and retreat up the elevated grass embankment behind guardrails. Approaching traffic must vacate the adjacent lane or slow 20 MPH below the limit.",
+        metric: "100% PASSENGER SAFETY // BEHIND W-BEAM",
+        phase: "OCCUPANTS EVACUATED BEHIND GUARDRAIL"
+      }
+    };
+
+    function selectSimScenario(scId) {
+      const data = simScenarios_L05T13[scId];
+      if (!data) return;
+      const bEl = document.getElementById('sim-card-badge');
+      const sEl = document.getElementById('sim-card-statute');
+      const tEl = document.getElementById('sim-card-title');
+      const dEl = document.getElementById('sim-card-desc');
+      const mEl = document.getElementById('sim-card-metric');
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (bEl) bEl.textContent = data.badge;
+      if (sEl) sEl.textContent = data.statute;
+      if (tEl) tEl.textContent = data.title;
+      if (dEl) dEl.textContent = data.desc;
+      if (mEl) mEl.textContent = data.metric;
+      if (pEl) pEl.textContent = data.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+      dispatchSimAction('setScenario', { scenario: scId });
+    }
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', function(e) {
+      if (!e.data || e.data.event !== 'telemetry') return;
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (pEl && e.data.phase) {
+        pEl.textContent = e.data.phase;
+      }
+    });
+
+    // ==============================================================================
+    // 4. DOM INITIALIZATION
+    // ==============================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      setL13Cad1Node('all');
+      setL13Cad2Stage('stage1');
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

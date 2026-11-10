@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Crash Responsibilities &amp; Move Over Law — Texas Adult Driver Ed (L08-T09)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+        .touch-target { min-height: 48px; min-width: 48px; }
+    a.touch-target, a {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+      align-items: center;
+      justify-content: center;
+    }
+    button.touch-target, button {
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.6rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / PEDAGOGICAL INTRODUCTION CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          MODULE 8 // POST-CRASH PROTOCOLS
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 09 OF 10</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Collision Responsibilities, Move Over / Slow Down &amp; Form CR-2
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          Traffic collisions require strict legal adherence under Texas Transportation Code Chapter 550. Master TTC § 545.157 Move Over / Slow Down mandates, § 550.021 duty to render aid, § 550.022 "Steer It Clear It" freeway rules, and Form CR-3 reporting thresholds.
+        </p>
+      </div>
+
+      <!-- Survivability Stat Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Hit-and-Run Penalty</div>
+          <div class="font-bold text-hazard text-sm">2nd Degree Felony</div>
+          <div class="text-[9px] text-slate mt-0.5">Up to 20 Years Prison (Fatal)</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Move Over Reduction</div>
+          <div class="font-bold text-safety text-sm">-20 MPH Speed Drop</div>
+          <div class="text-[9px] text-slate mt-0.5">Or Vacate Closest Lane</div>
+        </div>
+      </div>
+
+      <!-- Statutory Mandate Banner -->
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/70 border border-orange-200 text-orange-950 text-xs">
+        <span class="material-symbols-outlined text-safety text-base flex-shrink-0">gavel</span>
+        <span class="leading-tight"><strong>TTC § 545.157 Mandate:</strong> When approaching stationary emergency vehicles or tow trucks with flashing lights, drivers MUST vacate the closest lane OR slow to 20 MPH below the speed limit.</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: POST-CRASH DECISION ENGINE -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">car_crash</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Crash Decision Protocol Simulator
+          </h2>
+        </div>
+        <span id="crash-status-badge" class="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+          FREEWAY CLEAR MANDATE
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select a real-world crash scenario to determine immediate statutory duties, vehicle clearance requirements, and law enforcement reporting thresholds:
+      </p>
+
+      <!-- Scenario Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-4 gap-1.5 font-mono text-[11px]">
+        <button id="btn-crash-1" onclick="selectCrashScenario(1)" class="cad-btn cad-btn-active touch-target">
+          <span>SCN 1</span>
+          <span class="text-[8px] font-normal">FREEWAY</span>
+        </button>
+        <button id="btn-crash-2" onclick="selectCrashScenario(2)" class="cad-btn cad-btn-inactive touch-target">
+          <span>SCN 2</span>
+          <span class="text-[8px] font-normal">INJURY</span>
+        </button>
+        <button id="btn-crash-3" onclick="selectCrashScenario(3)" class="cad-btn cad-btn-inactive touch-target">
+          <span>SCN 3</span>
+          <span class="text-[8px] font-normal">PARKED</span>
+        </button>
+        <button id="btn-crash-4" onclick="selectCrashScenario(4)" class="cad-btn cad-btn-inactive touch-target">
+          <span>SCN 4</span>
+          <span class="text-[8px] font-normal">MOVE OVER</span>
+        </button>
+      </div>
+
+      <!-- Reactive Simulator Telemetry Card -->
+      <div id="crash-telemetry-card" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="crash-tag" class="text-[9px] font-mono font-bold uppercase text-blue-700 tracking-wider">
+              STEER IT CLEAR IT LAW // TTC § 550.022
+            </span>
+            <h3 id="crash-title" class="text-sm font-bold text-carbon">
+              Minor Freeway Fender Bender (Vehicles Drivable)
+            </h3>
+          </div>
+          <span id="crash-icon-box" class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
+            <span id="crash-icon" class="material-symbols-outlined text-lg">alt_route</span>
+          </span>
+        </div>
+
+        <p id="crash-desc" class="text-xs text-slate leading-relaxed">
+          If a collision occurs on the main lanes or ramps of a freeway and vehicles can be driven safely, Texas law mandates moving immediately off the main travel lanes to the shoulder, frontage road, or accident investigation site.
+        </p>
+
+        <!-- Dynamic Mechanical Readouts -->
+        <div class="grid grid-cols-3 gap-2 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline text-center">
+            <div class="text-slate text-[9px]">LANE ACTION</div>
+            <div id="crash-action" class="font-bold text-blue-700 text-xs mt-0.5">EVACUATE MAIN LANES</div>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline text-center">
+            <div class="text-slate text-[9px]">STATUTORY STATUTE</div>
+            <div class="font-bold text-carbon text-xs mt-0.5">TTC § 550.022</div>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline text-center">
+            <div class="text-slate text-[9px]">CR-3 REPORT THRESH</div>
+            <div class="font-bold text-safety text-xs mt-0.5">$1,000 DAMAGE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD SVG DIAGRAM: TEXAS MOVE OVER / SLOW DOWN CORRIDOR (TTC § 545.157) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">view_in_ar</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Move Over / Slow Down
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-safety font-bold">TTC § 545.157</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        When approaching stationary emergency vehicles, tow trucks, or TxDOT highway crews displaying flashing beacons, Texas law enforces a two-option defensive mandate:
+      </p>
+
+      <!-- SVG 1: Primary CAD Vector Viewport (340x220) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[220px]" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-moveover" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="220" fill="url(#cad-grid-moveover)" />
+
+          <!-- Title Bar inside SVG -->
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">MOVE OVER / SLOW DOWN CORRIDOR (TTC § 545.157)</text>
+
+          <!-- 3 Highway Lanes (L1 Left, L2 Middle, L3 Right, Shoulder) -->
+          <rect x="20" y="35" width="300" height="150" fill="#1C1F1E" stroke="#374151" stroke-width="1"/>
+          <!-- Lane Dividers -->
+          <line x1="20" y1="72" x2="320" y2="72" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <line x1="20" y1="110" x2="320" y2="110" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <!-- Solid White Shoulder Line -->
+          <line x1="20" y1="148" x2="320" y2="148" stroke="#FFFFFF" stroke-width="2"/>
+          <text x="25" y="165" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="6">RIGHT SHOULDER</text>
+
+          <!-- Stationary Emergency Vehicle on Shoulder (Police / Tow / TxDOT) -->
+          <rect x="220" y="152" width="45" height="24" rx="2" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1.5"/>
+          <circle cx="230" cy="178" r="4" fill="#64748B"/>
+          <circle cx="255" cy="178" r="4" fill="#64748B"/>
+          <!-- Flashing Beacons -->
+          <circle cx="232" cy="154" r="3" fill="#EF4444"/>
+          <circle cx="252" cy="154" r="3" fill="#3B82F6"/>
+          <text x="242" y="167" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="bold" text-anchor="middle">EMERGENCY</text>
+
+          <!-- OPTION 1: VACATE CLOSEST LANE (Arrow Swerving from Lane 3 to Lane 2) -->
+          <path d="M 40 128 Q 110 128 140 92 L 280 92" fill="none" stroke="#10B981" stroke-width="2.5"/>
+          <polygon points="285,92 277,88 277,96" fill="#10B981"/>
+          <rect x="60" y="80" width="85" height="16" rx="2" fill="#064E3B" stroke="#10B981"/>
+          <text x="102" y="91" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">OPTION 1: VACATE LANE</text>
+
+          <!-- OPTION 2: SLOW DOWN 20 MPH (Staying in Lane 3 if unable to merge) -->
+          <line x1="40" y1="128" x2="190" y2="128" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4,2"/>
+          <polygon points="195,128 187,124 187,132" fill="#F59E0B"/>
+          <rect x="100" y="132" width="95" height="15" rx="2" fill="#78350F" stroke="#F59E0B"/>
+          <text x="147" y="142" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="bold" text-anchor="middle">OPTION 2: -20 MPH SLOW DOWN</text>
+
+          <!-- Speed Banner -->
+          <text x="170" y="202" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">IF SPEED LIMIT IS 70 MPH -> REDUCE TO 50 MPH MAXIMUM</text>
+        </svg>
+      </div>
+
+      <!-- Critical Lesson Takeaway -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>The Two-Option Rule:</strong> If road or traffic conditions make lane changing unsafe, you MUST slow down to 20 MPH below the posted limit. (If posted limit is under 25 MPH, reduce to 5 MPH). Failure to move over or slow down carries fines up to $500, escalating to jail time if an emergency worker is injured.
+      </div>
+    </section>
+
+    <!-- 05. SECONDARY CAD SVG DIAGRAM: STEER IT CLEAR IT FREEWAY EVACUATION (TTC § 550.022) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">traffic</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: "Steer It Clear It" Law
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-safety font-bold">TTC § 550.022</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Remaining stationary in freeway main lanes after a minor fender bender generates catastrophic secondary pileups. Review the mandatory evacuation corridor:
+      </p>
+
+      <!-- SVG 2: Secondary CAD Vector Viewport (340x180) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[180px]" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-steer" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" fill="url(#cad-grid-steer)" />
+
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">FREEWAY EVACUATION // SECONDARY CRASH MITIGATION</text>
+
+          <!-- Illegal Stoppage in Travel Lanes (Red Zone) -->
+          <g transform="translate(15, 28)">
+            <rect x="0" y="0" width="145" height="110" rx="3" fill="#1E293B" stroke="#EF4444" stroke-width="1"/>
+            <text x="72" y="16" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">LETHAL: STOPPING IN LANE</text>
+            <rect x="10" y="26" width="125" height="42" rx="2" fill="#7F1D1D" stroke="#EF4444"/>
+            <text x="72" y="42" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">SECONDARY IMPACT RISK</text>
+            <text x="72" y="54" fill="#FECACA" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">High-Speed Rear-End Collisions</text>
+            <text x="72" y="86" fill="#F87171" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="bold" text-anchor="middle">ILLEGAL UNDER TTC § 550.022</text>
+            <text x="72" y="98" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Class C Misdemeanor</text>
+          </g>
+
+          <!-- Legal Evacuation to Off-Ramp / Shoulder (Green Zone) -->
+          <g transform="translate(180, 28)">
+            <rect x="0" y="0" width="145" height="110" rx="3" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+            <text x="72" y="16" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">MANDATED: STEER CLEAR</text>
+            <rect x="10" y="26" width="125" height="42" rx="2" fill="#064E3B" stroke="#10B981"/>
+            <text x="72" y="42" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">OFF-RAMP / ACCIDENT SITE</text>
+            <text x="72" y="54" fill="#D1FAE5" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Safe Information Exchange</text>
+            <text x="72" y="86" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="bold" text-anchor="middle">COMPLIANT WITH TEXAS LAW</text>
+            <text x="72" y="98" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Traffic Flow Preserved</text>
+          </g>
+
+          <!-- Statutory Bottom Banner -->
+          <rect x="15" y="146" width="310" height="24" rx="2" fill="#1C1F1E" stroke="#3B82F6" stroke-width="1"/>
+          <text x="170" y="161" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">MOVING DRIVABLE VEHICLES OFF FREEWAY MAIN LANES IS MANDATORY</text>
+        </svg>
+      </div>
+
+      <!-- Legal Summary -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>Steer It Clear It Requirement:</strong> Never leave drivable vehicles parked on the active lanes of an interstate or freeway to argue or wait for police. Move immediately to the nearest exit or shoulder. Doing so protects lives and does NOT compromise your insurance claim.
+      </div>
+    </section>
+
+    <!-- 06. DUTY TO RENDER AID & CRIMINAL PENALTIES FOR HIT-AND-RUN (TTC § 550.021) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">emergency</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Duty to Stop &amp; Render Aid (TTC § 550.021)
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Fleeing the scene of an accident in Texas is a severe felony offense. The law imposes strict affirmative duties upon every involved driver:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Immediate Stop &amp; Aid Mandate</span>
+            <span class="text-safety font-bold uppercase">AFFIRMATIVE DUTY</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Every driver involved in a collision resulting in injury or death must immediately stop at the scene (or as close as safely possible) and render reasonable assistance, including calling 911 and arranging transportation to a hospital if requested or if injury is apparent.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-950 space-y-1">
+          <div class="font-mono text-[11px] font-bold text-hazard flex items-center justify-between">
+            <span>Hit-and-Run Involving Death</span>
+            <span class="text-hazard font-bold uppercase">SECOND-DEGREE FELONY</span>
+          </div>
+          <p class="text-[11px] leading-relaxed">
+            Failing to stop and render aid in a crash involving death is a <strong>Second-Degree Felony</strong> punishable by <strong>2 to 20 years in state prison</strong> and a fine of up to $10,000.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-950 space-y-1">
+          <div class="font-mono text-[11px] font-bold text-hazard flex items-center justify-between">
+            <span>Hit-and-Run Involving Serious Bodily Injury</span>
+            <span class="text-hazard font-bold uppercase">THIRD-DEGREE FELONY</span>
+          </div>
+          <p class="text-[11px] leading-relaxed">
+            Failing to stop in a crash resulting in serious bodily injury is a <strong>Third-Degree Felony</strong> carrying <strong>2 to 10 years in prison</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- 06B. INTERACTIVE POST-CRASH 5-STEP SCENE MANAGEMENT STEPPER -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">tune</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Post-Crash Scene Management Stepper
+          </h2>
+        </div>
+        <span id="scene-chip" class="text-[10px] font-mono font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200">
+          PHASE 1: 911 &amp; TRIAGE
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select each critical emergency phase to review state-certified protocols for securing the scene, assisting casualties, and protecting yourself against secondary collisions:
+      </p>
+
+      <!-- Protocol Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-4 gap-1.5 font-mono text-[11px]">
+        <button id="btn-scene-1" onclick="selectScenePhase(1)" class="cad-btn cad-btn-active touch-target">
+          <span>PHASE 1</span>
+          <span class="text-[8px] font-normal">TRIAGE</span>
+        </button>
+        <button id="btn-scene-2" onclick="selectScenePhase(2)" class="cad-btn cad-btn-inactive touch-target">
+          <span>PHASE 2</span>
+          <span class="text-[8px] font-normal">PERIMETER</span>
+        </button>
+        <button id="btn-scene-3" onclick="selectScenePhase(3)" class="cad-btn cad-btn-inactive touch-target">
+          <span>PHASE 3</span>
+          <span class="text-[8px] font-normal">EXCHANGE</span>
+        </button>
+        <button id="btn-scene-4" onclick="selectScenePhase(4)" class="cad-btn cad-btn-inactive touch-target">
+          <span>PHASE 4</span>
+          <span class="text-[8px] font-normal">EVIDENCE</span>
+        </button>
+      </div>
+
+      <!-- Phase Telemetry Card -->
+      <div id="scene-phase-card" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="scene-tag" class="text-[9px] font-mono font-bold uppercase text-red-700 tracking-wider">
+              CASUALTY ASSESSMENT // 911 EMERGENCY DISPATCH
+            </span>
+            <h3 id="scene-title" class="text-sm font-bold text-carbon">
+              Phase 1: Immediate Triage &amp; 911 Activation
+            </h3>
+          </div>
+          <span id="scene-icon-box" class="w-8 h-8 rounded-lg bg-red-100 text-red-700 flex items-center justify-center">
+            <span id="scene-icon" class="material-symbols-outlined text-lg">medical_services</span>
+          </span>
+        </div>
+
+        <p id="scene-desc" class="text-xs text-slate leading-relaxed">
+          Check yourself and passengers for injuries. Dial 911 immediately. State your exact highway, direction of travel, and nearest mile marker. Do NOT move seriously injured or unconscious casualties unless there is an immediate, life-threatening danger of vehicle fire or explosion.
+        </p>
+
+        <!-- Specifications Grid -->
+        <div class="grid grid-cols-2 gap-2 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <div class="text-slate text-[9px]">CASUALTY RULE</div>
+            <div id="scene-spec1" class="font-bold text-hazard text-xs mt-0.5">Do Not Move (Spine Risk)</div>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <div class="text-slate text-[9px]">DISPATCH DATA</div>
+            <div id="scene-spec2" class="font-bold text-safety text-xs mt-0.5">Exact Mile Marker &amp; Lanes</div>
+          </div>
+        </div>
+
+        <div id="scene-note" class="p-2.5 rounded-lg bg-white border border-hairline text-[11px] text-slate leading-relaxed">
+          <strong>Good Samaritan Protection:</strong> Under Texas Civil Practice &amp; Remedies Code § 74.151, any person who in good faith administers emergency care at the scene of an emergency is immune from civil damages for acts performed, unless willfully negligent.
+        </div>
+      </div>
+    </section>
+
+    <!-- 06C. TEXAS FORM CR-2 VS CR-3 STATUTORY FRAMEWORK -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">assignment</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Texas Form CR-2 &amp; CR-3 Reporting
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">TX-DOT CRIS PORTAL</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas documentation divides into two distinct administrative instruments:
+      </p>
+
+      <div class="space-y-2.5 text-xs">
+        <!-- Form CR-3 -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold font-mono text-[11px]">
+            <span>Form CR-3: Texas Peace Officer's Crash Report</span>
+            <span class="text-safety font-bold">$1,000+ MANDATE</span>
+          </div>
+          <p class="text-slate leading-relaxed font-sans">
+            Completed exclusively by sworn law enforcement officers who investigate the collision. Officers must file Form CR-3 electronically to TxDOT within <strong>10 days</strong> if any person is injured or killed, or if apparent property damage to any vehicle or property totals $1,000 or more.
+          </p>
+        </div>
+
+        <!-- Form CR-2 -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold font-mono text-[11px]">
+            <span>Form CR-2: Driver's Crash Report ("Blue Form")</span>
+            <span class="text-slate text-[10px]">OPERATOR RECORD</span>
+          </div>
+          <p class="text-slate leading-relaxed font-sans">
+            Historically known as the "Blue Form," Form CR-2 is completed by vehicle operators when a crash is not investigated by law enforcement (e.g. minor parking lot fender benders under $1,000 damage). While TxDOT no longer formally archives CR-2 forms, completing a written crash statement remains vital for automotive insurance claims.
+          </p>
+        </div>
+
+        <!-- Information Exchange Mandate -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold font-mono text-[11px]">
+            <span>Mandatory Exchange Information (TTC § 550.023)</span>
+            <span class="text-hazard font-bold">LEGAL DUTY</span>
+          </div>
+          <p class="text-slate leading-relaxed font-sans">
+            Under TTC § 550.023, you must furnish: (1) Full legal name and home address; (2) Vehicle registration license plate number; (3) Automotive liability insurance company name and policy number; (4) Display your driver license upon request. <strong>Never apologize or admit fault</strong> at the scene; stick strictly to factual documentation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06D. TEXAS NON-CONSENT TOWING REGULATIONS (TEX. OCC. CODE CH. 2308) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">tow_truck</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Texas Towing Rights &amp; Drop Fee Mandates
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">TEX. OCC. CODE CH. 2308</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Following a collision, disabled vehicles are frequently removed by commercial wreckers. Know your statutory consumer rights under Texas law:
+      </p>
+
+      <div class="p-3 rounded-lg bg-surface-sub border border-hairline text-xs space-y-2">
+        <div class="font-mono text-[11px] font-bold text-carbon">
+          Driver's Right to Select Tow Operator
+        </div>
+        <p class="text-slate leading-relaxed">
+          Unless a vehicle is creating an immediate traffic hazard or the driver is incapacitated, Texas law grants the motorist the legal right to designate their preferred towing company or request their insurance roadside service.
+        </p>
+        <div class="p-2 rounded bg-white border border-hairline font-mono text-[10px] text-slate">
+          <strong>Mandatory Drop Fee Rule:</strong> Under Texas Occupations Code § 2308.254, if a tow truck operator has hooked up your vehicle but has not yet departed the private property or scene, they MUST release the vehicle upon payment of a regulated "drop fee" (typically $50 - $100) rather than hauling it to an impound lot.
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. STRIKING UNATTENDED VEHICLES & HIGHWAY STRUCTURES (TTC § 550.024 & § 550.025) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">directions_car</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Striking Parked Cars &amp; Fixtures
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">TTC § 550.024</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Colliding with unattended property requires specific procedural compliance under Texas law:
+      </p>
+
+      <div class="space-y-2 font-mono text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>Striking an Unattended Vehicle</span>
+            <span class="text-safety font-bold">WRITTEN NOTICE MANDATE</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            Under TTC § 550.024, if you strike a parked car, you must stop immediately and locate the operator or owner. If the owner cannot be located, you MUST leave a securely attached written note in a conspicuous place stating your name, address, and an explanation of the crash. Leaving without a note is a Class B misdemeanor if damage exceeds $200.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>Striking Highway Fixtures / Landscaping</span>
+            <span class="text-safety font-bold">TTC § 550.025</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            If you collide with a highway guardrail, signpost, utility pole, or roadside tree, you must take reasonable steps to notify the entity owning the property (e.g. TxDOT, city public works, or utility company) and report the incident.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- 07B. HIT-AND-RUN FORENSIC RECONSTRUCTION & DPS CRASH TEAMS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">biometrics</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Hit-and-Run Forensics &amp; Paint Spectrometry
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-hazard">DPS CRASH LAB</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Drivers who flee a collision scene under the delusion that they cannot be caught face sophisticated Texas Department of Public Safety (DPS) forensic technology:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Automotive Paint Chip Spectrometry</span>
+            <span class="text-hazard font-bold">OEM CHEMICAL SIGNATURE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Collisions leave microscopic paint transfer chips smaller than a pinhead. DPS crime labs use Fourier Transform Infrared (FTIR) spectrometry to analyze primer, basecoat, and clearcoat chemical layers, matching the exact automotive factory, year, make, model, and paint batch of the fleeing vehicle.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Lens &amp; Plastic Debris Part Numbers</span>
+            <span class="text-hazard font-bold">DOT MOLD NUMBERS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Shattered fragments of headlamps, turn signals, and bumper covers contain microscopic molded DOT manufacturing part numbers. Investigators cross-reference these fragments to identify the precise vehicle trim and production year within hours of the crash.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Automated License Plate Readers (ALPR)</span>
+            <span class="text-hazard font-bold">TEXAS HIGHWAY CAMERAS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            TxDOT traffic management centers and regional law enforcement operate extensive networks of high-speed ALPR cameras along highways, tollways, and intersections. Once a partial vehicle description is established, automated systems flag matching vehicles and trace the fleeing driver to their residence.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07C. MOVE OVER LAW LEGISLATIVE SCOPE & WORKER CASUALTIES -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">shield</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Move Over Law: Expanded Scope &amp; Worker Protection
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">TTC § 545.157 EXPANSION</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The Texas Move Over / Slow Down statute has been progressively expanded by the Texas Legislature to protect all roadside frontline workers:
+      </p>
+
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">local_police</span>
+            1. Police, Fire &amp; Emergency Medical Services (EMS)
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            The original core mandate protects law enforcement officers conducting traffic stops, paramedics treating crash casualties, and firefighters operating at incident scenes.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">construction</span>
+            2. TxDOT Highway Maintenance &amp; Utility Service Vehicles
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Expanded to include Texas Department of Transportation (TxDOT) road maintenance trucks, construction vehicles, electric/gas/telecom utility service trucks, and municipal garbage collection trucks displaying flashing amber or blue warning beacons.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">handyman</span>
+            3. Tow Trucks &amp; Incident Management Vehicles
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Commercial tow truck operators winching disabled vehicles on highway shoulders face mortal danger from passing traffic. Texas law treats stationary tow trucks with flashing lights with the exact same legal dignity and clearance mandates as marked state trooper patrol cars.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. TEXAS FORM CR-3 PEACE OFFICER'S REPORT ($1,000 DAMAGE THRESHOLD) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">description</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Crash Reporting: Texas Form CR-3
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">TX-DOT CRIS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Understanding state crash reporting criteria and official documentation:
+      </p>
+
+      <div class="p-3 rounded-lg bg-surface-sub border border-hairline text-xs space-y-2">
+        <div class="font-mono text-[11px] font-bold text-carbon">
+          The $1,000 Apparent Property Damage Benchmark
+        </div>
+        <p class="text-slate leading-relaxed">
+          Under Texas Transportation Code § 550.062, law enforcement officers must investigate and submit an official Texas Peace Officer's Crash Report (Form CR-3) to TxDOT within 10 days if the collision resulted in:
+        </p>
+        <ul class="list-disc pl-4 space-y-1 text-slate font-mono text-[10px]">
+          <li>Injury or death to any person; OR</li>
+          <li>Apparent property damage to any one person's vehicle or property of <strong>$1,000 or more</strong>.</li>
+        </ul>
+        <p class="text-slate leading-relaxed">
+          Drivers can purchase certified copies of Form CR-3 through the TxDOT Crash Records Information System (CRIS) portal for insurance claims and legal defense.
+        </p>
+      </div>
+    </section>
+
+    
+    <!-- 08B. TEXAS UNINSURED MOTORIST COVERAGE & SURETY VERIFICATION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">verified_user</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            TexasSure &amp; Uninsured Motorist Safeguards
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">INSURANCE CODE CH. 1952</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Understanding financial responsibility and electronic verification following a crash in Texas:
+      </p>
+
+      <div class="space-y-2 font-mono text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>TexasSure Real-Time Insurance Database</span>
+            <span class="text-emerald-700 font-bold">STATE VERIFIED</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            Investigating law enforcement officers do not merely rely on printed insurance paper cards; they verify policy active status electronically in real-time through the TexasSure automated financial responsibility database. Presenting a fraudulent or cancelled insurance card is a Class B misdemeanor.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>Uninsured / Underinsured Motorist Protection (UM/UIM)</span>
+            <span class="text-safety font-bold">CRITICAL COVERAGE</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            Under Texas Insurance Code § 1952.101, automotive insurers must offer Uninsured/Underinsured Motorist coverage. In the event of a hit-and-run collision where the fleeing driver cannot be identified, your UM/UIM policy pays for vehicle repairs and medical costs that would otherwise fall on you.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. AUTHORITATIVE 3D SIMULATION CONTAINER (L08-T09) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>PHYSICS SIMULATOR // STEER IT, CLEAR IT PROTOCOL</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          TTC § 550.022 • FREEWAY CLEARANCE
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Steer It, Clear It: Freeway Crash Relocation Protocol</h2>
+        <p class="text-xs text-slate mt-0.5">3D kinematic simulation of minor fender-bender relocation from active freeway travel lanes onto wide shoulders under TTC § 550.022, secondary pileup elimination, and emergency warning triangle positioning.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L08_T09_steer_it_clear_it.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">STEER IT CLEAR IT: RELOCATING ACROSS LANE 3 TO WIDE SHOULDER</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Steer It</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Secondary Crash</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>TRIANGLES Should</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY PROTOCOL 01 // STEER IT CLEAR IT LAW</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 550.022 &amp; TxDOT MANDATE</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Drivable Vehicles Must Immediately Vacate Freeway Mainlanes</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            Under Texas Transportation Code § 550.022, if an accident occurs on a freeway mainlane, ramp, or median and each vehicle can be normally and safely driven, operators MUST move the vehicles to an accident investigation site, frontage road, or wide shoulder. Remaining stopped in active freeway traffic constitutes a Class C misdemeanor and invites fatal secondary collisions.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">CLEARANCE STANDARD:</span>
+            <span id="sim-card-metric" class="text-valid font-bold">100% COMPLIANT // MAINLANES RESTORED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FORMATIVE ASSESSMENT (STRICT 3 SCENARIO MCQS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Topic Formative Assessment
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-slate">3 SCENARIO QUESTIONS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Test your knowledge of Texas collision responsibilities, Move Over / Slow Down laws, and accident documentation procedures.
+      </p>
+
+      <!-- QUESTION 1: QUESTION 1 OPTION B STRICTLY CORRECT (TEST RUNNER MANDATE) -->
+      <div class="space-y-2 pt-2 border-t border-hairline" <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L08-T09 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="q1-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 01 // TEXAS MOVE OVER / SLOW DOWN MANDATE</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          Under Texas Transportation Code § 545.157, when approaching a stationary emergency vehicle, police car, or tow truck with flashing lights on a multi-lane highway, what action must you take?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q1-opt-A" onclick="checkAnswer(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) Maintain your current lane and speed while flashing your headlights</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-B" onclick="checkAnswer(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) Vacate the lane closest to the emergency vehicle, or slow down to a speed 20 MPH below the posted speed limit</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-C" onclick="checkAnswer(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) Stop completely in your lane until an officer waves you through</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-D" onclick="checkAnswer(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) Honk your horn twice and accelerate past to avoid rubbernecking</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q1-feedback" class="hidden"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q2-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 02 // TEXAS STEER IT CLEAR IT LAW</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          According to Texas Transportation Code § 550.022, what must drivers do following a minor, non-injury collision on a freeway if their vehicles can be normally and safely driven?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q2-opt-A" onclick="checkAnswer(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) Remain stationary in the travel lane until an insurance adjuster arrives</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-B" onclick="checkAnswer(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) Leave the vehicles in place and stand in the travel lane to direct traffic</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-C" onclick="checkAnswer(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) Move the vehicles off the freeway main travel lanes to the shoulder, ramp, or frontage road</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-D" onclick="checkAnswer(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) Drive home immediately and report the collision the following morning</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q2-feedback" class="hidden"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q3-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 03 // STRIKING UNATTENDED VEHICLE</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          If you collide with an unattended parked vehicle and cannot locate the owner, what does Texas law (TTC § 550.024) require you to do?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q3-opt-A" onclick="checkAnswer(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) Wait in your vehicle for exactly 15 minutes before driving away</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-B" onclick="checkAnswer(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) Post a photo of the vehicle to social media and leave the scene</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-C" onclick="checkAnswer(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) Leave a securely attached written note in a conspicuous place stating your name, address, and an explanation of the crash</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-D" onclick="checkAnswer(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) Report the incident only if property damage exceeds $5,000</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q3-feedback" class="hidden"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. LESSON COMPLETION & TOPIC NAVIGATION FOOTER -->
+    <footer class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3">
+      <div class="flex items-center justify-between text-xs text-slate">
+        <span class="font-mono">MODULE 08: TOPIC 09 / 10</span>
+        <span class="font-mono text-safety font-bold">NEXT: L08-T10</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="L08-T10.html" class="flex-1 min-h-[48px] px-4 py-3 rounded-xl bg-carbon hover:bg-carbon/90 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs" style="min-height: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">
+          <span>ADVANCE TO L08-T10</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT REACTIVE LOGIC ENGINE -->
+  <script>
+    // Primary Interactive Tool: Crash Scenario Telemetry Reactive Engine
+    const scenariosData = {
+      1: {
+        badge: "FREEWAY CLEAR MANDATE",
+        badgeClass: "text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200",
+        tag: "STEER IT CLEAR IT LAW // TTC § 550.022",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-blue-700 tracking-wider",
+        title: "Minor Freeway Fender Bender (Vehicles Drivable)",
+        icon: "alt_route",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center",
+        desc: "If a collision occurs on the main lanes or ramps of a freeway and vehicles can be driven safely, Texas law mandates moving immediately off the main travel lanes to the shoulder, frontage road, or accident investigation site.",
+        action: "EVACUATE MAIN LANES",
+        actionClass: "font-bold text-blue-700 text-xs mt-0.5"
+      },
+      2: {
+        badge: "FELONY HIT-AND-RUN RISK",
+        badgeClass: "text-[10px] font-mono font-bold text-hazard bg-rose-50 px-2 py-0.5 rounded border border-hazard/30",
+        tag: "DUTY TO RENDER AID // TTC § 550.021",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-hazard tracking-wider",
+        title: "Crash Involving Injury or Death",
+        icon: "emergency",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-rose-100 text-hazard flex items-center justify-center",
+        desc: "Stop immediately at the scene. Check on all parties, dial 911, and render first aid assistance. Leaving the scene of an injury crash is a felony punishable by 2 to 20 years in prison under Texas Penal Code.",
+        action: "STOP & RENDER 911 AID",
+        actionClass: "font-bold text-hazard text-xs mt-0.5"
+      },
+      3: {
+        badge: "WRITTEN NOTICE MANDATE",
+        badgeClass: "text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-300",
+        tag: "UNATTENDED PROPERTY // TTC § 550.024",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-amber-700 tracking-wider",
+        title: "Striking a Parked Unattended Vehicle",
+        icon: "description",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center",
+        desc: "Immediately stop and attempt to locate the vehicle owner. If unreachable, you MUST leave a securely attached, weatherproof written note with your name, address, and summary of what occurred in a conspicuous place.",
+        action: "SECURE CONSPICUOUS NOTE",
+        actionClass: "font-bold text-amber-700 text-xs mt-0.5"
+      },
+      4: {
+        badge: "MOVE OVER MANDATE",
+        badgeClass: "text-[10px] font-mono font-bold text-safety bg-orange-50 px-2 py-0.5 rounded border border-safety/30",
+        tag: "EMERGENCY SAFETY CORRIDOR // TTC § 545.157",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-safety tracking-wider",
+        title: "Approaching Stationary Flashing Vehicles",
+        icon: "fmd_bad",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-orange-100 text-safety flex items-center justify-center",
+        desc: "When approaching police, fire, EMS, tow trucks, TxDOT, or utility vehicles with flashing lights on a highway shoulder: vacate the lane closest to the vehicle, OR reduce speed by 20 MPH below the posted limit.",
+        action: "VACATE LANE OR -20 MPH",
+        actionClass: "font-bold text-safety text-xs mt-0.5"
+      }
+    };
+
+    function selectCrashScenario(num) {
+      const data = scenariosData[num];
+      if (!data) return;
+
+      const badge = document.getElementById("crash-status-badge");
+      const tag = document.getElementById("crash-tag");
+      const title = document.getElementById("crash-title");
+      const desc = document.getElementById("crash-desc");
+      const icon = document.getElementById("crash-icon");
+      const iconBox = document.getElementById("crash-icon-box");
+      const action = document.getElementById("crash-action");
+
+      badge.textContent = data.badge;
+      badge.className = data.badgeClass;
+
+      tag.textContent = data.tag;
+      tag.className = data.tagClass;
+
+      title.textContent = data.title;
+      desc.textContent = data.desc;
+      icon.textContent = data.icon;
+      iconBox.className = data.iconBoxClass;
+
+      action.textContent = data.action;
+      action.className = data.actionClass;
+
+      [1, 2, 3, 4].forEach(s => {
+        const btn = document.getElementById("btn-crash-" + s);
+        if (s === num) {
+          btn.className = "cad-btn cad-btn-active touch-target";
+        } else {
+          btn.className = "cad-btn cad-btn-inactive touch-target";
+        }
+      });
+    }
+
+    
+    // Post-Crash Scene Management Stepper Reactive Engine
+    const phasesData = {
+      1: {
+        chip: "PHASE 1: 911 & TRIAGE",
+        chipClass: "text-[10px] font-mono font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200",
+        tag: "CASUALTY ASSESSMENT // 911 EMERGENCY DISPATCH",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-red-700 tracking-wider",
+        title: "Phase 1: Immediate Triage & 911 Activation",
+        icon: "medical_services",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-red-100 text-red-700 flex items-center justify-center",
+        desc: "Check yourself and passengers for injuries. Dial 911 immediately. State your exact highway, direction of travel, and nearest mile marker. Do NOT move seriously injured or unconscious casualties unless there is an immediate, life-threatening danger of vehicle fire or explosion.",
+        spec1: "Do Not Move (Spine Risk)",
+        spec2: "Exact Mile Marker & Lanes",
+        note: "Good Samaritan Protection: Under Texas Civil Practice & Remedies Code § 74.151, any person who in good faith administers emergency care at the scene of an emergency is immune from civil damages for acts performed, unless willfully negligent."
+      },
+      2: {
+        chip: "PHASE 2: PERIMETER SAFETY",
+        chipClass: "text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200",
+        tag: "SECONDARY COLLISION PREVENTION // PHYSICAL BARRIER",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-amber-700 tracking-wider",
+        title: "Phase 2: Hazard Flashers & Safety Perimeter",
+        icon: "warning",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center",
+        desc: "Immediately activate 4-way hazard flashers. If flares or reflective warning triangles are available, deploy them 100 to 200 feet behind the vehicle. Move all uninjured occupants behind the highway guardrail or up the embankment away from traffic.",
+        spec1: "100-200 Ft Warning Flare Line",
+        spec2: "Stand Behind Guardrail",
+        note: "Secondary Pileup Danger: Never stand between two stopped vehicles or on the traffic side of the vehicle; rubbernecking highway traffic causes fatal secondary impacts."
+      },
+      3: {
+        chip: "PHASE 3: INFO EXCHANGE",
+        chipClass: "text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200",
+        tag: "STATUTORY DOCUMENTATION // TTC § 550.023",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-blue-700 tracking-wider",
+        title: "Phase 3: Exchanging Mandatory Driver Information",
+        icon: "badge",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center",
+        desc: "Exchange full name, address, phone number, vehicle license plate, driver license number, and insurance carrier policy details. Take a photo of the other driver's insurance card and license with your phone.",
+        spec1: "Name, License & Policy No.",
+        spec2: "Never Apologize / Admit Fault",
+        note: "Legal Posture: Discuss facts only with investigating law enforcement officers. Apologizing or admitting fault at the scene can compromise legal defense and insurance coverage."
+      },
+      4: {
+        chip: "PHASE 4: EVIDENCE CAPTURE",
+        chipClass: "text-[10px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200",
+        tag: "SCENE RECONSTRUCTION // DIGITAL PHOTOMETRY",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-purple-700 tracking-wider",
+        title: "Phase 4: Photographic Evidence & Witness Details",
+        icon: "camera_alt",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center",
+        desc: "Before moving vehicles (if safe to do so), photograph the crash scene from multiple angles: vehicle resting positions, damage points, skid marks, road conditions, traffic signs, and weather. Collect names and numbers of neutral eyewitnesses.",
+        spec1: "Wide Shots + Skid Trajectories",
+        spec2: "Neutral Witness Contacts",
+        note: "Claims Integrity: Objective photographic evidence taken before vehicles are moved provides conclusive proof of fault for insurance adjusters and accident reconstruction investigators."
+      }
+    };
+
+    function selectScenePhase(num) {
+      const data = phasesData[num];
+      if (!data) return;
+
+      document.getElementById("scene-chip").textContent = data.chip;
+      document.getElementById("scene-chip").className = data.chipClass;
+
+      document.getElementById("scene-tag").textContent = data.tag;
+      document.getElementById("scene-tag").className = data.tagClass;
+
+      document.getElementById("scene-title").textContent = data.title;
+      document.getElementById("scene-icon").textContent = data.icon;
+      document.getElementById("scene-icon-box").className = data.iconBoxClass;
+
+      document.getElementById("scene-desc").textContent = data.desc;
+      document.getElementById("scene-spec1").textContent = data.spec1;
+      document.getElementById("scene-spec2").textContent = data.spec2;
+      document.getElementById("scene-note").innerHTML = `<strong>Legal Benchmark:</strong> ${data.note}`;
+
+      for (let s = 1; s <= 4; s++) {
+        const btn = document.getElementById("btn-scene-" + s);
+        if (s === num) {
+          btn.className = "cad-btn cad-btn-active touch-target";
+        } else {
+          btn.className = "cad-btn cad-btn-inactive touch-target";
+        }
+      }
+    }
+
+    // Formative MCQ Logic with Live Score Tracking
+    let answeredQuestions = {};
+                const TOPIC_ID = 'L08-T09';
+    
+    let correctCount = 0;
+
+    
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.157",
+            "statutoryRationale": "Under Texas Transportation Code Section 545.157 (Move Over / Slow Down Law), drivers must vacate the lane closest to the emergency vehicle or slow down to a speed 20 MPH below the posted speed limit."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "C",
+            "statute": "TTC § 550.022",
+            "statutoryRationale": "The Texas Steer It Clear It statute (TTC Section 550.022) mandates moving drivable vehicles off freeway main lanes to the shoulder, frontage road, or accident site to prevent secondary collisions."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 550.024",
+            "statutoryRationale": "Under TTC Section 550.024, if you strike an unattended vehicle and the owner cannot be located, you must leave a securely attached written note in a conspicuous place stating your name, address, and incident summary."
+      }
+};
+
+    function checkAnswer(qNum, selected) {
+      if (answeredQuestions[qNum]) return;
+      answeredQuestions[qNum] = true;
+
+      const feedback = document.getElementById(`q${qNum}-feedback`);
+      if (feedback) feedback.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      const options = ['A', 'B', 'C', 'D'];
+      options.forEach(opt => {
+        const btn = document.getElementById(`q${qNum}-opt-${opt}`) || document.getElementById(`q${qNum}-opt-${opt.toLowerCase()}`);
+        if (!btn) return;
+        btn.disabled = true;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (opt === correctOpt) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-valid', 'bg-valid/10', 'text-valid', 'font-bold');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-valid text-sm flex-shrink-0 mt-0.5';
+          }
+        } else if (opt === chosenStr && !isCorrect) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-hazard', 'bg-rose-50', 'text-hazard', 'line-through');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-hazard text-sm flex-shrink-0 mt-0.5';
+          }
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-valid/10 border border-valid/30 text-valid mt-2';
+          feedback.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-rose-50 border border-rose-300 text-rose-900 mt-2';
+          feedback.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      updateScoreBadge();
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredQuestions).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: correctCount,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+  
+    // ==============================================================================
+    // SIMULATION CONTROLLER (L08-T09 Steer It Clear It Crash Protocol)
+    // ==============================================================================
+    const simScenarios = {
+      1: {
+        badge: 'STATUTORY PROTOCOL 01 // STEER IT CLEAR IT LAW',
+        statute: 'TTC § 550.022 & TxDOT MANDATE',
+        title: 'Drivable Vehicles Must Immediately Vacate Freeway Mainlanes',
+        desc: 'Under Texas Transportation Code § 550.022, if an accident occurs on a freeway mainlane, ramp, or median and each vehicle can be normally and safely driven, operators MUST move the vehicles to an accident investigation site, frontage road, or wide shoulder. Remaining stopped in active freeway traffic constitutes a Class C misdemeanor and invites fatal secondary collisions.',
+        metric: '100% COMPLIANT // MAINLANES RESTORED',
+        phase: 'STEER IT CLEAR IT: RELOCATING ACROSS LANE 3 TO WIDE SHOULDER'
+      },
+      2: {
+        badge: 'CRITICAL HAZARD // FATAL SECONDARY FREEWAY COLLISION',
+        statute: 'TTC § 550.022 VIOLATION',
+        title: 'Stopping on Active Freeway Lanes Induces 70 MPH Chain Reaction Crash',
+        desc: 'Stopping in the center travel lane to argue or inspect minor bumper damage leaves zero sightline for approaching 70 MPH traffic. Drivers exiting vehicles on a live freeway are frequently struck and killed, while oncoming traffic triggers a catastrophic multi-car pileup.',
+        metric: 'CATASTROPHIC SECONDARY IMPACT // LIVE LANE BLOCKAGE',
+        phase: 'CRITICAL HAZARD: STOPPED IN CENTER LANE // 70 MPH PILEUP'
+      },
+      3: {
+        badge: 'STATUTORY PROTOCOL 03 // SHOULDER REFLECTIVE TRIANGLES',
+        statute: 'TTC § 545.157 & DOT WARNING STANDARD',
+        title: 'Safe Triangle Placement on Shoulder & Move Over Compliance',
+        desc: 'Once on the shoulder, deploy reflective warning triangles at 10 ft, 100 ft, and 200 ft behind vehicles facing traffic. Approaching motorists are required by TTC § 545.157 (Move Over or Slow Down) to vacate the adjacent lane or slow 20 MPH below the posted speed limit.',
+        metric: 'SAFE WARNING ZONE DEPLOYED // MOVE OVER COMPLIANT',
+        phase: 'TRIANGLES DEPLOYED // APPROACHING TRAFFIC MOVES OVER TO LANE 1'
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      dispatchSimAction('setScenario', { scenario: scenNum, value: scenNum });
+      const scen = simScenarios[scenNum];
+      if (!scen) return;
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.textContent = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.textContent = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data) {
+        if (e.data.event === 'telemetry') {
+          if (e.data.phase) {
+            const phaseEl = document.getElementById('sim-telemetry-phase');
+            if (phaseEl) phaseEl.textContent = e.data.phase;
+          }
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      selectSimScenario(1);
+    });
+
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

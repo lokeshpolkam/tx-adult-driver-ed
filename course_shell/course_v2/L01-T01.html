@@ -163,7 +163,7 @@
   <!-- Tactile Web Audio Synthesizer -->
   <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
 </head>
-<body class="min-h-screen py-2 px-1.5 sm:px-3">
+<body class="min-h-screen py-2 px-[var(--phone-gutter)] sm:px-[var(--phone-gutter)]">
   <div class="w-full max-w-md mx-auto space-y-3">
 
     
@@ -317,32 +317,32 @@
       </div>
 
               <!-- Tier 3: External Mobile Control Dock -->
-        <div id="sim-controls-dock" class="space-y-2 pt-1">
-          <!-- 3A. Live Telemetry & Phase Display Pill (Clean 1-Line Status) -->
-          <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
-            <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
-            <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE 01: THRESHOLD BRAKING (20 MPH)</span>
-          </div>
-
-          <!-- 3C. DPS 4-Skill Scenario Selector Tabs (Clean 4-Segmented Control, Touch Targets >= 44x44px) -->
-          <div class="grid grid-cols-4 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
-            <button type="button" onclick="selectSimScenario('control')" id="btn-scenario-control" 
-              class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
-              <span>Braking</span>
-            </button>
-            <button type="button" onclick="selectSimScenario('observation')" id="btn-scenario-observation" 
-              class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
-              <span>Scanning</span>
-            </button>
-            <button type="button" onclick="selectSimScenario('positioning')" id="btn-scenario-positioning" 
-              class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
-              <span>Parking</span>
-            </button>
-            <button type="button" onclick="selectSimScenario('signaling')" id="btn-scenario-signaling" 
-              class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
-              <span>Signaling</span>
-            </button>
-          </div>
+              <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE 01: THRESHOLD BRAKING (20 MPH)</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-4 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario('control')" id="btn-scenario-control" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Braking</span>
+          </button>
+          <button type="button" onclick="selectSimScenario('observation')" id="btn-scenario-observation" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Scanning</span>
+          </button>
+          <button type="button" onclick="selectSimScenario('positioning')" id="btn-scenario-positioning" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Parking</span>
+          </button>
+          <button type="button" onclick="selectSimScenario('signaling')" id="btn-scenario-signaling" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Signaling</span>
+          </button>
         </div>
 
         <!-- 3D. Reactive Statutory Detail Card -->
@@ -1017,10 +1017,10 @@
         frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
       }
       if (actionName === 'togglePlay') {
-        const mediaIcon = document.getElementById('media-play-icon');
-        if (mediaIcon) {
-          const isPaused = mediaIcon.textContent.trim() === 'play_arrow';
-          mediaIcon.textContent = isPaused ? 'pause' : 'play_arrow';
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
         }
       }
     }
@@ -1041,6 +1041,18 @@
         const btn = document.getElementById(`btn-scenario-${k}`);
         if (!btn) return;
         if (k === scenKey) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
           btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
         } else {
           btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";

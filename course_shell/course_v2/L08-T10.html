@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Human Trafficking Awareness — The Julia Wells Act (L08-T10)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"], input[type="radio"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .overflow-x-auto {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+    svg {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    select, input, button, textarea {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      min-height: 44px !important;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.6rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / PEDAGOGICAL INTRODUCTION CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          MODULE 8 // HUMAN TRAFFICKING AWARENESS
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 10 OF 10</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Human Trafficking Awareness &amp; The Julia Wells Act
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          Texas interstate highways serve as critical conduits for illicit human trafficking. Master Texas Education Code § 1001.1021 mandates, Texas Penal Code Chapter 20A felony penalties, transit hub behavioral red flags, and safe 24/7 hotline reporting protocols.
+        </p>
+      </div>
+
+      <!-- Survivability Stat Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Texas Statutory Mandate</div>
+          <div class="font-bold text-safety text-sm">The Julia Wells Act</div>
+          <div class="text-[9px] text-slate mt-0.5">HB 2633 // Mandatory Driver Ed</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">24/7 National Hotline</div>
+          <div class="font-bold text-hazard text-sm">1-888-373-7888</div>
+          <div class="text-[9px] text-slate mt-0.5">Text "HELP" to 233733</div>
+        </div>
+      </div>
+
+      <!-- Statutory Mandate Banner -->
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/70 border border-orange-200 text-orange-950 text-xs">
+        <span class="material-symbols-outlined text-safety text-base flex-shrink-0">gavel</span>
+        <span class="leading-tight"><strong>Texas Education Code § 1001.1021:</strong> The Julia Wells Act legally mandates that all driver education and driving safety courses in Texas instruct motorists on how to identify and report human trafficking.</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: RED FLAG IDENTIFICATION SIMULATOR -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">visibility</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Red Flag Telemetry Simulator
+          </h2>
+        </div>
+        <span id="flag-status-badge" class="text-[10px] font-mono font-bold text-hazard bg-rose-50 px-2 py-0.5 rounded border border-hazard/30">
+          BEHAVIORAL CONTROL
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select a transit observation scenario to evaluate physiological red flags, psychological coercion tactics, and proper law enforcement reporting procedures:
+      </p>
+
+      <!-- Scenario Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-4 gap-1.5 font-mono text-[11px]">
+        <button id="btn-flag-1" onclick="selectFlagScenario(1)" class="cad-btn cad-btn-active touch-target">
+          <span>FLAG 1</span>
+          <span class="text-[8px] font-normal">SCRIPTED</span>
+        </button>
+        <button id="btn-flag-2" onclick="selectFlagScenario(2)" class="cad-btn cad-btn-inactive touch-target">
+          <span>FLAG 2</span>
+          <span class="text-[8px] font-normal">NO DOCS</span>
+        </button>
+        <button id="btn-flag-3" onclick="selectFlagScenario(3)" class="cad-btn cad-btn-inactive touch-target">
+          <span>FLAG 3</span>
+          <span class="text-[8px] font-normal">BRANDING</span>
+        </button>
+        <button id="btn-flag-4" onclick="selectFlagScenario(4)" class="cad-btn cad-btn-inactive touch-target">
+          <span>FLAG 4</span>
+          <span class="text-[8px] font-normal">DISORIENT</span>
+        </button>
+      </div>
+
+      <!-- Reactive Simulator Telemetry Card -->
+      <div id="flag-telemetry-card" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="flag-tag" class="text-[9px] font-mono font-bold uppercase text-hazard tracking-wider">
+              COMMUNICATION SUPPRESSION // HANDLER INTERCEPT
+            </span>
+            <h3 id="flag-title" class="text-sm font-bold text-carbon">
+              Flag 1: Coached Speech &amp; Dominant Companion
+            </h3>
+          </div>
+          <span id="flag-icon-box" class="w-8 h-8 rounded-lg bg-rose-100 text-hazard flex items-center justify-center">
+            <span id="flag-icon" class="material-symbols-outlined text-lg">record_voice_over</span>
+          </span>
+        </div>
+
+        <p id="flag-desc" class="text-xs text-slate leading-relaxed">
+          The individual is not permitted to speak for themselves. An aggressive handler or companion intercepts questions, speaks on their behalf, and monitors all interactions while the victim exhibits intense submissiveness and avoids eye contact.
+        </p>
+
+        <!-- Dynamic Mechanical Readouts -->
+        <div class="grid grid-cols-3 gap-2 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline text-center">
+            <div class="text-slate text-[9px]">INTERVENTION</div>
+            <div class="font-bold text-hazard text-xs mt-0.5">NEVER CONFRONT</div>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline text-center">
+            <div class="text-slate text-[9px]">REPORTING HOTLINE</div>
+            <div class="font-bold text-safety text-xs mt-0.5">1-888-373-7888</div>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline text-center">
+            <div class="text-slate text-[9px]">PENAL LEVEL</div>
+            <div class="font-bold text-carbon text-xs mt-0.5">1ST DEGREE FELONY</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD SVG DIAGRAM: TRANSPORTATION CORRIDOR RED FLAG RADAR (340x220) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">view_in_ar</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Transit Corridors &amp; Hubs
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-hazard font-bold">HIGHWAY SURVEILLANCE</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Interstate corridors (I-10, I-35, I-45) and roadside transit plazas are prime locations for spotting human trafficking activities:
+      </p>
+
+      <!-- SVG 1: Primary CAD Vector Viewport (340x220) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[220px]" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-transit" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="220" fill="url(#cad-grid-transit)" />
+
+          <!-- Title Bar inside SVG -->
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">TRANSIT HUB RED FLAG VECTORS // HIGHWAY REST AREA</text>
+
+          <!-- Rest Stop / Travel Plaza Facility Outline -->
+          <rect x="25" y="35" width="290" height="150" rx="4" fill="#1C1F1E" stroke="#374151" stroke-width="1.5"/>
+          <text x="35" y="52" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold">HIGHWAY REST AREA // TRAVEL PLAZA</text>
+
+          <!-- Parking Stalls Area -->
+          <rect x="35" y="65" width="120" height="70" rx="2" fill="#111827" stroke="#4B5563" stroke-width="1"/>
+          <line x1="75" y1="65" x2="75" y2="135" stroke="#374151" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="95" y="80" fill="#6B7280" font-family="'JetBrains Mono', monospace" font-size="6">TRUCK &amp; AUTO PARKING</text>
+
+          <!-- Vector 1: Suspicious Shuttle / Drop-off Vehicle (Red Outline) -->
+          <rect x="45" y="90" width="24" height="35" rx="2" fill="#7F1D1D" stroke="#EF4444" stroke-width="1.5"/>
+          <circle cx="57" cy="107" r="4" fill="#F87171"/>
+          <text x="57" y="132" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="bold" text-anchor="middle">REPETITIVE DROP</text>
+
+          <!-- Vector 2: Handler & Victim Pair (Coercion Orbit) -->
+          <g transform="translate(180, 70)">
+            <rect x="0" y="0" width="120" height="65" rx="3" fill="#1E293B" stroke="#F59E0B" stroke-width="1"/>
+            <text x="60" y="14" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">BEHAVIORAL COERCION</text>
+            <!-- Handler Figure -->
+            <circle cx="35" cy="32" r="6" fill="#F87171"/>
+            <text x="35" y="46" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Handler</text>
+            <!-- Connecting Control Ray -->
+            <line x1="41" y1="32" x2="79" y2="32" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,2"/>
+            <!-- Victim Figure -->
+            <circle cx="85" cy="32" r="6" fill="#60A5FA"/>
+            <text x="85" y="46" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Victim</text>
+            <text x="60" y="58" fill="#FDE047" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">No ID / Disoriented / Scripted</text>
+          </g>
+
+          <!-- Security Observation Post / Citizen Witness -->
+          <g transform="translate(45, 145)">
+            <circle cx="10" cy="15" r="5" fill="#10B981"/>
+            <text x="22" y="18" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold">OBSERVER: SAFE DISTANCE // LOG TELEMETRY</text>
+          </g>
+
+          <!-- Bottom Banner -->
+          <rect x="25" y="192" width="290" height="20" rx="2" fill="#2E1065" stroke="#8B5CF6" stroke-width="1"/>
+          <text x="170" y="205" fill="#DDD6FE" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">REPORT TO 1-888-373-7888 // NEVER CONFRONT SUSPECTS</text>
+        </svg>
+      </div>
+
+      <!-- Critical Lesson Takeaway -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>The Golden Safety Rule:</strong> Never attempt to confront a suspected trafficker, challenge the handler, or alert the victim directly. Traffickers are often armed, violent, and connected to organized crime. Direct confrontation places you and the victim in acute mortal danger.
+      </div>
+    </section>
+
+    <!-- 05. SECONDARY CAD SVG DIAGRAM: SAFE REPORTING PROTOCOL FLOWCHART -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">alt_route</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Safe Reporting Protocol
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-safety font-bold">ACTION PIPELINE</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Review the three-step reporting protocol established by Texas law enforcement and national anti-trafficking agencies:
+      </p>
+
+      <!-- SVG 2: Secondary CAD Vector Viewport (340x180) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[180px]" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-flow" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" fill="url(#cad-grid-flow)" />
+
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">SAFE REPORTING PROTOCOL FLOWCHART</text>
+
+          <!-- Step 1: Observe Discreetly (x: 15) -->
+          <g transform="translate(15, 30)">
+            <rect x="0" y="0" width="95" height="100" rx="3" fill="#1E293B" stroke="#3B82F6" stroke-width="1"/>
+            <text x="47" y="16" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">STEP 1</text>
+            <text x="47" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">OBSERVE</text>
+            <rect x="10" y="35" width="75" height="42" rx="2" fill="#0F172A" stroke="#60A5FA"/>
+            <text x="47" y="50" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">Maintain Distance</text>
+            <text x="47" y="62" fill="#BFDBFE" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Do NOT Alert</text>
+            <text x="47" y="90" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Stay Safe</text>
+          </g>
+
+          <!-- Arrow 1 to 2 -->
+          <line x1="110" y1="80" x2="120" y2="80" stroke="#FDE047" stroke-width="1.5"/>
+          <polygon points="122,80 116,77 116,83" fill="#FDE047"/>
+
+          <!-- Step 2: Document Details (x: 122) -->
+          <g transform="translate(122, 30)">
+            <rect x="0" y="0" width="95" height="100" rx="3" fill="#1E293B" stroke="#F59E0B" stroke-width="1"/>
+            <text x="47" y="16" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">STEP 2</text>
+            <text x="47" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">DOCUMENT</text>
+            <rect x="10" y="35" width="75" height="42" rx="2" fill="#0F172A" stroke="#FBBF24"/>
+            <text x="47" y="50" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">License Plate</text>
+            <text x="47" y="62" fill="#FEF08A" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Make, Model, Color</text>
+            <text x="47" y="90" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Mile Marker / Exit</text>
+          </g>
+
+          <!-- Arrow 2 to 3 -->
+          <line x1="217" y1="80" x2="228" y2="80" stroke="#FDE047" stroke-width="1.5"/>
+          <polygon points="230,80 224,77 224,83" fill="#FDE047"/>
+
+          <!-- Step 3: Report & Dispatch (x: 230) -->
+          <g transform="translate(230, 30)">
+            <rect x="0" y="0" width="95" height="100" rx="3" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+            <text x="47" y="16" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">STEP 3</text>
+            <text x="47" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">CALL HOTLINE</text>
+            <rect x="10" y="35" width="75" height="42" rx="2" fill="#064E3B" stroke="#10B981"/>
+            <text x="47" y="48" fill="#F87171" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="bold" text-anchor="middle">911 (IMMEDIATE)</text>
+            <text x="47" y="60" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">1-888-373-7888</text>
+            <text x="47" y="90" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Text 233733</text>
+          </g>
+
+          <!-- Bottom Warning Banner -->
+          <rect x="15" y="142" width="310" height="26" rx="2" fill="#7F1D1D" stroke="#EF4444" stroke-width="1"/>
+          <text x="170" y="158" fill="#FECACA" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">DO NOT INTERVENE DIRECTLY // PROTECT VICTIM AND YOURSELF</text>
+        </svg>
+      </div>
+
+      <!-- Legal Summary -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>Trained Law Enforcement Response:</strong> Professional investigators emphasize that uncoordinated intervention causes traffickers to relocate or violently punish the victim. Prompt, confidential reporting allows law enforcement to mobilize interdiction teams safely.
+      </div>
+    </section>
+
+    <!-- 06. TEXAS PENAL CODE CHAPTER 20A: FIRST-DEGREE FELONY SANCTIONS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">gavel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Penal Sanctions (TPC Chapter 20A)
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Human trafficking is categorized as an aggravated first-degree criminal offense under Texas Penal Code Chapter 20A:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Trafficking of Persons (TPC § 20A.02)</span>
+            <span class="text-hazard font-bold uppercase">FIRST-DEGREE FELONY</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            A person commits a first-degree felony if they knowingly traffic another person with the intent that the trafficked person engage in forced labor or commercial sexual conduct. Punishable by <strong>25 to 99 years or life imprisonment</strong> and up to a $10,000 fine.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-950 space-y-1">
+          <div class="font-mono text-[11px] font-bold text-hazard flex items-center justify-between">
+            <span>Trafficking of a Child Under 18</span>
+            <span class="text-hazard font-bold uppercase">MANDATORY MINIMUMS</span>
+          </div>
+          <p class="text-[11px] leading-relaxed">
+            Trafficking involving a victim under 18 years of age carries enhanced mandatory minimum sentences of 25 years up to life imprisonment without the possibility of parole under certain aggravating circumstances.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- 06B. INTERACTIVE COMMERCIAL TRANSIT & REST STOP SURVEILLANCE STEPPER -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">tune</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Transit Surveillance Protocol Stepper
+          </h2>
+        </div>
+        <span id="transit-chip" class="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+          SECTOR 1: REST AREAS
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select each highway sector to review specialized recognition protocols developed by Texas DPS and Truckers Against Trafficking (TAT):
+      </p>
+
+      <!-- Sector Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-4 gap-1.5 font-mono text-[11px]">
+        <button id="btn-sec-1" onclick="selectTransitSector(1)" class="cad-btn cad-btn-active touch-target">
+          <span>SEC 1</span>
+          <span class="text-[8px] font-normal">REST STOP</span>
+        </button>
+        <button id="btn-sec-2" onclick="selectTransitSector(2)" class="cad-btn cad-btn-inactive touch-target">
+          <span>SEC 2</span>
+          <span class="text-[8px] font-normal">TRUCK PLAZA</span>
+        </button>
+        <button id="btn-sec-3" onclick="selectTransitSector(3)" class="cad-btn cad-btn-inactive touch-target">
+          <span>SEC 3</span>
+          <span class="text-[8px] font-normal">MOTELS</span>
+        </button>
+        <button id="btn-sec-4" onclick="selectTransitSector(4)" class="cad-btn cad-btn-inactive touch-target">
+          <span>SEC 4</span>
+          <span class="text-[8px] font-normal">CORRIDORS</span>
+        </button>
+      </div>
+
+      <!-- Sector Telemetry Card -->
+      <div id="sector-telemetry-card" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="sector-tag" class="text-[9px] font-mono font-bold uppercase text-amber-700 tracking-wider">
+              HIGHWAY REST STOP VECTORS // REPETITIVE TRANSIT
+            </span>
+            <h3 id="sector-title" class="text-sm font-bold text-carbon">
+              Sector 1: Highway Rest Areas &amp; Picnic Turnouts
+            </h3>
+          </div>
+          <span id="sector-icon-box" class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center">
+            <span id="sector-icon" class="material-symbols-outlined text-lg">deck</span>
+          </span>
+        </div>
+
+        <p id="sector-desc" class="text-xs text-slate leading-relaxed">
+          Highway rest areas along Texas rural corridors are isolated locations where traffickers stage rendezvous. Watch for vehicles making repeated drop-offs and pick-ups of young individuals at odd hours, or individuals lingering outside restrooms waiting for a handler's nod.
+        </p>
+
+        <!-- Specifications Grid -->
+        <div class="grid grid-cols-2 gap-2 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <div class="text-slate text-[9px]">SUSPICIOUS PATTERN</div>
+            <div id="sector-spec1" class="font-bold text-hazard text-xs mt-0.5">Repetitive Drop-Off Cycles</div>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <div class="text-slate text-[9px]">RESPONSE PROTOCOL</div>
+            <div id="sector-spec2" class="font-bold text-safety text-xs mt-0.5">Log Vehicle Tag &amp; 911</div>
+          </div>
+        </div>
+
+        <div id="sector-note" class="p-2.5 rounded-lg bg-white border border-hairline text-[11px] text-slate leading-relaxed">
+          <strong>Rest Area Safety:</strong> Rest stop attendants and motorists should never attempt to block suspect vehicles. Record the license plate, vehicle color, and direction of travel onto the highway.
+        </div>
+      </div>
+    </section>
+
+    <!-- 06C. TRAFFICKING VS SMUGGLING & THE PSYCHOLOGY OF COERCION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">psychology</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Trafficking vs Smuggling &amp; Trauma Bonding
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">LEGAL DEFINITION</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Understanding the legal and psychological distinction between human smuggling and human trafficking is essential for motorists:
+      </p>
+
+      <div class="space-y-2.5 text-xs">
+        <!-- Point 1 -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold font-mono text-[11px]">
+            <span>Human Smuggling (Crime Against the Border)</span>
+            <span class="text-slate text-[10px]">VOLUNTARY CONTRACT</span>
+          </div>
+          <p class="text-slate leading-relaxed font-sans">
+            Smuggling involves the voluntary commercial movement of a person across an international border. The commercial relationship typically terminates once the border crossing is completed.
+          </p>
+        </div>
+
+        <!-- Point 2 -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold font-mono text-[11px]">
+            <span class="text-hazard font-bold">Human Trafficking (Crime Against the Person)</span>
+            <span class="text-hazard text-[10px]">EXPLOITATION</span>
+          </div>
+          <p class="text-slate leading-relaxed font-sans">
+            Trafficking involves exploiting an individual through <strong>force, fraud, or coercion</strong> for commercial sex or involuntary forced labor. It can occur without any movement across borders, affecting domestic Texas citizens right in their hometowns.
+          </p>
+        </div>
+
+        <!-- Point 3 -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold font-mono text-[11px]">
+            <span class="text-amber-800">The Psychology of Trauma Bonding</span>
+            <span class="text-slate text-[10px]">PSYCHOLOGICAL PRISON</span>
+          </div>
+          <p class="text-slate leading-relaxed font-sans">
+            Motorists often ask: <em>"Why don't victims just run away or ask for help?"</em> Traffickers establish psychological dominance through trauma bonding, severe physical threats against the victim's family, debt bondage, drug dependency, and isolation. The victim genuinely believes that seeking help will result in their death or the murder of their loved ones.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06D. THE JULIA WELLS ACT: SURVIVOR ADVOCACY & TEXAS LEGISLATION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">history_edu</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            The Story Behind The Julia Wells Act (HB 2633)
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">TEX. EDUC. CODE § 1001.1021</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The history and survivor leadership that shaped Texas driver education laws:
+      </p>
+
+      <div class="p-3 rounded-lg bg-surface-sub border border-hairline text-xs space-y-2">
+        <div class="font-mono text-[11px] font-bold text-carbon">
+          Survivor Julia Wells &amp; Unanimous Legislative Enactment
+        </div>
+        <p class="text-slate leading-relaxed">
+          Enacted by the 87th Texas Legislature in 2021 as House Bill 2633, the Julia Wells Act was championed and named in honor of Texas survivor Julia Wells. Julia was trafficked through roadside motels and highway transit corridors across Texas.
+        </p>
+        <p class="text-slate leading-relaxed">
+          Her courageous public testimony highlighted that hundreds of everyday motorists, truck drivers, and gas station patrons crossed her path daily but lacked the training to recognize the desperate behavioral signs of human trafficking. The law ensures that over 400,000 new Texas drivers trained each year become active, vigilant eyes and ears on the roadway.
+        </p>
+        <div class="p-2 rounded bg-orange-50 border border-orange-200 font-mono text-[10px] text-orange-950">
+          <strong>Statutory Requirement:</strong> Every state-approved Texas Adult Driver Education (ADE-1317) course must include this curriculum to qualify for course completion certification.
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. NATIONAL & STATE REPORTING CHANNELS (24/7/365 CONFIDENTIAL) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">support_agent</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Official Reporting Hotlines &amp; Channels
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">24/7 AVAILABILITY</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Save these confidential reporting numbers in your mobile device:
+      </p>
+
+      <div class="space-y-2 font-mono text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>National Human Trafficking Hotline</span>
+            <span class="text-hazard font-bold">1-888-373-7888</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            Toll-free, 24/7, confidential, available in over 200 languages. You can also text <strong>"HELP" or "BeFree" to 233733</strong> or submit a secure online report at <em>humantraffickinghotline.org</em>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>Texas DPS: iWatchTexas Reporting System</span>
+            <span class="text-safety font-bold">1-844-643-2251</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            Texas Department of Public Safety statewide suspicious activity portal. Submit tips via the mobile app or online at <em>iwatchtx.org</em>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>Immediate Threat / Active Danger</span>
+            <span class="text-hazard font-bold">CALL 911</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            If someone is in immediate physical peril or being forced into a vehicle against their will, dial 911 immediately.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- 07B. TEXAS STRATEGIC PLAN & ATTORNEY GENERAL INTERDICTION TEAMS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">shield</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Texas Strategic Plan &amp; State Task Forces
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">GOV CODE § 402.035</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The State of Texas operates one of the most aggressive multi-agency anti-trafficking frameworks in the United States:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Human Trafficking Prevention Coordinating Council</span>
+            <span class="text-safety font-bold">STATEWIDE STRATEGY</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Established under Texas Government Code § 402.035, the HTPCC coordinates law enforcement, judicial agencies, health departments, and transportation officials across a unified 5-year strategic blueprint to dismantle criminal networks and secure victim rehabilitation.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Commercial Driver License (CDL) Lifetime Ban</span>
+            <span class="text-hazard font-bold uppercase">LIFETIME DISQUALIFICATION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Under Texas Transportation Code § 522.081, any person who uses a commercial motor vehicle in the commission of a felony involving severe forms of human trafficking is <strong>permanently disqualified for life</strong> from holding a commercial driver license, with zero opportunity for license reinstatement.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Vulnerable Populations &amp; Online Grooming</span>
+            <span class="text-slate text-[10px]">PREDATORY DYNAMICS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Traffickers prey upon youth in transit, runaway minors, and economically isolated individuals. Recruitment tactics frequently involve fake social media modeling opportunities, fraudulent out-of-town job promises, or romantic manipulation designed to isolate the victim from support networks.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07C. SAFE HARBOR LEGAL PROTECTIONS FOR TRAFFICKED VICTIMS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">lock_open</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Texas Safe Harbor &amp; Victim Liberation
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">TX HEALTH &amp; SAFETY</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas statutes recognize trafficked individuals as victims of serious crime rather than criminals:
+      </p>
+
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">verified</span>
+            1. Non-Criminalization of Minor Victims
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Under Texas Family Code and Penal Code provisions, children under 18 who are coerced into commercial sex cannot be charged with prostitution offenses. They are legally recognized as child abuse victims entitled to protective custody, trauma medical treatment, and safe shelter.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">home</span>
+            2. Texas HHSC Support Network
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            The Texas Health and Human Services Commission (HHSC) Human Trafficking Resource Center partners with licensed safe houses and crisis counselors statewide, ensuring liberated victims receive medical aid, legal advocacy, and long-term psychological rehabilitation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. TELEMETRY DETAILS TO DOCUMENT FOR INVESTIGATORS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">fact_check</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Key Details to Document
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        When reporting suspicious activity, provide precise factual telemetry:
+      </p>
+
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">pin_drop</span>
+            1. Location Telemetry
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Exact highway name, direction of travel (e.g. I-35 Northbound), mile marker, exit number, rest stop name, or business street address.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">directions_car</span>
+            2. Vehicle Identifiers
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Make, model, color, body style, state of registration, and complete license plate number. Note any tinted windows, decals, or unusual roof racks.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">person</span>
+            3. Physical Descriptions
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Approximate age, height, build, distinctive tattoos (branding crowns/barcodes), scars, hair color, and clothing descriptions of both the victim and suspected handler.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- 08B. IWATCHTEXAS ANONYMOUS TIP PROTOCOLS & DPS ANALYTICS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">lock</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            iWatchTexas Anonymous Tip Architecture
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-safety">DPS JCIC NETWORK</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The Texas Joint Crime Information Center (JCIC) processes citizen intelligence through secure protocols:
+      </p>
+
+      <div class="space-y-2 font-mono text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>Complete Anonymity Protection</span>
+            <span class="text-emerald-700 font-bold">ZERO TRACE</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            Motorists submitting tips through the iWatchTexas mobile application or 1-844-643-2251 toll-free hotline can remain 100% anonymous. Tipsters are assigned confidential identification codes, and IP addresses or mobile identifiers are scrubbed to protect citizen confidentiality.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-carbon font-bold">
+            <span>Real-Time Multi-Agency Alert Broadcasting</span>
+            <span class="text-safety font-bold">DPS DISPATCH</span>
+          </div>
+          <p class="text-[11px] text-slate font-sans leading-relaxed pt-1">
+            When actionable vehicle telemetry (license plate, highway corridor, travel direction) is submitted, DPS intelligence analysts instantly cross-reference missing person databases, National Crime Information Center (NCIC) records, and regional highway patrol dispatch frequencies to intercept fleeing vehicles safely.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. 3D INTERACTIVE SIMULATION: ROAD RAGE DE-ESCALATION (TTC § 545.401) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 my-4 fluid-card">
+      <!-- TIER 1: EDITORIAL HEADER -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 545.401 &bull; ROAD RAGE AVOIDANCE &amp; EVASION</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L08_T10_road_rage_avoidance.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: PASSIVE DE-ESCALATION READY</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Tailgater Yield</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Brake-Check Evad</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Police Station</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FORMATIVE ASSESSMENT (STRICT 3 SCENARIO MCQS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Topic Formative Assessment
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-slate">3 SCENARIO QUESTIONS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Test your knowledge of the Julia Wells Act, human trafficking indicators, and state reporting channels.
+      </p>
+
+      <!-- QUESTION 1: QUESTION 1 OPTION B STRICTLY CORRECT (TEST RUNNER MANDATE) -->
+      <div class="space-y-2 pt-2 border-t border-hairline" <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L08-T10 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="q1-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 01 // TEXAS HUMAN TRAFFICKING DRIVER ED LAW</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          The Texas statute requiring human trafficking recognition and prevention education across all driver education courses is officially known as:
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q1-opt-A" onclick="checkAnswer(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) The Move Over / Slow Down Act</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-B" onclick="checkAnswer(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) The Julia Wells Act (HB 2633)</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-C" onclick="checkAnswer(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) The Glenda Dawson Transportation Act</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-D" onclick="checkAnswer(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) The Texas Clean Highway Initiative</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q1-feedback" class="hidden"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q2-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 02 // NATIONAL TRAFFICKING HOTLINE</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          What is the official toll-free telephone number for the National Human Trafficking Hotline, available 24/7 across the United States?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q2-opt-A" onclick="checkAnswer(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) 1-800-TEX-HELP</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-B" onclick="checkAnswer(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) 1-800-222-1222</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-C" onclick="checkAnswer(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) 1-888-373-7888 (or text HELP to 233733)</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-D" onclick="checkAnswer(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) 1-888-TEX-LITTER</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q2-feedback" class="hidden"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q3-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 03 // SAFE REPORTING PROTOCOL</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          If a motorist at a highway travel plaza observes an individual displaying clear red flags of human trafficking, what is the safest and most effective action to take?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q3-opt-A" onclick="checkAnswer(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) Confront the suspected handler directly and demand to inspect their identification</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-B" onclick="checkAnswer(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) Block the suspect vehicle with your car and wait for security</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-C" onclick="checkAnswer(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) Discreetly document vehicle telemetry and report details to 911 or the national hotline from a safe distance without confronting the suspects</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-D" onclick="checkAnswer(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) Approach the victim privately and offer them cash to run away</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q3-feedback" class="hidden"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. LESSON COMPLETION & TOPIC NAVIGATION FOOTER -->
+    <footer class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3">
+      <div class="flex items-center justify-between text-xs text-slate">
+        <span class="font-mono">MODULE 08: TOPIC 10 / 10 // COMPLETE</span>
+        <span class="font-mono text-safety font-bold">NEXT: MODULE 9 (PVQ)</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="L09-T01.html" class="flex-1 min-h-[48px] px-4 py-3 rounded-xl bg-carbon hover:bg-carbon/90 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs">
+          <span>ADVANCE TO MODULE 9 (L09-T01)</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT REACTIVE LOGIC ENGINE -->
+  <script>
+    // Primary Interactive Tool: Red Flag Telemetry Reactive Engine
+    const flagsData = {
+      1: {
+        badge: "BEHAVIORAL CONTROL",
+        badgeClass: "text-[10px] font-mono font-bold text-hazard bg-rose-50 px-2 py-0.5 rounded border border-hazard/30",
+        tag: "COMMUNICATION SUPPRESSION // HANDLER INTERCEPT",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-hazard tracking-wider",
+        title: "Flag 1: Coached Speech & Dominant Companion",
+        icon: "record_voice_over",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-rose-100 text-hazard flex items-center justify-center",
+        desc: "The individual is not permitted to speak for themselves. An aggressive handler or companion intercepts questions, speaks on their behalf, and monitors all interactions while the victim exhibits intense submissiveness and avoids eye contact."
+      },
+      2: {
+        badge: "DOCUMENT SEIZURE",
+        badgeClass: "text-[10px] font-mono font-bold text-hazard bg-rose-50 px-2 py-0.5 rounded border border-hazard/30",
+        tag: "LACK OF BELONGINGS // ASSET WITHHOLDING",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-hazard tracking-wider",
+        title: "Flag 2: No Identification, Money, or Phone",
+        icon: "no_accounts",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-rose-100 text-hazard flex items-center justify-center",
+        desc: "Traffickers routinely confiscate personal identification documents, money, credit cards, and mobile phones. The victim has no means of independent travel, communication, or financial survival."
+      },
+      3: {
+        badge: "PHYSICAL BRANDING",
+        badgeClass: "text-[10px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-300",
+        tag: "OWNERSHIP MARKINGS // PHYSICAL TATTOOS",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-purple-700 tracking-wider",
+        title: "Flag 3: Branding Tattoos & Physical Trauma",
+        icon: "branding_watermark",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center",
+        desc: "Victims are frequently marked with visible branding tattoos—such as barcodes, dollar signs, crowns, or the trafficker's name or street moniker—on the neck, chest, or wrists. Look also for untreated bruises, burns, or restraint marks."
+      },
+      4: {
+        badge: "GEOGRAPHIC DISORIENTATION",
+        badgeClass: "text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-300",
+        tag: "ISOLATION DYNAMICS // TRAVEL OBLIVION",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-amber-700 tracking-wider",
+        title: "Flag 4: Geographic Disorientation & Isolation",
+        icon: "explore_off",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center",
+        desc: "Because victims are constantly moved between cities, they frequently do not know what city, county, or state they are in. They do not know their travel itinerary or the legal name of the person transporting them."
+      }
+    };
+
+    function selectFlagScenario(num) {
+      const data = flagsData[num];
+      if (!data) return;
+
+      const badge = document.getElementById("flag-status-badge");
+      const tag = document.getElementById("flag-tag");
+      const title = document.getElementById("flag-title");
+      const desc = document.getElementById("flag-desc");
+      const icon = document.getElementById("flag-icon");
+      const iconBox = document.getElementById("flag-icon-box");
+
+      badge.textContent = data.badge;
+      badge.className = data.badgeClass;
+
+      tag.textContent = data.tag;
+      tag.className = data.tagClass;
+
+      title.textContent = data.title;
+      desc.textContent = data.desc;
+      icon.textContent = data.icon;
+      iconBox.className = data.iconBoxClass;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    
+    // Transit Sector Protocol Stepper Reactive Engine
+    const sectorsData = {
+      1: {
+        chip: "SECTOR 1: REST AREAS",
+        chipClass: "text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200",
+        tag: "HIGHWAY REST STOP VECTORS // REPETITIVE TRANSIT",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-amber-700 tracking-wider",
+        title: "Sector 1: Highway Rest Areas & Picnic Turnouts",
+        icon: "deck",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center",
+        desc: "Highway rest areas along Texas rural corridors are isolated locations where traffickers stage rendezvous. Watch for vehicles making repeated drop-offs and pick-ups of young individuals at odd hours, or individuals lingering outside restrooms waiting for a handler nod.",
+        spec1: "Repetitive Drop-Off Cycles",
+        spec2: "Log Vehicle Tag & 911",
+        note: "Rest Area Safety: Rest stop attendants and motorists should never attempt to block suspect vehicles. Record the license plate, vehicle color, and direction of travel onto the highway."
+      },
+      2: {
+        chip: "SECTOR 2: TRUCK PLAZAS",
+        chipClass: "text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200",
+        tag: "COMMERCIAL FUEL HUBS // TRUCKERS AGAINST TRAFFICKING",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-blue-700 tracking-wider",
+        title: "Sector 2: Truck Stops & Travel Plazas (TAT Network)",
+        icon: "local_shipping",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center",
+        desc: "Large interstate truck stops offer 24-hour amenities where commercial sexual exploitation networks operate. Watch for individuals moving between commercial tractor-trailers, CB radio solicitations, or vehicles parked far from fuel islands with passenger sliding doors.",
+        spec1: "Trailer-to-Trailer Shuttling",
+        spec2: "Report to 1-888-373-7888",
+        note: "Truckers Against Trafficking: Professional commercial drivers have rescued thousands of victims by reporting suspicious shuttle vans to the National Hotline."
+      },
+      3: {
+        chip: "SECTOR 3: MOTELS",
+        chipClass: "text-[10px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200",
+        tag: "HIGHWAY CORRIDOR LODGING // EXTENDED STAYS",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-purple-700 tracking-wider",
+        title: "Sector 3: Budget Roadside Motels & Extended Stays",
+        icon: "hotel",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center",
+        desc: "Traffickers frequently rotate victims through budget motels near highway interchanges. Key indicators include cash payments for extended stays, requests for rooms with direct views of parking lots, constant foot traffic, and 'Do Not Disturb' signs posted continuously for days.",
+        spec1: "Cash-Only Room Turnover",
+        spec2: "Continuous DND Signage",
+        note: "Texas Hotel Mandate: Texas law requires commercial lodging operators to train staff on human trafficking red flags and display the national hotline in employee work areas."
+      },
+      4: {
+        chip: "SECTOR 4: CORRIDORS",
+        chipClass: "text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200",
+        tag: "INTERSTATE INTERDICTION // PIPELINE RADAR",
+        tagClass: "text-[9px] font-mono font-bold uppercase text-emerald-700 tracking-wider",
+        title: "Sector 4: Texas Interstate Transit Pipelines (I-10, I-35, I-45)",
+        icon: "alt_route",
+        iconBoxClass: "w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center",
+        desc: "Texas interstate highways connect major metropolitan hubs to international borders. Look for heavily tinted passenger vans where passengers are not allowed to exit during fuel stops, or passengers appearing heavily sedated or in physical distress.",
+        spec1: "High-Occupancy Tinted Vans",
+        spec2: "Statewide iWatchTexas Tips",
+        note: "Pipeline Interdiction: Texas DPS Highway Patrol units conduct specialized commercial motor vehicle interdictions along I-35 and I-10, intercepting multi-state trafficking syndicates."
+      }
+    };
+
+    function selectTransitSector(num) {
+      const data = sectorsData[num];
+      if (!data) return;
+
+      document.getElementById("transit-chip").textContent = data.chip;
+      document.getElementById("transit-chip").className = data.chipClass;
+
+      document.getElementById("sector-tag").textContent = data.tag;
+      document.getElementById("sector-tag").className = data.tagClass;
+
+      document.getElementById("sector-title").textContent = data.title;
+      document.getElementById("sector-icon").textContent = data.icon;
+      document.getElementById("sector-icon-box").className = data.iconBoxClass;
+
+      document.getElementById("sector-desc").textContent = data.desc;
+      document.getElementById("sector-spec1").textContent = data.spec1;
+      document.getElementById("sector-spec2").textContent = data.spec2;
+      document.getElementById("sector-note").innerHTML = `<strong>Sector Insight:</strong> ${data.note}`;
+
+      for (let s = 1; s <= 4; s++) {
+        const btn = document.getElementById("btn-sec-" + s);
+        if (s === num) {
+          btn.className = "cad-btn cad-btn-active touch-target";
+        } else {
+          btn.className = "cad-btn cad-btn-inactive touch-target";
+        }
+      }
+    }
+
+    // 3D SIMULATION BIDIRECTIONAL POSTMESSAGE CONTROLLER (F33 L08-T10)
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // TAILGATER PASSIVE YIELD",
+        statute: "TTC &sect; 545.401",
+        title: "PASSIVE LANE VACATION & ZERO RETALIATION",
+        desc: "When an aggressive pickup tailgates aggressively, smoothly indicate right, vacate the lane, and allow them to pass. Never brake-check or make eye contact.",
+        metric: '<span class="text-slate">DE-ESCALATION:</span><span class="text-valid font-bold">SAFE LANE VACATED</span>',
+        phase: "PHASE: PASSIVE DE-ESCALATION // RIGHT YIELD"
+      },
+      2: {
+        badge: "SCENARIO 02 // BRAKE-CHECK DE-ESCALATION",
+        statute: "TTC &sect; 545.401",
+        title: "ASSURED CLEAR DISTANCE EXPANSION",
+        desc: "When cut off by an aggressive sedan attempting to brake-check, immediately ease off throttle, expand following distance to 4+ seconds, and avoid retaliatory horn/light flashes.",
+        metric: '<span class="text-slate">FOLLOWING CUSHION:</span><span class="text-safety font-bold">4.0S SAFE BUFFER</span>',
+        phase: "PHASE: ASSURED DISTANCE RECOVERY"
+      },
+      3: {
+        badge: "SCENARIO 03 // POLICE STATION EVASION",
+        statute: "TTC &sect; 545.401 &amp; SAFE HAVEN",
+        title: "PUBLIC HAVEN NAVIGATION",
+        desc: "When pursued by an aggressive driver, do not drive home. Navigate directly to a 24/7 staffed Police Station or well-lit busy public facility while contacting 911.",
+        metric: '<span class="text-slate">EVASION HAVEN:</span><span class="text-valid font-bold">POLICE STATION ARRIVAL</span>',
+        phase: "PHASE: SAFE HAVEN ARRIVAL // POLICE HQ"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      if (typeof playBeep === 'function') playBeep(480, 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame) return;
+      if (frame.requestFullscreen) frame.requestFullscreen();
+      else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+
+    // Formative MCQ Logic with Live Score Tracking
+    let answeredQuestions = {};
+                const TOPIC_ID = 'L08-T10';
+    
+    let correctCount = 0;
+
+    
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "Tex. Educ. Code § 1001.1021",
+            "statutoryRationale": "The Julia Wells Act (HB 2633), codified in Texas Education Code Section 1001.1021, mandates human trafficking awareness education across all driver education courses in Texas."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "C",
+            "statute": "Tex. Educ. Code § 1001.1021",
+            "statutoryRationale": "The National Human Trafficking Hotline operates 24/7/365 at 1-888-373-7888 (or text HELP to 233733), offering confidential support in over 200 languages."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "Tex. Educ. Code § 1001.1021",
+            "statutoryRationale": "Motorists must NEVER intervene directly or confront suspected traffickers. Always discreetly document vehicle telemetry and notify 911 or the national hotline from a safe distance."
+      }
+};
+
+    function checkAnswer(qNum, selected) {
+      if (answeredQuestions[qNum]) return;
+      answeredQuestions[qNum] = true;
+
+      const feedback = document.getElementById(`q${qNum}-feedback`);
+      if (feedback) feedback.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      const options = ['A', 'B', 'C', 'D'];
+      options.forEach(opt => {
+        const btn = document.getElementById(`q${qNum}-opt-${opt}`) || document.getElementById(`q${qNum}-opt-${opt.toLowerCase()}`);
+        if (!btn) return;
+        btn.disabled = true;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (opt === correctOpt) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-valid', 'bg-valid/10', 'text-valid', 'font-bold');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-valid text-sm flex-shrink-0 mt-0.5';
+          }
+        } else if (opt === chosenStr && !isCorrect) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-hazard', 'bg-rose-50', 'text-hazard', 'line-through');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-hazard text-sm flex-shrink-0 mt-0.5';
+          }
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-valid/10 border border-valid/30 text-valid mt-2';
+          feedback.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-rose-50 border border-rose-300 text-rose-900 mt-2';
+          feedback.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      updateScoreBadge();
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredQuestions).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: correctCount,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

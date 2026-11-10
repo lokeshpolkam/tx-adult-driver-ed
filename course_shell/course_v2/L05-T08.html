@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Hydroplaning Dynamics & Texas Flash Flood Safety — Texas Adult Driver Ed (L05-T08)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .bg-obsidian-grid {
+      background-size: 16px 16px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+    .touch-target {
+      min-width: 48px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .touch-target, button, a {
+      min-height: 48px;
+    }
+    a.touch-target {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .transition-fluid {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4 overflow-x-hidden">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS (STICKY) -->
+    
+
+    <!-- 02. LESSON TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex items-center justify-between text-[9px] font-mono text-slate border-b border-hairline pb-2 mb-1">
+        <span>SCALE 1:1 &bull; TX-DOT JURISPRUDENCE</span>
+        <span>TDLR VALIDATED ADE-1317</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-safety/10 text-safety border border-safety/30 px-2 py-0.5 rounded">TTC &sect; 545.0541</span>
+        <span class="bg-surface-sub text-slate border border-hairline px-2 py-0.5 rounded">TTC &sect; 472.022</span>
+        <span class="bg-surface-sub text-slate border border-hairline px-2 py-0.5 rounded">TTC &sect; 547.612</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 18 MIN READ</span>
+      </div>
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Hydroplaning Dynamics, Adverse Conditions &amp; Texas Flash Flood Safety
+      </h2>
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Master the physics of wet-pavement hydrodynamic lift, tire groove water evacuation thresholds, and flash flood survival under Texas Transportation Code &sect;&sect; 545.0541, 472.022, and 545.351. Learn why 75% to 76% of Texas flood deaths happen inside vehicles, why 12 inches of water floats a 3,400-lb sedan, and why bypassing flood barricades constitutes an arrestable Class B Misdemeanor.
+      </p>
+    </section>
+
+    <!-- 03. THREE.JS 3D INTERACTIVE SIMULATION (3-TIER ARCHITECTURE) -->
+    <section class="space-y-3" id="simulation-section">
+      <!-- Tier 1: Technical & Editorial Header -->
+      <div class="bg-white border border-hairline rounded-2xl p-4 shadow-xs space-y-2">
+        <div class="flex items-center justify-between pb-2 border-b border-hairline">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+            <span class="font-mono text-[10px] font-bold text-carbon uppercase tracking-wider">3D SEVERE ADVERSE DYNAMICS LAB</span>
+          </div>
+          <span id="sim-active-badge" class="font-mono text-[10px] px-2 py-0.5 rounded font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            THROTTLE LIFT RECOVERY
+          </span>
+        </div>
+        <div>
+          <span class="font-mono text-[10px] text-safety font-bold uppercase tracking-wider block">FEATURE F17 // TTC § 472.022 &amp; § 545.351</span>
+          <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+            Hydroplaning Water Wedge &amp; Flash Flood Barricade Survival
+          </h3>
+          <p class="font-sans text-xs text-slate mt-1 leading-relaxed">
+            Experience the hydrodynamic physics of water wedge lift at 50 MPH. Witness how easing throttle safely restores traction, while braking triggers an uncontrollable 180° spinout. Obey the mandatory flood barricade stop to avert vehicular drowning.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tier 2: Pure 16:9 Viewport (Zero buttons or overlays inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-2xl overflow-hidden bg-[#0C1014] border border-hairline shadow-sm">
+        <iframe
+          id="sim-frame"
+          src="../driving_rule_animations_suite/simulations/L05_T08_poor_conditions_flash_floods.html?clean=1"
+          class="w-full h-full border-0 block"
+          title="3D Hydroplaning and Flash Flood Safety Simulation"
+          loading="lazy"
+          allow="fullscreen"
+        ></iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (All touch targets >= 48px) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">SYSTEM ACTIVE</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Throttle Lift Re</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Hard Braking Spi</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Barricade Bypass</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. TEXTBOOK PROSE 1: HYDROPLANING DYNAMICS & TREAD DEPTH -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">water_drop</span>
+        <span class="font-bold text-carbon">HYDRODYNAMICS &bull; TIRE EVACUATION CHANNELS</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        The Physics of Hydroplaning &amp; The Critical 10–15 Minute Slick Window
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Hydroplaning occurs when water between your tires and the road surface accumulates faster than the weight of your vehicle can evacuate it. This dynamic hydrodynamic wedge lifts the tire completely off the pavement. Riding on a micro-thin water film reduces surface friction to near zero (<span class="font-mono font-bold text-carbon">&mu; &approx; 0.05</span>), rendering mechanical braking and steering control 100% ineffective.
+      </p>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">warning</span>
+          <span>CRITICAL HYDROPLANING OPERATIONAL THRESHOLDS</span>
+        </div>
+        <ul class="space-y-1.5 text-slate leading-snug">
+          <li>&bull; <strong>The Initial 10 to 15-Minute Danger Zone:</strong> When rain first begins, water mixes with accumulated engine oil, unburned hydrocarbons, and road grime, creating an extremely slick petroleum-water emulsion. The road is far more dangerous during these initial 15 minutes than after a sustained downpour has washed the residue away.</li>
+          <li>&bull; <strong>Speed Initiation Threshold:</strong> Partial hydroplaning can initiate at speeds as low as <strong>35 MPH</strong>. Total water separation typically occurs between <strong>50 and 55 MPH</strong> in standing water as shallow as 1/12 of an inch.</li>
+          <li>&bull; <strong>Tread Depth Minimums (TTC &sect; 547.612):</strong> Texas statute mandates a minimum tread depth of <strong>2/32 of an inch</strong> across all major circumferential grooves. However, safety engineering proves that 2/32" tread requires over 300% more distance to evacuate water than new tread. Safe wet-weather operation demands at least <strong>4/32 of an inch</strong>.</li>
+          <li>&bull; <strong>Cruise Control Prohibition:</strong> Never engage cruise control on wet roadways. If tires lose grip, the cruise system senses a loss of velocity and accelerates the drive wheels, triggering violent ballistic spinout.</li>
+        </ul>
+      </div>
+
+      <div class="p-3 bg-safety-light/60 border border-safety/30 rounded-xl space-y-1 text-xs">
+        <span class="font-mono font-bold text-safety text-[10px] uppercase block">Emergency Hydroplane Recovery Protocol:</span>
+        <p class="text-carbon leading-relaxed">
+          If your vehicle begins to hydroplane: <strong>DO NOT slam on the brakes</strong> and <strong>DO NOT jerk the steering wheel</strong>. Smoothly ease your foot off the accelerator. Hold the steering wheel firmly straight ahead. Allow vehicular momentum to decrease naturally until tire treads cut through the water film and regain asphalt contact.
+        </p>
+      </div>
+    </article>
+
+    <!-- 05. INTERACTIVE CAD WIDGET 1: HYDROPLANING DYNAMICS -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TIRE FLUID DYNAMICS // TTC &sect; 547.612</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Hydroplaning Wedge &amp; Water Evacuation CAD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap tire contact patch nodes or velocity toggles to observe hydrodynamic water film lift.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 220) Phone-Optimized Container -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l08-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l08-water-film" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#0284C7" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.3" />
+            </linearGradient>
+            <radialGradient id="l08-tire-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="60%" stop-color="#1E293B" />
+              <stop offset="100%" stop-color="#0F172A" />
+            </radialGradient>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#E87522" />
+            </marker>
+          </defs>
+
+          <!-- Obsidian Container Canvas -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="#0A0E12" />
+
+          <!-- Road Pavement Surface -->
+          <rect x="15" y="150" width="310" height="40" fill="#1C242C" stroke="#334155" stroke-width="1" />
+          <line x1="15" y1="150" x2="325" y2="150" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="3 3" />
+
+          <!-- Standing Water Layer -->
+          <rect id="l08-water-rect" x="15" y="142" width="310" height="8" fill="url(#l08-water-film)" />
+
+          <!-- Hydrodynamic Water Wedge in front of tire -->
+          <polygon id="l08-wedge-poly" points="100,150 150,140 150,150" fill="#38BDF8" opacity="0.85" pointer-events="none" />
+
+          <!-- Automotive Tire Cross-Section (Center X=165, Y=85, Radius=60) -->
+          <g id="l08-tire-group" transform="translate(165, 85)" pointer-events="none">
+            <!-- Outer Rubber Tread -->
+            <circle cx="0" cy="0" r="62" fill="url(#l08-tire-grad)" stroke="#475569" stroke-width="3" />
+            <!-- Wheel Rim -->
+            <circle cx="0" cy="0" r="32" fill="#334155" stroke="#94A3B8" stroke-width="2" />
+            <circle cx="0" cy="0" r="10" fill="#0F172A" />
+            <!-- Tread Grooves (Evacuation Channels) -->
+            <path d="M -50 35 L -45 42 M -30 52 L -25 58 M 0 62 L 0 55 M 30 52 L 25 58 M 50 35 L 45 42" stroke="#38BDF8" stroke-width="2" />
+            <!-- Rotation Vector Arrow -->
+            <path d="M -15 -45 A 48 48 0 0 1 25 -42" fill="none" stroke="#E87522" stroke-width="2" marker-end="url(#arrow)" />
+          </g>
+
+          <!-- Water Ejection Jets (Cyan Arrows) -->
+          <g id="l08-ejection-jets" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round" fill="none" pointer-events="none">
+            <path d="M 215 142 Q 235 130 255 125" />
+            <path d="M 218 145 Q 240 138 260 135" />
+            <path d="M 115 142 Q 95 130 75 125" />
+          </g>
+
+          <!-- 4 SVG NODES (Visual indicators only - interactive buttons placed externally below) -->
+          <!-- Node 1: Water Wedge (X=120, Y=142) -->
+          <g id="l08-node-1" transform="translate(120, 142)" pointer-events="none">
+            <circle cx="0" cy="0" r="7" fill="#38BDF8" stroke="#FFFFFF" stroke-width="1.5" />
+          </g>
+
+          <!-- Node 2: Tread Evacuation Groove (X=165, Y=145) -->
+          <g id="l08-node-2" transform="translate(165, 145)" pointer-events="none">
+            <circle cx="0" cy="0" r="7" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5" />
+          </g>
+
+          <!-- Node 3: Contact Patch Zone (X=210, Y=142) -->
+          <g id="l08-node-3" transform="translate(210, 142)" pointer-events="none">
+            <circle cx="0" cy="0" r="7" fill="#10B981" stroke="#FFFFFF" stroke-width="1.5" />
+          </g>
+
+          <!-- Node 4: Cruise Control Yaw Risk (X=275, Y=85) -->
+          <g id="l08-node-4" transform="translate(275, 85)" pointer-events="none">
+            <circle cx="0" cy="0" r="7" fill="#BA1A1A" stroke="#FFFFFF" stroke-width="1.5" />
+          </g>
+
+          <!-- Status Header Tag -->
+          <text id="l08-cad1-title-tag" x="170" y="22" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="800" fill="#38BDF8" text-anchor="middle">
+            DYNAMIC STATE: PARTIAL HYDROPLANING (45 MPH) // 50% CONTACT LOSS
+          </text>
+
+          <!-- Bottom Status Bar -->
+          <g transform="translate(15, 196)" pointer-events="none">
+            <rect x="0" y="0" width="310" height="16" rx="3" fill="#040608" stroke="#1E293B" stroke-width="0.8" />
+            <circle id="l08-cad1-dot" cx="8" cy="8" r="3.5" fill="#D97706" />
+            <text id="l08-cad1-phase" x="18" y="11" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#E2E8F0">
+              TRACTION ALERT: REDUCE SPEED BY 1/3 ON WET PAVEMENT (TTC § 545.351)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 4-Node Dynamic Inspection Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l08-node-btn-1" onclick="selectL08Node(1)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>1. Water Wedge</span>
+          <span class="text-[9px] text-sky-600 font-normal">Fluid Lift</span>
+        </button>
+        <button id="l08-node-btn-2" onclick="selectL08Node(2)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>2. Tread Depth</span>
+          <span class="text-[9px] text-safety font-normal">2/32" vs 4/32"</span>
+        </button>
+        <button id="l08-node-btn-3" onclick="selectL08Node(3)" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-valid bg-valid/10 text-valid font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>3. Contact Patch</span>
+          <span class="text-[9px] font-normal">100% Grip</span>
+        </button>
+        <button id="l08-node-btn-4" onclick="selectL08Node(4)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>4. Cruise Control</span>
+          <span class="text-[9px] text-hazard font-normal">Strictly Banned</span>
+        </button>
+      </div>
+
+      <!-- Velocity Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="l08-spd-30" onclick="setL08Speed(30)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>30 MPH</span>
+          <span class="text-[9px] text-valid font-normal">100% Grip</span>
+        </button>
+        <button id="l08-spd-45" onclick="setL08Speed(45)" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>45 MPH</span>
+          <span class="text-[9px] text-safety-deep font-normal">Partial Planing</span>
+        </button>
+        <button id="l08-spd-60" onclick="setL08Speed(60)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center">
+          <span>60 MPH</span>
+          <span class="text-[9px] text-hazard font-normal">Total Float</span>
+        </button>
+      </div>
+
+      <!-- Telemetry HUD (2x2 on mobile, 4 on desktop) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Contact Patch</span>
+          <span id="l08-hud-patch" class="text-xs font-bold text-amber-600">50% CONTACT</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Legal Tread Min</span>
+          <span class="text-xs font-bold text-carbon">2/32" (§ 547.612)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Safe Wet Tread</span>
+          <span class="text-xs font-bold text-valid">4/32" MANDATED</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Cruise Control</span>
+          <span class="text-xs font-bold text-hazard">STRICTLY BANNED</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l08-cad1-card" class="bg-surface-sub border-l-4 border-amber-500 p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l08-card-tag" class="text-[10px] font-mono font-bold text-amber-600 uppercase">HYDRODYNAMIC LIFT</span>
+          <span id="l08-card-cite" class="text-[10px] font-mono text-slate">TTC &sect; 545.351</span>
+        </div>
+        <h3 id="l08-card-title" class="font-sans font-bold text-sm text-carbon">Water Evacuation Capacity Exceeded at 45 MPH</h3>
+        <p id="l08-card-desc" class="text-xs text-slate leading-relaxed">
+          At 45 MPH in standing water, tire tread grooves cannot evacuate fluid rapidly enough. A dynamic water wedge forces under the leading edge of the contact patch, lifting approximately 50% of the rubber off the roadbed. Steering responsiveness decreases sharply.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. TEXTBOOK PROSE 2: ATMOSPHERIC OBSCURATION & CROSSWINDS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">air</span>
+        <span class="font-bold text-carbon">ATMOSPHERIC FORCES &bull; VISIBILITY LIMITS</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Crosswinds, Backscatter Glare &amp; Winter Deck Anomalies
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Adverse conditions in Texas extend beyond rainfall. Drivers frequently encounter sudden meteorological shifts including Gulf Coast sea fogs, Panhandle dust storms (haboobs), high crosswind buffeting across coastal bridges, and deceptive black ice on elevated structures.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="p-3 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-carbon text-[10px] uppercase flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-safety">foggy</span>
+            <span>Fog, Dust &amp; Low-Beam Law</span>
+          </span>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Under TTC &sect; 547.333, drivers must operate on <strong>low-beam headlamps</strong> during fog, dust, or blinding rain. High beams project upward into airborne moisture droplets, reflecting a blinding wall of white glare back into the driver's retina (backscatter).
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-carbon text-[10px] uppercase flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-safety">ac_unit</span>
+            <span>Elevated Bridge Black Ice</span>
+          </span>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Elevated bridges and highway overpasses freeze before ground-level roadbeds because cold ambient air circulates both above and below the bridge deck. Road cuts and shaded rural underpasses thaw last, creating localized zero-friction black ice traps (<span class="font-mono">&mu; &le; 0.08</span>).
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-carbon text-[10px] uppercase flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-safety">storm</span>
+            <span>High Crosswind Buffeting</span>
+          </span>
+          <p class="text-slate text-[11px] leading-relaxed">
+            High-profile SUVs, commercial semi-trailers, and motorcycles suffer extreme lateral aerodynamic displacement when exiting tree-lined corridors onto open prairie bridges. Maintain a balanced two-handed 9-and-3 grip and steer into crosswind gusts.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-carbon text-[10px] uppercase flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-safety">bedtime</span>
+            <span>Highway Hypnosis &amp; Fatigue</span>
+          </span>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Monotonous highway driving lulls motorists into a trance. Texas safety regulations recommend mandatory rest stops every <strong>2 hours or 100 miles</strong>. Continuously cycle visual eye scanning across rearview, side mirrors, and the distant horizon every 2 to 3 seconds.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 07. TEXTBOOK PROSE 3: RAILROAD CROSSINGS & MECHANICAL RECOVERY -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">train</span>
+        <span class="font-bold text-carbon">RAILROAD CROSSING PROTOCOLS // TTC &sect; 545.157</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        The Statutory 15-to-50 Foot Grade Crossing Buffer &amp; Stalled Vehicle Survival
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Under Texas Transportation Code &sect; 545.157, an operator approaching a railroad grade crossing must bring their vehicle to a complete stop not closer than <strong>15 feet</strong> and not farther than <strong>50 feet</strong> from the nearest rail when crossing signals flash, crossing gates lower, a flagger signals, or an approaching train is within approximately 1,500 feet.
+      </p>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-hazard text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">crisis_alert</span>
+          <span>EMERGENCY PROTOCOL: VEHICLE STALLED ON RAILROAD TRACKS</span>
+        </div>
+        <ol class="space-y-1.5 text-slate list-decimal list-inside pl-0.5 leading-snug">
+          <li><strong>Evacuate Immediately:</strong> Order all passengers to abandon the vehicle instantly. Never pause to grab personal belongings or attempt to push the car.</li>
+          <li><strong>Run at a 45-Degree Angle Toward the Approaching Train:</strong> Always run alongside the railroad right-of-way toward the direction the train is coming from, while moving away from the tracks. Running away from the train places you directly in the lethal debris cone when the locomotive shatters the automobile.</li>
+          <li><strong>Locate the Blue ENS Placard:</strong> Look for the blue Emergency Notification System (ENS) placard mounted on the crossbuck pole. Call the 1-800 emergency dispatch number and provide the 6-digit crossing ID plus letter to halt all train traffic on that line.</li>
+        </ol>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
+        <div class="p-2.5 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-carbon text-[10px] uppercase block">Total Brake Failure:</span>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Rapidly pump the brake pedal to build residual hydraulic fluid pressure. Downshift transmission to lower gears (D &rarr; 2 &rarr; 1 / L). Modulate the emergency handbrake while holding the release button to avoid wheel lock.
+          </p>
+        </div>
+        <div class="p-2.5 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-carbon text-[10px] uppercase block">Tire Blowout at Speed:</span>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Do not slam on the brakes! Maintain a firm grip on the steering wheel to counter lateral yaw. Ease foot off accelerator and allow vehicle momentum to coast down before steering onto the paved shoulder.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 08. TEXTBOOK PROSE 4: TEXAS FLASH FLOOD REALITIES -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-hazard text-sm">flood</span>
+        <span class="font-bold text-carbon">TEXAS FLASH FLOOD CRISIS &bull; HYDRODYNAMIC FORCES</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Why Flash Floods are the #1 Weather Killer in Texas (75%–76% Vehicular Deaths)
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Texas holds the tragic distinction of being the flash flood death capital of the United States. Due to the unique topography of "Flash Flood Alley" (the Balcones Escarpment spanning Del Rio through San Antonio, Austin, and Dallas), steep terrain and thin limestone soils cause violent flash floods within minutes of rainfall.
+      </p>
+
+      <div class="grid grid-cols-3 gap-1.5 text-center font-mono">
+        <div class="p-2 bg-hazard/10 border border-hazard/20 rounded-xl">
+          <span class="text-hazard font-black text-sm block">#1 KILLER</span>
+          <span class="text-[9px] text-slate uppercase">Weather Cause</span>
+        </div>
+        <div class="p-2 bg-hazard/10 border border-hazard/20 rounded-xl">
+          <span class="text-hazard font-black text-sm block">75–76%</span>
+          <span class="text-[9px] text-slate uppercase">In Vehicles</span>
+        </div>
+        <div class="p-2 bg-carbon text-white rounded-xl">
+          <span class="text-safety font-black text-sm block">62.4 LBS</span>
+          <span class="text-[9px] text-neutral-400 uppercase">Per Cu. Ft.</span>
+        </div>
+      </div>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">water</span>
+          <span>HYDRODYNAMIC BUOYANT DISPLACEMENT MATRIX</span>
+        </div>
+        <ul class="space-y-1.5 text-slate leading-snug">
+          <li>&bull; <strong>6 Inches of Swift Water:</strong> Reaches the bottom of passenger car chassis. Causes immediate loss of directional steering control and engine stalling. Exerts enough force to sweep adult pedestrians off their feet.</li>
+          <li>&bull; <strong>12 Inches (1 Foot) of Swift Water:</strong> Displaces approximately 3,400 pounds of water, generating enough buoyant lift to float most passenger cars and sedans. Once tires lift off the asphalt, traction is zero and the lateral current carries the vehicle downstream into deep ravines.</li>
+          <li>&bull; <strong>24 Inches (2 Feet) of Swift Water:</strong> Generates massive lateral drag force and buoyancy sufficient to sweep away four-wheel-drive pickup trucks, commercial cargo vans, and heavy SUVs.</li>
+          <li>&bull; <strong>Invisible Subsurface Traps:</strong> Murky floodwaters hide catastrophic roadway destruction: washed-away culverts, collapsed bridge spans, 10-foot sinkholes, and energized downed power lines.</li>
+        </ul>
+      </div>
+
+      <!-- Comparative Friction & Hydrodynamic Matrix -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-carbon text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm text-safety">table_chart</span>
+          <span>TEXAS ADVERSE DRIVING FRICTION &amp; BUOYANCY MATRIX</span>
+        </div>
+        <div class="overflow-x-auto no-scrollbar">
+          <table class="w-full text-left font-mono text-[10px] border-collapse">
+            <thead>
+              <tr class="border-b border-hairline text-slate">
+                <th class="py-1">SURFACE / HAZARD</th>
+                <th class="py-1">FRICTION (&mu;)</th>
+                <th class="py-1">STOP DISTANCE</th>
+                <th class="py-1">PRIMARY RISK</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-carbon">
+              <tr>
+                <td class="py-1.5 font-bold">Dry Asphalt</td>
+                <td class="py-1.5 text-valid">&mu; = 0.80</td>
+                <td class="py-1.5">229 FT (50 mph)</td>
+                <td class="py-1.5 text-slate">Baseline Grip</td>
+              </tr>
+              <tr>
+                <td class="py-1.5 font-bold">10-Min Rain Emulsion</td>
+                <td class="py-1.5 text-warning">&mu; = 0.35</td>
+                <td class="py-1.5">372 FT (2.2x)</td>
+                <td class="py-1.5 text-warning">Oil-Slick Skids</td>
+              </tr>
+              <tr>
+                <td class="py-1.5 font-bold">Hydroplaning (45+ mph)</td>
+                <td class="py-1.5 text-hazard">&mu; &le; 0.05</td>
+                <td class="py-1.5">Infinite (Float)</td>
+                <td class="py-1.5 text-hazard">Zero Steering</td>
+              </tr>
+              <tr>
+                <td class="py-1.5 font-bold">Elevated Bridge Black Ice</td>
+                <td class="py-1.5 text-purple-700">&mu; &le; 0.08</td>
+                <td class="py-1.5">1,120+ FT (8.5x)</td>
+                <td class="py-1.5 text-purple-700">Sub-Zero Freeze</td>
+              </tr>
+              <tr>
+                <td class="py-1.5 font-bold">12" Flooded Crossing</td>
+                <td class="py-1.5 text-hazard">&mu; = 0.00</td>
+                <td class="py-1.5">Downstream Sweep</td>
+                <td class="py-1.5 text-hazard">Vehicular Drowning</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Historical Texas Corridor Case Studies -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-carbon text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm text-safety">history_edu</span>
+          <span>HISTORICAL TEXAS LOW-WATER CORRIDOR CASE STUDIES</span>
+        </div>
+        <div class="space-y-1 text-slate text-[11px] leading-relaxed">
+          <p>
+            <strong>Blanco River / Wimberley Basin:</strong> Flash floods in Central Texas have crested over 30 feet in under two hours, turning scenic rural FM roads into deadly torrents. Over 80% of motorists caught in these floods reported entering water that appeared "only a few inches deep."
+          </p>
+          <p>
+            <strong>FM 1431 Cow Creek Crossing (Travis/Burnet County):</strong> Illustrates why low-water crossings are equipped with automated depth gauges and pivoting barricades. Water flowing at 12 feet per second exerts lateral forces comparable to a battering ram, flipping passenger cars onto their roofs.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 09. INTERACTIVE SVG WIDGET 2: FLASH FLOOD & BARRICADE SIMULATOR -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>FLASH FLOOD STATUTE // TTC &sect; 545.0541</span>
+        </div>
+        <span class="font-mono text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">
+          CLASS B MISDEMEANOR
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Texas Low-Water Crossing &amp; Barricade Simulator</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap flood water levels (6", 12", 24") or barricade to calculate hydrodynamic buoyant sweep forces.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 180) Phone-Optimized Container -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l08-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l08-flood-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0284C7" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#0369A1" stop-opacity="0.95" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Canvas -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="#0A0E12" />
+
+          <!-- Roadbed Dipping into Low-Water Crossing -->
+          <path d="M 15 85 L 85 95 L 170 145 L 255 95 L 325 85 L 325 170 L 15 170 Z" fill="#1C242C" stroke="#334155" stroke-width="1" />
+
+          <!-- Rising Water Level Polygon -->
+          <polygon id="l08-flood-water" points="85,120 255,120 255,160 85,160" fill="url(#l08-flood-grad)" />
+
+          <!-- Water Current Force Vectors (Cyan Streamlines) -->
+          <g stroke="#38BDF8" stroke-width="1.2" stroke-linecap="round" opacity="0.75" pointer-events="none">
+            <line x1="95" y1="130" x2="135" y2="130" />
+            <line x1="145" y1="130" x2="185" y2="130" />
+            <line x1="195" y1="130" x2="235" y2="130" />
+          </g>
+
+          <!-- VEHICLE AT LOW-WATER CROSSING (X=170) -->
+          <g id="l08-flood-car" transform="translate(170, 114)">
+            <rect id="l08-car-body" x="-16" y="-9" width="32" height="18" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1" pointer-events="none" />
+            <rect x="-5" y="-7" width="10" height="14" rx="1.5" fill="#7C2D12" pointer-events="none" />
+            <!-- Wheels touching water -->
+            <circle cx="-10" cy="9" r="3" fill="#0F172A" pointer-events="none" />
+            <circle cx="10" cy="9" r="3" fill="#0F172A" pointer-events="none" />
+          </g>
+
+          <!-- OFFICIAL BARRICADE AT ROAD ENTRY (X=65, Y=78) -->
+          <g id="l08-barricade" transform="translate(65, 78)" pointer-events="none">
+            <rect x="-14" y="-12" width="28" height="6" fill="#F97316" stroke="#FFFFFF" stroke-width="0.8" />
+            <rect x="-14" y="-6" width="28" height="6" fill="#FFFFFF" />
+            <rect x="-14" y="0" width="28" height="6" fill="#F97316" stroke="#FFFFFF" stroke-width="0.8" />
+            <text x="0" y="-1" font-family="'JetBrains Mono', monospace" font-size="3.5" font-weight="900" fill="#000000" text-anchor="middle">ROAD CLOSED</text>
+          </g>
+
+          <!-- 3 FLOOD LEVEL NODES (Visual indicators only - interactive buttons placed externally below) -->
+          <!-- 6 Inches (X=120, Y=140) -->
+          <g transform="translate(120, 140)" pointer-events="none">
+            <circle cx="0" cy="0" r="6" fill="#0284C7" stroke="#FFFFFF" stroke-width="1.2" />
+          </g>
+          <!-- 12 Inches (X=170, Y=132) -->
+          <g transform="translate(170, 132)" pointer-events="none">
+            <circle cx="0" cy="0" r="6" fill="#F59E0B" stroke="#FFFFFF" stroke-width="1.2" />
+          </g>
+          <!-- 24 Inches (X=220, Y=115) -->
+          <g transform="translate(220, 115)" pointer-events="none">
+            <circle cx="0" cy="0" r="6" fill="#EF4444" stroke="#FFFFFF" stroke-width="1.2" />
+          </g>
+
+          <!-- Top Statutory Warning Tag -->
+          <text id="l08-flood-readout" x="170" y="24" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="800" fill="#EF4444" text-anchor="middle">
+            12" WATER: BUOYANT FORCE FLOATS PASSENGER SEDANS
+          </text>
+
+          <!-- Bottom Barricade Criminal Penalty Badge -->
+          <g transform="translate(15, 158)" pointer-events="none">
+            <rect x="0" y="0" width="310" height="16" rx="3" fill="#080C0E" stroke="#BA1A1A" stroke-width="0.8" />
+            <text id="l08-penalty-text" x="155" y="11" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#FCA5A5" text-anchor="middle">
+              BARRICADE VIOLATION: CLASS B MISDEMEANOR ($2,000 FINE / 180 DAYS JAIL)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Water Depth & Barricade Toggles (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l08-btn-6" onclick="setFloodLevel(6)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>6 Inches</span>
+          <span class="text-[9px] text-slate font-normal">Control Loss</span>
+        </button>
+        <button id="l08-btn-12" onclick="setFloodLevel(12)" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>12 Inches</span>
+          <span class="text-[9px] text-safety-deep font-normal">Buoyant Float</span>
+        </button>
+        <button id="l08-btn-24" onclick="setFloodLevel(24)" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>24 Inches</span>
+          <span class="text-[9px] text-hazard font-normal">Sweep Trucks</span>
+        </button>
+        <button id="l08-btn-barricade" onclick="selectBarricadeNode()" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>Barricade Law</span>
+          <span class="text-[9px] text-safety-deep font-normal">TTC § 472.022</span>
+        </button>
+      </div>
+
+      <!-- Reactive Flood Consequence Card -->
+      <div id="l08-flood-info-card" class="bg-surface-sub border-l-4 border-hazard p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l08-flood-card-tag" class="text-[10px] font-mono font-bold text-hazard uppercase">CRITICAL BUOYANCY FAILURE</span>
+          <span id="l08-flood-card-cite" class="text-[10px] font-mono text-slate">TTC &sect; 545.0541</span>
+        </div>
+        <h3 id="l08-flood-card-title" class="font-sans font-bold text-sm text-carbon">12 Inches (1 Foot): Passenger Sedans Become Buoyant</h3>
+        <p id="l08-flood-card-desc" class="text-xs text-slate leading-relaxed">
+          Water weighs 62.4 pounds per cubic foot. At 12 inches depth, a standard 3,400-lb passenger sedan displaces enough fluid to generate upward buoyant lift exceeding tire contact gravity. The vehicle floats, turning wheels into useless paddlewheels while the current sweeps the car into the creek channel.
+        </p>
+      </div>
+    </section>
+
+    <!-- 10. TEXTBOOK PROSE 5: TEXAS BARRICADE LAW & RESCUE LIABILITY -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">gavel</span>
+        <span class="font-bold text-carbon">TEXAS STATUTORY ENFORCEMENT &bull; TTC &sect; 472.022</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Criminal Sanctions for Bypassing Barricades &amp; 100% Rescue Reimbursement
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Texas law recognizes that ignoring flood warning devices is not merely negligence—it is an intentional criminal act that endangers first responders who must launch hazardous swift-water rescue operations.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-hazard text-[11px] block uppercase">1. Class B Misdemeanor Penalty (TTC &sect; 472.022 &amp; &sect; 545.0541):</span>
+          <p class="text-slate leading-relaxed">
+            Driving around, past, or over an official barricade erected by TxDOT, county commissioners, or emergency personnel to close a flooded road is a <strong>Class B Misdemeanor</strong> punishable by a criminal fine of up to <strong>$2,000</strong> and/or up to <strong>180 days in county jail</strong>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-safety text-[11px] block uppercase">2. 100% Swift-Water Rescue Financial Liability:</span>
+          <p class="text-slate leading-relaxed">
+            Under Texas statutes, local municipalities and county emergency service districts are legally empowered to <strong>bill reckless drivers for the entire cost of emergency swift-water rescue operations</strong> (helicopters, zodiac boats, dive teams, and personnel hours) if barricades were bypassed. Invoices often exceed tens of thousands of dollars.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl border border-hairline bg-surface-sub space-y-1">
+          <span class="font-mono font-bold text-carbon text-[11px] block uppercase">3. Tampering with Flood Barricades:</span>
+          <p class="text-slate leading-relaxed">
+            Removing, knocking down, or moving an official flood warning barricade or sign carries severe criminal penalties of up to a <strong>$1,000 fine</strong> and up to <strong>2 years in state jail</strong> under Texas Penal Code &sect; 28.03.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-3.5 bg-hazard/10 border border-hazard/30 rounded-xl space-y-1 text-xs">
+        <span class="font-mono font-bold text-hazard text-[10px] uppercase block">Submerged Vehicle Escape Protocol (S-W-U-G):</span>
+        <ul class="text-carbon space-y-1 list-disc list-inside leading-relaxed">
+          <li><strong>Seatbelts:</strong> Unbuckle immediately. Do not panic.</li>
+          <li><strong>Windows:</strong> Open or shatter a side window instantly before electrical systems short out and before external water pressure pins the doors shut.</li>
+          <li><strong>Unfasten Children:</strong> Release children from child restraints and push them out through the open window first.</li>
+          <li><strong>Get Out:</strong> Evacuate through the window and climb onto the roof of the vehicle to wait for emergency rescue if current is too swift to reach shore.</li>
+        </ul>
+      </div>
+
+      <!-- Quick Reference Statutory Precepts -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1.5 text-[11px] font-mono">
+        <div class="font-bold text-carbon text-xs">TEXAS JURISPRUDENTIAL CODEX // TOPIC 08</div>
+        <div class="text-slate space-y-1">
+          <div>&bull; <strong>TTC &sect; 545.0541:</strong> Bypassing road closed barricades (Class B Misdemeanor).</div>
+          <div>&bull; <strong>TTC &sect; 472.022:</strong> Disobeying warning signs and construction/flood devices.</div>
+          <div>&bull; <strong>TTC &sect; 545.351:</strong> Basic Speed Rule &bull; Drive reasonable &amp; prudent in rain/ice.</div>
+          <div>&bull; <strong>TTC &sect; 545.157:</strong> Railroad grade crossing stopping window (15 to 50 FT).</div>
+          <div>&bull; <strong>TTC &sect; 547.612:</strong> Legal tire tread minimum (2/32" across major grooves).</div>
+          <div>&bull; <strong>Texas Penal Code &sect; 28.03:</strong> Criminal mischief &bull; Tampering with safety signs.</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 11. THREE STRICT VERIFICATION MCQS -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-valid text-sm">quiz</span>
+          <span class="font-bold text-carbon">STATUTORY VERIFICATION AUDIT</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">
+          3 MANDATORY CHECKS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T08 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- MCQ 1 (Option B MUST be strictly correct!) -->
+      <div class="space-y-2.5" id="mcq-container-1">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 01 // TEXAS BARRICADE LAW</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 472.022 and &sect; 545.0541, what are the criminal penalties for driving around an official barricade erected at a flooded roadway or low-water crossing?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] A $25 civil parking citation with zero driver license penalty points assessed.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] A Class B Misdemeanor punishable by a fine up to $2,000 and up to 180 days in jail, plus liability for 100% of emergency swift-water rescue costs.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Mandatory forfeiture of all personal motor vehicles directly to the Texas Department of Public Safety.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] A standard Class C traffic citation carrying a maximum administrative fine of $50.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 2 (Option B is strictly correct) -->
+      <div class="space-y-2.5" id="mcq-container-2">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 02 // HYDRODYNAMIC BUOYANCY</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          How much swiftly moving floodwater is physically sufficient to float and carry away most standard passenger automobiles?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] At least four feet of rushing flood water.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Twelve inches (one foot) of moving water, which displaces tire friction and floats passenger sedans.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Only ocean storm surges exceeding eight vertical feet.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Six vertical feet of deep flowing river current.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 3 (Option B is strictly correct) -->
+      <div class="space-y-2.5" id="mcq-container-3">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 03 // HYDROPLANING RECOVERY</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          If your vehicle begins to hydroplane across standing water on a Texas highway, what is the proper emergency recovery action?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Slam hard on the brakes and turn the steering wheel sharply toward the right shoulder.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Ease your foot off the accelerator, avoid braking inputs, and steer straight ahead until tires regain pavement grip.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Downshift into first gear and pump the accelerator to spin water out of tire tread grooves.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Engage cruise control to force computer-governed wheel rotational speed.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 12. NEXT LESSON NAVIGATION FOOTER -->
+    <footer class="pt-2 pb-6 space-y-3">
+      <div class="flex items-center justify-between gap-3">
+        <a href="L05-T07.html" class="touch-target min-h-[48px] flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-white border border-hairline hover:bg-surface-sub text-xs font-bold text-carbon transition" style="min-height: 48px;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREVIOUS TOPIC</span>
+        </a>
+        <a href="L05-T09.html" class="touch-target min-h-[48px] flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-safety text-white hover:bg-safety-deep text-xs font-bold transition shadow-sm" style="min-height: 48px;">
+          <span>NEXT: SPEED LIMITS</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 08
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE: MCQS & INTERACTIVE WIDGET LOGIC -->
+  <script>
+    // -------------------------------------------------------------------------
+    // MCQ STATE ENGINE (Dynamic Score Increment & Audit Compliance)
+    // -------------------------------------------------------------------------
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+                const TOPIC_ID = 'L05-T08';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 472.022 & § 545.0541 BARRICADE LAW",
+            "statutoryRationale": "Correct! Texas Transportation Code § 472.022(d) and § 545.0541 classify driving around official flood barricades as a Class B Misdemeanor carrying up to $2,000 in fines, 180 days in county jail, and legal liability for 100% of swift-water rescue costs."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "HYDRODYNAMIC BUOYANCY PHYSICS",
+            "statutoryRationale": "Correct! Water weighs 62.4 pounds per cubic foot. Twelve inches of rushing water exerts immense buoyant force, floating standard passenger cars and sedans and completely neutralizing tire friction."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "B",
+            "statute": "HYDROPLANING RECOVERY (TX HANDBOOK CH. 5)",
+            "statutoryRationale": "Correct! Hard braking or sudden steering inputs during hydroplaning induces violent uncontrolled vehicle spinout. Motorists must ease off the accelerator, keep the wheel straight, and wait for tires to regain asphalt traction."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // WIDGET 1: HYDROPLANING DYNAMICS & TIRE EVACUATION LOGIC
+    // -------------------------------------------------------------------------
+    const l08State = {
+      speed: 45,
+      node: 1,
+      floodInches: 12
+    };
+
+    const l08SpeedData = {
+      30: {
+        patch: '100% CONTACT',
+        wedgePts: '135,150 150,147 150,150',
+        title: 'DYNAMIC STATE: FULL CONTACT (30 MPH) // TOTAL ADHESION',
+        status: 'TRACTION SECURE: TIRE CHANNELS ADEQUATELY EVACUATE WATER FILM',
+        statusDot: '#10B981',
+        cardTag: 'FULL TRACTION',
+        cardCite: 'TTC § 545.351',
+        cardTitle: 'Complete Asphalt Contact at 30 MPH',
+        cardDesc: 'At speeds under 35 MPH with legal tread (>= 2/32"), dynamic water pressure is insufficient to lift the tire. Water is fully evacuated through circumferential tread grooves, maintaining 100% directional steering control.'
+      },
+      45: {
+        patch: '50% CONTACT',
+        wedgePts: '100,150 150,140 150,150',
+        title: 'DYNAMIC STATE: PARTIAL HYDROPLANING (45 MPH) // 50% CONTACT LOSS',
+        status: 'TRACTION ALERT: REDUCE SPEED BY 1/3 ON WET PAVEMENT (TTC § 545.351)',
+        statusDot: '#D97706',
+        cardTag: 'HYDRODYNAMIC LIFT',
+        cardCite: 'TTC § 545.351',
+        cardTitle: 'Water Evacuation Capacity Exceeded at 45 MPH',
+        cardDesc: 'At 45 MPH in standing water, tire tread grooves cannot evacuate fluid rapidly enough. A dynamic water wedge forces under the leading edge of the contact patch, lifting approximately 50% of the rubber off the roadbed. Steering responsiveness decreases sharply.'
+      },
+      60: {
+        patch: '0% CONTACT (FLOAT)',
+        wedgePts: '60,150 150,132 150,150',
+        title: 'CRITICAL ALERT: TOTAL HYDROPLANING (60 MPH) // COMPLETE WATER FILM FLOAT',
+        status: 'TOTAL SEPARATION: STEERING & BRAKING 100% INEFFECTIVE // DO NOT SLAM BRAKES',
+        statusDot: '#EF4444',
+        cardTag: 'TOTAL SEPARATION',
+        cardCite: 'TX HANDBOOK CH. 5',
+        cardTitle: 'Total Hydroplaning at Highway Velocity (60 MPH)',
+        cardDesc: 'At 50–60 MPH, tires ride entirely on a thin sheet of pressurized water (mu approaches 0.05). Any abrupt steering or braking input induces uncontrollable ballistic vehicle yaw. Driver must ease off gas and steer straight.'
+      }
+    };
+
+    function setL08Speed(mph) {
+      l08State.speed = mph;
+      const d = l08SpeedData[mph];
+
+      document.getElementById('l08-wedge-poly').setAttribute('points', d.wedgePts);
+      document.getElementById('l08-cad1-title-tag').textContent = d.title;
+      const statusEl = document.getElementById('l08-cad1-phase') || document.getElementById('l08-cad1-status');
+      if (statusEl) statusEl.textContent = d.status;
+      document.getElementById('l08-cad1-dot').setAttribute('fill', d.statusDot);
+
+      document.getElementById('l08-hud-patch').textContent = d.patch;
+
+      const card = document.getElementById('l08-cad1-card');
+      if (mph === 30) {
+        card.style.borderLeftColor = '#1F6F43';
+        document.getElementById('l08-card-tag').className = 'text-[10px] font-mono font-bold text-valid uppercase';
+      } else if (mph === 45) {
+        card.style.borderLeftColor = '#D97706';
+        document.getElementById('l08-card-tag').className = 'text-[10px] font-mono font-bold text-amber-600 uppercase';
+      } else {
+        card.style.borderLeftColor = '#BA1A1A';
+        document.getElementById('l08-card-tag').className = 'text-[10px] font-mono font-bold text-hazard uppercase';
+      }
+
+      document.getElementById('l08-card-tag').textContent = d.cardTag;
+      document.getElementById('l08-card-cite').textContent = d.cardCite;
+      document.getElementById('l08-card-title').textContent = d.cardTitle;
+      document.getElementById('l08-card-desc').textContent = d.cardDesc;
+
+      [30, 45, 60].forEach(s => {
+        const btn = document.getElementById(`l08-spd-${s}`);
+        if (btn) {
+          if (s === mph) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center';
+          }
+        }
+      });
+    }
+
+    function selectL08Node(nodeNum) {
+      l08State.node = nodeNum;
+      const card = document.getElementById('l08-cad1-card');
+
+      [1, 2, 3, 4].forEach(n => {
+        const btn = document.getElementById(`l08-node-btn-${n}`);
+        if (btn) {
+          if (n === nodeNum) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      if (nodeNum === 1) {
+        setL08Speed(45);
+      } else if (nodeNum === 2) {
+        card.style.borderLeftColor = '#E87522';
+        document.getElementById('l08-card-tag').textContent = 'TREAD DEPTH INSPECTION';
+        document.getElementById('l08-card-tag').className = 'text-[10px] font-mono font-bold text-safety uppercase';
+        document.getElementById('l08-card-cite').textContent = 'TTC § 547.612';
+        document.getElementById('l08-card-title').textContent = '2/32" Legal Minimum vs 4/32" Safe Wet Standard';
+        document.getElementById('l08-card-desc').textContent = 'Texas statute sets the minimum legal tread depth at 2/32" in major grooves. However, tire research shows tires with 2/32" tread require twice the distance to evacuate standing water compared to 4/32", dramatically elevating hydroplaning danger in rainstorms.';
+      } else if (nodeNum === 3) {
+        setL08Speed(30);
+      } else if (nodeNum === 4) {
+        card.style.borderLeftColor = '#BA1A1A';
+        document.getElementById('l08-card-tag').textContent = 'CRITICAL HAZARD: CRUISE CONTROL';
+        document.getElementById('l08-card-tag').className = 'text-[10px] font-mono font-bold text-hazard uppercase';
+        document.getElementById('l08-card-cite').textContent = 'TX HANDBOOK CH. 5';
+        document.getElementById('l08-card-title').textContent = 'Disengage Cruise Control on Wet Roadways';
+        document.getElementById('l08-card-desc').textContent = 'Never use cruise control on wet roads. When drive wheels hydroplane and lose contact, the vehicle computer detects a drop in speed and surges throttle output, causing driving wheels to spin violently and inducing an instant catastrophic spinout.';
+      }
+    }
+
+    // ==============================================================================
+    // SIMULATION 3-TIER POSTMESSAGE BRIDGE (L05-T08)
+    // ==============================================================================
+    const simScenarios_L05T08 = {
+      1: {
+        badge: 'THROTTLE LIFT RECOVERY',
+        badgeBg: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+        actionText: 'ACTIVE: THROTTLE LIFT RECOVERY',
+        cadenceText: 'HYDROPLANE DISSIPATION // TRACTION RESTORED',
+        banner: 'Throttle-Lift Technique: Lifts off gas without touching brake pedal. Water wedge clears through tread grooves, safely restoring steering before the barricade.'
+      },
+      2: {
+        badge: 'HARD BRAKING SPIN',
+        badgeBg: 'bg-rose-500/10 text-rose-400 border border-rose-500/20',
+        actionText: 'CRITICAL: PANIC BRAKE LOCKUP',
+        cadenceText: 'CRITICAL FAILURE: 180° SPINOUT ON WATER WEDGE',
+        banner: 'Braking in Hydroplane: Stomping brake pedal locks rotating wheels while floating on water, causing violent 180° vehicle spinout!'
+      },
+      3: {
+        badge: 'BARRICADE BYPASS FLOAT',
+        badgeBg: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
+        actionText: 'CRITICAL: BYPASSING OFFICIAL BARRICADE',
+        cadenceText: '14" FLOODWATER DISPLACES TIRES // VEHICLE SWEPT AWAY',
+        banner: 'Barricade Bypass Danger: Water displaces 3,400 lbs of vehicle weight. Sedans float in 12" and trucks in 24". Class B Misdemeanor + 100% rescue liability.'
+      }
+    };
+
+    let activeSimScenario_L05T08 = 1;
+    let simPaused_L05T08 = false;
+
+    function selectSimScenario(scenNum) {
+      activeSimScenario_L05T08 = scenNum;
+      const data = simScenarios_L05T08[scenNum];
+      if (!data) return;
+
+      const badgeEl = document.getElementById('sim-active-badge');
+      if (badgeEl) {
+        badgeEl.textContent = data.badge;
+        badgeEl.className = `font-mono text-[10px] px-2 py-0.5 rounded font-bold uppercase ${data.badgeBg}`;
+      }
+      const actEl = document.getElementById('sim-hud-action');
+      if (actEl) actEl.textContent = data.actionText;
+      const cadEl = document.getElementById('sim-hud-cadence');
+      if (cadEl) cadEl.textContent = data.cadenceText;
+      const banEl = document.getElementById('sim-instructional-banner');
+      if (banEl) banEl.textContent = data.banner;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+
+      dispatchSimAction('setScenario', { scenario: scenNum });
+    }
+
+    function dispatchSimAction(action, payload = {}) {
+      const iframe = document.getElementById('sim-frame');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({
+          action: action,
+          type: action,
+          scenario: payload.scenario || activeSimScenario_L05T08,
+          ...payload
+        }, '*');
+      }
+    }
+
+    function toggleSimPause() {
+      simPaused_L05T08 = !simPaused_L05T08;
+      dispatchSimAction(simPaused_L05T08 ? 'pause' : 'play');
+      const icon = document.getElementById('sim-btn-play-icon');
+      const label = document.getElementById('sim-btn-play-label');
+      if (icon) icon.textContent = simPaused_L05T08 ? 'play_arrow' : 'pause';
+      if (label) label.textContent = simPaused_L05T08 ? 'RESUME' : 'PAUSE';
+    }
+
+    function resetSimPlayback() {
+      simPaused_L05T08 = false;
+      const icon = document.getElementById('sim-btn-play-icon');
+      const label = document.getElementById('sim-btn-play-label');
+      if (icon) icon.textContent = 'pause';
+      if (label) label.textContent = 'PAUSE';
+      dispatchSimAction('restart');
+      dispatchSimAction('setScenario', { scenario: activeSimScenario_L05T08 });
+    }
+
+    function openSimFullscreen() {
+      const container = document.getElementById('sim-viewport-container');
+      if (!container) return;
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    window.addEventListener('message', (event) => {
+      if (event.data && (event.data.type === 'simTelemetry' || event.data.event === 'telemetry')) {
+        const d = event.data;
+        if (d.status) {
+          const cadEl = document.getElementById('sim-hud-cadence');
+          if (cadEl) cadEl.textContent = d.status;
+        }
+        if (d.phase) {
+          const actEl = document.getElementById('sim-hud-action');
+          if (actEl) actEl.textContent = d.phase;
+        }
+      }
+    });
+
+    // -------------------------------------------------------------------------
+    // WIDGET 2: FLASH FLOOD & BARRICADE SAFETY SIMULATOR LOGIC
+    // -------------------------------------------------------------------------
+    const l08FloodData = {
+      6: {
+        yPoly: '100,135 240,135 240,160 100,160',
+        carY: 128,
+        readout: '6" WATER: LOSS OF CONTROL // REACHES EXHAUST & CHASSIS',
+        carColor: '#E87522',
+        cardTag: 'CONTROL LOSS THRESHOLD',
+        cardTitle: '6 Inches: Chassis Drag & Loss of Steering Traction',
+        cardDesc: 'Six inches of rapidly moving water reaches the bottom of most passenger cars. Water drag induces loss of steering control and engine stalling. Swift current easily knocks adult pedestrians off their feet.'
+      },
+      12: {
+        yPoly: '85,120 255,120 255,160 85,160',
+        carY: 114,
+        readout: '12" WATER: BUOYANT FORCE FLOATS PASSENGER SEDANS',
+        carColor: '#D97706',
+        cardTag: 'BUOYANT VEHICULAR FLOAT',
+        cardTitle: '12 Inches (1 Foot): Passenger Sedans Become Buoyant',
+        cardDesc: 'Water weighs 62.4 pounds per cubic foot. At 12 inches depth, a standard 3,400-lb passenger sedan displaces enough fluid to generate upward buoyant lift exceeding tire contact gravity. The vehicle floats, turning wheels into useless paddlewheels while the current sweeps the car into the creek channel.'
+      },
+      24: {
+        yPoly: '65,98 275,98 275,160 65,160',
+        carY: 92,
+        readout: '24" WATER: TORRENTIAL CURRENT SWEEPS HEAVY SUVS & TRUCKS',
+        carColor: '#BA1A1A',
+        cardTag: 'TORRENTIAL SWEEP HAZARD',
+        cardTitle: '24 Inches (2 Feet): Pickup Trucks & Heavy SUVs Swept Away',
+        cardDesc: 'Two feet of rushing floodwater easily sweeps away four-wheel-drive pickup trucks, heavy commercial cargo vans, and full-size SUVs. Murky water conceals collapsed roadbeds, missing culverts, deep sinkholes, and live downed power lines.'
+      }
+    };
+
+    function setFloodLevel(inches) {
+      l08State.floodInches = inches;
+      const d = l08FloodData[inches];
+
+      document.getElementById('l08-flood-water').setAttribute('points', d.yPoly);
+      document.getElementById('l08-flood-car').setAttribute('transform', `translate(170, ${d.carY})`);
+      document.getElementById('l08-flood-readout').textContent = d.readout;
+
+      const card = document.getElementById('l08-flood-info-card');
+      card.style.borderLeftColor = d.carColor;
+      document.getElementById('l08-flood-card-tag').textContent = d.cardTag;
+      document.getElementById('l08-flood-card-tag').style.color = d.carColor;
+      document.getElementById('l08-flood-card-title').textContent = d.cardTitle;
+      document.getElementById('l08-flood-card-desc').textContent = d.cardDesc;
+
+      [6, 12, 24].forEach(i => {
+        const btn = document.getElementById(`l08-btn-${i}`);
+        if (btn) {
+          if (i === inches) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+      const bBtn = document.getElementById('l08-btn-barricade');
+      if (bBtn) bBtn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+    }
+
+    function selectBarricadeNode() {
+      const card = document.getElementById('l08-flood-info-card');
+      card.style.borderLeftColor = '#BA1A1A';
+      document.getElementById('l08-flood-card-tag').textContent = 'OFFICIAL ROAD CLOSED BARRICADE';
+      document.getElementById('l08-flood-card-tag').style.color = '#BA1A1A';
+      document.getElementById('l08-flood-card-title').textContent = 'Class B Misdemeanor & 100% Swift-Water Rescue Liability';
+      document.getElementById('l08-flood-card-desc').textContent = 'Under Texas Transportation Code § 472.022 and § 545.0541, disobeying an official flood warning barricade is an arrestable Class B Misdemeanor punishable by up to $2,000 in fines and 180 days in jail. Additionally, Texas statute authorizes emergency service districts to bill drivers for 100% of emergency rescue operational costs.';
+
+      [6, 12, 24].forEach(i => {
+        const btn = document.getElementById(`l08-btn-${i}`);
+        if (btn) btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+      });
+      const bBtn = document.getElementById('l08-btn-barricade');
+      if (bBtn) bBtn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-hazard bg-hazard/10 text-hazard font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+    }
+
+    // Initialize default states on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      setL08Speed(45);
+      setFloodLevel(12);
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

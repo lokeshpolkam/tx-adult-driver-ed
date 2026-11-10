@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Skid Recovery &amp; Countersteering Physics &mdash; Texas Adult Driver Ed (L05-T14)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Global Base Styles & Phone Touch Standards -->
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target {
+      min-width: 44px;
+      min-height: 44px;
+    }
+    /* Enforcement of minimum touch targets and flex baseline for hyperlinks */
+    a.touch-target, a {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+      align-items: center;
+      justify-content: center;
+    }
+    button.touch-target, button {
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.06); }
+    }
+    .animate-aura {
+      animation: pulseAura 2s ease-in-out infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4 overflow-x-hidden">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS (STICKY) -->
+    
+
+    <!-- 02. EDITORIAL HERO TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-surface-sub text-carbon border border-hairline px-2 py-0.5 rounded">MODULE 05</span>
+        <span class="bg-safety-light text-safety border border-safety/30 px-2 py-0.5 rounded">TOPIC 14 OF 18</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 20 MIN READ</span>
+        <span class="bg-neutral-100 text-slate border border-neutral-300 px-2 py-0.5 rounded">TDLR ADE-1317</span>
+      </div>
+
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Skid Recovery &amp; Countersteering Physics
+      </h2>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Master vehicular dynamics, weight transfer vectors, and kinetic recovery protocols for oversteer skids, understeer front plows, high-speed tire blowouts, shoulder drop-off edge recovery, and complete hydraulic brake failure under Texas Transportation Code &sect; 545.401 and &sect; 545.406.
+      </p>
+
+      <div class="pt-2 border-t border-hairline flex flex-wrap items-center gap-2 font-mono text-[10px] text-slate">
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-valid">verified</span>
+          TTC &sect; 545.401 (Reckless Driving Prevention)
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-safety">gavel</span>
+          TTC &sect; 545.406 (Coasting Prohibition)
+        </span>
+      </div>
+    </section>
+
+    <!-- 03. 3D DRIVING SIMULATION: COMPLETE UI SEPARATION (PHONE-FIRST 360px-430px) -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <!-- Tier 1: Scenario Header (Off & Above Viewport) -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-bold text-carbon uppercase tracking-wider">3D DRIVING SIMULATION // EMBEDDED WEBGL</span>
+        </div>
+        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-sub text-safety-deep border border-hairline">
+          TTC § 545.401 • ADE-1317
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Emergency Vehicle Control: Skids &amp; Tire Blowouts</h2>
+        <p class="text-xs text-slate mt-0.5">High-speed tire blowout yaw stabilization, countersteering into skid, and zero panic braking.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L05_T14_skids_and_blowouts.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">HIGHWAY CRUISE // ZERO BRAKES (0%) // 9-AND-3 GRIP</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Lawful Recovery</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Front Vs</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Hazard Demo</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY RULE 01 // POSITIVE CONTROL DUTY</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.401 &amp; NHTSA STANDARD</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Stay Completely Off the Brake Pedal on High-Speed Blowout</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            Under Texas Transportation Code § 545.401, operators must maintain positive vehicular control. When a tire blows at highway speed, slamming the brakes transfers weight forward, causing an instant, unrecoverable spinout. Hold a firm two-handed grip at 9-and-3, counter-steer smoothly into the yaw pull, let the engine coast down below 30 MPH, and steer to the shoulder.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">STABILIZATION PROTOCOL:</span>
+            <span id="sim-card-metric" class="text-valid font-bold">100% RECOVERY // SPINOUT PREVENTED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PEDAGOGICAL ARTICLE 1: OVERSTEER VS UNDERSTEER KINETICS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 01</span>
+        <span class="text-[10px] font-mono text-slate">ADHESION &amp; WEIGHT TRANSFER</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        The Biomechanics of Skid Recovery: Oversteer, Understeer &amp; Weight Transfer
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        A skid occurs when the cornering or braking demand placed on a tire exceeds the available friction force ($F_{friction} = \mu F_N$). Vehicle skids fall into two fundamental physical classifications:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-safety flex items-center justify-between">
+            <span>1. OVERSTEER (REAR SKID)</span>
+            <span>&alpha;_{rear} &gt; &alpha;_{front}</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            The rear tires break loose first and the rear of the car swings outward (sliding to the left or right). If the driver touches the brake, forward weight transfer unweights the rear tires, worsening the slip angle into a 360-degree flat spinout.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-amber-600 flex items-center justify-between">
+            <span>2. UNDERSTEER (FRONT PLOW)</span>
+            <span>&alpha;_{front} &gt; &alpha;_{rear}</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            The front tires lose traction and the vehicle pushes straight ahead into a turn, failing to respond to steering angle. Turning the steering wheel sharper worsens tire scrub; the driver must ease off the accelerator and unwind steering slightly.
+          </p>
+        </div>
+      </div>
+
+      <!-- The Golden Rules of Countersteering -->
+      <div class="p-3.5 rounded-xl bg-valid-light border border-valid/30 space-y-1.5 font-sans">
+        <div class="flex items-center gap-1.5 font-mono text-xs font-bold text-valid uppercase">
+          <span class="material-symbols-outlined text-sm">rotate_right</span>
+          THE 4-STEP OVERSTEER RECOVERY SEQUENCE (TEXAS DRIVER HANDBOOK)
+        </div>
+        <ol class="text-xs text-valid/90 list-decimal list-inside space-y-1 font-mono text-[11px]">
+          <li><strong>Zero Panic Braking:</strong> Never stomp on the service brake pedal.</li>
+          <li><strong>Ease Off Accelerator:</strong> Remove foot from the gas pedal to restore tire rotation.</li>
+          <li><strong>Steer in Skid Direction:</strong> If the rear end slides right, steer to the right. Align front wheels with the vehicle’s true momentum.</li>
+          <li><strong>De-Steer / Straighten:</strong> The moment the car begins pointing straight, smoothly straighten wheels to avoid secondary snap oversteer ("fishtailing").</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- 05. INTERACTIVE CAD ENGINE 01: SKID RECOVERY & COUNTERSTEERING -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>SKID KINETICS // TTC &sect; 545.401 &amp; &sect; 545.406</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Skid Recovery &amp; Countersteering Physics CAD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap vehicle chassis nodes or crisis modes to test rear-wheel oversteer countersteering, weight transfer, and panic brake lockup.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 220) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l14-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l14-asphalt-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1B221E" />
+              <stop offset="100%" stop-color="#121614" />
+            </linearGradient>
+            <radialGradient id="l14-cg-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.0" />
+            </radialGradient>
+          </defs>
+
+          <!-- Background Canvas Base -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="#0E1210" />
+
+          <!-- Road Surface (Wet Slick Pavement: Y: 20 to 184) -->
+          <rect x="0" y="20" width="340" height="164" fill="url(#l14-asphalt-grad)" stroke="#2D3A32" stroke-width="0.8" />
+          <line x1="0" y1="20" x2="340" y2="20" stroke="#FFFFFF" stroke-width="2" />
+          <line x1="0" y1="184" x2="340" y2="184" stroke="#FFFFFF" stroke-width="2" />
+          <line x1="0" y1="102" x2="340" y2="102" stroke="#FBBF24" stroke-width="1.8" stroke-dasharray="14 10" />
+
+          <!-- Tire Skid Arc Marks on Road Surface -->
+          <path id="l14-skid-mark-1" d="M 60,118 Q 110,132 170,128" fill="none" stroke="#000000" stroke-width="4" opacity="0.6" stroke-linecap="round" />
+          <path id="l14-skid-mark-2" d="M 60,138 Q 110,154 170,146" fill="none" stroke="#000000" stroke-width="4" opacity="0.6" stroke-linecap="round" />
+
+          <!-- Vehicle Travel Vector -->
+          <g id="l14-vector-travel" transform="translate(170, 102)" pointer-events="none">
+            <line x1="0" y1="0" x2="70" y2="0" stroke="#38BDF8" stroke-width="2" stroke-dasharray="4 2" />
+            <polygon points="74,0 64,-4 64,4" fill="#38BDF8" />
+            <text x="35" y="-6" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#38BDF8" text-anchor="middle">TRAVEL PATH</text>
+          </g>
+
+          <!-- Lateral Rear Skid Force Vector -->
+          <g id="l14-vector-skid" transform="translate(145, 126)" pointer-events="none">
+            <line x1="0" y1="0" x2="0" y2="30" stroke="#EF4444" stroke-width="2.5" />
+            <polygon points="0,34 -4,24 4,24" fill="#EF4444" />
+            <text x="6" y="22" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#EF4444">REAR SLIP (RIGHT)</text>
+          </g>
+
+          <!-- Front Wheels Countersteering Vector -->
+          <g id="l14-vector-steer" transform="translate(205, 90)" pointer-events="none">
+            <line x1="0" y1="0" x2="30" y2="12" stroke="#10B981" stroke-width="2.5" />
+            <polygon points="34,14 24,9 27,17" fill="#10B981" />
+            <text x="18" y="24" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#10B981">STEER INTO SKID</text>
+          </g>
+
+          <!-- CAR CHASSIS ENTITY -->
+          <g id="l14-car-entity" transform="translate(170, 102) rotate(22)">
+            <!-- Front Left Tire -->
+            <g transform="translate(28, -16) rotate(-22)">
+              <rect id="l14-tire-fl" x="-6" y="-3" width="12" height="6" rx="1.5" fill="#000000" stroke="#475569" stroke-width="0.8" />
+            </g>
+            <!-- Front Right Tire -->
+            <g transform="translate(28, 16) rotate(-22)">
+              <rect id="l14-tire-fr" x="-6" y="-3" width="12" height="6" rx="1.5" fill="#000000" stroke="#475569" stroke-width="0.8" />
+            </g>
+            <!-- Rear Left Tire -->
+            <g transform="translate(-28, -16)">
+              <rect x="-6" y="-3" width="12" height="6" rx="1.5" fill="#000000" stroke="#EF4444" stroke-width="0.8" />
+            </g>
+            <!-- Rear Right Tire -->
+            <g transform="translate(-28, 16)">
+              <rect x="-6" y="-3" width="12" height="6" rx="1.5" fill="#000000" stroke="#EF4444" stroke-width="0.8" />
+            </g>
+
+            <!-- Main Car Body Shell -->
+            <rect id="l14-car-body" x="-32" y="-18" width="64" height="36" rx="6" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5" pointer-events="none" />
+            <polygon points="-8,-14 16,-12 16,12 -8,14" fill="#7C2D12" pointer-events="none" />
+            <polygon points="-12,-12 -24,-10 -24,10 -12,12" fill="#7C2D12" pointer-events="none" />
+
+            <!-- Red Brake Lights -->
+            <rect id="l14-brake-l" x="-33" y="-15" width="3" height="6" fill="#EF4444" opacity="0" pointer-events="none" />
+            <rect id="l14-brake-r" x="-33" y="9" width="3" height="6" fill="#EF4444" opacity="0" pointer-events="none" />
+
+            <!-- Center of Gravity (CG) Marker -->
+            <circle cx="0" cy="0" r="5" fill="#F59E0B" stroke="#FFFFFF" stroke-width="1.2" pointer-events="none" />
+            <text x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#000000" text-anchor="middle" pointer-events="none">CG</text>
+
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL14Cad1Mode('oversteer')" aria-label="Skid Dynamics Vehicle Chassis Node" />
+          </g>
+
+          <!-- Interactive Hitboxes -->
+          <g id="l14-hit-oversteer" transform="translate(135, 132)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL14Cad1Mode('oversteer')" aria-label="Rear Oversteer Vector Node" />
+          </g>
+          <g id="l14-hit-counter" transform="translate(205, 85)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL14Cad1Mode('oversteer')" aria-label="Front Wheel Countersteering Node" />
+          </g>
+
+          <!-- Bottom SVG Status Bar -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l14-cad1-dot" cx="10" cy="9" r="3.5" fill="#10B981" />
+            <text id="l14-cad1-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              RECOVERY PROTOCOL: EASE OFF GAS // STEER IN DIRECTION OF REAR SKID // NO BRAKE
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l14-btn-1" onclick="setL14Cad1Mode('oversteer')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Oversteer Skid</span>
+          <span class="text-[9px] text-safety-deep font-normal">Countersteer</span>
+        </button>
+        <button id="l14-btn-2" onclick="setL14Cad1Mode('spinout')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Panic Brake</span>
+          <span class="text-[9px] text-slate font-normal">360° Spinout</span>
+        </button>
+        <button id="l14-btn-3" onclick="setL14Cad1Mode('understeer')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Understeer</span>
+          <span class="text-[9px] text-slate font-normal">Front Plow Push</span>
+        </button>
+        <button id="l14-btn-4" onclick="setL14Cad1Mode('brakefailure')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Brake Failure</span>
+          <span class="text-[9px] text-slate font-normal">Downshift &amp; Pump</span>
+        </button>
+      </div>
+
+      <!-- Live Telemetry HUD -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Yaw Slip Angle</span>
+          <span id="l14-hud-yaw" class="text-xs font-bold text-safety">+22° REAR RIGHT</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Wheel Friction (&mu;)</span>
+          <span id="l14-hud-fric" class="text-xs font-bold text-valid">&mu; = 0.28 (SLIDING)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Throttle / Brake</span>
+          <span id="l14-hud-pedal" class="text-xs font-bold text-valid">ZERO BRAKE // LIFT</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Mandate</span>
+          <span id="l14-hud-cite" class="text-xs font-bold text-valid">TTC § 545.401</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Reactive Explanation Card -->
+      <div id="l14-cad1-card" class="bg-surface-sub border-l-4 border-valid p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l14-card-tag" class="text-[10px] font-mono font-bold text-valid uppercase">OVERSTEER COUNTERSTEERING PROTOCOL</span>
+          <span id="l14-card-cite" class="text-[10px] font-mono text-slate">TTC § 545.401 &amp; TDLR ADE-1317</span>
+        </div>
+        <h3 id="l14-card-title" class="font-sans font-bold text-sm text-carbon">Steer in the Direction of the Rear Skid &amp; Avoid Panic Braking</h3>
+        <p id="l14-card-desc" class="text-xs text-slate leading-relaxed">
+          When rear tires lose static adhesion and the rear end slides right (oversteer), immediately take your foot off the accelerator. Do NOT touch the brake pedal; applying brakes shifts vehicle weight forward, unweighting the already slipping rear axle and triggering an uncontrollable 360-degree flat spin. Steer smoothly to the right (into the direction of the skid) to align the front wheels with the vehicle's kinetic momentum vector, then straighten smoothly as adhesion recovers.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. PEDAGOGICAL ARTICLE 2: BLOWOUTS & SHOULDER DROP-OFFS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 02</span>
+        <span class="text-[10px] font-mono text-slate">CRISIS RECOVERY KINETICS</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        High-Speed Tire Blowouts &amp; Pavement Edge Drop-Off Physics
+      </h3>
+
+      <div class="space-y-2 text-xs text-slate leading-relaxed">
+        <p>
+          Two of the most frequent mechanical crises on Texas rural highways involve asymmetric traction loss: high-speed tire blowouts and low shoulder pavement drop-offs.
+        </p>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+          <div class="font-mono text-xs font-bold text-hazard uppercase">1. THE KINETICS OF HIGH-SPEED BLOWOUTS:</div>
+          <p class="text-slate leading-relaxed">
+            When a front tire suffers a catastrophic blowout at 65 MPH, the deflated rubber creates an immediate asymmetric drag torque ($850\text{ N}\cdot\text{m}$) that violently pulls the steering wheel toward the blown tire. If the driver panic-brakes, dynamic forward weight transfer loads the compromised wheel rim, digging it into the asphalt and causing a violent tripped rollover.
+          </p>
+          <div class="font-mono text-[11px] text-carbon font-bold">
+            PROTOCOL: Maintain rigid 9-and-3 two-handed grip &bull; Counter the yaw pull &bull; Ease off gas &bull; Do NOT brake until &lt;25 MPH.
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+          <div class="font-mono text-xs font-bold text-safety uppercase">2. THE SLINGSHOT DANGER OF SHOULDER DROP-OFFS:</div>
+          <p class="text-slate leading-relaxed">
+            Many Texas rural highways lack paved shoulders, leaving a 2-to-4 inch vertical drop-off between the asphalt edge and the dirt shoulder. If your right wheels drop off the pavement at speed, <strong>never jerk the wheel back left</strong>. Jerking the wheel compresses the tire sidewall against the vertical lip; when the tire suddenly grabs the asphalt, the car "slingshots" diagonally across all lanes into oncoming traffic.
+          </p>
+          <div class="font-mono text-[11px] text-carbon font-bold">
+            PROTOCOL: Straddle the edge &bull; Ease off throttle &bull; Decelerate smoothly to &lt;20 MPH &bull; Check traffic &bull; Quarter-turn (90&deg;) re-entry.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 07. INTERACTIVE CAD ENGINE 02: BLOWOUT DYNAMICS & DROP-OFF VECTOR -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>CRISIS VECTORS // BLOWOUT &amp; DROP-OFF</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          CRISIS VECTOR
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">High-Speed Blowout Dynamics &amp; Off-Road Drop-Off Recovery</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap crisis scenarios to compare asymmetric tire drag physics with pavement edge drop-off straddling and safe quarter-turn remounts.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 180) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l14-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l14-pavement-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1E2622" />
+              <stop offset="100%" stop-color="#141A17" />
+            </linearGradient>
+            <linearGradient id="l14-rut-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2D1F17" />
+              <stop offset="100%" stop-color="#1A120D" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Base -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="#101412" />
+
+          <!-- Paved Highway Surface -->
+          <rect x="0" y="15" width="340" height="75" fill="url(#l14-pavement-grad)" />
+          <line x1="0" y1="15" x2="340" y2="15" stroke="#FFFFFF" stroke-width="1.8" />
+          <text x="12" y="28" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#94A3B8">PAVED ROADWAY (ASPHALT SURFACE)</text>
+
+          <!-- 2–4 Inch Vertical Pavement Drop-Off Lip -->
+          <line x1="0" y1="90" x2="340" y2="90" stroke="#FFFFFF" stroke-width="2.5" />
+          <line x1="0" y1="92" x2="340" y2="92" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4 2" />
+
+          <!-- Unpaved Dirt / Gravel Shoulder -->
+          <rect x="0" y="93" width="340" height="55" fill="url(#l14-rut-grad)" />
+          <text x="12" y="105" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#D97706">2–4" LOW SHOULDER DROP-OFF (RUT DEPTH)</text>
+
+          <!-- Trajectory A: Dangerous High-Speed Jerk -->
+          <g id="l14-traj-panic" opacity="0.2">
+            <path d="M 60,110 Q 110,105 140,88 L 220,25" fill="none" stroke="#EF4444" stroke-width="3" stroke-dasharray="4 3" />
+            <polygon points="224,22 212,25 218,32" fill="#EF4444" />
+            <text x="180" y="45" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#EF4444">SLINGSHOT ROLLOVER</text>
+          </g>
+
+          <!-- Trajectory B: Safe Edge Straddle & Deliberate Quarter-Turn Remount -->
+          <g id="l14-traj-safe">
+            <line x1="40" y1="110" x2="180" y2="110" stroke="#10B981" stroke-width="2.5" stroke-dasharray="6 3" />
+            <path d="M 180,110 Q 210,110 230,85 L 280,60" fill="none" stroke="#10B981" stroke-width="2.5" />
+            <polygon points="284,58 272,60 277,67" fill="#10B981" />
+            <text x="110" y="122" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#34D399">1. STRADDLE &amp; SLOW &lt;20 MPH</text>
+            <text x="240" y="52" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#34D399">2. 1/4 TURN REMOUNT</text>
+          </g>
+
+          <!-- Vehicle Entity Straddling Lip -->
+          <g id="l14-drop-car" transform="translate(80, 90)">
+            <rect x="-14" y="-8" width="28" height="16" rx="2.5" fill="#E87522" stroke="#FFFFFF" stroke-width="1" />
+            <rect x="-10" y="-10" width="6" height="3" fill="#000000" />
+            <rect x="4" y="-10" width="6" height="3" fill="#000000" />
+            <rect x="-10" y="7" width="6" height="3" fill="#D97706" />
+            <rect x="4" y="7" width="6" height="3" fill="#D97706" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL14Cad2Scenario('dropoff')" aria-label="Drop-Off Straddle Car Node" />
+          </g>
+
+          <!-- Blowout Asymmetric Drag Callout -->
+          <g id="l14-blowout-callout" transform="translate(240, 36)">
+            <rect x="-40" y="-14" width="80" height="28" rx="3" fill="#141916" stroke="#EF4444" stroke-width="0.8" />
+            <text x="0" y="-4" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#EF4444" text-anchor="middle">BLOWOUT DRAG VECTOR</text>
+            <text x="0" y="6" font-family="'JetBrains Mono', monospace" font-size="4" fill="#FCA5A5" text-anchor="middle">HOLD FIRM 9 &amp; 3 GRIP</text>
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL14Cad2Scenario('blowout')" aria-label="Blowout Drag Vector Node" />
+          </g>
+
+          <!-- Status Readout Pill -->
+          <g transform="translate(20, 152)" pointer-events="none">
+            <rect x="0" y="0" width="300" height="20" rx="3" fill="#090D0B" stroke="#1F2937" stroke-width="0.8" />
+            <circle id="l14-cad2-dot" cx="12" cy="10" r="3.5" fill="#10B981" />
+            <text id="l14-cad2-status" x="22" y="13.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#10B981">
+              RECOVERY STATUS: STRADDLE SHOULDER LIP // EASE SPEED UNDER 20 MPH
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Scenario Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="l14-pbtn-1" onclick="setL14Cad2Scenario('blowout')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>Tire Blowout</span>
+          <span class="text-[9px] text-slate font-normal">Asymmetric Drag</span>
+        </button>
+        <button id="l14-pbtn-2" onclick="setL14Cad2Scenario('dropoff')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>Shoulder Straddle</span>
+          <span class="text-[9px] text-safety-deep font-normal">Slow &lt;20 MPH</span>
+        </button>
+        <button id="l14-pbtn-3" onclick="setL14Cad2Scenario('remount')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>1/4 Turn Remount</span>
+          <span class="text-[9px] text-slate font-normal">Deliberate Entry</span>
+        </button>
+      </div>
+
+      <!-- Tactical HUD Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Grip Mandate</span>
+          <span id="l14-hud2-grip" class="text-xs font-bold text-safety">RIGID 9 &amp; 3 GRIP</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Brake Protocol</span>
+          <span id="l14-hud2-brake" class="text-xs font-bold text-valid">ZERO PANIC BRAKE</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Re-Entry Speed</span>
+          <span id="l14-hud2-speed" class="text-xs font-bold text-carbon">&lt;20 MPH CEILING</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Steering Input</span>
+          <span id="l14-hud2-steer" class="text-xs font-bold text-valid">QUARTER TURN (90°)</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l14-cad2-card" class="bg-surface-sub border-l-4 border-safety p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l14-card2-tag" class="text-[10px] font-mono font-bold text-safety uppercase">OFF-ROAD SHOULDER STRADDLE</span>
+          <span id="l14-card2-cite" class="text-[10px] font-mono text-slate">TX DRIVER HANDBOOK CH. 5</span>
+        </div>
+        <h3 id="l14-card2-title" class="font-sans font-bold text-sm text-carbon">Never Jerk the Wheel to Climb a Pavement Rut</h3>
+        <p id="l14-card2-desc" class="text-xs text-slate leading-relaxed">
+          When right-side tires drop off an asphalt edge into a 2-to-4 inch shoulder rut, panicking and jerking the steering wheel hard left causes the tire sidewall to scrub against the pavement lip. When the tire suddenly bites the asphalt, the vehicle slingshots violently across the road into oncoming lanes. The mandatory protocol: maintain a firm two-handed grip, straddle the edge, ease off the accelerator, decelerate smoothly to under 20 MPH, check traffic, and make a deliberate quarter-turn to climb back onto the pavement.
+        </p>
+      </div>
+    </section>
+
+    <!-- 08. PEDAGOGICAL ARTICLE 3: BRAKE FAILURE & THROTTLE EMERGENCIES -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 03</span>
+        <span class="text-[10px] font-mono text-slate">HYDRAULIC FAILURE PROTOCOL</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        Total Hydraulic Brake Failure &amp; Transmission Downshifting
+      </h3>
+
+      <div class="space-y-2 text-xs text-slate leading-relaxed">
+        <p>
+          Modern passenger vehicles feature dual-diagonal split hydraulic master cylinder braking systems. However, total line rupture, extreme fluid overheating (vapor lock), or master cylinder failure can cause the pedal to drop completely to the floorboards with zero braking resistance.
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2 text-xs">
+        <div class="font-mono text-xs font-bold text-carbon">TOTAL BRAKE LOSS EMERGENCY ESCALATION:</div>
+        <ol class="text-slate list-decimal list-inside space-y-1.5 leading-relaxed font-sans">
+          <li><strong>Rapidly Pump the Pedal:</strong> Pump the brake pedal 3 to 4 times hard and fast. In cases of minor line leaks or vapor lock, rapid pumping rebuilds residual hydraulic line pressure.</li>
+          <li><strong>Downshift Transmission:</strong> Shift automatic or manual transmissions down to 2nd, then 1st/Low gear. Engine compression braking significantly slows vehicle velocity without using friction brakes.</li>
+          <li><strong>Progressively Apply Parking Brake:</strong> Apply the emergency handbrake or foot pedal gradually. <em>Hold the manual release button depressed</em> so you can instantly release the brake if the rear tires lock up into a skid.</li>
+          <li><strong>Rub the Curb or Embankment:</strong> As a final resort at low speeds, sideswipe a dirt berm, guardrail, or high curb to scrub off the remaining kinetic velocity.</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- 09. PEDAGOGICAL ARTICLE 4: STEEP HILLS & COASTING PROHIBITIONS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 04</span>
+        <span class="text-[10px] font-mono text-slate">STATUTORY TRANSMISSION MANDATES</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        Texas Transportation Code &sect; 545.406: Coasting Prohibited on Downgrades
+      </h3>
+
+      <div class="space-y-2 text-xs text-slate leading-relaxed">
+        <p>
+          Navigating steep hills and long highway descents (such as in the Texas Hill Country or West Texas Davis Mountains) requires continuous engine braking:
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-hazard-light border border-hazard/30 space-y-1.5 text-xs">
+        <div class="flex items-center gap-1.5 font-mono text-xs font-bold text-hazard">
+          <span class="material-symbols-outlined text-sm">gavel</span>
+          TTC &sect; 545.406 STATUTORY CODIFICATION:
+        </div>
+        <p class="text-hazard italic leading-relaxed">
+          "(a) An operator moving on a downgrade may not coast with the transmission of the vehicle in neutral.<br>
+          (b) An operator of a truck, tractor, or bus moving on a downgrade may not coast with the clutch disengaged."
+        </p>
+        <p class="text-[11px] text-hazard/90 font-sans pt-1">
+          Coasting in neutral or holding the clutch down disengages the vehicle drivetrain from the engine. Gravity accelerates the car downward, requiring excessive brake pedal application. This induces catastrophic <strong>brake fade</strong> (where friction heat boils brake fluid and glazes brake pads to zero stopping power). Always shift into a lower gear before beginning a steep descent.
+        </p>
+      </div>
+    </article>
+
+    <!-- 10. INTERACTIVE KNOWLEDGE EVALUATION (3 SCENARIO MCQS) -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-sm text-valid">quiz</span>
+          <span>STATUTORY KNOWLEDGE EVALUATION</span>
+        </div>
+        <span class="font-mono text-[10px] text-valid bg-valid-light px-2 py-0.5 rounded border border-valid/30 font-bold">
+          3 SCENARIOS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T14 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <div class="space-y-1">
+        <h3 class="font-sans font-bold text-base text-carbon">Emergency Vehicle Control Examination</h3>
+        <p class="text-xs text-slate">Answer all 3 state examination scenarios. Instant feedback cites exact Texas statutes.</p>
+      </div>
+
+      <!-- QUESTION 1 (Option B strictly correct) -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 01 &bull; OVERSTEER COUNTERSTEER</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          When the rear wheels of a vehicle lose traction and break into an oversteer skid toward the right side on a slick highway, what is the correct countersteering recovery protocol?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Slam down hard on the brake pedal and jerk the steering wheel sharply to the left</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Ease off the accelerator smoothly, avoid slamming the brakes, and steer gently to the right in the direction of the skid</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Accelerate aggressively to transfer weight to the rear and engage the emergency handbrake</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Shift the transmission into reverse and hold the steering wheel locked dead center</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 02 &bull; TIRE BLOWOUT</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          If a tire experiences a catastrophic explosive blowout at 65 MPH on a Texas highway, what is the single most critical driver action to prevent a vehicle rollover?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Immediately stomp the emergency brake pedal to stop before the rim contacts pavement</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Grip the steering wheel firmly with both hands, counter the steering pull, ease off the gas, and do NOT brake abruptly</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Jerk the steering wheel toward the grass ditch to scrub off speed against the dirt bank</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Shift the automatic transmission immediately into Park to lock the driveline</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 03 &bull; SHOULDER DROP-OFF</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          If your right wheels drop off the paved roadway onto a low dirt or gravel shoulder, what is the proper procedure for safely returning to the pavement?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Immediately slam on the brakes and jerk the wheel hard to the left to climb the edge</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Accelerate to full power and swing the vehicle back and forth to hop over the lip</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Hold the wheel firmly straight, ease off the gas, slow down, check traffic, and steer back onto the pavement with a smooth quarter turn</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Pull the parking brake handle while countersteering into oncoming traffic</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. NAVIGATION FOOTER -->
+    <footer class="pt-4 pb-8 space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <a href="L05-T13.html" class="touch-target min-h-[48px] px-4 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-xs" style="display: inline-flex; min-height: 48px; height: 48px; align-items: center; justify-content: center;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>TOPIC 13</span>
+        </a>
+        <a href="L05-T15.html" class="touch-target min-h-[48px] px-5 py-2.5 rounded-xl border-2 border-safety bg-safety text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-xs hover:bg-safety-deep" style="display: inline-flex; min-height: 48px; height: 48px; align-items: center; justify-content: center;">
+          <span>TOPIC 15: WINTER DRIVING</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 14
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE -->
+  <script>
+    // ==============================================================================
+    // 1. MCQ SCORING ENGINE (QUESTION 1 OPTION [ B ] STRICTLY CORRECT)
+    // ==============================================================================
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+                const TOPIC_ID = 'L05-T14';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TEXAS DRIVER HANDBOOK CH. 5 (COUNTERSTEERING DOCTRINE)",
+            "statutoryRationale": "Texas Driver Handbook Ch. 5 mandates steering into the skid (in the direction the rear end is sliding). Slamming brakes locks tires and eliminates directional steering. Easing off the gas restores wheel rotation and tire grip; countersteering aligns front wheels with the vehicle's actual momentum vector."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TDLR ADE-1317 & TEXAS DRIVER HANDBOOK CH. 5",
+            "statutoryRationale": "A high-speed blowout produces violent asymmetric drag pulling the car toward the deflated tire. Stomping the brakes locks wheels and causes a catastrophic rollover or spin. Drivers must grip the wheel firmly to counter the pull, coast down to safe speed, and brake gently only after stabilized."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TDLR ADE-1317 & TEXAS DRIVER HANDBOOK CH. 5",
+            "statutoryRationale": "Jerking the wheel left while traveling at speed causes the tire to scrub against the pavement lip until it suddenly grabs, catapulting ('slingshotting') the vehicle across into opposing lanes. The driver must maintain a straight path, slow down safely, and re-enter smoothly."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ==============================================================================
+    // 2. PRIMARY CAD STATE ENGINE (L05-T14)
+    // ==============================================================================
+    const l14Cad1State = {
+      mode: 'oversteer'
+    };
+
+    const l14Cad1Data = {
+      oversteer: {
+        yaw: '+22° REAR RIGHT',
+        fric: 'μ = 0.28 (SLIDING)',
+        pedal: 'ZERO BRAKE // LIFT',
+        cite: 'TTC § 545.401',
+        dot: '#10B981',
+        status: 'RECOVERY PROTOCOL: EASE OFF GAS // STEER IN DIRECTION OF REAR SKID // NO BRAKE',
+        tag: 'OVERSTEER COUNTERSTEERING PROTOCOL',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Steer in the Direction of the Rear Skid & Avoid Panic Braking',
+        desc: 'When rear tires lose static adhesion and the rear end slides right (oversteer), immediately take your foot off the accelerator. Do NOT touch the brake pedal; applying brakes shifts vehicle weight forward, unweighting the already slipping rear axle and triggering an uncontrollable 360-degree flat spin. Steer smoothly to the right (into the direction of the skid) to align the front wheels with the vehicle\'s kinetic momentum vector, then straighten smoothly as adhesion recovers.',
+        carTransform: 'translate(170, 102) rotate(22)',
+        carBodyFill: '#E87522',
+        tireAngle: '-22',
+        brakeOpacity: '0',
+        skidOpacity: '0.6',
+        vectorSkidOpacity: '1',
+        vectorSteerOpacity: '1'
+      },
+      spinout: {
+        yaw: '195° FLAT SPIN',
+        fric: 'μ = 0.12 (LOCKED)',
+        pedal: 'BRAKES LOCKED ⚠',
+        cite: 'CRITICAL FAILURE',
+        dot: '#EF4444',
+        status: 'CRITICAL FAILURE: SLAMMING BRAKES UNWEIGHTED REAR AXLE // 360° SPINOUT',
+        tag: 'PANIC BRAKE LOCKUP FAILURE',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Panic Braking Unloads the Rear Axle & Induces Complete Spinout',
+        desc: 'Slamming on the brakes during a skid is the most common catastrophic driver mistake. Dynamic forward weight transfer completely unloads the rear tires, eliminating what little friction remained. The car enters a violent 180-to-360 degree spinout, sliding backward into oncoming traffic lanes. Always release the brake pedal to allow tires to resume rolling.',
+        carTransform: 'translate(170, 102) rotate(135)',
+        carBodyFill: '#BA1A1A',
+        tireAngle: '0',
+        brakeOpacity: '1',
+        skidOpacity: '0.9',
+        vectorSkidOpacity: '0.2',
+        vectorSteerOpacity: '0'
+      },
+      understeer: {
+        yaw: '0° FRONT PLOW',
+        fric: 'μ = 0.22 (FRONT LOSS)',
+        pedal: 'EASE OFF THROTTLE',
+        cite: 'TDLR ADE-1317',
+        dot: '#F59E0B',
+        status: 'UNDERSTEER: FRONT WHEELS PUSHING STRAIGHT // DECREASE STEERING ANGLE',
+        tag: 'FRONT-WHEEL UNDERSTEER RECOVERY',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Front Wheels Plow Straight: Ease Throttle & Straighten Slightly',
+        desc: 'Understeer occurs when front tires exceed their adhesion limit and the vehicle plows straight forward regardless of steering input. Cranking the steering wheel sharper only worsens tire scrubbing. The correct reaction: ease off the accelerator smoothly and slightly decrease steering angle until front tire traction re-engages.',
+        carTransform: 'translate(170, 102) rotate(4)',
+        carBodyFill: '#D97706',
+        tireAngle: '-35',
+        brakeOpacity: '0',
+        skidOpacity: '0.3',
+        vectorSkidOpacity: '0.1',
+        vectorSteerOpacity: '0.4'
+      },
+      brakefailure: {
+        yaw: 'STABLE DESCENT',
+        fric: 'μ = 0.75 (DRY ROAD)',
+        pedal: 'PUMP + DOWNSHIFT L',
+        cite: 'TTC § 545.406',
+        dot: '#0284C7',
+        status: 'BRAKE LOSS: RAPIDLY PUMP PEDAL // DOWNSHIFT TO LOWER GEAR // PARKING BRAKE',
+        tag: 'HYDRAULIC BRAKE FAILURE PROTOCOL',
+        tagClass: 'text-sky-500',
+        borderClass: 'border-sky-500',
+        title: 'Rapid Master Cylinder Pumping & Drivetrain Compression Braking',
+        desc: 'If the brake pedal sinks completely to the floorboards, rapidly pump the pedal 3 to 4 times to build residual hydraulic pressure. Shift immediately into lower gear (2nd then 1st/Low) to utilize engine compression braking. Gently apply the manual parking brake while holding the release button to prevent rear-wheel lockup. Coasting in neutral on downgrades is illegal under TTC § 545.406.',
+        carTransform: 'translate(170, 102) rotate(0)',
+        carBodyFill: '#0284C7',
+        tireAngle: '0',
+        brakeOpacity: '0',
+        skidOpacity: '0.1',
+        vectorSkidOpacity: '0',
+        vectorSteerOpacity: '0'
+      }
+    };
+
+    function setL14Cad1Mode(mode) {
+      l14Cad1State.mode = mode;
+      const d = l14Cad1Data[mode];
+
+      ['oversteer', 'spinout', 'understeer', 'brakefailure'].forEach((m, idx) => {
+        const btn = document.getElementById(`l14-btn-${idx + 1}`);
+        if (btn) {
+          if (m === mode) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l14-cad1-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l14-cad1-status');
+      if (st) st.textContent = d.status;
+
+      const car = document.getElementById('l14-car-entity');
+      if (car) car.setAttribute('transform', d.carTransform);
+      const body = document.getElementById('l14-car-body');
+      if (body) body.setAttribute('fill', d.carBodyFill);
+
+      const bl = document.getElementById('l14-brake-l');
+      if (bl) bl.setAttribute('opacity', d.brakeOpacity);
+      const br = document.getElementById('l14-brake-r');
+      if (br) br.setAttribute('opacity', d.brakeOpacity);
+
+      const skid1 = document.getElementById('l14-skid-mark-1');
+      if (skid1) skid1.setAttribute('opacity', d.skidOpacity);
+      const skid2 = document.getElementById('l14-skid-mark-2');
+      if (skid2) skid2.setAttribute('opacity', d.skidOpacity);
+
+      const vecSkid = document.getElementById('l14-vector-skid');
+      if (vecSkid) vecSkid.setAttribute('opacity', d.vectorSkidOpacity);
+      const vecSteer = document.getElementById('l14-vector-steer');
+      if (vecSteer) vecSteer.setAttribute('opacity', d.vectorSteerOpacity);
+
+      document.getElementById('l14-hud-yaw').textContent = d.yaw;
+      document.getElementById('l14-hud-fric').textContent = d.fric;
+      document.getElementById('l14-hud-pedal').textContent = d.pedal;
+      document.getElementById('l14-hud-cite').textContent = d.cite;
+
+      const card = document.getElementById('l14-cad1-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l14-card-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l14-card-title').textContent = d.title;
+      document.getElementById('l14-card-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. SECONDARY CAD STATE ENGINE (L05-T14)
+    // ==============================================================================
+    const l14Cad2State = {
+      scenario: 'dropoff'
+    };
+
+    const l14Cad2Data = {
+      blowout: {
+        grip: 'RIGID 9 & 3 GRIP',
+        brake: 'ZERO BRAKE // COAST',
+        speed: 'BLEED TO 25 MPH',
+        steer: 'HOLD STRAIGHT LINE',
+        dot: '#EF4444',
+        status: 'BLOWOUT PROTOCOL: COUNTER ASYMMETRIC DRAG // NEVER SLAM BRAKES AT HIGH SPEED',
+        tag: 'HIGH-SPEED TIRE BLOWOUT STABILIZATION',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Asymmetric Drag Yank: Grip Tightly & Coast Smoothly',
+        desc: 'When a tire blows out at 65 MPH, the blown tire casing creates violent asymmetric drag, instantly yanking the vehicle toward the compromised corner. Stomping on the brakes throws dynamic weight directly onto the blown wheel rim, causing it to dig into the pavement and trigger an immediate catastrophic rollover. Maintain a rigid 9-and-3 two-handed grip, keep the car tracking straight, ease off the accelerator, and only apply gentle brakes once velocity drops below 25 MPH.',
+        panicOpacity: '0.1',
+        safeOpacity: '0.3',
+        carTransform: 'translate(80, 50)'
+      },
+      dropoff: {
+        grip: 'FIRM TWO-HANDED',
+        brake: 'ZERO HARD BRAKE',
+        speed: '<20 MPH CEILING',
+        steer: 'STRADDLE EDGE',
+        dot: '#10B981',
+        status: 'RECOVERY STATUS: STRADDLE SHOULDER LIP // EASE SPEED UNDER 20 MPH',
+        tag: 'OFF-ROAD SHOULDER STRADDLE',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Never Jerk the Wheel to Climb a Pavement Rut',
+        desc: 'When right-side tires drop off an asphalt edge into a 2-to-4 inch shoulder rut, panicking and jerking the steering wheel hard left causes the tire sidewall to scrub against the pavement lip. When the tire suddenly bites the asphalt, the vehicle slingshots violently across the road into oncoming lanes. The mandatory protocol: maintain a firm two-handed grip, straddle the edge, ease off the accelerator, decelerate smoothly to under 20 MPH, check traffic, and make a deliberate quarter-turn to climb back onto the pavement.',
+        panicOpacity: '0.15',
+        safeOpacity: '1.0',
+        carTransform: 'translate(80, 90)'
+      },
+      remount: {
+        grip: 'CONTROLLED INPUT',
+        brake: 'RELEASED',
+        speed: '15–20 MPH ENTRY',
+        steer: 'QUARTER TURN (90°)',
+        dot: '#10B981',
+        status: 'RE-ENTRY EXECUTION: DELIBERATE 1/4 TURN MOUNT // STRAIGHTEN INSTANTLY',
+        tag: 'CONTROLLED LIP RE-ENTRY',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Deliberate Quarter-Turn Re-Entry and Immediate Straightening',
+        desc: 'Once vehicle velocity is bled down under 20 MPH and opposing traffic is clear, turn the steering wheel approximately one-quarter turn (90 degrees) to mount the pavement lip cleanly. The moment both front wheels are securely on the paved roadbed, immediately countersteer straight to cancel lateral inertia and stay in your marked lane.',
+        panicOpacity: '0.05',
+        safeOpacity: '1.0',
+        carTransform: 'translate(230, 85) rotate(-20)'
+      }
+    };
+
+    function setL14Cad2Scenario(scenario) {
+      l14Cad2State.scenario = scenario;
+      const d = l14Cad2Data[scenario];
+
+      ['blowout', 'dropoff', 'remount'].forEach((s, idx) => {
+        const btn = document.getElementById(`l14-pbtn-${idx + 1}`);
+        if (btn) {
+          if (s === scenario) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l14-cad2-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l14-cad2-status');
+      if (st) {
+        st.textContent = d.status;
+        st.setAttribute('fill', d.dot);
+      }
+
+      const pTraj = document.getElementById('l14-traj-panic');
+      if (pTraj) pTraj.setAttribute('opacity', d.panicOpacity);
+      const sTraj = document.getElementById('l14-traj-safe');
+      if (sTraj) sTraj.setAttribute('opacity', d.safeOpacity);
+
+      const car = document.getElementById('l14-drop-car');
+      if (car) car.setAttribute('transform', d.carTransform);
+
+      document.getElementById('l14-hud2-grip').textContent = d.grip;
+      document.getElementById('l14-hud2-brake').textContent = d.brake;
+      document.getElementById('l14-hud2-speed').textContent = d.speed;
+      document.getElementById('l14-hud2-steer').textContent = d.steer;
+
+      const card = document.getElementById('l14-cad2-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l14-card2-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l14-card2-title').textContent = d.title;
+      document.getElementById('l14-card2-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. 3D WEBGL SIMULATION CONTROLLER (L05-T14)
+    // ==============================================================================
+    const simScenarios_L05T14 = {
+      1: {
+        badge: "STATUTORY RULE 01 // POSITIVE CONTROL DUTY",
+        statute: "TTC § 545.401 & NHTSA STANDARD",
+        title: "Stay Completely Off the Brake Pedal on High-Speed Blowout",
+        desc: "Under Texas Transportation Code § 545.401, operators must maintain positive vehicular control. When a tire blows at highway speed, slamming the brakes transfers weight forward, causing an instant, unrecoverable spinout. Hold a firm two-handed grip at 9-and-3, counter-steer smoothly into the yaw pull, let the engine coast down below 30 MPH, and steer to the shoulder.",
+        metric: "100% RECOVERY // SPINOUT PREVENTED",
+        phase: "HIGHWAY CRUISE // ZERO BRAKES (0%) // 9-AND-3 GRIP"
+      },
+      2: {
+        badge: "STATUTORY COMPARISON 02 // FRONT VS REAR DYNAMICS",
+        statute: "TTC § 545.401 & SAE DYNAMICS",
+        title: "Front Pull Drag vs Rear Oversteer Fishtailing",
+        desc: "Front blowout creates violent steering wheel torque requiring forceful arm grip to keep straight. Rear blowout induces yaw fishtailing and oversteer requiring immediate counter-steering into the direction of the skid without touching brakes.",
+        metric: "FRONT/REAR COMPLIANCE // STABILIZED",
+        phase: "FRONT VS REAR DYNAMICS COMPARISON"
+      },
+      3: {
+        badge: "HAZARD DEMO 03 // PANIC BRAKING DISASTER",
+        statute: "TTC § 545.401 RECKLESS LOSS OF CONTROL",
+        title: "Panic Stomp Unweights Blown Tire Causing 540° Spinout",
+        desc: "Stomping on the brake pedal unweights the rear tires and turns a manageable blowout into a fatal 540° spin across multi-lane traffic into safety barriers. Never brake on sudden tire deflation!",
+        metric: "CRITICAL FAILURE // 540° MULTI-LANE SPINOUT",
+        phase: "HAZARD DEMO: PANIC BRAKE SPINOUT DISASTER"
+      }
+    };
+
+    function selectSimScenario(scId) {
+      const data = simScenarios_L05T14[scId];
+      if (!data) return;
+      const bEl = document.getElementById('sim-card-badge');
+      const sEl = document.getElementById('sim-card-statute');
+      const tEl = document.getElementById('sim-card-title');
+      const dEl = document.getElementById('sim-card-desc');
+      const mEl = document.getElementById('sim-card-metric');
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (bEl) bEl.textContent = data.badge;
+      if (sEl) sEl.textContent = data.statute;
+      if (tEl) tEl.textContent = data.title;
+      if (dEl) dEl.textContent = data.desc;
+      if (mEl) mEl.textContent = data.metric;
+      if (pEl) pEl.textContent = data.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+      dispatchSimAction('setScenario', { scenario: scId });
+    }
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', function(e) {
+      if (!e.data || e.data.event !== 'telemetry') return;
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (pEl && e.data.phase) {
+        pEl.textContent = e.data.phase;
+      }
+    });
+
+    // ==============================================================================
+    // 4. DOM INITIALIZATION
+    // ==============================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      setL14Cad1Mode('oversteer');
+      setL14Cad2Scenario('dropoff');
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

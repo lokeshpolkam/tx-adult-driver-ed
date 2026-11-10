@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Speed Dynamics &amp; Street Racing — Texas Adult Driver Ed (L08-T05)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"], input[type="radio"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .overflow-x-auto {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+    svg {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    select, input, button, textarea {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      min-height: 44px !important;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / PEDAGOGICAL INTRODUCTION CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          MODULE 8 // PHYSICAL DYNAMICS &amp; STATUTES
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 05 OF 10</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Speed Smear Optic Compression &amp; Kinetic Energy Physics
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          High speed degrades human peripheral vision through optical compression ("speed smear") while kinetic impact energy multiplies quadratically ($KE = ½mv²$). Master stopping physics, following intervals, and Texas street racing felony statutes under TTC § 545.420.
+        </p>
+      </div>
+
+      <!-- Physics & Statute Stat Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Optic Field at 80 MPH</div>
+          <div class="font-bold text-hazard text-sm">~40° Tunnel Vision</div>
+          <div class="text-[9px] text-slate mt-0.5">Narrowed from 180° Base</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Street Racing Penalties</div>
+          <div class="font-bold text-hazard text-sm">Class B to 2nd Deg Fel</div>
+          <div class="text-[9px] text-slate mt-0.5">Up to 20 Years TDCJ Prison</div>
+        </div>
+      </div>
+
+      <!-- Statutory Mandate Callout -->
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/70 border border-orange-200 text-orange-950 text-xs">
+        <span class="material-symbols-outlined text-safety text-base flex-shrink-0">gavel</span>
+        <span class="leading-tight"><strong>TTC § 545.420 (Racing on Highway):</strong> Participating in a speed contest or exhibition of acceleration is a severe crime resulting in mandatory vehicle impoundment and potential felony incarceration.</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: SPEED SMEAR OPTIC COMPRESSION SIMULATOR -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">tune</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Speed Smear &amp; Kinetic Simulator
+          </h2>
+        </div>
+        <span id="speed-indicator" class="text-[10px] font-mono font-bold text-safety bg-safety/10 px-2 py-0.5 rounded">
+          60 MPH // 75° CONE
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select a travel velocity below to evaluate the optical compression of peripheral vision, kinetic energy multiplier, and total stopping distance on dry Texas roadways.
+      </p>
+
+      <!-- 4 Speed Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-4 gap-1.5 pt-1 font-mono text-[10px]">
+        <button id="s-btn-20" onclick="setSpeedModel(20)" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-bold">20 MPH</span>
+          <span class="text-[9px] text-slate mt-0.5">180° Field</span>
+        </button>
+        <button id="s-btn-40" onclick="setSpeedModel(40)" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-bold">40 MPH</span>
+          <span class="text-[9px] text-slate mt-0.5">120° Field</span>
+        </button>
+        <button id="s-btn-60" onclick="setSpeedModel(60)" class="cad-btn cad-btn-active touch-target">
+          <span class="text-xs font-bold">60 MPH</span>
+          <span class="text-[9px] text-slate mt-0.5">75° Field</span>
+        </button>
+        <button id="s-btn-80" onclick="setSpeedModel(80)" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-bold text-hazard">80+ MPH</span>
+          <span class="text-[9px] text-slate mt-0.5">40° Tunnel</span>
+        </button>
+      </div>
+
+      <!-- Reactive Simulator Output Card -->
+      <div id="sim-output-card" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="s-output-tag" class="text-[9px] font-mono font-bold uppercase text-safety tracking-wider">
+              HIGHWAY CRUISE // SEVERE COMPRESSION
+            </span>
+            <h3 id="s-output-title" class="text-sm font-bold text-carbon">
+              60 MPH: 75° Visual Field Cone
+            </h3>
+          </div>
+          <span id="s-output-icon" class="w-8 h-8 rounded-lg bg-safety/10 text-safety flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">visibility</span>
+          </span>
+        </div>
+
+        <p id="s-output-desc" class="text-xs text-slate leading-relaxed">
+          At 60 MPH, your field of clear peripheral vision compresses from 180° down to approximately 75°. Roadside details blur significantly ("speed smear"), making it impossible to resolve subtle movements of pedestrians, crossing animals, or turning vehicles outside your central sightline.
+        </p>
+
+        <!-- Metric Outputs Grid -->
+        <div class="grid grid-cols-3 gap-1.5 pt-1 text-center font-mono text-[10px]">
+          <div class="p-2 rounded bg-white border border-hairline">
+            <div class="text-slate text-[8px] uppercase">Reaction (1.5s)</div>
+            <div id="m-reaction" class="font-bold text-carbon text-xs mt-0.5">132 FT</div>
+          </div>
+          <div class="p-2 rounded bg-white border border-hairline">
+            <div class="text-slate text-[8px] uppercase">Braking Distance</div>
+            <div id="m-braking" class="font-bold text-carbon text-xs mt-0.5">171 FT</div>
+          </div>
+          <div class="p-2 rounded bg-safety-light border border-safety/30">
+            <div class="text-safety-deep text-[8px] uppercase font-bold">Total Stopping</div>
+            <div id="m-total" class="font-bold text-safety text-xs mt-0.5">303 FT</div>
+          </div>
+        </div>
+
+        <!-- Kinetic Energy Multiplier Pill -->
+        <div class="p-2.5 rounded-lg bg-white border border-hairline flex items-center justify-between text-xs font-mono">
+          <span class="text-slate font-bold">KINETIC IMPACT ENERGY:</span>
+          <span id="m-ke" class="font-bold text-safety">9.0x BASE ENERGY</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD SVG DIAGRAM: OPTIC TUNNEL COMPRESSION & SPEED SMEAR -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">filter_center_focus</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Optic Tunnel Compression
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">180° TO 40°</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Inspect how increasing velocity physically strips away peripheral awareness. At 80 MPH, the driver operates in severe optical tunnel vision:
+      </p>
+
+      <!-- SVG 1: Primary CAD Vector Viewport (340x220) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[220px]" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-smear" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="220" fill="url(#cad-grid-smear)" />
+
+          <!-- Title Bar -->
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">HUMAN VISUAL CONE AT HIGHWAY SPEEDS</text>
+
+          <!-- Roadway Surface -->
+          <rect x="70" y="0" width="200" height="220" fill="#1C1F1E" stroke="#2F3532" stroke-width="1"/>
+          <line x1="170" y1="0" x2="170" y2="220" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="8,8"/>
+
+          <!-- Ego Vehicle at (170, 180) -->
+          <rect x="159" y="165" width="22" height="36" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+          <circle cx="170" cy="183" r="3" fill="#FFFFFF"/>
+
+          <!-- 20 MPH Broad Cone (180° in subtle blue) -->
+          <path d="M 170 170 L 15 170 A 155 155 0 0 1 325 170 Z" fill="#3B82F6" fill-opacity="0.08" stroke="#3B82F6" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="35" y="165" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="7">20 MPH (180°)</text>
+
+          <!-- 40 MPH Cone (120° in green) -->
+          <path d="M 170 170 L 35 70 L 305 70 Z" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-width="1" stroke-dasharray="4,2"/>
+          <text x="45" y="80" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="7">40 MPH (120°)</text>
+
+          <!-- 60 MPH Cone (75° in orange) -->
+          <path d="M 170 170 L 80 20 L 260 20 Z" fill="#E87522" fill-opacity="0.15" stroke="#E87522" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <text x="90" y="32" fill="#FDBA74" font-family="'JetBrains Mono', monospace" font-size="7">60 MPH (75°)</text>
+
+          <!-- 80 MPH Tunnel (40° in red - EXTREME TUNNEL) -->
+          <path d="M 170 170 L 130 10 L 210 10 Z" fill="#EF4444" fill-opacity="0.35" stroke="#EF4444" stroke-width="2"/>
+          <text x="170" y="18" fill="#FEE2E2" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold" text-anchor="middle">80+ MPH (40° TUNNEL)</text>
+
+          <!-- Roadside Hazard Missed in Tunnel: Wildlife on Left Shoulder -->
+          <circle cx="50" cy="50" r="6" fill="#F59E0B"/>
+          <text x="50" y="40" fill="#FBBF24" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">CROSSING DEER</text>
+          <text x="50" y="65" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">(UNSEEN AT 80 MPH)</text>
+
+          <!-- Roadside Hazard Missed in Tunnel: Turning Vehicle on Right -->
+          <rect x="280" y="45" width="16" height="26" rx="2" fill="#DC2626" stroke="#FFFFFF" stroke-width="1"/>
+          <text x="288" y="38" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">CROSS TRAFFIC</text>
+          <text x="288" y="80" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">(UNSEEN AT 80 MPH)</text>
+
+          <text x="170" y="210" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="7.5" text-anchor="middle">SPEED SMEAR RENDERS 75% OF THE ROADWAY INVISIBLE</text>
+        </svg>
+      </div>
+
+      <!-- Tactical Takeaway Callout -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>The Speed Smear Reality:</strong> Peripheral vision is vital for detecting sudden movement from side streets, pedestrians stepping off curbs, or deer leaping onto highway shoulders. At 80+ MPH, this defensive shield collapses completely.
+      </div>
+    </section>
+
+    <!-- 05. SECONDARY CAD SVG DIAGRAM: TTC § 545.420 STREET RACING CRIMINAL ESCALATION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">gavel</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Street Racing Penalties
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-hazard font-bold">TTC § 545.420</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas statutes categorize street racing and speed exhibitions into an escalating criminal hierarchy based on prior convictions, intoxication, and injury:
+      </p>
+
+      <!-- SVG 2: Secondary CAD Vector Viewport (340x180) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[180px]" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-racing" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" fill="url(#cad-grid-racing)" />
+
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">CRIMINAL PENALTY ESCALATION LADDER</text>
+
+          <!-- Tier 1: Class B Misdemeanor -->
+          <g transform="translate(15, 26)">
+            <rect x="0" y="0" width="310" height="24" rx="3" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+            <text x="10" y="16" fill="#D1D5DB" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">TIER 1: CLASS B MISD</text>
+            <text x="135" y="16" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="7">First Offense // Up to 180 Days Jail // $2,000</text>
+          </g>
+
+          <!-- Tier 2: Class A Misdemeanor -->
+          <g transform="translate(15, 54)">
+            <rect x="0" y="0" width="310" height="24" rx="3" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+            <text x="10" y="16" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">TIER 2: CLASS A MISD</text>
+            <text x="135" y="16" fill="#CBD5E1" font-family="'JetBrains Mono', monospace" font-size="7">1 Prior / Open Alcohol / DWI // 1 Yr Jail // $4,000</text>
+          </g>
+
+          <!-- Tier 3: State Jail Felony -->
+          <g transform="translate(15, 82)">
+            <rect x="0" y="0" width="310" height="24" rx="3" fill="#3B1C1C" stroke="#7F1D1D" stroke-width="1"/>
+            <text x="10" y="16" fill="#F87171" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">TIER 3: STATE JAIL FEL</text>
+            <text x="135" y="16" fill="#FECACA" font-family="'JetBrains Mono', monospace" font-size="7">2+ Priors // 180 Days - 2 Yrs State Jail // $10,000</text>
+          </g>
+
+          <!-- Tier 4: Third-Degree Felony -->
+          <g transform="translate(15, 110)">
+            <rect x="0" y="0" width="310" height="24" rx="3" fill="#581C1C" stroke="#991B1B" stroke-width="1"/>
+            <text x="10" y="16" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">TIER 4: 3RD DEG FELONY</text>
+            <text x="135" y="16" fill="#FEE2E2" font-family="'JetBrains Mono', monospace" font-size="7">Bodily Injury // 2 to 10 Yrs TDCJ Prison // $10,000</text>
+          </g>
+
+          <!-- Tier 5: Second-Degree Felony -->
+          <g transform="translate(15, 138)">
+            <rect x="0" y="0" width="310" height="26" rx="3" fill="#7F1D1D" stroke="#EF4444" stroke-width="1.5"/>
+            <text x="10" y="17" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">TIER 5: 2ND DEG FELONY</text>
+            <text x="140" y="17" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">DEATH / SERIOUS INJURY // 2 TO 20 YRS PRISON</text>
+          </g>
+
+          <text x="170" y="174" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="7" text-anchor="middle">PLUS MANDATORY VEHICLE IMPOUND &amp; CIVIL ASSET FORFEITURE (CCP CH. 59)</text>
+        </svg>
+      </div>
+
+      <!-- Statutory definitions grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline">
+          <div class="text-hazard font-bold uppercase">Race Definition</div>
+          <div class="text-slate mt-0.5">Attempt to outgain another vehicle, arrive first, or test operator endurance.</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline">
+          <div class="text-hazard font-bold uppercase">Drag Race Definition</div>
+          <div class="text-slate mt-0.5">Two or more vehicles accelerating side-by-side to compare acceleration rates.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. SEIZURE, CIVIL FORFEITURE & LAW OF PARTIES -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">lock</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Asset Forfeiture &amp; Law of Parties
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas enforcement strategies against street takeovers extend beyond drivers to target vehicles, spectators, and organizers:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Mandatory Vehicle Seizure (TTC § 545.420(h))</span>
+            <span class="text-hazard font-bold uppercase">IMPOUNDMENT</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            A peace officer who arrests an operator for racing on a highway <strong>must impound the vehicle</strong> immediately. Furthermore, under Texas Code of Criminal Procedure Chapter 59, vehicles used in felony speed exhibitions are classified as contraband subject to <strong>permanent civil asset forfeiture</strong>—the State takes title to the car permanently.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Texas Law of Parties (Texas Penal Code § 7.02)</span>
+            <span class="text-safety-deep font-bold uppercase">CO-PRINCIPALS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Under PC § 7.02, an individual is criminally responsible for an offense committed by another if they solicit, encourage, direct, aid, or attempt to aid in the commission of the crime. Flaggers, intersection blockers, race coordinators, and livestreamers who promote races are charged as <strong>primary co-principals</strong> with identical criminal penalties as the drivers.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Municipal Spectator Ordinances</span>
+            <span class="text-slate font-bold uppercase">SPECTATOR FINES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Major Texas cities (including Houston, Dallas, Fort Worth, and San Antonio) have enacted local criminal ordinances making <strong>spectating at an illegal street takeover or race a separate misdemeanor</strong> punishable by fines up to $500 to $2,000 and vehicle impoundments.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. FOLLOWING INTERVALS: 2-SECOND, 4-SECOND & 6-8 SECOND RULES -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">space_dashboard</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Following Distance Buffers
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Speed dictates the temporal margin required to avert sudden multi-car chain-reaction collisions. Texas DPS establishes three standard following interval tiers:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>The 2-Second Rule (Minimum Urban Daylight)</span>
+            <span class="text-slate font-bold uppercase">BASE MARGIN</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Under ideal weather and daylight conditions on city surface streets, maintain a minimum of 2 seconds of temporal separation between your front bumper and the rear bumper of the lead vehicle.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>The 4-Second Rule (Highways &amp; High Speeds)</span>
+            <span class="text-safety font-bold uppercase">HIGHWAY STANDARD</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            On Texas freeways, rural corridors, or when trailing large commercial semi-trucks, expand your following cushion to at least 4 seconds. This accommodates the extended kinetic braking distance required at velocities exceeding 60 MPH.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>The 6–8 Second Rule (Rain, Wet Asphalt &amp; Fog)</span>
+            <span class="text-hazard font-bold uppercase">INCLEMENT WEATHER</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            When rain slickens asphalt, reduce your speed and expand following separation to 6 to 8 seconds. Wet pavement reduces tire friction coefficient ($\mu$) by over 50%, doubling mechanical braking distance and creating hydroplaning hazards.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. THE THREE VEHICLE COLLISIONS REVISITED AT HIGH SPEED -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">analytics</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          High-Speed Deceleration Trauma
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        At excessive speeds, vehicle safety restraint systems are pushed beyond physical material limits. Newton's laws dictate fatal deceleration forces:
+      </p>
+
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs">speed</span>
+            1. Airbag Deployment Velocity Limits
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Airbags deploy at approximately 200 MPH within 30 to 40 milliseconds. In crashes exceeding 70 MPH, the occupant's forward momentum is so massive that the airbag alone cannot prevent fatal thoracic crush against the steering column without seat belt load limiters.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs">heart_broken</span>
+            2. Aortic Shearing &amp; Internal Organ Rupture
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            In high-speed deceleration from 80+ MPH, the human body stops in milliseconds, but internal organs continue traveling forward at 80 MPH. The heart and descending aorta experience severe tearing forces (traumatic aortic rupture), causing instantaneous internal hemorrhaging.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. WORK-ENERGY THEOREM & BRAKING DERIVATION (d = v² / 2μg) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">functions</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Physics Derivation: Braking Distance
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Under classical mechanics (the Work-Energy Theorem), the mechanical work required by tire friction to halt a moving vehicle equals its initial kinetic energy: $W = F_{	ext{friction}} 	imes d = rac{1}{2}mv^2$.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Braking Formula: d = v² / (2μg)</span>
+            <span class="text-safety font-bold">QUADRATIC SCALING</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Where $v$ is velocity in ft/sec, $\mu$ is the roadway tire friction coefficient, and $g$ is gravitational acceleration ($32.2	ext{ ft/s}^2$). Because velocity is squared ($v^2$), <strong>every 10 MPH increase adds progressively longer braking distances</strong>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Tire Roadway Friction Coefficients (μ)</span>
+            <span class="text-hazard font-bold">SURFACE COEFFICIENT</span>
+          </div>
+          <ul class="space-y-1 text-slate font-mono text-[10px] mt-1">
+            <li><strong>Dry Asphalt (μ = 0.80):</strong> Maximum tire mechanical grip and optimal stopping distance.</li>
+            <li><strong>Wet Asphalt (μ = 0.40):</strong> Water lubrication cuts grip in half; doubles braking distance!</li>
+            <li><strong>Packed Snow (μ = 0.20):</strong> 4x longer braking distance; tire tread voids clog with ice.</li>
+            <li><strong>Black Ice (μ = 0.05):</strong> 16x longer braking distance; near total friction decoupling.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. TEXAS ANTI-STREET TAKEOVER LEGISLATION (SB 1495 & HB 2315) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">policy</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Anti-Street Takeover Crackdown
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The Texas Legislature enacted sweeping statutory amendments (SB 1495 &amp; HB 2315) targeting illegal street takeovers, intersection shutdowns, and exhibition of acceleration contests:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Broadened "Exhibition of Acceleration" Definition</span>
+            <span class="text-hazard font-bold uppercase">CRIMINAL CONDUCT</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            The statute criminalizes intentional tire spin ("burnouts"), donuts, drifting, or rapid revving acceleration on public roadways, parking facilities, and highway intersections. Performing an exhibition of speed in any public parking lot is prosecuted under the exact same statutory penalties as racing on an interstate highway.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Civil Asset Forfeiture Contraband Status</span>
+            <span class="text-hazard font-bold uppercase">CCP CHAPTER 59</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Vehicles used in felony racing offenses or repeat misdemeanor racing are legally classified as criminal <strong>contraband</strong>. Prosecutors initiate civil forfeiture lawsuits against the vehicle itself. The owner forfeits all equity and title, and the vehicle is auctioned off or crushed by the State of Texas.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Lifelong Felony Consequences</span>
+            <span class="text-safety-deep font-bold uppercase">COLLATERAL TOLL</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            A felony conviction under TTC § 545.420 permanently deprives the individual of civil rights (voting, firearm ownership), bars state professional licensing (nursing, law, commercial contracting), and permanently stays on criminal history background checks.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. ENVIRONMENTAL SPEED REDUCTION MANDATES (TTC § 545.351(b)) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">traffic</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          TTC § 545.351(b): Mandatory Speed Reductions
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas Transportation Code § 545.351(b) lists five specific operational situations where an operator <strong>must affirmatively reduce driving speed below the posted speed limit</strong> to satisfy the standard of due care:
+      </p>
+
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">alt_route</span>
+            1. Intersections &amp; Railroad Crossings
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            An operator must decelerate appropriately when approaching and crossing any roadway intersection or railroad grade crossing to prepare for crossing traffic or train passage.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">turn_slight_right</span>
+            2. Sharp Highway Curves
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Centrifugal force ($F_c = rac{mv^2}{r}$) pushes the vehicle outward on curves. Speed must be reduced prior to entering the curve apex to avoid lateral rollover or crossing into oncoming lanes.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">terrain</span>
+            3. Approaching Hillcrests
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Sight distance is blind over crests of hills. Decelerate to accommodate stopped vehicles, stalled farm equipment, or debris hidden on the reverse slope.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">straighten</span>
+            4. Narrow or Winding Rural Roadways
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            On narrow two-lane corridors without shoulders, traveling at posted limits creates severe side-swipe hazards with oncoming wide farm tractors and commercial vehicles.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-hazard flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs">cloudy_snowing</span>
+            5. Weather, Highway &amp; Traffic Hazards
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            During rain downpours, dense Texas fog, or stop-and-go freeway congestion, maintaining the posted limit is illegal reckless operation under Texas law.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. ANATOMICAL DECELERATION G-FORCES IN EXTREME CRASHES -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">personal_injury</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Anatomical G-Force Deceleration Trauma
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Deceleration G-forces explain why high-speed collisions result in unsurvivable blunt-force trauma: $G = rac{v^2}{2 \cdot g \cdot d}$.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Human Physiological G-Force Limits</span>
+            <span class="text-safety font-bold uppercase">25G TOLERANCE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            The human ribcage, heart, and brain can withstand peak deceleration forces of 20 to 25 Gs for brief milliseconds when properly restrained by modern pre-tensioned seat belts and crumple zones.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>85 MPH Collision Deceleration Forces</span>
+            <span class="text-hazard font-bold uppercase">&gt; 80G IMPACT</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Striking a bridge abutment or tractor-trailer at 85 MPH generates deceleration forces exceeding <strong>80 to 100 Gs</strong>. Under 80 Gs, a human heart weighing 10 ounces effectively weighs over 50 pounds, tearing instantly away from the aorta and causing instantaneous fatal internal collapse. Speed transforms survivable traffic errors into lethal physical trauma.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. TEXAS PRIMA FACIE SPEED STATUTES & VELOCITIZATION DYNAMICS (TTC § 545.352) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">speed</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          TTC § 545.352 Prima Facie Limits &amp; Velocitization
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas Transportation Code § 545.352 establishes statutory <em>prima facie</em> speed limits that apply automatically unless an official engineering speed zone study posts an altered limit:
+      </p>
+
+      <div class="overflow-x-auto rounded-lg border border-hairline">
+        <table class="w-full text-left font-mono text-[10px]">
+          <thead class="bg-surface-sub text-slate border-b border-hairline uppercase">
+            <tr>
+              <th class="p-2">Roadway Jurisdiction</th>
+              <th class="p-2">Standard Vehicle Limit</th>
+              <th class="p-2">Special Conditions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline bg-white text-carbon">
+            <tr>
+              <td class="p-2 font-bold text-slate">Urban District / City Streets</td>
+              <td class="p-2 font-bold text-safety">30 MPH</td>
+              <td class="p-2">Residential subdivisions, downtown avenues</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-slate">Public Urban Alleys</td>
+              <td class="p-2 font-bold text-safety">15 MPH</td>
+              <td class="p-2">Narrow rear access corridors</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-slate">State Highways Outside Urban Districts</td>
+              <td class="p-2 font-bold text-safety">75 MPH</td>
+              <td class="p-2">Standard daytime and nighttime limit</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-slate">Designated Rural Interstate Corridors</td>
+              <td class="p-2 font-bold text-hazard">80 – 85 MPH</td>
+              <td class="p-2">Designated sections of I-10, I-20, and SH-130</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-slate">School Crossing Zones (Active)</td>
+              <td class="p-2 font-bold text-hazard">15 – 25 MPH</td>
+              <td class="p-2">When flashing beacons operate or children present</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="space-y-2 text-xs pt-1">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>The Optical Danger of Velocitization</span>
+            <span class="text-hazard font-bold uppercase">OFF-RAMP HAZARD</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Velocitization is a physiological adaptation that occurs after driving at sustained high speed on rural freeways. The human brain adapts to the rapid optic flow, causing 50 MPH to feel deceptively like 25 MPH. When taking a curved highway off-ramp, drivers fail to decelerate adequately, carrying dangerous kinetic momentum into tight curves and causing rollover crashes. Always verify your actual speed by reading the speedometer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. THERMAL FRICTION BREAKDOWN IN BURNOUTS & DRIFTING -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">tire_repair</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Tire Friction Degradation in Takeovers
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        During illegal street takeover stunts (burnouts, donuts, drifting), tire rubber exceeds its critical thermal limit within seconds, transforming predictable mechanical traction into an uncontrolled sliding projectile.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Thermal Rubber Liquefaction</span>
+            <span class="text-hazard font-bold uppercase">ZERO TRACTION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Spinning tires against asphalt heats the outer rubber compound beyond 400°F, liquefying the contact patch into molten synthetic oils. At this temperature, the tire friction coefficient drops from 0.80 to below 0.15. The vehicle loses all lateral directional stability, violently fishtailing into surrounding crowds of spectators.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Texas Joint Several Liability for Spectators</span>
+            <span class="text-safety-deep font-bold uppercase">CIVIL TORT</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Under Texas civil law, participants and spectators at illegal speed exhibitions who block emergency vehicle access, direct traffic, or create street barricades can be held jointly and severally liable for all wrongful death and catastrophic injury claims resulting from the event.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. DRIVER LICENSE SUSPENSION & OCCUPATIONAL RESTRICTIONS (TTC § 521.341) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">credit_card_off</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          License Revocation &amp; Occupational Permits
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Beyond criminal jail terms and vehicle seizure, a street racing conviction inflicts swift administrative driver license revocations under Texas Transportation Code § 521.341:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Mandatory 1-Year Driver License Suspension</span>
+            <span class="text-hazard font-bold uppercase">AUTOMATIC DPS ACTION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Conviction under TTC § 545.420 mandates an immediate <strong>one-year automatic suspension</strong> of driving privileges. Unlike minor traffic infractions, judges cannot waive this suspension. The driver must surrender their physical license card to the court clerk upon sentencing.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Mandatory 10 Hours of Community Service</span>
+            <span class="text-safety-deep font-bold uppercase">TTC § 545.420(g)</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Texas law mandates that any person convicted of street racing must perform a minimum of <strong>10 hours of community service</strong> as an unalterable condition of probation or sentencing.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Occupational Driver License (ODL) Hurdles</span>
+            <span class="text-slate font-bold uppercase">RESTRICTED MOBILITY</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Suspended drivers must petition a district court for an Essential Need (Occupational) License. An ODL strictly restricts driving hours (maximum 4 to 12 hours per day), confines routes to direct employment or education travel, mandates continuous SR-22 insurance filings, and requires carrying the certified court order at all times.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16. 3D DRIVING SIMULATION: TEXAS TEXT MESSAGING BAN & DISTRACTED DRIVING -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 my-4 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 545.4251 &bull; TEXAS TEXT MESSAGING BAN</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L08_T05_text_messaging_ban.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: ATTENTIVE 55 MPH CRUISING</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>6s Glance</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Reaction Delay</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Rumble Recovery</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FORMATIVE ASSESSMENT (STRICT 3 SCENARIO MCQS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Topic Formative Assessment
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-slate">3 SCENARIO QUESTIONS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Test your knowledge of speed smear physics, following intervals, and Texas street racing criminal statutes.
+      </p>
+
+      <!-- QUESTION 1: QUESTION 1 OPTION B STRICTLY CORRECT (TEST RUNNER MANDATE) -->
+      <div class="space-y-2 pt-2 border-t border-hairline" <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L08-T05 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="q1-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 01 // STREET RACING PENALTY</span>
+          <span>TTC § 545.420</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under Texas Transportation Code § 545.420, a first-offense street racing conviction with no aggravating factors is classified as a:
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q1-opt-A" onclick="checkAnswer(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Class C Misdemeanor punishable by fine only.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B: STRICTLY CORRECT -->
+          <button id="q1-opt-B" onclick="checkAnswer(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> Class B Misdemeanor (punishable by up to 180 days in county jail and a fine up to $2,000).</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q1-opt-C" onclick="checkAnswer(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Class A Misdemeanor carrying up to 1 year in jail.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q1-opt-D" onclick="checkAnswer(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> State Jail Felony resulting in mandatory state incarceration.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q1-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q2-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 02 // FELONY ESCALATION</span>
+          <span>TTC § 545.420(e)</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          If an illegal street race results in serious bodily injury or death to another person, the criminal charge escalates to a:
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q2-opt-A" onclick="checkAnswer(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Third-Degree Felony punishable by 2 to 10 years in prison.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B -->
+          <button id="q2-opt-B" onclick="checkAnswer(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> State Jail Felony with automatic deferred adjudication probation.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C: CORRECT -->
+          <button id="q2-opt-C" onclick="checkAnswer(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Second-Degree Felony (punishable by 2 to 20 years in Texas Department of Criminal Justice prison and a fine up to $10,000).</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q2-opt-D" onclick="checkAnswer(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> First-Degree Felony carrying mandatory life imprisonment.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q2-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q3-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 03 // FACILITATOR &amp; SPECTATOR LIABILITY</span>
+          <span>TEXAS PENAL CODE § 7.02</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under Texas law, an individual who coordinates a street race, acts as a flagger, or blocks an intersection—even without driving a vehicle—can be prosecuted under:
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q3-opt-A" onclick="checkAnswer(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> The Texas Good Samaritan Act with complete criminal immunity.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B: CORRECT -->
+          <button id="q3-opt-B" onclick="checkAnswer(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> The Texas Law of Parties (Texas Penal Code § 7.02) as a co-principal for aiding, encouraging, or facilitating the criminal offense.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q3-opt-C" onclick="checkAnswer(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> The Basic Speed Rule as a non-moving traffic infraction.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q3-opt-D" onclick="checkAnswer(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Municipal Civil Code with minor administrative parking fines only.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q3-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. LESSON COMPLETION & TOPIC NAVIGATION FOOTER -->
+    <footer class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3">
+      <div class="flex items-center justify-between text-xs text-slate">
+        <span class="font-mono">MODULE 08: TOPIC 05 / 10</span>
+        <span class="font-mono text-safety font-bold">NEXT: L08-T06</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="L08-T06.html" class="flex-1 min-h-[48px] px-4 py-3 rounded-xl bg-carbon hover:bg-carbon/90 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs">
+          <span>ADVANCE TO L08-T06</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT REACTIVE LOGIC ENGINE -->
+  <script>
+    // Speed Simulation Model
+    const speedModels = {
+      20: {
+        indicator: "20 MPH // 180° CONE",
+        tag: "BROAD PERIPHERAL VISION // FULL AWARENESS",
+        title: "20 MPH: Broad 180° Visual Field",
+        desc: "At low speeds, human peripheral vision encompasses nearly 180°. The driver readily perceives cross-traffic pedestrians, roadside obstacles, and approaching bicyclists with abundant time to react smoothly.",
+        reaction: "44 FT",
+        braking: "19 FT",
+        total: "63 FT",
+        ke: "1.0x BASE ENERGY"
+      },
+      40: {
+        indicator: "40 MPH // 120° CONE",
+        tag: "URBAN ARTERIAL // INITIAL COMPRESSION",
+        title: "40 MPH: 120° Visual Field Cone",
+        desc: "As velocity reaches 40 MPH, peripheral vision narrows by 33% to approximately 120°. Rapidly approaching cross-traffic begins to blur, demanding deliberate head turning to clear blind zones.",
+        reaction: "88 FT",
+        braking: "76 FT",
+        total: "164 FT",
+        ke: "4.0x BASE ENERGY"
+      },
+      60: {
+        indicator: "60 MPH // 75° CONE",
+        tag: "HIGHWAY CRUISE // SEVERE COMPRESSION",
+        title: "60 MPH: 75° Visual Field Cone",
+        desc: "At 60 MPH, your field of clear peripheral vision compresses from 180° down to approximately 75°. Roadside details blur significantly (speed smear), making it impossible to resolve subtle movements outside your central sightline.",
+        reaction: "132 FT",
+        braking: "171 FT",
+        total: "303 FT",
+        ke: "9.0x BASE ENERGY"
+      },
+      80: {
+        indicator: "80+ MPH // 40° CONE",
+        tag: "EXTREME VELOCITY // LETHAL TUNNEL VISION",
+        title: "80+ MPH: Extreme 40° Tunnel Vision",
+        desc: "At excessive highway speeds, peripheral awareness collapses down to a narrow 40° tunnel. Over 75% of the visual environment is rendered invisible by speed smear. Kinetic energy is 16 times baseline, ensuring catastrophic destruction in a crash.",
+        reaction: "176 FT",
+        braking: "306 FT",
+        total: "482 FT",
+        ke: "16.0x BASE ENERGY"
+      }
+    };
+
+    function setSpeedModel(mph) {
+      const data = speedModels[mph];
+      document.getElementById('speed-indicator').textContent = data.indicator;
+      document.getElementById('s-output-tag').textContent = data.tag;
+      document.getElementById('s-output-title').textContent = data.title;
+      document.getElementById('s-output-desc').textContent = data.desc;
+
+      document.getElementById('m-reaction').textContent = data.reaction;
+      document.getElementById('m-braking').textContent = data.braking;
+      document.getElementById('m-total').textContent = data.total;
+      document.getElementById('m-ke').textContent = data.ke;
+
+      const speeds = [20, 40, 60, 80];
+      speeds.forEach(s => {
+        const btn = document.getElementById('s-btn-' + s);
+        if (s === mph) {
+          btn.className = 'cad-btn cad-btn-active touch-target';
+        } else {
+          btn.className = 'cad-btn cad-btn-inactive touch-target';
+        }
+      });
+    }
+
+    // 3D SIMULATION BIDIRECTIONAL POSTMESSAGE CONTROLLER (F31 L08-T05)
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // 4.6S GLANCE BLIND FLIGHT",
+        statute: "TTC &sect; 545.4251",
+        title: "100-YARD FOOTBALL FIELD BLIND FLIGHT CORRIDOR",
+        desc: "At 55 MPH, looking down at a phone screen for 4.6 seconds equates to traveling 371 feet (greater than a 100-yard regulation football field) completely blind.",
+        metric: "BLIND DISTANCE: 371 FT (100 YARDS)",
+        phase: "PHASE: BLIND FLIGHT // 4.6S PHONE GLANCE"
+      },
+      2: {
+        badge: "SCENARIO 02 // REACTION DELAY AT SUDDEN STOP",
+        statute: "TTC &sect; 545.4251 &sect; (b)",
+        title: "COGNITIVE INATTENTION LAG & EMERGENCY SHOULDER EVASION",
+        desc: "Texting adds 2.5 seconds of cognitive lag when brake lights illuminate ahead, pushing stopping distance from 190 ft to 320 ft and requiring an emergency shoulder evade.",
+        metric: "REACTION LAG: +2.5S INATTENTION DELAY",
+        phase: "PHASE: CRITICAL PROXIMITY // SHOULDER EVASION"
+      },
+      3: {
+        badge: "SCENARIO 03 // DISTRACTED LANE DEPARTURE & RUMBLE RECOVERY",
+        statute: "TTC &sect; 545.060",
+        title: "UNCONSCIOUS LATERAL DRIFT & RUMBLE STRIP HAPTIC ALERT",
+        desc: "Typing messages causes micro-steering deflection. Grooved shoulder rumble strips provide haptic tactile vibration, waking the driver to execute a corrective counter-steer.",
+        metric: "TACTILE FEEDBACK: GROOVED RUMBLE VIBRATION",
+        phase: "PHASE: RUMBLE STRIP IMPACT // COUNTER-STEER"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      if (typeof playBeep === 'function') playBeep(480, 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+
+    // Formative MCQ Logic with Live Score Tracking
+    let answeredQuestions = {};
+                const TOPIC_ID = 'L08-T05';
+    
+    let correctCount = 0;
+
+    
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.420",
+            "statutoryRationale": "Under Texas Transportation Code § 545.420, a first-offense conviction for street racing with no prior convictions or aggravating factors is classified as a Class B Misdemeanor, punishable by up to 180 days in county jail and a fine up to $2,000."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "C",
+            "statute": "TTC § 545.420(e)",
+            "statutoryRationale": "Under TTC § 545.420(e), if an illegal street race results in serious bodily injury or death to any individual, the offense escalates to a Second-Degree Felony, punishable by 2 to 20 years in TDCJ prison and a fine up to $10,000."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "B",
+            "statute": "Tex. Penal Code § 7.02",
+            "statutoryRationale": "Under Texas Penal Code § 7.02 (Law of Parties), individuals who aid, encourage, direct, or facilitate a criminal offense—including flaggers, race coordinators, and intersection blockers—are criminally liable as co-principals."
+      }
+};
+
+    function checkAnswer(qNum, selected) {
+      if (answeredQuestions[qNum]) return;
+      answeredQuestions[qNum] = true;
+
+      const feedback = document.getElementById(`q${qNum}-feedback`);
+      if (feedback) feedback.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      const options = ['A', 'B', 'C', 'D'];
+      options.forEach(opt => {
+        const btn = document.getElementById(`q${qNum}-opt-${opt}`) || document.getElementById(`q${qNum}-opt-${opt.toLowerCase()}`);
+        if (!btn) return;
+        btn.disabled = true;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (opt === correctOpt) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-valid', 'bg-valid/10', 'text-valid', 'font-bold');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-valid text-sm flex-shrink-0 mt-0.5';
+          }
+        } else if (opt === chosenStr && !isCorrect) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-hazard', 'bg-rose-50', 'text-hazard', 'line-through');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-hazard text-sm flex-shrink-0 mt-0.5';
+          }
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-valid/10 border border-valid/30 text-valid mt-2';
+          feedback.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-rose-50 border border-rose-300 text-rose-900 mt-2';
+          feedback.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      updateScoreBadge();
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredQuestions).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: correctCount,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

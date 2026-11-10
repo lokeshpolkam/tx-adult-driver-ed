@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Form VTR-216 Statutory Routing Switcher &amp; Capstone — Texas Adult Driver Ed (L07-T18)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / CAPSTONE GRAND FINALE CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          MODULE 7 GRAND FINALE // CAPSTONE
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 18 OF 18</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Form VTR-216 Statutory Routing &amp; Dual Agency Synthesis
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          The capstone synthesis of Texas roadway interaction programs: Form VTR-216 statutory routing logic, medical signing authority bifurcation, and statewide TLETS integration.
+        </p>
+      </div>
+
+      <!-- Statutory Citations Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Statutory Split</div>
+          <div class="font-bold text-carbon">TTC § 502.061(a)/(b)</div>
+          <div class="text-[9px] text-slate mt-0.5">Physical vs Mental Authority</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Administrative Rule</div>
+          <div class="font-bold text-safety">43 TAC § 217.46</div>
+          <div class="text-[9px] text-slate mt-0.5">TxDMV Vehicle Division</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs">
+        <span class="material-symbols-outlined text-emerald-600 text-base flex-shrink-0">verified</span>
+        <span class="leading-tight"><strong>Module 7 Grand Finale:</strong> Master the operational boundary separating Texas DPS (Form DL-101) from TxDMV (Form VTR-216 / VTR-29-CD).</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: FORM VTR-216 STATUTORY ROUTING SWITCHER -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">alt_route</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Form VTR-216 Statutory Routing Switcher
+          </h2>
+        </div>
+        <span id="router-status-badge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700 border border-stone-200">
+          SELECT A PATHWAY
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Form VTR-216 (§ 2) bifurcates eligible signing authorities based on condition classification. Tap either diagnostic branch below to route statutory requirements:
+      </p>
+
+      <!-- Interactive Branching Controls -->
+      <div class="grid grid-cols-2 gap-2">
+        <!-- Branch A: Physical -->
+        <button id="btn-physical" onclick="selectVtrBranch('physical')" class="touch-target p-3 rounded-xl border-2 border-stone-200 bg-white hover:bg-stone-50 transition text-left space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[9px] font-mono font-bold text-blue-600 uppercase px-1.5 py-0.2 rounded bg-blue-50">PATHWAY 01</span>
+            <span id="dot-physical" class="w-2 h-2 rounded-full bg-stone-300"></span>
+          </div>
+          <div class="font-bold text-carbon text-xs">Physical Condition</div>
+          <p class="text-[10px] text-slate leading-tight">Deafness, severe hearing impairment, speech mutism.</p>
+          <div class="text-[9px] font-mono text-slate pt-0.5">TTC § 502.061(a)</div>
+        </button>
+
+        <!-- Branch B: Mental -->
+        <button id="btn-mental" onclick="selectVtrBranch('mental')" class="touch-target p-3 rounded-xl border-2 border-stone-200 bg-white hover:bg-stone-50 transition text-left space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[9px] font-mono font-bold text-emerald-600 uppercase px-1.5 py-0.2 rounded bg-emerald-50">PATHWAY 02</span>
+            <span id="dot-mental" class="w-2 h-2 rounded-full bg-stone-300"></span>
+          </div>
+          <div class="font-bold text-carbon text-xs">Mental Health</div>
+          <p class="text-[10px] text-slate leading-tight">Autism Spectrum, PTSD, TBI, developmental delay.</p>
+          <div class="text-[9px] font-mono text-slate pt-0.5">TTC § 502.061(b)</div>
+        </button>
+      </div>
+
+      <!-- Flowchart SVG Connector -->
+      <div class="w-full flex justify-center py-1">
+        <svg viewBox="0 0 340 30" class="w-full max-w-[340px] h-6 block">
+          <path id="svg-path-left" d="M 85 0 V 15 H 170 V 30" stroke="#D1D5DB" stroke-width="2" fill="none" />
+          <path id="svg-path-right" d="M 255 0 V 15 H 170 V 30" stroke="#D1D5DB" stroke-width="2" fill="none" />
+          <polygon id="svg-arrow" points="166,26 170,30 174,26" fill="#D1D5DB" />
+        </svg>
+      </div>
+
+      <!-- Dynamic Result Container -->
+      <div class="space-y-2">
+        <!-- Empty Default State -->
+        <div id="state-empty" class="p-4 rounded-xl border border-dashed border-stone-300 bg-stone-50 text-center space-y-1 text-slate text-xs">
+          <span class="material-symbols-outlined text-stone-400 text-xl">touch_app</span>
+          <div class="font-bold text-stone-600">Select a Condition Category Above</div>
+          <p class="text-[11px] text-stone-500">Tap Physical or Mental Health to analyze statutory practitioner eligibility.</p>
+        </div>
+
+        <!-- Physical Condition Result State -->
+        <div id="state-physical" class="hidden p-3.5 rounded-xl border-2 border-blue-400 bg-blue-50/70 text-xs space-y-2">
+          <div class="flex items-center justify-between border-b border-blue-200 pb-1.5">
+            <span class="font-mono text-[10px] font-bold text-blue-900 uppercase">PHYSICAL HEALTH RESULT</span>
+            <span class="text-[9px] font-mono font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded">1 AUTHORIZED SIGNATORY</span>
+          </div>
+          <div class="space-y-1 text-blue-950">
+            <div class="font-bold text-xs flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-blue-700 text-sm">verified</span>
+              <span>Requirement [01]: Licensed Physician Signature (M.D. / D.O. Only)</span>
+            </div>
+            <p class="text-[11px] text-blue-900 leading-relaxed pl-5">
+              Must be signed by a physician licensed to practice medicine in Texas. Section 2, Part A of Form VTR-216 strictly requires physician certification for deafness and physical speech impediments. Chiropractors and physical therapists are excluded.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mental Health Condition Result State -->
+        <div id="state-mental" class="hidden p-3.5 rounded-xl border-2 border-emerald-400 bg-emerald-50/70 text-xs space-y-2">
+          <div class="flex items-center justify-between border-b border-emerald-200 pb-1.5">
+            <span class="font-mono text-[10px] font-bold text-emerald-900 uppercase">MENTAL HEALTH RESULT</span>
+            <span class="text-[9px] font-mono font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">3 DISTINCT SIGNATORIES</span>
+          </div>
+          <div class="space-y-2 text-emerald-950">
+            <div class="space-y-0.5 pl-1">
+              <div class="font-bold text-[11px] flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                <span>Signatory [01]: Licensed Physician (M.D. / D.O.)</span>
+              </div>
+              <p class="text-[10px] text-emerald-900 pl-3">Standard medical physician certification under Texas Medical Board.</p>
+            </div>
+            <div class="space-y-0.5 pl-1">
+              <div class="font-bold text-[11px] flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                <span>Signatory [02]: Licensed Psychologist (Ph.D. / Psy.D.)</span>
+              </div>
+              <p class="text-[10px] text-emerald-900 pl-3">Licensed under Texas Occupations Code Chapter 501 (Psychologists' Licensing Act).</p>
+            </div>
+            <div class="space-y-0.5 pl-1">
+              <div class="font-bold text-[11px] flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                <span>Signatory [03]: Licensed Non-Physician Mental Health Professional</span>
+              </div>
+              <p class="text-[10px] text-emerald-900 pl-3">Includes Licensed Clinical Social Workers (LCSW), Licensed Professional Counselors (LPC), and Licensed Marriage and Family Therapists (LMFT).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Router Reset Bar -->
+        <div class="flex justify-end pt-1">
+          <button onclick="resetRouter()" class="touch-target px-3 py-1.5 text-xs font-mono text-stone-500 hover:text-stone-800 transition flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">refresh</span>
+            <span>RESET ROUTER</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. CAD SVG 1: FORM VTR-216 STATUTORY DECISION MATRIX CAD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">account_tree</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Form VTR-216 Decision Matrix CAD
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">43 TAC § 217.46</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Visual routing map of statutory signatories authorized to execute TxDMV Form VTR-216. Tap either condition node to inspect legal pathways:
+      </p>
+
+      <!-- SVG Viewport -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="cad-vtr-matrix" viewBox="0 0 340 220" class="w-full h-auto max-w-[340px] mx-auto block rounded-lg border border-[#222B25] bg-[#0E1311] shadow-inner select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="vtr-matrix-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#121815" />
+              <stop offset="100%" stop-color="#080C0A" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background -->
+          <rect width="340" height="220" fill="url(#vtr-matrix-bg)" rx="8" />
+
+          <!-- Header -->
+          <text x="14" y="20" fill="#6B7280" font-family="monospace" font-size="9" letter-spacing="1">FORM VTR-216 § 2 // SIGNING AUTHORITY ROUTER</text>
+          <text x="326" y="20" fill="#E87522" font-family="monospace" font-size="9" text-anchor="end" font-weight="bold">43 TAC § 217.46</text>
+          <line x1="14" y1="27" x2="326" y2="27" stroke="#222B25" stroke-width="1" />
+
+          <!-- Branch Pathways -->
+          <path id="vtr-cad-path-left" d="M 85 75 V 105 H 170 V 135" stroke="#374151" stroke-width="2" fill="none" />
+          <path id="vtr-cad-path-right" d="M 255 75 V 105 H 170 V 135" stroke="#374151" stroke-width="2" fill="none" />
+
+          <!-- Button 1: Physical Condition (Left) -->
+          <g id="node-vtr-phys" class="cursor-pointer" onclick="selectVtrMatrix('physical')">
+            <rect id="rect-vtr-phys" x="20" y="42" width="130" height="46" rx="6" fill="#16201B" stroke="#374151" stroke-width="1.5" />
+            <circle cx="34" cy="65" r="4" fill="#3B82F6" />
+            <text x="44" y="58" fill="#F9FAFB" font-family="sans-serif" font-size="8.5" font-weight="bold">PHYSICAL HEALTH</text>
+            <text x="44" y="72" fill="#9CA3AF" font-family="monospace" font-size="7">Deafness / Mutism</text>
+            <circle cx="85" cy="65" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Button 2: Mental Health (Right) -->
+          <g id="node-vtr-ment" class="cursor-pointer" onclick="selectVtrMatrix('mental')">
+            <rect id="rect-vtr-ment" x="190" y="42" width="130" height="46" rx="6" fill="#16201B" stroke="#374151" stroke-width="1.5" />
+            <circle cx="204" cy="65" r="4" fill="#10B981" />
+            <text x="214" y="58" fill="#F9FAFB" font-family="sans-serif" font-size="8.5" font-weight="bold">MENTAL HEALTH</text>
+            <text x="214" y="72" fill="#9CA3AF" font-family="monospace" font-size="7">Autism / PTSD / TBI</text>
+            <circle cx="255" cy="65" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Central Routing Box / Result Card -->
+          <g id="node-vtr-result" transform="translate(20, 136)">
+            <rect id="rect-vtr-result" width="300" height="70" rx="6" fill="#131B17" stroke="#222B25" stroke-width="1.5" />
+            <text id="vtr-result-title" x="15" y="22" fill="#E87522" font-family="monospace" font-size="9" font-weight="bold">SELECT A CONDITION CATEGORY ABOVE</text>
+            <text id="vtr-result-body1" x="15" y="40" fill="#D1D5DB" font-family="sans-serif" font-size="8.5">Tap Physical or Mental Health to analyze eligible signing authorities.</text>
+            <text id="vtr-result-body2" x="15" y="56" fill="#9CA3AF" font-family="monospace" font-size="7.5">Statutory split governed by TTC § 502.061(a) vs § 502.061(b).</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Selector Buttons -->
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button id="btn-cad-phys" onclick="selectVtrMatrix('physical')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-[9px] text-blue-600 font-mono">TTC § 502.061(a)</span>
+          <span>PHYSICAL ROUTE</span>
+        </button>
+        <button id="btn-cad-ment" onclick="selectVtrMatrix('mental')" class="cad-btn cad-btn-active touch-target">
+          <span class="text-[9px] text-emerald-600 font-mono">TTC § 502.061(b)</span>
+          <span>MENTAL ROUTE</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 05. CAD SVG 2: DUAL AGENCY SYNTHESIS CAD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">hub</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Texas Dual Agency Workflow Pathway CAD
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-emerald-600 font-bold">STATE SYNTHESIS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Contrast the person-centric DPS pathway against the vehicle-centric TxDMV pathway. Tap either agency block to examine roadside operational impact:
+      </p>
+
+      <!-- SVG Viewport -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="cad-dual-agency" viewBox="0 0 340 180" class="w-full h-auto max-w-[340px] mx-auto block rounded-lg border border-[#222B25] bg-[#0E1311] shadow-inner select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dual-agency-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#121815" />
+              <stop offset="100%" stop-color="#080C0A" />
+            </linearGradient>
+          </defs>
+
+          <!-- Canvas -->
+          <rect width="340" height="180" fill="url(#dual-agency-bg)" rx="8" />
+
+          <!-- Header -->
+          <text x="14" y="18" fill="#6B7280" font-family="monospace" font-size="8" letter-spacing="1">MODULE 7 CAPSTONE DUAL AGENCY SYNTHESIS</text>
+          <text x="326" y="18" fill="#10B981" font-family="monospace" font-size="8" text-anchor="end" font-weight="bold">TEXAS COMPLIANCE</text>
+          <line x1="14" y1="24" x2="326" y2="24" stroke="#222B25" stroke-width="1" />
+
+          <!-- Left Column: DPS / Credential Pathway -->
+          <g id="node-agency-dps" class="cursor-pointer" onclick="selectAgencyPath('dps')">
+            <rect id="rect-agency-dps" x="20" y="36" width="140" height="96" rx="6" fill="#15201A" stroke="#374151" stroke-width="1.5" />
+            <text x="30" y="52" fill="#E87522" font-family="monospace" font-size="8" font-weight="bold">FORM DL-101 (DPS)</text>
+            <text x="30" y="66" fill="#F9FAFB" font-family="sans-serif" font-size="8" font-weight="bold">PERSON-CENTRIC</text>
+            <line x1="30" y1="72" x2="150" y2="72" stroke="#222B25" stroke-width="1" />
+            <text x="30" y="84" fill="#9CA3AF" font-family="sans-serif" font-size="7">• Code 08 on Card Back</text>
+            <text x="30" y="96" fill="#9CA3AF" font-family="sans-serif" font-size="7">• Verified at Car Window</text>
+            <text x="30" y="108" fill="#9CA3AF" font-family="sans-serif" font-size="7">• Physician (MD/DO) Only</text>
+            <text x="30" y="120" fill="#10B981" font-family="monospace" font-size="6.5">TTC § 521.142</text>
+            <circle cx="90" cy="84" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Right Column: TxDMV / Vehicle Pathway -->
+          <g id="node-agency-txdmv" class="cursor-pointer" onclick="selectAgencyPath('txdmv')">
+            <rect id="rect-agency-txdmv" x="180" y="36" width="140" height="96" rx="6" fill="#15201A" stroke="#E87522" stroke-width="2" />
+            <text x="190" y="52" fill="#E87522" font-family="monospace" font-size="8" font-weight="bold">FORM VTR-216 (TxDMV)</text>
+            <text x="190" y="66" fill="#F9FAFB" font-family="sans-serif" font-size="8" font-weight="bold">VEHICLE-CENTRIC</text>
+            <line x1="190" y1="72" x2="310" y2="72" stroke="#222B25" stroke-width="1" />
+            <text x="190" y="84" fill="#9CA3AF" font-family="sans-serif" font-size="7">• TLETS License Plate Flag</text>
+            <text x="190" y="96" fill="#9CA3AF" font-family="sans-serif" font-size="7">• Verified Pre-Approach</text>
+            <text x="190" y="108" fill="#9CA3AF" font-family="sans-serif" font-size="7">• Physician / Psych / MHP</text>
+            <text x="190" y="120" fill="#10B981" font-family="monospace" font-size="6.5">TTC § 502.061</text>
+            <circle cx="250" cy="84" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Bottom Capstone Message -->
+          <rect x="20" y="142" width="300" height="26" rx="4" fill="#101713" stroke="#222B25" stroke-width="1" />
+          <text id="dual-agency-note" x="170" y="158" fill="#D1D5DB" font-family="monospace" font-size="7.5" text-anchor="middle">BOTH TRACKS 100% VOLUNTARY // ZERO STATE DIAGNOSTIC FEES</text>
+        </svg>
+      </div>
+
+      <!-- Quick Agency Buttons -->
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button id="btn-path-dps" onclick="selectAgencyPath('dps')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-[9px] text-slate font-mono">TEXAS DPS PATH</span>
+          <span>DRIVER LICENSE (DL-101)</span>
+        </button>
+        <button id="btn-path-txdmv" onclick="selectAgencyPath('txdmv')" class="cad-btn cad-btn-active touch-target">
+          <span class="text-[9px] text-safety font-mono">TXDMV PATH</span>
+          <span>REGISTRATION (VTR-216)</span>
+        </button>
+      </div>
+
+      <!-- Detail Box -->
+      <div id="agency-detail-box" class="p-3 rounded-lg bg-surface-sub border border-hairline text-xs space-y-1">
+        <div class="font-bold text-carbon text-xs">TxDMV Vehicle Pathway (Pre-Contact Alert)</div>
+        <p class="text-slate leading-relaxed">
+          Form VTR-216 links directly to the vehicle&rsquo;s license plate in TLETS. Officers are notified in the cruiser before approaching, allowing them to adjust tone and lighting before physical contact.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. 3D DRIVING SIMULATION: AUTONOMOUS VEHICLES & ADAS SUPERVISION -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 my-4 fluid-card">
+      <!-- Section Header -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 545.451 &bull; &sect; 545.454 &bull; AUTONOMOUS VEHICLES &amp; ADAS SUPERVISION</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L07_T18_autonomous_vehicles_adas.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: SAE LEVEL 2 LANE CENTERING</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Sensor Frustums</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Sensor Blindness</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Takeover Request</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. TEXAS STATUTORY PEDAGOGICAL COMPENDIUM & SYNTHESIS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">gavel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Module 7 Capstone Statutory Matrix &amp; Synthesis
+        </h2>
+      </div>
+
+      <!-- Pedagogy Card 1: Statutory Authority Bifurcation -->
+      <div class="space-y-2">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Statutory Medical Signatory Bifurcation (TTC § 502.061)
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          The Texas Transportation Code establishes an intentional divide between physical conditions and mental/neurological conditions for vehicle registration indicators:
+        </p>
+
+        <div class="space-y-2 text-xs">
+          <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+            <div class="font-bold text-carbon text-xs">Physical Conditions (§ 502.061(a)):</div>
+            <p class="text-slate leading-relaxed">
+              Limited strictly to <strong>licensed physicians (M.D. or D.O.)</strong>. Deafness, severe hearing impairment, and physical vocal tract mutism require anatomical medical certification.
+            </p>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+            <div class="font-bold text-carbon text-xs">Mental Health &amp; Neurological Conditions (§ 502.061(b)):</div>
+            <p class="text-slate leading-relaxed">
+              Expands authority to <strong>licensed psychologists</strong> (under Texas Occupations Code Ch. 501) and <strong>licensed non-physician mental health professionals</strong> (LPC, LCSW, LMFT), recognizing that specialized mental health practitioners regularly diagnose and manage autism, PTSD, and cognitive trauma.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 2: Master Capstone Synthesis Table -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Master Comparison: DPS DL-101 vs TxDMV VTR-216
+        </h3>
+
+        <!-- Full Matrix Table -->
+        <div class="overflow-x-auto rounded-lg border border-hairline">
+          <table class="w-full text-left text-xs font-sans">
+            <thead class="bg-surface-sub font-mono text-[10px] uppercase text-slate border-b border-hairline">
+              <tr>
+                <th class="p-2.5 font-bold">Category</th>
+                <th class="p-2.5 font-bold">Texas DPS (DL-101)</th>
+                <th class="p-2.5 font-bold">TxDMV (VTR-216)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-[11px] text-carbon">
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Statute</td>
+                <td class="p-2.5 text-slate">TTC § 521.142(h) &bull; 37 TAC § 15.42</td>
+                <td class="p-2.5 text-slate">TTC § 502.061 &bull; 43 TAC § 217.46</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Application Point</td>
+                <td class="p-2.5 text-slate">Driver License Center (in person)</td>
+                <td class="p-2.5 text-slate">County Tax Assessor-Collector</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Tied To</td>
+                <td class="p-2.5 text-slate">The Person (Driver ID)</td>
+                <td class="p-2.5 text-slate">The Vehicle (License Plate)</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Officer Discovery</td>
+                <td class="p-2.5 text-slate">During document review at window</td>
+                <td class="p-2.5 text-safety font-bold">Pre-approach in cruiser via TLETS</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Physical Certifier</td>
+                <td class="p-2.5 text-slate">M.D. / D.O. Only</td>
+                <td class="p-2.5 text-slate">M.D. / D.O. Only</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Mental Certifier</td>
+                <td class="p-2.5 text-slate">M.D. / D.O. Only</td>
+                <td class="p-2.5 text-emerald-700 font-bold">M.D. / D.O., Psychologist, or MHP</td>
+              </tr>
+              <tr class="hover:bg-stone-50">
+                <td class="p-2.5 font-bold">Fees / Mandate</td>
+                <td class="p-2.5 text-emerald-700 font-bold">$0.00 &bull; 100% Voluntary</td>
+                <td class="p-2.5 text-emerald-700 font-bold">$0.00 &bull; 100% Voluntary</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 3: County Tax Assessor Submission Guidance -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Tendering Form VTR-216 in Practice
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          Vehicle owners submit Form VTR-216 directly to their County Tax Assessor-Collector&rsquo;s office. Key submission rules:
+        </p>
+        <ul class="text-xs text-slate space-y-1.5 list-disc pl-4 leading-relaxed">
+          <li><strong>Annual Registration:</strong> Submit alongside your annual vehicle inspection report and registration fee (no additional charge for the impediment marker).</li>
+          <li><strong>Mid-Year Filing:</strong> If mid-cycle, submit by mail or in person to TxDMV Vehicle Titles and Registration Division to have TLETS updated immediately without reissuing registration stickers.</li>
+          <li><strong>Zero Inspection Impact:</strong> Vehicle safety inspections (TTC Chapter 548) do not evaluate, record, or inspect communication impediment disclosures.</li>
+        </ul>
+      </div>
+
+      <!-- Pedagogy Card 4: Statutory Decision Tree Practice Scenarios -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Real-World Statutory Routing Scenarios
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          Evaluate how Texas statutes direct applicants to the proper forms and medical certifying authorities:
+        </p>
+
+        <div class="space-y-2 text-xs">
+          <!-- Scenario A -->
+          <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="font-bold text-carbon">CASE 01: VETERAN WITH PTSD // VEHICLE REGISTRATION</span>
+              <span class="text-emerald-700 font-bold">TTC § 502.061(b)</span>
+            </div>
+            <p class="text-slate leading-relaxed text-[11px]">
+              Marcus is a military veteran diagnosed with PTSD. He wishes to have his truck flagged in TLETS to ensure peace officers do not escalate during roadside stops.
+            </p>
+            <div class="p-2 rounded bg-white border border-hairline text-[11px] text-carbon">
+              <span class="font-bold text-safety">Routing Resolution:</span> Form VTR-216 submitted to County Tax Assessor. Eligible certifiers include Marcus&rsquo;s VA licensed clinical social worker (LCSW), licensed psychologist, or physician.
+            </div>
+          </div>
+
+          <!-- Scenario B -->
+          <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="font-bold text-carbon">CASE 02: MOTORIST WITH DEAFNESS // CAR TITLE</span>
+              <span class="text-blue-700 font-bold">TTC § 502.061(a)</span>
+            </div>
+            <p class="text-slate leading-relaxed text-[11px]">
+              Elena has profound physiological deafness. She submits Form VTR-216 so patrol officers are alerted prior to approaching her car window.
+            </p>
+            <div class="p-2 rounded bg-white border border-hairline text-[11px] text-carbon">
+              <span class="font-bold text-safety">Routing Resolution:</span> Because deafness is a physical health condition under § 502.061(a), her form MUST be certified by an M.D. or D.O. Non-physician mental health professionals are statutorily barred.
+            </div>
+          </div>
+
+          <!-- Scenario C -->
+          <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="font-bold text-carbon">CASE 03: TEEN DRIVER // NEW CREDENTIAL</span>
+              <span class="text-purple-700 font-bold">TTC § 521.142(h)</span>
+            </div>
+            <p class="text-slate leading-relaxed text-[11px]">
+              Tyler is 18 and obtaining his first Texas Class C driver license. He wants protection regardless of whose car he is driving.
+            </p>
+            <div class="p-2 rounded bg-white border border-hairline text-[11px] text-carbon">
+              <span class="font-bold text-safety">Routing Resolution:</span> Tyler must submit Form DL-101 (signed by a physician) in person at Texas DPS. This places Restriction Code 08 on his physical license, which follows him everywhere.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 5: Module 7 Statutory Compendium -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          Module 7 Master Legal Codification Index
+        </h3>
+        <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+          <div class="p-2 rounded bg-stone-50 border border-stone-200">
+            <div class="text-slate uppercase text-[8px]">TTC § 545.157</div>
+            <div class="font-bold text-carbon text-[11px]">Move Over / Slow Down</div>
+            <div class="text-slate text-[9px]">Vacate lane or -20 mph below limit</div>
+          </div>
+          <div class="p-2 rounded bg-stone-50 border border-stone-200">
+            <div class="text-slate uppercase text-[8px]">TTC § 552.008</div>
+            <div class="font-bold text-carbon text-[11px]">Vulnerable Road Users</div>
+            <div class="text-slate text-[9px]">Pedestrian &amp; work zone clearance</div>
+          </div>
+          <div class="p-2 rounded bg-stone-50 border border-stone-200">
+            <div class="text-slate uppercase text-[8px]">TTC § 521.142(h)</div>
+            <div class="font-bold text-carbon text-[11px]">DPS Form DL-101</div>
+            <div class="text-slate text-[9px]">Restriction Code 08 on license</div>
+          </div>
+          <div class="p-2 rounded bg-stone-50 border border-stone-200">
+            <div class="text-slate uppercase text-[8px]">TTC § 502.061</div>
+            <div class="font-bold text-carbon text-[11px]">TxDMV Form VTR-216</div>
+            <div class="text-slate text-[9px]">TLETS pre-approach database flag</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 6: Module 7 Complete Topic Mastery Checklist -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Module 7 Master Curriculum Review &amp; Audit
+        </h3>
+        <p class="text-xs text-slate leading-relaxed">
+          Before taking the formative assessment, review the core takeaways across all 18 topics of Module 7:
+        </p>
+        <div class="space-y-1.5 text-xs">
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline flex items-start gap-2">
+            <span class="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check_circle</span>
+            <div>
+              <span class="font-bold text-carbon">Topics 01–05: Emergency Vehicles &amp; Right-of-Way</span>
+              <p class="text-[11px] text-slate">Pulling parallel to the nearest right curb (TTC § 545.156); yielding at non-controlled and four-way stop intersections.</p>
+            </div>
+          </div>
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline flex items-start gap-2">
+            <span class="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check_circle</span>
+            <div>
+              <span class="font-bold text-carbon">Topics 06–10: Vulnerable Users &amp; School Buses</span>
+              <p class="text-[11px] text-slate">Strict stop mandates for flashing red school bus lights; White Cane Safety Day total stops; 3-foot bicycle passing clearance.</p>
+            </div>
+          </div>
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline flex items-start gap-2">
+            <span class="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check_circle</span>
+            <div>
+              <span class="font-bold text-carbon">Topics 11–15: Commercial Trucks &amp; Move Over / Slow Down</span>
+              <p class="text-[11px] text-slate">Vacate adjacent lane or decelerate 20 mph below limit; 4-quadrant truck No-Zones and wide right-turn off-tracking geometry.</p>
+            </div>
+          </div>
+          <div class="p-2.5 rounded bg-surface-sub border border-hairline flex items-start gap-2">
+            <span class="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check_circle</span>
+            <div>
+              <span class="font-bold text-carbon">Topics 16–18: Samuel Allen Law &amp; Dual Agency Programs</span>
+              <p class="text-[11px] text-slate">Form DL-101 person-centric credential (Code 08) vs Form VTR-216 vehicle-centric registration (TLETS pre-approach flag).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedagogy Card 7: Practical Checklist for Texas Drivers -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="text-xs font-bold text-carbon uppercase tracking-wider flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-safety"></span>
+          Step-by-Step Action Plan: Enrolling in Both Programs
+        </h3>
+        <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 text-xs space-y-2">
+          <div class="font-bold text-carbon">Recommended Dual-Track Strategy for Maximum Safety:</div>
+          <p class="text-slate leading-relaxed">
+            Many Texas disability advocacy organizations recommend that motorists utilize <strong>both programs concurrently</strong> for layered protection:
+          </p>
+          <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+            <div class="p-2 rounded bg-white border border-stone-200">
+              <span class="text-safety font-bold block">TRACK 1 (CREDENTIAL)</span>
+              <span class="text-carbon font-bold">Submit Form DL-101</span>
+              <p class="text-[9px] text-slate font-sans mt-0.5">Protects you when driving rental cars, friends' vehicles, or as an authorized company driver.</p>
+            </div>
+            <div class="p-2 rounded bg-white border border-stone-200">
+              <span class="text-emerald-700 font-bold block">TRACK 2 (VEHICLE)</span>
+              <span class="text-carbon font-bold">Submit Form VTR-216</span>
+              <p class="text-[9px] text-slate font-sans mt-0.5">Alerts officers in the cruiser prior to approach, reducing initial tension before physical contact.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. FORMATIVE ASSESSMENT GATE (3 STATUTORY SCENARIOS) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Formative Assessment Gate
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">3 SCENARIO MCQS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Demonstrate mastery of Texas Form VTR-216 statutory routing and dual agency synthesis. Complete all questions to conclude Module 7.
+      </p>
+
+      <!-- MCQ Question 1 (Option B Strictly Correct) -->
+      <div <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L07-T18 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="mcq-container-1" class="space-y-3 pt-2">
+        <div class="flex items-start justify-between gap-2">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700">QUESTION 1 OF 3</span>
+          <span class="text-[10px] font-mono text-slate">TTC § 502.061</span>
+        </div>
+        <p class="text-xs font-medium text-carbon leading-relaxed">
+          <strong>Scenario:</strong> Two Texas motorists are preparing applications to record communication impediment alerts on their vehicle registration records through TxDMV under Texas Transportation Code § 502.061. Elena has severe physiological hearing loss (a physical health condition), while Marcus has diagnosed Post-Traumatic Stress Disorder with severe panic mutism (a mental health condition). Under Texas Transportation Code § 502.061 and 43 TAC § 217.46, how does the statutory medical signing authority on Form VTR-216 differ between Elena&rsquo;s physical condition and Marcus&rsquo;s mental health condition?
+        </p>
+
+        <div class="space-y-2">
+          <button id="q1-opt-a" onclick="checkMCQ(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[A]</strong> Elena may have her form certified by a licensed chiropractor or athletic trainer, whereas Marcus must be certified exclusively by a municipal court judge.</span>
+            <span id="q1-icon-a" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-b" onclick="checkMCQ(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[B]</strong> Elena&rsquo;s physical health condition must be certified exclusively by a licensed physician (M.D. or D.O.), whereas Marcus&rsquo;s mental health condition may be certified by a licensed physician, a licensed psychologist, or a licensed non-physician mental health professional.</span>
+            <span id="q1-icon-b" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-c" onclick="checkMCQ(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[C]</strong> Elena and Marcus must both be examined in person by a state medical review panel at TxDMV headquarters in Austin.</span>
+            <span id="q1-icon-c" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-d" onclick="checkMCQ(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[D]</strong> Both physical and mental health conditions may be certified by any registered nurse, pharmacist, or licensed massage therapist in Texas.</span>
+            <span id="q1-icon-d" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q1-explanation" class="hidden p-3 rounded-lg text-xs leading-relaxed space-y-1"></div>
+      </div>
+
+      <!-- MCQ Question 2 -->
+      <div id="mcq-container-2" class="space-y-3 pt-3 border-t border-hairline">
+        <div class="flex items-start justify-between gap-2">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700">QUESTION 2 OF 3</span>
+          <span class="text-[10px] font-mono text-slate">43 TAC § 217.46</span>
+        </div>
+        <p class="text-xs font-medium text-carbon leading-relaxed">
+          <strong>Scenario:</strong> A Texas vehicle owner has completed Form VTR-216 with their physician&rsquo;s original signature to enroll their vehicle in the TLETS communication impediment database. They are unsure where to submit the physical paperwork. Under 43 Texas Administrative Code § 217.46 and TxDMV procedures, to which governmental entity must Form VTR-216 be submitted?
+        </p>
+
+        <div class="space-y-2">
+          <button id="q2-opt-a" onclick="checkMCQ(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[A]</strong> In person at the County Tax Assessor-Collector&rsquo;s office during initial registration or renewal, or by mail directly to the TxDMV Vehicle Titles and Registration Division.</span>
+            <span id="q2-icon-a" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-b" onclick="checkMCQ(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[B]</strong> Exclusively at a municipal court clerk&rsquo;s office before an arraignment judge.</span>
+            <span id="q2-icon-b" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-c" onclick="checkMCQ(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[C]</strong> Hand-delivered to a local Texas Highway Patrol substation during a scheduled commercial vehicle safety inspection.</span>
+            <span id="q2-icon-c" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-d" onclick="checkMCQ(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[D]</strong> Mailed directly to the United States Department of Transportation in Washington, D.C.</span>
+            <span id="q2-icon-d" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q2-explanation" class="hidden p-3 rounded-lg text-xs leading-relaxed space-y-1"></div>
+      </div>
+
+      <!-- MCQ Question 3 -->
+      <div id="mcq-container-3" class="space-y-3 pt-3 border-t border-hairline">
+        <div class="flex items-start justify-between gap-2">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700">QUESTION 3 OF 3</span>
+          <span class="text-[10px] font-mono text-slate">TTC § 521.142 vs § 502.061</span>
+        </div>
+        <p class="text-xs font-medium text-carbon leading-relaxed">
+          <strong>Scenario:</strong> As the capstone synthesis of Module 7 (Roadway Interactions &amp; Critical Texas Programs), a student compares the two official methods for alerting Texas peace officers to a communication impediment: the Texas DPS pathway versus the TxDMV pathway. What is the fundamental statutory distinction between participating via Form DL-101 (Texas DPS) and participating via Form VTR-216 (TxDMV)?
+        </p>
+
+        <div class="space-y-2">
+          <button id="q3-opt-a" onclick="checkMCQ(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[A]</strong> Form DL-101 requires a mandatory $150 annual fee, whereas Form VTR-216 is completely free of charge.</span>
+            <span id="q3-icon-a" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-b" onclick="checkMCQ(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[B]</strong> Form DL-101 is mandatory for all licensed Texas drivers, whereas Form VTR-216 is strictly voluntary.</span>
+            <span id="q3-icon-b" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-c" onclick="checkMCQ(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[C]</strong> Form DL-101 ties the communication impediment to the individual person (placed as Restriction Code 08 on the driver license/ID card and inspected at the vehicle window), whereas Form VTR-216 ties the notation to the motor vehicle registration (transmitted electronically via TLETS to alert the officer prior to approaching the vehicle).</span>
+            <span id="q3-icon-c" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-d" onclick="checkMCQ(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs pr-2 leading-relaxed"><strong>[D]</strong> Form DL-101 places a bright yellow warning sticker on the driver&rsquo;s front windshield, whereas Form VTR-216 prints a bar code on the rear license plate.</span>
+            <span id="q3-icon-d" class="material-symbols-outlined text-stone-400 text-base">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q3-explanation" class="hidden p-3 rounded-lg text-xs leading-relaxed space-y-1"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. MODULE 7 GRAND FINALE VICTORY & ADVANCEMENT TO MODULE 8 -->
+    <section class="bg-white border-2 border-safety rounded-xl p-4 shadow-sm space-y-3.5 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-xs font-mono font-bold text-carbon uppercase tracking-wider">MODULE 07 COMPLETED // 18 OF 18 LESSONS</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety font-bold px-2 py-0.5 rounded bg-safety/10 border border-safety/30">100% MASTERED</span>
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="text-base font-bold text-carbon">Congratulations! You Have Completed Module 7</h3>
+        <p class="text-xs text-slate leading-relaxed">
+          You have mastered all Texas roadway interaction statutes, emergency vehicle Move Over laws, vulnerable road user protections, commercial truck No-Zones, and both pathways of the Samuel Allen Law (DPS Form DL-101 and TxDMV Form VTR-216).
+        </p>
+      </div>
+
+      <!-- Module 8 Bridge Card -->
+      <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1 text-xs">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold">NEXT UP: MODULE 08</span>
+          <span class="text-slate">5 TOPICS</span>
+        </div>
+        <div class="font-bold text-carbon text-xs">Alcohol &amp; Drug Awareness, Blood Alcohol Limits &amp; Implied Consent</div>
+        <p class="text-[11px] text-slate leading-relaxed">
+          Examine Texas zero-tolerance statutes for minors, BAC thresholds under Texas Penal Code Chapter 49, Administrative License Revocation (ALR), and ignition interlock requirements.
+        </p>
+      </div>
+
+      <a href="L08-T01.html" class="touch-target w-full py-3.5 px-4 rounded-xl bg-safety text-white font-bold text-center flex items-center justify-center gap-2 hover:bg-safety-deep transition shadow-md text-sm">
+        <span>BEGIN MODULE 8: TOPIC 1 (ALCOHOL IMPAIRMENT &amp; BAC)</span>
+        <span class="material-symbols-outlined text-base">arrow_forward</span>
+      </a>
+    </section>
+
+  
+    <!-- 09. CURRICULUM NAVIGATION & STATUTORY COMPLIANCE FOOTER -->
+    <footer class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <span>COURSE CURRICULUM SEQUENCE</span>
+        <span class="text-safety font-bold">TOPIC 18 OF 18 &bull; MODULE 07 FINALE</span>
+      </div>
+
+      <!-- Navigation Buttons (min-h-[48px]) -->
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pt-1 select-none">
+        <a href="L07-T17.html" class="touch-target flex-1 min-w-[80px] h-12 py-2.5 px-3 rounded-xl bg-surface-sub hover:bg-neutral-200 active:scale-98 text-carbon font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-hairline shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>PREV</span>
+        </a>
+        <a href="index.html" class="touch-target w-auto shrink-0 h-12 py-2.5 px-4 rounded-xl bg-surface-sub hover:bg-neutral-200 active:scale-98 text-carbon font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-hairline shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-[18px]">grid_view</span>
+          <span>HUB</span>
+        </a>
+        <a href="L08-T01.html" class="touch-target flex-1 min-w-[80px] h-12 py-2.5 px-3 rounded-xl bg-safety hover:bg-safety-deep active:scale-98 text-white font-mono text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span>NEXT</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="pt-2 border-t border-hairline/80 text-center font-mono text-[9px] text-slate space-y-1">
+        <p>TEXAS ADULT DRIVER EDUCATION &bull; ADE-1317 &bull; TDLR LICENSED CURRICULUM</p>
+        <p>Texas Transportation Code Chapter 545 Subchapter J &bull; Autonomous Vehicles &amp; ADAS Safety</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE -->
+  <script>
+    // Audio Feedback Utility
+    function playBeep(freq = 880, duration = 0.08) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    // --- 01. Form VTR-216 Branching Router Engine ---
+    function selectVtrBranch(branch) {
+      playBeep(784, 0.08);
+      const btnPhys = document.getElementById('btn-physical');
+      const btnMent = document.getElementById('btn-mental');
+      const dotPhys = document.getElementById('dot-physical');
+      const dotMent = document.getElementById('dot-mental');
+      const pathLeft = document.getElementById('svg-path-left');
+      const pathRight = document.getElementById('svg-path-right');
+      const arrow = document.getElementById('svg-arrow');
+      const badge = document.getElementById('router-status-badge');
+
+      const stateEmpty = document.getElementById('state-empty');
+      const statePhys = document.getElementById('state-physical');
+      const stateMent = document.getElementById('state-mental');
+
+      stateEmpty.classList.add('hidden');
+
+      if (branch === 'physical') {
+        btnPhys.className = 'touch-target p-3 rounded-xl border-2 border-safety bg-safety/10 text-left space-y-1 transition';
+        btnMent.className = 'touch-target p-3 rounded-xl border-2 border-stone-200 bg-white hover:bg-stone-50 transition text-left space-y-1';
+        dotPhys.className = 'w-2 h-2 rounded-full bg-safety animate-pulse';
+        dotMent.className = 'w-2 h-2 rounded-full bg-stone-300';
+
+        pathLeft.setAttribute('stroke', '#E87522');
+        pathLeft.setAttribute('stroke-width', '3');
+        pathRight.setAttribute('stroke', '#D1D5DB');
+        pathRight.setAttribute('stroke-width', '2');
+        arrow.setAttribute('fill', '#E87522');
+
+        statePhys.classList.remove('hidden');
+        stateMent.classList.add('hidden');
+        badge.textContent = 'ROUTED: PHYSICIAN ONLY (TTC § 502.061(a))';
+        badge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-300';
+      } else {
+        btnMent.className = 'touch-target p-3 rounded-xl border-2 border-safety bg-safety/10 text-left space-y-1 transition';
+        btnPhys.className = 'touch-target p-3 rounded-xl border-2 border-stone-200 bg-white hover:bg-stone-50 transition text-left space-y-1';
+        dotMent.className = 'w-2 h-2 rounded-full bg-safety animate-pulse';
+        dotPhys.className = 'w-2 h-2 rounded-full bg-stone-300';
+
+        pathRight.setAttribute('stroke', '#E87522');
+        pathRight.setAttribute('stroke-width', '3');
+        pathLeft.setAttribute('stroke', '#D1D5DB');
+        pathLeft.setAttribute('stroke-width', '2');
+        arrow.setAttribute('fill', '#E87522');
+
+        stateMent.classList.remove('hidden');
+        statePhys.classList.add('hidden');
+        badge.textContent = 'ROUTED: 3 DISTINCT SIGNATORIES (TTC § 502.061(b))';
+        badge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300';
+      }
+    }
+
+    function resetRouter() {
+      playBeep(440, 0.05);
+      document.getElementById('btn-physical').className = 'touch-target p-3 rounded-xl border-2 border-stone-200 bg-white hover:bg-stone-50 transition text-left space-y-1';
+      document.getElementById('btn-mental').className = 'touch-target p-3 rounded-xl border-2 border-stone-200 bg-white hover:bg-stone-50 transition text-left space-y-1';
+      document.getElementById('dot-physical').className = 'w-2 h-2 rounded-full bg-stone-300';
+      document.getElementById('dot-mental').className = 'w-2 h-2 rounded-full bg-stone-300';
+
+      document.getElementById('svg-path-left').setAttribute('stroke', '#D1D5DB');
+      document.getElementById('svg-path-left').setAttribute('stroke-width', '2');
+      document.getElementById('svg-path-right').setAttribute('stroke', '#D1D5DB');
+      document.getElementById('svg-path-right').setAttribute('stroke-width', '2');
+      document.getElementById('svg-arrow').setAttribute('fill', '#D1D5DB');
+
+      document.getElementById('state-empty').classList.remove('hidden');
+      document.getElementById('state-physical').classList.add('hidden');
+      document.getElementById('state-mental').classList.add('hidden');
+
+      const badge = document.getElementById('router-status-badge');
+      badge.textContent = 'SELECT A PATHWAY';
+      badge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700 border border-stone-200';
+    }
+
+    // --- 02. Decision Matrix CAD State Machine ---
+    function selectVtrMatrix(mode) {
+      playBeep(659, 0.06);
+      const rectPhys = document.getElementById('rect-vtr-phys');
+      const rectMent = document.getElementById('rect-vtr-ment');
+      const pathL = document.getElementById('vtr-cad-path-left');
+      const pathR = document.getElementById('vtr-cad-path-right');
+      const btnP = document.getElementById('btn-cad-phys');
+      const btnM = document.getElementById('btn-cad-ment');
+
+      const title = document.getElementById('vtr-result-title');
+      const b1 = document.getElementById('vtr-result-body1');
+      const b2 = document.getElementById('vtr-result-body2');
+
+      if (mode === 'physical') {
+        rectPhys.setAttribute('stroke', '#E87522');
+        rectPhys.setAttribute('stroke-width', '2');
+        rectMent.setAttribute('stroke', '#374151');
+        rectMent.setAttribute('stroke-width', '1.5');
+        pathL.setAttribute('stroke', '#E87522');
+        pathL.setAttribute('stroke-width', '3');
+        pathR.setAttribute('stroke', '#374151');
+        pathR.setAttribute('stroke-width', '2');
+
+        btnP.className = 'cad-btn cad-btn-active touch-target';
+        btnM.className = 'cad-btn cad-btn-inactive touch-target';
+
+        title.textContent = 'ROUTED: PHYSICAL HEALTH REQUIREMENT (1 SIGNATORY)';
+        b1.textContent = 'Must be certified exclusively by a licensed physician (M.D. / D.O.). Non-physicians barred.';
+        b2.textContent = 'Governed by Texas Transportation Code § 502.061(a) (Deafness / Mutism).';
+      } else {
+        rectMent.setAttribute('stroke', '#E87522');
+        rectMent.setAttribute('stroke-width', '2');
+        rectPhys.setAttribute('stroke', '#374151');
+        rectPhys.setAttribute('stroke-width', '1.5');
+        pathR.setAttribute('stroke', '#E87522');
+        pathR.setAttribute('stroke-width', '3');
+        pathL.setAttribute('stroke', '#374151');
+        pathL.setAttribute('stroke-width', '2');
+
+        btnM.className = 'cad-btn cad-btn-active touch-target';
+        btnP.className = 'cad-btn cad-btn-inactive touch-target';
+
+        title.textContent = 'ROUTED: MENTAL HEALTH REQUIREMENTS (3 SIGNATORIES)';
+        b1.textContent = 'May be certified by: (1) Physician (MD/DO), (2) Psychologist (PhD/PsyD), or (3) MHP (LPC/LCSW/LMFT).';
+        b2.textContent = 'Governed by Texas Transportation Code § 502.061(b) (Autism, PTSD, TBI).';
+      }
+    }
+
+    // --- 03. Dual Agency Pathway Selector ---
+    function selectAgencyPath(agency) {
+      playBeep(523, 0.06);
+      const rectDps = document.getElementById('rect-agency-dps');
+      const rectTx = document.getElementById('rect-agency-txdmv');
+      const btnDps = document.getElementById('btn-path-dps');
+      const btnTx = document.getElementById('btn-path-txdmv');
+      const box = document.getElementById('agency-detail-box');
+
+      if (agency === 'dps') {
+        rectDps.setAttribute('stroke', '#E87522');
+        rectDps.setAttribute('stroke-width', '2');
+        rectTx.setAttribute('stroke', '#374151');
+        rectTx.setAttribute('stroke-width', '1.5');
+        btnDps.className = 'cad-btn cad-btn-active touch-target';
+        btnTx.className = 'cad-btn cad-btn-inactive touch-target';
+
+        box.innerHTML = `
+          <div class="font-bold text-carbon text-xs">Texas DPS Driver License Pathway (Form DL-101)</div>
+          <p class="text-slate leading-relaxed">
+            Follows the PERSON across any vehicle they operate. Restriction Code 08 is printed on the card back and inspected at the car window during roadside document exchange. Signed by M.D./D.O. only.
+          </p>
+        `;
+      } else {
+        rectTx.setAttribute('stroke', '#E87522');
+        rectTx.setAttribute('stroke-width', '2');
+        rectDps.setAttribute('stroke', '#374151');
+        rectDps.setAttribute('stroke-width', '1.5');
+        btnTx.className = 'cad-btn cad-btn-active touch-target';
+        btnDps.className = 'cad-btn cad-btn-inactive touch-target';
+
+        box.innerHTML = `
+          <div class="font-bold text-carbon text-xs">TxDMV Vehicle Registration Pathway (Form VTR-216)</div>
+          <p class="text-slate leading-relaxed">
+            Follows the VEHICLE plate via TLETS. Discloses condition to peace officers in the cruiser BEFORE physical approach. Eligible signatories expanded to psychologists and licensed MHPs for mental conditions.
+          </p>
+        `;
+      }
+    }
+
+    // --- 04. Formative MCQ Assessment Engine ---
+    const answers = { 1: 'B', 2: 'A', 3: 'C' };
+    const answered = { 1: false, 2: false, 3: false };
+    let currentScore = 0;
+
+            const TOPIC_ID = 'L07-T18';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 502.061(a)–(b)",
+            "statutoryRationale": "Under Texas Transportation Code § 502.061(a)–(b) and 43 TAC § 217.46, Form VTR-216 establishes a statutory medical signing authority split: physical health conditions (deafness, speech mutism) MUST be certified exclusively by a physician licensed to practice medicine in Texas (M.D. or D.O.). However, for mental health conditions (Autism, PTSD, TBI), the statute expands eligible signatories to include a licensed physician, a licensed psychologist, or a licensed non-physician mental health professional (such as an LPC, LCSW, or LMFT)."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "A",
+            "statute": "43 TAC § 217.46",
+            "statutoryRationale": "Under 43 TAC § 217.46, Form VTR-216 (Application for Communication Impediment with a Peace Officer Marker on Vehicle Registration Record) must be submitted to the local County Tax Assessor-Collector's office in the applicant's county of residence (either at annual registration renewal or mid-cycle), or submitted by mail directly to the TxDMV Vehicle Titles and Registration Division in Austin."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 521.142 vs § 502.061",
+            "statutoryRationale": "This is the core pedagogical takeaway of the Module 7 Grand Finale: Form DL-101 (Texas DPS) is person-centric—it places Restriction Code 08 on the physical driver license, which travels with the person across any vehicle but is only seen during window contact. In contrast, Form VTR-216 (TxDMV) is vehicle-centric—it attaches the indicator to the vehicle's registration record in TLETS, alerting the officer on their in-car MDT screen BEFORE they ever exit their patrol vehicle."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // 3D SIMULATION HOST DOCK CONTROLLER (F28 AUTONOMOUS VEHICLES & ADAS)
+    // ------------------------------------------------------------------------
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // SAE LEVEL 2 SENSOR FRUSTUMS",
+        statute: "TTC &sect; 545.451",
+        title: "SAE LEVEL 2 ADAS SENSING &amp; DRIVER SUPERVISION",
+        desc: "Radar and camera perception cones illustrate automated steering and speed control. The licensed human driver remains legally responsible at all times.",
+        metric: "LEGAL OPERATOR: <strong class='text-carbon font-mono'>HUMAN DRIVER RESPONSIBLE</strong>",
+        phase: "PHASE: SAE LEVEL 2 LANE CENTERING"
+      },
+      2: {
+        badge: "SCENARIO 02 // SENSOR OCCLUSION & DIRECT SUN GLARE",
+        statute: "TTC &sect; 545.454",
+        title: "CAMERA BLINDNESS UNDER LOW HORIZON SUN GLARE",
+        desc: "Low morning sun saturates the optical camera array, causing immediate lane tracking loss and sensor degradation.",
+        metric: "SENSOR INTEGRITY: <strong class='text-carbon font-mono'>OPTICAL SATURATION WARNING</strong>",
+        phase: "PHASE: SENSOR OCCLUSION BLINDNESS"
+      },
+      3: {
+        badge: "SCENARIO 03 // AUDITORY/VISUAL TAKEOVER REQUEST & RE-ENGAGEMENT",
+        statute: "TTC &sect; 545.454",
+        title: "TAKEOVER REQUEST (TOR) &amp; HANDS-ON RE-ENGAGEMENT",
+        desc: "When system boundary limits are exceeded, a high-priority Takeover Request sounds. The driver must re-engage physical steering within seconds.",
+        metric: "TAKEOVER WINDOW: <strong class='text-carbon font-mono'>&lt; 3.0 SEC TO DISENGAGE</strong>",
+        phase: "PHASE: CRITICAL TAKEOVER REQUEST"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      playBeep(480, 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

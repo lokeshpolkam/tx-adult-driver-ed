@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>PVQ Checkpoint &amp; DPS Exam Synthesis — Texas Adult Driver Ed (L09-T01)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .bg-obsidian-grid {
+      background-size: 1.5rem 1.5rem;
+      background-image: 
+        linear-gradient(to right, #1F2622 1px, transparent 1px),
+        linear-gradient(to bottom, #1F2622 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"], input[type="radio"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .overflow-x-auto {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+    svg {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    select, input, button, textarea {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      min-height: 44px !important;
+    }
+    #pvq-form select,
+    #pvq-form input {
+      min-height: 48px !important;
+      height: 48px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .cad-tab-btn {
+      min-height: 48px;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .cad-tab-active {
+      border: 2px solid #E87522;
+      background: rgba(232, 117, 34, 0.12);
+      color: #E87522;
+    }
+    .cad-tab-inactive {
+      border: 1px solid #D9DDD8;
+      background: #FFFFFF;
+      color: #5A605C;
+    }
+    .cad-tab-inactive:hover {
+      background: #F3F4F2;
+      color: #191C1B;
+    }
+    .mcq-btn {
+      min-height: 48px;
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      border: 1px solid #D9DDD8;
+      background: #FFFFFF;
+      color: #191C1B;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    select, input { font-family: 'Geist', sans-serif; }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. EDITORIAL HERO & STATUTORY FOUNDATION -->
+    <section class="bg-white rounded-xl border border-hairline p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <!-- Engineering Corner Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <span>REF // ADE-L09-T01-CAPSTONE</span>
+        <span class="bg-surface-sub px-1.5 py-0.5 rounded border border-hairline font-bold text-valid">TDLR AUDIT VERIFIED</span>
+      </div>
+
+      <!-- Statutory Subtitle & Chapter Tags -->
+      <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono uppercase text-slate">
+        <span class="text-safety font-bold">16 TAC § 84.500</span>
+        <span>&bull;</span>
+        <span class="text-carbon font-bold">TTC § 521.161</span>
+        <span>&bull;</span>
+        <span>DPS EXAM SPEC</span>
+      </div>
+
+      <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+        Identity Verification Checkpoint &amp; DPS Knowledge Exam Synthesis
+      </h1>
+      <p class="text-xs font-medium text-safety-deep font-mono tracking-wide uppercase">
+        Capstone Preparation: Personal Validation Vault &amp; Statutory Highway Code Synthesis
+      </p>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Welcome to the capstone topic of the Texas Adult Driver Education (ADE-1317) curriculum. Before attempting the official 30-question Texas Department of Public Safety (DPS) Driver License Examination in Topic 2, Texas Administrative Code (16 TAC § 84.500) mandates that every candidate establish their Personal Verification Question (PVQ) vault. All 5 security questions must be selected and recorded on this single page without multi-step wizard pagination.
+      </p>
+
+      <!-- DPS STATUTORY SAFETY COMPACT CALLOUT -->
+      <div class="p-3 bg-safety-light border-l-4 border-safety rounded-r-xl space-y-1 text-xs">
+        <div class="flex items-center gap-1.5 text-[11px] font-mono font-bold text-safety uppercase tracking-wide">
+          <span class="material-symbols-outlined text-[16px]">verified_user</span>
+          <span>16 TAC § 84.500 Statutory Protocol:</span>
+        </div>
+        <p class="text-carbon leading-relaxed text-[11px]">
+          Students must configure 5 unique personal verification questions from the state bank of 15 items. During the official state exam, random PVQ challenges will be dispatched; students have exactly <strong>90 seconds</strong> to provide the matching response. Three consecutive incorrect answers will invalidate the testing session.
+        </p>
+      </div>
+
+      <!-- Technical Micro Metrics Grid -->
+      <div class="grid grid-cols-3 gap-2 pt-1 border-t border-hairline text-center font-mono">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-[9px] text-slate uppercase">Passing Score</div>
+          <div class="text-xs font-bold text-valid">70% MIN</div>
+          <div class="text-[8px] text-slate">21 OF 30 STATE Qs</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-[9px] text-slate uppercase">PVQ Challenge</div>
+          <div class="text-xs font-bold text-safety">90 SEC</div>
+          <div class="text-[8px] text-slate">16 TAC § 84.500</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-[9px] text-slate uppercase">Question Bank</div>
+          <div class="text-xs font-bold text-carbon">5 OF 15</div>
+          <div class="text-[8px] text-slate">SINGLE-PAGE FORM</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. MANDATORY SINGLE-PAGE PVQ CHECKPOINT (ALL 5 QUESTIONS ON ONE PAGE // ZERO WIZARDS) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">lock</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Personal Verification Checkpoint
+          </h2>
+        </div>
+        <span id="pvq-progress-text" class="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-300">
+          5 SLOTS PENDING
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select 5 distinct security questions from the official Texas 15-question bank and enter your memorized answers. Responses are case-insensitive and stored securely in local browser state for testing verification:
+      </p>
+
+      <!-- PVQ Form Container (Strict 1 Single Page // Zero Wizards // Minimum 44px Touch Targets) -->
+      <form id="pvq-form" onsubmit="event.preventDefault(); savePvqAnswers();" class="space-y-3.5">
+        
+        <!-- Slot 1 -->
+        <div id="card-slot-0" class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1.5">
+          <label for="pvq-q1" class="block text-[11px] font-mono font-bold text-carbon">
+            SECURITY QUESTION 1:
+          </label>
+          <select id="pvq-q1" class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+          </select>
+          <input type="text" id="pvq-a1" placeholder="Enter answer 1 (e.g., Buster)..." required class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+        </div>
+
+        <!-- Slot 2 -->
+        <div id="card-slot-1" class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1.5">
+          <label for="pvq-q2" class="block text-[11px] font-mono font-bold text-carbon">
+            SECURITY QUESTION 2:
+          </label>
+          <select id="pvq-q2" class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+          </select>
+          <input type="text" id="pvq-a2" placeholder="Enter answer 2 (e.g., Ford)..." required class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+        </div>
+
+        <!-- Slot 3 -->
+        <div id="card-slot-2" class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1.5">
+          <label for="pvq-q3" class="block text-[11px] font-mono font-bold text-carbon">
+            SECURITY QUESTION 3:
+          </label>
+          <select id="pvq-q3" class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+          </select>
+          <input type="text" id="pvq-a3" placeholder="Enter answer 3 (e.g., Oak Elementary)..." required class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+        </div>
+
+        <!-- Slot 4 -->
+        <div id="card-slot-3" class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1.5">
+          <label for="pvq-q4" class="block text-[11px] font-mono font-bold text-carbon">
+            SECURITY QUESTION 4:
+          </label>
+          <select id="pvq-q4" class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+          </select>
+          <input type="text" id="pvq-a4" placeholder="Enter answer 4 (e.g., Austin)..." required class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+        </div>
+
+        <!-- Slot 5 -->
+        <div id="card-slot-4" class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1.5">
+          <label for="pvq-q5" class="block text-[11px] font-mono font-bold text-carbon">
+            SECURITY QUESTION 5:
+          </label>
+          <select id="pvq-q5" class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+          </select>
+          <input type="text" id="pvq-a5" placeholder="Enter answer 5 (e.g., Johnson)..." required class="touch-target w-full min-h-[48px] px-3 py-2 rounded-lg border border-hairline bg-white text-xs text-carbon font-sans focus:outline-none focus:border-safety" style="min-height: 48px !important; height: 48px !important; box-sizing: border-box !important;">
+        </div>
+
+        <button type="submit" id="btn-submit-pvq" class="w-full min-h-[48px] px-4 py-3 rounded-xl bg-carbon hover:bg-carbon/90 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs transition-all">
+          <span class="material-symbols-outlined text-base text-safety">save</span>
+          <span>REGISTER 5 VERIFICATION QUESTIONS</span>
+        </button>
+      </form>
+
+      <div id="form-feedback" class="hidden p-3 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 font-mono text-xs leading-relaxed space-y-1">
+        <div class="flex items-center gap-1.5 font-bold text-valid">
+          <span class="material-symbols-outlined text-base">check_circle</span>
+          <span>PVQ Registration Complete &amp; Encrypted</span>
+        </div>
+        <p class="text-[11px] text-slate">All 5 Personal Verification Questions have been stored securely in your browser cache. You are authenticated to proceed to the Texas Driver License Final Examination.</p>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD SVG DIAGRAM: DPS EXAM KNOWLEDGE DOMAIN MATRIX (340x220) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">view_in_ar</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: DPS Exam Domain Matrix
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-valid font-bold">70% PASS BENCHMARK</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The official 30-question Texas Driver License Exam tests across four core statutory domains. Review question distribution:
+      </p>
+
+      <!-- SVG 1: Primary CAD Vector Viewport (340x220) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[220px]" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-exam" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="220" fill="url(#cad-grid-exam)" />
+
+          <!-- Title Bar inside SVG -->
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">TEXAS DPS 30-QUESTION KNOWLEDGE DOMAIN MATRIX</text>
+
+          <!-- Domain 1: Right-of-Way (x: 15) -->
+          <g transform="translate(15, 28)">
+            <rect x="0" y="0" width="70" height="95" rx="3" fill="#1E293B" stroke="#3B82F6" stroke-width="1"/>
+            <text x="35" y="16" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">DOMAIN 1</text>
+            <text x="35" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">RIGHT-OF-WAY</text>
+            <rect x="10" y="35" width="50" height="35" rx="2" fill="#0F172A" stroke="#60A5FA"/>
+            <text x="35" y="52" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">CH. 4</text>
+            <text x="35" y="62" fill="#BFDBFE" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Intersections</text>
+            <text x="35" y="86" fill="#FEF08A" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">8 QUESTIONS</text>
+          </g>
+
+          <!-- Domain 2: Signs & Signals (x: 95) -->
+          <g transform="translate(95, 28)">
+            <rect x="0" y="0" width="70" height="95" rx="3" fill="#1E293B" stroke="#F59E0B" stroke-width="1"/>
+            <text x="35" y="16" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">DOMAIN 2</text>
+            <text x="35" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">SIGNS / SIGNALS</text>
+            <rect x="10" y="35" width="50" height="35" rx="2" fill="#0F172A" stroke="#FBBF24"/>
+            <text x="35" y="52" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">CH. 5</text>
+            <text x="35" y="62" fill="#FEF08A" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Shapes / Colors</text>
+            <text x="35" y="86" fill="#FEF08A" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">10 QUESTIONS</text>
+          </g>
+
+          <!-- Domain 3: Passing & Turning (x: 175) -->
+          <g transform="translate(175, 28)">
+            <rect x="0" y="0" width="70" height="95" rx="3" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+            <text x="35" y="16" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">DOMAIN 3</text>
+            <text x="35" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">PASS &amp; TURN</text>
+            <rect x="10" y="35" width="50" height="35" rx="2" fill="#0F172A" stroke="#34D399"/>
+            <text x="35" y="52" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">CH. 6</text>
+            <text x="35" y="62" fill="#D1FAE5" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">100-Ft Signal</text>
+            <text x="35" y="86" fill="#FEF08A" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">7 QUESTIONS</text>
+          </g>
+
+          <!-- Domain 4: Alcohol & Safety (x: 255) -->
+          <g transform="translate(255, 28)">
+            <rect x="0" y="0" width="70" height="95" rx="3" fill="#1E293B" stroke="#E87522" stroke-width="1"/>
+            <text x="35" y="16" fill="#FDBA74" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">DOMAIN 4</text>
+            <text x="35" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">SAFETY &amp; DUI</text>
+            <rect x="10" y="35" width="50" height="35" rx="2" fill="#0F172A" stroke="#FB923C"/>
+            <text x="35" y="52" fill="#FDBA74" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">CH. 8-10</text>
+            <text x="35" y="62" fill="#FED7AA" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">0.08 BAC / Belt</text>
+            <text x="35" y="86" fill="#FEF08A" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">5 QUESTIONS</text>
+          </g>
+
+          <!-- 70% Mastery Threshold Banner -->
+          <rect x="15" y="132" width="310" height="28" rx="3" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+          <text x="170" y="146" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold" text-anchor="middle">70% PASSING BENCHMARK // 21 OF 30 QUESTIONS</text>
+          <text x="170" y="155" fill="#D1FAE5" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">UNTOUCHED 30 STATE QUESTIONS IN FINAL EXAM (MODULE 9 TOPIC 2)</text>
+
+          <!-- Bottom Summary Line -->
+          <text x="170" y="180" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="7" text-anchor="middle">TEXAS TRANSPORTATION CODE § 521.161 EXAMINATION STANDARD</text>
+        </svg>
+      </div>
+
+      <!-- Critical Lesson Takeaway -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>State Exam Benchmark:</strong> To qualify for your Texas driver license, you must score at least 70% (21 correct out of 30 questions). The untouched state exam questions reside strictly in Module 9 Topic 2 (/mcqs/final_exam.html).
+      </div>
+    </section>
+
+    <!-- 05. SECONDARY CAD SVG DIAGRAM: 16 TAC § 84.500 PVQ SECURITY VAULT ARCHITECTURE (340x180) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">lock_open</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: PVQ Security Architecture
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-safety font-bold">16 TAC § 84.500</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Inspect the biometric identity authentication protocol mandated by the Texas Department of Licensing and Regulation (TDLR):
+      </p>
+
+      <!-- SVG 2: Secondary CAD Vector Viewport (340x180) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[180px]" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-vault" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" fill="url(#cad-grid-vault)" />
+
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">16 TAC § 84.500 PVQ SECURITY VAULT ARCHITECTURE</text>
+
+          <!-- Vault Step 1: 5 Questions Bank (x: 15) -->
+          <g transform="translate(15, 30)">
+            <rect x="0" y="0" width="95" height="100" rx="3" fill="#1E293B" stroke="#3B82F6" stroke-width="1"/>
+            <text x="47" y="16" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">STEP 1</text>
+            <text x="47" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">5 OF 15 BANK</text>
+            <rect x="10" y="35" width="75" height="42" rx="2" fill="#0F172A" stroke="#60A5FA"/>
+            <text x="47" y="50" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">Single-Page Form</text>
+            <text x="47" y="62" fill="#BFDBFE" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Zero Wizards</text>
+            <text x="47" y="90" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Pre-Exam Setup</text>
+          </g>
+
+          <!-- Arrow 1 to 2 -->
+          <line x1="110" y1="80" x2="120" y2="80" stroke="#FDE047" stroke-width="1.5"/>
+          <polygon points="122,80 116,77 116,83" fill="#FDE047"/>
+
+          <!-- Vault Step 2: 90-Second Response (x: 122) -->
+          <g transform="translate(122, 30)">
+            <rect x="0" y="0" width="95" height="100" rx="3" fill="#1E293B" stroke="#F59E0B" stroke-width="1"/>
+            <text x="47" y="16" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">STEP 2</text>
+            <text x="47" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">90S RESPONSE</text>
+            <rect x="10" y="35" width="75" height="42" rx="2" fill="#0F172A" stroke="#FBBF24"/>
+            <text x="47" y="50" fill="#FDE68A" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">Verification Intercept</text>
+            <text x="47" y="62" fill="#FEF08A" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Case-Insensitive</text>
+            <text x="47" y="90" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Timer Protection</text>
+          </g>
+
+          <!-- Arrow 2 to 3 -->
+          <line x1="217" y1="80" x2="228" y2="80" stroke="#FDE047" stroke-width="1.5"/>
+          <polygon points="230,80 224,77 224,83" fill="#FDE047"/>
+
+          <!-- Vault Step 3: Exam Unlocked (x: 230) -->
+          <g transform="translate(230, 30)">
+            <rect x="0" y="0" width="95" height="100" rx="3" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+            <text x="47" y="16" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">STEP 3</text>
+            <text x="47" y="27" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">EXAM UNLOCKED</text>
+            <rect x="10" y="35" width="75" height="42" rx="2" fill="#0F172A" stroke="#10B981"/>
+            <text x="47" y="50" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="bold" text-anchor="middle">30 STATE MCQS</text>
+            <text x="47" y="62" fill="#D1FAE5" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">Module 9 Topic 2</text>
+            <text x="47" y="90" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="5" text-anchor="middle">DE-964 Certificate</text>
+          </g>
+
+          <!-- Bottom Warning Banner -->
+          <rect x="15" y="142" width="310" height="26" rx="2" fill="#1C1F1E" stroke="#8B5CF6" stroke-width="1"/>
+          <text x="170" y="158" fill="#DDD6FE" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">SECURITY MANDATE // PREVENTS FRAUDULENT EXAM PROXYING</text>
+        </svg>
+      </div>
+
+      <!-- Legal Summary -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>The 90-Second Response Window:</strong> Texas regulations mandate that when a PVQ challenge appears during testing, the student must provide the exact matching response within 90 seconds. Failure to answer or three incorrect attempts will terminate the session to protect course integrity.
+      </div>
+    </section>
+
+    <!-- 06. INTERACTIVE DPS EXAM PRACTICE SIMULATOR (REVERSE-ENGINEERED FROM V1 PEDAGOGY EXPLORER) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">model_training</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            DPS Practice Simulator: 5 Scenario Models
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-safety font-bold">V1 PEDAGOGY EXPLORER</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Master the 5 most frequently tested high-failure scenarios from the Texas Driver Handbook. Tap any scenario below to view the vector blueprint, governing statute, and road engineering principles:
+      </p>
+
+      <!-- Scenario Selector Buttons (5 Tabs, >= 44px Touch Targets) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <button type="button" id="tab-scen-1" onclick="selectScenario(1)" class="cad-tab-btn cad-tab-active touch-target">
+          <span class="w-5 h-5 rounded-full bg-safety text-white text-[10px] font-mono flex items-center justify-center shrink-0">1</span>
+          <span class="truncate">All-Way Stop</span>
+        </button>
+        <button type="button" id="tab-scen-2" onclick="selectScenario(2)" class="cad-tab-btn cad-tab-inactive touch-target">
+          <span class="w-5 h-5 rounded-full bg-surface-sub text-carbon text-[10px] font-mono flex items-center justify-center shrink-0">2</span>
+          <span class="truncate">Warning Signs</span>
+        </button>
+        <button type="button" id="tab-scen-3" onclick="selectScenario(3)" class="cad-tab-btn cad-tab-inactive touch-target">
+          <span class="w-5 h-5 rounded-full bg-surface-sub text-carbon text-[10px] font-mono flex items-center justify-center shrink-0">3</span>
+          <span class="truncate">100-Ft Signal</span>
+        </button>
+        <button type="button" id="tab-scen-4" onclick="selectScenario(4)" class="cad-tab-btn cad-tab-inactive touch-target">
+          <span class="w-5 h-5 rounded-full bg-surface-sub text-carbon text-[10px] font-mono flex items-center justify-center shrink-0">4</span>
+          <span class="truncate">Minor 0.00% BAC</span>
+        </button>
+        <button type="button" id="tab-scen-5" onclick="selectScenario(5)" class="cad-tab-btn cad-tab-inactive touch-target col-span-2 sm:col-span-1">
+          <span class="w-5 h-5 rounded-full bg-surface-sub text-carbon text-[10px] font-mono flex items-center justify-center shrink-0">5</span>
+          <span class="truncate">Pass on Right</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Scenario Viewport Box -->
+      <div class="w-full bg-[#141615] rounded-xl p-3 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <div id="scenario-svg-container" class="w-full flex items-center justify-center">
+          <!-- Dynamic SVG injected via JS -->
+        </div>
+      </div>
+
+      <!-- Reactive Scenario Detail Card -->
+      <div id="scenario-detail-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2">
+        <div class="flex items-center justify-between border-b border-hairline pb-2">
+          <span id="scen-badge" class="font-mono text-[10px] font-bold text-safety uppercase">SCENARIO 01 // RIGHT-OF-WAY LAWS</span>
+          <span id="scen-statute" class="font-mono text-[10px] text-slate">TTC § 545.151</span>
+        </div>
+        <h4 id="scen-title" class="font-bold text-sm text-carbon">All-Way Stop Intersection Priority</h4>
+        <p id="scen-desc" class="text-xs text-slate leading-relaxed">
+          Four vehicles arrive at an all-way stop intersection. The vehicle that reached the intersection first and came to a complete stop has legal right-of-way to proceed first. If two vehicles arrive at the exact same moment, the driver on the left must yield right-of-way to the vehicle on their right.
+        </p>
+
+        <!-- Dynamic Rule Metric Pills -->
+        <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded border border-hairline">
+            <div class="text-slate text-[9px] uppercase">STATUTORY MANDATE</div>
+            <div id="scen-m1" class="font-bold text-carbon text-xs mt-0.5">FIRST TO STOP, FIRST TO GO</div>
+          </div>
+          <div class="bg-white p-2 rounded border border-hairline">
+            <div class="text-slate text-[9px] uppercase">TIEBREAKER PRINCIPLE</div>
+            <div id="scen-m2" class="font-bold text-safety text-xs mt-0.5">YIELD TO RIGHT</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. COMPREHENSIVE TEXAS DPS EXAM REVIEW: CORE STATUTORY PILLARS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">menu_book</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          DPS Core Knowledge Review Pillars
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Essential Texas Driver Handbook statutory rules required to score ≥ 70% on the final exam:
+      </p>
+
+      <div class="space-y-2.5 text-xs">
+        <!-- Pillar 1: Right-of-Way -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Pillar 1: Right-of-Way at Intersections (TTC § 545.151)</span>
+            <span class="text-blue-700 font-bold uppercase">CH. 4 STATUTES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            <strong>Uncontrolled Intersections:</strong> Yield to any vehicle that entered the intersection before you. If two vehicles arrive simultaneously, the driver on the left must yield to the vehicle on the right.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>T-Intersections:</strong> Vehicles traveling on the terminating road must yield right-of-way to all traffic on the through street.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Paved vs Unpaved:</strong> Drivers on unpaved roads must yield to all vehicles on paved roads.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Left Turns:</strong> Yield right-of-way to any vehicle approaching from the opposite direction that is within the intersection or so close as to constitute an immediate hazard.
+          </p>
+        </div>
+
+        <!-- Pillar 2: Traffic Signals & Pavement Markings -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Pillar 2: Signals, Signs &amp; Pavement Markings</span>
+            <span class="text-safety font-bold uppercase">CH. 5 STATUTES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            <strong>Flashing Red Light:</strong> Treat as a stop sign. Come to a complete stop at the stop line, yield to approaching traffic, and proceed when safe.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Flashing Yellow Arrow:</strong> Left turns are permitted, but you must yield to oncoming traffic and pedestrians.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Double Solid Yellow Lines:</strong> No passing from either direction. Crossing is permitted only when making a lawful left turn into a driveway or private road.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Solid White Line:</strong> Indicates lane change is discouraged. Double solid white lines prohibit lane changes entirely.
+          </p>
+        </div>
+
+        <!-- Pillar 3: Speed, Passing & Turning -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Pillar 3: Signaling, Passing &amp; Turning</span>
+            <span class="text-emerald-700 font-bold uppercase">CH. 6 STATUTES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            <strong>100-Foot Signal Mandate (TTC § 545.104):</strong> You must signal continuously for at least <strong>100 feet</strong> before turning or changing lanes.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Passing on the Right:</strong> Permitted only when the vehicle being passed is making or preparing to make a left turn, or upon a one-way street or roadway with unobstructed pavement of sufficient width for two or more lanes. Never pass on the paved or unpaved shoulder.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Prima Facie Speed Limits (TTC § 545.352):</strong> 30 MPH in urban districts, 15 MPH in alleys, and 70 MPH on state/federal highways daytime (unless posted otherwise).
+          </p>
+        </div>
+
+        <!-- Pillar 4: Alcohol, Child Restraints & Move Over Act -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Pillar 4: Safety Restraints, DUI &amp; Move Over Act</span>
+            <span class="text-rose-700 font-bold uppercase">CH. 8-10 STATUTES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            <strong>Zero Tolerance for Minors:</strong> Any detectable amount of alcohol (0.00% BAC) for drivers under 21 constitutes a Class C misdemeanor DUI. Adult per se limit is 0.08% BAC.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Mandatory Seat Belts (TTC § 545.413):</strong> Universal mandate for all front and rear seat occupants. Children under 8 years must be secured in a child passenger safety seat system unless taller than 4 feet 9 inches.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Move Over or Slow Down (TTC § 545.157):</strong> Vacate lane closest to stationary emergency or TxDOT vehicles with flashing lights, or slow down to 20 MPH below the posted speed limit (or 5 MPH if posted under 25 MPH).
+          </p>
+        </div>
+
+        <!-- Pillar 5: Special Encounters, Railroads & School Buses -->
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Pillar 5: Railroads, School Buses &amp; Emergency Vehicles</span>
+            <span class="text-amber-700 font-bold uppercase">CH. 4 &amp; 9 STATUTES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            <strong>Railroad Grade Crossings (TTC § 545.251):</strong> Drivers approaching a railroad crossing must come to a complete stop between <strong>15 feet and 50 feet</strong> from the nearest rail when warning signals flash, crossbuck arms lower, or an approaching train is visible or emitting an audible signal.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>School Bus Flashing Red Lights (TTC § 545.066):</strong> Drivers approaching from either direction must stop prior to reaching a school bus displaying visual flashing red warning signals. You must remain stopped until the bus resumes motion, the driver signals you to proceed, or the visual signals are deactivated. On divided roadways with an unpaved median or physical barrier, opposing traffic is not required to stop.
+          </p>
+          <p class="text-slate leading-relaxed">
+            <strong>Approaching Emergency Vehicles (TTC § 545.156):</strong> On the immediate approach of an authorized emergency vehicle using audible or visual signals, the operator shall yield the right-of-way, immediately drive to a position parallel to and as close as possible to the right-hand edge or curb of the roadway, and stop clear of any intersection until the emergency vehicle has safely passed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. 3D INTERACTIVE SIMULATION: CAPSTONE DPS EXAM HUD SYNTHESIS (16 TAC § 84.500) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 my-4 fluid-card">
+      <!-- TIER 1: EDITORIAL HEADER -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>16 TAC &sect; 84.500 &bull; TTC &sect; 521.142 &bull; CAPSTONE EXAM HUD</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L09_T01_pvq_exam_synthesis.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: DPS EXAM SYNTHESIS ACTIVE</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Urban DPS Test</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Hwy Move-Over</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Full Synthesis</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. FORMATIVE ASSESSMENT (STRICT 3 SCENARIO MCQS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Topic Formative Assessment
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-slate">3 SCENARIO QUESTIONS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Test your mastery of Texas DPS knowledge exam benchmarks, verification rules, and right-of-way principles.
+      </p>
+
+      <!-- QUESTION 1: QUESTION 1 OPTION B STRICTLY CORRECT (TEST RUNNER MANDATE) -->
+      <div class="space-y-2 pt-2 border-t border-hairline" id="q1-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 01 // TEXAS DPS EXAM PASSING SCORE</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          To successfully pass the official Texas DPS Highway Sign and Traffic Law Knowledge Examination, what is the mandatory minimum passing score?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q1-opt-A" onclick="checkAnswer(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) 60% (18 out of 30 questions correct)</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-B" onclick="checkAnswer(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) 70% (21 out of 30 questions correct)</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-C" onclick="checkAnswer(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) 80% (24 out of 30 questions correct)</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q1-opt-D" onclick="checkAnswer(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) 90% (27 out of 30 questions correct)</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q1-feedback" class="hidden"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q2-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 02 // 16 TAC § 84.500 PVQ RESPONSE WINDOW</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          Under Texas Administrative Code (16 TAC § 84.500), what is the maximum time window a student is allotted to correctly respond to a Personal Verification Question challenge?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q2-opt-A" onclick="checkAnswer(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) 30 seconds</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-B" onclick="checkAnswer(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) 60 seconds</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-C" onclick="checkAnswer(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) 90 seconds</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q2-opt-D" onclick="checkAnswer(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) 180 seconds</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q2-feedback" class="hidden"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q3-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span>QUESTION 03 // UNCONTROLLED INTERSECTION RIGHT-OF-WAY</span>
+          <span class="text-safety font-bold">1 POINT</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon">
+          If two motor vehicles approach an uncontrolled four-way intersection simultaneously from different highways, which driver is legally required to yield the right-of-way?
+        </p>
+        <div class="space-y-2 pt-1">
+          <button id="q3-opt-A" onclick="checkAnswer(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs">A) The driver on the right must yield to the vehicle on the left</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-B" onclick="checkAnswer(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs">B) Whichever vehicle is traveling at the faster rate of speed has right-of-way</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-C" onclick="checkAnswer(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs">C) The driver on the left must yield right-of-way to the vehicle on the right</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <button id="q3-opt-D" onclick="checkAnswer(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs">D) Both vehicles must stop and flash their headlights before proceeding</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+        <div id="q3-feedback" class="hidden"></div>
+      </div>
+    </section>
+
+    <!-- 10. FINAL EXAM CAPSTONE GATEWAY FOOTER -->
+    <footer class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3">
+      <div class="flex items-center justify-between text-xs text-slate">
+        <span class="font-mono">MODULE 09: TOPIC 01 / 01 // COMPLETE</span>
+        <span class="font-mono text-valid font-bold">FINAL EXAM READY</span>
+      </div>
+
+      <div class="p-3 bg-emerald-50 border border-emerald-300 rounded-xl space-y-1 text-xs text-emerald-950 font-mono">
+        <div class="flex items-center gap-1.5 font-bold">
+          <span class="material-symbols-outlined text-base text-valid">verified</span>
+          <span>CURRICULUM CAPSTONE COMPLETE</span>
+        </div>
+        <p class="text-[11px] text-slate font-sans">
+          You have completed all pedagogical modules of the Texas Adult Driver Education (ADE-1317) course. Click below to enter the official 30-question final state examination in Module 9 Topic 2.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="/mcqs/final_exam.html" class="flex-1 min-h-[48px] px-4 py-3 rounded-xl bg-valid hover:bg-emerald-800 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs transition-colors">
+          <span>PROCEED TO OFFICIAL TEXAS FINAL EXAM</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT REACTIVE LOGIC ENGINE -->
+  <script>
+    // 15 State PVQ Bank
+    const pvqBank = [
+      "1. What was the name of your first childhood pet?",
+      "2. What was the make or brand of your family's first car?",
+      "3. What elementary or primary school did you attend?",
+      "4. In what city or town were you born?",
+      "5. What is your mother's maiden name (birth surname)?",
+      "6. What was the street name you grew up on?",
+      "7. What was your high school mascot or team name?",
+      "8. What was your favorite childhood food or restaurant?",
+      "9. In what city or town did your parents meet?",
+      "10. What company or employer was your very first job?",
+      "11. What was the first name of your childhood best friend?",
+      "12. What was the last name of your favorite school teacher?",
+      "13. What musical artist or band was your first concert?",
+      "14. What was the brand or model of your very first phone?",
+      "15. What is your favorite sports team?"
+    ];
+
+    // Populate all 5 select dropdowns on load
+    function populatePvqDropdowns() {
+      for (let slot = 1; slot <= 5; slot++) {
+        const select = document.getElementById(`pvq-q${slot}`);
+        if (!select) continue;
+
+        pvqBank.forEach((q, idx) => {
+          const opt = document.createElement("option");
+          opt.value = idx + 1;
+          opt.textContent = q;
+          select.appendChild(opt);
+        });
+
+        // Set distinct default questions for each slot
+        select.selectedIndex = (slot - 1) % pvqBank.length;
+      }
+    }
+
+    // Save PVQ Answers into localStorage
+    function savePvqAnswers() {
+      const answers = {};
+      const chosenQuestions = [];
+      let filledCount = 0;
+
+      for (let slot = 1; slot <= 5; slot++) {
+        const qElem = document.getElementById(`pvq-q${slot}`);
+        const aElem = document.getElementById(`pvq-a${slot}`);
+        const qVal = qElem ? qElem.value : "";
+        const aVal = aElem ? aElem.value.trim() : "";
+
+        if (aVal) {
+          filledCount++;
+        }
+        chosenQuestions.push(qVal);
+        answers[`q${slot}`] = { qId: qVal, answer: aVal };
+      }
+
+      // Check duplicates
+      const hasDuplicates = new Set(chosenQuestions).size !== chosenQuestions.length;
+      const progressText = document.getElementById("pvq-progress-text") || document.getElementById("pvq-status-badge");
+      const feedback = document.getElementById("form-feedback") || document.getElementById("pvq-saved-feedback");
+
+      if (hasDuplicates) {
+        if (progressText) {
+          progressText.textContent = `${filledCount} of 5 Answered (Duplicates Detected)`;
+          progressText.className = "text-[10px] font-mono font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-300";
+        }
+        if (feedback) {
+          feedback.classList.remove("hidden");
+          feedback.className = "p-3 rounded-xl text-xs font-mono font-semibold bg-rose-50 border border-rose-300 text-rose-800 block";
+          feedback.textContent = "⚠️ Duplicate questions detected. Please ensure all 5 question selections are different.";
+        }
+        return;
+      }
+
+      if (filledCount < 5) {
+        if (feedback) {
+          feedback.classList.remove("hidden");
+          feedback.className = "p-3 rounded-xl text-xs font-mono font-semibold bg-rose-50 border border-rose-300 text-rose-800 block";
+          feedback.textContent = `⚠️ Please answer all 5 questions (${filledCount}/5 completed). Every question is required per 16 TAC § 84.500.`;
+        }
+        return;
+      }
+
+      try {
+        localStorage.setItem("tx_driver_ed_pvq_records", JSON.stringify(answers));
+        localStorage.setItem("tx_pvq_answers", JSON.stringify(answers));
+        localStorage.setItem("tx_pvq_verified", "true");
+        localStorage.setItem("tx_pvq_timestamp", new Date().toLocaleString("en-US"));
+      } catch (e) {
+        console.warn("LocalStorage error", e);
+      }
+
+      if (progressText) {
+        progressText.textContent = "5 OF 5 STORED";
+        progressText.className = "text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300";
+      }
+
+      if (feedback) {
+        feedback.classList.remove("hidden");
+        feedback.className = "p-3 rounded-xl text-xs font-mono font-semibold bg-emerald-50 border border-emerald-300 text-emerald-800 block";
+        feedback.textContent = "✓ Identity Profile Verified & Archived under 16 TAC § 84.500. Final Exam is now unlocked!";
+      }
+
+      const verifiedBanner = document.getElementById("verified-banner");
+      if (verifiedBanner) verifiedBanner.classList.remove("hidden");
+    }
+
+    window.validatePvqQuestions = function() {
+      const q = [1,2,3,4,5].map(i => document.getElementById(`pvq-q${i}`)?.value);
+      return new Set(q).size === q.length;
+    };
+    window.hasPvqDuplicates = function() {
+      const q = [1,2,3,4,5].map(i => document.getElementById(`pvq-q${i}`)?.value);
+      return new Set(q).size !== q.length;
+    };
+    window.savePvqAnswers = savePvqAnswers;
+
+    // Interactive Scenario Simulator Data Store (Reverse-engineered from V1)
+    const scenarioData = {
+      1: {
+        badge: "SCENARIO 01 // RIGHT-OF-WAY LAWS",
+        statute: "TTC § 545.151",
+        title: "All-Way Stop Intersection Priority",
+        desc: "Four vehicles arrive at an all-way stop intersection. The vehicle that reached the intersection first and came to a complete stop has legal right-of-way to proceed first. If two vehicles arrive at the exact same moment, the driver on the left must yield right-of-way to the vehicle on their right.",
+        m1: "FIRST TO STOP, FIRST TO GO",
+        m2: "YIELD TO RIGHT ON TIE",
+        svg: `<svg viewBox="0 0 340 180" class="w-full max-w-[340px] h-[180px]">
+          <rect width="340" height="180" fill="#1E2320" rx="6" />
+          <rect x="0" y="65" width="340" height="50" fill="#2E3130" />
+          <rect x="145" y="0" width="50" height="180" fill="#2E3130" />
+          <line x1="0" y1="90" x2="135" y2="90" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="205" y1="90" x2="340" y2="90" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="170" y1="0" x2="170" y2="55" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="170" y1="125" x2="170" y2="180" stroke="#FFD100" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="140" y1="65" x2="140" y2="115" stroke="#FFFFFF" stroke-width="3" />
+          <line x1="200" y1="65" x2="200" y2="115" stroke="#FFFFFF" stroke-width="3" />
+          <line x1="145" y1="60" x2="195" y2="60" stroke="#FFFFFF" stroke-width="3" />
+          <line x1="145" y1="120" x2="195" y2="120" stroke="#FFFFFF" stroke-width="3" />
+          <g transform="translate(100, 72)">
+            <rect width="28" height="18" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+            <text x="14" y="13" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#FFFFFF" text-anchor="middle">A</text>
+            <text x="14" y="-5" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold" fill="#E87522" text-anchor="middle">1st to Stop</text>
+          </g>
+          <g transform="translate(178, 30)">
+            <rect width="18" height="24" rx="3" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+            <text x="9" y="16" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#FFFFFF" text-anchor="middle">B</text>
+          </g>
+          <g transform="translate(215, 92)">
+            <rect width="28" height="18" rx="3" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+            <text x="14" y="13" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#FFFFFF" text-anchor="middle">C</text>
+          </g>
+          <g transform="translate(148, 130)">
+            <rect width="18" height="24" rx="3" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+            <text x="9" y="16" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#FFFFFF" text-anchor="middle">D</text>
+          </g>
+          <circle cx="132" cy="54" r="6" fill="#DC2626" />
+          <circle cx="208" cy="54" r="6" fill="#DC2626" />
+          <circle cx="132" cy="126" r="6" fill="#DC2626" />
+          <circle cx="208" cy="126" r="6" fill="#DC2626" />
+          <text x="170" y="94" font-family="'Geist', sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">ALL-WAY</text>
+        </svg>`
+      },
+      2: {
+        badge: "SCENARIO 02 // REGULATORY & WARNING SIGNS",
+        statute: "MUTCD & DPS CH. 5",
+        title: "Yellow Diamond Warning Sign Protocol",
+        desc: "Diamond-shaped yellow signs alert motorists to upcoming physical road hazards, narrowing lanes, sharp curves, or potential cross-traffic. The mandatory driver response is to reduce speed, heighten scanning cadence, and prepare for road conditions.",
+        m1: "YELLOW DIAMOND = WARNING",
+        m2: "RESPONSE: REDUCE SPEED",
+        svg: `<svg viewBox="0 0 340 180" class="w-full max-w-[340px] h-[180px]">
+          <rect width="340" height="180" fill="#1E2320" rx="6"/>
+          <rect x="166" y="105" width="8" height="50" fill="#8A7265" rx="1"/>
+          <g transform="translate(170, 68) rotate(45)">
+            <rect x="-40" y="-40" width="80" height="80" rx="6" fill="#FACC15" stroke="#171B19" stroke-width="4"/>
+            <rect x="-35" y="-35" width="70" height="70" rx="4" fill="none" stroke="#171B19" stroke-width="1.5"/>
+          </g>
+          <path d="M 162 48 L 162 88 M 178 64 L 178 88 M 178 64 C 178 54 162 60 162 48" fill="none" stroke="#171B19" stroke-width="4.5" stroke-linecap="round"/>
+          <polygon points="162,42 156,52 168,52" fill="#171B19"/>
+          <text x="170" y="166" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#FACC15" text-anchor="middle">MUTCD W4-1 MERGE LANE WARNING</text>
+        </svg>`
+      },
+      3: {
+        badge: "SCENARIO 03 // SAFE MANEUVERS & TURNING",
+        statute: "TTC § 545.104",
+        title: "100-Foot Continuous Turn Signal Mandate",
+        desc: "Under Texas Transportation Code § 545.104, an operator intending to turn right or left, or change lanes, must signal continuously for not less than the last 100 feet of movement immediately before the turn or lane transition.",
+        m1: "DISTANCE: 100 FEET MIN",
+        m2: "MANEUVER: CONTINUOUS SIGNAL",
+        svg: `<svg viewBox="0 0 340 180" class="w-full max-w-[340px] h-[180px]">
+          <rect width="340" height="180" fill="#2E3130" rx="6"/>
+          <line x1="20" y1="90" x2="320" y2="90" stroke="#FFD100" stroke-width="2" stroke-dasharray="8 6"/>
+          <line x1="20" y1="30" x2="320" y2="30" stroke="#FFFFFF" stroke-width="2"/>
+          <line x1="20" y1="150" x2="320" y2="150" stroke="#FFFFFF" stroke-width="2"/>
+          <g transform="translate(50, 105)">
+            <rect width="44" height="24" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="40" cy="3" r="3" fill="#FACC15" />
+            <circle cx="40" cy="3" r="7" fill="#FACC15" opacity="0.4"/>
+            <text x="22" y="16" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">CAR</text>
+          </g>
+          <line x1="105" y1="60" x2="275" y2="60" stroke="#FFFFFF" stroke-width="2" />
+          <polygon points="105,60 114,55 114,65" fill="#FFFFFF"/>
+          <polygon points="275,60 266,55 266,65" fill="#FFFFFF"/>
+          <rect x="145" y="47" width="90" height="26" rx="4" fill="#171B19" stroke="#E87522" stroke-width="1.5"/>
+          <text x="190" y="64" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">100 FEET</text>
+          <path d="M 280 115 L 310 115 M 305 105 L 315 115 L 305 125" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        </svg>`
+      },
+      4: {
+        badge: "SCENARIO 04 // ALCOHOL & SUBSTANCE LAWS",
+        statute: "TEX. ALCO. BEV. CODE § 106.041",
+        title: "Texas Zero Tolerance Law for Minors",
+        desc: "It is illegal for any minor under 21 years of age to operate a motor vehicle in Texas with any detectable amount of alcohol in their system. The legal limit is strictly 0.00% BAC. Adult motorists are subject to the 0.08% BAC statutory per se limit.",
+        m1: "MINOR (<21): 0.00% BAC",
+        m2: "ADULT (21+): 0.08% BAC",
+        svg: `<svg viewBox="0 0 340 180" class="w-full max-w-[340px] h-[180px]">
+          <rect width="340" height="180" fill="#141715" rx="6"/>
+          <rect x="95" y="25" width="150" height="130" rx="14" fill="#191C1B" stroke="#D9DDD8" stroke-width="2"/>
+          <rect x="160" y="16" width="20" height="10" rx="2" fill="#5B5F5D"/>
+          <rect x="110" y="45" width="120" height="60" rx="6" fill="#003613" stroke="#25AB51" stroke-width="1.5"/>
+          <text x="170" y="85" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="bold" fill="#7FFC97" text-anchor="middle">0.00%</text>
+          <text x="170" y="99" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#62DF7D" text-anchor="middle">ZERO TOLERANCE LAW</text>
+          <g transform="translate(112, 120)">
+            <rect width="55" height="22" rx="3" fill="#DC2626"/>
+            <text x="27" y="15" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">&lt; 21 YRS</text>
+          </g>
+          <g transform="translate(173, 120)">
+            <rect width="55" height="22" rx="3" fill="#25AB51"/>
+            <text x="27" y="15" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">STRICT</text>
+          </g>
+        </svg>`
+      },
+      5: {
+        badge: "SCENARIO 05 // PASSING & ROAD POSITION",
+        statute: "TTC § 545.057",
+        title: "Passing on the Right Mandate",
+        desc: "Under Texas Transportation Code § 545.057, an operator may pass to the right only if the vehicle overtaken is making or preparing to make a left turn, and the pass is executed safely on unobstructed pavement without driving onto the shoulder.",
+        m1: "PAVED LANE ONLY",
+        m2: "NEVER PASS ON SHOULDER",
+        svg: `<svg viewBox="0 0 340 180" class="w-full max-w-[340px] h-[180px]">
+          <rect width="340" height="180" fill="#2E3130" rx="6"/>
+          <line x1="10" y1="40" x2="330" y2="40" stroke="#FFFFFF" stroke-width="2"/>
+          <line x1="10" y1="95" x2="330" y2="95" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="6 6"/>
+          <line x1="10" y1="150" x2="330" y2="150" stroke="#FFFFFF" stroke-width="2"/>
+          <g transform="translate(120, 52)">
+            <rect width="46" height="26" rx="4" fill="#5B5F5D" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="3" cy="5" r="3" fill="#FACC15"/>
+            <text x="23" y="17" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">MAKING LEFT</text>
+          </g>
+          <g transform="translate(195, 108)">
+            <rect width="48" height="26" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+            <text x="24" y="17" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">PASSING</text>
+          </g>
+          <path d="M 80 121 L 180 121 M 175 115 L 185 121 L 175 127" fill="none" stroke="#25AB51" stroke-width="3" stroke-linecap="round"/>
+          <text x="170" y="26" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#7FFC97" text-anchor="middle">PAVED UNOBSTRUCTED LANE ONLY</text>
+        </svg>`
+      }
+    };
+
+    function selectScenario(num) {
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+
+      const data = scenarioData[num];
+      if (!data) return;
+
+      const svgContainer = document.getElementById("scenario-svg-container");
+      if (svgContainer) svgContainer.innerHTML = data.svg;
+
+      const badge = document.getElementById("scen-badge");
+      if (badge) badge.textContent = data.badge;
+
+      const statute = document.getElementById("scen-statute");
+      if (statute) statute.textContent = data.statute;
+
+      const title = document.getElementById("scen-title");
+      if (title) title.textContent = data.title;
+
+      const desc = document.getElementById("scen-desc");
+      if (desc) desc.textContent = data.desc;
+
+      const m1 = document.getElementById("scen-m1");
+      if (m1) m1.textContent = data.m1;
+
+      const m2 = document.getElementById("scen-m2");
+      if (m2) m2.textContent = data.m2;
+    }
+
+    // 3D SIMULATION BIDIRECTIONAL POSTMESSAGE CONTROLLER (F34 L09-T01)
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // URBAN DPS ROAD TEST CORRIDOR",
+        statute: "16 TAC &sect; 84.500",
+        title: "REGULATORY SPEED & SIGNAL COMPLIANCE",
+        desc: "Real-time examination scoring on turn signal activation 100 feet prior to intersection turns, complete 3-second stops at all-way stop signs, and pedestrian crosswalk yield.",
+        metric: '<span class="text-slate">DPS BENCHMARK:</span><span class="text-valid font-bold">100% COMPLIANT</span>',
+        phase: "PHASE: DPS EXAM SYNTHESIS ACTIVE"
+      },
+      2: {
+        badge: "SCENARIO 02 // HIGHWAY MOVE-OVER SYNTHESIS",
+        statute: "TTC &sect; 545.157",
+        title: "EMERGENCY VEHICLE BUFFER EVASION",
+        desc: "Synthesizing Texas Move-Over / Slow-Down law on high-speed interstate corridors. Safely vacating the lane adjacent to stopped law enforcement with lights activated.",
+        metric: '<span class="text-slate">MOVE-OVER STATUS:</span><span class="text-safety font-bold">LANE VACATED (20 MPH DROP)</span>',
+        phase: "PHASE: MOVE-OVER REGULATION // HIGHWAY"
+      },
+      3: {
+        badge: "SCENARIO 03 // COMPREHENSIVE REGULATORY SYNTHESIS",
+        statute: "16 TAC &sect; 84.500 &amp; TTC § 521.142",
+        title: "ALL-DOMAIN DPS CAPSTONE EVALUATION",
+        desc: "Multi-factor evaluation combining 360° space cushioning, SIPDE hazard anticipation, assured clear following distance, and flawless regulatory compliance.",
+        metric: '<span class="text-slate">CAPSTONE HUD:</span><span class="text-valid font-bold">PASSING 70%+ THRESHOLD</span>',
+        phase: "PHASE: COMPREHENSIVE CAPSTONE PASSED"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      if (typeof playBeep === 'function') playBeep(480, 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame) return;
+      if (frame.requestFullscreen) frame.requestFullscreen();
+      else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+
+    // Formative MCQ Logic with Live Score Tracking
+    let answeredQuestions = {};
+                const TOPIC_ID = 'L09-T01';
+    
+    let correctCount = 0;
+
+    
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 521.161",
+            "statutoryRationale": "Under Texas Transportation Code Section 521.161, applicants must score at least 70% (21 out of 30 questions correct) to pass the Highway Sign and Traffic Law Examination."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "C",
+            "statute": "16 TAC § 84.500",
+            "statutoryRationale": "Texas Administrative Code (16 TAC Section 84.500) mandates a strict 90-second response window for all identity verification challenges."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 545.151",
+            "statutoryRationale": "At an uncontrolled intersection where two vehicles arrive at the same time, the driver on the left must yield right-of-way to the vehicle on their right."
+      }
+};
+
+    function checkAnswer(qNum, selected) {
+      if (answeredQuestions[qNum]) return;
+      answeredQuestions[qNum] = true;
+
+      const feedback = document.getElementById(`q${qNum}-feedback`);
+      if (feedback) feedback.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      const options = ['A', 'B', 'C', 'D'];
+      options.forEach(opt => {
+        const btn = document.getElementById(`q${qNum}-opt-${opt}`) || document.getElementById(`q${qNum}-opt-${opt.toLowerCase()}`);
+        if (!btn) return;
+        btn.disabled = true;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (opt === correctOpt) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-valid', 'bg-valid/10', 'text-valid', 'font-bold');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-valid text-sm flex-shrink-0 mt-0.5';
+          }
+        } else if (opt === chosenStr && !isCorrect) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-hazard', 'bg-rose-50', 'text-hazard', 'line-through');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-hazard text-sm flex-shrink-0 mt-0.5';
+          }
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-valid/10 border border-valid/30 text-valid mt-2';
+          feedback.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-rose-50 border border-rose-300 text-rose-900 mt-2';
+          feedback.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      updateScoreBadge();
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredQuestions).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: correctCount,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    // Initialize PVQ dropdowns and scenario on DOM ready
+    document.addEventListener("DOMContentLoaded", () => {
+      populatePvqDropdowns();
+      selectScenario(1);
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

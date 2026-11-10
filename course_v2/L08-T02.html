@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Decision Matrix &amp; Risk Dynamics — Texas Adult Driver Ed (L08-T02)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"], input[type="radio"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .overflow-x-auto {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+    svg {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    select, input, button, textarea {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      min-height: 44px !important;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / PEDAGOGICAL INTRODUCTION CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          MODULE 8 // RISK ANALYSIS MATRIX
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 02 OF 10</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Decision Matrix &amp; Kinetic Stopping Multipliers
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          Poor decision-making and aggressive risk-taking transform modern passenger vehicles into deadly kinetic projectiles. Analyze the four core risk vectors, kinetic energy physics, and statutory penalties under Texas law.
+        </p>
+      </div>
+
+      <!-- Risk Factors Stat Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">70 MPH Stopping Distance</div>
+          <div class="font-bold text-hazard text-sm">387 Feet Total</div>
+          <div class="text-[9px] text-slate mt-0.5">&gt; Regulation Football Field</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Kinetic Energy Growth</div>
+          <div class="font-bold text-safety text-sm">KE ∝ v² (Quadratic)</div>
+          <div class="text-[9px] text-slate mt-0.5">Double Speed = 4x Energy</div>
+        </div>
+      </div>
+
+      <!-- Statutory Due Care Banner -->
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/70 border border-orange-200 text-orange-950 text-xs">
+        <span class="material-symbols-outlined text-safety text-base flex-shrink-0">gavel</span>
+        <span class="leading-tight"><strong>TTC § 545.351 (Basic Speed Rule):</strong> Driving at a speed greater than is reasonable and prudent under existing roadway conditions is a statutory violation regardless of posted speed limits.</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: RISK-TAKING DECISION MATRIX & KINETIC CALCULATOR -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">dashboard</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Risk-Taking Decision Matrix
+          </h2>
+        </div>
+        <span id="tab-indicator" class="text-[10px] font-mono font-bold text-safety bg-safety/10 px-2 py-0.5 rounded">
+          VECTOR 1 OF 4
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select a risk category below to inspect physical mechanisms, statutory citations, and kinetic collision multipliers.
+      </p>
+
+      <!-- 4 Risk Vector Tabs (min-h-[48px]) -->
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button id="tab-btn-speed" onclick="switchVector('speed')" class="cad-btn cad-btn-active touch-target">
+          <span class="text-xs font-mono font-bold">1. EXCESS SPEED</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">TTC § 545.351 / § 545.420</span>
+        </button>
+        <button id="tab-btn-distract" onclick="switchVector('distract')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-mono font-bold">2. DISTRACTION</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">TTC § 545.4251 Ban</span>
+        </button>
+        <button id="tab-btn-dwi" onclick="switchVector('dwi')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-mono font-bold">3. INTOXICATION</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">TPC § 49.04 / ABC § 106</span>
+        </button>
+        <button id="tab-btn-rage" onclick="switchVector('rage')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-mono font-bold">4. AGGRESSION</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">TTC § 545.401 Reckless</span>
+        </button>
+      </div>
+
+      <!-- Reactive Risk Vector Detail Box -->
+      <div id="vector-panel" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="vector-tag" class="text-[9px] font-mono font-bold uppercase text-safety tracking-wider">
+              KINETIC MULTIPLIER // FATAL SEVERITY
+            </span>
+            <h3 id="vector-title" class="text-sm font-bold text-carbon">
+              Excessive Velocity &amp; Street Racing
+            </h3>
+          </div>
+          <span id="vector-icon-box" class="w-8 h-8 rounded-lg bg-safety/10 text-safety flex items-center justify-center">
+            <span id="vector-icon" class="material-symbols-outlined text-lg">speed</span>
+          </span>
+        </div>
+
+        <p id="vector-desc" class="text-xs text-slate leading-relaxed">
+          Speeding dramatically reduces available perception and reaction time while geometrically increasing the physical braking distance required to bring a vehicle to a complete halt. Street racing on Texas roadways is an egregious criminal offense under TTC § 545.420.
+        </p>
+
+        <!-- Kinetic Stopping Distance Dynamic Interactive Engine -->
+        <div class="bg-white border border-hairline rounded-lg p-3 space-y-2.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="font-bold text-carbon">CALCULATE STOPPING DISTANCE:</span>
+            <span id="calc-speed-val" class="font-bold text-safety text-sm">70 MPH</span>
+          </div>
+
+          <!-- Speed Selection Buttons (min-h-[48px]) -->
+          <div class="grid grid-cols-5 gap-1 pt-1 font-mono text-[10px]">
+            <button onclick="setSpeed(30)" id="spd-btn-30" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">30</button>
+            <button onclick="setSpeed(45)" id="spd-btn-45" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">45</button>
+            <button onclick="setSpeed(60)" id="spd-btn-60" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">60</button>
+            <button onclick="setSpeed(70)" id="spd-btn-70" class="py-2.5 rounded border-2 border-safety bg-safety/10 font-bold text-safety touch-target">70</button>
+            <button onclick="setSpeed(85)" id="spd-btn-85" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">85</button>
+          </div>
+
+          <!-- Metric Breakdown Table -->
+          <div class="grid grid-cols-3 gap-1.5 pt-1 text-center font-mono text-[10px]">
+            <div class="p-2 rounded bg-surface-sub border border-hairline">
+              <div class="text-slate text-[8px] uppercase">Reaction (1.5s)</div>
+              <div id="stat-reaction" class="font-bold text-carbon text-xs mt-0.5">154 FT</div>
+            </div>
+            <div class="p-2 rounded bg-surface-sub border border-hairline">
+              <div class="text-slate text-[8px] uppercase">Braking Distance</div>
+              <div id="stat-braking" class="font-bold text-carbon text-xs mt-0.5">233 FT</div>
+            </div>
+            <div class="p-2 rounded bg-safety-light border border-safety/30">
+              <div class="text-safety-deep text-[8px] uppercase font-bold">Total Stopping</div>
+              <div id="stat-total" class="font-bold text-safety text-xs mt-0.5">387 FT</div>
+            </div>
+          </div>
+
+          <!-- Visual Scale Bar: Football Field Comparison (360 ft) -->
+          <div class="space-y-1 pt-1">
+            <div class="flex justify-between text-[9px] font-mono text-slate">
+              <span>0 FT</span>
+              <span class="text-emerald-700 font-bold">FOOTBALL FIELD: 360 FT</span>
+              <span>550 FT</span>
+            </div>
+            <div class="w-full bg-zinc-200 h-3 rounded-full relative overflow-hidden">
+              <div class="absolute left-[65.4%] top-0 bottom-0 w-0.5 bg-emerald-600 z-10" title="360 ft Football Field"></div>
+              <div id="stopping-bar" class="bg-hazard h-full rounded-full transition-all duration-300" style="width: 70.3%;"></div>
+            </div>
+            <div id="scale-annotation" class="text-[9px] font-mono text-hazard font-bold text-right">
+              387 FT: EXCEEDS REGULATION FOOTBALL FIELD BY 27 FEET!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD SVG DIAGRAM: KINETIC ENERGY & STOPPING DISTANCE MULTIPLIER -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">stacked_line_chart</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Kinetic Energy &amp; Stopping
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">KE = ½mv²</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Kinetic energy quadruples when speed doubles. Inspect this technical CAD comparison illustrating stopping distances at 30 MPH, 50 MPH, and 70 MPH against standard urban landmarks.
+      </p>
+
+      <!-- SVG 1: Primary CAD Vector Viewport (340x220) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[220px]" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-kinetic" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="220" fill="url(#cad-grid-kinetic)" />
+
+          <!-- Title Bar inside SVG -->
+          <text x="15" y="20" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">TOTAL STOPPING DISTANCE COMPARISON (DRY ASPHALT)</text>
+
+          <!-- 30 MPH Row -->
+          <g transform="translate(15, 35)">
+            <text x="0" y="12" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">30 MPH</text>
+            <text x="50" y="12" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8">109 FT</text>
+            <!-- Reaction Bar (66 ft) -->
+            <rect x="90" y="3" width="46" height="12" rx="2" fill="#3B82F6"/>
+            <!-- Braking Bar (43 ft) -->
+            <rect x="138" y="3" width="30" height="12" rx="2" fill="#E87522"/>
+            <text x="175" y="12" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">1.0x KE BASE</text>
+          </g>
+
+          <!-- 50 MPH Row -->
+          <g transform="translate(15, 75)">
+            <text x="0" y="12" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">50 MPH</text>
+            <text x="50" y="12" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8">229 FT</text>
+            <!-- Reaction Bar (110 ft) -->
+            <rect x="90" y="3" width="77" height="12" rx="2" fill="#3B82F6"/>
+            <!-- Braking Bar (119 ft) -->
+            <rect x="169" y="3" width="83" height="12" rx="2" fill="#E87522"/>
+            <text x="258" y="12" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">2.8x KE</text>
+          </g>
+
+          <!-- 70 MPH Row (Exceeds Football Field) -->
+          <g transform="translate(15, 115)">
+            <text x="0" y="12" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">70 MPH</text>
+            <text x="50" y="12" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">387 FT</text>
+            <!-- Reaction Bar (154 ft) -->
+            <rect x="90" y="3" width="107" height="12" rx="2" fill="#3B82F6"/>
+            <!-- Braking Bar (233 ft) -->
+            <rect x="199" y="3" width="115" height="12" rx="2" fill="#DC2626"/>
+            <text x="245" y="27" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">5.4x KE IMPACT</text>
+          </g>
+
+          <!-- Football Field Reference Line (360 FT Mark = x: 295) -->
+          <line x1="295" y1="28" x2="295" y2="165" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <text x="295" y="175" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold" text-anchor="middle">REGULATION FOOTBALL FIELD (360 FT)</text>
+
+          <!-- Legend Bar -->
+          <g transform="translate(20, 192)">
+            <rect x="0" y="0" width="10" height="10" rx="2" fill="#3B82F6"/>
+            <text x="15" y="8" fill="#D1D5DB" font-family="'JetBrains Mono', monospace" font-size="7.5">Perception-Reaction Distance (1.5s)</text>
+            <rect x="175" y="0" width="10" height="10" rx="2" fill="#E87522"/>
+            <text x="190" y="8" fill="#D1D5DB" font-family="'JetBrains Mono', monospace" font-size="7.5">Mechanical Braking Distance</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Tactical Takeaway Callout -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>The Fatal Trap of High Velocity:</strong> Moving from 50 MPH to 70 MPH represents only a 40% increase in speed, but it almost <strong>doubles your total stopping distance</strong> (from 229 ft to 387 ft) and multiplies impact energy by nearly 200%.
+      </div>
+    </section>
+
+    <!-- 05. THE KINETIC IMPACT PHYSICS DERIVATION: SKYSCRAPER DROP COMPARISON -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">science</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Kinetic Energy &amp; Deceleration Physics
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The force of a motor vehicle collision depends on three physical variables: vehicle mass ($m$), travel velocity ($v$), and stopping duration ($\Delta t$).
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>KE Equation: KE = ½mv²</span>
+            <span class="text-safety font-bold">QUADRATIC EXPANSION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Because velocity is squared in the kinetic energy formula, traveling at 60 MPH does not double the impact energy of 30 MPH—it multiplies it by four ($2^2 = 4$). At 90 MPH, kinetic impact force is nine times greater ($3^2 = 9$) than at 30 MPH.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Skyscraper Fall Equivalence</span>
+            <span class="text-hazard font-bold">FATAL G-FORCES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Crashing into an immovable barrier at <strong>30 MPH</strong> imparts the exact same kinetic shock as driving off the roof of a <strong>3-story building</strong>. Striking a barrier at <strong>60 MPH</strong> equals falling from a <strong>9-story building</strong>. A crash at <strong>70 MPH</strong> equals plummeting from a <strong>16-story skyscraper</strong>!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. SECONDARY CAD SVG DIAGRAM: ROAD RAGE & AGGRESSIVE DE-ESCALATION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">alt_route</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Aggressive Driving De-escalation
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">TTC § 545.401</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Aggressive driving and road rage cause over 50% of fatal traffic disputes. Follow this standard tactical flowchart to surrender space and evade confrontation.
+      </p>
+
+      <!-- SVG 2: Secondary CAD Vector Viewport (340x180) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[180px]" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-rage" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" fill="url(#cad-grid-rage)" />
+
+          <!-- Multi-lane corridor -->
+          <rect x="50" y="0" width="240" height="180" fill="#1C1F1E" stroke="#2F3532" stroke-width="1"/>
+          <line x1="130" y1="0" x2="130" y2="180" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6,6"/>
+          <line x1="210" y1="0" x2="210" y2="180" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6,6"/>
+
+          <!-- Tailgating Aggressor Vehicle (Red) -->
+          <rect x="156" y="125" width="28" height="42" rx="4" fill="#DC2626" stroke="#FFFFFF" stroke-width="1"/>
+          <text x="170" y="148" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">AGGRESSOR</text>
+          <text x="170" y="158" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">TAILGATING</text>
+
+          <!-- Defensive Ego Vehicle (Orange) moving to Right Lane -->
+          <path d="M 170 85 Q 170 50 235 30" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="4,2"/>
+          <polygon points="238,26 238,36 248,31" fill="#10B981"/>
+
+          <!-- Ego Vehicle Original Position -->
+          <rect x="157" y="70" width="26" height="38" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1" opacity="0.6"/>
+
+          <!-- Ego Vehicle Safe Repositioned State in Right Lane -->
+          <rect x="235" y="15" width="26" height="38" rx="4" fill="#10B981" stroke="#FFFFFF" stroke-width="1.5"/>
+          <text x="248" y="38" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">DEFENSE</text>
+
+          <!-- Tactical Instruction Callouts -->
+          <g transform="translate(60, 20)">
+            <rect x="0" y="0" width="60" height="26" rx="3" fill="#111827" stroke="#374151" stroke-width="1"/>
+            <text x="30" y="11" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">STEP 1: SIGNAL</text>
+            <text x="30" y="20" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">RIGHT 100 FT</text>
+          </g>
+
+          <g transform="translate(60, 75)">
+            <rect x="0" y="0" width="60" height="26" rx="3" fill="#111827" stroke="#374151" stroke-width="1"/>
+            <text x="30" y="11" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">STEP 2: MERGE</text>
+            <text x="30" y="20" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">SURRENDER LANE</text>
+          </g>
+
+          <g transform="translate(60, 130)">
+            <rect x="0" y="0" width="60" height="26" rx="3" fill="#111827" stroke="#374151" stroke-width="1"/>
+            <text x="30" y="11" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">STEP 3: NO CONTACT</text>
+            <text x="30" y="20" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="5.5" text-anchor="middle">AVOID EYE GAZE</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Action Protocol Cards -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline">
+          <div class="text-hazard font-bold uppercase">Never Tap Brakes</div>
+          <div class="text-slate mt-0.5">Brake-checking a tailgater escalates criminal assault and causes severe pileups.</div>
+        </div>
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline">
+          <div class="text-emerald-700 font-bold uppercase">Seek Public Place</div>
+          <div class="text-slate mt-0.5">If pursued by an aggressive driver, navigate directly to a police station or firehouse.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. TEXAS STATUTORY CODE PENALTY INDEX: RECKLESS DRIVING & RACING -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">policy</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Statutory Criminal Penalties
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Risk-taking maneuvers on public roads cross into severe criminal misdemeanors and felonies under Texas law. Review the statutory classifications below.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-bold text-carbon flex items-center justify-between font-mono text-[11px]">
+            <span>TTC § 545.401: Reckless Driving</span>
+            <span class="text-hazard font-bold uppercase">Misdemeanor</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Operating a vehicle in willful or wanton disregard for the safety of persons or property. Punishable by a fine up to <strong>$200</strong>, confinement in county jail for up to <strong>30 days</strong>, or both.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-bold text-carbon flex items-center justify-between font-mono text-[11px]">
+            <span>TTC § 545.420: Racing on Highway</span>
+            <span class="text-hazard font-bold uppercase">Class B Misd to Felony</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            First-offense street racing is a <strong>Class B Misdemeanor</strong> (up to 180 days jail). If intoxicated or possessing open alcohol, it elevates to <strong>Class A</strong>. If bodily injury occurs, it becomes a <strong>3rd Degree Felony</strong> (2–10 years prison); serious bodily injury or death results in a <strong>2nd Degree Felony</strong> (2–20 years prison).
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-bold text-carbon flex items-center justify-between font-mono text-[11px]">
+            <span>ABC § 106.041: Minor Driving Under the Influence</span>
+            <span class="text-safety-deep font-bold uppercase">Zero Tolerance</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            In Texas, it is illegal for any person under 21 to operate a motor vehicle with <strong>any detectable amount of alcohol</strong> in their system. Penalties include driver license suspension, mandatory alcohol education, community service, and escalating fines.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. STATUTORY PENALTY ESCALATION LADDER (TTC § 545.420) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">gavel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          TTC § 545.420 Street Racing Penalty Matrix
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas has zero tolerance for organized street takeovers and illegal speed contests. Review the statutory escalation tiers:
+      </p>
+
+      <div class="overflow-x-auto rounded-lg border border-hairline">
+        <table class="w-full text-left font-mono text-[10px]">
+          <thead class="bg-surface-sub text-slate border-b border-hairline uppercase">
+            <tr>
+              <th class="p-2">Tier</th>
+              <th class="p-2">Condition</th>
+              <th class="p-2">Incarceration</th>
+              <th class="p-2 text-hazard font-bold">Max Fine</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline bg-white text-carbon">
+            <tr>
+              <td class="p-2 font-bold text-slate">Class B Misd</td>
+              <td class="p-2">First Offense Base Violation</td>
+              <td class="p-2">Up to 180 Days County Jail</td>
+              <td class="p-2 font-bold text-hazard">$2,000</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-slate">Class A Misd</td>
+              <td class="p-2">1 Prior / Open Alcohol / DWI</td>
+              <td class="p-2">Up to 1 Year County Jail</td>
+              <td class="p-2 font-bold text-hazard">$4,000</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-safety">State Jail Fel</td>
+              <td class="p-2">2 or More Prior Convictions</td>
+              <td class="p-2">180 Days to 2 Years State Jail</td>
+              <td class="p-2 font-bold text-hazard">$10,000</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-hazard">3rd Degree Fel</td>
+              <td class="p-2">Results in Bodily Injury</td>
+              <td class="p-2">2 to 10 Years TDCJ Prison</td>
+              <td class="p-2 font-bold text-hazard">$10,000</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-hazard">2nd Degree Fel</td>
+              <td class="p-2">Serious Bodily Injury or Death</td>
+              <td class="p-2">2 to 20 Years TDCJ Prison</td>
+              <td class="p-2 font-bold text-hazard">$10,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>Asset Forfeiture &amp; Party Liability:</strong> Vehicles used in speed contests are subject to immediate statutory impoundment (TTC § 545.420(h)) and permanent civil asset forfeiture under Code of Criminal Procedure Chapter 59. Under Texas Penal Code § 7.02 (Law of Parties), spectators, flaggers, and coordinators are criminally liable as primary perpetrators.
+      </div>
+    </section>
+
+    <!-- 09. ROAD RAGE DE-ESCALATION PSYCHOLOGY & SURVIVAL TACTICS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">psychology</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Road Rage Psychology &amp; De-escalation Protocol
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Road rage is not merely aggressive driving; it is a violent criminal manifestation where an operator uses a motor vehicle as a deadly weapon. The Texas Department of Public Safety outlines five essential behavioral rules when confronted by an aggressive driver.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-hazard text-sm">visibility_off</span>
+              Rule 1: Never Make Eye Contact
+            </span>
+            <span class="text-[9px] text-hazard uppercase font-bold">DE-ESCALATE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Aggressive drivers perceive direct eye contact as an overt challenge or threat. Looking directly at an angry motorist frequently triggers physical confrontation or weapon brandishing. Keep your eyes forward, scan mirrors covertly, and appear completely unaffected.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-safety text-sm">volume_off</span>
+              Rule 2: Suppress Retaliatory Gestures &amp; Horns
+            </span>
+            <span class="text-[9px] text-safety uppercase font-bold">DISARM</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Never respond with obscene hand gestures, horn blasting, flashing high beams, or verbal shouts. In over 60% of firearm incidents on Texas highways, the escalation was ignited by a retaliatory gesture from the victim.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-safety-deep text-sm">directions_car</span>
+              Rule 3: Yield Right-of-Way &amp; Surrender Lane
+            </span>
+            <span class="text-[9px] text-safety-deep uppercase font-bold">SURRENDER SPACE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            If an aggressive motorist tailgates or attempts to pass aggressively, signal early, move into an adjacent right lane smoothly, and let them pass. Never match their speed or engage in competitive pacing.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-emerald-700 text-sm">local_police</span>
+              Rule 4: Never Drive Directly Home If Pursued
+            </span>
+            <span class="text-[9px] text-emerald-700 uppercase font-bold">SAFE HAVEN</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            If an aggressive driver follows your vehicle, <strong>never drive to your residence or workplace</strong>. Navigate immediately toward a well-lit public police station, sheriff headquarters, fire station, or busy hospital emergency entrance. Sound your horn in short bursts to draw security attention.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-hazard text-sm">lock</span>
+              Rule 5: Remain In Vehicle With Doors Locked
+            </span>
+            <span class="text-[9px] text-hazard uppercase font-bold">CONTAINMENT</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            If forced to stop at a red light or intersection, leave at least one vehicle length between your front bumper and the lead vehicle to preserve an escape route. Keep windows rolled up and doors locked. If the aggressor exits their vehicle, dial 911 immediately and drive away if legally clear.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. TEXAS ADMINISTRATIVE MANDATES: SR-22 & SURCHARGES -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">account_balance</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Driver License Suspension &amp; SR-22 Filings
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The statutory repercussions of reckless driving and speed contests extend far beyond criminal courtroom fines into long-term financial devastation.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-sm">credit_card_off</span>
+            Mandatory Driver License Suspension (TTC § 521.341)
+          </div>
+          <p class="text-slate leading-relaxed">
+            Conviction of racing on a highway under TTC § 545.420 results in <strong>mandatory driver license suspension</strong> for a minimum of one year. The operator must complete community service hours and pay statutory reinstatement fees to Texas DPS before any occupational license petition.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-sm">description</span>
+            Mandatory SR-22 Certificate of Financial Responsibility
+          </div>
+          <p class="text-slate leading-relaxed">
+            Following conviction, the Texas Department of Public Safety requires the driver to maintain an <strong>SR-22 high-risk insurance filing</strong> continuously for <strong>three full years</strong>. Any cancellation or lapse in policy immediately triggers an automatic suspension of driving privileges and license revocation.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-sm">no_drinks</span>
+            Texas Penal Code § 49.031: Open Container in Motor Vehicle
+          </div>
+          <p class="text-slate leading-relaxed">
+            Knowingly possessing an open container of alcohol in the passenger area of a motor vehicle on a public highway is a <strong>Class C Misdemeanor</strong> punishable by a fine up to $500. If an operator is simultaneously arrested for street racing while possessing an open container, the racing charge instantly escalates to a <strong>Class A Misdemeanor</strong> carrying up to 1 year in jail.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. PHYSIOLOGICAL IMPAIRMENT SPECTRUM & IMPLIED CONSENT (TPC § 49.01 & TTC CH. 724) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">bloodtype</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          TPC § 49.01: Impairment Spectrum &amp; Implied Consent
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas Penal Code § 49.01 establishes two separate legal definitions of intoxication. You can be convicted of DWI even if your BAC is below 0.08 if the State proves you lost the normal use of mental or physical faculties.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-hazard text-sm">science</span>
+              The Dual Legal Definition of Intoxication
+            </span>
+            <span class="text-[9px] text-hazard uppercase font-bold">TPC § 49.01(2)</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            <strong>Standard A (Per Se):</strong> An alcohol concentration of 0.08 or more grams of alcohol per 210 liters of breath, 100 milliliters of blood, or 67 milliliters of urine.<br>
+            <strong>Standard B (Impairment):</strong> Not having the normal use of mental or physical faculties by reason of the introduction of alcohol, a drug, a controlled substance, a dangerous drug, or any combination.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-safety text-sm">timer</span>
+              BAC Degradation Ladder &amp; Reaction Lag
+            </span>
+            <span class="text-[9px] text-slate uppercase font-bold">PHYSIOLOGY</span>
+          </div>
+          <ul class="space-y-1 text-slate font-mono text-[10px] mt-1">
+            <li><strong>0.02% BAC:</strong> Loss of divided attention; slight euphoria; initial decline in rapid tracking.</li>
+            <li><strong>0.05% BAC:</strong> Reduced coordination; difficulty steering; delayed response to unexpected obstacles.</li>
+            <li><strong>0.08% BAC:</strong> Substantial deterioration of driver reaction time, balance, depth perception, and emergency braking.</li>
+            <li><strong>0.15% BAC:</strong> Extreme impairment; severe loss of motor control; inability to maintain lane boundaries.</li>
+          </ul>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-safety-deep text-sm">assignment_turned_in</span>
+              Texas Implied Consent Law (TTC § 724.011)
+            </span>
+            <span class="text-[9px] text-safety-deep uppercase font-bold">180-DAY SUSPENSION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            By operating a motor vehicle on Texas public roadways, you are legally deemed to have given consent to submit to the taking of one or more specimens of breath or blood for chemical analysis if arrested for DWI. Refusing chemical testing results in an immediate <strong>180-day driver license suspension</strong> for a first refusal (TTC § 724.035) and a 2-year suspension for repeat refusals.
+          </p>
+          <div class="mt-1 p-2 rounded bg-white/80 border border-hairline text-[10px] text-slate leading-relaxed font-mono">
+            <strong>Texas "No Refusal" Operations (CCP Art. 18.01):</strong> During designated holiday weekends and enforcement blitzes, peace officers obtain expedited electronic search warrants from on-call judges to execute mandatory, non-consensual blood draws from suspected intoxicated drivers who refuse chemical testing.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. ZERO TOLERANCE PENALTY MATRIX FOR MINORS (ABC § 106.041 & § 106.071) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">child_care</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Zero Tolerance Mandate for Minors
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas Alcoholic Beverage Code § 106.041 establishes uncompromising penalties for any driver under 21 who operates a motor vehicle with any detectable amount of alcohol in their system.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>First Offense (Minor DUIA)</span>
+            <span class="text-slate font-bold uppercase">Class C Misd</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Punishable by a fine up to <strong>$500</strong>, mandatory completion of an alcohol awareness course approved by the Texas Department of Licensing and Regulation (TDLR), <strong>20 to 40 hours of community service</strong>, and a <strong>60-day driver license suspension</strong>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Second Offense (Minor DUIA)</span>
+            <span class="text-safety font-bold uppercase">Enhanced Class C</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Fine up to <strong>$500</strong>, <strong>40 to 60 hours of mandatory community service</strong>, and an automatic <strong>120-day driver license suspension</strong>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Third Offense (Minor 17 to 20 Years Old)</span>
+            <span class="text-hazard font-bold uppercase">Class B Misdemeanor</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            If the minor is 17 or older, a third conviction escalates to a <strong>Class B Misdemeanor</strong> punishable by a fine of <strong>$500 to $2,000</strong>, confinement in county jail for up to <strong>180 days</strong>, and a <strong>180-day driver license suspension</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. 3D DRIVING SIMULATION: SIPDE HAZARD IDENTIFICATION & SCAN HORIZON -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 my-4 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 545.401 &bull; &sect; 545.351 &bull; SIPDE HAZARD IDENTIFICATION</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L08_T02_sipde_hazard_identification.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: 12-15S SCAN HORIZON ACTIVE</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Arterial Cross</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Freeway Merge</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Blind Curve</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FORMATIVE ASSESSMENT (STRICT 3 SCENARIO MCQS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Topic Formative Assessment
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-slate">3 SCENARIO QUESTIONS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Test your knowledge of stopping distance physics, risk behaviors, and Texas statutory mandates.
+      </p>
+
+      <!-- QUESTION 1: QUESTION 1 OPTION B STRICTLY CORRECT (TEST RUNNER MANDATE) -->
+      <div class="space-y-2 pt-2 border-t border-hairline" <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L08-T02 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="q1-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 01 // KINETIC STOPPING DISTANCE</span>
+          <span>TTC § 545.351</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under dry roadway conditions, what is the approximate total stopping distance (perception, reaction, and braking) of a passenger car traveling at 70 MPH?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q1-opt-A" onclick="checkAnswer(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Approximately 150 to 180 feet.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B: STRICTLY CORRECT -->
+          <button id="q1-opt-B" onclick="checkAnswer(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> 387 feet (exceeding the length of an entire regulation football field including end zones).</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q1-opt-C" onclick="checkAnswer(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Exactly 220 feet based on standard tire friction.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q1-opt-D" onclick="checkAnswer(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> 500 feet under all driving conditions.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q1-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q2-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 02 // REACTION TIMING &amp; DISTRACTION</span>
+          <span>HUMAN FACTORS</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          How does taking your eyes off the road for a half-second slower reaction impact an operator's collision probability at highway speeds?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q2-opt-A" onclick="checkAnswer(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> It has zero measurable kinetic effect because anti-lock brakes compensate automatically.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B: CORRECT -->
+          <button id="q2-opt-B" onclick="checkAnswer(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> A half-second slower reaction time doubles collision risk and adds over 40 feet of travel at highway velocity.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q2-opt-C" onclick="checkAnswer(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> It only impairs driving if travelling over 80 MPH in severe rainstorms.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q2-opt-D" onclick="checkAnswer(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> It reduces total stopping distance by allowing tires to maintain rolling traction.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q2-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q3-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 03 // MINOR INTOXICATION THRESHOLD</span>
+          <span>ABC § 106.041</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under the Texas Alcoholic Beverage Code Zero Tolerance mandate, what is the statutory chemical threshold for a minor (under 21) operating a vehicle?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q3-opt-A" onclick="checkAnswer(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> A Blood Alcohol Concentration (BAC) of 0.08% or greater.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B -->
+          <button id="q3-opt-B" onclick="checkAnswer(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> A Blood Alcohol Concentration (BAC) between 0.04% and 0.079%.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C: CORRECT -->
+          <button id="q3-opt-C" onclick="checkAnswer(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Any detectable amount of alcohol in the minor's system (0.00% BAC threshold).</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q3-opt-D" onclick="checkAnswer(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Only when the minor fails a standardized field sobriety test administered by DPS.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q3-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. LESSON COMPLETION & TOPIC NAVIGATION FOOTER -->
+    <footer class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3">
+      <div class="flex items-center justify-between text-xs text-slate">
+        <span class="font-mono">MODULE 08: TOPIC 02 / 10</span>
+        <span class="font-mono text-safety font-bold">NEXT: L08-T03</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="L08-T03.html" class="flex-1 min-h-[48px] px-4 py-3 rounded-xl bg-carbon hover:bg-carbon/90 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs">
+          <span>ADVANCE TO L08-T03</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT REACTIVE LOGIC ENGINE -->
+  <script>
+    // Risk Vector Data Store
+    const vectorData = {
+      speed: {
+        indicator: "VECTOR 1 OF 4",
+        tag: "KINETIC MULTIPLIER // FATAL SEVERITY",
+        title: "Excessive Velocity & Street Racing",
+        icon: "speed",
+        desc: "Speeding dramatically reduces available perception and reaction time while geometrically increasing the physical braking distance required to bring a vehicle to a complete halt. Street racing on Texas roadways is an egregious criminal offense under TTC § 545.420."
+      },
+      distract: {
+        indicator: "VECTOR 2 OF 4",
+        tag: "COGNITIVE DETACHMENT // INATTENTION BLINDNESS",
+        title: "Cellular & Telematics Distraction",
+        icon: "phone_android",
+        desc: "Under TTC § 545.4251, reading, writing, or sending an electronic message while driving is illegal across Texas. Visual, manual, and cognitive distraction induces inattention blindness, reducing active brain spatial processing by up to 37%."
+      },
+      dwi: {
+        indicator: "VECTOR 3 OF 4",
+        tag: "PHYSIOLOGICAL DEPRECIATION // STRICT LIABILITY",
+        title: "Intoxication & Impairment",
+        icon: "no_drinks",
+        desc: "Under Texas Penal Code § 49.04, driving while intoxicated occurs when an operator lacks the normal use of mental or physical faculties due to alcohol, drugs, or a combination, OR has an alcohol concentration of 0.08 or more. Zero tolerance applies to minors under ABC § 106.041."
+      },
+      rage: {
+        indicator: "VECTOR 4 OF 4",
+        tag: "BEHAVIORAL HOSTILITY // ESCALATION RISK",
+        title: "Aggressive Driving & Road Rage",
+        icon: "sentiment_very_dissatisfied",
+        desc: "Operating with willful disregard for safety violates TTC § 545.401. Tailgating, excessive lane weaving, cutting off others, and aggressive gestures trigger catastrophic retaliation. Defensive drivers deliberately de-escalate by releasing right-of-way."
+      }
+    };
+
+    function switchVector(vec) {
+      const data = vectorData[vec];
+      document.getElementById('tab-indicator').textContent = data.indicator;
+      document.getElementById('vector-tag').textContent = data.tag;
+      document.getElementById('vector-title').textContent = data.title;
+      document.getElementById('vector-icon').textContent = data.icon;
+      document.getElementById('vector-desc').textContent = data.desc;
+
+      const tabs = ['speed', 'distract', 'dwi', 'rage'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tab-btn-' + t);
+        if (t === vec) {
+          btn.className = 'cad-btn cad-btn-active touch-target';
+        } else {
+          btn.className = 'cad-btn cad-btn-inactive touch-target';
+        }
+      });
+    }
+
+    // Kinetic Stopping Distance Calculator Engine
+    const speedMetrics = {
+      30: { reaction: 66, braking: 43, total: 109, pct: 19.8, scaleText: "109 FT: SAFE RESIDENTIAL STOPPING ENVELOPE" },
+      45: { reaction: 99, braking: 96, total: 195, pct: 35.4, scaleText: "195 FT: ROUGHLY HALF A FOOTBALL FIELD" },
+      60: { reaction: 132, braking: 171, total: 303, pct: 55.1, scaleText: "303 FT: COVERS OVER 100 YARDS OF HIGHWAY" },
+      70: { reaction: 154, braking: 233, total: 387, pct: 70.3, scaleText: "387 FT: EXCEEDS REGULATION FOOTBALL FIELD BY 27 FT!" },
+      85: { reaction: 187, braking: 343, total: 530, pct: 96.3, scaleText: "530 FT: CRITICAL MASS — NEARLY 1.5 FOOTBALL FIELDS!" }
+    };
+
+    function setSpeed(mph) {
+      document.getElementById('calc-speed-val').textContent = mph + " MPH";
+      const m = speedMetrics[mph];
+      document.getElementById('stat-reaction').textContent = m.reaction + " FT";
+      document.getElementById('stat-braking').textContent = m.braking + " FT";
+      document.getElementById('stat-total').textContent = m.total + " FT";
+
+      const bar = document.getElementById('stopping-bar');
+      bar.style.width = m.pct + "%";
+      if (mph >= 70) {
+        bar.className = 'bg-hazard h-full rounded-full transition-all duration-300';
+      } else {
+        bar.className = 'bg-safety h-full rounded-full transition-all duration-300';
+      }
+
+      document.getElementById('scale-annotation').textContent = m.scaleText;
+
+      const speeds = [30, 45, 60, 70, 85];
+      speeds.forEach(s => {
+        const btn = document.getElementById('spd-btn-' + s);
+        if (s === mph) {
+          btn.className = 'py-2.5 rounded border-2 border-safety bg-safety/10 font-bold text-safety touch-target';
+        } else {
+          btn.className = 'py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target';
+        }
+      });
+    }
+
+    // 3D SIMULATION BIDIRECTIONAL POSTMESSAGE CONTROLLER (F29 L08-T02)
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // SUBURBAN ARTERIAL CROSS-TRAFFIC",
+        statute: "TTC &sect; 545.401",
+        title: "12-15S SCANNING & EARLY HAZARD IDENTIFICATION",
+        desc: "Scanning 12 to 15 seconds ahead identifies the delivery truck occlusion and creeping cross-traffic sedan early, allowing gentle throttle easing without panic braking.",
+        metric: "VISUAL LEAD: 12-15 SECONDS AHEAD",
+        phase: "PHASE: 12-15S SCAN HORIZON ACTIVE"
+      },
+      2: {
+        badge: "SCENARIO 02 // FREEWAY MERGE CONGESTION",
+        statute: "TTC &sect; 545.351",
+        title: "SPEED DIFFERENTIAL CLOSURE & SAFE POCKET SELECTION",
+        desc: "Detecting a slow-moving entrance ramp merger 14 seconds away at 65 MPH enables timely lane vacation into the center lane without abrupt braking.",
+        metric: "MERGE CLOSURE: 25 MPH SPEED DELTA",
+        phase: "PHASE: PREDICT RAMP MERGE SPEED DELTA"
+      },
+      3: {
+        badge: "SCENARIO 03 // BLIND CURVE HAZARD & HORIZON CUTOFF",
+        statute: "TTC &sect; 545.351(b)",
+        title: "TOPOGRAPHICAL SIGHTLINE OCCLUSION & SPEED ADJUSTMENT",
+        desc: "When highway curvature cuts visual horizon from 15s to under 4s, the Basic Speed Rule mandates speed reduction before the blind apex.",
+        metric: "HORIZON LOSS: SIGHTLINE LIMITED TO 4S",
+        phase: "PHASE: DECIDE SPEED REDUCTION BEFORE APEX"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      if (typeof playBeep === 'function') playBeep(480, 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+
+    // Formative MCQ Logic with Live Score Tracking
+    let answeredQuestions = {};
+                const TOPIC_ID = 'L08-T02';
+    
+    let correctCount = 0;
+
+    
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.351",
+            "statutoryRationale": "At 70 MPH on dry asphalt, perception-reaction distance (154 ft at 1.5s) plus mechanical braking distance (233 ft) yields a total stopping distance of 387 feet—which exceeds the length of an entire 360-foot regulation football field."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TTC § 545.351",
+            "statutoryRationale": "At highway speeds (70 MPH = ~103 ft/s), an extra half-second of reaction latency adds over 40 feet of unbraked blind travel, more than doubling collision probability."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "Tex. Alco. Bev. Code § 106.041",
+            "statutoryRationale": "Texas Alcoholic Beverage Code § 106.041 enforces a strict Zero Tolerance law for minors under 21: any detectable amount of alcohol in the minor's system constitutes an illegal offense."
+      }
+};
+
+    function checkAnswer(qNum, selected) {
+      if (answeredQuestions[qNum]) return;
+      answeredQuestions[qNum] = true;
+
+      const feedback = document.getElementById(`q${qNum}-feedback`);
+      if (feedback) feedback.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      const options = ['A', 'B', 'C', 'D'];
+      options.forEach(opt => {
+        const btn = document.getElementById(`q${qNum}-opt-${opt}`) || document.getElementById(`q${qNum}-opt-${opt.toLowerCase()}`);
+        if (!btn) return;
+        btn.disabled = true;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (opt === correctOpt) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-valid', 'bg-valid/10', 'text-valid', 'font-bold');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-valid text-sm flex-shrink-0 mt-0.5';
+          }
+        } else if (opt === chosenStr && !isCorrect) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-hazard', 'bg-rose-50', 'text-hazard', 'line-through');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-hazard text-sm flex-shrink-0 mt-0.5';
+          }
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-valid/10 border border-valid/30 text-valid mt-2';
+          feedback.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-rose-50 border border-rose-300 text-rose-900 mt-2';
+          feedback.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      updateScoreBadge();
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredQuestions).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: correctCount,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

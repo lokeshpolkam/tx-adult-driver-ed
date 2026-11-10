@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Crash Scene Management &amp; Legal Duties — Texas Adult Driver Ed (L07-T02)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .bg-obsidian-grid {
+      background-size: 1.5rem 1.5rem;
+      background-image: 
+        linear-gradient(to right, #1F2622 1px, transparent 1px),
+        linear-gradient(to bottom, #1F2622 1px, transparent 1px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 48px !important;
+      touch-action: manipulation;
+    }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="min-h-screen py-3 px-[var(--phone-gutter)] sm:px-[var(--phone-gutter)]">
+  <div class="max-w-md mx-auto space-y-4 overflow-x-hidden">
+
+    
+
+    <!-- 02. EDITORIAL HERO & STATUTORY FOUNDATION -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 relative overflow-hidden bg-tech-grid fluid-card">
+      <!-- Engineering Corner Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>REF // CAD-CRASH-T02</span>
+        </div>
+        <span class="bg-surface-sub px-1.5 py-0.5 rounded border border-hairline font-bold">
+          SCALE 1:1 · TX-DOT SPEC
+        </span>
+      </div>
+
+      <!-- Statutory Subtitle & Chapter Tags -->
+      <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono uppercase text-slate">
+        <span class="text-safety font-bold">TTC &sect; 550.021</span>
+        <span>&bull;</span>
+        <span class="text-safety font-bold">&sect; 550.022(b)</span>
+        <span>&bull;</span>
+        <span class="text-safety font-bold">TCPRC &sect; 74.151</span>
+        <span>&bull;</span>
+        <span class="text-carbon font-bold">TDLR VALIDATED</span>
+      </div>
+
+      <h1 class="text-2xl font-bold text-carbon tracking-tight leading-tight">
+        Crash Scene Management &amp; Legal Duties
+      </h1>
+      <p class="text-xs font-medium text-safety-deep font-mono tracking-wide uppercase">
+        Statutory Step Sequencer, Freeway Clearance &amp; Good Samaritan Immunity
+      </p>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Motorists involved in a crash on Texas roads face affirmative legal duties under Texas Transportation Code Chapter 550: immediate stopping, medical aid, moving drivable vehicles off freeways ("Steer It, Clear It"), exchanging four mandatory credentials, and police dispatch. The Texas Good Samaritan Law (TCPRC &sect; 74.151) grants absolute civil immunity for good-faith emergency aid.
+      </p>
+
+      <!-- DPS STATUTORY SAFETY COMPACT CALLOUT -->
+      <div class="p-3 bg-safety-light border-l-4 border-safety rounded-r-xl space-y-1 text-xs">
+        <div class="flex items-center gap-1 text-[11px] font-mono font-bold text-safety uppercase tracking-wide">
+          <span class="material-symbols-outlined text-[15px]">verified_user</span>
+          <span>Texas DPS Statutory Framework:</span>
+        </div>
+        <p class="text-carbon leading-relaxed text-[11px] font-medium">
+          Under TTC &sect; 550.021 and &sect; 550.022, fleeing a collision without fulfilling statutory duties is a criminal offense escalating from a <strong>Class B Misdemeanor</strong> (damage &ge; $200) up to a <strong>Second-Degree Felony</strong> (2 to 20 years prison for fatality crashes).
+        </p>
+      </div>
+
+      <!-- Technical Micro Metrics Grid -->
+      <div class="grid grid-cols-3 gap-2 pt-1 border-t border-hairline text-center font-mono">
+        <div class="bg-surface-sub p-2 rounded border border-hairline">
+          <div class="text-[9px] text-slate uppercase">Hit &amp; Run Death</div>
+          <div class="text-xs font-bold text-hazard">2ND DEG FEL</div>
+          <div class="text-[8px] text-slate">2–20 Yrs &bull; $10K</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded border border-hairline">
+          <div class="text-[9px] text-slate uppercase">Freeway Clear</div>
+          <div class="text-xs font-bold text-safety">MANDATORY</div>
+          <div class="text-[8px] text-slate">TTC &sect; 550.022(b)</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded border border-hairline">
+          <div class="text-[9px] text-slate uppercase">Civil Shield</div>
+          <div class="text-xs font-bold text-valid">IMMUNITY</div>
+          <div class="text-[8px] text-slate">TCPRC &sect; 74.151</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. STATUTORY FRAMEWORK & TEXAS LEGAL DOCTRINES -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">gavel</span>
+          <span class="font-bold">TEXAS STATUTORY CODEX &bull; CRASH RESPONSE</span>
+        </div>
+        <span class="text-safety font-bold bg-safety-light px-2 py-0.5 rounded border border-safety/30 text-[10px]">TDLR VALIDATED</span>
+      </div>
+
+      <!-- Statute Card 1: Texas Good Samaritan Act -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TCPRC &sect; 74.151 &bull; GOOD SAMARITAN LAW</span>
+          <span class="text-[10px] text-valid bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-300 font-bold">CIVIL SHIELD</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          Under TCPRC &sect; 74.151(a), a person who in good faith administers emergency care at an emergency scene is not liable in civil damages for acts performed during the emergency. This shields volunteer rescuers providing first aid, CPR, or scene extraction.
+        </p>
+        <div class="bg-white p-2.5 rounded-lg border border-hairline font-mono text-[11px] text-slate space-y-1">
+          <div class="text-carbon font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-xs text-hazard">cancel</span>
+            <span>Four Statutory Disqualifiers (Immunity Voided):</span>
+          </div>
+          <ul class="text-[10px] space-y-1 list-disc pl-4 text-slate font-sans">
+            <li><strong>Willful or Wanton Gross Negligence:</strong> Protection covers ordinary negligence; conscious reckless indifference voids the shield.</li>
+            <li><strong>Remuneration / Fee Expectation:</strong> Care rendered for or in expectation of compensation is excluded (&sect; 74.151(b)(1)).</li>
+            <li><strong>Business Solicitation:</strong> Persons present to solicit commercial services cannot claim immunity.</li>
+            <li><strong>Producing Cause of Emergency:</strong> Under &sect; 74.151(b)(2), a driver whose negligence caused the crash cannot claim immunity for aid to victims.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Statute Card 2: Steer It, Clear It Freeway Mandate -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 550.022(b) &bull; STEER IT, CLEAR IT</span>
+          <span class="text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">FREEWAY MANDATE</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          If a crash occurs on a freeway main lane, ramp, shoulder, or median and each vehicle can be safely driven, operators <strong>shall move their vehicles as soon as possible</strong> off the main roadway to an investigation site or frontage road. Remaining in live lanes causes deadly secondary crashes and is a Class C moving violation.
+        </p>
+      </div>
+
+      <!-- Statute Card 3: Four Mandatory Statutory Credentials -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 550.023 &bull; MANDATORY CREDENTIAL EXCHANGE</span>
+          <span class="text-[10px] text-carbon bg-white px-2 py-0.5 rounded border border-hairline font-bold">4 CREDENTIALS</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          Drivers must exchange: (1) Operator name &amp; address, (2) Vehicle registration &amp; VIN, (3) Liability insurer &amp; policy number, and (4) Display driver's license. Under &sect; 550.024, if colliding with an unattended vehicle, drivers must locate the owner or leave a secure, visible written note.
+        </p>
+      </div>
+
+      <!-- Statute Card 4: Hit-and-Run Felony Escalation Matrix -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 550.021 &amp; &sect; 550.022 &bull; PENALTY LADDER</span>
+          <span class="text-[10px] text-hazard bg-red-50 text-red-800 px-2 py-0.5 rounded border border-red-300 font-bold">SANCTIONS</span>
+        </div>
+        <ul class="text-xs text-slate font-sans space-y-1 list-disc pl-4">
+          <li><strong>Crash Involving Death (&sect; 550.021(c)(1)(A)):</strong> Second-Degree Felony (2 to 20 years prison, fine up to $10,000).</li>
+          <li><strong>Serious Bodily Injury (&sect; 550.021(c)(1)(B)):</strong> Third-Degree Felony (2 to 10 years prison, fine up to $10,000).</li>
+          <li><strong>Bodily Injury (&sect; 550.021(c)(2)):</strong> Up to 5 years TDCJ prison or 1 year in county jail, fine up to $5,000.</li>
+          <li><strong>Property Damage &ge; $200 (&sect; 550.022(c)(2)):</strong> Class B Misdemeanor (up to 180 days jail, fine up to $2,000).</li>
+          <li><strong>Property Damage &lt; $200 (&sect; 550.022(c)(1)):</strong> Class C Misdemeanor (fine up to $500).</li>
+        </ul>
+      </div>
+
+      <!-- Statute Card 5: Immediate Police Reporting & Form CR-3 -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 550.026 &bull; POLICE REPORT TRIGGERS</span>
+          <span class="text-[10px] text-carbon bg-white px-2 py-0.5 rounded border border-hairline font-bold">FORM CR-3 CRIS</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          Immediate 911 notice is required if a crash causes injury, death, or inoperable vehicles. Note: Texas repealed driver written report Form CR-2 in September 2017 (SB 312). Officers file electronic reports (Form CR-3) via CRIS for damage &gt; $1,000 or injuries.
+        </p>
+      </div>
+    </section>
+
+    <!-- 04. AUTHORITATIVE 3D SIMULATION CONTAINER (L07-T02) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>PHYSICS SIMULATOR // BICYCLE SAFE PASSING</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          TTC § 545.053 • 3-FT RULE &amp; SHARROWS
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Bicycle Safety: 3-Foot Safe Passing Corridor &amp; Shared Lanes</h2>
+        <p class="text-xs text-slate mt-0.5">Master the mandatory 3-foot lateral passing buffer, prevent deadly right-hook collisions at intersections, and maintain highway breakdown clearance.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md" style="aspect-ratio: 16/9;">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L07_T02_bicyclist_safe_passing.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Bicyclist Safe Passing Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">APPROACHING BICYCLIST // PREPARING SAFE PASS</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>3-Ft Buffer</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>SHARROW Right</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Freeway Clear</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY RULE 01 // 3-FOOT MINIMUM CLEARANCE</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.053 &amp; MUNICIPAL ORDINANCES</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Provide ≥ 3 Feet Clearance When Passing Bicycles; Do Not Cut In</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            Under Texas municipal vulnerable user ordinances and TTC § 545.053, operators must leave at least 3 feet of lateral space (6 feet for commercial vehicles) when passing a cyclist. Vacate the lane when possible to prevent wind turbulence instability.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">LATERAL CLEARANCE:</span>
+            <span id="sim-card-metric" class="text-valid font-bold">≥ 3.0 FT PRESERVED // ZERO BUFFETING</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. PRIMARY CAD WIDGET: CRASH SCENE STATUTORY RESPONSE SEQUENCER -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC CH 550 &bull; LEGAL DUTIES AT CRASH SCENE</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Crash Scene Legal Duty Step Sequencer</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap the 5 chronological legal checkpoints to examine affirmative statutory duties, freeway clearance mandates, and hit-and-run felony penalties.</p>
+      </div>
+
+      <!-- SVG Viewport: Responsive max-w-[340px] container -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l02-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l02-cad1-bg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0E1311" />
+              <stop offset="100%" stop-color="#070A08" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Canvas Base -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="url(#l02-cad1-bg)" stroke="#222B25" stroke-width="1" />
+
+          <!-- Top Header Telemetry -->
+          <g transform="translate(12, 14)" pointer-events="none">
+            <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#94A3B8">TTC CH 550 &#8226; CRASH SCENE STATUTORY RESPONSE SEQUENCER</text>
+            <text x="316" y="0" font-family="'JetBrains Mono', monospace" font-size="5" fill="#E87522" text-anchor="end">5 MANDATORY STEPS</text>
+          </g>
+
+          <!-- Chronological Pipeline Conduits -->
+          <path d="M 34,95 L 102,95 L 170,95 L 238,95 L 306,95" fill="none" stroke="#25352A" stroke-width="3" stroke-linecap="round" />
+          <path d="M 34,95 L 102,95 L 170,95 L 238,95 L 306,95" fill="none" stroke="#E87522" stroke-width="1" stroke-dasharray="3 3" opacity="0.6" />
+
+          <!-- STEP 1: STOP & SECURE (x=34, y=95) -->
+          <g id="l02-cad1-box-1" transform="translate(34, 95)">
+            <circle cx="0" cy="0" r="18" fill="#141E18" stroke="#E87522" stroke-width="1.8" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#E87522" text-anchor="middle">01</text>
+            <text x="0" y="-23" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#E87522" text-anchor="middle">STEP 1</text>
+            <text x="0" y="27" font-family="'JetBrains Mono', monospace" font-size="4.2" font-weight="700" fill="#FFFFFF" text-anchor="middle">STOP &amp; SEC</text>
+            <text x="0" y="34" font-family="'JetBrains Mono', monospace" font-size="3.5" fill="#94A3B8" text-anchor="middle">&#167; 550.021</text>
+            <circle id="l02-cad1-pulse-1" cx="0" cy="0" r="26" fill="none" stroke="#E87522" stroke-width="1" opacity="0.4" class="animate-pulse" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('step_stop')" role="button" tabindex="0" aria-label="Step 1 Stop and Secure Scene" />
+          </g>
+
+          <!-- STEP 2: ASSESS & AID (x=102, y=95) -->
+          <g id="l02-cad1-box-2" transform="translate(102, 95)">
+            <circle cx="0" cy="0" r="18" fill="#14191E" stroke="#25352A" stroke-width="1" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#94A3B8" text-anchor="middle">02</text>
+            <text x="0" y="-23" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#94A3B8" text-anchor="middle">STEP 2</text>
+            <text x="0" y="27" font-family="'JetBrains Mono', monospace" font-size="4.2" font-weight="700" fill="#FFFFFF" text-anchor="middle">RENDER AID</text>
+            <text x="0" y="34" font-family="'JetBrains Mono', monospace" font-size="3.5" fill="#94A3B8" text-anchor="middle">&#167; 550.023</text>
+            <circle id="l02-cad1-pulse-2" cx="0" cy="0" r="26" fill="none" stroke="#38BDF8" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('step_aid')" role="button" tabindex="0" aria-label="Step 2 Assess and Render Aid" />
+          </g>
+
+          <!-- STEP 3: STEER IT CLEAR IT (x=170, y=95) -->
+          <g id="l02-cad1-box-3" transform="translate(170, 95)">
+            <circle cx="0" cy="0" r="18" fill="#141E18" stroke="#25352A" stroke-width="1" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#94A3B8" text-anchor="middle">03</text>
+            <text x="0" y="-23" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#94A3B8" text-anchor="middle">STEP 3</text>
+            <text x="0" y="27" font-family="'JetBrains Mono', monospace" font-size="4.2" font-weight="700" fill="#FFFFFF" text-anchor="middle">CLEAR FREEWAY</text>
+            <text x="0" y="34" font-family="'JetBrains Mono', monospace" font-size="3.5" fill="#34D399" text-anchor="middle">&#167; 550.022(b)</text>
+            <circle id="l02-cad1-pulse-3" cx="0" cy="0" r="26" fill="none" stroke="#34D399" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('step_clear')" role="button" tabindex="0" aria-label="Step 3 Steer It Clear It Mandate" />
+          </g>
+
+          <!-- STEP 4: EXCHANGE INFO (x=238, y=95) -->
+          <g id="l02-cad1-box-4" transform="translate(238, 95)">
+            <circle cx="0" cy="0" r="18" fill="#1C1518" stroke="#25352A" stroke-width="1" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#94A3B8" text-anchor="middle">04</text>
+            <text x="0" y="-23" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#94A3B8" text-anchor="middle">STEP 4</text>
+            <text x="0" y="27" font-family="'JetBrains Mono', monospace" font-size="4.2" font-weight="700" fill="#FFFFFF" text-anchor="middle">EXCHANGE</text>
+            <text x="0" y="34" font-family="'JetBrains Mono', monospace" font-size="3.5" fill="#94A3B8" text-anchor="middle">4 CREDENTIALS</text>
+            <circle id="l02-cad1-pulse-4" cx="0" cy="0" r="26" fill="none" stroke="#FBBF24" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('step_exchange')" role="button" tabindex="0" aria-label="Step 4 Exchange Mandatory Credentials" />
+          </g>
+
+          <!-- STEP 5: REPORT TO POLICE (x=306, y=95) -->
+          <g id="l02-cad1-box-5" transform="translate(306, 95)">
+            <circle cx="0" cy="0" r="18" fill="#241316" stroke="#25352A" stroke-width="1" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#94A3B8" text-anchor="middle">05</text>
+            <text x="0" y="-23" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#94A3B8" text-anchor="middle">STEP 5</text>
+            <text x="0" y="27" font-family="'JetBrains Mono', monospace" font-size="4.2" font-weight="700" fill="#FFFFFF" text-anchor="middle">REPORT 911</text>
+            <text x="0" y="34" font-family="'JetBrains Mono', monospace" font-size="3.5" fill="#F87171" text-anchor="middle">&#167; 550.026</text>
+            <circle id="l02-cad1-pulse-5" cx="0" cy="0" r="26" fill="none" stroke="#EF4444" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad1Mode('step_report')" role="button" tabindex="0" aria-label="Step 5 Report Immediately to Law Enforcement" />
+          </g>
+
+          <!-- Bottom SVG Status Bar -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l02-cad1-dot" cx="10" cy="9" r="3.5" fill="#E87522" />
+            <text id="l02-cad1-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#E2E8F0">
+              STEP 1: IMMEDIATE STOP &#8226; TTC &#167; 550.021 &#8226; FLEEING FATAL = 2ND DEG FELONY
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (5-Item Array min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 pt-1">
+        <button id="l02-cad1-btn-1" onclick="setL02Cad1Mode('step_stop')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">1. Stop</span>
+          <span class="text-[9px] text-safety-deep font-normal">&sect; 550.021</span>
+        </button>
+        <button id="l02-cad1-btn-2" onclick="setL02Cad1Mode('step_aid')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">2. Aid</span>
+          <span class="text-[9px] text-slate font-normal">&sect; 550.023</span>
+        </button>
+        <button id="l02-cad1-btn-3" onclick="setL02Cad1Mode('step_clear')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">3. Clear</span>
+          <span class="text-[9px] text-slate font-normal">Freeway Law</span>
+        </button>
+        <button id="l02-cad1-btn-4" onclick="setL02Cad1Mode('step_exchange')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">4. Exchange</span>
+          <span class="text-[9px] text-slate font-normal">4 Credentials</span>
+        </button>
+        <button id="l02-cad1-btn-5" onclick="setL02Cad1Mode('step_report')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center col-span-2 sm:col-span-1">
+          <span class="text-[11px]">5. Report</span>
+          <span class="text-[9px] text-slate font-normal">&sect; 550.026</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l02-cad1-card" class="bg-surface-sub border-l-4 border-safety p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l02-cad1-card-tag" class="text-[10px] font-mono font-bold text-safety uppercase">STEP 1: STATUTORY STOP MANDATE</span>
+          <span id="l02-cad1-card-cite" class="text-[10px] font-mono text-slate">TTC &sect; 550.021 &bull; &sect; 550.022</span>
+        </div>
+        <h3 id="l02-cad1-card-title" class="font-sans font-bold text-sm text-carbon">Immediate Stop &amp; Scene Security Mandate</h3>
+        <p id="l02-cad1-card-desc" class="text-xs text-slate leading-relaxed">
+          Drivers involved in a collision must stop immediately at the scene without obstructing traffic more than necessary. Fleeing a crash involving death is a Second-Degree Felony (2 to 20 years prison); serious bodily injury is a Third-Degree Felony (2 to 10 years prison); property damage &ge; $200 is a Class B misdemeanor.
+        </p>
+        <div id="l02-cad1-card-meta" class="pt-1 text-[11px] font-mono text-slate border-t border-hairline/80 flex items-center justify-between">
+          <span>HIT-AND-RUN FATALITY: 2nd Deg Fel</span>
+          <span class="text-safety font-bold">PENALTY: 2-20 Yrs Prison</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. SECONDARY CAD WIDGET: GOOD SAMARITAN LAW FLOWCHART -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TCPRC &sect; 74.151 &bull; TEXAS GOOD SAMARITAN LAW</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          IMMUNITY SHIELD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Good Samaritan Law &amp; Civil Immunity Flowchart</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap the statutory criteria to inspect what protects roadside emergency caregivers and the three non-negotiable exclusions that void immunity.</p>
+      </div>
+
+      <!-- SVG Viewport: Responsive max-w-[340px] container -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l02-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l02-tree-bg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0B0F0D" />
+              <stop offset="100%" stop-color="#060907" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Canvas Base -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="url(#l02-tree-bg)" stroke="#1F2923" stroke-width="1" />
+
+          <!-- Top Header Telemetry -->
+          <g transform="translate(14, 14)" pointer-events="none">
+            <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#94A3B8">TCPRC &#167; 74.151 &#8226; EMERGENCY CARE CIVIL IMMUNITY SHIELD</text>
+            <text x="312" y="0" font-family="'JetBrains Mono', monospace" font-size="5" fill="#E87522" text-anchor="end">CIVIL JURISPRUDENCE</text>
+          </g>
+
+          <!-- Central Shield Motif -->
+          <g transform="translate(170, 72)" pointer-events="none">
+            <polygon points="0,-36 34,-20 34,16 0,38 -34,16 -34,-20" fill="#141E18" stroke="#34D399" stroke-width="1.8" />
+            <path d="M -12,-4 L -4,4 L 12,-12" fill="none" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <text x="0" y="16" font-family="'JetBrains Mono', monospace" font-size="4.8" font-weight="800" fill="#34D399" text-anchor="middle">IMMUNITY</text>
+            <text x="0" y="24" font-family="'JetBrains Mono', monospace" font-size="4" fill="#A7F3D0" text-anchor="middle">SHIELD</text>
+          </g>
+
+          <!-- Conduits from 4 nodes to Shield -->
+          <line x1="50" y1="52" x2="136" y2="60" stroke="#25352A" stroke-width="1.5" stroke-dasharray="2 2" />
+          <line x1="110" y1="120" x2="145" y2="86" stroke="#25352A" stroke-width="1.5" stroke-dasharray="2 2" />
+          <line x1="230" y1="120" x2="195" y2="86" stroke="#25352A" stroke-width="1.5" stroke-dasharray="2 2" />
+          <line x1="290" y1="52" x2="204" y2="60" stroke="#25352A" stroke-width="1.5" stroke-dasharray="2 2" />
+
+          <!-- CRITERION 1: GOOD FAITH CARE (x=50, y=52) -->
+          <g id="l02-cad2-box-1" transform="translate(50, 52)">
+            <rect x="-36" y="-22" width="72" height="44" rx="5" fill="#141E18" stroke="#E87522" stroke-width="1.8" />
+            <text x="0" y="-10" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#E87522" text-anchor="middle">GOOD FAITH</text>
+            <text x="0" y="-1" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">EMERGENCY AID</text>
+            <text x="0" y="8" font-family="'JetBrains Mono', monospace" font-size="3.8" fill="#34D399" text-anchor="middle">PROTECTED</text>
+            <circle id="l02-cad2-pulse-1" cx="0" cy="0" r="26" fill="none" stroke="#E87522" stroke-width="1" opacity="0.4" class="animate-pulse" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('samaritan_goodfaith')" role="button" tabindex="0" aria-label="Criterion 1 Good Faith Emergency Care" />
+          </g>
+
+          <!-- CRITERION 2: ZERO REMUNERATION (x=110, y=120) -->
+          <g id="l02-cad2-box-2" transform="translate(110, 120)">
+            <rect x="-36" y="-22" width="72" height="44" rx="5" fill="#14191E" stroke="#25352A" stroke-width="1" />
+            <text x="0" y="-10" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#94A3B8" text-anchor="middle">NO PAYMENT</text>
+            <text x="0" y="-1" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">ZERO FEE EXPECT</text>
+            <text x="0" y="8" font-family="'JetBrains Mono', monospace" font-size="3.8" fill="#FBBF24" text-anchor="middle">&#167; 74.151(b)(1)</text>
+            <circle id="l02-cad2-pulse-2" cx="0" cy="0" r="26" fill="none" stroke="#FBBF24" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('samaritan_remuneration')" role="button" tabindex="0" aria-label="Criterion 2 Zero Remuneration Expectation" />
+          </g>
+
+          <!-- CRITERION 3: NOT GROSSLY NEGLIGENT (x=230, y=120) -->
+          <g id="l02-cad2-box-3" transform="translate(230, 120)">
+            <rect x="-36" y="-22" width="72" height="44" rx="5" fill="#1C1518" stroke="#25352A" stroke-width="1" />
+            <text x="0" y="-10" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#94A3B8" text-anchor="middle">NOT WANTON</text>
+            <text x="0" y="-1" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">NO GROSS NEG</text>
+            <text x="0" y="8" font-family="'JetBrains Mono', monospace" font-size="3.8" fill="#EF4444" text-anchor="middle">VOIDS SHIELD</text>
+            <circle id="l02-cad2-pulse-3" cx="0" cy="0" r="26" fill="none" stroke="#EF4444" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('samaritan_grossneg')" role="button" tabindex="0" aria-label="Criterion 3 Not Grossly Negligent" />
+          </g>
+
+          <!-- CRITERION 4: NOT PRODUCING CAUSE (x=290, y=52) -->
+          <g id="l02-cad2-box-4" transform="translate(290, 52)">
+            <rect x="-36" y="-22" width="72" height="44" rx="5" fill="#241316" stroke="#25352A" stroke-width="1" />
+            <text x="0" y="-10" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#94A3B8" text-anchor="middle">NOT CAUSER</text>
+            <text x="0" y="-1" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">NOT CRASH CAUSE</text>
+            <text x="0" y="8" font-family="'JetBrains Mono', monospace" font-size="3.8" fill="#DC2626" text-anchor="middle">&#167; 74.151(b)(2)</text>
+            <circle id="l02-cad2-pulse-4" cx="0" cy="0" r="26" fill="none" stroke="#DC2626" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL02Cad2Mode('samaritan_cause')" role="button" tabindex="0" aria-label="Criterion 4 Not Producing Cause of Emergency" />
+          </g>
+
+          <!-- Bottom SVG Status Bar -->
+          <g transform="translate(10, 156)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l02-cad2-dot" cx="10" cy="9" r="3.5" fill="#E87522" />
+            <text id="l02-cad2-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#E2E8F0">
+              SHIELD: GOOD FAITH AID &#8226; ABSOLUTE CIVIL IMMUNITY FROM DAMAGES &#8226; CPRC &#167; 74.151
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (Touch Target min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l02-cad2-btn-1" onclick="setL02Cad2Mode('samaritan_goodfaith')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Good Faith Aid</span>
+          <span class="text-[9px] text-safety-deep font-normal">&sect; 74.151(a) Protected</span>
+        </button>
+        <button id="l02-cad2-btn-2" onclick="setL02Cad2Mode('samaritan_remuneration')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">No Remuneration</span>
+          <span class="text-[9px] text-slate font-normal">&sect; 74.151(b)(1) Zero Fee</span>
+        </button>
+        <button id="l02-cad2-btn-3" onclick="setL02Cad2Mode('samaritan_grossneg')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Not Grossly Neg</span>
+          <span class="text-[9px] text-slate font-normal">Wanton Voids Shield</span>
+        </button>
+        <button id="l02-cad2-btn-4" onclick="setL02Cad2Mode('samaritan_cause')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Not Crash Cause</span>
+          <span class="text-[9px] text-slate font-normal">&sect; 74.151(b)(2) Causer Void</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l02-cad2-card" class="bg-surface-sub border-l-4 border-safety p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l02-cad2-card-tag" class="text-[10px] font-mono font-bold text-safety uppercase">CRITERION 1: GOOD FAITH CARE</span>
+          <span id="l02-cad2-card-cite" class="text-[10px] font-mono text-slate">TCPRC &sect; 74.151(a)</span>
+        </div>
+        <h3 id="l02-cad2-card-title" class="font-sans font-bold text-sm text-carbon">Good Faith Emergency Care Civil Immunity</h3>
+        <p id="l02-cad2-card-desc" class="text-xs text-slate leading-relaxed">
+          Under the Texas Good Samaritan Law (TCPRC &sect; 74.151), a person who in good faith administers emergency care at the scene of an emergency or in a hospital is not liable in civil damages for acts performed during the emergency. This legal shield protects ordinary rescuers performing first aid, bleeding control, or CPR.
+        </p>
+        <div id="l02-cad2-card-meta" class="pt-1 text-[11px] font-mono text-slate border-t border-hairline/80 flex items-center justify-between">
+          <span>LEGAL STATUS: Civil Immunity Shield</span>
+          <span class="text-safety font-bold">ORDINARY NEGLIGENCE: PROTECTED</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. INTERACTIVE TACTICAL TOOL: HIT-AND-RUN PENALTY ESCALATOR & CRASH LIABILITY CALCULATOR -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">calculate</span>
+          <span class="font-bold">CRASH SCENE LIABILITY CALCULATOR</span>
+        </div>
+        <span class="text-safety font-bold bg-safety-light px-2 py-0.5 rounded border border-safety/30 text-[10px]">CRIMINAL CODE</span>
+      </div>
+
+      <div class="space-y-1">
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">TACTICAL SIMULATOR</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Hit-and-Run Sanction &amp; Legal Duty Escalator</h2>
+        <p class="font-sans text-xs text-slate">Select a collision impact severity level and toggle operational factors to analyze criminal charges, prison exposure, and statutory obligations.</p>
+      </div>
+
+      <!-- Severity Selector Buttons -->
+      <div class="space-y-1.5">
+        <label class="block text-[11px] font-mono font-bold text-carbon uppercase">Collision Severity Level:</label>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+          <button type="button" onclick="calcSetSeverity('prop_minor')" id="sev-btn-minor" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-[11px] font-bold text-center">
+            Damage &lt; $200
+          </button>
+          <button type="button" onclick="calcSetSeverity('prop_major')" id="sev-btn-major" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-[11px] font-bold text-center">
+            Damage &ge; $200
+          </button>
+          <button type="button" onclick="calcSetSeverity('injury_bodily')" id="sev-btn-bodily" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-[11px] font-bold text-center">
+            Bodily Injury
+          </button>
+          <button type="button" onclick="calcSetSeverity('injury_serious')" id="sev-btn-serious" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-[11px] font-bold text-center">
+            Serious Injury
+          </button>
+          <button type="button" onclick="calcSetSeverity('fatality')" id="sev-btn-fatal" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-[11px] font-bold text-center col-span-2 sm:col-span-1">
+            Fatality / Death
+          </button>
+        </div>
+      </div>
+
+      <!-- Operational Toggles -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2.5">
+        <div class="text-[11px] font-mono font-bold text-carbon border-b border-hairline pb-1">OPERATIONAL CONDITIONS:</div>
+        
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-sans text-carbon">Freeway Main Lanes Crash?</span>
+          <button type="button" onclick="calcToggleFreeway()" id="calc-freeway-btn" class="touch-target min-h-[44px] px-3 py-1.5 rounded-lg border border-hairline bg-surface text-slate font-mono text-xs font-bold">
+            NO (Surface St)
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-sans text-carbon">Driver Fled Scene Without Aiding?</span>
+          <button type="button" onclick="calcToggleFled()" id="calc-fled-btn" class="touch-target min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-hazard bg-red-50 text-red-900 font-mono text-xs font-bold">
+            YES (Fled Scene)
+          </button>
+        </div>
+      </div>
+
+      <!-- Output HUD -->
+      <div id="calc-hud" class="p-4 bg-obsidian-bg rounded-xl border border-obsidian-border text-white space-y-3 font-mono">
+        <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+          <span class="text-neutral-400 text-[10px] uppercase">LEGAL LIABILITY OUTCOME:</span>
+          <span id="hud-statute" class="text-safety text-[10px] font-bold">TTC &sect; 550.021(c)(1)(B)</span>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-neutral-400 text-[9px] uppercase">CRIMINAL OFFENSE CLASSIFICATION:</div>
+          <div id="hud-offense" class="text-lg font-bold text-red-400">THIRD-DEGREE FELONY</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-[10px] pt-1">
+          <div class="bg-black/50 p-2 rounded border border-neutral-800">
+            <span class="text-neutral-400 block text-[9px] uppercase">CONFINEMENT EXPOSURE:</span>
+            <span id="hud-prison" class="text-amber-300 font-bold">2 to 10 Years TDCJ Prison</span>
+          </div>
+          <div class="bg-black/50 p-2 rounded border border-neutral-800">
+            <span class="text-neutral-400 block text-[9px] uppercase">CRIMINAL FINE MAXIMUM:</span>
+            <span id="hud-fine" class="text-emerald-400 font-bold">Up to $10,000 Fine</span>
+          </div>
+        </div>
+
+        <div class="p-2.5 bg-[#171B19] rounded border border-neutral-800 text-[11px] font-sans text-neutral-300 leading-relaxed" id="hud-desc">
+          Fleeing a crash scene resulting in serious bodily injury without fulfilling statutory stop and aid obligations under &sect; 550.023 is a Third-Degree Felony under Texas law. The driver faces a mandatory felony conviction, permanent criminal record, driver's license revocation, and state penitentiary incarceration.
+        </div>
+
+        <div id="hud-freeway-alert" class="hidden p-2 bg-amber-950/40 border border-amber-600/50 rounded text-[10px] font-sans text-amber-300">
+          <strong>&bull; Freeway Alert:</strong> Because this occurred on a freeway and vehicle was drivable, failure to immediately move the car off main lanes constitutes an additional Class C moving violation under TTC &sect; 550.022(b).
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. FIELD TACTICAL PROTOCOLS & EMERGENCY AID -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">medical_services</span>
+          <span class="font-bold">TACTICAL FIELD PROTOCOLS</span>
+        </div>
+        <span class="text-safety font-bold bg-safety-light px-2 py-0.5 rounded border border-safety/30 text-[10px]">DPS STANDARDS</span>
+      </div>
+
+      <div class="bg-surface-sub p-3 rounded-xl border border-hairline space-y-1.5">
+        <div class="text-xs font-mono font-bold text-carbon">Physical Scene Security &amp; Medical Aid</div>
+        <ul class="text-xs text-slate font-sans space-y-1 list-disc pl-4">
+          <li><strong>Activate Hazards:</strong> Engage 4-way emergency flashers immediately upon stopping.</li>
+          <li><strong>Deploy Triangles:</strong> Place reflective warning devices at 100 ft and 200 ft behind the crash scene.</li>
+          <li><strong>Safe Refuge:</strong> Move behind guardrails; never stand between stopped cars or in live lanes.</li>
+          <li><strong>Spinal Trauma Caution:</strong> Do NOT move injured victims unless there is immediate fire or submersion risk.</li>
+          <li><strong>Direct Pressure:</strong> Apply direct pressure to control severe bleeding until EMS arrives.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 09. INTERACTIVE SCENARIO MCQS (EXACTLY 3 SCENARIOS WITH TEXAS STATUTORY CITATIONS) -->
+    <section class="bg-surface rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-4 fluid-card">
+      <div class="border-b border-hairline pb-2 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">KNOWLEDGE EVALUATION</span>
+          <h2 class="font-bold text-base text-carbon leading-tight">Statutory Knowledge Evaluation (3 Scenarios)</h2>
+        </div>
+        <div class="text-[10px] font-mono text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          PASS: 100%
+        </div>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L07-T02 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- SCENARIO 1 (OPTION B STRICTLY CORRECT) -->
+      <div id="mcq-container-1" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate border-b border-hairline pb-1.5">
+          <span class="font-bold text-carbon">SCENARIO 01 // HIT-AND-RUN SERIOUS BODILY INJURY</span>
+          <span class="text-safety font-bold">TTC &sect; 550.021</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          An adult driver is involved in a collision at an intersection resulting in serious bodily injury to an occupant of the other vehicle. Panicked, the driver leaves the scene without stopping, rendering aid, or providing insurance information. Under Texas Transportation Code &sect; 550.021, what criminal offense has the driver committed?
+        </p>
+
+        <div class="space-y-2 text-xs font-mono">
+          <button id="q1-opt-a" type="button" onclick="checkMCQ(1, 'A', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ A ]</span>
+            <span class="font-sans text-xs">Class C misdemeanor punishable solely by a state traffic fine of $500.</span>
+          </button>
+          <button id="q1-opt-b" type="button" onclick="checkMCQ(1, 'B', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ B ]</span>
+            <span class="font-sans text-xs">Third-Degree Felony, punishable by 2 to 10 years imprisonment in the Texas Department of Criminal Justice and a fine up to $10,000.</span>
+          </button>
+          <button id="q1-opt-c" type="button" onclick="checkMCQ(1, 'C', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ C ]</span>
+            <span class="font-sans text-xs">Class A misdemeanor carrying a mandatory sentence of 30 days in county jail.</span>
+          </button>
+          <button id="q1-opt-d" type="button" onclick="checkMCQ(1, 'D', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ D ]</span>
+            <span class="font-sans text-xs">Administrative civil infraction resulting in a 6-month driver's license suspension with no prison exposure.</span>
+          </button>
+        </div>
+
+        <div id="q1-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </div>
+
+      <!-- SCENARIO 2 -->
+      <div id="mcq-container-2" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate border-b border-hairline pb-1.5">
+          <span class="font-bold text-carbon">SCENARIO 02 // FREEWAY "STEER IT, CLEAR IT"</span>
+          <span class="text-safety font-bold">TTC &sect; 550.022(b)</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          Two vehicles collide during peak morning rush hour on an elevated freeway main lane in Houston. Both drivers are uninjured, and both vehicles have minor cosmetic damage and can be normally and safely driven. Under Texas Transportation Code &sect; 550.022(b) ("Steer It, Clear It"), what must the drivers do?
+        </p>
+
+        <div class="space-y-2 text-xs font-mono">
+          <button id="q2-opt-a" type="button" onclick="checkMCQ(2, 'A', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ A ]</span>
+            <span class="font-sans text-xs">Immediately move the vehicles off the freeway main lane to a designated investigation site, frontage road, or nearest suitable cross street.</span>
+          </button>
+          <button id="q2-opt-b" type="button" onclick="checkMCQ(2, 'B', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ B ]</span>
+            <span class="font-sans text-xs">Leave the vehicles stationary in the active freeway lane until a DPS state trooper arrives to take measurements.</span>
+          </button>
+          <button id="q2-opt-c" type="button" onclick="checkMCQ(2, 'C', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ C ]</span>
+            <span class="font-sans text-xs">Step out into the active traffic lane to photograph tire marks and argue fault before touching the steering wheels.</span>
+          </button>
+          <button id="q2-opt-d" type="button" onclick="checkMCQ(2, 'D', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ D ]</span>
+            <span class="font-sans text-xs">Wait inside the running vehicles for a commercial tow truck regardless of traffic congestion or secondary crash risk.</span>
+          </button>
+        </div>
+
+        <div id="q2-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </div>
+
+      <!-- SCENARIO 3 -->
+      <div id="mcq-container-3" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate border-b border-hairline pb-1.5">
+          <span class="font-bold text-carbon">SCENARIO 03 // GOOD SAMARITAN CIVIL IMMUNITY</span>
+          <span class="text-safety font-bold">TCPRC &sect; 74.151</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A motorist witnesses a severe rollover accident on a rural state highway where a passenger is bleeding profusely from a lacerated artery. The motorist stops, calls 911, and applies emergency direct pressure using a clean towel until first responders arrive. Under Texas Civil Practice and Remedies Code &sect; 74.151 (Good Samaritan Law), what legal protection does this rescuer hold?
+        </p>
+
+        <div class="space-y-2 text-xs font-mono">
+          <button id="q3-opt-a" type="button" onclick="checkMCQ(3, 'A', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ A ]</span>
+            <span class="font-sans text-xs">The rescuer is personally liable for medical malpractice unless certified as an emergency medical technician.</span>
+          </button>
+          <button id="q3-opt-b" type="button" onclick="checkMCQ(3, 'B', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ B ]</span>
+            <span class="font-sans text-xs">The rescuer receives financial compensation from the county sheriff's department for emergency intervention.</span>
+          </button>
+          <button id="q3-opt-c" type="button" onclick="checkMCQ(3, 'C', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ C ]</span>
+            <span class="font-sans text-xs">The rescuer is shielded from civil liability for damages resulting from emergency care rendered in good faith at the scene, unless the act is willfully or wantonly negligent.</span>
+          </button>
+          <button id="q3-opt-d" type="button" onclick="checkMCQ(3, 'D', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface text-left text-carbon flex items-start gap-2 hover:bg-surface-sub transition-all">
+            <span class="font-bold text-slate shrink-0">[ D ]</span>
+            <span class="font-sans text-xs">Immunity applies only if the injured passenger signs a written liability waiver before care is administered.</span>
+          </button>
+        </div>
+
+        <div id="q3-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 10. TOPIC NAVIGATION FOOTER -->
+    <footer class="pt-2 pb-6 border-t border-hairline grid grid-cols-3 gap-2 font-mono text-xs">
+      <a href="index.html" class="touch-target min-h-[48px] p-2 rounded-xl bg-surface border border-hairline flex items-center justify-center gap-1 text-slate hover:text-carbon shadow-2xs text-center" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+        <span class="material-symbols-outlined text-sm">home</span>
+        <span class="truncate">HUB</span>
+      </a>
+      <a href="L07-T01.html" class="touch-target min-h-[48px] p-2 rounded-xl bg-surface border border-hairline flex items-center justify-center gap-1 text-slate hover:text-carbon shadow-2xs text-center" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        <span class="truncate">PREV</span>
+      </a>
+      <a href="L07-T03.html" class="touch-target min-h-[48px] p-2 rounded-xl bg-surface border border-hairline flex items-center justify-center gap-1 text-safety-deep hover:text-safety font-bold shadow-2xs text-center" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+        <span class="truncate">NEXT</span>
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+      </a>
+    </footer>
+
+  </div>
+
+  <!-- JAVASCRIPT STATE ENGINE & REACTIVE LOGIC -->
+  <script>
+    // ==============================================================================
+    // L07-T02 STATE ENGINE: CAD 01 & CAD 02 CONTROLLERS
+    // ==============================================================================
+
+    const l02Cad1Data = {
+      step_stop: {
+        status: "STEP 1: IMMEDIATE STOP • TTC § 550.021 • FLEEING FATAL = 2ND DEG FELONY",
+        dotColor: "#E87522",
+        tag: "STEP 1: STATUTORY STOP MANDATE",
+        cite: "TTC § 550.021 • § 550.022",
+        title: "Immediate Stop & Scene Security Mandate",
+        desc: "Drivers involved in a collision must stop immediately at the scene without obstructing traffic more than necessary. Fleeing a crash involving death is a Second-Degree Felony (2 to 20 years prison); serious bodily injury is a Third-Degree Felony (2 to 10 years prison); property damage ≥ $200 is a Class B misdemeanor.",
+        statute: "HIT-AND-RUN FATALITY: 2nd Deg Fel",
+        penalty: "PENALTY: 2-20 Yrs Prison",
+        accentBorder: "border-safety",
+        tagColor: "text-safety"
+      },
+      step_aid: {
+        status: "STEP 2: RENDER REASONABLE AID • TTC § 550.023 • CALL 911 • GOOD SAMARITAN SHIELD",
+        dotColor: "#38BDF8",
+        tag: "STEP 2: RENDER REASONABLE AID",
+        cite: "TTC § 550.023 • TCPRC § 74.151",
+        title: "Assess Injuries & Arrange Medical Assistance",
+        desc: "Drivers have an affirmative legal duty to render reasonable assistance to any injured person, including arranging medical transport (calling 911). Rescuers acting in good faith are protected from civil liability by the Texas Good Samaritan Law. Do not move injured victims with suspected spinal trauma unless active fire or submersion threatens immediate life.",
+        statute: "LEGAL DUTY: Call 911 / Transport",
+        penalty: "IMMUNITY: TCPRC § 74.151 Shield",
+        accentBorder: "border-sky-500",
+        tagColor: "text-sky-500"
+      },
+      step_clear: {
+        status: "STEP 3: STEER IT CLEAR IT • TTC § 550.022(b) • MOVE VEHICLES OFF FREEWAY",
+        dotColor: "#34D399",
+        tag: "STEP 3: FREEWAY CLEARANCE MANDATE",
+        cite: "TTC § 550.022(b) • STEER IT CLEAR IT",
+        title: "Steer It, Clear It: Freeway Crash Removal",
+        desc: "Under TTC § 550.022(b), if a crash occurs on a freeway main lane, ramp, shoulder, or median and each vehicle can be safely driven, operators MUST immediately move their vehicles off the freeway to an adjacent frontage road, shoulder, or safe accident investigation site to eliminate fatal secondary collisions.",
+        statute: "MANDATE: Move Drivable Cars Off",
+        penalty: "LOCATION: Freeway / Ramps / Median",
+        accentBorder: "border-emerald-500",
+        tagColor: "text-emerald-500"
+      },
+      step_exchange: {
+        status: "STEP 4: EXCHANGE 4 CREDENTIALS • TTC § 550.023 • UNATTENDED NOTICE § 550.024",
+        dotColor: "#FBBF24",
+        tag: "STEP 4: MANDATORY CREDENTIALS",
+        cite: "TTC § 550.023 • § 550.024",
+        title: "Exchange of 4 Statutory Identifiers",
+        desc: "Operators must provide 4 mandatory credentials: (1) Full legal name and address; (2) Vehicle registration license plate number and VIN; (3) Liability insurance company name and policy number; (4) Display driver's license upon request. If striking an unattended vehicle or roadway fixture, the driver must securely attach a written note with these details.",
+        statute: "CREDENTIALS: 4 Mandatory Items",
+        penalty: "UNATTENDED: Secure Written Note",
+        accentBorder: "border-amber-500",
+        tagColor: "text-amber-500"
+      },
+      step_report: {
+        status: "STEP 5: IMMEDIATE REPORT TO POLICE • TTC § 550.026 • OFFICER FILES CR-3",
+        dotColor: "#EF4444",
+        tag: "STEP 5: IMMEDIATE LAW ENFORCEMENT REPORT",
+        cite: "TTC § 550.026 • CR-3 ELECTRONIC",
+        title: "Immediate Police Report Triggers",
+        desc: "Immediate report to local law enforcement via 911 is required if: (1) Injury or fatality occurred; OR (2) Any vehicle cannot be normally and safely driven. Investigating peace officers submit an official electronic crash report (Form CR-3). Note: Texas repealed driver written report Form CR-2 in September 2017; drivers no longer file crash forms with TxDOT.",
+        statute: "TRIGGERS: Injury / Death / Inoperable",
+        penalty: "POLICE REPORT: Form CR-3 (Electronic)",
+        accentBorder: "border-hazard",
+        tagColor: "text-hazard"
+      }
+    };
+
+    function setL02Cad1Mode(modeKey) {
+      const data = l02Cad1Data[modeKey];
+      if (!data) return;
+
+      const statusElem = document.getElementById('l02-cad1-status');
+      const dotElem = document.getElementById('l02-cad1-dot');
+      if (statusElem) statusElem.textContent = data.status;
+      if (dotElem) dotElem.setAttribute('fill', data.dotColor);
+
+      const keys = ['step_stop', 'step_aid', 'step_clear', 'step_exchange', 'step_report'];
+      keys.forEach((key, idx) => {
+        const boxNum = idx + 1;
+        const circle = document.querySelector(`#l02-cad1-box-${boxNum} circle:first-child`);
+        const pulse = document.getElementById(`l02-cad1-pulse-${boxNum}`);
+        const btn = document.getElementById(`l02-cad1-btn-${boxNum}`);
+
+        if (key === modeKey) {
+          if (circle) {
+            circle.setAttribute('stroke', data.dotColor);
+            circle.setAttribute('stroke-width', '1.8');
+          }
+          if (pulse) {
+            pulse.setAttribute('stroke', data.dotColor);
+            pulse.setAttribute('opacity', '0.4');
+            pulse.classList.add('animate-pulse');
+          }
+          if (btn) {
+            btn.className = `touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center`;
+          }
+        } else {
+          if (circle) {
+            circle.setAttribute('stroke', '#25352A');
+            circle.setAttribute('stroke-width', '1');
+          }
+          if (pulse) {
+            pulse.setAttribute('opacity', '0');
+            pulse.classList.remove('animate-pulse');
+          }
+          if (btn) {
+            btn.className = `touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center`;
+          }
+        }
+      });
+
+      const card = document.getElementById('l02-cad1-card');
+      const tag = document.getElementById('l02-cad1-card-tag');
+      const cite = document.getElementById('l02-cad1-card-cite');
+      const title = document.getElementById('l02-cad1-card-title');
+      const desc = document.getElementById('l02-cad1-card-desc');
+      const meta = document.getElementById('l02-cad1-card-meta');
+
+      if (card) {
+        card.className = `bg-surface-sub border-l-4 ${data.accentBorder} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      }
+      if (tag) {
+        tag.textContent = data.tag;
+        tag.className = `text-[10px] font-mono font-bold ${data.tagColor} uppercase`;
+      }
+      if (cite) cite.textContent = data.cite;
+      if (title) title.textContent = data.title;
+      if (desc) desc.textContent = data.desc;
+      if (meta) {
+        meta.innerHTML = `<span>${data.statute}</span><span class="${data.tagColor} font-bold">${data.penalty}</span>`;
+      }
+    }
+
+    const l02Cad2Data = {
+      samaritan_goodfaith: {
+        status: "SHIELD: GOOD FAITH AID • ABSOLUTE CIVIL IMMUNITY FROM DAMAGES • CPRC § 74.151",
+        dotColor: "#E87522",
+        tag: "CRITERION 1: GOOD FAITH CARE",
+        cite: "TCPRC § 74.151(a)",
+        title: "Good Faith Emergency Care Civil Immunity",
+        desc: "Under the Texas Good Samaritan Law (TCPRC § 74.151), a person who in good faith administers emergency care at the scene of an emergency or in a hospital is not liable in civil damages for acts performed during the emergency. This legal shield protects ordinary rescuers performing first aid, bleeding control, or CPR.",
+        scope: "LEGAL STATUS: Civil Immunity Shield",
+        rule: "ORDINARY NEGLIGENCE: PROTECTED",
+        accentBorder: "border-safety",
+        tagColor: "text-safety"
+      },
+      samaritan_remuneration: {
+        status: "DISQUALIFIER: REMUNERATION EXPECTED • COMMERCIAL MOTIVE VOIDS SHIELD • § 74.151(b)(1)",
+        dotColor: "#FBBF24",
+        tag: "CRITERION 2: ZERO REMUNERATION",
+        cite: "TCPRC § 74.151(b)(1)",
+        title: "Exclusion for Remuneration or Solicitation",
+        desc: "Good Samaritan civil immunity does NOT apply to care administered: (1) for or in expectation of remuneration; or (2) by a person who was at the scene of the emergency for the purpose of soliciting business or offering services. Rescuers must act purely as altruistic volunteers without billing or commercial motive.",
+        scope: "DISQUALIFIER: Expecting Payment / Fee",
+        rule: "STATUS: Immunity Voided",
+        accentBorder: "border-amber-500",
+        tagColor: "text-amber-500"
+      },
+      samaritan_grossneg: {
+        status: "DISQUALIFIER: GROSS NEGLIGENCE • WILLFUL OR WANTON ACTS VOID SHIELD • § 74.151(a)",
+        dotColor: "#EF4444",
+        tag: "CRITERION 3: GROSS NEGLIGENCE EXCLUSION",
+        cite: "TCPRC § 74.151(a)",
+        title: "Willful, Wanton or Gross Negligence Exclusion",
+        desc: "While Good Samaritan protection forgives ordinary civil negligence, it explicitly denies immunity for acts that are willfully or wantonly negligent. Gross negligence requires conscious indifference to the rights, safety, or welfare of others. Reckless roadside actions (such as non-indicated emergency surgery) void the statutory shield.",
+        scope: "EXCLUSION: Willful or Wanton Harm",
+        rule: "STANDARD: Gross Negligence Liable",
+        accentBorder: "border-hazard",
+        tagColor: "text-hazard"
+      },
+      samaritan_cause: {
+        status: "DISQUALIFIER: PRODUCING CAUSE • CRASH CAUSER CANNOT CLAIM IMMUNITY • § 74.151(b)(2)",
+        dotColor: "#DC2626",
+        tag: "CRITERION 4: NOT THE PRODUCING CAUSE",
+        cite: "TCPRC § 74.151(b)(2)",
+        title: "Crash Instigator Excluded from Immunity",
+        desc: "Under TCPRC § 74.151(b)(2), the Good Samaritan shield does not protect a person whose act or omission was a producing cause of the emergency. If an at-fault driver negligently strikes a victim and then renders roadside aid, they cannot invoke Good Samaritan immunity to escape civil liability for the injuries caused.",
+        scope: "BARRED: Producing Cause of Emergency",
+        rule: "LIABILITY: Full Civil Exposure",
+        accentBorder: "border-red-700",
+        tagColor: "text-red-700"
+      }
+    };
+
+    function setL02Cad2Mode(modeKey) {
+      const data = l02Cad2Data[modeKey];
+      if (!data) return;
+
+      const statusElem = document.getElementById('l02-cad2-status');
+      const dotElem = document.getElementById('l02-cad2-dot');
+      if (statusElem) statusElem.textContent = data.status;
+      if (dotElem) dotElem.setAttribute('fill', data.dotColor);
+
+      const keys = ['samaritan_goodfaith', 'samaritan_remuneration', 'samaritan_grossneg', 'samaritan_cause'];
+      keys.forEach((key, idx) => {
+        const boxNum = idx + 1;
+        const box = document.querySelector(`#l02-cad2-box-${boxNum} rect`);
+        const pulse = document.getElementById(`l02-cad2-pulse-${boxNum}`);
+        const btn = document.getElementById(`l02-cad2-btn-${boxNum}`);
+
+        if (key === modeKey) {
+          if (box) {
+            box.setAttribute('stroke', data.dotColor);
+            box.setAttribute('stroke-width', '1.8');
+          }
+          if (pulse) {
+            pulse.setAttribute('stroke', data.dotColor);
+            pulse.setAttribute('opacity', '0.4');
+            pulse.classList.add('animate-pulse');
+          }
+          if (btn) {
+            btn.className = `touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center`;
+          }
+        } else {
+          if (box) {
+            box.setAttribute('stroke', '#25352A');
+            box.setAttribute('stroke-width', '1');
+          }
+          if (pulse) {
+            pulse.setAttribute('opacity', '0');
+            pulse.classList.remove('animate-pulse');
+          }
+          if (btn) {
+            btn.className = `touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center`;
+          }
+        }
+      });
+
+      const card = document.getElementById('l02-cad2-card');
+      const tag = document.getElementById('l02-cad2-card-tag');
+      const cite = document.getElementById('l02-cad2-card-cite');
+      const title = document.getElementById('l02-cad2-card-title');
+      const desc = document.getElementById('l02-cad2-card-desc');
+      const meta = document.getElementById('l02-cad2-card-meta');
+
+      if (card) {
+        card.className = `bg-surface-sub border-l-4 ${data.accentBorder} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      }
+      if (tag) {
+        tag.textContent = data.tag;
+        tag.className = `text-[10px] font-mono font-bold ${data.tagColor} uppercase`;
+      }
+      if (cite) cite.textContent = data.cite;
+      if (title) title.textContent = data.title;
+      if (desc) desc.textContent = data.desc;
+      if (meta) {
+        meta.innerHTML = `<span>${data.scope}</span><span class="${data.tagColor} font-bold">${data.rule}</span>`;
+      }
+    }
+
+    // ==============================================================================
+    // CALCULATOR: HIT-AND-RUN ESCALATION & LIABILITY SIMULATOR
+    // ==============================================================================
+
+    let calcState = {
+      severity: 'injury_serious',
+      isFreeway: false,
+      didFlee: true
+    };
+
+    const calcData = {
+      prop_minor: {
+        fledOffense: "CLASS C MISDEMEANOR",
+        fledColor: "text-amber-400",
+        fledPrison: "No Confinement (Fine Only)",
+        fledFine: "Up to $500 Fine",
+        fledStatute: "TTC § 550.022(c)(1)",
+        fledDesc: "Leaving the scene of a crash involving damage under $200 without exchanging credentials or leaving written notice is a Class C misdemeanor traffic violation.",
+        stayOffense: "LAWFUL COMPLIANCE",
+        stayColor: "text-emerald-400",
+        stayPrison: "No Criminal Charges",
+        stayFine: "Civil Property Settlement",
+        stayStatute: "TTC § 550.023 / § 550.024",
+        stayDesc: "Driver stops, exchanges 4 mandatory credentials (or leaves secure note if unattended), and handles property damage through auto insurance."
+      },
+      prop_major: {
+        fledOffense: "CLASS B MISDEMEANOR",
+        fledColor: "text-amber-500",
+        fledPrison: "Up to 180 Days County Jail",
+        fledFine: "Up to $2,000 Fine",
+        fledStatute: "TTC § 550.022(c)(2)",
+        fledDesc: "Leaving the scene of a crash involving damage of $200 or more without exchanging credentials is a Class B misdemeanor punishable by up to 180 days jail.",
+        stayOffense: "LAWFUL COMPLIANCE",
+        stayColor: "text-emerald-400",
+        stayPrison: "No Criminal Charges",
+        stayFine: "Civil Property Settlement",
+        stayStatute: "TTC § 550.023 / § 550.026",
+        stayDesc: "Driver stops safely, exchanges credentials, and contacts police if vehicles are inoperable. Settled via liability insurance."
+      },
+      injury_bodily: {
+        fledOffense: "FELONY (TDCJ PRISON / JAIL)",
+        fledColor: "text-orange-500",
+        fledPrison: "Up to 5 Yrs Prison OR 1 Yr Jail",
+        fledFine: "Up to $5,000 Fine",
+        fledStatute: "TTC § 550.021(c)(2)",
+        fledDesc: "Failing to stop and render aid after a crash causing bodily injury is punishable by up to 5 years in TDCJ prison or up to 1 year in county jail.",
+        stayOffense: "LAWFUL COMPLIANCE",
+        stayColor: "text-emerald-400",
+        stayPrison: "No Criminal Charges",
+        stayFine: "Medical Aid Rendered",
+        stayStatute: "TTC § 550.021 / § 550.023",
+        stayDesc: "Driver stops immediately, renders reasonable aid, calls 911, and exchanges credentials. Protected from civil rescue liability by Good Samaritan Law."
+      },
+      injury_serious: {
+        fledOffense: "THIRD-DEGREE FELONY",
+        fledColor: "text-red-400",
+        fledPrison: "2 to 10 Years TDCJ Prison",
+        fledFine: "Up to $10,000 Fine",
+        fledStatute: "TTC § 550.021(c)(1)(B)",
+        fledDesc: "Fleeing a crash causing serious bodily injury without stopping and rendering aid is a Third-Degree Felony (2 to 10 years in TDCJ state prison).",
+        stayOffense: "LAWFUL COMPLIANCE",
+        stayColor: "text-emerald-400",
+        stayPrison: "No Criminal Charges",
+        stayFine: "Emergency Aid Rendered",
+        stayStatute: "TTC § 550.021 / TCPRC § 74.151",
+        stayDesc: "Driver remains at scene, dials 911 immediately, assists medical first responders, and provides required statutory identification."
+      },
+      fatality: {
+        fledOffense: "SECOND-DEGREE FELONY",
+        fledColor: "text-red-600",
+        fledPrison: "2 to 20 Years TDCJ Prison",
+        fledFine: "Up to $10,000 Fine",
+        fledStatute: "TTC § 550.021(c)(1)(A)",
+        fledDesc: "Fleeing a crash involving the death of a human being is a Second-Degree Felony under Texas law (2 to 20 years in TDCJ prison and license revocation).",
+        stayOffense: "LAWFUL COMPLIANCE",
+        stayColor: "text-emerald-400",
+        stayPrison: "No Hit-and-Run Charges",
+        stayFine: "Full Scene Investigation",
+        stayStatute: "TTC § 550.021 / § 550.026",
+        stayDesc: "Driver halts immediately without obstructing traffic more than necessary, cooperates fully with police, and renders all possible assistance."
+      }
+    };
+
+    function calcSetSeverity(sevKey) {
+      calcState.severity = sevKey;
+      const btns = {
+        prop_minor: 'sev-btn-minor',
+        prop_major: 'sev-btn-major',
+        injury_bodily: 'sev-btn-bodily',
+        injury_serious: 'sev-btn-serious',
+        fatality: 'sev-btn-fatal'
+      };
+
+      Object.keys(btns).forEach(key => {
+        const btn = document.getElementById(btns[key]);
+        if (key === sevKey) {
+          btn.className = `touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-[11px] font-bold text-center`;
+        } else {
+          btn.className = `touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-[11px] font-bold text-center`;
+        }
+      });
+
+      updateCalcHUD();
+    }
+
+    function calcToggleFreeway() {
+      calcState.isFreeway = !calcState.isFreeway;
+      const btn = document.getElementById('calc-freeway-btn');
+      if (calcState.isFreeway) {
+        btn.textContent = "YES (Freeway Mandate)";
+        btn.className = "touch-target min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold";
+      } else {
+        btn.textContent = "NO (Surface St)";
+        btn.className = "touch-target min-h-[44px] px-3 py-1.5 rounded-lg border border-hairline bg-surface text-slate font-mono text-xs font-bold";
+      }
+      updateCalcHUD();
+    }
+
+    function calcToggleFled() {
+      calcState.didFlee = !calcState.didFlee;
+      const btn = document.getElementById('calc-fled-btn');
+      if (calcState.didFlee) {
+        btn.textContent = "YES (Fled Scene)";
+        btn.className = "touch-target min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-hazard bg-red-50 text-red-900 font-mono text-xs font-bold";
+      } else {
+        btn.textContent = "NO (Remained & Aided)";
+        btn.className = "touch-target min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-mono text-xs font-bold";
+      }
+      updateCalcHUD();
+    }
+
+    function updateCalcHUD() {
+      const data = calcData[calcState.severity];
+      const statuteElem = document.getElementById('hud-statute');
+      const offenseElem = document.getElementById('hud-offense');
+      const prisonElem = document.getElementById('hud-prison');
+      const fineElem = document.getElementById('hud-fine');
+      const descElem = document.getElementById('hud-desc');
+      const freewayAlert = document.getElementById('hud-freeway-alert');
+
+      if (calcState.didFlee) {
+        statuteElem.textContent = data.fledStatute;
+        offenseElem.textContent = data.fledOffense;
+        offenseElem.className = `text-lg font-bold ${data.fledColor}`;
+        prisonElem.textContent = data.fledPrison;
+        fineElem.textContent = data.fledFine;
+        descElem.textContent = data.fledDesc;
+      } else {
+        statuteElem.textContent = data.stayStatute;
+        offenseElem.textContent = data.stayOffense;
+        offenseElem.className = `text-lg font-bold ${data.stayColor}`;
+        prisonElem.textContent = data.stayPrison;
+        fineElem.textContent = data.stayFine;
+        descElem.textContent = data.stayDesc;
+      }
+
+      if (calcState.isFreeway) {
+        freewayAlert.classList.remove('hidden');
+      } else {
+        freewayAlert.classList.add('hidden');
+      }
+    }
+
+    // ==============================================================================
+    // MCQ ENGINE: 3 SCENARIO EVALUATION (OPTION B ON Q1 STRICTLY CORRECT)
+    // ==============================================================================
+
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+            const TOPIC_ID = 'L07-T02';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TEXAS TRANSPORTATION CODE § 550.021",
+            "statutoryRationale": "Under Texas Transportation Code § 550.021(c)(1)(B), an operator involved in an accident resulting in serious bodily injury who fails to stop, remain at the scene, and fulfill the statutory duties under § 550.023 commits a Third-Degree Felony (2 to 10 years in TDCJ prison, fine up to $10,000). If the collision results in a fatality, the offense escalates to a Second-Degree Felony (2 to 20 years in prison under § 550.021(c)(1)(A))."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "A",
+            "statute": "TEXAS TRANSPORTATION CODE § 550.022(b)",
+            "statutoryRationale": "Texas Transportation Code § 550.022(b) mandates that if a crash occurs on a main lane, ramp, shoulder, or median of a freeway and each vehicle can be normally and safely driven, drivers must move their vehicles as soon as possible off the freeway to prevent secondary crashes and traffic gridlock. Failure to clear an operable vehicle is a Class C misdemeanor."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TEXAS CIVIL PRACTICE AND REMEDIES CODE § 74.151",
+            "statutoryRationale": "Under Texas Civil Practice and Remedies Code § 74.151(a), a person who in good faith administers emergency care is not liable in civil damages for an act performed during the emergency unless the act is willfully or wantonly negligent. This protection shields volunteer rescuers and Good Samaritans at motor vehicle crash scenes."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ==============================================================================
+    // SIMULATION CONTROLLER & POSTMESSAGE BINDINGS (L07-T02)
+    // ==============================================================================
+    const simScenarios = {
+      1: {
+        badge: 'STATUTORY MANDATE // 3-FT MINIMUM LATERAL CLEARANCE',
+        statute: 'TTC § 545.053 & § 551.103',
+        title: '3-Foot Safe Passing Clearance Mandate',
+        desc: 'Motorists overtaking a bicyclist proceeding in the same direction must pass to the left at a safe distance—minimum 3 feet for passenger cars (6 feet for commercial trucks)—and may not return to the right until safely clear.',
+        metric: 'SAFE LATERAL BUFFER // 3.5 FT CLEARANCE',
+        phase: 'APPROACHING CYCLIST // CHANGING LANE TO PASS'
+      },
+      2: {
+        badge: 'HAZARD PREVENTION // RIGHT-HOOK COLLISION AVOIDANCE',
+        statute: 'TTC § 545.101 & § 545.103',
+        title: 'Right-Hook Turn Prevention & Following Protocol',
+        desc: 'Motorists must never accelerate past a cyclist and turn right across their direct path (the "Right Hook"). Motorists must drop behind the cyclist, match speed, and yield right-of-way before executing the right turn.',
+        metric: 'YIELD COMPLIANT // DECELERATE BEHIND CYCLIST',
+        phase: 'DECELERATING BEHIND CYCLIST // PREPARING RIGHT TURN'
+      },
+      3: {
+        badge: 'LANE CONTROL // SHARROW & SUBSTANDARD LANE',
+        statute: 'TTC § 551.103(a)(3) & § 545.060',
+        title: 'Substandard Lane Full-Lane Control (Take the Lane)',
+        desc: 'When a lane is less than 14 feet wide without a designated bike lane, a cyclist is legally entitled to take the center of the travel lane. Drivers must change lanes completely into the adjacent lane to execute a safe pass.',
+        metric: 'FULL LANE CHANGE PASS // COMPLETE CLEARANCE',
+        phase: 'OVERTAKING IN ADJACENT LANE // ZERO SQUEEZE'
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.textContent = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.textContent = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

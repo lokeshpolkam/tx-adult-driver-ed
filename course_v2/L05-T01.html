@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Traffic Flow Basics: Speed Harmony & Flow Rates — Texas Adult Driver Ed (L05-T01)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target, button {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      touch-action: manipulation;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .veh-transition {
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4 overflow-x-hidden">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS (STICKY) -->
+    
+
+    <!-- 02. LESSON TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-safety/10 text-safety border border-safety/30 px-2 py-0.5 rounded">TTC &sect; 545.351</span>
+        <span class="bg-surface-sub text-slate border border-hairline px-2 py-0.5 rounded">TTC &sect; 545.363</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 18 MIN READ</span>
+      </div>
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Traffic Flow Basics: Speed Harmony &amp; Flow Rates
+      </h2>
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Understand the hydrodynamic physics of highway movement under Texas Transportation Code &sect;&sect; 545.351 and 545.363. Explore why speed variance triggers backward-propagating shockwaves (phantom jams) and why the Solomon Curve dictates that driving significantly below or above average flow rates multiplies crash probability.
+      </p>
+    </section>
+
+    <!-- 03. AUTHORITATIVE 3D SIMULATION CONTAINER (L05-T01) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>PHYSICS SIMULATOR // SPACE MANAGEMENT</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          TTC § 545.062 • § 545.351 • § 545.363
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Freeway Shockwave Compression &amp; Assured Clear Distance</h2>
+        <p class="text-xs text-slate mt-0.5">Simulate IH-35 corridor accordion braking dynamics, dynamic 4-second cushion projection, emergency brake fade, and cut-in buffer restoration.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md" style="aspect-ratio: 16/9;">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L05_T01_space_management_assured_distance.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Space Management Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">4.0S CUSHION COMPLIANT // SHOCKWAVE SAFELY ABSORBED</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>4S Cushion</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>1S Gap</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>CUT-IN Lift-Off</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY PROTOCOL 01 // 4-SECOND CUSHION</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.062 &amp; § 545.351</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Compliant 4-Second Cushion: Shockwave Absorption</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            Maintaining an assured clear distance of 4 seconds (260 ft at 65 mph) provides an ample safety buffer when the lead vehicle decelerates. The driver applies gentle progressive braking (-0.22g), absorbing the compression wave and preventing downstream traffic from accordion collapse.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">HEADWAY BUFFER &amp; BRAKING:</span>
+            <span id="sim-card-metric" class="text-valid font-bold">4.0S GAP // -0.22G PROGRESSIVE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. TEXTBOOK PROSE 1: THE MECHANICS OF FREEWAY SHOCKWAVES -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">waves</span>
+        <span class="font-bold text-carbon">HYDRODYNAMIC TRAFFIC FLOW &bull; THE ACCORDION EFFECT</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        How a 1-Second Tap Triggers Multi-Mile Phantom Traffic Jams
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        High-speed freeway traffic behaves like an incompressible fluid. When vehicles travel at 65 mph (95.3 ft/s) with a 2-second following buffer, any minor speed disruption does not vanish&mdash;it propagates <strong>backward against the direction of traffic</strong> at approximately 10 to 15 mph.
+      </p>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">traffic</span>
+          <span>THE 4-STAGE ACCORDION COMPRESSION CASCADE</span>
+        </div>
+        <ul class="space-y-1.5 text-slate leading-snug">
+          <li>&bull; <strong>1. Lead Taps Brake (55 mph):</strong> The lead vehicle decelerates gently by only 10 mph.</li>
+          <li>&bull; <strong>2. Human Perception-Reaction Delay:</strong> The second driver takes 1.5 seconds to perceive the brake lights and press the pedal, traveling over 140 feet before decelerating, forcing them to brake harder (down to 45 mph).</li>
+          <li>&bull; <strong>3. Amplified Deceleration:</strong> The third driver must brake down to 35 mph (-0.50g), and the fourth driver is forced into threshold panic braking (25 mph or dead stop).</li>
+          <li>&bull; <strong>4. Retrograde Phantom Jam:</strong> Even after the lead vehicle accelerates back to 65 mph, the compression shockwave travels backward for miles, creating a "phantom jam" with no visible cause.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 05. SUBAGENT DELIVERED WIDGET 1: SHOCKWAVE SIMULATOR -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <!-- Section Header & Technical Badge -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>I-10 / I-35 CORRIDOR CAD // TTC § 545.062</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          SHOCKWAVE SIM
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">INTERACTIVE CAD 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Freeway Shockwave &amp; Accordion Compression</h2>
+        <p class="font-sans text-xs text-slate mt-1">
+          Observe how a brief 1-second brake tap by a lead car amplifies backwards into a multi-mile retrograde phantom jam (accordion effect).
+        </p>
+      </div>
+
+      <!-- SVG Canvas 1: 340 x 220 Phone Optimized -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="shockwave-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Headlight Beam Gradients -->
+            <linearGradient id="beam-amber" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="#FEF08A" stop-opacity="0.0"/>
+            </linearGradient>
+            <!-- Shockwave Hazard Ribbon Gradient -->
+            <linearGradient id="shock-grad" x1="100%" y1="0%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#BA1A1A" stop-opacity="0.75"/>
+              <stop offset="50%" stop-color="#E87522" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#BA1A1A" stop-opacity="0.0"/>
+            </linearGradient>
+            <!-- Brake Light Glow Filter -->
+            <filter id="brake-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="veh-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000000" flood-opacity="0.6"/>
+            </filter>
+          </defs>
+
+          <!-- Outer Pavement Surface -->
+          <rect x="4" y="4" width="332" height="212" rx="10" fill="#12161A" stroke="#253547" stroke-width="1.5" />
+
+          <!-- Lane 1: Passing / Express Lane (Top y=10 to y=65) -->
+          <rect x="4" y="10" width="332" height="55" fill="#182029" />
+          <!-- Left Yellow Median Barrier Line -->
+          <line x1="4" y1="12" x2="336" y2="12" stroke="#F1C40F" stroke-width="2.5" />
+          <line x1="4" y1="16" x2="336" y2="16" stroke="#F1C40F" stroke-width="1" />
+          <!-- Ambient Vehicle cruising in Passing Lane -->
+          <g transform="translate(190, 36)" opacity="0.65" pointer-events="none">
+            <rect x="-13" y="-7" width="26" height="14" rx="3.5" fill="#334155" stroke="#64748B" stroke-width="1" />
+            <rect x="-3" y="-5" width="8" height="10" rx="1.5" fill="#0F172A" />
+            <!-- Headlights -->
+            <rect x="13" y="-6" width="1.5" height="3" fill="#FEF08A" />
+            <rect x="13" y="3" width="1.5" height="3" fill="#FEF08A" />
+            <!-- Beam -->
+            <polygon points="14.5,-6 38,-10 38,10 14.5,6" fill="url(#beam-amber)" opacity="0.4" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#94A3B8" text-anchor="middle">70 MPH</text>
+          </g>
+          <text x="16" y="28" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#475569" letter-spacing="1">PASSING LANE // FREE-FLOWING</text>
+
+          <!-- Lane Divider: Dashed White Line between Lane 1 & Lane 2 -->
+          <line x1="4" y1="65" x2="336" y2="65" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="10 8" opacity="0.8" />
+
+          <!-- Lane 2: Main Flow Lane (Center y=65 to y=150) -->
+          <rect x="4" y="65" width="332" height="85" fill="#141920" />
+          <!-- Lane 2 Right Solid Fog Line -->
+          <line x1="4" y1="150" x2="336" y2="150" stroke="#FFFFFF" stroke-width="2.5" />
+
+          <!-- Shoulder (Bottom y=150 to y=210) with rumble strips -->
+          <rect x="4" y="150" width="332" height="66" fill="#101418" />
+          <g stroke="#1E2832" stroke-width="1" opacity="0.6">
+            <line x1="20" y1="150" x2="10" y2="216" />
+            <line x1="60" y1="150" x2="50" y2="216" />
+            <line x1="100" y1="150" x2="90" y2="216" />
+            <line x1="140" y1="150" x2="130" y2="216" />
+            <line x1="180" y1="150" x2="170" y2="216" />
+            <line x1="220" y1="150" x2="210" y2="216" />
+            <line x1="260" y1="150" x2="250" y2="216" />
+            <line x1="300" y1="150" x2="290" y2="216" />
+          </g>
+          <text x="16" y="166" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#475569" letter-spacing="1">SHOULDER // TTC § 545.058 RESTRICTED</text>
+
+          <!-- Distance Scale Ticks along Lane 2 Bottom Edge -->
+          <g stroke="#334155" stroke-width="1">
+            <line x1="20" y1="146" x2="20" y2="154" />
+            <line x1="75" y1="148" x2="75" y2="152" />
+            <line x1="130" y1="146" x2="130" y2="154" />
+            <line x1="185" y1="148" x2="185" y2="152" />
+            <line x1="240" y1="146" x2="240" y2="154" />
+            <line x1="295" y1="146" x2="295" y2="154" />
+          </g>
+          <text x="20" y="160" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">0 FT</text>
+          <text x="130" y="160" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">100 FT</text>
+          <text x="240" y="160" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">200 FT</text>
+          <text x="295" y="160" font-family="'JetBrains Mono', monospace" font-size="5" fill="#64748B" text-anchor="middle">250 FT</text>
+
+          <!-- Retrograde Shockwave Layer (Active in Tap & Panic modes) -->
+          <g id="shockwave-visual-group" opacity="0" pointer-events="none">
+            <!-- Retrograde shockwave field -->
+            <rect id="shock-field" x="20" y="72" width="280" height="72" rx="6" fill="url(#shock-grad)" opacity="0.35" />
+            <!-- Retrograde propagation arrows -->
+            <g id="shock-arrows" stroke="#BA1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <path d="M 270 78 L 260 84 L 270 90" />
+              <path d="M 215 78 L 205 84 L 215 90" />
+              <path d="M 160 78 L 150 84 L 160 90" />
+              <path d="M 105 78 L 95 84 L 105 90" />
+            </g>
+            <!-- Shockwave text banner inside lane -->
+            <rect x="65" y="72" width="170" height="12" rx="2" fill="#BA1A1A" fill-opacity="0.9" />
+            <text x="150" y="80.5" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">
+              ◀ SHOCKWAVE WAVEFRONT (-12 MPH UPSTREAM)
+            </text>
+          </g>
+
+          <!-- DYNAMIC BUFFER BRACKETS (Connecting vehicles) -->
+          <!-- Buffer 3-4 (Between Car 4 and Car 3) -->
+          <g id="buffer-3-4-group" pointer-events="none">
+            <line id="buf-line-3-4" x1="82" y1="138" x2="118" y2="138" stroke="#1F6F43" stroke-width="2" stroke-dasharray="3 2" />
+            <rect id="buf-pill-3-4" x="84" y="132" width="32" height="11" rx="2" fill="#1F6F43" />
+            <text id="buf-txt-3-4" x="100" y="140" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">200 FT</text>
+          </g>
+
+          <!-- Buffer 2-3 (Between Car 3 and Car 2) -->
+          <g id="buffer-2-3-group" pointer-events="none">
+            <line id="buf-line-2-3" x1="162" y1="138" x2="198" y2="138" stroke="#1F6F43" stroke-width="2" stroke-dasharray="3 2" />
+            <rect id="buf-pill-2-3" x="164" y="132" width="32" height="11" rx="2" fill="#1F6F43" />
+            <text id="buf-txt-2-3" x="180" y="140" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">200 FT</text>
+          </g>
+
+          <!-- Buffer 1-2 (Between Car 2 and Car 1) -->
+          <g id="buffer-1-2-group" pointer-events="none">
+            <line id="buf-line-1-2" x1="242" y1="138" x2="278" y2="138" stroke="#1F6F43" stroke-width="2" stroke-dasharray="3 2" />
+            <rect id="buf-pill-1-2" x="244" y="132" width="32" height="11" rx="2" fill="#1F6F43" />
+            <text id="buf-txt-1-2" x="260" y="140" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">200 FT</text>
+          </g>
+
+          <!-- ============================================================== -->
+          <!-- 4 VEHICLES ON TRAVEL LANE (y center = 108)                     -->
+          <!-- ============================================================== -->
+
+          <!-- VEHICLE 4: CABOOSE (Trailing Vehicle) -->
+          <g id="veh-4-group" class="veh-transition cursor-pointer" onclick="selectShockCar(4)" transform="translate(60, 108)">
+            <!-- Vehicle Halo Selection ring -->
+            <circle id="veh-4-halo" cx="0" cy="0" r="18" fill="none" stroke="#E87522" stroke-width="2" stroke-dasharray="3 2" opacity="0" pointer-events="none" />
+            <!-- Headlight beam forward -->
+            <polygon points="14,-5 36,-9 36,9 14,5" fill="url(#beam-amber)" opacity="0.5" pointer-events="none" />
+            <!-- Car Body -->
+            <g filter="url(#veh-shadow)" pointer-events="none">
+              <rect x="-14" y="-8" width="28" height="16" rx="4" fill="#2B302D" stroke="#FFFFFF" stroke-width="1.2" />
+              <!-- Windshield & Roof -->
+              <rect x="-4" y="-6" width="9" height="12" rx="1.5" fill="#191C1B" />
+              <!-- Headlights -->
+              <rect x="13" y="-7" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <rect x="13" y="3.5" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <!-- Brake lights -->
+              <rect id="v4-tail-l" x="-14" y="-7" width="2" height="3.5" rx="0.5" fill="#EF4444" />
+              <rect id="v4-tail-r" x="-14" y="3.5" width="2" height="3.5" rx="0.5" fill="#EF4444" />
+            </g>
+            <!-- Badge Above -->
+            <g transform="translate(0, -17)" pointer-events="none">
+              <rect id="v4-pill" x="-26" y="-6" width="52" height="12" rx="2.5" fill="#191C1B" stroke="#94A3B8" stroke-width="0.8" />
+              <text id="v4-label" x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">V4: 65 MPH</text>
+            </g>
+            <!-- Interactive Touch Target (>=44px: r=28 => 56x56px) on top -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- VEHICLE 3: THIRD CAR (Amplified Decel) -->
+          <g id="veh-3-group" class="veh-transition cursor-pointer" onclick="selectShockCar(3)" transform="translate(140, 108)">
+            <circle id="veh-3-halo" cx="0" cy="0" r="18" fill="none" stroke="#E87522" stroke-width="2" stroke-dasharray="3 2" opacity="0" pointer-events="none" />
+            <polygon points="14,-5 36,-9 36,9 14,5" fill="url(#beam-amber)" opacity="0.5" pointer-events="none" />
+            <g filter="url(#veh-shadow)" pointer-events="none">
+              <rect x="-14" y="-8" width="28" height="16" rx="4" fill="#3B4856" stroke="#FFFFFF" stroke-width="1.2" />
+              <rect x="-4" y="-6" width="9" height="12" rx="1.5" fill="#1E293B" />
+              <rect x="13" y="-7" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <rect x="13" y="3.5" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <rect id="v3-tail-l" x="-14" y="-7" width="2" height="3.5" rx="0.5" fill="#EF4444" />
+              <rect id="v3-tail-r" x="-14" y="3.5" width="2" height="3.5" rx="0.5" fill="#EF4444" />
+            </g>
+            <g transform="translate(0, -17)" pointer-events="none">
+              <rect id="v3-pill" x="-26" y="-6" width="52" height="12" rx="2.5" fill="#191C1B" stroke="#94A3B8" stroke-width="0.8" />
+              <text id="v3-label" x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">V3: 65 MPH</text>
+            </g>
+            <!-- Interactive Touch Target on top -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- VEHICLE 2: SECOND CAR (Lag Reaction) -->
+          <g id="veh-2-group" class="veh-transition cursor-pointer" onclick="selectShockCar(2)" transform="translate(220, 108)">
+            <circle id="veh-2-halo" cx="0" cy="0" r="18" fill="none" stroke="#E87522" stroke-width="2" stroke-dasharray="3 2" opacity="0" pointer-events="none" />
+            <polygon points="14,-5 36,-9 36,9 14,5" fill="url(#beam-amber)" opacity="0.5" pointer-events="none" />
+            <g filter="url(#veh-shadow)" pointer-events="none">
+              <rect x="-14" y="-8" width="28" height="16" rx="4" fill="#0284C7" stroke="#FFFFFF" stroke-width="1.2" />
+              <rect x="-4" y="-6" width="9" height="12" rx="1.5" fill="#082F49" />
+              <rect x="13" y="-7" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <rect x="13" y="3.5" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <rect id="v2-tail-l" x="-14" y="-7" width="2" height="3.5" rx="0.5" fill="#EF4444" />
+              <rect id="v2-tail-r" x="-14" y="3.5" width="2" height="3.5" rx="0.5" fill="#EF4444" />
+            </g>
+            <g transform="translate(0, -17)" pointer-events="none">
+              <rect id="v2-pill" x="-26" y="-6" width="52" height="12" rx="2.5" fill="#191C1B" stroke="#94A3B8" stroke-width="0.8" />
+              <text id="v2-label" x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">V2: 65 MPH</text>
+            </g>
+            <!-- Interactive Touch Target on top -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- VEHICLE 1: LEAD CAR (Trigger / Catalyst) -->
+          <g id="veh-1-group" class="veh-transition cursor-pointer" onclick="selectShockCar(1)" transform="translate(295, 108)">
+            <circle id="veh-1-halo" cx="0" cy="0" r="18" fill="none" stroke="#E87522" stroke-width="2" stroke-dasharray="3 2" opacity="0" pointer-events="none" />
+            <polygon points="14,-5 36,-9 36,9 14,5" fill="url(#beam-amber)" opacity="0.6" pointer-events="none" />
+            <g filter="url(#veh-shadow)" pointer-events="none">
+              <rect x="-14" y="-8" width="28" height="16" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1.2" />
+              <rect x="-4" y="-6" width="9" height="12" rx="1.5" fill="#7C2D12" />
+              <rect x="13" y="-7" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <rect x="13" y="3.5" width="1.5" height="3.5" rx="0.5" fill="#FEF08A" />
+              <!-- Brake lights -->
+              <rect id="v1-tail-l" x="-14" y="-7" width="2.5" height="3.5" rx="0.5" fill="#EF4444" />
+              <rect id="v1-tail-r" x="-14" y="3.5" width="2.5" height="3.5" rx="0.5" fill="#EF4444" />
+            </g>
+            <g transform="translate(0, -17)" pointer-events="none">
+              <rect id="v1-pill" x="-30" y="-6" width="60" height="12" rx="2.5" fill="#E87522" stroke="#FFFFFF" stroke-width="0.8" />
+              <text id="v1-label" x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">V1: LEAD 65</text>
+            </g>
+            <!-- Interactive Touch Target on top -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- Telemetry status indicator in bottom corner of SVG -->
+          <g transform="translate(10, 198)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="16" rx="3" fill="#0C1014" stroke="#253547" stroke-width="0.8" />
+            <circle id="svg1-status-dot" cx="8" cy="8" r="3.5" fill="#1F6F43" />
+            <text id="svg1-status-text" x="18" y="11" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              FLOW STATE: STABLE LAMINAR FLOW (65 MPH) // NO ACCORDION DECAY
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Mode Selector Controls (3 Distinct Touch Buttons >= 44px) -->
+      <div class="space-y-2">
+        <label class="block text-[11px] font-mono font-bold text-slate uppercase">
+          Simulate Trigger Event:
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <button id="btn-flow-normal" onclick="setShockMode('normal')" class="touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-carbon bg-carbon text-white font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center">
+            <span class="text-[11px]">Normal Flow</span>
+            <span class="text-[9px] font-normal opacity-80">65 mph Stable</span>
+          </button>
+          <button id="btn-flow-tap" onclick="setShockMode('tap')" class="touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center">
+            <span class="text-[11px]">1-Sec Brake Tap</span>
+            <span class="text-[9px] font-normal text-safety">Phantom Wave</span>
+          </button>
+          <button id="btn-flow-panic" onclick="setShockMode('panic')" class="touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center">
+            <span class="text-[11px]">Panic Stop</span>
+            <span class="text-[9px] font-normal text-hazard">Full Accordion</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Real-Time Telemetry HUD (4 Data Pods) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Wave Velocity</span>
+          <span id="tele-wave" class="text-xs font-bold text-valid">0 mph (Laminar)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Min Gap Buffer</span>
+          <span id="tele-gap" class="text-xs font-bold text-valid">200 ft (Safe)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Caboose Decel</span>
+          <span id="tele-decel" class="text-xs font-bold text-slate">0.00g (Coast)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">TTC § 545.062</span>
+          <span id="tele-law" class="text-xs font-bold text-valid">Compliant</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Card: Driver Telemetry & Statutory Physics -->
+      <div id="shock-info-card" class="bg-surface-sub border-l-4 border-valid p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="shock-card-tag" class="text-[10px] font-mono font-bold text-valid uppercase">
+            STABLE FREEWAY EQUILIBRIUM
+          </span>
+          <span id="shock-card-citation" class="text-[10px] font-mono text-slate">
+            TTC § 545.351(a)
+          </span>
+        </div>
+        <h3 id="shock-card-title" class="font-sans font-bold text-sm text-carbon">
+          Optimal 65 MPH Spacing: 3-Second Cushion
+        </h3>
+        <p id="shock-card-body" class="text-xs text-slate leading-relaxed">
+          At 65 mph (95.3 ft/sec), all vehicles maintain a legal 200-foot buffer (2.1–3.0 sec). Perturbations dissipate naturally without forcing trailing vehicles to brake. Traffic density is optimal.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. TEXTBOOK PROSE 2: THE SOLOMON CURVE & SPEED HARMONY STATUTES -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">show_chart</span>
+        <span class="font-bold text-carbon">STATISTICAL SAFETY &bull; THE SOLOMON CURVE</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Speed Variance: Why Impeding Traffic Is as Deadly as Speeding
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        In 1964, empirical research by civil engineer David Solomon proved that absolute speed is not the sole determinant of crash probability; <strong>speed variance from the average traffic flow</strong> is the dominant factor. Traveling 15 to 20 mph slower than prevailing flow escalates crash involvement rates just as sharply as driving 15 to 20 mph faster.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-hazard block uppercase">SLOW IMPEDING RISK (TTC &sect; 545.363)</span>
+          <p class="text-[11px] text-slate mt-1">Driving 20 mph below the flow rate creates severe closing-speed differentials, forcing surrounding cars to make rapid lane changes and panic brake. Crash rate is <strong>6.2x baseline</strong>.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-valid block uppercase">FLOW HARMONY (TTC &sect; 545.351)</span>
+          <p class="text-[11px] text-slate mt-1">Driving within &plusmn;5 mph of average flow minimizes relative velocity between vehicles, eliminating 80% of forced lane changes and yielding the lowest statistical crash rate.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-amber-50/60 rounded-xl border border-amber-200 text-xs text-slate leading-relaxed">
+        <strong class="text-amber-800 font-bold font-mono">TEXAS IMPEDING TRAFFIC LAW (TTC &sect; 545.363):</strong>
+        An operator may not drive so slowly as to impede the normal and reasonable movement of traffic, except when reduced speed is necessary for safe operation. Driving slowly in the left passing lane is a statutory violation.
+      </div>
+    </article>
+
+    <!-- 07. SUBAGENT DELIVERED WIDGET 2: THE SOLOMON CURVE -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <!-- Section Header & Technical Badge -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>EMPIRICAL RISK // TTC § 545.363 &amp; § 545.351</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          SOLOMON MATRIX
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">INTERACTIVE CAD 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">The Solomon Curve: Speed Variance vs Crash Probability</h2>
+        <p class="font-sans text-xs text-slate mt-1">
+          Explore why driving significantly slower (-20 mph) or faster (+20 mph) than the average flow (65 mph) exponentially escalates collision risk.
+        </p>
+      </div>
+
+      <!-- SVG Canvas 2: 340 x 180 Phone Optimized -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="solomon-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Curve Gradient -->
+            <linearGradient id="solomon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#BA1A1A" />
+              <stop offset="25%" stop-color="#E87522" />
+              <stop offset="50%" stop-color="#1F6F43" />
+              <stop offset="75%" stop-color="#E87522" />
+              <stop offset="100%" stop-color="#BA1A1A" />
+            </linearGradient>
+            <!-- Shaded under-curve gradient -->
+            <linearGradient id="fill-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#E87522" stop-opacity="0.25" />
+              <stop offset="100%" stop-color="#E87522" stop-opacity="0.02" />
+            </linearGradient>
+            <filter id="glow-solomon" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#191C1B" flood-opacity="0.2"/>
+            </filter>
+          </defs>
+
+          <!-- Outer Background -->
+          <rect x="4" y="4" width="332" height="172" rx="10" fill="#14191F" stroke="#253547" stroke-width="1.5" />
+
+          <!-- Subtle Tech Grid Lines -->
+          <g stroke="#1F2A37" stroke-width="0.8" stroke-dasharray="2 3">
+            <!-- Horizontals -->
+            <line x1="38" y1="35" x2="320" y2="35" />
+            <line x1="38" y1="65" x2="320" y2="65" />
+            <line x1="38" y1="95" x2="320" y2="95" />
+            <line x1="38" y1="125" x2="320" y2="125" />
+            <!-- Verticals -->
+            <line x1="72" y1="18" x2="72" y2="148" />
+            <line x1="121" y1="18" x2="121" y2="148" />
+            <line x1="170" y1="18" x2="170" y2="148" />
+            <line x1="219" y1="18" x2="219" y2="148" />
+            <line x1="268" y1="18" x2="268" y2="148" />
+          </g>
+
+          <!-- Green "Optimal Harmony Corridor" Shading (-5 to +5 mph) -->
+          <rect x="145" y="18" width="50" height="130" fill="#1F6F43" fill-opacity="0.12" />
+          <line x1="145" y1="18" x2="145" y2="148" stroke="#1F6F43" stroke-width="1" stroke-dasharray="2 2" opacity="0.6" />
+          <line x1="195" y1="18" x2="195" y2="148" stroke="#1F6F43" stroke-width="1" stroke-dasharray="2 2" opacity="0.6" />
+          <text x="170" y="27" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#4ADE80" text-anchor="middle">
+            HARMONY ZONE (±5 MPH)
+          </text>
+
+          <!-- Under-Curve Shaded Polygon -->
+          <path d="M 45 32 C 72 48, 115 125, 170 136 C 225 125, 268 55, 295 35 L 295 148 L 45 148 Z" fill="url(#fill-gradient)" />
+
+          <!-- The Solomon U-Curve Path -->
+          <path id="solomon-path" d="M 45 32 C 72 48, 115 125, 170 136 C 225 125, 268 55, 295 35" fill="none" stroke="url(#solomon-gradient)" stroke-width="3.5" stroke-linecap="round" />
+
+          <!-- Graph Axes -->
+          <!-- Y Axis (Collision Rate) -->
+          <line x1="38" y1="18" x2="38" y2="148" stroke="#94A3B8" stroke-width="1.5" />
+          <!-- X Axis (Delta Speed) -->
+          <line x1="38" y1="148" x2="320" y2="148" stroke="#94A3B8" stroke-width="1.5" />
+
+          <!-- Y Axis Labels -->
+          <text x="32" y="38" font-family="'JetBrains Mono', monospace" font-size="5" fill="#94A3B8" text-anchor="end">6x</text>
+          <text x="32" y="68" font-family="'JetBrains Mono', monospace" font-size="5" fill="#94A3B8" text-anchor="end">4x</text>
+          <text x="32" y="98" font-family="'JetBrains Mono', monospace" font-size="5" fill="#94A3B8" text-anchor="end">2x</text>
+          <text x="32" y="138" font-family="'JetBrains Mono', monospace" font-size="5" fill="#4ADE80" font-weight="700" text-anchor="end">1x</text>
+
+          <text x="12" y="86" transform="rotate(-90 12,86)" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#64748B" text-anchor="middle">
+            CRASH RISK MULTIPLIER
+          </text>
+
+          <!-- X Axis Ticks & Labels -->
+          <line x1="72" y1="148" x2="72" y2="152" stroke="#94A3B8" stroke-width="1" />
+          <line x1="121" y1="148" x2="121" y2="152" stroke="#94A3B8" stroke-width="1" />
+          <line x1="170" y1="148" x2="170" y2="154" stroke="#4ADE80" stroke-width="1.5" />
+          <line x1="219" y1="148" x2="219" y2="152" stroke="#94A3B8" stroke-width="1" />
+          <line x1="268" y1="148" x2="268" y2="152" stroke="#94A3B8" stroke-width="1" />
+
+          <text x="72" y="160" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="600" fill="#EF4444" text-anchor="middle">-20</text>
+          <text x="121" y="160" font-family="'JetBrains Mono', monospace" font-size="5.5" fill="#94A3B8" text-anchor="middle">-10</text>
+          <text x="170" y="160" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#4ADE80" text-anchor="middle">0 (65)</text>
+          <text x="219" y="160" font-family="'JetBrains Mono', monospace" font-size="5.5" fill="#94A3B8" text-anchor="middle">+10</text>
+          <text x="268" y="160" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="600" fill="#EF4444" text-anchor="middle">+20</text>
+
+          <text x="170" y="171" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#94A3B8" text-anchor="middle">
+            SPEED VARIANCE Δ (MPH FROM AVERAGE 65 MPH FLOW)
+          </text>
+
+          <!-- DYNAMIC RETICLE DROP LINES -->
+          <line id="reticle-drop-v" x1="170" y1="136" x2="170" y2="148" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="2 2" pointer-events="none" />
+          <line id="reticle-drop-h" x1="38" y1="136" x2="170" y2="136" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="2 2" pointer-events="none" />
+
+          <!-- ============================================================== -->
+          <!-- 3 INTERACTIVE CLICKABLE NODES ON CURVE                         -->
+          <!-- ============================================================== -->
+
+          <!-- NODE 1: -20 MPH SLOW IMPEDING (x=72, y=48) -->
+          <g id="solomon-node-slow" class="cursor-pointer" onclick="selectSolomon('slow')" transform="translate(72, 48)">
+            <circle id="slow-halo" cx="0" cy="0" r="14" fill="#BA1A1A" fill-opacity="0.25" stroke="#BA1A1A" stroke-width="1.5" stroke-dasharray="3 2" class="animate-pulse" pointer-events="none" />
+            <circle cx="0" cy="0" r="6" fill="#BA1A1A" stroke="#FFFFFF" stroke-width="1.5" pointer-events="none" />
+            <g transform="translate(0, -14)" pointer-events="none">
+              <rect x="-24" y="-6" width="48" height="11" rx="2" fill="#BA1A1A" />
+              <text x="0" y="2" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#FFFFFF" text-anchor="middle">45 MPH // 6.2x</text>
+            </g>
+            <!-- Touch target >= 44x44px (r=28 => 56px) on TOP -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- NODE 2: 0 MPH HARMONIOUS FLOW (x=170, y=136) -->
+          <g id="solomon-node-harmony" class="cursor-pointer" onclick="selectSolomon('harmony')" transform="translate(170, 136)">
+            <circle id="harmony-halo" cx="0" cy="0" r="14" fill="#1F6F43" fill-opacity="0.3" stroke="#1F6F43" stroke-width="2" pointer-events="none" />
+            <circle cx="0" cy="0" r="6.5" fill="#1F6F43" stroke="#FFFFFF" stroke-width="1.8" pointer-events="none" />
+            <g transform="translate(0, -15)" pointer-events="none">
+              <rect x="-26" y="-6" width="52" height="11" rx="2" fill="#1F6F43" />
+              <text x="0" y="2" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#FFFFFF" text-anchor="middle">65 MPH // 1.0x</text>
+            </g>
+            <!-- Touch target >= 44x44px (r=28 => 56px) on TOP -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- NODE 3: +20 MPH EXCESSIVE SPEED (x=268, y=55) -->
+          <g id="solomon-node-fast" class="cursor-pointer" onclick="selectSolomon('fast')" transform="translate(268, 55)">
+            <circle id="fast-halo" cx="0" cy="0" r="14" fill="#BA1A1A" fill-opacity="0.25" stroke="#BA1A1A" stroke-width="1.5" stroke-dasharray="3 2" pointer-events="none" />
+            <circle cx="0" cy="0" r="6" fill="#BA1A1A" stroke="#FFFFFF" stroke-width="1.5" pointer-events="none" />
+            <g transform="translate(0, -14)" pointer-events="none">
+              <rect x="-24" y="-6" width="48" height="11" rx="2" fill="#BA1A1A" />
+              <text x="0" y="2" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#FFFFFF" text-anchor="middle">85 MPH // 5.8x</text>
+            </g>
+            <!-- Touch target >= 44x44px (r=28 => 56px) on TOP -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" />
+          </g>
+
+          <!-- ACTIVE FOCUS RETICLE (Moves with state) -->
+          <g id="active-reticle" transform="translate(170, 136)" class="veh-transition" pointer-events="none">
+            <circle cx="0" cy="0" r="9" fill="none" stroke="#FFFFFF" stroke-width="2" />
+            <circle cx="0" cy="0" r="2" fill="#FFFFFF" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Mode Companion Buttons (3 Touch Targets >= 44px) -->
+      <div class="space-y-2">
+        <label class="block text-[11px] font-mono font-bold text-slate uppercase">
+          Select Speed Variance:
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <button id="btn-solomon-slow" onclick="selectSolomon('slow')" class="touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center">
+            <span class="text-[11px] text-hazard">-20 mph (45)</span>
+            <span class="text-[9px] font-normal text-slate">Slow Impeding</span>
+          </button>
+          <button id="btn-solomon-harmony" onclick="selectSolomon('harmony')" class="touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-carbon bg-carbon text-white font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center">
+            <span class="text-[11px] text-valid font-bold">0 mph (65)</span>
+            <span class="text-[9px] font-normal text-slate-200">Flow Harmony</span>
+          </button>
+          <button id="btn-solomon-fast" onclick="selectSolomon('fast')" class="touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center">
+            <span class="text-[11px] text-hazard">+20 mph (85)</span>
+            <span class="text-[9px] font-normal text-slate">Excessive Speed</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Real-Time Risk Telemetry (4 Pods) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Risk Multiplier</span>
+          <span id="tele-sol-risk" class="text-xs font-bold text-valid">1.0x (Baseline)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Speed Delta</span>
+          <span id="tele-sol-delta" class="text-xs font-bold text-valid">0 mph (65)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Conflict Threat</span>
+          <span id="tele-sol-threat" class="text-xs font-bold text-valid">Minimal Risk</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Statutory Rule</span>
+          <span id="tele-sol-statute" class="text-xs font-bold text-valid">§ 545.351(a)</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Card: Solomon Curve Legal & Physics Breakdown -->
+      <div id="solomon-info-card" class="bg-surface-sub border-l-4 border-valid p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="sol-card-tag" class="text-[10px] font-mono font-bold text-valid uppercase">
+            FLOW HARMONY SWEET SPOT
+          </span>
+          <span id="sol-card-badge" class="text-[10px] font-mono text-slate">
+            TTC § 545.351
+          </span>
+        </div>
+        <h3 id="sol-card-title" class="font-sans font-bold text-sm text-carbon">
+          0 MPH Variance: Lowest Probability of Collision
+        </h3>
+        <p id="sol-card-body" class="text-xs text-slate leading-relaxed">
+          When vehicle speed matches the prevailing traffic flow (65 mph), relative velocity between adjacent vehicles approaches zero. Lane changes occur smoothly, passing maneuvers drop by over 80%, and collision probability reaches its absolute statistical minimum.
+        </p>
+      </div>
+    </section>
+
+    <!-- 08. THREE STRICT VERIFICATION MCQS -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-valid text-sm">quiz</span>
+          <span class="font-bold text-carbon">STATUTORY VERIFICATION AUDIT</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">
+          3 MANDATORY CHECKS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T01 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- MCQ 1 (Option B MUST be strictly correct!) -->
+      <div class="space-y-2.5" id="mcq-container-1">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 01 // IMPEDING TRAFFIC STATUTE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 545.363, what is the statutory restriction regarding driving at unusually low speeds on a Texas highway?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Drivers may travel as slowly as they wish, provided they stay in the middle lane.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] An operator may not drive so slowly as to impede the normal and reasonable movement of traffic, except when reduced speed is necessary for safe operation.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Minimum speed limits only apply between midnight and 6:00 AM.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Impeding traffic is only illegal if an emergency vehicle is directly behind you.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 2 -->
+      <div class="space-y-2.5" id="mcq-container-2">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 02 // SHOCKWAVE MECHANICS</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Why does a brief 1-second brake tap by a lead car propagate backward into a severe "phantom traffic jam" on high-speed freeways?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Because brake lights trigger automatic vehicle shutdown sensors in modern cars.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Perception-reaction lag (1.5 seconds per driver) forces trailing vehicles to brake progressively harder, amplifying deceleration into a backward-traveling wave.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Trailing drivers always accelerate when they see brake lights to close the gap.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Phantom jams are caused strictly by road construction detours, never by driver behavior.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 3 -->
+      <div class="space-y-2.5" id="mcq-container-3">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 03 // THE SOLOMON CURVE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          According to the empirical Solomon Curve, what speed relationship yields the lowest statistical probability of a motor vehicle collision?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Driving 25 MPH below the posted speed limit on all highways.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Driving at least 15 MPH faster than all surrounding traffic to clear blind spots.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Maintaining speed harmony within &plusmn;5 MPH of the prevailing average flow of traffic, minimizing relative velocity conflicts.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Constantly alternating between fast acceleration runs and slow coasting.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. NEXT LESSON NAVIGATION FOOTER -->
+    <footer class="pt-2 pb-6 space-y-3">
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 sm:gap-3">
+        <a href="L04-T04.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] flex items-center justify-center gap-2 p-3 rounded-xl bg-white border border-hairline hover:bg-surface-sub text-xs font-bold text-carbon transition select-none" style="min-height: 48px; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREVIOUS TOPIC</span>
+        </a>
+        <a href="L05-T02.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] flex items-center justify-center gap-2 p-3 rounded-xl bg-safety text-white hover:bg-safety-deep text-xs font-bold transition shadow-sm select-none" style="min-height: 48px; touch-action: manipulation;">
+          <span>NEXT: MANAGING TRAFFIC</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 01
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE: MCQS & SUBAGENT WIDGET LOGIC -->
+  <script>
+    // -------------------------------------------------------------------------
+    // MCQ STATE ENGINE (Dynamic Score Increment & Audit Compliance)
+    // -------------------------------------------------------------------------
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+                const TOPIC_ID = 'L05-T01';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.363 MINIMUM SPEED REGULATION",
+            "statutoryRationale": "Correct! Texas Transportation Code § 545.363 strictly decrees that an operator may not drive so slowly as to impede the normal and reasonable movement of traffic, except when necessary for safety."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "ACCORDION SHOCKWAVE HYDRODYNAMICS",
+            "statutoryRationale": "Correct! Because each human driver experiences a 1.5-second reaction lag, deceleration forces amplify down the line, turning a gentle 10 mph brake tap into a dead stop for trailing traffic."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "THE SOLOMON CURVE (EMPIRICAL SAFETY)",
+            "statutoryRationale": "Correct! Matching prevailing flow speed within ±5 MPH minimizes speed variance, lowering forced lane changes and yielding the lowest statistical probability of a crash."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // SUBAGENT DELIVERED WIDGET LOGIC
+    // -------------------------------------------------------------------------
+    
+    /* ============================================================ */
+    /* WIDGET 1: SHOCKWAVE & ACCORDION COMPRESSION LOGIC            */
+    /* ============================================================ */
+    const shockwaveStates = {
+      normal: {
+        tag: 'STABLE FREEWAY EQUILIBRIUM',
+        citation: 'TTC § 545.351(a)',
+        title: 'Optimal 65 MPH Spacing: 3-Second Cushion',
+        body: 'At 65 mph (95.3 ft/sec), all vehicles maintain a legal 200-foot buffer (2.1–3.0 sec). Perturbations dissipate naturally without forcing trailing vehicles to brake. Traffic density is optimal.',
+        color: 'valid',
+        borderColor: '#1F6F43',
+        tagColor: 'text-valid',
+        waveVel: '0 mph (Laminar)',
+        minGap: '200 ft (Safe)',
+        decel: '0.00g (Coast)',
+        law: 'Compliant (§ 545.062)',
+        statusText: 'FLOW STATE: STABLE LAMINAR FLOW (65 MPH) // NO ACCORDION DECAY',
+        statusDot: '#1F6F43',
+        shockOpacity: 0,
+        cars: {
+          v1: { x: 295, speed: 'V1: LEAD 65', pillFill: '#E87522', pillStroke: '#FFFFFF', brakeL: '#EF4444', brakeR: '#EF4444' },
+          v2: { x: 220, speed: 'V2: 65 MPH', pillFill: '#191C1B', pillStroke: '#94A3B8', brakeL: '#EF4444', brakeR: '#EF4444' },
+          v3: { x: 140, speed: 'V3: 65 MPH', pillFill: '#191C1B', pillStroke: '#94A3B8', brakeL: '#EF4444', brakeR: '#EF4444' },
+          v4: { x: 60,  speed: 'V4: 65 MPH', pillFill: '#191C1B', pillStroke: '#94A3B8', brakeL: '#EF4444', brakeR: '#EF4444' }
+        },
+        buffers: {
+          b12: { x1: 236, x2: 279, pillX: 243, txtX: 258, val: '200 FT', fill: '#1F6F43' },
+          b23: { x1: 156, x2: 204, pillX: 164, txtX: 180, val: '200 FT', fill: '#1F6F43' },
+          b34: { x1: 76,  x2: 124, pillX: 84,  txtX: 100, val: '200 FT', fill: '#1F6F43' }
+        }
+      },
+      tap: {
+        tag: 'RETROGRADE PHANTOM SHOCKWAVE ACTIVATED',
+        citation: 'TTC § 545.062 & § 545.363',
+        title: '1-Sec Lead Tap Amplifies into 25 MPH Caboose Slam',
+        body: 'Lead car taps brakes lightly (-10 mph). Trailing drivers experience perception-reaction lag (1.5 sec), braking progressively harder: V2 drops to 45 mph, V3 to 35 mph, and V4 screeches at 25 mph (-0.85g). The wave propagates BACKWARD at -12 mph, creating a phantom jam miles upstream!',
+        color: 'safety',
+        borderColor: '#E87522',
+        tagColor: 'text-safety',
+        waveVel: '-12 mph Retrograde',
+        minGap: '45 ft (Degraded)',
+        decel: '-0.85g (Severe)',
+        law: 'Degraded (§ 545.062)',
+        statusText: 'WAVE ACTIVE: -12 MPH RETROGRADE WAVE PROPAGATING UPSTREAM',
+        statusDot: '#E87522',
+        shockOpacity: 0.9,
+        cars: {
+          v1: { x: 285, speed: 'V1: 55 MPH (TAP)', pillFill: '#BA1A1A', pillStroke: '#FFFFFF', brakeL: '#FF2222', brakeR: '#FF2222' },
+          v2: { x: 226, speed: 'V2: 45 MPH', pillFill: '#E87522', pillStroke: '#FFFFFF', brakeL: '#FF2222', brakeR: '#FF2222' },
+          v3: { x: 172, speed: 'V3: 35 MPH', pillFill: '#BA1A1A', pillStroke: '#FFFFFF', brakeL: '#FF0000', brakeR: '#FF0000' },
+          v4: { x: 122, speed: 'V4: 25 MPH', pillFill: '#BA1A1A', pillStroke: '#FFFFFF', brakeL: '#FF0000', brakeR: '#FF0000' }
+        },
+        buffers: {
+          b12: { x1: 242, x2: 269, pillX: 244, txtX: 256, val: '110 FT', fill: '#E87522' },
+          b23: { x1: 188, x2: 210, pillX: 188, txtX: 200, val: '75 FT',  fill: '#E87522' },
+          b34: { x1: 138, x2: 156, pillX: 136, txtX: 148, val: '45 FT',  fill: '#BA1A1A' }
+        }
+      },
+      panic: {
+        tag: 'CATASTROPHIC ACCORDION COMPRESSION',
+        citation: 'TTC § 545.062 (Buffer Breach)',
+        title: 'Full Panic Stop: Buffers Collapse from 200 FT to 15 FT',
+        body: 'Lead vehicle executes full emergency stop (0 mph). Following buffers collapse completely. V4 threshold brakes at -1.0g with mere inches to spare (15 ft buffer). Upstream traffic will face dead stops for over 45 minutes.',
+        color: 'hazard',
+        borderColor: '#BA1A1A',
+        tagColor: 'text-hazard',
+        waveVel: '-18 mph Gridlock',
+        minGap: '15 ft (Critical)',
+        decel: '-1.00g (Threshold)',
+        law: 'VIOLATION (§ 545.062)',
+        statusText: 'GRIDLOCK WARNING: FULL ACCORDION STOPPAGE OCCURRING',
+        statusDot: '#BA1A1A',
+        shockOpacity: 1.0,
+        cars: {
+          v1: { x: 275, speed: 'V1: 0 MPH (STOP)', pillFill: '#BA1A1A', pillStroke: '#FFFFFF', brakeL: '#FF0000', brakeR: '#FF0000' },
+          v2: { x: 236, speed: 'V2: 0 MPH', pillFill: '#BA1A1A', pillStroke: '#FFFFFF', brakeL: '#FF0000', brakeR: '#FF0000' },
+          v3: { x: 200, speed: 'V3: 0 MPH', pillFill: '#BA1A1A', pillStroke: '#FFFFFF', brakeL: '#FF0000', brakeR: '#FF0000' },
+          v4: { x: 165, speed: 'V4: 0 MPH', pillFill: '#BA1A1A', pillStroke: '#FFFFFF', brakeL: '#FF0000', brakeR: '#FF0000' }
+        },
+        buffers: {
+          b12: { x1: 252, x2: 259, pillX: 247, txtX: 256, val: '35 FT', fill: '#BA1A1A' },
+          b23: { x1: 216, x2: 220, pillX: 210, txtX: 219, val: '25 FT', fill: '#BA1A1A' },
+          b34: { x1: 181, x2: 184, pillX: 174, txtX: 183, val: '15 FT', fill: '#BA1A1A' }
+        }
+      }
+    };
+
+    let currentShockMode = 'normal';
+
+    function setShockMode(mode) {
+      currentShockMode = mode;
+      const s = shockwaveStates[mode];
+
+      // Update Buttons
+      const btns = ['normal', 'tap', 'panic'];
+      btns.forEach(b => {
+        const btn = document.getElementById(`btn-flow-${b}`);
+        if (b === mode) {
+          btn.className = "touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-carbon bg-carbon text-white font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center";
+        } else {
+          btn.className = "touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center";
+        }
+      });
+
+      // Update Telemetry
+      const teleWave = document.getElementById('tele-wave');
+      const teleGap = document.getElementById('tele-gap');
+      const teleDecel = document.getElementById('tele-decel');
+      const teleLaw = document.getElementById('tele-law');
+
+      teleWave.textContent = s.waveVel;
+      teleGap.textContent = s.minGap;
+      teleDecel.textContent = s.decel;
+      teleLaw.textContent = s.law;
+
+      // Color coding telemetry
+      if (mode === 'normal') {
+        teleWave.className = "text-xs font-bold text-valid";
+        teleGap.className = "text-xs font-bold text-valid";
+        teleDecel.className = "text-xs font-bold text-slate";
+        teleLaw.className = "text-xs font-bold text-valid";
+      } else if (mode === 'tap') {
+        teleWave.className = "text-xs font-bold text-safety";
+        teleGap.className = "text-xs font-bold text-safety";
+        teleDecel.className = "text-xs font-bold text-hazard";
+        teleLaw.className = "text-xs font-bold text-safety";
+      } else {
+        teleWave.className = "text-xs font-bold text-hazard";
+        teleGap.className = "text-xs font-bold text-hazard";
+        teleDecel.className = "text-xs font-bold text-hazard";
+        teleLaw.className = "text-xs font-bold text-hazard";
+      }
+
+      // Update Card
+      const card = document.getElementById('shock-info-card');
+      card.style.borderLeftColor = s.borderColor;
+      document.getElementById('shock-card-tag').textContent = s.tag;
+      document.getElementById('shock-card-tag').className = `text-[10px] font-mono font-bold ${s.tagColor} uppercase`;
+      document.getElementById('shock-card-citation').textContent = s.citation;
+      document.getElementById('shock-card-title').textContent = s.title;
+      document.getElementById('shock-card-body').textContent = s.body;
+
+      // Update SVG Canvas elements
+      document.getElementById('shockwave-visual-group').setAttribute('opacity', s.shockOpacity);
+      document.getElementById('svg1-status-dot').setAttribute('fill', s.statusDot);
+      document.getElementById('svg1-status-text').textContent = s.statusText;
+
+      // Update Vehicle Positions & Styles
+      for (let i = 1; i <= 4; i++) {
+        const vKey = `v${i}`;
+        const c = s.cars[vKey];
+        const g = document.getElementById(`veh-${i}-group`);
+        g.setAttribute('transform', `translate(${c.x}, 108)`);
+
+        document.getElementById(`v${i}-pill`).setAttribute('fill', c.pillFill);
+        document.getElementById(`v${i}-pill`).setAttribute('stroke', c.pillStroke);
+        document.getElementById(`v${i}-label`).textContent = c.speed;
+        document.getElementById(`v${i}-tail-l`).setAttribute('fill', c.brakeL);
+        document.getElementById(`v${i}-tail-r`).setAttribute('fill', c.brakeR);
+      }
+
+      // Update Buffer Lines & Text
+      const b12 = s.buffers.b12;
+      document.getElementById('buf-line-1-2').setAttribute('x1', b12.x1);
+      document.getElementById('buf-line-1-2').setAttribute('x2', b12.x2);
+      document.getElementById('buf-line-1-2').setAttribute('stroke', b12.fill);
+      document.getElementById('buf-pill-1-2').setAttribute('x', b12.pillX);
+      document.getElementById('buf-pill-1-2').setAttribute('fill', b12.fill);
+      document.getElementById('buf-txt-1-2').setAttribute('x', b12.txtX);
+      document.getElementById('buf-txt-1-2').textContent = b12.val;
+
+      const b23 = s.buffers.b23;
+      document.getElementById('buf-line-2-3').setAttribute('x1', b23.x1);
+      document.getElementById('buf-line-2-3').setAttribute('x2', b23.x2);
+      document.getElementById('buf-line-2-3').setAttribute('stroke', b23.fill);
+      document.getElementById('buf-pill-2-3').setAttribute('x', b23.pillX);
+      document.getElementById('buf-pill-2-3').setAttribute('fill', b23.fill);
+      document.getElementById('buf-txt-2-3').setAttribute('x', b23.txtX);
+      document.getElementById('buf-txt-2-3').textContent = b23.val;
+
+      const b34 = s.buffers.b34;
+      document.getElementById('buf-line-3-4').setAttribute('x1', b34.x1);
+      document.getElementById('buf-line-3-4').setAttribute('x2', b34.x2);
+      document.getElementById('buf-line-3-4').setAttribute('stroke', b34.fill);
+      document.getElementById('buf-pill-3-4').setAttribute('x', b34.pillX);
+      document.getElementById('buf-pill-3-4').setAttribute('fill', b34.fill);
+      document.getElementById('buf-txt-3-4').setAttribute('x', b34.txtX);
+      document.getElementById('buf-txt-3-4').textContent = b34.val;
+    }
+
+    function selectShockCar(carNum) {
+      // Highlight halo on clicked car
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`veh-${i}-halo`).setAttribute('opacity', i === carNum ? '1' : '0');
+      }
+
+      // Display specific telemetry card for inspected vehicle
+      const card = document.getElementById('shock-info-card');
+      const s = shockwaveStates[currentShockMode];
+      const carData = s.cars[`v${carNum}`];
+
+      document.getElementById('shock-card-tag').textContent = `INSPECTION // VEHICLE ${carNum}`;
+      document.getElementById('shock-card-tag').className = `text-[10px] font-mono font-bold text-safety uppercase`;
+      document.getElementById('shock-card-title').textContent = `Vehicle ${carNum} Dynamic State: ${carData.speed}`;
+
+      let desc = '';
+      if (carNum === 1) {
+        desc = `V1 (Lead Catalyst): Initiates speed changes. Under TTC § 545.351, smooth lead driving maintains corridor throughput. Sudden braking without cause creates severe legal exposure.`;
+      } else if (carNum === 2) {
+        desc = `V2 (First Follower): Reacts after ~1.5s human perception delay. Must brake with 1.4x higher intensity than V1 to avoid rear-end collision under § 545.062.`;
+      } else if (carNum === 3) {
+        desc = `V3 (Compression Zone): Experiences compounded accordion delay. Deceleration reaches -0.65g to -0.90g. Buffer collapses into the danger threshold.`;
+      } else {
+        desc = `V4 (Caboose / Maximum Hazard): Suffers the peak accordion crunch. Often forced to an emergency dead stop even if V1 only tapped brakes for one second!`;
+      }
+      document.getElementById('shock-card-body').textContent = desc;
+    }
+
+    /* ============================================================ */
+    /* WIDGET 2: THE SOLOMON CURVE LOGIC                            */
+    /* ============================================================ */
+    const solomonStates = {
+      slow: {
+        x: 72,
+        y: 48,
+        reticleDropH: 48,
+        risk: '6.2x Crash Risk',
+        riskClass: 'text-xs font-bold text-hazard',
+        delta: '-20 mph (45)',
+        deltaClass: 'text-xs font-bold text-hazard',
+        threat: 'Rear-End / Weaving',
+        threatClass: 'text-xs font-bold text-hazard',
+        statute: 'TTC § 545.363 (Impeding)',
+        statuteClass: 'text-xs font-bold text-hazard',
+        tag: 'STATUTORY IMPEDING VIOLATION',
+        tagColor: 'text-hazard',
+        borderColor: '#BA1A1A',
+        badge: 'TTC § 545.363',
+        title: '45 MPH in 65 Flow: 6.2x Crash Probability Multiplier',
+        body: 'David Solomon’s groundbreaking traffic research demonstrated that vehicles traveling 20 mph BELOW the prevailing flow encounter closing speeds so severe that crash involvement multiplies by over 600%. Texas Transportation Code § 545.363 makes driving at such a slow speed as to impede normal movement an explicit moving violation.'
+      },
+      harmony: {
+        x: 170,
+        y: 136,
+        reticleDropH: 136,
+        risk: '1.0x (Baseline)',
+        riskClass: 'text-xs font-bold text-valid',
+        delta: '0 mph (65)',
+        deltaClass: 'text-xs font-bold text-valid',
+        threat: 'Minimal Risk',
+        threatClass: 'text-xs font-bold text-valid',
+        statute: 'TTC § 545.351(a)',
+        statuteClass: 'text-xs font-bold text-valid',
+        tag: 'FLOW HARMONY SWEET SPOT',
+        tagColor: 'text-valid',
+        borderColor: '#1F6F43',
+        badge: 'TTC § 545.351',
+        title: '0 MPH Variance: Lowest Probability of Collision',
+        body: 'When vehicle speed matches the prevailing traffic flow (65 mph), relative velocity between adjacent vehicles approaches zero. Lane changes occur smoothly, passing maneuvers drop by over 80%, and collision probability reaches its absolute statistical minimum.'
+      },
+      fast: {
+        x: 268,
+        y: 55,
+        reticleDropH: 55,
+        risk: '5.8x Crash Risk',
+        riskClass: 'text-xs font-bold text-hazard',
+        delta: '+20 mph (85)',
+        deltaClass: 'text-xs font-bold text-hazard',
+        threat: '+300% Kinetic Energy',
+        threatClass: 'text-xs font-bold text-hazard',
+        statute: 'TTC § 545.351 / 352',
+        statuteClass: 'text-xs font-bold text-hazard',
+        tag: 'EXCESSIVE SPEED DANGER',
+        tagColor: 'text-hazard',
+        borderColor: '#BA1A1A',
+        badge: 'TTC § 545.352',
+        title: '85 MPH in 65 Flow: Catastrophic Kinetic Force',
+        body: 'Traveling 20 mph faster than traffic escalates crash involvement to 5.8x baseline. More critically, kinetic impact energy scales with velocity squared (KE = ½mv²), generating +71% higher energy and doubling braking distance. Severe injury and fatality rates spike exponentially.'
+      }
+    };
+
+    function selectSolomon(point) {
+      const s = solomonStates[point];
+
+      // Update Companion Buttons
+      const btns = ['slow', 'harmony', 'fast'];
+      btns.forEach(b => {
+        const btn = document.getElementById(`btn-solomon-${b}`);
+        if (b === point) {
+          btn.className = "touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-carbon bg-carbon text-white font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center";
+        } else {
+          btn.className = "touch-target min-h-[48px] px-2.5 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition-all shadow-xs flex flex-col items-center justify-center text-center";
+        }
+      });
+
+      // Update Telemetry Readouts
+      const rRisk = document.getElementById('tele-sol-risk');
+      const rDelta = document.getElementById('tele-sol-delta');
+      const rThreat = document.getElementById('tele-sol-threat');
+      const rStatute = document.getElementById('tele-sol-statute');
+
+      rRisk.textContent = s.risk;
+      rRisk.className = s.riskClass;
+
+      rDelta.textContent = s.delta;
+      rDelta.className = s.deltaClass;
+
+      rThreat.textContent = s.threat;
+      rThreat.className = s.threatClass;
+
+      rStatute.textContent = s.statute;
+      rStatute.className = s.statuteClass;
+
+      // Update Card
+      const card = document.getElementById('solomon-info-card');
+      card.style.borderLeftColor = s.borderColor;
+      document.getElementById('sol-card-tag').textContent = s.tag;
+      document.getElementById('sol-card-tag').className = `text-[10px] font-mono font-bold ${s.tagColor} uppercase`;
+      document.getElementById('sol-card-badge').textContent = s.badge;
+      document.getElementById('sol-card-title').textContent = s.title;
+      document.getElementById('sol-card-body').textContent = s.body;
+
+      // Move Reticle in SVG
+      const reticle = document.getElementById('active-reticle');
+      reticle.setAttribute('transform', `translate(${s.x}, ${s.y})`);
+
+      // Update Reticle drop lines
+      const dropV = document.getElementById('reticle-drop-v');
+      dropV.setAttribute('x1', s.x);
+      dropV.setAttribute('y1', s.y);
+      dropV.setAttribute('x2', s.x);
+      dropV.setAttribute('y2', '148');
+
+      const dropH = document.getElementById('reticle-drop-h');
+      dropH.setAttribute('x1', '38');
+      dropH.setAttribute('y1', s.y);
+      dropH.setAttribute('x2', s.x);
+      dropH.setAttribute('y2', s.y);
+
+      // Node Halo Pulses
+      document.getElementById('slow-halo').setAttribute('stroke-width', point === 'slow' ? '2.5' : '1.5');
+      document.getElementById('harmony-halo').setAttribute('stroke-width', point === 'harmony' ? '2.5' : '1.5');
+      document.getElementById('fast-halo').setAttribute('stroke-width', point === 'fast' ? '2.5' : '1.5');
+    }
+
+    // -------------------------------------------------------------
+    // 3D SIMULATION CONTROLLER & SCENARIO STATE MANAGEMENT (L05-T01)
+    // -------------------------------------------------------------
+    const simScenarios_L05T01 = {
+      1: {
+        badge: 'STATUTORY PROTOCOL 01 // 4-SECOND CUSHION',
+        statute: 'TTC § 545.062 & § 545.351',
+        title: 'Compliant 4-Second Cushion: Shockwave Absorption',
+        desc: 'Maintaining an assured clear distance of 4 seconds (260 ft at 65 mph) provides an ample safety buffer when the lead vehicle decelerates. The driver applies gentle progressive braking (-0.22g), absorbing the compression wave and preventing downstream traffic from accordion collapse.',
+        metric: '4.0S GAP // -0.22G PROGRESSIVE',
+        phase: '4.0S CUSHION COMPLIANT // SHOCKWAVE SAFELY ABSORBED'
+      },
+      2: {
+        badge: 'STATUTORY PROTOCOL 02 // TAILGATING DEFICIT',
+        statute: 'TTC § 545.062 (Following Too Closely)',
+        title: 'Tailgating 1-Second Gap: Critical Emergency Near-Miss',
+        desc: 'Following at 1.0s gap (65 ft at 65 mph). When lead vehicle panic brakes, 1.5s perception-reaction latency exhausts the buffer before braking begins. Emergency anti-lock threshold braking (-0.85g) causes severe nose pitch and near-miss skid.',
+        metric: '0.15S GAP // -0.85G PANIC THRESHOLD',
+        phase: 'TAILGATING VIOLATION // CRITICAL REAR-END HAZARD (TTC § 545.062)'
+      },
+      3: {
+        badge: 'STATUTORY PROTOCOL 03 // CUT-IN BUFFER RESTORATION',
+        statute: 'TTC § 545.062 & Defensive Driving ADE-1317',
+        title: 'Cut-In Vehicle Infiltration: Throttle Lift-Off Response',
+        desc: 'When an aggressive vehicle cuts across lane markings into your space cushion, the defensive driver lifts off the accelerator without slamming brakes or tailgating, allowing engine braking (-0.08g) to gradually restore the full 4.0-second cushion.',
+        metric: 'THROTTLE LIFT-OFF // 4.0S BUFFER RESTORED',
+        phase: 'CUT-IN INFILTRATION // THROTTLE LIFT-OFF // 4S CUSHION RESTORED'
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      dispatchSimAction('setScenario', { scenario: scenNum, value: scenNum });
+      const scen = simScenarios_L05T01[scenNum];
+      if (!scen) return;
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.textContent = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.textContent = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.event === 'telemetry' || e.data.type === 'telemetry')) {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+      }
+    });
+
+    // Initialize initial state on load
+    document.addEventListener('DOMContentLoaded', () => {
+      selectSimScenario(1);
+      setShockMode('normal');
+      selectSolomon('harmony');
+    });
+  
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

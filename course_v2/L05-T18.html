@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Litter Abatement &amp; Load Securement — Texas Adult Driver Ed (L05-T18)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+
+  <!-- Global Base Styles & Phone Touch Standards -->
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target, button {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      touch-action: manipulation;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .overflow-x-auto {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+    }
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.06); }
+    }
+    .animate-aura {
+      animation: pulseAura 2s ease-in-out infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / CURRICULUM BANNER -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-safety bg-safety-light px-2.5 py-0.5 rounded-full border border-safety/30">
+          <span class="w-2 h-2 rounded-full bg-safety"></span>
+          <span>TDLR ADE-1317 CURRICULUM</span>
+        </div>
+        <span class="text-[10px] font-mono text-slate">HSC &sect; 365.012 &bull; TTC CH. 725</span>
+      </div>
+
+      <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-carbon leading-tight font-sans">
+        Texas Litter Abatement Penalty Escalation Ladder &amp; Load Securement
+      </h1>
+
+      <p class="text-xs text-slate font-sans leading-relaxed">
+        Roadway litter and unsecured cargo are not passive environmental nuisances in Texas—they are lethal dynamic obstacles governed by strict criminal statutes. Under the Texas Health and Safety Code &sect; 365.012 and Texas Transportation Code Chapter 725, discarding waste from a motor vehicle or transporting uncovered cargo is punishable by criminal fines up to $10,000, mandatory roadside community service, and state jail confinement. Furthermore, high-speed debris triggers over 25,000 crashes nationwide each year, where sudden panic swerving causes over two-thirds of all crash fatalities.
+      </p>
+
+      <!-- Metric Badges Row -->
+      <div class="grid grid-cols-3 gap-2 pt-1 font-mono text-center">
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Statute Ladder</span>
+          <span class="text-xs font-bold text-hazard">CLASS C &rarr; FELONY</span>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Debris Crashes</span>
+          <span class="text-xs font-bold text-carbon">25,000+ / YR</span>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Fatal Swerve Trap</span>
+          <span class="text-xs font-bold text-hazard">&gt;65% FATALITIES</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. STATUTORY FRAMEWORK & LEGAL CODES -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">gavel</span>
+          <span class="font-bold">TEXAS STATUTORY CODEX // LITTER &amp; SECUREMENT</span>
+        </div>
+        <span class="text-safety font-bold bg-safety-light px-2 py-0.5 rounded border border-safety/30 text-[10px]">LEGAL RIGOR</span>
+      </div>
+
+      <!-- Statute Card 1: Texas Health and Safety Code § 365.012 -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">HSC &sect; 365.012 &bull; TEXAS LITTER ABATEMENT ACT</span>
+          <span class="text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">CRIMINAL STATUTE</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          <strong>(a)</strong> A person commits an offense if the person dumps or permits the dumping of litter or other solid waste at a place that is not an approved solid waste site, including on or within 300 feet of a public highway, right-of-way, or other public property.<br>
+          <strong>(b)</strong> Discarding items from a moving or stopped vehicle—such as cigarette butts, beverage cans, plastic bottles, fast-food bags, or allowing loose trash to blow from an open truck bed—constitutes an explicit criminal offense.<br>
+          <strong>(c)</strong> Mandatory judicial sanctions include court-ordered community service, requiring between <strong>8 and 60 hours</strong> of highway roadside litter collection in high-visibility safety vests under county supervision. Subsequent convictions elevate the offense to the next higher misdemeanor or felony tier.
+        </p>
+        <div class="bg-white p-2.5 rounded-lg border border-hairline font-mono text-[11px] text-slate space-y-1">
+          <div class="text-carbon font-bold">&bull; 300-Foot Jurisdictional Envelope</div>
+          <div>The statutory boundary extends 300 feet beyond the edge of pavement, encompassing drainage ditches, highway rights-of-way, access roads, bridge embankments, and scenic view corridors across Texas.</div>
+        </div>
+      </div>
+
+      <!-- Statute Card 2: Texas Transportation Code Chapter 725 -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC CH. 725 &bull; SECURING LOADS ON VEHICLES</span>
+          <span class="text-[10px] text-valid bg-valid-light px-2 py-0.5 rounded border border-valid/30 font-bold">MANDATORY CONTAINMENT</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          <strong>&sect; 725.001 &ndash; &sect; 725.021:</strong> An operator transporting loose gravel, sand, dirt, construction timber, tree branches, household appliances, furniture, or scrap metal on public roadways must physically secure the cargo to prevent any material from blowing, spilling, dropping, or leaking onto the pavement.<br>
+          <strong>Tarping &amp; Tie-Down Mandates:</strong> Open-bed pickup trucks and utility trailers carrying loose items must be covered with a closely fitted tarpaulin or heavy-duty canvas cover securely tied down on all four sides. Bulky items (mattresses, ladders, toolboxes) must be anchored with rated commercial ratchet tie-down straps capable of withstanding dynamic aerodynamic drag forces at 70 MPH ($F_{drag} = C_d A \frac{1}{2}\rho v^2$).
+        </p>
+      </div>
+
+      <!-- Statute Card 3: AAA Traffic Safety Data & The Fatal Swerve Trap -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">AAA FOUNDATION &bull; DEBRIS KINEMATICS</span>
+          <span class="text-[10px] text-warning bg-warning-light px-2 py-0.5 rounded border border-warning/30 font-bold">PHYSICS DOCTRINE</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          National traffic safety data reveals that road debris causes over 25,000 crashes, 9,800 injuries, and 500 deaths annually. Crucially, over <strong>two-thirds (65%+) of fatal crashes</strong> do not stem from the direct impact with debris, but from violent, panic-induced steering maneuvers executed at highway speeds. Sudden high-G swerves trigger tire sidewall scrub, lateral acceleration overload ($a_{lat} > 0.65g$), shoulder edge trip, and catastrophic multi-revolution rollovers.
+        </p>
+        <div class="bg-white p-2.5 rounded-lg border border-hairline font-mono text-[11px] text-slate space-y-1">
+          <div class="text-carbon font-bold">&bull; Kinetic Energy of Debris Collision: KE = &frac12; m v&sup2;</div>
+          <div>At 70 MPH ($102.7\text{ ft/s}$), striking a 10-lb debris object delivers <strong>1,638 foot-pounds</strong> of kinetic energy. Holding the line and braking straight allows vehicle crumple zones and bumper absorbers to safely dissipate force without inducing an out-of-control spinout.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD WIDGET: LITTER PENALTY LADDER & LOAD SECUREMENT (viewBox="0 0 340 220") -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>LITTER STATUTES // HSC &sect; 365.012 &amp; TTC CH. 725</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Texas Litter Abatement Penalty Ladder &amp; Load Securement CAD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap penalty tiers or load rig states to inspect weight thresholds, criminal fine escalations, and TTC Chapter 725 tarp/tie-down requirements.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 220) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l18-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l18-grad-ladder" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#10B981" />
+              <stop offset="33%" stop-color="#F59E0B" />
+              <stop offset="66%" stop-color="#E87522" />
+              <stop offset="100%" stop-color="#EF4444" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Base -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="#0E1210" />
+
+          <!-- TOP SECTION: HSC § 365.012 4-TIER PENALTY ESCALATION LADDER (Y=12 to 105) -->
+          <g transform="translate(10, 12)">
+            <rect x="0" y="0" width="320" height="92" rx="6" fill="#141A17" stroke="#252F29" stroke-width="0.8" />
+            <text x="12" y="14" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="800" fill="#94A3B8">HSC &sect; 365.012 CRIMINAL LITTER ESCALATION GRID</text>
+
+            <!-- 4 Tier Pillars -->
+            <!-- Tier 1: <= 5 lbs -->
+            <g id="l18-tier-box-1" transform="translate(10, 22)">
+              <rect x="0" y="0" width="70" height="60" rx="4" fill="#10B981" fill-opacity="0.15" stroke="#10B981" stroke-width="1.2" />
+              <text x="35" y="12" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#34D399" text-anchor="middle">TIER 1</text>
+              <text x="35" y="22" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="900" fill="#FFFFFF" text-anchor="middle">&le; 5 LBS</text>
+              <text x="35" y="32" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#94A3B8" text-anchor="middle">(&le; 5 GAL)</text>
+              <rect x="5" y="37" width="60" height="18" rx="2" fill="#064E3B" />
+              <text x="35" y="46" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#A7F3D0" text-anchor="middle">CLASS C MISD</text>
+              <text x="35" y="52" font-family="'JetBrains Mono', monospace" font-size="3.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">&le; $500 FINE</text>
+              <!-- Hitbox (r=28 guarantees >= 44x44px touch target) -->
+              <circle cx="35" cy="30" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad1Mode('tier1')" role="button" aria-label="Tier 1 Litter Node" />
+            </g>
+
+            <!-- Tier 2: 5 to 500 lbs -->
+            <g id="l18-tier-box-2" transform="translate(86, 22)">
+              <rect x="0" y="0" width="70" height="60" rx="4" fill="#F59E0B" fill-opacity="0.1" stroke="#F59E0B" stroke-width="0.8" />
+              <text x="35" y="12" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FBBF24" text-anchor="middle">TIER 2</text>
+              <text x="35" y="22" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="900" fill="#FFFFFF" text-anchor="middle">6&ndash;499 LBS</text>
+              <text x="35" y="32" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#94A3B8" text-anchor="middle">(5&ndash;100 CU FT)</text>
+              <rect x="5" y="37" width="60" height="18" rx="2" fill="#78350F" />
+              <text x="35" y="46" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#FDE68A" text-anchor="middle">CLASS B MISD</text>
+              <text x="35" y="52" font-family="'JetBrains Mono', monospace" font-size="3.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">&le; $2,000 / 180D</text>
+              <!-- Hitbox -->
+              <circle cx="35" cy="30" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad1Mode('tier2')" role="button" aria-label="Tier 2 Dumping Node" />
+            </g>
+
+            <!-- Tier 3: 500 to 1,000 lbs -->
+            <g id="l18-tier-box-3" transform="translate(162, 22)">
+              <rect x="0" y="0" width="70" height="60" rx="4" fill="#E87522" fill-opacity="0.1" stroke="#E87522" stroke-width="0.8" />
+              <text x="35" y="12" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FB923C" text-anchor="middle">TIER 3</text>
+              <text x="35" y="22" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="900" fill="#FFFFFF" text-anchor="middle">500&ndash;1K LBS</text>
+              <text x="35" y="32" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#94A3B8" text-anchor="middle">(100&ndash;200 CU FT)</text>
+              <rect x="5" y="37" width="60" height="18" rx="2" fill="#7C2D12" />
+              <text x="35" y="46" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#FED7AA" text-anchor="middle">CLASS A MISD</text>
+              <text x="35" y="52" font-family="'JetBrains Mono', monospace" font-size="3.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">&le; $4,000 / 1 YR</text>
+              <!-- Hitbox -->
+              <circle cx="35" cy="30" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad1Mode('tier3')" role="button" aria-label="Tier 3 Bulk Waste Node" />
+            </g>
+
+            <!-- Tier 4: >= 1,000 lbs / Commercial -->
+            <g id="l18-tier-box-4" transform="translate(238, 22)">
+              <rect x="0" y="0" width="72" height="60" rx="4" fill="#EF4444" fill-opacity="0.1" stroke="#EF4444" stroke-width="0.8" />
+              <text x="36" y="12" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#F87171" text-anchor="middle">TIER 4</text>
+              <text x="36" y="22" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="900" fill="#FFFFFF" text-anchor="middle">&ge; 1,000 LBS</text>
+              <text x="36" y="32" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#94A3B8" text-anchor="middle">(COMMERCIAL)</text>
+              <rect x="5" y="37" width="62" height="18" rx="2" fill="#7F1D1D" />
+              <text x="36" y="46" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#FECACA" text-anchor="middle">STATE FELONY</text>
+              <text x="36" y="52" font-family="'JetBrains Mono', monospace" font-size="3.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">&le; $10K / 2 YRS</text>
+              <!-- Hitbox -->
+              <circle cx="36" cy="30" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad1Mode('tier3')" role="button" aria-label="Tier 4 Felony Node" />
+            </g>
+          </g>
+
+          <!-- BOTTOM SECTION: TTC CH. 725 OPEN-BED LOAD SECUREMENT (Y=115 to 185) -->
+          <g transform="translate(10, 115)">
+            <rect x="0" y="0" width="320" height="72" rx="6" fill="#141A17" stroke="#252F29" stroke-width="0.8" />
+
+            <!-- Pickup Truck Silhouette -->
+            <g transform="translate(30, 15)">
+              <!-- Cab -->
+              <path d="M 0,35 L 20,35 L 35,18 L 60,18 L 65,35 L 125,35 L 125,48 L 0,48 Z" fill="#334155" stroke="#FFFFFF" stroke-width="0.8" />
+              <!-- Wheels -->
+              <circle cx="25" cy="48" r="9" fill="#0A0E0C" stroke="#64748B" stroke-width="1.5" />
+              <circle cx="100" cy="48" r="9" fill="#0A0E0C" stroke="#64748B" stroke-width="1.5" />
+
+              <!-- Open Bed Cargo Area (X=65 to 125, Y=20 to 35) -->
+              <rect id="l18-cargo-bed" x="68" y="20" width="54" height="15" fill="#B45309" stroke="#F59E0B" stroke-width="0.8" />
+              <path id="l18-tarp-cover" d="M 66,20 Q 95,14 125,20 L 125,35 L 66,35 Z" fill="#1F6F43" opacity="0" />
+              <!-- Ratchet Tie-Down Straps -->
+              <line id="l18-strap-1" x1="75" y1="20" x2="85" y2="35" stroke="#FBBF24" stroke-width="1.5" opacity="0" />
+              <line id="l18-strap-2" x1="105" y1="20" x2="115" y2="35" stroke="#FBBF24" stroke-width="1.5" opacity="0" />
+
+              <!-- Escaping Debris Projectiles (Unsecured State) -->
+              <g id="l18-flying-debris" transform="translate(135, 15)">
+                <rect x="0" y="0" width="10" height="7" rx="1" fill="#D97706" transform="rotate(25)" />
+                <polygon points="15,-5 22,-8 20,-1" fill="#FFFFFF" /> <!-- Flying cup/can -->
+                <rect x="25" y="8" width="14" height="4" fill="#94A3B8" transform="rotate(-15)" />
+                <!-- Wind Flow Arrows -->
+                <path d="M -10,0 Q 15,-12 40,-5" fill="none" stroke="#38BDF8" stroke-width="1.2" stroke-dasharray="3 2" />
+              </g>
+            </g>
+
+            <!-- Load Status Pill & Hotline Indicator -->
+            <g transform="translate(200, 15)" pointer-events="none">
+              <rect x="0" y="0" width="110" height="42" rx="4" fill="#0A0E0C" stroke="#334155" stroke-width="0.8" />
+              <text id="l18-load-status-title" x="55" y="14" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#EF4444" text-anchor="middle">UNSECURED LOAD</text>
+              <text id="l18-load-status-desc" x="55" y="24" font-family="'JetBrains Mono', monospace" font-size="3.8" font-weight="600" fill="#94A3B8" text-anchor="middle">TTC CH. 725 VIOLATION</text>
+              <text x="55" y="34" font-family="'JetBrains Mono', monospace" font-size="3.5" font-weight="700" fill="#38BDF8" text-anchor="middle">1-888-TEX-LITTER</text>
+            </g>
+
+            <!-- Clickable Hitbox for Bed / Tie-Down Rig (Node 4) -->
+            <g id="l18-hitbox-rig" transform="translate(120, 40)">
+              <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad1Mode('secured')" role="button" aria-label="Load Securement Rig Node" />
+            </g>
+          </g>
+
+          <!-- Bottom Status Readout Pill -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l18-cad1-dot" cx="10" cy="9" r="3.5" fill="#10B981" />
+            <text id="l18-cad1-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              TIER 1 LITTER: &le; 5 LBS // CLASS C MISDEMEANOR UP TO $500 FINE (HSC &sect; 365.012)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l18-btn-1" onclick="setL18Cad1Mode('tier1')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Tier 1 (&le;5 lbs)</span>
+          <span class="text-[9px] text-safety-deep font-normal">Class C Misd</span>
+        </button>
+        <button id="l18-btn-2" onclick="setL18Cad1Mode('tier2')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Tier 2 (6&ndash;499)</span>
+          <span class="text-[9px] text-slate font-normal">Class B Misd</span>
+        </button>
+        <button id="l18-btn-3" onclick="setL18Cad1Mode('tier3')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Tier 3 / 4 Bulk</span>
+          <span class="text-[9px] text-slate font-normal">Class A / Felony</span>
+        </button>
+        <button id="l18-btn-4" onclick="setL18Cad1Mode('secured')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Load Secured</span>
+          <span class="text-[9px] text-slate font-normal">TTC Ch. 725 Tarp</span>
+        </button>
+      </div>
+
+      <!-- Live Telemetry HUD -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Weight Bracket</span>
+          <span id="l18-hud-weight" class="text-xs font-bold text-valid">&le; 5 LBS (&le; 5 GAL)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Criminal Charge</span>
+          <span id="l18-hud-charge" class="text-xs font-bold text-carbon">CLASS C MISD</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Maximum Fine</span>
+          <span id="l18-hud-fine" class="text-xs font-bold text-hazard">UP TO $500</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Confinement / Svc</span>
+          <span id="l18-hud-jail" class="text-xs font-bold text-carbon">8&ndash;60 HRS SERVICE</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Reactive Explanation Card -->
+      <div id="l18-cad1-card" class="bg-surface-sub border-l-4 border-valid p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l18-card-tag" class="text-[10px] font-mono font-bold text-valid uppercase">TIER 1 VEHICLE LITTER</span>
+          <span id="l18-card-cite" class="text-[10px] font-mono text-slate">HSC &sect; 365.012(d)</span>
+        </div>
+        <h3 id="l18-card-title" class="font-sans font-bold text-sm text-carbon">Class C Misdemeanor for Discarding Litter Under 5 Pounds</h3>
+        <p id="l18-card-desc" class="text-xs text-slate leading-relaxed">
+          Under Texas Health and Safety Code &sect; 365.012(d), discarding waste weighing 5 pounds or less (or having a volume of 5 gallons or less) onto a public highway or right-of-way constitutes an illegal dumping offense punishable as a Class C Misdemeanor. Penalties include a fine up to $500 and mandatory community service (8 to 60 hours) performing roadside cleanup. This applies to thrown cigarette butts, beverage cans, fast food containers, and blowing bed trash.
+        </p>
+      </div>
+    </section>
+
+    <!-- 05. SECONDARY CAD WIDGET: ROAD DEBRIS COLLISION DYNAMICS (viewBox="0 0 340 180") -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>DEBRIS KINEMATICS // AAA SAFETY FOUNDATION</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          TACTICAL MATRIX
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">High-Speed Road Debris Collision Dynamics &amp; Avoidance Vector</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap avoidance presets to analyze why violent swerving causes &gt;65% of debris fatalities, straight-line braking doctrine, and 4-second buffers.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 180) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l18-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l18-road-grad2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1A201D" />
+              <stop offset="100%" stop-color="#121614" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Base -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="#101412" />
+
+          <!-- 3-Lane Interstate Highway Surface (X=0 to 340, Y=20 to 140) -->
+          <rect x="0" y="20" width="340" height="120" fill="url(#l18-road-grad2)" stroke="#26312B" stroke-width="1" />
+          <line x1="0" y1="20" x2="340" y2="20" stroke="#FFFFFF" stroke-width="2" /> <!-- Left Shoulder -->
+          <line x1="0" y1="60" x2="340" y2="60" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="10 8" />
+          <line x1="0" y1="100" x2="340" y2="100" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="10 8" />
+          <line x1="0" y1="140" x2="340" y2="140" stroke="#FFFFFF" stroke-width="2" /> <!-- Right Shoulder -->
+
+          <!-- Center Lane Road Debris Hazard (Tire Gator / Steel Ladder) -->
+          <g id="l18-debris-item" transform="translate(190, 80)">
+            <!-- Shredded Truck Tire Tread (Tire Gator) -->
+            <rect x="-12" y="-5" width="24" height="10" rx="2" fill="#0A0E0C" stroke="#EF4444" stroke-width="1" />
+            <line x1="-8" y1="-5" x2="-4" y2="5" stroke="#FFFFFF" stroke-width="1" />
+            <line x1="0" y1="-5" x2="4" y2="5" stroke="#FFFFFF" stroke-width="1" />
+            <circle cx="0" cy="0" r="14" fill="none" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="3 2" />
+            <text x="0" y="-10" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#EF4444" text-anchor="middle">DEBRIS OBSTACLE</text>
+          </g>
+
+          <!-- TRAJECTORY A: Violent Panic Swerve Vector (Fatal Oversteer Skid) -->
+          <g id="l18-traj-swerve" opacity="1">
+            <path d="M 50,80 Q 130,80 160,40 Q 190,0 230,22 Q 260,35 285,15" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-dasharray="4 2" />
+            <!-- Rollover Starburst Indicator -->
+            <polygon points="285,15 292,8 290,18 298,18 292,23 295,30 288,25 282,31 284,23 277,19 285,18" fill="#DC2626" />
+            <text x="290" y="38" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#F87171" text-anchor="middle">ROLLOVER TRIP</text>
+            <text x="200" y="30" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="700" fill="#EF4444">a_lat &gt; 0.65g</text>
+          </g>
+
+          <!-- TRAJECTORY B: Hold-The-Line Straight Threshold Braking Vector -->
+          <g id="l18-traj-straight" opacity="0.2">
+            <path d="M 50,80 L 175,80" fill="none" stroke="#10B981" stroke-width="3" stroke-dasharray="5 3" />
+            <polygon points="178,80 170,76 170,84" fill="#10B981" />
+            <text x="110" y="73" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#10B981">STRAIGHT BRAKING TRACK</text>
+          </g>
+
+          <!-- Host Vehicle Traveling at 70 MPH (102.7 FT/S) -->
+          <g id="l18-ego-car" transform="translate(50, 80)">
+            <rect x="-14" y="-8" width="28" height="16" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1.2" />
+            <rect x="-4" y="-6" width="8" height="12" rx="1.5" fill="#7C2D12" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">YOU</text>
+            <!-- Speed & Distance Readout Tag -->
+            <g transform="translate(0, -13)" pointer-events="none">
+              <rect x="-24" y="-5" width="48" height="10" rx="2" fill="#0A0E0C" stroke="#E87522" stroke-width="0.8" />
+              <text id="l18-car-speed-txt" x="0" y="2.5" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">70 MPH (103 FPS)</text>
+            </g>
+            <!-- Accessible Touch Hitbox (r=28) -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad2Preset('swerve-trap')" role="button" aria-label="Host Vehicle Kinematics Node" />
+          </g>
+
+          <!-- Interactive Hitbox Nodes -->
+          <!-- Node 1: Debris Obstacle (X=190, Y=80) -->
+          <g id="l18-hitbox-debris" transform="translate(190, 80)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad2Preset('swerve-trap')" role="button" aria-label="Road Debris Collision Node" />
+          </g>
+          <!-- Node 2: Straight Braking Track (X=120, Y=80) -->
+          <g id="l18-hitbox-straight" transform="translate(120, 80)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad2Preset('hold-line')" role="button" aria-label="Straight Line Braking Node" />
+          </g>
+          <!-- Node 3: 4-Second Hauler Buffer Corridor (X=260, Y=120) -->
+          <g id="l18-hitbox-buffer" transform="translate(260, 120)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL18Cad2Preset('buffer-haul')" role="button" aria-label="Cargo Hauler Buffer Node" />
+          </g>
+
+          <!-- Bottom Status Pill -->
+          <g transform="translate(15, 154)" pointer-events="none">
+            <rect x="0" y="0" width="310" height="18" rx="3" fill="#090D0B" stroke="#1F2937" stroke-width="0.8" />
+            <circle id="l18-cad2-dot" cx="10" cy="9" r="3" fill="#EF4444" />
+            <text id="l18-cad2-status" x="20" y="12" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#EF4444">
+              FATAL SWERVE TRAP: OVER 65% OF DEBRIS FATALITIES STEM FROM VIOLENT OVERSTEER
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Preset Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="l18-pbtn-1" onclick="setL18Cad2Preset('swerve-trap')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>Panic Swerve</span>
+          <span class="text-[9px] text-safety-deep font-normal">&gt;65% Fatal Trap</span>
+        </button>
+        <button id="l18-pbtn-2" onclick="setL18Cad2Preset('hold-line')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>Straight Braking</span>
+          <span class="text-[9px] text-slate font-normal">Hold the Line</span>
+        </button>
+        <button id="l18-pbtn-3" onclick="setL18Cad2Preset('buffer-haul')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>4s Hauler Buffer</span>
+          <span class="text-[9px] text-slate font-normal">410+ Ft Cushion</span>
+        </button>
+      </div>
+
+      <!-- Tactical Metrics Row -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Maneuver Vector</span>
+          <span id="l18-hud2-vector" class="text-xs font-bold text-hazard">VIOLENT SWERVE</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Lateral G-Force</span>
+          <span id="l18-hud2-gforce" class="text-xs font-bold text-hazard">0.68g (OVER LIMIT)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Rollover Risk</span>
+          <span id="l18-hud2-rollover" class="text-xs font-bold text-hazard">CRITICAL TRIP</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Safety Protocol</span>
+          <span id="l18-hud2-proto" class="text-xs font-bold text-carbon">HOLD THE LINE</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l18-cad2-card" class="bg-surface-sub border-l-4 border-hazard p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l18-card2-tag" class="text-[10px] font-mono font-bold text-hazard uppercase">THE SWERVE COLLISION TRAP</span>
+          <span id="l18-card2-cite" class="text-[10px] font-mono text-slate">AAA TRAFFIC SAFETY STUDY</span>
+        </div>
+        <h3 id="l18-card2-title" class="font-sans font-bold text-sm text-carbon">Panic Swerving Causes Over Two-Thirds of Fatal Debris Crashes</h3>
+        <p id="l18-card2-desc" class="text-xs text-slate leading-relaxed">
+          AAA Foundation research reveals that over 25,000 crashes and 500 highway deaths occur annually due to road debris. Crucially, over 65% of fatal crashes result not from hitting the debris, but from sudden, violent steering inputs at highway speed. Jerking the steering wheel exceeds tire lateral grip limits, inducing snap-oversteer skids, head-on crossover collisions, or edge-of-pavement rollover trips. For small, collapsible items, hold the line and brake firmly straight ahead.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. 3-TIER 3D DRIVING SIMULATOR (L05-T18: RAIL GRADE CROSSINGS) -->
+    <section class="space-y-3">
+      <!-- Tier 1: Pedagogical Header Above Viewport -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-mono text-xs font-bold text-safety uppercase tracking-wider">
+            3D INTERACTIVE SIMULATION &bull; TTC § 545.251 &sect; 545.2535
+          </span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface border border-hairline px-2 py-0.5 rounded">
+          15–50 FT STOP ZONE
+        </span>
+      </div>
+
+      <!-- Tier 2: Pure 16:9 Simulation Viewport Container (Zero internal HUD clutter) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-2xl overflow-hidden bg-obsidian border border-obsidian-border shadow-2xl" style="aspect-ratio: 16/9;">
+        <iframe
+          id="sim-iframe"
+          src="../driving_rule_animations_suite/simulations/L05_T18_rail_grade_crossings.html?clean=1"
+          class="w-full h-full border-0 select-none block"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope"
+          loading="eager"
+          title="3D Rail Grade Crossing Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock Beneath Viewport (All touch targets >= 48px) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">15–50 FT STOP ZONE HELD</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="setSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Bus Stop</span>
+          </button>
+          <button type="button" onclick="setSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Gate Violator</span>
+          </button>
+          <button type="button" onclick="setSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Low Clearance</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. PEDAGOGICAL DEEP DIVE: KINEMATICS, SECUREMENT & CIVIC PROGRAMS -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">science</span>
+          <span class="font-bold">ENGINEERING &amp; DEFENSIVE PROTOCOLS</span>
+        </div>
+        <span class="text-safety font-bold bg-safety-light px-2 py-0.5 rounded border border-safety/30 text-[10px]">CURRICULUM DEPTH</span>
+      </div>
+
+      <!-- Part A: Dynamic Highway Kinematics & Kinetic Energy Formula -->
+      <div class="space-y-2">
+        <h3 class="font-sans font-bold text-sm text-carbon flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-safety"></span>
+          The Physics of Highway Debris Impact: KE = &frac12; m v&sup2;
+        </h3>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          Highway speed dramatically amplifies collision forces due to velocity squaring. A driver cruising at 70 MPH covers 102.7 feet per second ($v = \text{MPH} \times 1.467$). Striking a stationary 10-lb road debris fragment (such as a shredded commercial tire casing or 2x4 timber) delivers:
+        </p>
+        <div class="bg-surface-sub p-3 rounded-xl border border-hairline font-mono text-xs text-carbon space-y-1 overflow-x-auto no-scrollbar">
+          <div class="text-slate text-[10px] uppercase font-bold tracking-wider">Kinetic Energy Mathematical Proof:</div>
+          <div>m = 10 lbs &divide; 32.174 ft/s&sup2; = 0.3108 slugs</div>
+          <div>v = 70 MPH &times; 1.4667 = 102.67 ft/s</div>
+          <div class="text-hazard font-bold">KE = &frac12; &times; 0.3108 &times; (102.67)&sup2; = 1,638 FT-LBS OF ENERGY</div>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          This delivers an instantaneous impact shock equivalent to dropping a 1-ton concrete block from nearly a foot in height directly onto a vehicle windshield. However, violent swerving to avoid this impact subjects the chassis to lateral tire trip forces that exceed roll stability thresholds ($a_{lat} \ge 0.65g$), causing vehicles to flip uncontrollably into ditches or oncoming interstate lanes.
+        </p>
+      </div>
+
+      <!-- Part B: Evasion Maneuver Comparison Matrix -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="font-sans font-bold text-sm text-carbon flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-hazard"></span>
+          Comparative Tactical Analysis: Swerving vs. Straight Braking
+        </h3>
+        <div class="overflow-x-auto no-scrollbar" style="overflow-x: auto; width: 100%; max-width: 100%; -webkit-overflow-scrolling: touch;">
+          <table class="w-full text-left font-mono text-[10px] border-collapse border border-hairline">
+            <thead>
+              <tr class="bg-surface-sub text-carbon border-b border-hairline">
+                <th class="p-2 border-r border-hairline">Maneuver</th>
+                <th class="p-2 border-r border-hairline">Lateral G</th>
+                <th class="p-2 border-r border-hairline">Vehicle Stability</th>
+                <th class="p-2">Fatality Risk</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-slate">
+              <tr>
+                <td class="p-2 font-bold text-hazard border-r border-hairline">Panic Swerve</td>
+                <td class="p-2 border-r border-hairline">0.65g &ndash; 0.90g</td>
+                <td class="p-2 border-r border-hairline text-hazard">Sidewall trip, spinout, rollover</td>
+                <td class="p-2 font-bold text-hazard">Critical (&gt;65% fatalities)</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold text-valid border-r border-hairline">Hold The Line</td>
+                <td class="p-2 border-r border-hairline">&lt; 0.05g</td>
+                <td class="p-2 border-r border-hairline text-valid">Directional control, straight ABS</td>
+                <td class="p-2 font-bold text-valid">Low (bumper/grille damage only)</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold text-sky-600 border-r border-hairline">4s Buffer Shift</td>
+                <td class="p-2 border-r border-hairline">0.10g &ndash; 0.15g</td>
+                <td class="p-2 border-r border-hairline text-sky-600">Gradual controlled lane transition</td>
+                <td class="p-2 font-bold text-valid">Near Zero (early avoidance)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Part C: Texas Health and Safety Code Penalty Escalation Table -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="font-sans font-bold text-sm text-carbon flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-safety"></span>
+          Texas Litter Abatement Act Criminal Sanctions Grid (HSC &sect; 365.012)
+        </h3>
+        <div class="overflow-x-auto no-scrollbar" style="overflow-x: auto; width: 100%; max-width: 100%; -webkit-overflow-scrolling: touch;">
+          <table class="w-full text-left font-mono text-[10px] border-collapse border border-hairline">
+            <thead>
+              <tr class="bg-surface-sub text-carbon border-b border-hairline">
+                <th class="p-2 border-r border-hairline">Disposal Weight / Volume</th>
+                <th class="p-2 border-r border-hairline">Offense Level</th>
+                <th class="p-2 border-r border-hairline">Maximum Fine</th>
+                <th class="p-2">Incarceration &amp; Community Svc</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-slate">
+              <tr>
+                <td class="p-2 font-bold text-carbon border-r border-hairline">&le; 5 lbs (&le; 5 gal)</td>
+                <td class="p-2 text-valid font-bold border-r border-hairline">Class C Misdemeanor</td>
+                <td class="p-2 border-r border-hairline">Up to $500</td>
+                <td class="p-2">8 to 60 hrs mandatory roadside cleanup</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold text-carbon border-r border-hairline">6 to 499 lbs (5&ndash;100 cu ft)</td>
+                <td class="p-2 text-warning font-bold border-r border-hairline">Class B Misdemeanor</td>
+                <td class="p-2 border-r border-hairline">Up to $2,000</td>
+                <td class="p-2">Up to 180 days in county jail</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold text-carbon border-r border-hairline">500 to 1,000 lbs (100&ndash;200 cu ft)</td>
+                <td class="p-2 text-hazard font-bold border-r border-hairline">Class A Misdemeanor</td>
+                <td class="p-2 border-r border-hairline">Up to $4,000</td>
+                <td class="p-2">Up to 1 year in county jail</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold text-carbon border-r border-hairline">&ge; 1,000 lbs OR Commercial</td>
+                <td class="p-2 text-hazard font-bold border-r border-hairline">State Jail Felony</td>
+                <td class="p-2 border-r border-hairline">Up to $10,000</td>
+                <td class="p-2">180 days to 2 years in state jail facility</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Part D: Don't Mess with Texas & Public Reporting Program -->
+      <div class="space-y-2 pt-2 border-t border-hairline">
+        <h3 class="font-sans font-bold text-sm text-carbon flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-safety"></span>
+          "Don't Mess with Texas" &amp; 1-888-TEX-LITTER Reporting
+        </h3>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          Launched by TxDOT in 1986, <strong>"Don't Mess with Texas"</strong> is the official roadway preservation initiative that has reduced roadside litter by over 70%. When motorists observe trash being discarded from a moving vehicle, they can report the violation via the toll-free hotline <strong>1-888-TEX-LITTER (1-888-839-5488)</strong> or at <strong>dontmesswithtexas.org</strong>. Submitting the license plate number, date, time, and highway location triggers an official TxDOT warning letter, educational packets, and vehicle litter bags mailed to the registered vehicle owner.
+        </p>
+      </div>
+    </section>
+
+    <!-- 08. SCENARIO KNOWLEDGE CHECK (3 MCQs, Q1 OPTION [ B ] STRICTLY CORRECT) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">quiz</span>
+          <span class="font-bold">KNOWLEDGE CHECK // HSC &sect; 365.012 &amp; DEBRIS DEFENSE</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          3 SCENARIOS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T18 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- QUESTION 1: OPTION [ B ] STRICTLY CORRECT -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 01 &bull; VEHICLE LITTER PENALTIES</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          While driving on State Highway 71, an operator tosses an empty plastic soda bottle, fast-food paper bag, and a lit cigarette butt out of the driver's side window onto the public highway shoulder. Under the Texas Litter Abatement Act, what criminal classification and penalty does this driver face?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] A civil non-moving code violation carrying a $25 mail-in warning fee</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] A Class C misdemeanor punishable by a criminal fine of up to $500 and mandatory court-ordered roadside litter collection service</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] A Class A misdemeanor carrying a mandatory 1-year county jail sentence</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] An administrative parking surcharge with automatic driver license revocation</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 2: OPTION [ C ] CORRECT -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 02 &bull; BULK DUMPING &amp; UNSECURED LOADS</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A homeowner loads an open pickup truck bed with 750 pounds of broken concrete, discarded drywall, and scrap metal from a demolition project. The load is uncovered, and several large chunks fall onto the travel lanes of Interstate 10 at 70 MPH. How is this illegal dumping offense classified under Texas law?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Class C misdemeanor carrying a flat $200 fine</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Class B misdemeanor punishable by up to 180 days in jail and a $2,000 fine</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Class A misdemeanor punishable by a fine up to $4,000 and confinement in county jail for up to 1 year</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] State Jail Felony punishable by 5 years imprisonment</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 3: OPTION [ B ] CORRECT -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 03 &bull; HIGHWAY DEBRIS DEFENSE</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A motorist is traveling at 65 MPH on a Texas highway and notices an open-bed landscaper trailer ahead carrying loose rakes, shrubbery, and an unsecured cardboard box. What defensive action should the motorist take according to TxDOT standards?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Accelerate aggressively to pass the trailer within 2 feet of its bumper to get ahead of the load</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Maintain a minimum 4-second following buffer, scan 12–15 seconds ahead, and avoid abrupt panic swerving if small light debris enters the lane</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Honk the horn continuously while following closely at a 1-second interval to force the driver off the road</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Pull immediately onto the left highway median and come to a complete stop</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. NEXT LESSON GATEWAY & FOOTER -->
+    <footer class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px] text-slate">
+        <span>COURSE PROGRESSION</span>
+        <span class="text-valid font-bold">MODULE 05 &bull; COMPLETED</span>
+      </div>
+
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pt-1">
+        <a href="L05-T17.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] p-3 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex items-center justify-center gap-2 select-none" style="min-height: 48px; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREV: L05-T17</span>
+        </a>
+        <a href="index.html" class="touch-target min-h-[48px] w-auto shrink-0 px-3.5 py-3 rounded-xl bg-surface border border-hairline hover:bg-surface-sub text-slate font-mono text-xs font-bold transition flex items-center justify-center gap-1 select-none" aria-label="Course Hub" style="min-height: 48px; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-sm">grid_view</span>
+          <span>HUB</span>
+        </a>
+        <a href="L06-T01.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] p-3 rounded-xl border-2 border-safety bg-safety text-white font-mono text-xs font-bold transition shadow-sm flex items-center justify-center gap-2 hover:bg-safety-deep select-none" style="min-height: 48px; touch-action: manipulation;">
+          <span>NEXT: L06-T01</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="pt-2 border-t border-hairline flex flex-col sm:flex-row items-center justify-between text-[10px] font-mono text-slate gap-2">
+        <span>TDLR VALIDATED FRAMEWORK &bull; TEXAS ADE-1317</span>
+        <span>STANDALONE FLAGSHIP &bull; 0.0px OVERFLOW COMPLIANT</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINES & AUDIO SYNTHESIZER -->
+  <script>
+    // ==============================================================================
+    // 1. WEB AUDIO SYNTHESIZER FOR SUBTLE HAPTIC FEEDBACK
+    // ==============================================================================
+    let audioCtx = null;
+    function playBeep(freq = 440, type = 'sine', duration = 0.08) {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // AudioContext disabled or blocked by policy; ignore safely
+      }
+    }
+
+    // ==============================================================================
+    // 2. LESSON L05-T18: PRIMARY CAD ENGINE (LITTER LADDER & LOAD SECUREMENT)
+    // ==============================================================================
+    const l18Cad1State = {
+      mode: 'tier1'
+    };
+
+    const l18Cad1Data = {
+      tier1: {
+        weight: '≤ 5 LBS (≤ 5 GAL)',
+        charge: 'CLASS C MISD',
+        fine: 'UP TO $500',
+        jail: '8–60 HRS SERVICE',
+        dot: '#10B981',
+        status: 'TIER 1 LITTER: ≤ 5 LBS // CLASS C MISDEMEANOR UP TO $500 FINE (HSC § 365.012)',
+        tag: 'TIER 1 VEHICLE LITTER',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Class C Misdemeanor for Discarding Litter Under 5 Pounds',
+        desc: 'Under Texas Health and Safety Code § 365.012(d), discarding waste weighing 5 pounds or less (or having a volume of 5 gallons or less) onto a public highway or right-of-way constitutes an illegal dumping offense punishable as a Class C Misdemeanor. Penalties include a fine up to $500 and mandatory community service (8 to 60 hours) performing roadside cleanup. This applies to thrown cigarette butts, beverage cans, fast food containers, and blowing bed trash.',
+        tarpOpacity: 0,
+        strapOpacity: 0,
+        debrisOpacity: 1,
+        bedFill: '#B45309',
+        loadTitle: 'UNSECURED LOAD',
+        loadTitleColor: '#EF4444',
+        loadDesc: 'TTC CH. 725 VIOLATION'
+      },
+      tier2: {
+        weight: '6 TO 499 LBS',
+        charge: 'CLASS B MISD',
+        fine: 'UP TO $2,000',
+        jail: 'UP TO 180 DAYS JAIL',
+        dot: '#F59E0B',
+        status: 'TIER 2 DUMPING: 6–499 LBS // CLASS B MISDEMEANOR UP TO $2,000 & 180 DAYS JAIL',
+        tag: 'TIER 2 MEDIUM DUMPING',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Class B Misdemeanor for Dumping 6 to 499 Pounds of Waste',
+        desc: 'Under Texas Health and Safety Code § 365.012(e), discarding or dumping litter weighing more than 5 pounds but less than 500 pounds (or 5 to 100 cubic feet) is elevated to a Class B Misdemeanor. Penalties escalate dramatically to criminal fines up to $2,000 and confinement in county jail for up to 180 days. This category covers dumped household furniture, bags of trash, scrap tires, and uncontained building materials.',
+        tarpOpacity: 0,
+        strapOpacity: 0,
+        debrisOpacity: 1,
+        bedFill: '#D97706',
+        loadTitle: 'MEDIUM DUMPING',
+        loadTitleColor: '#F59E0B',
+        loadDesc: 'CLASS B PENALTY'
+      },
+      tier3: {
+        weight: '500–1,000+ LBS',
+        charge: 'CLASS A / FELONY',
+        fine: '$4,000–$10,000',
+        jail: '1 YR / 2 YRS STATE',
+        dot: '#EF4444',
+        status: 'TIER 3/4: ≥ 500 LBS OR COMMERCIAL DUMPING // CLASS A MISD TO STATE JAIL FELONY',
+        tag: 'BULK & COMMERCIAL DUMPING',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Severe Criminal Escalation for Bulk and Commercial Dumping',
+        desc: 'Dumping 500 to 1,000 pounds (100 to 200 cu ft) is a Class A Misdemeanor under HSC § 365.012(f), punishable by fines up to $4,000 and up to 1 year in jail. Dumping 1,000 pounds or more, or dumping ANY amount for commercial economic gain, is a State Jail Felony under § 365.012(g), punishable by fines up to $10,000 and 180 days to 2 years in state jail.',
+        tarpOpacity: 0,
+        strapOpacity: 0,
+        debrisOpacity: 1,
+        bedFill: '#DC2626',
+        loadTitle: 'COMMERCIAL FELONY',
+        loadTitleColor: '#EF4444',
+        loadDesc: 'STATE JAIL RECORD'
+      },
+      secured: {
+        weight: 'ZERO SPILLAGE',
+        charge: '100% COMPLIANT',
+        fine: '$0 (PROTECTED)',
+        jail: 'NO OFFENSE',
+        dot: '#10B981',
+        status: 'TTC CHAPTER 725 COMPLIANT: TARPAULIN & RATCHET TIE-DOWNS FULLY SECURED',
+        tag: 'LOAD SECUREMENT MANDATE',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'TTC Chapter 725 Cargo Containment & Tie-Down Standards',
+        desc: 'Texas Transportation Code Chapter 725 commands that vehicles transporting loose sand, gravel, wood, furniture, or trash on public highways must secure the load to prevent blowing, spilling, or dropping. Tarpaulins must be closely fitted and securely tied down on all four sides. Using heavy-duty ratchet tie-downs prevents dynamic aerodynamic lift at 70 MPH.',
+        tarpOpacity: 0.9,
+        strapOpacity: 1,
+        debrisOpacity: 0,
+        bedFill: '#1F6F43',
+        loadTitle: 'LOAD SECURED',
+        loadTitleColor: '#10B981',
+        loadDesc: 'TTC CH. 725 CERTIFIED'
+      }
+    };
+
+    function setL18Cad1Mode(mode) {
+      playBeep(520, 'sine', 0.05);
+      l18Cad1State.mode = mode;
+      const d = l18Cad1Data[mode];
+
+      ['tier1', 'tier2', 'tier3', 'secured'].forEach((m, idx) => {
+        const btn = document.getElementById(`l18-btn-${idx + 1}`);
+        if (btn) {
+          if (m === mode) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l18-cad1-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l18-cad1-status');
+      if (st) st.textContent = d.status;
+
+      const tarp = document.getElementById('l18-tarp-cover');
+      if (tarp) tarp.setAttribute('opacity', d.tarpOpacity);
+      const s1 = document.getElementById('l18-strap-1');
+      if (s1) s1.setAttribute('opacity', d.strapOpacity);
+      const s2 = document.getElementById('l18-strap-2');
+      if (s2) s2.setAttribute('opacity', d.strapOpacity);
+
+      const debris = document.getElementById('l18-flying-debris');
+      if (debris) debris.setAttribute('opacity', d.debrisOpacity);
+
+      const bed = document.getElementById('l18-cargo-bed');
+      if (bed) bed.setAttribute('fill', d.bedFill);
+
+      const loadTitle = document.getElementById('l18-load-status-title');
+      if (loadTitle) {
+        loadTitle.textContent = d.loadTitle;
+        loadTitle.setAttribute('fill', d.loadTitleColor);
+      }
+      const loadDesc = document.getElementById('l18-load-status-desc');
+      if (loadDesc) loadDesc.textContent = d.loadDesc;
+
+      document.getElementById('l18-hud-weight').textContent = d.weight;
+      document.getElementById('l18-hud-charge').textContent = d.charge;
+      document.getElementById('l18-hud-fine').textContent = d.fine;
+      document.getElementById('l18-hud-jail').textContent = d.jail;
+
+      const card = document.getElementById('l18-cad1-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l18-card-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l18-card-cite').textContent = mode === 'secured' ? 'TTC CHAPTER 725' : 'HSC § 365.012';
+      document.getElementById('l18-card-title').textContent = d.title;
+      document.getElementById('l18-card-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. LESSON L05-T18: SECONDARY CAD ENGINE (ROAD DEBRIS COLLISION DYNAMICS)
+    // ==============================================================================
+    const l18Cad2State = {
+      preset: 'swerve-trap'
+    };
+
+    const l18Cad2Data = {
+      'swerve-trap': {
+        vector: 'VIOLENT SWERVE',
+        gforce: '0.68g (OVER LIMIT)',
+        rollover: 'CRITICAL TRIP',
+        proto: 'HOLD THE LINE',
+        dot: '#EF4444',
+        status: 'FATAL SWERVE TRAP: OVER 65% OF DEBRIS FATALITIES STEM FROM VIOLENT OVERSTEER',
+        tag: 'THE SWERVE COLLISION TRAP',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Panic Swerving Causes Over Two-Thirds of Fatal Debris Crashes',
+        desc: 'AAA Foundation research reveals that over 25,000 crashes and 500 highway deaths occur annually due to road debris. Crucially, over 65% of fatal crashes result not from hitting the debris, but from sudden, violent steering inputs at highway speed. Jerking the steering wheel exceeds tire lateral grip limits, inducing snap-oversteer skids, head-on crossover collisions, or edge-of-pavement rollover trips. For small, collapsible items, hold the line and brake firmly straight ahead.',
+        swerveOpacity: 1,
+        straightOpacity: 0.15,
+        carSpeedText: '70 MPH (SWERVE ⚠)',
+        carTransform: 'translate(50, 80) rotate(-14)'
+      },
+      'hold-line': {
+        vector: 'STRAIGHT THRESHOLD',
+        gforce: '0.02g (STABLE)',
+        rollover: 'ZERO RISK',
+        proto: 'THRESHOLD BRAKE',
+        dot: '#10B981',
+        status: 'DEFENSIVE DOCTRINE: HOLD LINE, APPLY ABS BRAKING STRAIGHT AHEAD',
+        tag: 'HOLD-THE-LINE BRAKING DOCTRINE',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Maintain Centered Steering and Execute ABS Deceleration',
+        desc: 'When encountering unavoidable low-profile road debris (tire remnants, cardboard boxes, small trash), the safest maneuver is straight-line threshold braking. Modern vehicles are engineered with crumple zones and energy-absorbing bumpers; absorbing a minor frontal impact while maintaining directional control is far safer than initiating an out-of-control highway rollover.',
+        swerveOpacity: 0.1,
+        straightOpacity: 1,
+        carSpeedText: 'BRAKING: 45 MPH',
+        carTransform: 'translate(50, 80) rotate(0)'
+      },
+      'buffer-haul': {
+        vector: '4-SEC TIME BUFFER',
+        gforce: '0.12g (GENTLE)',
+        rollover: 'CONTROLLED SHIFT',
+        proto: '400+ FT CUSHION',
+        dot: '#38BDF8',
+        status: 'CARGO BUFFER: 4-SECOND CUSHION BEHIND OPEN TRUCKS ALLOWS EARLY DETECTION',
+        tag: '4-SECOND CARGO BUFFER RULE',
+        tagClass: 'text-sky-500',
+        borderClass: 'border-sky-500',
+        title: 'Expand Following Distance to 4 Seconds Behind Cargo Haulers',
+        desc: 'Never follow closely behind pickup trucks with loaded beds, open trailers, or flatbed commercial haulers. At 70 MPH, a 4-second time-gap provides over 410 feet of spatial buffer. This gives you 4.0 seconds of perception-reaction time to identify falling cargo, check surrounding lane traffic, and execute a controlled, low-G lane change without panic swerving.',
+        swerveOpacity: 0.05,
+        straightOpacity: 0.4,
+        carSpeedText: 'BUFFER: 410 FT',
+        carTransform: 'translate(30, 80) rotate(0)'
+      }
+    };
+
+    function setL18Cad2Preset(preset) {
+      playBeep(600, 'sine', 0.05);
+      l18Cad2State.preset = preset;
+      const d = l18Cad2Data[preset];
+
+      ['swerve-trap', 'hold-line', 'buffer-haul'].forEach((p, idx) => {
+        const btn = document.getElementById(`l18-pbtn-${idx + 1}`);
+        if (btn) {
+          if (p === preset) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l18-cad2-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l18-cad2-status');
+      if (st) {
+        st.textContent = d.status;
+        st.setAttribute('fill', d.dot);
+      }
+
+      const swerve = document.getElementById('l18-traj-swerve');
+      if (swerve) swerve.setAttribute('opacity', d.swerveOpacity);
+      const straight = document.getElementById('l18-traj-straight');
+      if (straight) straight.setAttribute('opacity', d.straightOpacity);
+
+      const carSpeed = document.getElementById('l18-car-speed-txt');
+      if (carSpeed) carSpeed.textContent = d.carSpeedText;
+
+      const egoCar = document.getElementById('l18-ego-car');
+      if (egoCar) egoCar.setAttribute('transform', d.carTransform);
+
+      document.getElementById('l18-hud2-vector').textContent = d.vector;
+      document.getElementById('l18-hud2-gforce').textContent = d.gforce;
+      document.getElementById('l18-hud2-rollover').textContent = d.rollover;
+      document.getElementById('l18-hud2-proto').textContent = d.proto;
+
+      const card = document.getElementById('l18-cad2-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l18-card2-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l18-card2-cite').textContent = preset === 'buffer-haul' ? 'TXDOT DEFENSIVE STD' : 'AAA TRAFFIC SAFETY STUDY';
+      document.getElementById('l18-card2-title').textContent = d.title;
+      document.getElementById('l18-card2-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 4. MCQ SCORING ENGINE (QUESTION 1 OPTION [ B ] STRICTLY CORRECT)
+    // ==============================================================================
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+            const TOPIC_ID = 'L05-T18';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "HSC § 365.012(a) & (d)",
+            "statutoryRationale": "Disposing of litter or solid waste weighing 5 pounds or less (or volume of 5 gallons or less) onto a public roadway, shoulder, or right-of-way is an illegal dumping Class C misdemeanor punishable by a criminal fine up to $500 and 8 to 60 hours of mandatory roadside community service."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "C",
+            "statute": "HSC § 365.012(f) & TTC Chapter 725",
+            "statutoryRationale": "Illegal dumping of solid waste that weighs 500 pounds or more but less than 1,000 pounds (or has a volume of 100 cubic feet to 200 cubic feet) is a Class A misdemeanor punishable by a fine up to $4,000, confinement in county jail for up to 1 year, or both. Operating an unsealed, unsecured load also directly violates Texas Transportation Code Chapter 725."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "B",
+            "statute": "AAA Foundation & TxDOT Defensive Standard",
+            "statutoryRationale": "AAA Foundation crash data reveals that road debris causes over 25,000 crashes and 500 deaths annually, with over two-thirds of fatal crashes resulting from violent panic swerving. TxDOT defensive driving protocols mandate maintaining at least a 4-second buffer behind open-bed cargo vehicles and scanning 12–15 seconds ahead. For small, light debris, braking steadily in a straight line is far safer than a violent evasive swerve that triggers a rollover."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ==============================================================================
+    // 4. EXTERNAL SIMULATION CONTROLLER & TELEMETRY BINDING (L05-T18)
+    // ==============================================================================
+    let isSimPlaying = true;
+    function sendSimCmd(action, payload) {
+      const iframe = document.getElementById('sim-iframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ action, payload }, '*');
+      }
+    }
+    
+      function toggleSimFullscreen() {
+        const frame = document.getElementById('sim-viewport') || document.getElementById('sim-viewport-frame');
+        if (!frame) return;
+        if (!document.fullscreenElement) {
+          if (frame.requestFullscreen) frame.requestFullscreen();
+          else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
+      }
+      function toggleSimPlay() {
+      isSimPlaying = !isSimPlaying;
+      sendSimCmd('togglePlay');
+      const icon = document.getElementById('play-icon');
+      const txt = document.getElementById('play-text');
+      if (icon) icon.textContent = isSimPlaying ? 'pause' : 'play_arrow';
+      if (txt) txt.textContent = isSimPlaying ? 'PAUSE' : 'PLAY';
+    }
+    function restartSim() {
+      sendSimCmd('restart');
+      isSimPlaying = true;
+      const icon = document.getElementById('play-icon');
+      const txt = document.getElementById('play-text');
+      if (icon) icon.textContent = 'pause';
+      if (txt) txt.textContent = 'PAUSE';
+    }
+    function switchSimCam(mode) {
+      sendSimCmd('switchCamera', mode);
+      ['tracking', 'cockpit', 'ortho'].forEach(m => {
+        const btn = (m === 'tracking') ? (document.getElementById('sim-btn-cam') || document.getElementById('cam-btn-tracking')) : document.getElementById(`cam-btn-${m}`);
+        if (btn) {
+          if (m === mode) {
+            btn.className = 'touch-target min-h-[48px] px-2.5 py-1.5 rounded-lg font-mono text-[11px] font-bold transition bg-surface text-carbon shadow-xs select-none';
+          } else {
+            btn.className = 'touch-target min-h-[48px] px-2.5 py-1.5 rounded-lg font-mono text-[11px] font-bold transition text-slate hover:text-carbon select-none';
+          }
+        }
+      });
+    }
+    function setSimScenario(scenNum) {
+      sendSimCmd('setScenario', scenNum);
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+    window.addEventListener('message', (e) => {
+      const d = e.data || {};
+      if (d.type === 'telemetry' || d.event === 'telemetry') {
+        const spd = document.getElementById('telemetry-speed');
+        const trn = document.getElementById('telemetry-train');
+        const phs = (document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-phase'));
+        if (spd && d.speed !== undefined) spd.textContent = `${d.speed} MPH`;
+        if (trn && d.trainDist !== undefined) trn.textContent = `TRAIN: ${d.trainDist} FT`;
+        if (phs && d.phase) phs.textContent = d.phase;
+      }
+    });
+  </script>
+</body>
+</html>

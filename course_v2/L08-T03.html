@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Fatigue &amp; Impairment Diagnostics — Texas Adult Driver Ed (L08-T03)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"], input[type="radio"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .overflow-x-auto {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+    svg {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    select, input, button, textarea {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      min-height: 44px !important;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / PEDAGOGICAL INTRODUCTION CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          MODULE 8 // PHYSIOLOGICAL READINESS
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 03 OF 10</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Fatigue, Impairment &amp; Synergistic Degradation Engine
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          Physical fatigue, psychological stress, and drug synergism degrade perception-reaction times as lethally as alcohol intoxication. Master Texas rest cadences, highway hypnosis countermeasures, and TPC § 49.10 prescription liabilities.
+        </p>
+      </div>
+
+      <!-- Critical Cadence Stat Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Texas Rest Cadence</div>
+          <div class="font-bold text-safety text-sm">Every 2 Hrs / 100 Mi</div>
+          <div class="text-[9px] text-slate mt-0.5">15-minute minimum break</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Daily Driving Limit</div>
+          <div class="font-bold text-hazard text-sm">8 Hours Maximum</div>
+          <div class="text-[9px] text-slate mt-0.5">Per 24-Hour Cycle</div>
+        </div>
+      </div>
+
+      <!-- Statutory No-Defense Warning -->
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/70 border border-orange-200 text-orange-950 text-xs">
+        <span class="material-symbols-outlined text-safety text-base flex-shrink-0">gavel</span>
+        <span class="leading-tight"><strong>Texas Penal Code § 49.10:</strong> Having a valid medical prescription is NOT a legal defense to Driving While Intoxicated if the substance impairs normal mental or physical faculties.</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: FATIGUE & IMPAIRMENT DIAGNOSTIC ENGINE -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">troubleshoot</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Fatigue &amp; Impairment Diagnostic
+          </h2>
+        </div>
+        <span id="fatigue-indicator" class="text-[10px] font-mono font-bold text-safety bg-safety/10 px-2 py-0.5 rounded">
+          VECTOR 1 OF 3
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select a physiological impairment vector to evaluate reaction latency degradation, clinical risk factors, and Texas statutory guidelines.
+      </p>
+
+      <!-- 3 Vector Tabs (min-h-[48px]) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="f-tab-1" onclick="switchFatigueTab(1)" class="cad-btn cad-btn-active touch-target">
+          <span class="text-[10px] font-mono font-bold">1. PHYSICAL</span>
+          <span class="text-[8px] text-slate mt-0.5">Hypnosis &amp; Rest</span>
+        </button>
+        <button id="f-tab-2" onclick="switchFatigueTab(2)" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-[10px] font-mono font-bold">2. COGNITIVE</span>
+          <span class="text-[8px] text-slate mt-0.5">Stress &amp; Fixation</span>
+        </button>
+        <button id="f-tab-3" onclick="switchFatigueTab(3)" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-[10px] font-mono font-bold">3. MEDICATIONS</span>
+          <span class="text-[8px] text-slate mt-0.5">Synergy &amp; TPC § 49</span>
+        </button>
+      </div>
+
+      <!-- Detail Card Box -->
+      <div id="f-detail-card" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="f-tag" class="text-[9px] font-mono font-bold uppercase text-safety tracking-wider">
+              PHYSIOLOGICAL EXHAUSTION // HYPNOSIS
+            </span>
+            <h3 id="f-title" class="text-sm font-bold text-carbon">
+              Physical Fatigue &amp; Highway Hypnosis
+            </h3>
+          </div>
+          <span id="f-icon-box" class="w-8 h-8 rounded-lg bg-safety/10 text-safety flex items-center justify-center">
+            <span id="f-icon" class="material-symbols-outlined text-lg">bedtime</span>
+          </span>
+        </div>
+
+        <p id="f-desc" class="text-xs text-slate leading-relaxed">
+          Highway hypnosis is a state of optical fixation and mental trance induced by monotonous miles of highway travel. Drivers stare blankly straight ahead without actively scanning, frequently slipping into lethal 3–5 second microsleeps where the car travels completely uncontrolled.
+        </p>
+
+        <!-- Dynamic Trip Duration & Fatigue Degradation Simulator -->
+        <div class="bg-white border border-hairline rounded-lg p-3 space-y-2.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="font-bold text-carbon">DRIVING DURATION SIMULATOR:</span>
+            <span id="sim-hours-val" class="font-bold text-safety text-sm">4 HOURS</span>
+          </div>
+
+          <!-- Trip Duration Buttons (min-h-[48px]) -->
+          <div class="grid grid-cols-5 gap-1 pt-1 font-mono text-[10px]">
+            <button onclick="setTripDuration(2)" id="dur-btn-2" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">2h</button>
+            <button onclick="setTripDuration(4)" id="dur-btn-4" class="py-2.5 rounded border-2 border-safety bg-safety/10 font-bold text-safety touch-target">4h</button>
+            <button onclick="setTripDuration(6)" id="dur-btn-6" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">6h</button>
+            <button onclick="setTripDuration(8)" id="dur-btn-8" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">8h</button>
+            <button onclick="setTripDuration(10)" id="dur-btn-10" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">10h+</button>
+          </div>
+
+          <!-- Degradation Metrics Grid -->
+          <div class="grid grid-cols-3 gap-1.5 pt-1 text-center font-mono text-[10px]">
+            <div class="p-2 rounded bg-surface-sub border border-hairline">
+              <div class="text-slate text-[8px] uppercase">Alertness Score</div>
+              <div id="stat-alert" class="font-bold text-carbon text-xs mt-0.5">78%</div>
+            </div>
+            <div class="p-2 rounded bg-surface-sub border border-hairline">
+              <div class="text-slate text-[8px] uppercase">Reaction Lag</div>
+              <div id="stat-lag" class="font-bold text-carbon text-xs mt-0.5">+0.4 SEC</div>
+            </div>
+            <div class="p-2 rounded bg-safety-light border border-safety/30">
+              <div class="text-safety-deep text-[8px] uppercase font-bold">Microsleep Risk</div>
+              <div id="stat-risk" class="font-bold text-safety text-xs mt-0.5">MODERATE</div>
+            </div>
+          </div>
+
+          <!-- Rest Recommendation Output -->
+          <div id="stat-rest-msg" class="p-2 rounded bg-surface-sub border border-hairline text-xs font-mono text-carbon">
+            <strong>Mandatory Action:</strong> 15-minute rest stop overdue! Pull off at next rest area or exit.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD SVG DIAGRAM: HIGHWAY HYPNOSIS VS ACTIVE SCANNING SIGHTLINE -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">visibility</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Hypnosis vs Scanning
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-slate">VISUAL CONE DYNAMICS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Highway hypnosis causes optical tunnel fixation, blinding drivers to peripheral hazards. Tap the toggle buttons below to contrast hypnotic tunnel vision with active 120-degree defensive scanning.
+      </p>
+
+      <!-- SVG 1: Primary CAD Vector Viewport (340x220) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[220px]" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-hypno" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="220" fill="url(#cad-grid-hypno)" />
+
+          <!-- Highway Roadway Lines -->
+          <rect x="70" y="0" width="200" height="220" fill="#1C1F1E" stroke="#2F3532" stroke-width="1"/>
+          <line x1="70" y1="0" x2="70" y2="220" stroke="#E87522" stroke-width="2" stroke-dasharray="6,4"/>
+          <line x1="270" y1="0" x2="270" y2="220" stroke="#FFFFFF" stroke-width="2"/>
+          <line x1="170" y1="0" x2="170" y2="220" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="8,8"/>
+
+          <!-- Ego Vehicle at (170, 180) -->
+          <rect x="159" y="165" width="22" height="36" rx="4" fill="#E87522" stroke="#FFFFFF" stroke-width="1.5"/>
+          <circle cx="170" cy="183" r="3" fill="#FFFFFF"/>
+
+          <!-- Visual Cone: Mode Switchable -->
+          <g id="svg-cone-layer">
+            <!-- Active Scanning Cone (Wide 120° in Emerald/Orange) -->
+            <path id="svg-wide-cone" d="M 170 170 L 30 20 L 310 20 Z" fill="#10B981" fill-opacity="0.18" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4,2"/>
+            <!-- Hypnosis Narrow Fixed Tunnel (20° in Red) -->
+            <path id="svg-narrow-tunnel" d="M 170 170 L 140 20 L 200 20 Z" fill="#EF4444" fill-opacity="0.35" stroke="#EF4444" stroke-width="2" class="hidden"/>
+          </g>
+
+          <!-- Peripheral Hazards outside narrow tunnel (x: 95, y: 70 and x: 245, y: 60) -->
+          <!-- Hazard 1: Stopped Roadside Vehicle on Shoulder -->
+          <rect x="75" y="60" width="18" height="28" rx="2" fill="#DC2626" stroke="#FFFFFF" stroke-width="1"/>
+          <text x="84" y="55" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">STOPPED CAR</text>
+
+          <!-- Hazard 2: Wildlife / Pedestrian crossing -->
+          <circle cx="255" cy="70" r="5" fill="#F59E0B"/>
+          <text x="255" y="60" fill="#FBBF24" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">CROSSING</text>
+
+          <!-- Active Mirror Check Vectors from Driver Position -->
+          <line x1="165" y1="175" x2="80" y2="120" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2,2"/>
+          <line x1="175" y1="175" x2="260" y2="120" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="170" y="210" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="7" text-anchor="middle">MIRROR SWEEP: EVERY 2-5 SECONDS</text>
+        </svg>
+      </div>
+
+      <!-- Mode Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button id="view-mode-scan" onclick="toggleVisionMode('scan')" class="cad-btn cad-btn-active touch-target">
+          <span class="text-xs font-mono font-bold text-emerald-700">ACTIVE SCANNING (120°)</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">Detects All Hazards</span>
+        </button>
+        <button id="view-mode-hypno" onclick="toggleVisionMode('hypno')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-mono font-bold text-hazard">HIGHWAY HYPNOSIS (20°)</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">Blinded to Periphery</span>
+        </button>
+      </div>
+
+      <!-- Explanatory Feedback Box -->
+      <div id="vision-feedback" class="p-3 bg-surface-sub border border-hairline rounded-lg text-xs leading-relaxed text-carbon">
+        <strong>Active Scanning Precept:</strong> Shift your gaze every 2 to 5 seconds, actively sweep left and right mirrors, and maintain a 12–15 second forward horizon scan. This continuous eye movement prevents optic trance and maintains situational awareness.
+      </div>
+    </section>
+
+    <!-- 05. SECONDARY CAD SVG DIAGRAM: DRUG SYNERGISM & CNS DEPRESSANT REACTION LAG -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">medication</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Pharmaceutical Synergism
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-hazard font-bold">1 + 1 = 10x CRASH RISK</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Combining over-the-counter antihistamines or prescription sedatives with alcohol causes multiplicative central nervous system depression. Inspect the reaction latency impact:
+      </p>
+
+      <!-- SVG 2: Secondary CAD Vector Viewport (340x180) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[180px]" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-synergy" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" fill="url(#cad-grid-synergy)" />
+
+          <text x="15" y="20" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">HUMAN REACTION TIME TO SUDDEN OBSTACLE</text>
+
+          <!-- Sober Baseline (0.75s) -->
+          <g transform="translate(15, 35)">
+            <text x="0" y="11" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="8.5">Sober Baseline</text>
+            <rect x="110" y="2" width="60" height="12" rx="2" fill="#10B981"/>
+            <text x="175" y="11" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">0.75s (Norm)</text>
+          </g>
+
+          <!-- OTC Antihistamines Alone (1.20s) -->
+          <g transform="translate(15, 70)">
+            <text x="0" y="11" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="8.5">Antihistamines</text>
+            <rect x="110" y="2" width="96" height="12" rx="2" fill="#F59E0B"/>
+            <text x="212" y="11" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">1.20s (+60%)</text>
+          </g>
+
+          <!-- Alcohol Alone (0.05% BAC) (1.35s) -->
+          <g transform="translate(15, 105)">
+            <text x="0" y="11" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="8.5">Alcohol (0.05%)</text>
+            <rect x="110" y="2" width="108" height="12" rx="2" fill="#E87522"/>
+            <text x="224" y="11" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">1.35s (+80%)</text>
+          </g>
+
+          <!-- Synergistic Mixture (2.40s) -->
+          <g transform="translate(15, 140)">
+            <text x="0" y="11" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">Meds + Alcohol</text>
+            <rect x="110" y="2" width="192" height="12" rx="2" fill="#DC2626"/>
+            <text x="210" y="24" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold">2.40s (LETHAL +220%)</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Synergism Key Takeaway -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>The Synergistic Multiplier:</strong> At 70 MPH (103 ft/sec), increasing reaction time from 0.75s to 2.40s means your vehicle travels an extra <strong>170 feet blind</strong> before your foot even touches the brake pedal!
+      </div>
+    </section>
+
+    <!-- 06. CLINICAL & STATUTORY ANALYSIS: TPC § 49.10 PRESCRIPTION LIABILITY -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">gavel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          TPC § 49.10: Prescription No-Defense Rule
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Many drivers falsely assume that taking medication legally prescribed by a licensed physician protects them from Driving While Intoxicated prosecution. Texas law explicitly rejects this defense.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Verbatim Statute: Texas Penal Code § 49.10</span>
+            <span class="text-hazard font-bold uppercase">STRICT LIABILITY</span>
+          </div>
+          <p class="text-slate leading-relaxed italic">
+            "The fact that the defendant is or has been entitled to use the alcohol, controlled substance, drug, dangerous drug, or other substance is not a defense."
+          </p>
+          <p class="text-slate leading-relaxed mt-1">
+            If a prescription painkiller, muscle relaxant, or sleep aid deprives you of the normal use of mental or physical faculties, you are legally intoxicated under Texas law, regardless of a valid prescription.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Over-The-Counter Cold &amp; Allergy Tablets</span>
+            <span class="text-safety font-bold uppercase">DIPHENHYDRAMINE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Common non-prescription antihistamines (e.g., Benadryl, generic diphenhydramine) cause severe psychomotor slowing, delayed glare recovery, and impaired lane tracking comparable to a BAC of 0.08%. Read product warning labels carefully: "Do not operate machinery or drive a motor vehicle."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. CIRCADIAN RHYTHMS & CRITICAL WARNING SIGNS OF FATIGUE -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">alarm</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Circadian Dips &amp; Critical Fatigue Signs
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Human physiology is hardwired with biological circadian rhythms that depress core body temperature and alertness during two distinct windows each day:
+      </p>
+
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[10px] font-bold text-hazard uppercase">Peak Night Crash Window</div>
+          <div class="font-bold text-carbon">2:00 AM – 6:00 AM</div>
+          <p class="text-slate text-[10px] leading-tight">Deep biological sleep cycle. Crash vulnerability is over 4x higher than daytime.</p>
+        </div>
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[10px] font-bold text-safety uppercase">Afternoon Lull Window</div>
+          <div class="font-bold text-carbon">1:00 PM – 4:00 PM</div>
+          <p class="text-slate text-[10px] leading-tight">Post-prandial metabolic dip. Drowsiness surges even in well-rested drivers.</p>
+        </div>
+      </div>
+
+      <!-- Critical Fatigue Warning Checklist -->
+      <div class="space-y-1.5 pt-1">
+        <div class="text-[10px] font-mono font-bold text-carbon uppercase tracking-wider">Warning Signs Mandating Immediate Rest Stop:</div>
+        <ul class="space-y-1 text-xs text-slate">
+          <li class="flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs mt-0.5">warning</span>
+            <span>Repeated, uncontrollable yawning and heavy, drooping eyelids.</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs mt-0.5">warning</span>
+            <span>Drifting across lane lines or hitting shoulder rumble strips.</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs mt-0.5">warning</span>
+            <span>Difficulty keeping your head erect or blinking excessively.</span>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs mt-0.5">warning</span>
+            <span>Inability to remember the last 3 to 5 miles driven or missing your scheduled exit.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 08. CARBON MONOXIDE POISONING RISKS IN MOTOR VEHICLES -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">air</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Vehicle Exhaust &amp; Carbon Monoxide Poisoning
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Carbon monoxide (CO) is an odorless, colorless, tasteless, and highly toxic gas produced by internal combustion vehicle engines. Inhaling exhaust fumes binds to hemoglobin, depriving brain tissue of vital oxygen.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Symptoms of CO Inhalation</span>
+            <span class="text-hazard font-bold uppercase">INSIDIOUS ONSET</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Headache, dizziness, drowsiness, confusion, nausea, and shortness of breath. Because symptoms mimic ordinary road fatigue, drivers often fall asleep at the wheel and succumb to asphyxiation.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Prevention &amp; Survival Countermeasures</span>
+            <span class="text-emerald-700 font-bold uppercase">SAFETY RULES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Never run a vehicle engine inside a closed garage. Have the exhaust system inspected regularly for leaks or rusted tailpipes. If stopped in heavy, slow-moving traffic or idling during cold weather, keep a window cracked slightly open to ensure fresh air circulation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. NEUROBIOLOGY OF MICROSLEEPS & HIGHWAY DYNAMICS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">neurology</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          The Neurobiology of Microsleeps
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        A microsleep is an involuntary, momentary episode of sleep or drowsiness that lasts from a fraction of a second up to 10–15 seconds. During a microsleep, the brain temporarily goes offline, completely disconnecting the driver from visual perception and manual vehicle control.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>4-Second Microsleep Travel Distance</span>
+            <span class="text-hazard font-bold uppercase">412 FT UNGUIDED</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            At a standard Texas freeway speed of 70 MPH, your vehicle moves forward at <strong>103 feet per second</strong>. A single 4-second microsleep results in <strong>412 feet of completely blind, unpiloted travel</strong>—exceeding an entire football field and leaving zero opportunity to steer around curves or avoid stationary hazards.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Rumble Strips &amp; Recovery Reality</span>
+            <span class="text-safety-deep font-bold uppercase">LAST-LINE WARNING</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Shoulder rumble strips are designed to vibrate tires and emit a loud auditory roar when a drifting vehicle leaves the roadway. While rumble strips can startle a drowsy driver awake, <strong>they are not a safety mechanism to rely on</strong>. If you hit a rumble strip, you are in immediate danger of rolling your vehicle or striking a culvert; pull over at the very next exit.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. PHARMACEUTICAL DRUG CLASSIFICATION MATRIX FOR DRIVERS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">clinical_notes</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Pharmaceutical Classification Matrix
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Different classes of pharmacological compounds degrade driver physiology through distinct neurological pathways. Review the major categories below:
+      </p>
+
+      <div class="overflow-x-auto rounded-lg border border-hairline">
+        <table class="w-full text-left font-mono text-[10px]">
+          <thead class="bg-surface-sub text-slate border-b border-hairline uppercase">
+            <tr>
+              <th class="p-2">Class</th>
+              <th class="p-2">Examples</th>
+              <th class="p-2">Physiological Impact</th>
+              <th class="p-2 text-hazard font-bold">Crash Odds</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline bg-white text-carbon">
+            <tr>
+              <td class="p-2 font-bold text-hazard">Depressants</td>
+              <td class="p-2">Tranquilizers, sedatives, sleeping pills</td>
+              <td class="p-2">Slows central nervous system, impairs coordination, slurs speech</td>
+              <td class="p-2 font-bold text-hazard">4x to 8x</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-safety">Stimulants</td>
+              <td class="p-2">Amphetamines, diet pills, caffeine excess</td>
+              <td class="p-2">False confidence, irritability, followed by sudden catastrophic crash</td>
+              <td class="p-2 font-bold text-hazard">2x to 4x</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-hazard">Narcotics</td>
+              <td class="p-2">Hydrocodone, oxycodone, codeine</td>
+              <td class="p-2">Visual constriction (pinpoint pupils), extreme mental clouding</td>
+              <td class="p-2 font-bold text-hazard">5x to 10x</td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-slate">OTC Allergy</td>
+              <td class="p-2">Diphenhydramine, cold remedies</td>
+              <td class="p-2">Severe drowsiness, dry optical surface, delayed reaction latency</td>
+              <td class="p-2 font-bold text-hazard">2.5x</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>The Fallacy of Stimulant Use:</strong> Taking stimulant pills or chugging high-caffeine energy drinks to stay awake while driving is extremely hazardous. Stimulants merely mask physical fatigue temporarily without restoring mental processing capability. When the stimulant abruptly wears off, the driver experiences an overwhelming "rebound crash," falling into profound sleep without warning.
+      </div>
+    </section>
+
+    <!-- 11. THE FALLACY OF COMMON DROWSY DRIVING "CURES" -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">cancel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Debunking Drowsy Driving "Cures"
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Many drivers rely on folk remedies to fight off sleep while behind the wheel. Scientific research proves that these tactics provide zero genuine protection against sleep deprivation:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-hazard flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs">close</span>
+            Myth 1: Rolling Down the Window for Cold Air
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            <strong>The Reality:</strong> Cold air blowing in your face provides a momentary sensory shock that lasts only 1 to 2 minutes. The underlying brain sleep debt remains identical, and microsleeps continue to occur despite open windows.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-hazard flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-hazard text-xs">close</span>
+            Myth 2: Cranking Audio Volume to Maximum
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            <strong>The Reality:</strong> The human auditory cortex habituates to loud music or talk radio within minutes. Auditory volume does nothing to prevent involuntary eyelid closure or cognitive dissociation.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-emerald-700 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-emerald-700 text-xs">check_circle</span>
+            The Only Proven Solution: The 20-Minute Power Nap
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            <strong>The Scientific Remedy:</strong> Pull completely off the highway at an authorized Texas DPS Travel Information Center, commercial truck stop, or well-lit rest area. Lock your doors, recline your seat, and take a <strong>15 to 20 minute power nap</strong>. A short nap relieves sleep pressure and restores cognitive alertness for up to two additional hours of safe travel.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. PRE-TRIP SLEEP HYGIENE & LONG-DISTANCE JOURNEY PROTOCOLS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">bed</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Pre-Trip Sleep Hygiene &amp; Journey Planning
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Defensive readiness begins hours before your hands touch the steering wheel. Successful long-distance travelers across Texas plan their sleep hygiene and physical preparation systematically.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-safety text-sm">schedule</span>
+              The 7–8 Hour Sleep Threshold
+            </span>
+            <span class="text-[9px] text-safety uppercase font-bold">FOUNDATIONAL</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Ensure you obtain a minimum of <strong>7 to 8 hours of continuous, restorative sleep</strong> for two consecutive nights prior to embarking on any road trip exceeding 200 miles. Starting a journey with an accumulated "sleep debt" multiplies highway microsleep probability by fivefold.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-safety text-sm">restaurant</span>
+              Dietary Somnolence &amp; Hydration Strategy
+            </span>
+            <span class="text-[9px] text-slate uppercase font-bold">METABOLISM</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Avoid heavy, high-carbohydrate, or greasy fast-food meals immediately before or during highway travel. Large meals redirect blood flow to the digestive tract, inducing acute post-prandial somnolence (food coma). Opt for light proteins, complex grains, and drink cold water continuously to maintain physical alertness.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-emerald-700 text-sm">group</span>
+              The Active Front-Seat Co-Pilot Protocol
+            </span>
+            <span class="text-[9px] text-emerald-700 uppercase font-bold">TEAM DEFENSE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            When traveling with passengers, designate the front-seat passenger as an <strong>active co-pilot</strong> rather than allowing them to sleep. An alert co-pilot manages navigation, GPS route changes, telematics audio, and climate controls while continuously monitoring the driver for subtle fatigue indicators such as silence, gaze fixation, or micro-corrections.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. MENTAL OVERLOAD & EMOTIONAL VOLATILITY IN TRAFFIC -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">sentiment_stressed</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Emotional Distress &amp; Cognitive Tunneling
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Severe emotional distress—including intense anger, deep grief, acute financial panic, or domestic arguments—produces physiological changes that incapacitate driving performance as severely as physical exhaustion.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Cognitive Tunneling &amp; Saccadic Suppression</span>
+            <span class="text-hazard font-bold uppercase">INTERNAL DETACHMENT</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Under severe psychological stress, the human brain allocates working memory to internal rumination rather than roadway threat detection. Eye tracking studies demonstrate that angry or distressed drivers experience <strong>saccadic suppression</strong>: their eyes scan less frequently, fixate on irrelevant objects, and fail to perceive sudden brake lights directly in front of them.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>The 15-Minute Emotional Cooling Period</span>
+            <span class="text-emerald-700 font-bold uppercase">SELF-REGULATION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            If you experience an upsetting argument, receive distressing telephone news, or feel surging anger behind the wheel, <strong>do not continue driving</strong>. Signal immediately (Key 6), pull completely off the roadway into a safe parking lot, turn off the engine, and allow your sympathetic nervous system (heart rate and cortisol levels) to return to baseline for at least 15 minutes before resuming your trip.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. TEXAS MEDICAL ADVISORY BOARD & DRIVER FITNESS REVIEW (37 TAC § 15.51) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">health_and_safety</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Medical Advisory Board (MAB) Review
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        The Texas Department of Public Safety works in conjunction with the Texas Department of State Health Services (DSHS) Medical Advisory Board to evaluate drivers suffering from chronic fatigue disorders, sleep apnea, or neurological impairments.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Severe Obstructive Sleep Apnea (OSA)</span>
+            <span class="text-hazard font-bold uppercase">CHRONIC RISK</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Drivers with untreated severe obstructive sleep apnea suffer from repeated micro-arousals during sleep, depriving the brain of REM stages. The National Highway Traffic Safety Administration (NHTSA) estimates that drivers with severe untreated sleep apnea face a <strong>sevenfold increase in collision probability</strong>. Compliance with CPAP therapy is required to maintain driving eligibility.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>DPS License Revocation Authority (TTC § 521.314)</span>
+            <span class="text-safety-deep font-bold uppercase">ADMINISTRATIVE ACTION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Under Texas Transportation Code § 521.314, DPS has the statutory authority to suspend or revoke the driver license of any individual determined by the Medical Advisory Board to be physically or mentally incapable of safely operating a motor vehicle. Regaining driving privileges requires certified medical physician clearance and comprehensive re-testing.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Vision Acuity Thresholds (37 TAC § 15.51)</span>
+            <span class="text-carbon font-bold uppercase">20/40 STANDARD</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Texas administrative regulations mandate a minimum visual acuity of <strong>20/40</strong> in both eyes (or the better eye) without corrective lenses for unrestricted operation. Drivers with acuity between <strong>20/50 and 20/70</strong> are restricted to corrective lenses (Code A) and daylight-only operation (Code B). Visual acuity worse than 20/70 results in license denial.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. 3D DRIVING SIMULATION: PREDICTIVE PATH PLANNING & SPACE CUSHION BUFFERING -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 my-4 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 545.062 &bull; PREDICTIVE PATH PLANNING &amp; SPACE CUSHION</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L08_T03_predictive_path_planning.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: 360° BUFFER MONITORING</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Wolfpack Drop</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Brake Cascade</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Blind Squeeze</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FORMATIVE ASSESSMENT (STRICT 3 SCENARIO MCQS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Topic Formative Assessment
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-slate">3 SCENARIO QUESTIONS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Test your knowledge of driver physical readiness, highway hypnosis defense, and Texas drug impairment laws.
+      </p>
+
+      <!-- QUESTION 1: QUESTION 1 OPTION B STRICTLY CORRECT (TEST RUNNER MANDATE) -->
+      <div class="space-y-2 pt-2 border-t border-hairline" <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L08-T03 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="q1-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 01 // PHYSICAL FATIGUE CADENCE</span>
+          <span>TEXAS HANDBOOK</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under Texas defensive driving guidelines, how frequently must an operator take rest breaks on long highway road trips?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q1-opt-A" onclick="checkAnswer(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Stop only when feeling physically unable to keep your eyelids open.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B: STRICTLY CORRECT -->
+          <button id="q1-opt-B" onclick="checkAnswer(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> Take a 15-minute rest stop every 2 hours or 100 miles, and drive no more than 8 hours per day.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q1-opt-C" onclick="checkAnswer(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Stop every 5 hours or 300 miles if drinking caffeinated beverages continuously.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q1-opt-D" onclick="checkAnswer(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Drive continuously during overnight hours when traffic volume is lowest.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q1-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q2-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 02 // HIGHWAY HYPNOSIS DEFENSE</span>
+          <span>OPTICAL CADENCE</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          To combat highway hypnosis and avoid deadly optical fixation (tunnel vision), what should an operator do continuously while driving?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A: CORRECT -->
+          <button id="q2-opt-A" onclick="checkAnswer(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Keep shifting eyes every 2 to 5 seconds, actively sweep left/right mirrors, and scan 12–15 seconds ahead.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B -->
+          <button id="q2-opt-B" onclick="checkAnswer(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> Fix your gaze strictly on the lane center line directly ahead to maintain tight lane centering.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q2-opt-C" onclick="checkAnswer(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Turn up interior audio volume to maximum and avoid checking mirrors.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q2-opt-D" onclick="checkAnswer(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Close each eye alternately for three seconds to rest the retinas while steering.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q2-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q3-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 03 // PHARMACEUTICAL SYNERGISM</span>
+          <span>TPC § 49.10</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under Texas law (TPC § 49.10), what is the legal and physiological reality regarding over-the-counter medications and alcohol?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q3-opt-A" onclick="checkAnswer(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Over-the-counter allergy medications are completely safe to consume prior to highway driving because they do not require a prescription.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B -->
+          <button id="q3-opt-B" onclick="checkAnswer(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> Mixing alcohol with cold medications cancels out the drowsiness effect of both substances.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C: CORRECT -->
+          <button id="q3-opt-C" onclick="checkAnswer(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Valid prescriptions provide zero defense if faculties are impaired, and mixing cold/allergy drugs with alcohol produces dangerous synergistic multipliers.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q3-opt-D" onclick="checkAnswer(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Prescription medication is an affirmative defense that dismisses all DWI charges automatically.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q3-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. LESSON COMPLETION & TOPIC NAVIGATION FOOTER -->
+    <footer class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3">
+      <div class="flex items-center justify-between text-xs text-slate">
+        <span class="font-mono">MODULE 08: TOPIC 03 / 10</span>
+        <span class="font-mono text-safety font-bold">NEXT: L08-T04</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="L08-T04.html" class="flex-1 min-h-[48px] px-4 py-3 rounded-xl bg-carbon hover:bg-carbon/90 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs">
+          <span>ADVANCE TO L08-T04</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT REACTIVE LOGIC ENGINE -->
+  <script>
+    // Fatigue Vector Data Store
+    const fatigueVectors = {
+      1: {
+        indicator: "VECTOR 1 OF 3",
+        tag: "PHYSIOLOGICAL EXHAUSTION // HYPNOSIS",
+        title: "Physical Fatigue & Highway Hypnosis",
+        icon: "bedtime",
+        desc: "Highway hypnosis is a state of optical fixation and mental trance induced by monotonous miles of highway travel. Drivers stare blankly straight ahead without actively scanning, frequently slipping into lethal 3–5 second microsleeps where the car travels completely uncontrolled."
+      },
+      2: {
+        indicator: "VECTOR 2 OF 3",
+        tag: "COGNITIVE OVERLOAD // TUNNEL VISION",
+        title: "Mental Fatigue & Emotional Preoccupation",
+        icon: "psychology",
+        desc: "Mental exhaustion from high-stress work or intense emotional agitation narrows the visual perception field. Drivers look directly at red brake lights or pedestrians but fail to process them cognitively—a phenomenon known as inattention blindness."
+      },
+      3: {
+        indicator: "VECTOR 3 OF 3",
+        tag: "PHARMACEUTICAL SYNERGY // TPC § 49.10",
+        title: "Medications, Illness & Depressant Synergy",
+        icon: "medication",
+        desc: "Over-the-counter antihistamines, cough syrups, and prescription sedatives act on central nervous system GABA receptors. When mixed with even trace amounts of alcohol, their sedative impact multiplies exponentially, paralyzing reaction speeds."
+      }
+    };
+
+    function switchFatigueTab(tabNum) {
+      const data = fatigueVectors[tabNum];
+      document.getElementById('fatigue-indicator').textContent = data.indicator;
+      document.getElementById('f-tag').textContent = data.tag;
+      document.getElementById('f-title').textContent = data.title;
+      document.getElementById('f-icon').textContent = data.icon;
+      document.getElementById('f-desc').textContent = data.desc;
+
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('f-tab-' + i);
+        if (i === tabNum) {
+          btn.className = 'cad-btn cad-btn-active touch-target';
+        } else {
+          btn.className = 'cad-btn cad-btn-inactive touch-target';
+        }
+      }
+    }
+
+    // Trip Duration Simulation Engine
+    const tripMetrics = {
+      2: { alert: "94%", lag: "+0.1s", risk: "LOW", riskColor: "text-emerald-600", msg: "Within safe operational margins. Prepare for rest break at 100-mile mark." },
+      4: { alert: "78%", lag: "+0.4s", risk: "MODERATE", riskColor: "text-safety", msg: "Mandatory Action: 15-minute rest stop overdue! Pull off at next rest area or exit." },
+      6: { alert: "61%", lag: "+0.8s", risk: "ELEVATED", riskColor: "text-safety-deep", msg: "Critical Degradation: Slower eye blinks and reduced peripheral tracking detected." },
+      8: { alert: "45%", lag: "+1.3s", risk: "HIGH RISK", riskColor: "text-hazard", msg: "Statutory Ceiling Reached: 8-hour daily driving limit satisfied. Secure overnight lodging." },
+      10: { alert: "24%", lag: "+2.1s", risk: "EXTREME DANGER", riskColor: "text-hazard", msg: "Severe Microsleep Hazard: Driving past 8 hours impairs faculties equivalently to 0.08% BAC." }
+    };
+
+    function setTripDuration(hours) {
+      document.getElementById('sim-hours-val').textContent = hours + " HOURS";
+      const m = tripMetrics[hours];
+      document.getElementById('stat-alert').textContent = m.alert;
+      document.getElementById('stat-lag').textContent = m.lag;
+      const riskEl = document.getElementById('stat-risk');
+      riskEl.textContent = m.risk;
+      riskEl.className = 'font-bold text-xs mt-0.5 ' + m.riskColor;
+      document.getElementById('stat-rest-msg').innerHTML = "<strong>Mandatory Action:</strong> " + m.msg;
+
+      const hoursList = [2, 4, 6, 8, 10];
+      hoursList.forEach(h => {
+        const btn = document.getElementById('dur-btn-' + h);
+        if (h === hours) {
+          btn.className = 'py-2.5 rounded border-2 border-safety bg-safety/10 font-bold text-safety touch-target';
+        } else {
+          btn.className = 'py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target';
+        }
+      });
+    }
+
+    // Vision Field CAD Interactive Toggle
+    function toggleVisionMode(mode) {
+      const wideCone = document.getElementById('svg-wide-cone');
+      const narrowTunnel = document.getElementById('svg-narrow-tunnel');
+      const btnScan = document.getElementById('view-mode-scan');
+      const btnHypno = document.getElementById('view-mode-hypno');
+      const fb = document.getElementById('vision-feedback');
+
+      if (mode === 'scan') {
+        wideCone.classList.remove('hidden');
+        narrowTunnel.classList.add('hidden');
+        btnScan.className = 'cad-btn cad-btn-active touch-target';
+        btnHypno.className = 'cad-btn cad-btn-inactive touch-target';
+        fb.innerHTML = "<strong>Active Scanning Precept:</strong> Shift your gaze every 2 to 5 seconds, actively sweep left and right mirrors, and maintain a 12–15 second forward horizon scan. This continuous eye movement prevents optic trance and maintains situational awareness.";
+      } else {
+        wideCone.classList.add('hidden');
+        narrowTunnel.classList.remove('hidden');
+        btnScan.className = 'cad-btn cad-btn-inactive touch-target';
+        btnHypno.className = 'cad-btn cad-btn-active touch-target';
+        fb.innerHTML = "<strong class=\"text-hazard\">Highway Hypnosis Warning:</strong> Gaze locks onto the road directly ahead in a 20° tunnel. Peripheral awareness vanishes, rendering the driver completely blind to roadside hazards, stopped vehicles, or entering wildlife.";
+      }
+    }
+
+    // 3D SIMULATION BIDIRECTIONAL POSTMESSAGE CONTROLLER (F30 L08-T03)
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // WOLFPACK DISSOLUTION TACTIC",
+        statute: "TTC &sect; 545.062",
+        title: "HIGHWAY WOLFPACK DISENGAGEMENT &amp; 360° BUFFER",
+        desc: "When surrounded on all four quadrants by high-speed highway traffic, smooth deceleration allows the aggressive pack to pull ahead, restoring an open 360-degree space cushion.",
+        metric: "ASSURED CLEAR DISTANCE: 3-4S INTERVAL",
+        phase: "PHASE: WOLFPACK IDENTIFIED // DISENGAGING THROTTLE"
+      },
+      2: {
+        badge: "SCENARIO 02 // ABRUPT BRAKE CASCADE ESCAPE",
+        statute: "TTC &sect; 545.062(a)",
+        title: "LATERAL ESCAPE VECTOR TO PAVED SHOULDER",
+        desc: "When a lead vehicle suddenly panic-brakes and the left lane is blocked by a commercial truck, dynamic escape vector routing guides emergency threshold braking onto the clear right shoulder.",
+        metric: "ESCAPE VECTOR: RIGHT SHOULDER OPEN",
+        phase: "PHASE: PREDICTIVE VECTOR ESCAPE: STEER RIGHT"
+      },
+      3: {
+        badge: "SCENARIO 03 // MULTI-LANE BLIND-SPOT SQUEEZE",
+        statute: "TTC &sect; 545.060",
+        title: "DUAL-LANE INTRUSION & DEFENSIVE DECELERATION",
+        desc: "Adjacent vehicles simultaneously signaling into the center lane trigger lateral cushion compression. Proactive throttle lifting prevents an impending multi-vehicle sandwich collision.",
+        metric: "LATERAL BUFFER: HOLD CENTER LANE & EASE SPEED",
+        phase: "PHASE: BLIND-SPOT SQUEEZE MITIGATION"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      if (typeof playBeep === 'function') playBeep(480, 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+
+    // Formative MCQ Logic with Live Score Tracking
+    let answeredQuestions = {};
+                const TOPIC_ID = 'L08-T03';
+    
+    let correctCount = 0;
+
+    
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "Texas Driver Handbook",
+            "statutoryRationale": "The Texas Driver Handbook specifically directs operators to take a 15-minute rest stop every 2 hours or 100 miles on long road trips, and to limit total driving time to no more than 8 hours per day."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "A",
+            "statute": "Texas Driver Handbook (Defensive Scanning)",
+            "statutoryRationale": "To combat highway hypnosis, an operator must continuously shift their gaze every 2 to 5 seconds, actively check side and rearview mirrors, and look down the roadway 12 to 15 seconds ahead."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "Tex. Penal Code § 49.10",
+            "statutoryRationale": "Under Texas Penal Code § 49.10, holding a valid prescription is not a defense to DWI if your faculties are impaired. Mixing OTC cold/allergy tablets with alcohol produces deadly synergistic multipliers."
+      }
+};
+
+    function checkAnswer(qNum, selected) {
+      if (answeredQuestions[qNum]) return;
+      answeredQuestions[qNum] = true;
+
+      const feedback = document.getElementById(`q${qNum}-feedback`);
+      if (feedback) feedback.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      const options = ['A', 'B', 'C', 'D'];
+      options.forEach(opt => {
+        const btn = document.getElementById(`q${qNum}-opt-${opt}`) || document.getElementById(`q${qNum}-opt-${opt.toLowerCase()}`);
+        if (!btn) return;
+        btn.disabled = true;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (opt === correctOpt) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-valid', 'bg-valid/10', 'text-valid', 'font-bold');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-valid text-sm flex-shrink-0 mt-0.5';
+          }
+        } else if (opt === chosenStr && !isCorrect) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-hazard', 'bg-rose-50', 'text-hazard', 'line-through');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-hazard text-sm flex-shrink-0 mt-0.5';
+          }
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-valid/10 border border-valid/30 text-valid mt-2';
+          feedback.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-rose-50 border border-rose-300 text-rose-900 mt-2';
+          feedback.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      updateScoreBadge();
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredQuestions).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: correctCount,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Traffic Control &amp; Signal Jurisprudence / Intersection Priority — Texas Adult Driver Ed (L05-T16)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Global Base Styles & Phone Touch Standards -->
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target {
+      min-width: 44px;
+      min-height: 44px;
+    }
+    /* Enforcement of minimum touch targets and flex baseline for hyperlinks */
+    a.touch-target, a {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+      align-items: center;
+      justify-content: center;
+    }
+    button.touch-target, button {
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.06); }
+    }
+    .animate-aura {
+      animation: pulseAura 2s ease-in-out infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / CURRICULUM BANNER -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-safety bg-safety-light px-2.5 py-0.5 rounded-full border border-safety/30">
+          <span class="w-2 h-2 rounded-full bg-safety"></span>
+          <span>TDLR ADE-1317 CURRICULUM</span>
+        </div>
+        <span class="text-[10px] font-mono text-slate">TTC &sect; 544.008 &bull; &sect; 545.151</span>
+      </div>
+
+      <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-carbon leading-tight font-sans">
+        Traffic Control &amp; Signal Jurisprudence / Intersection Priority
+      </h1>
+
+      <p class="text-xs text-slate font-sans leading-relaxed">
+        Highway transportation systems operate as dynamic kinetic networks governed by strict statutory priority hierarchies. Under the Texas Transportation Code, every signal phase, lane convergence, and intersection geometry imposes mandatory legal duties designed to prevent conflicting vehicular trajectories from intersecting. From the strict legal equivalency of a flashing red signal to an all-way stop under TTC &sect; 544.008, to right-of-way arbitration at uncontrolled cross-streets, terminating T-intersections, and high-speed freeway ramp throats (TTC &sect; 545.153), mastering systemic traffic jurisprudence is foundational to defensive driving and crash prevention.
+      </p>
+
+      <!-- Metric Badges Row -->
+      <div class="grid grid-cols-3 gap-2 pt-1 font-mono text-center">
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Signal Distance</span>
+          <span class="text-xs font-bold text-safety">&ge; 100 FT (TTC 545.104)</span>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Signal Blackout</span>
+          <span class="text-xs font-bold text-hazard">ALL-WAY 4-WAY STOP</span>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Move Over Law</span>
+          <span class="text-xs font-bold text-valid">VACATE / -20 MPH</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. STATUTORY FRAMEWORK & LEGAL CODEX -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">gavel</span>
+          <span class="font-bold">TEXAS TRANSPORTATION CODE // JURISPRUDENCE</span>
+        </div>
+        <span class="text-safety font-bold bg-safety-light px-2 py-0.5 rounded border border-safety/30 text-[10px]">STATUTORY CODEX</span>
+      </div>
+
+      <!-- Statute Card 1: TTC § 544.008 (Flashing Signals) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 544.008 &bull; FLASHING SIGNALS</span>
+          <span class="text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">FULL STOP / CAUTION</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          <strong>(a) Flashing Red Signal:</strong> An operator facing an illuminated flashing red light shall stop at a clearly marked stop line, or before entering a crosswalk on the near side of the intersection, or at the point nearest the intersecting roadway where the operator has a view of approaching traffic. The right to proceed is subject to the rules applicable after stopping at a stop sign.<br>
+          <strong>(b) Flashing Yellow Signal:</strong> An operator facing an illuminated flashing yellow signal may proceed past the signal only with caution, covering the brake and yielding to any vehicle or pedestrian already in the intersection.
+        </p>
+        <div class="bg-white p-2.5 rounded-lg border border-hairline font-mono text-[11px] text-slate space-y-1">
+          <div class="text-carbon font-bold">&bull; Critical Enforcement Doctrine:</div>
+          <div>Rolling through a flashing red light carries the identical criminal penalty as running a solid red signal or octagonal stop sign (Class C misdemeanor moving violation under TTC &sect; 542.401).</div>
+        </div>
+      </div>
+
+      <!-- Statute Card 2: TTC § 545.151 & § 545.152 (Right-of-Way at Intersections) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 545.151 &amp; &sect; 545.152 &bull; INTERSECTION ARBITRATION</span>
+          <span class="text-[10px] text-valid bg-valid-light px-2 py-0.5 rounded border border-valid/30 font-bold">PRIORITY CODEX</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          <strong>&sect; 545.151 (Uncontrolled Intersections):</strong> An operator approaching an intersection not controlled by an official traffic-control device shall yield right-of-way to a vehicle that has entered the intersection from the operator's right, or that is approaching the intersection on the operator's right close enough to constitute an immediate hazard.<br>
+          <strong>&sect; 545.152 (Vehicle Turning Left):</strong> An operator intending to turn left within an intersection or into an alley, private road, or driveway shall yield right-of-way to any vehicle that is approaching from the opposite direction and that is in the intersection or so close as to present an immediate hazard.
+        </p>
+      </div>
+
+      <!-- Statute Card: TTC § 545.060 (Driving on Roadway Laned for Traffic) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 545.060 &bull; DRIVING ON ROADWAY LANED FOR TRAFFIC</span>
+          <span class="text-[10px] text-valid bg-valid-light px-2 py-0.5 rounded border border-valid/30 font-bold">LANE DISCIPLINE</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          <strong>(a) Single Lane Maintenance:</strong> An operator on a roadway divided into two or more clearly marked lanes for traffic shall drive as nearly as practical entirely within a single lane and may not move from the lane unless that movement can be made safely.<br>
+          <strong>(b) Safe Lane Changes &amp; Prohibited Straddling:</strong> Texas jurisprudence strictly prohibits straddling painted lane lines, erratic lane weaving, and unsafe lane departures. Drivers must continuously signal intent for at least 100 feet (TTC &sect; 545.104) and confirm clearance before leaving a marked travel lane.
+        </p>
+        <div class="bg-white p-2.5 rounded-lg border border-hairline font-mono text-[11px] text-slate space-y-1">
+          <div class="text-carbon font-bold">&bull; Statutory Enforcement Standard:</div>
+          <div>Straddling lane markers or drifting out of a marked lane under TTC &sect; 545.060 establishes reasonable suspicion for traffic stops and carries Class C moving violation fines under TTC &sect; 542.401.</div>
+        </div>
+      </div>
+
+      <!-- Statute Card 3: TTC § 545.104 (Mandatory 100-Foot Turn Signal Rule) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 545.104 &bull; 100-FOOT SIGNAL MANDATE</span>
+          <span class="text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">INTENT COMMUNICATION</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          An operator intending to turn a vehicle right or left, or change travel lanes, <strong>shall signal continuously for not less than the last 100 feet traveled by the vehicle before the turn</strong>. Initiating an abrupt turn signal simultaneously with the steering wheel turn violates Texas law and denies trailing high-speed motorists sufficient perception-reaction buffer time ($t_{pr} \approx 1.5\text{ s}$).
+        </p>
+      </div>
+
+      <!-- Statute Card 4: TTC § 545.153(c) (Frontage Road Ramp Throat Yield) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 545.153(c) &bull; FRONTAGE ROAD YIELD MANDATE</span>
+          <span class="text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">FREEWAY ACCESS</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          An operator on an access or frontage road of a controlled-access highway <strong>shall yield the right-of-way to a vehicle that is entering or about to enter the access road from the highway, or that is leaving or about to leave the access road to enter the highway</strong>. High-speed freeway exit traffic cannot decelerate within short ramp throats; frontage vehicles must yield.
+        </p>
+      </div>
+
+      <!-- Statute Card 5: TTC § 545.157 (Move Over or Slow Down Act) -->
+      <div class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="font-bold text-carbon">TTC &sect; 545.157 &bull; MOVE OVER / SLOW DOWN ACT</span>
+          <span class="text-[10px] text-hazard bg-hazard-light px-2 py-0.5 rounded border border-hazard/30 font-bold">EMERGENCY CORRIDOR</span>
+        </div>
+        <p class="text-xs text-slate font-sans leading-relaxed">
+          When approaching a stationary emergency vehicle, tow truck, TxDOT maintenance vehicle, or utility vehicle displaying flashing lights on the roadside, an operator must: <strong>(1) Vacate the lane closest to the emergency vehicle</strong> on a highway with two or more lanes in the same direction, OR <strong>(2) Slow to a speed 20 MPH below the posted limit</strong> (or to 5 MPH if the posted speed limit is under 25 MPH). Violations carry fines up to $1,250.
+        </p>
+      </div>
+    </section>
+
+    <!-- 04. AUTHORITATIVE 3D SIMULATION CONTAINER (L05-T16) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>PHYSICS SIMULATOR // 360° SPACE CUSHION</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          TTC § 545.062 • ADE-1317
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Traffic Flow Harmonization: 360° Space Cushion &amp; Wolfpack Dissolution</h2>
+        <p class="text-xs text-slate mt-0.5">Maintain continuous total-perimeter survival space, escape highway wolfpack clusters, and preserve safe headways under TTC § 545.062.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L05_T16_flow_harmonization.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">360° SPACE CUSHION RESTORED // SPEED: 65 MPH</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>HARMONIZE Drop</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Wolfpack Hazard</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Lane Escape</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY RULE 01 // SAFE HARMONIZATION</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.062 &amp; TxDOT HIGHWAY SAFETY</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Space Cushion Maintenance: Easing Off Throttle Dissolves Wolfpack</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            When surrounded by aggressive cluster traffic ("wolfpacks"), never speed up or tailgate to defend position. Easing off the accelerator by 2–3 MPH allows the dense pack to pull ahead, opening up front, rear, and lateral escape paths and re-establishing a full 3–4 second safety envelope.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">ESCAPE ROUTES PRESERVED:</span>
+            <span id="sim-card-metric" class="text-valid font-bold">3 OPEN CORRIDORS (LEFT, RIGHT, TRAILING)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. PRIMARY CAD WIDGET: TRAFFIC CONTROL & SIGNAL JURISPRUDENCE CAD -->
+    <!-- L05-T16: PRIMARY CAD WIDGET -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>SIGNAL JURISPRUDENCE // TTC &sect; 544.008 &amp; &sect; 545.152</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Traffic Control &amp; Signal Jurisprudence CAD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap signal heads or selector buttons to simulate flashing red/yellow states, permissive left turns, and unpowered blackout intersections.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 220) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l16-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l16-asphalt" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#191F1C" />
+              <stop offset="100%" stop-color="#111513" />
+            </linearGradient>
+            <radialGradient id="l16-halo-red" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#EF4444" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#EF4444" stop-opacity="0" />
+            </radialGradient>
+            <radialGradient id="l16-halo-yellow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#F59E0B" stop-opacity="0" />
+            </radialGradient>
+            <radialGradient id="l16-halo-green" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#10B981" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#10B981" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <!-- Background Base Canvas -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="#0E1210" />
+
+          <!-- Corner Curbs & Sidewalks -->
+          <rect x="0" y="0" width="120" height="70" fill="#1C2420" />
+          <rect x="220" y="0" width="120" height="70" fill="#1C2420" />
+          <rect x="0" y="150" width="120" height="70" fill="#1C2420" />
+          <rect x="220" y="150" width="120" height="70" fill="#1C2420" />
+
+          <!-- North-South Highway Corridor (X=120 to 220) -->
+          <rect x="120" y="0" width="100" height="220" fill="url(#l16-asphalt)" stroke="#27322B" stroke-width="0.8" />
+          <!-- East-West Cross Corridor (Y=70 to 150) -->
+          <rect x="0" y="70" width="340" height="80" fill="url(#l16-asphalt)" stroke="#27322B" stroke-width="0.8" />
+
+          <!-- Center Road Markings: Double Solid Yellow Centerlines -->
+          <line x1="169" y1="0" x2="169" y2="70" stroke="#FBBF24" stroke-width="1.2" />
+          <line x1="171" y1="0" x2="171" y2="70" stroke="#FBBF24" stroke-width="1.2" />
+          <line x1="169" y1="150" x2="169" y2="220" stroke="#FBBF24" stroke-width="1.2" />
+          <line x1="171" y1="150" x2="171" y2="220" stroke="#FBBF24" stroke-width="1.2" />
+          <line x1="0" y1="109" x2="120" y2="109" stroke="#FBBF24" stroke-width="1.2" />
+          <line x1="0" y1="111" x2="120" y2="111" stroke="#FBBF24" stroke-width="1.2" />
+          <line x1="220" y1="109" x2="340" y2="109" stroke="#FBBF24" stroke-width="1.2" />
+          <line x1="220" y1="111" x2="340" y2="111" stroke="#FBBF24" stroke-width="1.2" />
+
+          <!-- Broken White Lane Dividers -->
+          <line x1="145" y1="150" x2="145" y2="220" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6 6" />
+          <line x1="195" y1="0" x2="195" y2="70" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6 6" />
+
+          <!-- Solid White Stop Lines -->
+          <line x1="120" y1="150" x2="170" y2="150" stroke="#FFFFFF" stroke-width="3" />
+          <line x1="170" y1="70" x2="220" y2="70" stroke="#FFFFFF" stroke-width="3" />
+          <line x1="120" y1="70" x2="120" y2="110" stroke="#FFFFFF" stroke-width="3" />
+          <line x1="220" y1="110" x2="220" y2="150" stroke="#FFFFFF" stroke-width="3" />
+
+          <!-- Pedestrian Crosswalk Continental Stripes -->
+          <g stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.65">
+            <line x1="122" y1="158" x2="168" y2="158" />
+            <line x1="172" y1="62" x2="218" y2="62" />
+            <line x1="112" y1="72" x2="112" y2="108" />
+            <line x1="228" y1="112" x2="228" y2="148" />
+          </g>
+
+          <!-- Central Conflict Intersection Zone Box -->
+          <rect id="l16-conflict-box" x="122" y="72" width="96" height="76" rx="4" fill="none" stroke="#EF4444" stroke-width="1" stroke-dasharray="4 2" opacity="0.5" pointer-events="none" />
+
+          <!-- Dynamic Vehicle A: Northbound Host (User) in Left-Turn Pocket -->
+          <g id="l16-user-car" transform="translate(142, 175)">
+            <rect x="-10" y="-16" width="20" height="32" rx="3.5" fill="#E87522" stroke="#FFFFFF" stroke-width="1" />
+            <rect x="-7" y="-10" width="14" height="9" rx="1.5" fill="#7C2D12" />
+            <circle id="l16-user-blinker" cx="-8" cy="-14" r="2" fill="#FBBF24" />
+            <text x="0" y="4" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">YOU</text>
+            <!-- Accessible Touch Hitbox (r=28) -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL16Cad1Mode('protected-permissive')" role="button" aria-label="Host Vehicle Node" />
+          </g>
+
+          <!-- Dynamic Vehicle B: Oncoming Southbound Through Vehicle -->
+          <g id="l16-oncoming-car" transform="translate(195, 35)">
+            <rect x="-10" y="-16" width="20" height="32" rx="3.5" fill="#334155" stroke="#FFFFFF" stroke-width="1" />
+            <rect x="-7" y="1" width="14" height="9" rx="1.5" fill="#1E293B" />
+            <text x="0" y="-3" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FFFFFF" text-anchor="middle">35 MPH</text>
+            <!-- Accessible Touch Hitbox (r=28) -->
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL16Cad1Mode('flashing-yellow')" role="button" aria-label="Oncoming Traffic Node" />
+          </g>
+
+          <!-- Dynamic Left Turn Arc Vector -->
+          <path id="l16-turn-vector" d="M 142,160 Q 142,110 80,110" fill="none" stroke="#FBBF24" stroke-width="2.5" stroke-dasharray="5 3" />
+          <polygon id="l16-turn-arrow" points="76,110 85,106 85,114" fill="#FBBF24" />
+
+          <!-- Overhead Cantilever Mast Arm & Signal Heads -->
+          <g id="l16-signal-assembly" pointer-events="none">
+            <!-- Mast Pole from Northwest Curb -->
+            <circle cx="112" cy="62" r="4.5" fill="#475569" stroke="#94A3B8" stroke-width="1" />
+            <line x1="112" y1="62" x2="185" y2="62" stroke="#64748B" stroke-width="3" />
+
+            <!-- Signal Head 1: Left Turn Head (X=145, Y=62) -->
+            <rect x="137" y="47" width="16" height="30" rx="3" fill="#090D0B" stroke="#334155" stroke-width="1" />
+            <circle id="l16-sig1-r" cx="145" cy="52" r="3.2" fill="#3B1212" />
+            <circle id="l16-sig1-y" cx="145" cy="62" r="3.2" fill="#38290D" />
+            <circle id="l16-sig1-g" cx="145" cy="72" r="3.2" fill="#0D3822" />
+
+            <!-- Signal Head 2: Through Head (X=175, Y=62) -->
+            <rect x="167" y="47" width="16" height="30" rx="3" fill="#090D0B" stroke="#334155" stroke-width="1" />
+            <circle id="l16-sig2-r" cx="175" cy="52" r="3.2" fill="#EF4444" />
+            <circle id="l16-sig2-y" cx="175" cy="62" r="3.2" fill="#38290D" />
+            <circle id="l16-sig2-g" cx="175" cy="72" r="3.2" fill="#0D3822" />
+          </g>
+
+          <!-- Active Signal Glow Aura -->
+          <circle id="l16-sig-glow" cx="175" cy="52" r="14" fill="url(#l16-halo-red)" opacity="0.9" pointer-events="none" />
+
+          <!-- Overhead Signal Interactive Clickable Hitbox (Node 1) -->
+          <g id="l16-hitbox-signal" transform="translate(175, 62)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL16Cad1Mode('flashing-red')" role="button" aria-label="Signal Head Controller Node" />
+          </g>
+
+          <!-- Unpowered Blackout Intersection Node (Node 4) -->
+          <g id="l16-hitbox-center" transform="translate(170, 110)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL16Cad1Mode('dark-signal')" role="button" aria-label="Central Intersection Blackout Node" />
+          </g>
+
+          <!-- Bottom Status Readout Pill -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l16-cad1-dot" cx="10" cy="9" r="3.5" fill="#EF4444" />
+            <text id="l16-cad1-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              SIGNAL: FLASHING RED // COMPLETE STOP REQUIRED (TTC § 544.008)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Control Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l16-btn-1" onclick="setL16Cad1Mode('flashing-red')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Flashing Red</span>
+          <span class="text-[9px] text-safety-deep font-normal">Full Stop &sect; 544.008</span>
+        </button>
+        <button id="l16-btn-2" onclick="setL16Cad1Mode('flashing-yellow')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Flashing Yellow</span>
+          <span class="text-[9px] text-slate font-normal">Proceed Caution</span>
+        </button>
+        <button id="l16-btn-3" onclick="setL16Cad1Mode('protected-permissive')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Permissive Left</span>
+          <span class="text-[9px] text-slate font-normal">Yield Oncoming</span>
+        </button>
+        <button id="l16-btn-4" onclick="setL16Cad1Mode('dark-signal')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Dark Signal</span>
+          <span class="text-[9px] text-slate font-normal">4-Way Stop Rule</span>
+        </button>
+      </div>
+
+      <!-- Live Telemetry HUD -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Signal State</span>
+          <span id="l16-hud-mode" class="text-xs font-bold text-hazard">FLASHING RED</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Driver Action</span>
+          <span id="l16-hud-action" class="text-xs font-bold text-hazard">COMPLETE STOP</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Conflict Status</span>
+          <span id="l16-hud-conflict" class="text-xs font-bold text-valid">STOP LINE CLEAR</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Statutory Section</span>
+          <span id="l16-hud-cite" class="text-xs font-bold text-carbon">TTC &sect; 544.008(a)</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Reactive Explanation Card -->
+      <div id="l16-cad1-card" class="bg-surface-sub border-l-4 border-hazard p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l16-card-tag" class="text-[10px] font-mono font-bold text-hazard uppercase">FLASHING RED STOP MANDATE</span>
+          <span id="l16-card-cite" class="text-[10px] font-mono text-slate">TTC &sect; 544.008(a)</span>
+        </div>
+        <h3 id="l16-card-title" class="font-sans font-bold text-sm text-carbon">Flashing Red Has the Exact Legal Force of a Stop Sign</h3>
+        <p id="l16-card-desc" class="text-xs text-slate leading-relaxed">
+          Under Texas Transportation Code &sect; 544.008(a), an illuminated flashing red signal requires the operator to bring the vehicle to a complete stop at the stop line or crosswalk before entering the intersection. After stopping, the driver may proceed only when the right-of-way is clear and approaching vehicles have yielded. Rolling through a flashing red light is cited as running a solid red signal or stop sign.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. PEDAGOGICAL DEEP DIVE: THE FLUID DYNAMICS OF TRAFFIC FLOW -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">alt_route</span>
+          <span class="font-bold">SYSTEMIC TRAFFIC FLOW // DYNAMIC BUFFER ARCHITECTURE</span>
+        </div>
+        <span class="text-slate font-mono text-[10px]">TTC &sect; 545.062</span>
+      </div>
+
+      <div class="space-y-2.5 font-sans text-xs text-slate leading-relaxed">
+        <p>
+          Highway vehicular platoons function mechanically like compressible fluid columns in thermodynamics. When vehicles travel closely packed at high velocities, any minor deceleration input by a lead driver triggers a backward-propagating compression shockwave. In traffic engineering, this phenomenon generates &ldquo;phantom traffic jams&rdquo;—abrupt stationary pileups that travel miles upstream without any physical roadway obstruction.
+        </p>
+        <p>
+          Under <strong>Texas Transportation Code &sect; 545.062 (Following Distance)</strong>, motorists are legally bound to maintain an assured clear distance between vehicles. Operating closer than statutory standards eliminates driver perception-reaction margins ($t_{pr} \approx 1.5\text{ s}$), ensuring that minor brake taps escalate into multi-car chain-reaction collisions.
+        </p>
+      </div>
+
+      <!-- Space Cushion 3-Tier Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-xs font-bold text-valid block uppercase">1. FORWARD BUFFER</span>
+          <p class="text-[11px] font-sans text-slate">Maintain a minimum 2-second interval at &le;30 MPH; expand to 4 seconds at highway speeds (&gt;30 MPH) and 6&ndash;8 seconds in rain or fog.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-xs font-bold text-safety block uppercase">2. LATERAL ESCAPE</span>
+          <p class="text-[11px] font-sans text-slate">Avoid lingering in adjacent vehicles' blind spots. Modulate throttle to ensure an open lane or shoulder exists on at least one side.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-xs font-bold text-hazard block uppercase">3. REAR MARGIN</span>
+          <p class="text-[11px] font-sans text-slate">When stopping behind traffic, leave enough pavement visible beneath the lead car's rear tires to maneuver around them if stalled.</p>
+        </div>
+      </div>
+
+      <!-- Critical 100-Foot Signaling Physics Box -->
+      <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl space-y-1 text-xs">
+        <div class="flex items-center gap-1.5 font-mono font-bold text-amber-900 uppercase">
+          <span class="material-symbols-outlined text-base">signpost</span>
+          <span>THE 100-FOOT ADVANCE WARNING THRESHOLD (TTC &sect; 545.104)</span>
+        </div>
+        <p class="text-amber-900/90 font-sans leading-relaxed text-[11px]">
+          At 45 MPH, a motor vehicle travels 66.0 feet per second. Activating a turn signal 100 feet in advance provides trailing motorists exactly 1.51 seconds of notice—precisely equal to the human perception-reaction time baseline ($t_{pr} = 1.5\text{ s}$). Drivers who fail to signal until they begin braking force trailing drivers into panic braking, provoking rear-end impacts and lane-splitting hazards.
+        </p>
+      </div>
+    </section>
+
+    <!-- 07. INTERACTIVE COGNITIVE PIPELINE SNAP CAROUSEL -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">view_carousel</span>
+          <span class="font-bold">INTERSECTION DECISION PIPELINE // 4-STEP PROTOCOL</span>
+        </div>
+        <span class="text-slate font-mono text-[10px]">SWIPE CAROUSEL</span>
+      </div>
+
+      <!-- Horizontal Snap Carousel Container -->
+      <div class="flex gap-2.5 overflow-x-auto no-scrollbar pb-1 snap-x snap-mandatory">
+        <!-- Step 1 Card -->
+        <div class="min-w-[240px] max-w-[260px] snap-center bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2 shrink-0">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span class="text-safety font-bold uppercase">STEP 01 // 12-15s LEAD</span>
+            <span class="text-slate">SCAN HORIZON</span>
+          </div>
+          <h3 class="font-sans font-bold text-xs text-carbon">Visual Horizon Recognition</h3>
+          <p class="font-sans text-[11px] text-slate leading-relaxed">
+            Scan 12 to 15 seconds ahead along the travel corridor. Identify overhead mast arms, stop sign profiles, cross-street traffic clusters, and pedestrian desire paths before reaching the intersection.
+          </p>
+        </div>
+
+        <!-- Step 2 Card -->
+        <div class="min-w-[240px] max-w-[260px] snap-center bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2 shrink-0">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span class="text-safety font-bold uppercase">STEP 02 // 100 FT</span>
+            <span class="text-slate">COMMUNICATE</span>
+          </div>
+          <h3 class="font-sans font-bold text-xs text-carbon">Continuous 100-Ft Intent Signaling</h3>
+          <p class="font-sans text-[11px] text-slate leading-relaxed">
+            Activate directional turn signal continuously for not less than the last 100 feet traveled prior to the turn (TTC &sect; 545.104). Check rearview and side mirrors; verify blind-spot clearance.
+          </p>
+        </div>
+
+        <!-- Step 3 Card -->
+        <div class="min-w-[240px] max-w-[260px] snap-center bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2 shrink-0">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span class="text-safety font-bold uppercase">STEP 03 // STOP LINE</span>
+            <span class="text-slate">ARBITRATE</span>
+          </div>
+          <h3 class="font-sans font-bold text-xs text-carbon">Limit Line Stop &amp; Priority Audit</h3>
+          <p class="font-sans text-[11px] text-slate leading-relaxed">
+            Bring vehicle to a complete stop behind marked stop line or crosswalk. For dark signal or flashing red, hold stop for full 2 seconds. Audit arrival order; if simultaneous, vehicle on right has priority.
+          </p>
+        </div>
+
+        <!-- Step 4 Card -->
+        <div class="min-w-[240px] max-w-[260px] snap-center bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2 shrink-0">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span class="text-safety font-bold uppercase">STEP 04 // CLEAR</span>
+            <span class="text-slate">EXECUTE</span>
+          </div>
+          <h3 class="font-sans font-bold text-xs text-carbon">Clear Left-Center-Right &amp; Accelerate</h3>
+          <p class="font-sans text-[11px] text-slate leading-relaxed">
+            Confirm oncoming straight traffic has cleared or yielded before initiating left turns (TTC &sect; 545.152). Accelerate smoothly into nearest authorized travel lane without clipping curb corners.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. SECONDARY CAD WIDGET: TEXAS RIGHT-OF-WAY & INTERSECTION PRIORITY MATRIX -->
+    <!-- L05-T16: SECONDARY CAD WIDGET -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>RIGHT-OF-WAY MATRIX // TTC &sect; 545.151–&sect; 545.157</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          TACTICAL MATRIX
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Texas Right-of-Way &amp; Intersection Priority Matrix</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap scenario presets to resolve priority conflicts across uncontrolled junctions, terminating T-stems, unpaved surfaces, and emergency corridors.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 180) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l16-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l16-dirt-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#45311F" />
+              <stop offset="100%" stop-color="#2D1F13" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Base -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="#101412" />
+
+          <!-- Cross Paved Highway (Horizontal) -->
+          <rect x="0" y="55" width="340" height="70" fill="#181E1B" stroke="#252F2A" stroke-width="1" />
+          <line x1="0" y1="90" x2="340" y2="90" stroke="#FBBF24" stroke-width="1.2" stroke-dasharray="8 6" />
+
+          <!-- Vertical Intersecting Roadway (Stem / South Approach) -->
+          <rect id="l16-vert-road" x="135" y="55" width="70" height="125" fill="#181E1B" stroke="#252F2A" stroke-width="1" />
+          <line id="l16-vert-center" x1="170" y1="125" x2="170" y2="180" stroke="#FBBF24" stroke-width="1.2" stroke-dasharray="6 6" />
+
+          <!-- North Continuation Roadway (For 4-Way Mode) -->
+          <rect id="l16-north-road" x="135" y="0" width="70" height="55" fill="#181E1B" stroke="#252F2A" stroke-width="1" />
+
+          <!-- Central Conflict Apex Marker -->
+          <circle id="l16-conflict-apex" cx="170" cy="90" r="14" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4 2" />
+
+          <!-- Vehicle 1: Host Car A (Approaching from South) -->
+          <g id="l16-car-a" transform="translate(155, 140)">
+            <rect x="-9" y="-14" width="18" height="28" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1" />
+            <rect x="-6" y="-8" width="12" height="8" rx="1" fill="#7C2D12" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#FFFFFF" text-anchor="middle">CAR A</text>
+            <text id="l16-car-a-role" x="0" y="-17" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#EF4444" text-anchor="middle">YIELD</text>
+          </g>
+
+          <!-- Vehicle 2: Priority Car B (Approaching from East or Cross Street) -->
+          <g id="l16-car-b" transform="translate(255, 73)">
+            <rect x="-14" y="-9" width="28" height="18" rx="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1" />
+            <rect x="-8" y="-6" width="8" height="12" rx="1" fill="#064E3B" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#FFFFFF" text-anchor="middle">CAR B</text>
+            <text id="l16-car-b-role" x="0" y="-12" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#10B981" text-anchor="middle">PRIORITY</text>
+          </g>
+
+          <!-- Move Over Emergency Vehicle on Shoulder (Hidden initially) -->
+          <g id="l16-emergency-cruiser" transform="translate(280, 42)" opacity="0">
+            <rect x="-16" y="-8" width="32" height="16" rx="2.5" fill="#1E293B" stroke="#38BDF8" stroke-width="1" />
+            <!-- Emergency Strobe Bars -->
+            <rect x="-8" y="-7" width="7" height="3" fill="#EF4444" />
+            <rect x="1" y="-7" width="7" height="3" fill="#3B82F6" />
+            <text x="0" y="3" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#FFFFFF" text-anchor="middle">TX DPS</text>
+            <text x="0" y="-11" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#F87171" text-anchor="middle">FLASHING LIGHTS</text>
+          </g>
+
+          <!-- Dynamic Priority Trajectory Vectors -->
+          <path id="l16-vec-b" d="M 240,73 L 130,73" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="4 2" />
+          <polygon id="l16-vec-b-arrow" points="126,73 134,69 134,77" fill="#10B981" />
+
+          <path id="l16-vec-a" d="M 155,125 L 155,95" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="4 2" />
+          <line id="l16-vec-a-bar" x1="147" y1="95" x2="163" y2="95" stroke="#EF4444" stroke-width="2.5" />
+
+          <!-- Interactive Clickable Hitbox Nodes -->
+          <g id="l16-hitbox-apex" transform="translate(170, 90)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL16Cad2Preset('uncontrolled')" role="button" aria-label="Intersection Priority Apex Node" />
+          </g>
+          <g id="l16-hitbox-car-b" transform="translate(255, 73)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL16Cad2Preset('move-over')" role="button" aria-label="Cross Traffic Priority Node" />
+          </g>
+          <g id="l16-hitbox-car-a" transform="translate(155, 140)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL16Cad2Preset('t-junction')" role="button" aria-label="Yielding Approach Node" />
+          </g>
+
+          <!-- Bottom Status Pill -->
+          <g transform="translate(15, 154)" pointer-events="none">
+            <rect x="0" y="0" width="310" height="18" rx="3" fill="#090D0B" stroke="#1F2937" stroke-width="0.8" />
+            <circle id="l16-cad2-dot" cx="10" cy="9" r="3" fill="#10B981" />
+            <text id="l16-cad2-status" x="20" y="12" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#10B981">
+              PRIORITY: SIMULTANEOUS ARRIVAL &rarr; YIELD TO VEHICLE ON THE RIGHT (TTC &sect; 545.151)
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Preset Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l16-pbtn-1" onclick="setL16Cad2Preset('uncontrolled')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">4-Way Uncontrolled</span>
+          <span class="text-[9px] text-safety-deep font-normal">Yield to Right</span>
+        </button>
+        <button id="l16-pbtn-2" onclick="setL16Cad2Preset('t-junction')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">T-Intersection</span>
+          <span class="text-[9px] text-slate font-normal">Stem Must Yield</span>
+        </button>
+        <button id="l16-pbtn-3" onclick="setL16Cad2Preset('unpaved')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Paved vs Unpaved</span>
+          <span class="text-[9px] text-slate font-normal">Dirt Yields &sect; 545.151</span>
+        </button>
+        <button id="l16-pbtn-4" onclick="setL16Cad2Preset('move-over')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Move Over Law</span>
+          <span class="text-[9px] text-slate font-normal">-20 MPH Drop &sect; 545.157</span>
+        </button>
+      </div>
+
+      <!-- Tactical Metrics Row -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Primary Duty</span>
+          <span id="l16-hud2-duty" class="text-xs font-bold text-hazard">YIELD RIGHT-OF-WAY</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Priority Holder</span>
+          <span id="l16-hud2-prior" class="text-xs font-bold text-valid">VEHICLE ON RIGHT</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Speed Requirement</span>
+          <span id="l16-hud2-speed" class="text-xs font-bold text-carbon">PREPARE TO STOP</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Statute Cite</span>
+          <span id="l16-hud2-cite" class="text-xs font-bold text-safety">TTC &sect; 545.151</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l16-cad2-card" class="bg-surface-sub border-l-4 border-valid p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l16-card2-tag" class="text-[10px] font-mono font-bold text-valid uppercase">UNCONTROLLED 4-WAY RULE</span>
+          <span id="l16-card2-cite" class="text-[10px] font-mono text-slate">TTC &sect; 545.151(a)</span>
+        </div>
+        <h3 id="l16-card2-title" class="font-sans font-bold text-sm text-carbon">Simultaneous Arrival Mandates Yielding to the Vehicle on the Right</h3>
+        <p id="l16-card2-desc" class="text-xs text-slate leading-relaxed">
+          At an intersection not controlled by traffic signs or signals, the driver of a vehicle on the left shall yield the right-of-way to the vehicle on the immediate right if both arrive simultaneously. If one vehicle has already safely entered the intersection prior to your arrival, you must yield to permit them to clear. Never accelerate into an uncontrolled blind intersection expecting cross-traffic to yield.
+        </p>
+      </div>
+    </section>
+
+    <!-- 09. SPECIALIZED STATUTORY PROHIBITIONS & RIGHT-OF-WAY DOMAINS -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">policy</span>
+          <span class="font-bold">TEXAS STATUTORY CODEX // PRIORITY SCENARIOS</span>
+        </div>
+        <span class="text-slate font-mono text-[10px]">TTC CHAPTER 545</span>
+      </div>
+
+      <!-- Priority Scenario 1: Unpaved to Paved Roadway -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="font-bold text-carbon">1. UNPAVED ROADWAY YIELD (TTC &sect; 545.151(b))</span>
+          <span class="text-[10px] text-warning font-bold">PAVED WINS</span>
+        </div>
+        <p class="font-sans text-[11px] text-slate leading-relaxed">
+          An operator on an unpaved (gravel, dirt, or caliche) roadway intersecting a paved roadway shall stop and yield the right-of-way to any vehicle on the paved roadway. Paved roadways carry higher design speeds and traffic volumes; entering operators cannot assert simultaneous arrival priority over paved traffic.
+        </p>
+      </div>
+
+      <!-- Priority Scenario 2: Terminating T-Intersection -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="font-bold text-carbon">2. T-INTERSECTION TERMINATING STEM (TTC &sect; 545.152(b))</span>
+          <span class="text-[10px] text-hazard font-bold">STEM MUST YIELD</span>
+        </div>
+        <p class="font-sans text-[11px] text-slate leading-relaxed">
+          An operator on a roadway that terminates at an intersection with another roadway (the bottom stem of a &ldquo;T&rdquo;) shall stop and yield the right-of-way to any vehicle on the intersecting through highway. Drivers on through streets possess continuous legal priority.
+        </p>
+      </div>
+
+      <!-- Priority Scenario 3: Private Driveways & Alleys -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="font-bold text-carbon">3. PRIVATE DRIVEWAYS &amp; ALLEYS (TTC &sect; 545.155)</span>
+          <span class="text-[10px] text-hazard font-bold">FULL STOP REQUIRED</span>
+        </div>
+        <p class="font-sans text-[11px] text-slate leading-relaxed">
+          An operator emerging from an alley, private road, driveway, or building must stop prior to crossing the sidewalk line and yield the right-of-way to all pedestrians and approaching vehicular traffic on the public roadway.
+        </p>
+      </div>
+
+      <!-- Priority Scenario 4: Railroad Crossings & Prohibited Parking Distances -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="font-bold text-carbon">4. PROHIBITED PARKING CLEARANCES (TTC &sect; 545.302)</span>
+          <span class="text-[10px] text-slate font-bold">SIGHTLINE BUFFERS</span>
+        </div>
+        <p class="font-sans text-[11px] text-slate leading-relaxed">
+          To preserve sight triangles at intersections, parking is strictly prohibited: within <strong>15 feet</strong> of a fire hydrant; within <strong>20 feet</strong> of a crosswalk at an intersection; within <strong>30 feet</strong> of a stop sign, yield sign, or flashing traffic signal; and within <strong>50 feet</strong> of the nearest railroad rail.
+        </p>
+      </div>
+    </section>
+
+    <!-- 10. INTERACTIVE KNOWLEDGE CHECK // 3 SCENARIOS -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">quiz</span>
+          <span class="font-bold">KNOWLEDGE CHECK // TTC CHAPTER 545</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          3 SCENARIOS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T16 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- QUESTION 1: OPTION [ B ] STRICTLY CORRECT -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 01 &bull; SPACE CUSHION &amp; FLOW</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A driver is cruising at 65 MPH on a three-lane Texas interstate (IH-35). Heavy evening traffic begins slowing ahead, and an adjacent vehicle begins lingering in their rear blind-spot quarter panel. What is the driver's primary defensive maneuver to reduce collision risk and preserve flow harmonization?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Accelerate aggressively to 75 MPH in the right lane to squeeze past traffic before a congestion bottleneck forms</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Maintain a 360-degree space cushion by establishing a 3-to-4 second following interval and modulating speed to preserve open lateral escape corridors</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Fixate gaze on the lead vehicle's bumper and tap the brake pedal repeatedly to force trailing cars to brake</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Shift the transmission into neutral and coast along the paved shoulder to bypass slow-moving clusters</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 02 &bull; TURN SIGNAL DISTANCE</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          An operator travels on a rural two-lane Texas highway and intends to make a right turn into a private ranch entrance. Under Texas Transportation Code &sect; 545.104, what is the mandatory statutory distance for which the turn signal must be continuously displayed prior to turning?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] For at least 50 feet immediately prior to initiating the turn</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Continuously for not less than the last 100 feet traveled immediately before the turn</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Exactly 10 feet before turning the steering wheel</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Turn signals are legally optional when entering private ranch properties</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 03 &bull; FRONTAGE ROAD RIGHT-OF-WAY</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A motorist driving on a two-lane Texas frontage road approaches an interchange where vehicles are exiting a controlled-access freeway via an off-ramp. Neither roadway is controlled by a traffic signal. Who holds legal right-of-way?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] The frontage road driver has right-of-way because they are already established in a straight travel lane</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Both vehicles must come to a complete emergency stop and negotiate entry via hand gestures</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] The vehicle entering or exiting the controlled-access freeway holds legal right-of-way, and the frontage road operator must yield</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Right-of-way is assigned to whichever vehicle is traveling at the higher speed</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. KEY TAKEAWAYS & SUMMARY CHECKLIST -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">verified</span>
+          <span class="font-bold">CORE LESSON TAKEAWAYS // EXAM RECALL</span>
+        </div>
+        <span class="text-safety font-mono text-[10px]">TTC SUMMARY</span>
+      </div>
+
+      <div class="space-y-2 text-xs font-sans text-slate leading-relaxed">
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-valid text-sm shrink-0 mt-0.5">check_circle</span>
+          <div><strong>Flashing Red Light (TTC &sect; 544.008):</strong> Carries the exact legal force of an octagonal stop sign. Full stop at limit line required before proceeding when safe.</div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-valid text-sm shrink-0 mt-0.5">check_circle</span>
+          <div><strong>Dark Signal Blackout:</strong> Power failure or dark signal heads automatically convert the junction into an all-way 4-Way Stop under TTC &sect; 545.151.</div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-valid text-sm shrink-0 mt-0.5">check_circle</span>
+          <div><strong>100-Foot Turn Signal Rule (TTC &sect; 545.104):</strong> Continuously display turn signal for at least 100 feet immediately before turning or changing lanes.</div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-valid text-sm shrink-0 mt-0.5">check_circle</span>
+          <div><strong>Frontage Road Yield Rule (TTC &sect; 545.153(c)):</strong> Access/frontage road vehicles must yield to traffic entering or exiting controlled-access freeways.</div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-valid text-sm shrink-0 mt-0.5">check_circle</span>
+          <div><strong>Move Over / Slow Down Act (TTC &sect; 545.157):</strong> Vacate the adjacent lane or slow 20 MPH below posted limit when passing emergency/tow vehicles.</div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-valid text-sm shrink-0 mt-0.5">check_circle</span>
+          <div><strong>Laned Roadway Maintenance (TTC &sect; 545.060):</strong> Drive within a single lane; do not move until safe and signaled.</div>
+        </div>
+      </div>
+
+      <!-- Technical Markings -->
+      <div class="pt-2 border-t border-hairline flex items-center justify-between text-[9px] font-mono text-slate">
+        <span>SCALE 1:1 &bull; TX-DOT STANDARDS</span>
+        <span>TDLR VALIDATED FRAMEWORK</span>
+      </div>
+    </section>
+
+    <!-- 11. NAVIGATION FOOTER -->
+    <footer class="pt-4 pb-8 space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <a href="L05-T15.html" class="touch-target min-h-[48px] px-4 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-xs" style="min-height: 48px;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>TOPIC 15</span>
+        </a>
+        <a href="L05-T17.html" class="touch-target min-h-[48px] px-5 py-2.5 rounded-xl border-2 border-safety bg-safety text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-xs hover:bg-safety-deep" style="min-height: 48px;">
+          <span>TOPIC 17: WORK ZONES</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 16
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINES & MCQ CONTROLLER -->
+  <script>
+    // ==============================================================================
+    // 1. PRIMARY CAD STATE ENGINE (L05-T16)
+    // ==============================================================================
+    const l16Cad1State = {
+      mode: 'flashing-red'
+    };
+
+    const l16Cad1Data = {
+      'flashing-red': {
+        mode: 'FLASHING RED',
+        action: 'COMPLETE STOP',
+        conflict: 'STOP LINE CLEAR',
+        cite: 'TTC § 544.008(a)',
+        dot: '#EF4444',
+        status: 'SIGNAL: FLASHING RED // COMPLETE STOP REQUIRED (TTC § 544.008)',
+        tag: 'FLASHING RED STOP MANDATE',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Flashing Red Has the Exact Legal Force of a Stop Sign',
+        desc: 'Under Texas Transportation Code § 544.008(a), an illuminated flashing red signal requires the operator to bring the vehicle to a complete stop at the stop line or crosswalk before entering the intersection. After stopping, the driver may proceed only when the right-of-way is clear and approaching vehicles have yielded. Rolling through a flashing red light is cited as running a solid red signal or stop sign.',
+        sig1R: '#3B1212', sig1Y: '#38290D', sig1G: '#0D3822',
+        sig2R: '#EF4444', sig2Y: '#38290D', sig2G: '#0D3822',
+        glowColor: 'url(#l16-halo-red)', glowX: 175, glowY: 52,
+        carATransform: 'translate(142, 175)',
+        carBTransform: 'translate(195, 35)',
+        turnVectorD: 'M 142,160 Q 142,110 80,110',
+        turnVectorStroke: '#FBBF24'
+      },
+      'flashing-yellow': {
+        mode: 'FLASHING YELLOW',
+        action: 'PROCEED W/ CAUTION',
+        conflict: 'CROSS TRAFFIC ALERT',
+        cite: 'TTC § 544.008(b)',
+        dot: '#F59E0B',
+        status: 'SIGNAL: FLASHING YELLOW // PROCEED THROUGH INTERSECTION WITH CAUTION',
+        tag: 'FLASHING YELLOW CAUTION',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Cover Brake and Maintain Active Visual Scan',
+        desc: 'Texas Transportation Code § 544.008(b) mandates that when a flashing yellow signal is illuminated, an operator may proceed past the signal only with caution. Unlike flashing red, a full stop is not required unless cross-traffic or pedestrians conflict. Drivers must lift off the throttle, hover the foot over the service brake pedal, and scan left-center-right.',
+        sig1R: '#3B1212', sig1Y: '#F59E0B', sig1G: '#0D3822',
+        sig2R: '#3B1212', sig2Y: '#F59E0B', sig2G: '#0D3822',
+        glowColor: 'url(#l16-halo-yellow)', glowX: 175, glowY: 62,
+        carATransform: 'translate(142, 165)',
+        carBTransform: 'translate(195, 50)',
+        turnVectorD: 'M 142,150 L 142,80',
+        turnVectorStroke: '#10B981'
+      },
+      'protected-permissive': {
+        mode: 'PERMISSIVE LEFT',
+        action: 'YIELD TO ONCOMING',
+        conflict: 'ONCOMING GAP: 4.2s',
+        cite: 'TTC § 545.152',
+        dot: '#10B981',
+        status: 'RULE: CIRCULAR GREEN LEFT TURN MUST YIELD TO APPROACHING TRAFFIC',
+        tag: 'PERMISSIVE LEFT TURN YIELD',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Solid Circular Green Does Not Grant Protected Left Turn',
+        desc: 'Under TTC § 545.152, an operator turning left across opposing traffic must yield right-of-way to any vehicle approaching from the opposite direction that is within the intersection or so close as to present an immediate hazard. A circular green light means oncoming traffic also has a green light; you must wait behind the stop line or enter the intersection with wheels straight until a safe gap appears.',
+        sig1R: '#3B1212', sig1Y: '#38290D', sig1G: '#10B981',
+        sig2R: '#3B1212', sig2Y: '#38290D', sig2G: '#10B981',
+        glowColor: 'url(#l16-halo-green)', glowX: 145, glowY: 72,
+        carATransform: 'translate(142, 150)',
+        carBTransform: 'translate(195, 80)',
+        turnVectorD: 'M 142,140 Q 142,110 80,110',
+        turnVectorStroke: '#EF4444'
+      },
+      'dark-signal': {
+        mode: 'DARK / BLACKOUT',
+        action: 'TREAT AS 4-WAY STOP',
+        conflict: 'ALL APPROACHES STOP',
+        cite: 'TTC § 545.151 / TDLR',
+        dot: '#64748B',
+        status: 'ALERT: TRAFFIC SIGNAL OUTAGE // AUTOMATIC ALL-WAY 4-WAY STOP RULE',
+        tag: 'SIGNAL OUTAGE PROTOCOL',
+        tagClass: 'text-slate',
+        borderClass: 'border-slate',
+        title: 'Unpowered Signal Heads Automatically Convert to All-Way Stop',
+        desc: 'When power failure, severe storms, or maintenance extinguishes traffic signal lights, the junction legally reverts to an all-way stop under Texas Transportation Code § 545.151. Every approach must come to a full stop. Priority is governed by arrival order: first vehicle stopped proceeds first; if two vehicles stop simultaneously, the driver on the left yields to the driver on the right.',
+        sig1R: '#1E293B', sig1Y: '#1E293B', sig1G: '#1E293B',
+        sig2R: '#1E293B', sig2Y: '#1E293B', sig2G: '#1E293B',
+        glowColor: 'none', glowX: 170, glowY: 110,
+        carATransform: 'translate(142, 175)',
+        carBTransform: 'translate(195, 35)',
+        turnVectorD: 'M 142,160 L 142,150',
+        turnVectorStroke: '#64748B'
+      }
+    };
+
+    function setL16Cad1Mode(mode) {
+      l16Cad1State.mode = mode;
+      const d = l16Cad1Data[mode];
+
+      ['flashing-red', 'flashing-yellow', 'protected-permissive', 'dark-signal'].forEach((m, idx) => {
+        const btn = document.getElementById(`l16-btn-${idx + 1}`);
+        if (btn) {
+          if (m === mode) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l16-cad1-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l16-cad1-status');
+      if (st) st.textContent = d.status;
+
+      const s1r = document.getElementById('l16-sig1-r'); if (s1r) s1r.setAttribute('fill', d.sig1R);
+      const s1y = document.getElementById('l16-sig1-y'); if (s1y) s1y.setAttribute('fill', d.sig1Y);
+      const s1g = document.getElementById('l16-sig1-g'); if (s1g) s1g.setAttribute('fill', d.sig1G);
+
+      const s2r = document.getElementById('l16-sig2-r'); if (s2r) s2r.setAttribute('fill', d.sig2R);
+      const s2y = document.getElementById('l16-sig2-y'); if (s2y) s2y.setAttribute('fill', d.sig2Y);
+      const s2g = document.getElementById('l16-sig2-g'); if (s2g) s2g.setAttribute('fill', d.sig2G);
+
+      const glow = document.getElementById('l16-sig-glow');
+      if (glow) {
+        glow.setAttribute('fill', d.glowColor);
+        glow.setAttribute('cx', d.glowX);
+        glow.setAttribute('cy', d.glowY);
+        glow.setAttribute('opacity', d.glowColor === 'none' ? '0' : '0.9');
+      }
+
+      const userCar = document.getElementById('l16-user-car');
+      if (userCar) userCar.setAttribute('transform', d.carATransform);
+      const oncomingCar = document.getElementById('l16-oncoming-car');
+      if (oncomingCar) oncomingCar.setAttribute('transform', d.carBTransform);
+
+      const tVec = document.getElementById('l16-turn-vector');
+      if (tVec) {
+        tVec.setAttribute('d', d.turnVectorD);
+        tVec.setAttribute('stroke', d.turnVectorStroke);
+      }
+      const tArr = document.getElementById('l16-turn-arrow');
+      if (tArr) tArr.setAttribute('fill', d.turnVectorStroke);
+
+      document.getElementById('l16-hud-mode').textContent = d.mode;
+      document.getElementById('l16-hud-action').textContent = d.action;
+      document.getElementById('l16-hud-conflict').textContent = d.conflict;
+      document.getElementById('l16-hud-cite').textContent = d.cite;
+
+      const card = document.getElementById('l16-cad1-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l16-card-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l16-card-cite').textContent = d.cite;
+      document.getElementById('l16-card-title').textContent = d.title;
+      document.getElementById('l16-card-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 2. SECONDARY CAD STATE ENGINE (L05-T16)
+    // ==============================================================================
+    const l16Cad2State = {
+      preset: 'uncontrolled'
+    };
+
+    const l16Cad2Data = {
+      'uncontrolled': {
+        duty: 'YIELD TO RIGHT',
+        prior: 'VEHICLE ON RIGHT',
+        speed: 'PREPARE TO STOP',
+        cite: 'TTC § 545.151(a)',
+        dot: '#10B981',
+        status: 'PRIORITY: SIMULTANEOUS ARRIVAL → YIELD TO VEHICLE ON THE RIGHT (TTC § 545.151)',
+        tag: 'UNCONTROLLED 4-WAY RULE',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Simultaneous Arrival Mandates Yielding to the Vehicle on the Right',
+        desc: 'At an intersection not controlled by traffic signs or signals, the driver of a vehicle on the left shall yield the right-of-way to the vehicle on the immediate right if both arrive simultaneously. If one vehicle has already safely entered the intersection prior to your arrival, you must yield to permit them to clear. Never accelerate into an uncontrolled blind intersection expecting cross-traffic to yield.',
+        carARole: 'YIELD', carARoleColor: '#EF4444',
+        carBRole: 'PRIORITY', carBRoleColor: '#10B981',
+        emergencyOpacity: 0,
+        northRoadFill: '#181E1B',
+        vertRoadFill: '#181E1B',
+        vecAStroke: '#EF4444',
+        vecBStroke: '#10B981'
+      },
+      't-junction': {
+        duty: 'TERMINATING YIELD',
+        prior: 'THROUGH HIGHWAY',
+        speed: 'COMPLETE STOP',
+        cite: 'TTC § 545.152(b)',
+        dot: '#F59E0B',
+        status: 'RULE: VEHICLE ON TERMINATING ROAD MUST YIELD TO THROUGH HIGHWAY (TTC § 545.152)',
+        tag: 'T-INTERSECTION STEM RULE',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Terminating Stem Road Must Yield Unconditionally',
+        desc: 'Under Texas Transportation Code § 545.152, an operator on a roadway that dead-ends or terminates at an intersection (the vertical stem of a T-junction) must stop and yield right-of-way to any vehicle on the intersecting through street. The through highway traffic possesses absolute legal priority; entering traffic must wait for a complete opening in both directions before turning.',
+        carARole: 'STOP & YIELD', carARoleColor: '#EF4444',
+        carBRole: 'THROUGH FLOW', carBRoleColor: '#10B981',
+        emergencyOpacity: 0,
+        northRoadFill: '#101412', // Blocked north road creates visual T-intersection
+        vertRoadFill: '#181E1B',
+        vecAStroke: '#EF4444',
+        vecBStroke: '#10B981'
+      },
+      'unpaved': {
+        duty: 'DIRT ROAD YIELD',
+        prior: 'PAVED ROAD TRAFFIC',
+        speed: 'FULL STOP AT EDGE',
+        cite: 'TTC § 545.151(b)',
+        dot: '#D97706',
+        status: 'RULE: UNPAVED / DIRT ROAD OPERATOR MUST YIELD TO PAVED ROADWAY (TTC § 545.151)',
+        tag: 'SURFACE PRIORITY RULE',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Unpaved Surface Operators Yield to Paved Highway Traffic',
+        desc: 'Under TTC § 545.151(b), a driver approaching an intersection on an unpaved (dirt, gravel, or caliche) roadway must yield right-of-way to vehicles traveling on a paved roadway. Paved roadways have higher design speeds and volume; drivers leaving unpaved private or public easements must yield regardless of arrival order.',
+        carARole: 'UNPAVED YIELD', carARoleColor: '#EF4444',
+        carBRole: 'PAVED SPEED', carBRoleColor: '#10B981',
+        emergencyOpacity: 0,
+        northRoadFill: '#101412',
+        vertRoadFill: 'url(#l16-dirt-grad)',
+        vecAStroke: '#EF4444',
+        vecBStroke: '#10B981'
+      },
+      'move-over': {
+        duty: 'VACATE OR -20 MPH',
+        prior: 'EMERGENCY / TOW / TXDOT',
+        speed: '50 MPH (IN 70 ZONE)',
+        cite: 'TTC § 545.157',
+        dot: '#EF4444',
+        status: 'CRITICAL: MOVE OVER OR SLOW 20 MPH BELOW LIMIT FOR FLASHING LIGHTS (TTC § 545.157)',
+        tag: 'MOVE OVER / SLOW DOWN ACT',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Mandatory 20 MPH Speed Reduction or Lane Vacation',
+        desc: 'Texas Transportation Code § 545.157 (Move Over or Slow Down Act) commands that upon approaching a stationary emergency vehicle, TxDOT maintenance truck, or tow truck with flashing lights on the roadside, you MUST vacate the lane closest to the vehicle if road conditions permit, OR slow to a speed 20 MPH below the posted limit (or to 5 MPH if the posted speed is under 25 MPH). Violations carry fines up to $1,250.',
+        carARole: 'VACATE LANE', carARoleColor: '#38BDF8',
+        carBRole: 'CRUISER STOPPED', carBRoleColor: '#EF4444',
+        emergencyOpacity: 1,
+        northRoadFill: '#181E1B',
+        vertRoadFill: '#181E1B',
+        vecAStroke: '#38BDF8',
+        vecBStroke: '#EF4444'
+      }
+    };
+
+    function setL16Cad2Preset(preset) {
+      l16Cad2State.preset = preset;
+      const d = l16Cad2Data[preset];
+
+      ['uncontrolled', 't-junction', 'unpaved', 'move-over'].forEach((p, idx) => {
+        const btn = document.getElementById(`l16-pbtn-${idx + 1}`);
+        if (btn) {
+          if (p === preset) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l16-cad2-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l16-cad2-status');
+      if (st) {
+        st.textContent = d.status;
+        st.setAttribute('fill', d.dot);
+      }
+
+      const emg = document.getElementById('l16-emergency-cruiser');
+      if (emg) emg.setAttribute('opacity', d.emergencyOpacity);
+
+      const nRoad = document.getElementById('l16-north-road');
+      if (nRoad) nRoad.setAttribute('fill', d.northRoadFill);
+      const vRoad = document.getElementById('l16-vert-road');
+      if (vRoad) vRoad.setAttribute('fill', d.vertRoadFill);
+
+      const carARole = document.getElementById('l16-car-a-role');
+      if (carARole) {
+        carARole.textContent = d.carARole;
+        carARole.setAttribute('fill', d.carARoleColor);
+      }
+      const carBRole = document.getElementById('l16-car-b-role');
+      if (carBRole) {
+        carBRole.textContent = d.carBRole;
+        carBRole.setAttribute('fill', d.carBRoleColor);
+      }
+
+      const vecA = document.getElementById('l16-vec-a');
+      if (vecA) vecA.setAttribute('stroke', d.vecAStroke);
+      const vecABar = document.getElementById('l16-vec-a-bar');
+      if (vecABar) vecABar.setAttribute('stroke', d.vecAStroke);
+
+      const vecB = document.getElementById('l16-vec-b');
+      if (vecB) vecB.setAttribute('stroke', d.vecBStroke);
+      const vecBArrow = document.getElementById('l16-vec-b-arrow');
+      if (vecBArrow) vecBArrow.setAttribute('fill', d.vecBStroke);
+
+      document.getElementById('l16-hud2-duty').textContent = d.duty;
+      document.getElementById('l16-hud2-prior').textContent = d.prior;
+      document.getElementById('l16-hud2-speed').textContent = d.speed;
+      document.getElementById('l16-hud2-cite').textContent = d.cite;
+
+      const card = document.getElementById('l16-cad2-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l16-card2-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l16-card2-cite').textContent = d.cite;
+      document.getElementById('l16-card2-title').textContent = d.title;
+      document.getElementById('l16-card2-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. MCQ SCORING ENGINE (QUESTION 1 OPTION [ B ] STRICTLY CORRECT)
+    // ==============================================================================
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+            const TOPIC_ID = 'L05-T16';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.062 & § 545.351",
+            "statutoryRationale": "Under Texas Transportation Code § 545.062 (Following Distance) and § 545.351 (Basic Speed Rule), an operator must maintain an assured clear distance between vehicles and calibrate velocity to traffic density. Establishing a 360-degree space cushion maintains stopping sight distance and open lateral escape routes. Coasting in neutral on a downgrade violates TTC § 545.406, and driving on the shoulder to bypass congestion violates TTC § 545.058."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TTC § 545.104(b)",
+            "statutoryRationale": "Texas Transportation Code § 545.104(b) explicitly mandates: 'An operator intending to turn a vehicle right or left shall signal continuously for not less than the last 100 feet traveled by the vehicle before the turn.' Brief 'tap' signals fail statutory compliance and do not provide trailing high-speed traffic adequate warning time to adjust following distance."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 545.153(c)",
+            "statutoryRationale": "Under Texas Transportation Code § 545.153(c), an operator on an access or frontage road of a controlled-access highway shall yield the right-of-way to a vehicle that is entering or about to enter the access or frontage road from the highway, or that is leaving or about to leave the highway to enter the access road. Failure to yield is a Class C moving violation under TTC § 542.401."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ==============================================================================
+    // ==============================================================================
+    // SIMULATION CONTROLLER (L05-T16 Flow Harmonization)
+    // ==============================================================================
+    const simScenarios = {
+      1: {
+        badge: 'STATUTORY RULE 01 // SAFE HARMONIZATION',
+        statute: 'TTC § 545.062 & TxDOT HIGHWAY SAFETY',
+        title: 'Space Cushion Maintenance: Easing Off Throttle Dissolves Wolfpack',
+        desc: 'When surrounded by aggressive cluster traffic ("wolfpacks"), never speed up or tailgate to defend position. Easing off the accelerator by 2–3 MPH allows the dense pack to pull ahead, opening up front, rear, and lateral escape paths and re-establishing a full 3–4 second safety envelope.',
+        metric: '3 OPEN CORRIDORS (LEFT, RIGHT, TRAILING)',
+        phase: '360° SPACE CUSHION RESTORED // SPEED: 65 MPH'
+      },
+      2: {
+        badge: 'HAZARD DEMO // WOLFPACK PINCH TRAP',
+        statute: 'TTC § 545.062 RISK FACTOR',
+        title: 'Trapped in Platoon: Zero Lateral or Forward Escape Velocity',
+        desc: 'Traveling alongside vehicles in adjacent blind spots while tailgating removes all reactionary clearance. When the lead vehicle executes emergency panic braking, the driver has zero escape options, resulting in multi-vehicle pileup collisions.',
+        metric: '0 ESCAPE PATHS // SEVERE PINCH COLLISION RISK',
+        phase: 'PINCHED: WOLFPACK TRAPPED // SPEED: 35 MPH'
+      },
+      3: {
+        badge: 'STATUTORY RULE 02 // PROACTIVE LANE MIGRATION',
+        statute: 'TTC § 545.060 & § 545.104',
+        title: 'Proactive Lane Migration to Open Road Pocket',
+        desc: 'Signal intent for at least 100 feet (TTC § 545.104), confirm blind spot clearance, and smoothly migrate into an open travel lane away from cluster congestion.',
+        metric: 'PROACTIVE CORRIDOR RESTORED',
+        phase: 'LANE MIGRATION // ESCAPE PATH OPEN'
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      dispatchSimAction('setScenario', { scenario: scenNum, value: scenNum });
+      const scen = simScenarios[scenNum];
+      if (!scen) return;
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.textContent = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.textContent = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data) {
+        if (e.data.event === 'telemetry') {
+          if (e.data.phase) {
+            const phaseEl = document.getElementById('sim-telemetry-phase');
+            if (phaseEl) phaseEl.textContent = e.data.phase + (e.data.speed ? ` // SPEED: ${e.data.speed} MPH` : '');
+          }
+        }
+      }
+    });
+
+    // 4. DOM INITIALIZATION
+    // ==============================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      setL16Cad1Mode('flashing-red');
+      setL16Cad2Preset('uncontrolled');
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

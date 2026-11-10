@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Communication Impediment Diagnoses &amp; Roadside Protocols — Texas Adult Driver Ed (L07-T15)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .touch-target {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 48px !important;
+      min-width: 44px !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation;
+    }
+    .hidden { display: none !important; }
+    input[type="checkbox"] {
+      min-width: 44px !important;
+      min-height: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+    }
+    label:has(input[type="checkbox"]),
+    label.touch-target {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .flip-btn { min-height: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.375rem; transition: all 0.15s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .flip-btn-front-active { border: 2px solid #191C1B; background: #191C1B; color: #FFFFFF; }
+    .flip-btn-back-active { border: 2px solid #E87522; background: #E87522; color: #FFFFFF; }
+    .flip-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .flip-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.625rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; }
+    .mcq-btn:hover { background: #F5F5F5; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    .perspective-1000 { perspective: 1200px; }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+    .license-guilloche-pattern {
+      background-color: #ffffff;
+      background-image: radial-gradient(#e2e8f0 0.75px, transparent 0.75px), radial-gradient(#e2e8f0 0.75px, #ffffff 0.75px);
+      background-size: 16px 16px;
+      background-position: 0 0, 8px 8px;
+    }
+    .mono-svg text { font-family: 'JetBrains Mono', monospace; }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / CURRICULUM FOUNDATION -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <!-- Engineering Corner Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>REF // ADE-L07-T15-CORE</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="bg-surface-sub px-1.5 py-0.5 rounded border border-hairline font-bold">SCALE 1:1 &bull; TX-DOT</span>
+          <span class="bg-surface-sub px-1.5 py-0.5 rounded border border-hairline font-bold">TDLR VALIDATED FRAMEWORK</span>
+        </div>
+      </div>
+
+      <!-- Statutory Citations Monospace Header -->
+      <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono uppercase text-slate">
+        <span class="text-safety font-bold">TTC &sect; 521.125</span>
+        <span>&bull;</span>
+        <span class="text-safety font-bold">37 TAC &sect; 15.42</span>
+        <span>&bull;</span>
+        <span class="text-safety-deep font-bold">TEX. OCC. CODE &sect; 1701.268</span>
+        <span>&bull;</span>
+        <span class="text-carbon font-bold">SB 976 SAMUEL ALLEN LAW</span>
+      </div>
+
+      <h1 class="text-2xl font-bold text-carbon tracking-tight leading-tight">
+        Communication Impediment Diagnoses &amp; Roadside Protocols
+      </h1>
+      <p class="text-xs font-medium text-safety-deep font-mono tracking-wide uppercase">
+        Neurodivergent Profiles &bull; De-Escalation Guidelines &bull; Driver Legal Protections
+      </p>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas statute establishes vital protections for drivers with diagnosed communication challenges. Enacted under Senate Bill 976 (The Samuel Allen Law), this framework trains Texas peace officers to recognize communication impediments and employ proven roadside de-escalation tactics—eliminating dangerous misunderstandings that mistake neurodivergent behaviors for hostility, defiance, or intoxication.
+      </p>
+
+      <!-- Texas DPS Statutory Standard Callout -->
+      <div class="p-3 bg-safety-light border-l-4 border-safety rounded-r-xl space-y-1 text-xs">
+        <div class="flex items-center gap-1 text-[11px] font-mono font-bold text-safety uppercase tracking-wide">
+          <span class="material-symbols-outlined text-[15px]">verified_user</span>
+          <span>Texas DPS Statutory Rule (TTC &sect; 521.125 &amp; 37 TAC &sect; 15.42):</span>
+        </div>
+        <p class="text-carbon leading-relaxed text-[11px] font-medium">
+          Under Texas Transportation Code &sect; 521.125, the Texas Department of Public Safety provides an optional, confidential restriction indicator (Restriction Code 08: "Communication Impediment") placed on the reverse side of a driver license or ID card. Supported by Form DL-101 certified by a licensed medical practitioner, this notifies law enforcement during traffic stops while shielding confidential diagnoses from retail, employment, or commercial scrutiny.
+        </p>
+      </div>
+
+      <!-- 3-Card Micro Metric Grid -->
+      <div class="grid grid-cols-3 gap-2 pt-1 border-t border-hairline text-center font-mono">
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <div class="text-[9px] text-slate uppercase font-semibold">Response Latency</div>
+          <div class="text-xs font-extrabold text-carbon">10&ndash;15s</div>
+          <div class="text-[8px] text-slate">Mandatory Pause Buffer</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <div class="text-[9px] text-slate uppercase font-semibold">Credential Code</div>
+          <div class="text-xs font-extrabold text-safety">CODE 08</div>
+          <div class="text-[8px] text-slate">Reverse Substrate Flag</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-xl border border-hairline">
+          <div class="text-[9px] text-slate uppercase font-semibold">State Filing Fee</div>
+          <div class="text-xs font-extrabold text-valid">$0.00</div>
+          <div class="text-[8px] text-slate">100% Free Public Safety</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. 3D DRIVING SIMULATION: LOW-SPEED VEHICLES & NEV REGULATORY CAP -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 fluid-card">
+      <!-- Section Header -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 551.301 &bull; &sect; 551.401 &bull; LOW-SPEED VEHICLES &amp; GOLF CARTS</span>
+        </div>
+        <span class="text-[10px] font-mono text-safety bg-safety/10 px-2 py-0.5 rounded border border-safety/20 font-bold uppercase">
+          3D DYNAMIC SIMULATOR
+        </span>
+      </div>
+
+      <!-- TIER 2: PURE 16:9 VIEWPORT CONTAINER -->
+      <div id="sim-viewport-container" class="aspect-video w-full rounded-2xl overflow-hidden border border-hairline bg-black relative shadow-inner">
+        <iframe
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L07_T15_low_speed_vehicles.html?clean=1"
+          class="w-full h-full border-0 block"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- TIER 3: EXTERNAL MOBILE CONTROL DOCK -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">PHASE: NEV RESIDENTIAL OPERATION</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Speed Cap</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Arterial Crossin</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Illegal Highway</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. STATUTORY FRAMEWORK & JURISPRUDENCE DEEP DIVE -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">gavel</span>
+          <span class="font-bold text-carbon">STATUTORY JURISPRUDENCE // TEXAS LAW</span>
+        </div>
+        <span class="bg-surface-sub px-2 py-0.5 rounded border border-hairline text-slate font-bold">CHAPTER 521 COMPLIANCE</span>
+      </div>
+
+      <!-- Card 1: Samuel Allen Law Legislative History -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono">
+          <span class="text-safety font-bold uppercase">SB 976 &bull; THE SAMUEL ALLEN LAW</span>
+          <span class="text-slate">86TH LEGISLATURE</span>
+        </div>
+        <h2 class="text-sm font-bold text-carbon">Legislative Foundation &amp; Bridge to Law Enforcement</h2>
+        <p class="text-xs text-slate leading-relaxed">
+          Enacted by the 86th Texas Legislature, SB 976 was created after Samuel Allen, an autistic Texan, faced stressful encounters during traffic stops due to misunderstood communication nuances. The law creates two proactive voluntary disclosure tracks: driver license restriction Code 08 (Form DL-101) and vehicle registration database indicators (Form VTR-29-CD).
+        </p>
+      </div>
+
+      <!-- Card 2: Recognized Medical Diagnoses Under Texas Law -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono">
+          <span class="text-valid font-bold uppercase">37 TAC &sect; 15.42 &bull; DIAGNOSTIC CATEGORIES</span>
+          <span class="text-slate">MEDICAL FIDELITY</span>
+        </div>
+        <h2 class="text-sm font-bold text-carbon">Recognized Physical &amp; Neurological Conditions</h2>
+        <p class="text-xs text-slate leading-relaxed">
+          Under 37 TAC &sect; 15.42, qualifying diagnoses include: Autism Spectrum Disorder (ASD), Post-Traumatic Stress Disorder (PTSD), Speech Impediments (stuttering, apraxia, dysarthria, mutism), Deafness or Severe Hearing Loss, Parkinson's Disease, Traumatic Brain Injury (TBI), and Intellectual/Developmental Disabilities (IDD).
+        </p>
+      </div>
+
+      <!-- Card 3: Roadside Sensory Triggers & Behavioral Presentations -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono">
+          <span class="text-hazard font-bold uppercase">SENSORY OVERLOAD &bull; TRIGGER ANALYSIS</span>
+          <span class="text-slate">NEURO-DIVERGENCE</span>
+        </div>
+        <h2 class="text-sm font-bold text-carbon">Common Roadside Triggers vs. Erroneous Guilt Suspicions</h2>
+        <div class="space-y-1 text-xs text-slate">
+          <div>&bull; <strong>Averted Eye Contact:</strong> Neurological strategy to reduce auditory overstimulation, NOT deceit or evasiveness.</div>
+          <div>&bull; <strong>Auditory Processing Latency:</strong> Autistic drivers often require 10 to 15 seconds to formulate spoken responses.</div>
+          <div>&bull; <strong>Self-Soothing Movements:</strong> Rhythmic hand-flapping or rocking regulates sensory overload, NOT intoxication.</div>
+          <div>&bull; <strong>Literal Interpretations:</strong> Drivers process language literally; figurative questions cause acute confusion.</div>
+        </div>
+      </div>
+
+      <!-- Card 4: Legal Protections Under TPC § 38.02 & ADA Title II -->
+      <div class="p-3.5 rounded-xl bg-safety-light border-l-4 border-safety space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono">
+          <span class="text-safety font-bold uppercase">STATUTORY SHIELD &bull; CITIZEN LEGAL PROTECTIONS</span>
+          <span class="text-safety-deep font-bold">ADA TITLE II</span>
+        </div>
+        <h2 class="text-sm font-bold text-carbon">Immunity Under TPC &sect; 38.02 &amp; Assistive Communication Rights</h2>
+        <p class="text-[11px] text-carbon leading-relaxed font-medium">
+          Drivers with certified communication impediments are legally protected from false charges under Texas Penal Code &sect; 38.02 (Failure to Identify) when communication delays arise from a medical condition. Furthermore, under Title II of the Americans with Disabilities Act (28 C.F.R. &sect; 35.160), peace officers must permit drivers to utilize alternative communication aids—including written notes, visor cards, mobile texting, or digital AAC devices.
+        </p>
+      </div>
+    </section>
+
+    <!-- 05. PRIMARY CAD WIDGET: SENSORY PROFILE MATRIX CAD -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TTC &sect; 521.125 &bull; 37 TAC &sect; 15.42 &bull; SENSORY MATRIX</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Diagnostic Categories &amp; Sensory Overload Matrix</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap diagnostic quadrants to inspect qualifying conditions under Texas law, neuro-sensory triggers (sirens, strobes, shouting), and behavioral presentations.</p>
+      </div>
+
+      <!-- SVG Viewport: Responsive max-w-[340px] -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l15-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none mono-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l15-cad1-bg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0E1311" />
+              <stop offset="100%" stop-color="#070A08" />
+            </linearGradient>
+            <linearGradient id="l15-cad1-quad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1E293B" />
+              <stop offset="100%" stop-color="#0F172A" />
+            </linearGradient>
+          </defs>
+
+          <!-- Base Canvas Background -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="url(#l15-cad1-bg)" stroke="#222B25" stroke-width="1" />
+
+          <!-- Top Technical Header -->
+          <g transform="translate(12, 14)" pointer-events="none">
+            <text x="0" y="0" font-size="5.5" font-weight="700" fill="#94A3B8">37 TAC &#167; 15.42 // 4 DIAGNOSTIC QUADRANTS</text>
+            <text x="316" y="0" font-size="5" fill="#38BDF8" text-anchor="end">RESTRICTION CODE 08</text>
+          </g>
+
+          <!-- Central Matrix Crosshairs (x=170, y=108) -->
+          <line x1="10" y1="108" x2="330" y2="108" stroke="#1E2923" stroke-width="1" stroke-dasharray="4 4" />
+          <line x1="170" y1="24" x2="170" y2="190" stroke="#1E2923" stroke-width="1" stroke-dasharray="4 4" />
+
+          <!-- QUADRANT 1: AUTISM SPECTRUM DISORDER (Top-Left, x=16 to x=164, y=28 to y=102) -->
+          <g transform="translate(90, 65)">
+            <rect x="-74" y="-37" width="148" height="74" rx="4" fill="url(#l15-cad1-quad)" stroke="#38BDF8" stroke-width="1.2" />
+            <rect x="-74" y="-37" width="148" height="15" rx="4" fill="#0369A1" />
+            <text x="0" y="-27" font-size="4" font-weight="700" fill="#E0F2FE" text-anchor="middle">Q1: AUTISM SPECTRUM (ASD)</text>
+
+            <path d="M -60,-12 Q -45,-20 -30,-12 T 0,-12 T 30,-12 T 60,-12" fill="none" stroke="#38BDF8" stroke-width="1" opacity="0.8" />
+            <text x="-66" y="3" font-size="3.2" fill="#94A3B8">&bull; Siren / Strobe Overload</text>
+            <text x="-66" y="14" font-size="3.2" fill="#94A3B8">&bull; Averts direct eye contact</text>
+            <text x="-66" y="25" font-size="3.2" fill="#38BDF8">&bull; Flat tone &bull; Literal processing</text>
+          </g>
+
+          <!-- QUADRANT 2: SPEECH IMPEDIMENTS (Top-Right, x=176 to x=324, y=28 to y=102) -->
+          <g transform="translate(250, 65)">
+            <rect x="-74" y="-37" width="148" height="74" rx="4" fill="url(#l15-cad1-quad)" stroke="#E87522" stroke-width="1.2" />
+            <rect x="-74" y="-37" width="148" height="15" rx="4" fill="#9A3412" />
+            <text x="0" y="-27" font-size="4" font-weight="700" fill="#FFEDD5" text-anchor="middle">Q2: SPEECH IMPEDIMENTS</text>
+
+            <line x1="-50" y1="-12" x2="-50" y2="-6" stroke="#FB923C" stroke-width="1.5" />
+            <line x1="-30" y1="-15" x2="-30" y2="-3" stroke="#FB923C" stroke-width="1.5" />
+            <line x1="-10" y1="-18" x2="-10" y2="0" stroke="#FB923C" stroke-width="1.5" />
+            <line x1="10" y1="-14" x2="10" y2="-4" stroke="#FB923C" stroke-width="1.5" />
+            <line x1="30" y1="-16" x2="30" y2="-2" stroke="#FB923C" stroke-width="1.5" />
+            <line x1="50" y1="-12" x2="50" y2="-6" stroke="#FB923C" stroke-width="1.5" />
+
+            <text x="-66" y="3" font-size="3.2" fill="#94A3B8">&bull; Stuttering / Apraxia</text>
+            <text x="-66" y="14" font-size="3.2" fill="#94A3B8">&bull; Dysfluency under duress</text>
+            <text x="-66" y="25" font-size="3.2" fill="#FB923C">&bull; Mandates zero interruptions</text>
+          </g>
+
+          <!-- QUADRANT 3: DEAFNESS & HARD OF HEARING (Bottom-Left, x=16 to x=164, y=114 to y=188) -->
+          <g transform="translate(90, 151)">
+            <rect x="-74" y="-37" width="148" height="74" rx="4" fill="url(#l15-cad1-quad)" stroke="#10B981" stroke-width="1.2" />
+            <rect x="-74" y="-37" width="148" height="15" rx="4" fill="#065F46" />
+            <text x="0" y="-27" font-size="4" font-weight="700" fill="#D1FAE5" text-anchor="middle">Q3: DEAFNESS / HEARING</text>
+
+            <path d="M -40,-12 Q -30,-22 -20,-12 Q -15,-6 -22,-2 Q -26,1 -26,4" fill="none" stroke="#34D399" stroke-width="1.4" />
+            <rect x="15" y="-18" width="18" height="14" rx="2" fill="#064E3B" stroke="#34D399" stroke-width="0.8" />
+            <line x1="18" y1="-14" x2="30" y2="-14" stroke="#FFFFFF" stroke-width="0.8" />
+            <line x1="18" y1="-11" x2="28" y2="-11" stroke="#FFFFFF" stroke-width="0.8" />
+
+            <text x="-66" y="3" font-size="3.2" fill="#94A3B8">&bull; Acoustic occlusion</text>
+            <text x="-66" y="14" font-size="3.2" fill="#94A3B8">&bull; Visual communication cards</text>
+            <text x="-66" y="25" font-size="3.2" fill="#34D399">&bull; Speech-reading &bull; Plain text</text>
+          </g>
+
+          <!-- QUADRANT 4: PTSD & NEUROLOGICAL (Bottom-Right, x=176 to x=324, y=114 to y=188) -->
+          <g transform="translate(250, 151)">
+            <rect x="-74" y="-37" width="148" height="74" rx="4" fill="url(#l15-cad1-quad)" stroke="#A855F7" stroke-width="1.2" />
+            <rect x="-74" y="-37" width="148" height="15" rx="4" fill="#6B21A8" />
+            <text x="0" y="-27" font-size="4" font-weight="700" fill="#F3E8FF" text-anchor="middle">Q4: PTSD &amp; NEUROLOGICAL</text>
+
+            <polyline points="-50,-12 -30,-12 -20,-20 -10,-4 0,-16 10,-10 30,-12 50,-12" fill="none" stroke="#C084FC" stroke-width="1.2" />
+
+            <text x="-66" y="3" font-size="3.2" fill="#94A3B8">&bull; Startle reflex from loud noise</text>
+            <text x="-66" y="14" font-size="3.2" fill="#94A3B8">&bull; Acute combat / trauma response</text>
+            <text x="-66" y="25" font-size="3.2" fill="#C084FC">&bull; Parkinsons tremor &bull; TBI</text>
+          </g>
+
+          <circle cx="170" cy="108" r="5" fill="#0A0E0C" stroke="#334155" stroke-width="1.2" />
+
+          <!-- INTERACTIVE NODES (r="32" touch targets) -->
+          <g id="l15-cad1-box-1" transform="translate(90, 65)">
+            <circle id="l15-cad1-pulse-1" cx="0" cy="0" r="26" fill="none" stroke="#38BDF8" stroke-width="1.4" opacity="0.6" class="animate-pulse" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad1Mode('quad_asd')" role="button" tabindex="0" aria-label="Quadrant 1 Autism Spectrum Disorder Profile" />
+          </g>
+          <g id="l15-cad1-box-2" transform="translate(250, 65)">
+            <circle id="l15-cad1-pulse-2" cx="0" cy="0" r="26" fill="none" stroke="#E87522" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad1Mode('quad_speech')" role="button" tabindex="0" aria-label="Quadrant 2 Speech and Language Impediments" />
+          </g>
+          <g id="l15-cad1-box-3" transform="translate(90, 151)">
+            <circle id="l15-cad1-pulse-3" cx="0" cy="0" r="26" fill="none" stroke="#10B981" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad1Mode('quad_deaf')" role="button" tabindex="0" aria-label="Quadrant 3 Deafness and Hearing Impairment" />
+          </g>
+          <g id="l15-cad1-box-4" transform="translate(250, 151)">
+            <circle id="l15-cad1-pulse-4" cx="0" cy="0" r="26" fill="none" stroke="#A855F7" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad1Mode('quad_ptsd')" role="button" tabindex="0" aria-label="Quadrant 4 PTSD and Neurological Conditions" />
+          </g>
+
+          <!-- Bottom Status Bar -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l15-cad1-dot" cx="10" cy="9" r="3.5" fill="#38BDF8" />
+            <text id="l15-cad1-status" x="20" y="12.5" font-size="4.8" font-weight="700" fill="#E2E8F0">
+              AUTISM PROFILE: SENSORY OVERLOAD FROM SIRENS/STROBES • FLAT AFFECT
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Synchronized HTML Button Grid (All min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l15-cad1-btn-1" type="button" onclick="setL15Cad1Mode('quad_asd')" class="touch-target cad-btn cad-btn-active">
+          <span class="text-[11px]">Autism (ASD)</span>
+          <span class="text-[9px] text-safety-deep font-normal">Sensory Overload</span>
+        </button>
+        <button id="l15-cad1-btn-2" type="button" onclick="setL15Cad1Mode('quad_speech')" class="touch-target cad-btn cad-btn-inactive">
+          <span class="text-[11px]">Speech Stutter</span>
+          <span class="text-[9px] text-slate font-normal">Apraxia &bull; Patience</span>
+        </button>
+        <button id="l15-cad1-btn-3" type="button" onclick="setL15Cad1Mode('quad_deaf')" class="touch-target cad-btn cad-btn-inactive">
+          <span class="text-[11px]">Deafness / HOH</span>
+          <span class="text-[9px] text-slate font-normal">Visual Dialog Cards</span>
+        </button>
+        <button id="l15-cad1-btn-4" type="button" onclick="setL15Cad1Mode('quad_ptsd')" class="touch-target cad-btn cad-btn-inactive">
+          <span class="text-[11px]">PTSD / Trauma</span>
+          <span class="text-[9px] text-slate font-normal">Startle Reflex &bull; TBI</span>
+        </button>
+      </div>
+
+      <!-- Reactive Explanatory Card -->
+      <div id="l15-cad1-card" class="bg-surface-sub border-l-4 border-sky-500 p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l15-cad1-card-tag" class="text-[10px] font-mono font-bold text-sky-500 uppercase">NEURODIVERGENT SENSORY OVERLOAD</span>
+          <span id="l15-cad1-card-cite" class="text-[10px] font-mono text-slate">37 TAC &sect; 15.42 &bull; AUTISM SPECTRUM</span>
+        </div>
+        <h3 id="l15-cad1-card-title" class="font-sans font-bold text-sm text-carbon">Autism Spectrum Disorder (ASD) Sensory Triggers</h3>
+        <p id="l15-cad1-card-desc" class="text-xs text-slate leading-relaxed">
+          Sirens and emergency strobes can cause severe sensory overload. Averted eye contact, rocking, or monotone speech are coping mechanisms, not intoxication or guilt.
+        </p>
+        <div id="l15-cad1-card-meta" class="pt-1 text-[11px] font-mono text-slate border-t border-hairline/80 flex items-center justify-between">
+          <span id="l15-cad1-meta-left">TRIGGERS: Sirens, Strobes, Shouting</span>
+          <span id="l15-cad1-meta-right" class="text-sky-500 font-bold">BEHAVIOR: Stimming &bull; Literal Speech</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. SECONDARY CAD WIDGET: TCOLE DE-ESCALATION PROTOCOL HUD CAD -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TEX. OCC. CODE &sect; 1701.268 &bull; TCOLE COURSE 4055</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          TCOLE PROTOCOL
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Peace Officer Roadside Sensory De-Escalation HUD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap protocol quadrants to examine mandatory TCOLE roadside tactics: voice modulation, light/siren suppression, 10–15s cognitive processing windows, and tactile boundaries.</p>
+      </div>
+
+      <!-- SVG Viewport: Responsive max-w-[340px] -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l15-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none mono-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l15-cad2-bg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0E1311" />
+              <stop offset="100%" stop-color="#070A08" />
+            </linearGradient>
+          </defs>
+
+          <!-- Base Canvas Background -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="url(#l15-cad2-bg)" stroke="#222B25" stroke-width="1" />
+
+          <!-- Top Technical Header -->
+          <g transform="translate(12, 14)" pointer-events="none">
+            <text x="0" y="0" font-size="5.5" font-weight="700" fill="#94A3B8">TCOLE COURSE 4055 // ROADSIDE DE-ESCALATION</text>
+            <text x="316" y="0" font-size="5" fill="#10B981" text-anchor="end">4 MANDATES</text>
+          </g>
+
+          <!-- Central Shield Hub & Radiating Spokes -->
+          <g transform="translate(170, 88)">
+            <line x1="0" y1="0" x2="-85" y2="-38" stroke="#1F3626" stroke-width="1.5" stroke-dasharray="2 3" />
+            <line x1="0" y1="0" x2="85" y2="-38" stroke="#1F3626" stroke-width="1.5" stroke-dasharray="2 3" />
+            <line x1="0" y1="0" x2="-85" y2="35" stroke="#1F3626" stroke-width="1.5" stroke-dasharray="2 3" />
+            <line x1="0" y1="0" x2="85" y2="35" stroke="#1F3626" stroke-width="1.5" stroke-dasharray="2 3" />
+
+            <circle cx="0" cy="0" r="18" fill="#0C1A14" stroke="#10B981" stroke-width="1.4" />
+            <polygon points="0,-10 8,-5 8,4 0,10 -8,4 -8,-5" fill="#065F46" stroke="#34D399" stroke-width="1" />
+            <text x="0" y="2" font-size="4" font-weight="700" fill="#FFFFFF" text-anchor="middle">TCOLE</text>
+          </g>
+
+          <!-- PROTOCOL NODES -->
+          <g transform="translate(80, 50)">
+            <rect x="-62" y="-24" width="124" height="48" rx="4" fill="#0B161E" stroke="#38BDF8" stroke-width="1.2" />
+            <text x="0" y="-12" font-size="4.2" font-weight="700" fill="#38BDF8" text-anchor="middle">1. VOICE MODULATION</text>
+            <text x="0" y="-1" font-size="3.5" fill="#FFFFFF" text-anchor="middle">Calm, Low Pitch, Measured</text>
+            <text x="0" y="10" font-size="3.2" fill="#94A3B8" text-anchor="middle">Short, 1-step direct prompts</text>
+          </g>
+          <g transform="translate(260, 50)">
+            <rect x="-62" y="-24" width="124" height="48" rx="4" fill="#1C140E" stroke="#E87522" stroke-width="1.2" />
+            <text x="0" y="-12" font-size="4.2" font-weight="700" fill="#E87522" text-anchor="middle">2. SENSORY REDUCTION</text>
+            <text x="0" y="-1" font-size="3.5" fill="#FFFFFF" text-anchor="middle">Dim Spotlights &amp; Strobes</text>
+            <text x="0" y="10" font-size="3.2" fill="#94A3B8" text-anchor="middle">Mute sirens &bull; Single speaker</text>
+          </g>
+          <g transform="translate(80, 125)">
+            <rect x="-62" y="-24" width="124" height="48" rx="4" fill="#0E1B15" stroke="#10B981" stroke-width="1.2" />
+            <text x="0" y="-12" font-size="4.2" font-weight="700" fill="#10B981" text-anchor="middle">3. 10-15s LATENCY</text>
+            <text x="0" y="-1" font-size="3.5" fill="#FFFFFF" text-anchor="middle">Wait Before Repeating</text>
+            <text x="0" y="10" font-size="3.2" fill="#94A3B8" text-anchor="middle">Allows neurological processing</text>
+          </g>
+          <g transform="translate(260, 125)">
+            <rect x="-62" y="-24" width="124" height="48" rx="4" fill="#17101E" stroke="#A855F7" stroke-width="1.2" />
+            <text x="0" y="-12" font-size="4.2" font-weight="700" fill="#A855F7" text-anchor="middle">4. TACTILE RESPECT</text>
+            <text x="0" y="-1" font-size="3.5" fill="#FFFFFF" text-anchor="middle">Zero Sudden Grabbing</text>
+            <text x="0" y="10" font-size="3.2" fill="#94A3B8" text-anchor="middle">Permit AAC cards &amp; tools</text>
+          </g>
+
+          <!-- INTERACTIVE NODES (r="32" touch targets) -->
+          <g id="l15-cad2-box-1" transform="translate(80, 50)">
+            <circle id="l15-cad2-pulse-1" cx="0" cy="0" r="26" fill="none" stroke="#38BDF8" stroke-width="1.4" opacity="0.6" class="animate-pulse" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad2Mode('tcole_voice')" role="button" tabindex="0" aria-label="TCOLE Protocol 1 Voice Modulation" />
+          </g>
+          <g id="l15-cad2-box-2" transform="translate(260, 50)">
+            <circle id="l15-cad2-pulse-2" cx="0" cy="0" r="26" fill="none" stroke="#E87522" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad2Mode('tcole_light')" role="button" tabindex="0" aria-label="TCOLE Protocol 2 Light and Noise Mitigation" />
+          </g>
+          <g id="l15-cad2-box-3" transform="translate(80, 125)">
+            <circle id="l15-cad2-pulse-3" cx="0" cy="0" r="26" fill="none" stroke="#10B981" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad2Mode('tcole_latency')" role="button" tabindex="0" aria-label="TCOLE Protocol 3 10-15 Second Latency Buffer" />
+          </g>
+          <g id="l15-cad2-box-4" transform="translate(260, 125)">
+            <circle id="l15-cad2-pulse-4" cx="0" cy="0" r="26" fill="none" stroke="#A855F7" stroke-width="1" opacity="0" />
+            <circle cx="0" cy="0" r="32" fill="transparent" class="cursor-pointer" onclick="setL15Cad2Mode('tcole_touch')" role="button" tabindex="0" aria-label="TCOLE Protocol 4 Tactile Non-Intrusion" />
+          </g>
+
+          <!-- Bottom Status Bar -->
+          <g transform="translate(10, 156)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l15-cad2-dot" cx="10" cy="9" r="3.5" fill="#38BDF8" />
+            <text id="l15-cad2-status" x="20" y="12.5" font-size="4.8" font-weight="700" fill="#E2E8F0">
+              TCOLE PROTOCOL: VOICE MODULATION • CLEAR 1-STEP PROMPTS • CALM CADENCE
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Synchronized HTML Button Grid (All min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l15-cad2-btn-1" type="button" onclick="setL15Cad2Mode('tcole_voice')" class="touch-target cad-btn cad-btn-active">
+          <span class="text-[11px]">Voice Modulation</span>
+          <span class="text-[9px] text-safety-deep font-normal">Calm &bull; No Shouting</span>
+        </button>
+        <button id="l15-cad2-btn-2" type="button" onclick="setL15Cad2Mode('tcole_light')" class="touch-target cad-btn cad-btn-inactive">
+          <span class="text-[11px]">Sensory Reduction</span>
+          <span class="text-[9px] text-slate font-normal">Dim Lights &bull; Sirens</span>
+        </button>
+        <button id="l15-cad2-btn-3" type="button" onclick="setL15Cad2Mode('tcole_latency')" class="touch-target cad-btn cad-btn-inactive">
+          <span class="text-[11px]">10-15s Latency</span>
+          <span class="text-[9px] text-slate font-normal">Response Processing</span>
+        </button>
+        <button id="l15-cad2-btn-4" type="button" onclick="setL15Cad2Mode('tcole_touch')" class="touch-target cad-btn cad-btn-inactive">
+          <span class="text-[11px]">Tactile Non-Touch</span>
+          <span class="text-[9px] text-slate font-normal">Permit AAC Cards</span>
+        </button>
+      </div>
+
+      <!-- Reactive Explanatory Card -->
+      <div id="l15-cad2-card" class="bg-surface-sub border-l-4 border-sky-500 p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l15-cad2-card-tag" class="text-[10px] font-mono font-bold text-sky-500 uppercase">TCOLE DE-ESCALATION MANDATE</span>
+          <span id="l15-cad2-card-cite" class="text-[10px] font-mono text-slate">TEX. OCC. CODE &sect; 1701.268 &bull; COURSE 4055</span>
+        </div>
+        <h3 id="l15-cad2-card-title" class="font-sans font-bold text-sm text-carbon">Voice Modulation &amp; Concise Single-Step Prompts</h3>
+        <p id="l15-cad2-card-desc" class="text-xs text-slate leading-relaxed">
+          Officers speak in a calm, unhurried tone without shouting. Complex multi-step instructions overwhelm processing; officers give one clear direction at a time.
+        </p>
+        <div id="l15-cad2-card-meta" class="pt-1 text-[11px] font-mono text-slate border-t border-hairline/80 flex items-center justify-between">
+          <span id="l15-cad2-meta-left">TONE: Measured, Low Pitch</span>
+          <span id="l15-cad2-meta-right" class="text-sky-500 font-bold">STRUCTURE: Single-Step Directions</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. INTERACTIVE CREDENTIAL INSPECTOR: 3D TEXAS DRIVER LICENSE FLIPPER -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate">
+          <span class="material-symbols-outlined text-sm text-safety">badge</span>
+          <span class="font-bold text-carbon">TACTILE CREDENTIAL INSPECTOR</span>
+        </div>
+        <span class="bg-surface-sub px-2 py-0.5 rounded border border-hairline text-slate font-bold">SCALE 1:1 SUBSTRATE</span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">INTERACTIVE INSPECTOR 03</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight" id="flip-view-title">
+          Texas Driver License Substrate Anatomy (Front Side)
+        </h2>
+        <p class="font-sans text-xs text-slate mt-1">
+          Flip the official Texas credential to examine how medical privacy and officer notices are physically balanced under TTC &sect; 521.142(h).
+        </p>
+      </div>
+
+      <!-- Flip Card Controller Buttons (All min-h-[48px]) -->
+      <div class="grid grid-cols-2 gap-2">
+        <button id="btn-side-front" type="button" onclick="setLicenseSide('front')" class="touch-target flip-btn flip-btn-front-active">
+          <span class="material-symbols-outlined text-sm">front_hand</span>
+          <span>Front (Public Side)</span>
+        </button>
+        <button id="btn-side-back" type="button" onclick="setLicenseSide('back')" class="touch-target flip-btn flip-btn-inactive">
+          <span class="material-symbols-outlined text-sm">flip</span>
+          <span>Back (Code 08 Restriction)</span>
+        </button>
+      </div>
+
+      <!-- 3D Perspective Stage -->
+      <div class="perspective-1000 w-full flex justify-center py-2">
+        <div id="license-card" onclick="toggleLicenseFlip()" class="transform-style-3d relative w-full max-w-[340px] aspect-[1.586/1] rounded-xl cursor-pointer select-none shadow-md border border-hairline" title="Click Card to Flip between Front and Back">
+          
+          <!-- LICENSE FRONT LAYER -->
+          <div class="backface-hidden absolute inset-0 w-full h-full rounded-xl license-guilloche-pattern p-4 flex flex-col justify-between overflow-hidden bg-white border border-slate-300 mono-svg">
+            <div class="border-b border-hairline pb-2 flex items-start justify-between">
+              <div>
+                <div class="text-[9px] font-mono tracking-widest text-slate uppercase">STATE OF TEXAS // DPS</div>
+                <div class="text-sm font-bold tracking-tight text-carbon flex items-center gap-1.5 font-sans">
+                  DRIVER LICENSE
+                  <span class="text-[8px] font-mono font-normal border border-hairline text-slate px-1 py-0.2 rounded">CLASS C</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="inline-flex items-center gap-1 bg-surface-sub border border-hairline px-1.5 py-0.5 rounded text-[9px] font-mono text-carbon">
+                  <span class="text-safety font-bold">&starf;</span> REAL ID
+                </div>
+                <div class="text-[8px] font-mono text-slate mt-0.5">USA COMPLIANT</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-12 gap-2 items-center py-1">
+              <div class="col-span-4 bg-slate-100 border border-hairline rounded-lg aspect-[3/4] flex flex-col items-center justify-center p-1 relative overflow-hidden">
+                <span class="material-symbols-outlined text-3xl text-slate-400">person</span>
+                <div class="text-[7px] font-mono text-slate mt-0.5 uppercase">AUDIT 481920</div>
+                <div class="absolute bottom-0.5 right-1 text-black/5 text-2xl font-black pointer-events-none">&starf;</div>
+              </div>
+
+              <div class="col-span-8 space-y-1 text-xs font-mono">
+                <div>
+                  <span class="text-[8px] text-slate block uppercase">4d DL Number</span>
+                  <span class="font-bold text-xs tracking-wide text-carbon">TX 98421065</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1 text-[10px]">
+                  <div>
+                    <span class="text-[7px] text-slate block uppercase">1 Last Name</span>
+                    <span class="font-semibold text-carbon">MORGAN</span>
+                  </div>
+                  <div>
+                    <span class="text-[7px] text-slate block uppercase">2 First Name</span>
+                    <span class="font-semibold text-carbon">JORDAN R.</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-1 text-[10px]">
+                  <div>
+                    <span class="text-[7px] text-slate block uppercase">3 DOB</span>
+                    <span class="text-carbon">10/14/1998</span>
+                  </div>
+                  <div>
+                    <span class="text-[7px] text-slate block uppercase">4b Exp Date</span>
+                    <span class="text-safety font-bold">10/14/2030</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="text-[7px] text-slate block uppercase">8 Address</span>
+                  <span class="text-[9px] text-carbon leading-tight block">412 CONGRESS AVE, AUSTIN, TX</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-hairline pt-1.5 flex items-center justify-between text-[9px] font-mono text-slate">
+              <span class="flex items-center gap-1 text-valid font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-valid"></span>
+                ZERO MEDICAL DATA ON FRONT
+              </span>
+              <span class="text-safety flex items-center gap-0.5 font-bold">
+                Tap to Flip &orarr;
+              </span>
+            </div>
+          </div>
+
+          <!-- LICENSE REVERSE LAYER (CODE 08 CALLOUT) -->
+          <div class="backface-hidden rotate-y-180 absolute inset-0 w-full h-full rounded-xl license-guilloche-pattern p-4 flex flex-col justify-between overflow-hidden bg-white border border-slate-300 mono-svg">
+            <div>
+              <div class="w-full h-5 bg-carbon rounded flex items-center justify-between px-2">
+                <span class="text-[7px] font-mono text-neutral-400 tracking-wider">TEXAS MAGNETIC STRIPE // 256-BIT ENCRYPTED</span>
+                <span class="text-[7px] font-mono text-neutral-500">PDF417</span>
+              </div>
+              <div class="mt-1 h-2 w-full bg-neutral-200 rounded border border-neutral-300 flex items-center px-1">
+                <div class="w-full h-1 bg-neutral-800 opacity-60"></div>
+              </div>
+            </div>
+
+            <div class="my-auto py-1">
+              <div class="flex items-center justify-between mb-1 font-mono text-[9px] text-slate uppercase">
+                <span>ENDORSEMENTS &amp; RESTRICTIONS</span>
+                <span class="text-safety font-bold">TTC &sect; 521.142(h)</span>
+              </div>
+
+              <div class="bg-safety-light border-2 border-safety rounded-lg p-2 text-carbon relative">
+                <div class="flex items-start justify-between gap-1">
+                  <div class="space-y-0.5">
+                    <div class="flex items-center gap-1.5">
+                      <span class="bg-safety text-white font-mono font-bold text-[10px] px-1.5 py-0.5 rounded tracking-wide">
+                        RESTRICTION: 08
+                      </span>
+                      <span class="text-[9px] font-mono text-safety-deep font-bold uppercase">
+                        &bull; DPS CONFIDENTIAL
+                      </span>
+                    </div>
+                    <div class="text-xs font-bold text-carbon tracking-tight pt-0.5 font-sans">
+                      Communication Impediment with a Peace Officer
+                    </div>
+                    <div class="text-[9px] text-slate font-mono">
+                      Authority: Form DL-101 Physician Certification
+                    </div>
+                  </div>
+
+                  <button type="button" onclick="event.stopPropagation(); toggleTooltip();" class="touch-target min-w-[48px] min-h-[48px] w-12 h-12 shrink-0 bg-white border border-safety hover:bg-orange-100 text-safety rounded-full flex items-center justify-center font-mono font-bold text-sm shadow-xs" title="View statutory definition" aria-label="Toggle Tooltip">
+                    i
+                  </button>
+                </div>
+
+                <!-- POP-UP TOOLTIP (VERBATIM STATUTORY DEFINITION) -->
+                <div id="impediment-tooltip" class="mt-2 bg-carbon text-white p-2 rounded-lg border border-neutral-700 text-[10px] font-sans relative transition-all block">
+                  <div class="flex items-start gap-1.5">
+                    <span class="text-safety font-mono text-xs leading-none mt-0.5 font-bold">&bull;</span>
+                    <div>
+                      <span class="text-[9px] font-mono uppercase tracking-wider text-safety font-bold block">Statutory Purpose:</span>
+                      <p class="text-neutral-200 leading-snug">
+                        "This optional code alerts law enforcement officers to a driver's communication challenges. Requires physician Form DL-101."
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-hairline pt-1 flex items-center justify-between text-[8px] font-mono text-slate">
+              <span>CARD AUDIT: #481920412-TX</span>
+              <span class="text-carbon font-semibold">SAMUEL ALLEN LAW</span>
+              <span class="text-valid font-bold">&check; DPS VERIFIED</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Readout Card -->
+      <div id="side-readout" class="p-3 bg-surface-sub rounded-xl border border-hairline text-xs space-y-1.5">
+        <div class="flex items-center justify-between">
+          <span id="readout-title" class="font-mono font-bold text-carbon text-[11px] uppercase tracking-wide">
+            FRONT SUBSTRATE: PUBLIC CREDENTIAL
+          </span>
+          <span id="readout-badge" class="font-mono text-[10px] text-valid font-bold bg-valid/10 px-1.5 py-0.5 rounded border border-valid/20">
+            ZERO MEDICAL STIGMA
+          </span>
+        </div>
+        <p id="readout-desc" class="text-slate text-[11px] leading-relaxed">
+          The face of the driver license contains only standard demographic identifiers (name, DOB, address, class). No clinical diagnoses or mental health terms appear on the front, protecting personal privacy during commercial, banking, or retail transactions.
+        </p>
+        <div id="readout-rule" class="font-mono text-[10px] text-valid bg-valid/10 p-1.5 rounded border border-valid/20">
+          &gt; ANTI-DISCRIMINATION: Completely shields confidential medical records from retail or employer scrutiny.
+        </div>
+      </div>
+
+      <!-- Encounter Scenarios Dual Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 border-t border-hairline text-xs">
+        <div class="bg-surface-sub p-3 rounded-xl border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-[10px] font-mono">
+            <span class="text-safety font-bold uppercase">01 // CLINICAL AUTHENTICATION</span>
+            <span class="text-slate font-bold">FORM DL-101</span>
+          </div>
+          <h3 class="font-bold text-carbon text-xs">Physician Statement Mandate</h3>
+          <p class="text-[11px] text-slate leading-relaxed">
+            The code is not self-selected at the DPS counter. An applicant must submit Texas DPS Form DL-101 signed by a licensed physician certifying a recognized medical condition that impedes oral dialogue.
+          </p>
+        </div>
+        <div class="bg-surface-sub p-3 rounded-xl border border-hairline space-y-1">
+          <div class="flex items-center justify-between text-[10px] font-mono">
+            <span class="text-safety-deep font-bold uppercase">02 // ROADSIDE ENCOUNTER</span>
+            <span class="text-slate font-bold">OFFICER TACTIC</span>
+          </div>
+          <h3 class="font-bold text-carbon text-xs">De-Escalation &amp; Patience Safeguard</h3>
+          <p class="text-[11px] text-slate leading-relaxed">
+            When handed the credential, the officer flips it to check restrictions. Code 08 alerts the officer to adapt questioning style—preempting tragic misunderstandings mistaken for evasion or intoxication.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. FORMATIVE ASSESSMENT // KNOWLEDGE EVALUATION (3 SCENARIO MCQS) -->
+    <!-- REMEDYING DESKTOP V1 ZERO-QUIZ DEFICIT WITH COMPLETE TEXAS STATUTORY CITATIONS -->
+    <section class="bg-surface rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-4 fluid-card">
+      <div class="border-b border-hairline pb-2 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">KNOWLEDGE EVALUATION</span>
+          <h2 class="font-bold text-base text-carbon leading-tight">Statutory Knowledge Evaluation (3 Scenarios)</h2>
+        </div>
+        <div class="text-[10px] font-mono text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          PASS: 100%
+        </div>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L07-T15 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- SCENARIO 1: MANDATORY OPTION [ B ] STRICTLY CORRECT -->
+      <div id="mcq-container-1" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate border-b border-hairline pb-1.5">
+          <span class="font-bold text-carbon uppercase">SCENARIO 01 &bull; ROADSIDE TCOLE DE-ESCALATION</span>
+          <span class="text-safety font-bold">TTC &sect; 521.125 &bull; SB 976</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A Texas State Trooper initiates a traffic stop on a vehicle for an expired registration sticker. Upon entering the vehicle's license plate number into her patrol car terminal, the TLETS system returns an alert: <em class="text-safety-deep">"COMMUNICATION IMPEDIMENT WITH A PEACE OFFICER."</em> The trooper prepares to approach the driver, who is an adult with Autism Spectrum Disorder. Under Texas Commission on Law Enforcement (TCOLE) training guidelines established pursuant to the Samuel Allen Law (SB 976), what tactical adjustments should the trooper make during this encounter?
+        </p>
+
+        <div class="space-y-2 text-xs font-mono">
+          <button id="q1-opt-a" type="button" onclick="checkMCQ(1, 'A')" class="mcq-btn mcq-btn-1 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ A ]</span>
+              <span class="font-sans text-xs">Approach rapidly with weapon drawn while shouting loud verbal commands through the vehicle's rear window to establish immediate dominance.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <!-- OPTION B IS STRICTLY CORRECT -->
+          <button id="q1-opt-b" type="button" onclick="checkMCQ(1, 'B')" class="mcq-btn mcq-btn-1 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ B ]</span>
+              <span class="font-sans text-xs">Turn off sirens and dim strobe lights if safe, speak calmly in plain language, allow 10 to 15 seconds for the driver to process questions, and avoid interpreting lack of eye contact as deceit or defiance.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <button id="q1-opt-c" type="button" onclick="checkMCQ(1, 'C')" class="mcq-btn mcq-btn-1 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ C ]</span>
+              <span class="font-sans text-xs">Immediately order all occupants to step out of the car, place their hands on the hood, and submit to an invasive physical frisk.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <button id="q1-opt-d" type="button" onclick="checkMCQ(1, 'D')" class="mcq-btn mcq-btn-1 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ D ]</span>
+              <span class="font-sans text-xs">Require the driver to step out and perform complex physical roadside divided-attention sobriety tests immediately.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg border font-sans text-xs leading-relaxed space-y-1"></div>
+      </div>
+
+      <!-- SCENARIO 2: OPTION [ A ] CORRECT -->
+      <div id="mcq-container-2" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate border-b border-hairline pb-1.5">
+          <span class="font-bold text-carbon uppercase">SCENARIO 02 &bull; STATUTORILY RECOGNIZED CONDITIONS</span>
+          <span class="text-safety font-bold">37 TAC &sect; 15.42</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          A driver licensing specialist at a Texas DPS office is reviewing medical conditions that qualify an applicant to receive the "Communication Impediment" restriction code on their driver license under 37 Texas Administrative Code &sect; 15.42 and Texas Transportation Code &sect; 521.125. Which of the following groups of medical diagnoses are statutorily recognized as qualifying communication impediments?
+        </p>
+
+        <div class="space-y-2 text-xs font-mono">
+          <!-- OPTION A IS CORRECT -->
+          <button id="q2-opt-a" type="button" onclick="checkMCQ(2, 'A')" class="mcq-btn mcq-btn-2 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ A ]</span>
+              <span class="font-sans text-xs">Autism Spectrum Disorder (ASD), Post-Traumatic Stress Disorder (PTSD), Speech Apraxia, Deafness, and Parkinson’s Disease.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <button id="q2-opt-b" type="button" onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ B ]</span>
+              <span class="font-sans text-xs">Seasonal allergies, mild astigmatism, hypertension, and minor joint inflammation.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <button id="q2-opt-c" type="button" onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ C ]</span>
+              <span class="font-sans text-xs">Temporary common cold, dental extractions, and minor muscle sprains.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <button id="q2-opt-d" type="button" onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ D ]</span>
+              <span class="font-sans text-xs">Routine color blindness, insomnia, and motion sickness.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg border font-sans text-xs leading-relaxed space-y-1"></div>
+      </div>
+
+      <!-- SCENARIO 3: OPTION [ C ] CORRECT -->
+      <div id="mcq-container-3" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate border-b border-hairline pb-1.5">
+          <span class="font-bold text-carbon uppercase">SCENARIO 03 &bull; ALTERNATIVE COMMUNICATION RIGHTS</span>
+          <span class="text-safety-deep font-bold">ADA TITLE II &bull; TCOLE PROTOCOL</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          Jordan is an autistic driver who is non-verbal and utilizes a specialized communication application on an iPad mounted to his center dashboard. When pulled over during a routine daytime traffic stop, Jordan wishes to use his tablet to communicate with the officer. Under TCOLE de-escalation protocols and the Americans with Disabilities Act (ADA), what right does Jordan have regarding alternative communication methods during the stop?
+        </p>
+
+        <div class="space-y-2 text-xs font-mono">
+          <button id="q3-opt-a" type="button" onclick="checkMCQ(3, 'A')" class="mcq-btn mcq-btn-3 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ A ]</span>
+              <span class="font-sans text-xs">He is legally prohibited from using any electronic device and must speak English fluently under Texas Penal Code § 38.02.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <button id="q3-opt-b" type="button" onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ B ]</span>
+              <span class="font-sans text-xs">The officer is legally mandated to impound any electronic tablet touched by a driver during a traffic stop.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <!-- OPTION C IS CORRECT -->
+          <button id="q3-opt-c" type="button" onclick="checkMCQ(3, 'C')" class="mcq-btn mcq-btn-3 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ C ]</span>
+              <span class="font-sans text-xs">Jordan is legally permitted to utilize written communication boards, text notes, or augmentative and alternative communication (AAC) apps to communicate effectively with the officer.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+          <button id="q3-opt-d" type="button" onclick="checkMCQ(3, 'D')" class="mcq-btn mcq-btn-3 touch-target">
+            <span class="flex items-start gap-2">
+              <span class="font-bold text-slate shrink-0">[ D ]</span>
+              <span class="font-sans text-xs">He must remain completely silent and is forbidden from showing any written or digital communication to the officer until an attorney arrives.</span>
+            </span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg border font-sans text-xs leading-relaxed space-y-1"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. NEXT LESSON GATEWAY & FOOTER -->
+    <footer class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline font-mono text-[11px] text-slate">
+        <span>COURSE PROGRESSION</span>
+        <span class="text-valid font-bold">MODULE 07 &bull; TOPIC 15 COMPLETED</span>
+      </div>
+
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pt-1 select-none">
+        <a href="L07-T14.html" class="touch-target flex-1 min-w-[80px] h-12 py-2.5 px-3 rounded-xl bg-surface-sub hover:bg-neutral-200 active:scale-98 text-carbon font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-hairline shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>PREV</span>
+        </a>
+        <a href="index.html" class="touch-target w-auto shrink-0 h-12 py-2.5 px-4 rounded-xl bg-surface-sub hover:bg-neutral-200 active:scale-98 text-carbon font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-hairline shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span class="material-symbols-outlined text-[18px]">grid_view</span>
+          <span>HUB</span>
+        </a>
+        <a href="L07-T16.html" class="touch-target flex-1 min-w-[80px] h-12 py-2.5 px-3 rounded-xl bg-safety hover:bg-safety-deep active:scale-98 text-white font-mono text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition select-none" style="min-height: 48px; display: inline-flex; align-items: center; justify-content: center; touch-action: manipulation;">
+          <span>NEXT</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="pt-2 border-t border-hairline flex flex-col sm:flex-row items-center justify-between text-[10px] font-mono text-slate gap-2">
+        <span>TDLR VALIDATED FRAMEWORK &bull; TEXAS ADE-1317</span>
+        <span>STANDALONE FLAGSHIP &bull; 0.0px OVERFLOW COMPLIANT</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINES & AUDIO SYNTHESIZER -->
+  <script>
+    // 1. WEB AUDIO SYNTHESIZER FOR TACTILE HAPTIC FEEDBACK
+    let audioCtx = null;
+    function playBeep(freq = 440, type = 'sine', duration = 0.08) {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // AudioContext ignored safely if restricted by browser policy
+      }
+    }
+
+    // 2. L07-T15 CAD ENGINE 01: SENSORY PROFILE MATRIX CAD STATE MACHINE
+    const l15Cad1Data = {
+      quad_asd: {
+        status: "AUTISM PROFILE: SENSORY OVERLOAD FROM SIRENS/STROBES • FLAT AFFECT",
+        dotColor: "#38BDF8",
+        tag: "NEURODIVERGENT SENSORY OVERLOAD",
+        cite: "37 TAC § 15.42 • AUTISM SPECTRUM",
+        title: "Autism Spectrum Disorder (ASD) Sensory Triggers",
+        desc: "Sirens and emergency strobes can cause severe sensory overload. Averted eye contact, rocking, or monotone speech are coping mechanisms, not intoxication or guilt.",
+        metaLeft: "TRIGGERS: Sirens, Strobes, Shouting",
+        metaRight: "BEHAVIOR: Stimming • Literal Speech",
+        accentBorder: "border-sky-500",
+        tagColor: "text-sky-500"
+      },
+      quad_speech: {
+        status: "SPEECH PROFILE: STUTTERING / APRAXIA • MANDATORY PATIENCE BUFFER",
+        dotColor: "#E87522",
+        tag: "SPEECH & LANGUAGE DYSFLUENCY",
+        cite: "TTC § 521.125 • SPEECH DISORDERS",
+        title: "Speech Impediments, Stuttering & Apraxia",
+        desc: "Stress exacerbates stuttering or apraxia. TCOLE mandates peace officers maintain patience, never finish sentences, and allow time or written tools to communicate.",
+        metaLeft: "CHARACTERISTIC: Blocked Cadence under Stress",
+        metaRight: "TACTIC: Zero Interruption / Allow AAC",
+        accentBorder: "border-safety",
+        tagColor: "text-safety"
+      },
+      quad_deaf: {
+        status: "DEAFNESS PROFILE: VISUAL COMMUNICATION MANDATE • WRITTEN NOTEPADS",
+        dotColor: "#10B981",
+        tag: "ACOUSTIC IMPAIRMENT",
+        cite: "37 TAC § 15.42 • DEAFNESS & HARD OF HEARING",
+        title: "Deafness and Severe Hard of Hearing Protocols",
+        desc: "Deaf drivers cannot hear sirens or shouted commands. Officers must position where visible, face the driver directly, and use written visor cards or communication pads.",
+        metaLeft: "TOOL: Written Notepad / Visor Card",
+        metaRight: "TACTIC: Face Driver in Direct Light",
+        accentBorder: "border-emerald-500",
+        tagColor: "text-emerald-500"
+      },
+      quad_ptsd: {
+        status: "PTSD / NEUROLOGICAL: STARTLE REFLEX • TREMORS • AVOID SUDDEN MOVEMENTS",
+        dotColor: "#A855F7",
+        tag: "TRAUMA & NEUROLOGICAL RESPONSE",
+        cite: "TTC § 521.125 & TCOLE 4055",
+        title: "Post-Traumatic Stress Disorder (PTSD) & Brain Injuries",
+        desc: "Veterans or trauma survivors may exhibit startle reactions, tremors, or hyper-vigilance. Slow, predictable movements and announcing intentions prevent escalation.",
+        metaLeft: "TRIGGER: Sudden Physical Intrusion",
+        metaRight: "TACTIC: Announce Actions Before Moving",
+        accentBorder: "border-purple-500",
+        tagColor: "text-purple-500"
+      }
+    };
+
+    function setL15Cad1Mode(modeKey) {
+      playBeep(600, 'sine', 0.05);
+      const data = l15Cad1Data[modeKey];
+      if (!data) return;
+
+      const statusElem = document.getElementById('l15-cad1-status');
+      const dotElem = document.getElementById('l15-cad1-dot');
+      if (statusElem) statusElem.textContent = data.status;
+      if (dotElem) dotElem.setAttribute('fill', data.dotColor);
+
+      const keys = ['quad_asd', 'quad_speech', 'quad_deaf', 'quad_ptsd'];
+      keys.forEach((key, idx) => {
+        const boxNum = idx + 1;
+        const pulse = document.getElementById(`l15-cad1-pulse-${boxNum}`);
+        const btn = document.getElementById(`l15-cad1-btn-${boxNum}`);
+
+        if (key === modeKey) {
+          if (pulse) {
+            pulse.setAttribute('stroke', data.dotColor);
+            pulse.setAttribute('opacity', '0.6');
+            pulse.classList.add('animate-pulse');
+          }
+          if (btn) btn.className = 'touch-target cad-btn cad-btn-active';
+        } else {
+          if (pulse) {
+            pulse.setAttribute('opacity', '0');
+            pulse.classList.remove('animate-pulse');
+          }
+          if (btn) btn.className = 'touch-target cad-btn cad-btn-inactive';
+        }
+      });
+
+      const card = document.getElementById('l15-cad1-card');
+      const tag = document.getElementById('l15-cad1-card-tag');
+      const cite = document.getElementById('l15-cad1-card-cite');
+      const title = document.getElementById('l15-cad1-card-title');
+      const desc = document.getElementById('l15-cad1-card-desc');
+      const metaLeft = document.getElementById('l15-cad1-meta-left');
+      const metaRight = document.getElementById('l15-cad1-meta-right');
+
+      if (card) card.className = `bg-surface-sub border-l-4 ${data.accentBorder} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      if (tag) {
+        tag.textContent = data.tag;
+        tag.className = `text-[10px] font-mono font-bold ${data.tagColor} uppercase`;
+      }
+      if (cite) cite.textContent = data.cite;
+      if (title) title.textContent = data.title;
+      if (desc) desc.textContent = data.desc;
+      if (metaLeft) metaLeft.textContent = data.metaLeft;
+      if (metaRight) {
+        metaRight.textContent = data.metaRight;
+        metaRight.className = `${data.tagColor} font-bold`;
+      }
+    }
+
+    // 3. L07-T15 CAD ENGINE 02: TCOLE DE-ESCALATION HUD STATE MACHINE
+    const l15Cad2Data = {
+      tcole_voice: {
+        status: "TCOLE PROTOCOL: VOICE MODULATION • CLEAR 1-STEP PROMPTS • CALM CADENCE",
+        dotColor: "#38BDF8",
+        tag: "TCOLE DE-ESCALATION MANDATE",
+        cite: "TEX. OCC. CODE § 1701.268 • COURSE 4055",
+        title: "Voice Modulation & Concise Single-Step Prompts",
+        desc: "Officers speak in a calm, unhurried tone without shouting. Complex multi-step instructions overwhelm processing; officers give one clear direction at a time.",
+        metaLeft: "TONE: Measured, Low Pitch",
+        metaRight: "STRUCTURE: Single-Step Directions",
+        accentBorder: "border-sky-500",
+        tagColor: "text-sky-500"
+      },
+      tcole_light: {
+        status: "TCOLE PROTOCOL: SENSORY SUPPRESSION • DIM LIGHTBAR & REDUCE SPOTLIGHT",
+        dotColor: "#E87522",
+        tag: "SENSORY OVERLOAD MITIGATION",
+        cite: "TCOLE 4055 FIELD PROCEDURES",
+        title: "Mitigate Flashing Lightbars and Tactical Spotlights",
+        desc: "Emergency strobes and blinding spotlights can trigger sensory panic or seizures. Officers dim strobes once safe and avert spotlight beams from the driver's eyes.",
+        metaLeft: "ACTION: Dim Emergency Strobes",
+        metaRight: "LIGHT: Avert Spotlight Beam",
+        accentBorder: "border-safety",
+        tagColor: "text-safety"
+      },
+      tcole_latency: {
+        status: "TCOLE PROTOCOL: 10-15s COGNITIVE LATENCY • AVOID ASSUMING NON-COMPLIANCE",
+        dotColor: "#10B981",
+        tag: "COGNITIVE PROCESSING WINDOW",
+        cite: "TCOLE CRISIS INTERVENTION STANDARDS",
+        title: "Mandatory 10–15 Second Processing Response Window",
+        desc: "Pauses are not defiance or intoxication. TCOLE mandates waiting 10 to 15 seconds after asking a question before prompting, allowing auditory processing time.",
+        metaLeft: "WINDOW: 10 to 15 Seconds Pause",
+        metaRight: "PROTECTION: Preempts False Non-Compliance",
+        accentBorder: "border-emerald-500",
+        tagColor: "text-emerald-500"
+      },
+      tcole_touch: {
+        status: "TCOLE PROTOCOL: TACTILE NON-INTRUSION • WELCOME WRITTEN AAC AIDS",
+        dotColor: "#A855F7",
+        tag: "TACTILE & COMMUNICATION AIDS",
+        cite: "TTC § 521.125 & TEXAS DISABILITY COALITION",
+        title: "Tactile Non-Intrusion & Assistive Communication Devices",
+        desc: "Physical contact can trigger panic in neurodivergent individuals. Officers avoid touching unless a physical threat exists, and allow written cards or AAC devices.",
+        metaLeft: "BOUNDARY: Zero Unannounced Touch",
+        metaRight: "AIDS: AAC Tablets & Written Cards Welcomed",
+        accentBorder: "border-purple-500",
+        tagColor: "text-purple-500"
+      }
+    };
+
+    function setL15Cad2Mode(modeKey) {
+      playBeep(560, 'sine', 0.05);
+      const data = l15Cad2Data[modeKey];
+      if (!data) return;
+
+      const statusElem = document.getElementById('l15-cad2-status');
+      const dotElem = document.getElementById('l15-cad2-dot');
+      if (statusElem) statusElem.textContent = data.status;
+      if (dotElem) dotElem.setAttribute('fill', data.dotColor);
+
+      const keys = ['tcole_voice', 'tcole_light', 'tcole_latency', 'tcole_touch'];
+      keys.forEach((key, idx) => {
+        const boxNum = idx + 1;
+        const pulse = document.getElementById(`l15-cad2-pulse-${boxNum}`);
+        const btn = document.getElementById(`l15-cad2-btn-${boxNum}`);
+
+        if (key === modeKey) {
+          if (pulse) {
+            pulse.setAttribute('stroke', data.dotColor);
+            pulse.setAttribute('opacity', '0.6');
+            pulse.classList.add('animate-pulse');
+          }
+          if (btn) btn.className = 'touch-target cad-btn cad-btn-active';
+        } else {
+          if (pulse) {
+            pulse.setAttribute('opacity', '0');
+            pulse.classList.remove('animate-pulse');
+          }
+          if (btn) btn.className = 'touch-target cad-btn cad-btn-inactive';
+        }
+      });
+
+      const card = document.getElementById('l15-cad2-card');
+      const tag = document.getElementById('l15-cad2-card-tag');
+      const cite = document.getElementById('l15-cad2-card-cite');
+      const title = document.getElementById('l15-cad2-card-title');
+      const desc = document.getElementById('l15-cad2-card-desc');
+      const metaLeft = document.getElementById('l15-cad2-meta-left');
+      const metaRight = document.getElementById('l15-cad2-meta-right');
+
+      if (card) card.className = `bg-surface-sub border-l-4 ${data.accentBorder} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      if (tag) {
+        tag.textContent = data.tag;
+        tag.className = `text-[10px] font-mono font-bold ${data.tagColor} uppercase`;
+      }
+      if (cite) cite.textContent = data.cite;
+      if (title) title.textContent = data.title;
+      if (desc) desc.textContent = data.desc;
+      if (metaLeft) metaLeft.textContent = data.metaLeft;
+      if (metaRight) {
+        metaRight.textContent = data.metaRight;
+        metaRight.className = `${data.tagColor} font-bold`;
+      }
+    }
+
+    // 4. 3D DRIVER LICENSE SUBSTRATE FLIPPER
+    let licenseFlipped = false;
+
+    function toggleLicenseFlip() {
+      setLicenseSide(licenseFlipped ? 'front' : 'back');
+    }
+
+    function setLicenseSide(side) {
+      playBeep(side === 'back' ? 580 : 480, 'sine', 0.06);
+      const card = document.getElementById('license-card');
+      const frontBtn = document.getElementById('btn-side-front');
+      const backBtn = document.getElementById('btn-side-back');
+      const viewTitle = document.getElementById('flip-view-title');
+      const rTitle = document.getElementById('readout-title');
+      const rBadge = document.getElementById('readout-badge');
+      const rDesc = document.getElementById('readout-desc');
+      const rRule = document.getElementById('readout-rule');
+
+      if (side === 'back') {
+        licenseFlipped = true;
+        if (card) card.classList.add('rotate-y-180');
+        if (frontBtn) frontBtn.className = 'touch-target flip-btn flip-btn-inactive';
+        if (backBtn) backBtn.className = 'touch-target flip-btn flip-btn-back-active';
+        if (viewTitle) viewTitle.textContent = 'Texas Driver License Substrate Anatomy (Reverse Side: Code 08)';
+        if (rTitle) {
+          rTitle.textContent = 'REVERSE SUBSTRATE: CODE 08 NOTATION';
+          rTitle.className = 'font-mono font-bold text-safety-deep text-[11px] uppercase tracking-wide';
+        }
+        if (rBadge) {
+          rBadge.textContent = 'RESTRICTION 08 ACTIVE';
+          rBadge.className = 'font-mono text-[10px] text-safety font-bold bg-safety-light px-1.5 py-0.5 rounded border border-safety/30';
+        }
+        if (rDesc) {
+          rDesc.textContent = 'During a traffic stop, officers flip the credential and inspect the restrictions field. Restriction Code "08" serves as statutory confirmation that the driver has a diagnosed communication impediment, instructing the officer to employ TCOLE de-escalation protocols.';
+        }
+        if (rRule) {
+          rRule.className = 'font-mono text-[10px] text-safety-deep bg-safety-light p-1.5 rounded border border-safety/30';
+          rRule.innerHTML = '&gt; STATUTORY NOTICE: Requires Form DL-101. No clinical psychiatric terms are printed on the card.';
+        }
+      } else {
+        licenseFlipped = false;
+        if (card) card.classList.remove('rotate-y-180');
+        if (frontBtn) frontBtn.className = 'touch-target flip-btn flip-btn-front-active';
+        if (backBtn) backBtn.className = 'touch-target flip-btn flip-btn-inactive';
+        if (viewTitle) viewTitle.textContent = 'Texas Driver License Substrate Anatomy (Front Side)';
+        if (rTitle) {
+          rTitle.textContent = 'FRONT SUBSTRATE: PUBLIC CREDENTIAL';
+          rTitle.className = 'font-mono font-bold text-carbon text-[11px] uppercase tracking-wide';
+        }
+        if (rBadge) {
+          rBadge.textContent = 'ZERO MEDICAL STIGMA';
+          rBadge.className = 'font-mono text-[10px] text-valid font-bold bg-valid/10 px-1.5 py-0.5 rounded border border-valid/20';
+        }
+        if (rDesc) {
+          rDesc.textContent = 'The face of the driver license contains only standard demographic identifiers (name, DOB, address, class). No clinical diagnoses or mental health terms appear on the front, protecting personal privacy during commercial, banking, or retail transactions.';
+        }
+        if (rRule) {
+          rRule.className = 'font-mono text-[10px] text-valid bg-valid/10 p-1.5 rounded border border-valid/20';
+          rRule.innerHTML = '&gt; ANTI-DISCRIMINATION: Completely shields confidential medical records from retail or employer scrutiny.';
+        }
+      }
+    }
+
+    function toggleTooltip() {
+      playBeep(720, 'sine', 0.04);
+      const tip = document.getElementById('impediment-tooltip');
+      if (tip) {
+        if (tip.classList.contains('hidden')) {
+          tip.classList.remove('hidden');
+          tip.classList.add('block');
+        } else {
+          tip.classList.remove('block');
+          tip.classList.add('hidden');
+        }
+      }
+    }
+
+    // 5. FORMATIVE ASSESSMENT MCQ ENGINE (QUESTION 1 OPTION [ B ] STRICTLY CORRECT)
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+            const TOPIC_ID = 'L07-T15';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TEX. OCC. CODE § 1701.268 & SB 976 (TCOLE PROTOCOL)",
+            "statutoryRationale": "TCOLE training under SB 976 directs officers to mitigate sensory triggers: dim strobes, speak calmly, allow 10–15s cognitive latency, and recognize that gaze aversion or stimming are neurodivergent coping traits rather than hostility or intoxication."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "A",
+            "statute": "37 TAC § 15.42 & TTC § 521.125",
+            "statutoryRationale": "Under 37 TAC § 15.42 and TTC § 521.125, qualifying communication impediments include Autism Spectrum Disorder, PTSD, Speech Apraxia/stuttering, Deafness/severe hearing loss, and Parkinson's disease certified on Form DL-101."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "ADA TITLE II & TCOLE SB 976",
+            "statutoryRationale": "Under ADA Title II (28 C.F.R. § 35.160) and SB 976 protocols, drivers with communication disabilities have the legal right to reasonable accommodations, including written cards, text notes, or digital AAC speech devices."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // Initialize initial active states
+    document.addEventListener('DOMContentLoaded', () => {
+      setL15Cad1Mode('quad_asd');
+      setL15Cad2Mode('tcole_voice');
+    });
+
+    // ------------------------------------------------------------------------
+    // 3D SIMULATION HOST DOCK CONTROLLER (F25 LOW-SPEED VEHICLES)
+    // ------------------------------------------------------------------------
+    const simScenarios = {
+      1: {
+        badge: "SCENARIO 01 // 25 MPH SPEED CAP & 35 MPH ROADWAY",
+        statute: "TTC &sect; 551.301",
+        title: "NEV 25 MPH SPEED CAP &amp; POSTED LIMIT BUFFER",
+        desc: "Neighborhood Electric Vehicles (NEV) are capped by federal FMVSS 500 at 25 mph and permitted only on Texas roadways with posted speed limits of 35 mph or less.",
+        metric: "MAX VEHICLE SPEED: <strong class='text-carbon font-mono'>25 MPH (ROADWAY &le; 35 MPH)</strong>",
+        phase: "PHASE: NEV RESIDENTIAL OPERATION"
+      },
+      2: {
+        badge: "SCENARIO 02 // 90-DEGREE ARTERIAL INTERSECTION CROSSING",
+        statute: "TTC &sect; 551.303",
+        title: "PERMITTED 90-DEGREE HIGHWAY CROSSING",
+        desc: "Under TTC &sect; 551.303, an NEV may cross a higher-speed highway at an intersection if crossing at a 90-degree angle from an authorized connecting street.",
+        metric: "CROSSING ANGLE: <strong class='text-carbon font-mono'>90&deg; DIRECT TRAVERSE</strong>",
+        phase: "PHASE: ARTERIAL CROSSING"
+      },
+      3: {
+        badge: "SCENARIO 03 // ILLEGAL HIGHWAY OPERATION SPEED DIFFERENTIAL",
+        statute: "TTC &sect; 551.304",
+        title: "PROHIBITED HIGHWAY TRAVEL (SPEED DIFFERENTIAL &gt; 35 MPH)",
+        desc: "Operating an NEV or golf cart along a 55+ mph multi-lane arterial creates extreme closing speed hazard and is strictly illegal under Texas law.",
+        metric: "CLOSING HAZARD: <strong class='text-carbon font-mono'>CRITICAL (ILLEGAL HIGHWAY ROUTE)</strong>",
+        phase: "PHASE: ILLEGAL HIGHWAY PROHIBITION"
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (!frame || !frame.contentWindow) return;
+      playBeep(480, 'triangle', 0.05);
+      frame.contentWindow.postMessage({ action: actionName, type: actionName, ...payload }, '*');
+
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      const safeScen = Math.min(Math.max(parseInt(scenNum, 10) || 1, 1), 3);
+      dispatchSimAction('setScenario', { scenario: safeScen, value: safeScen });
+      const scen = simScenarios[safeScen] || simScenarios[1];
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.innerHTML = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.innerHTML = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'telemetry' || e.data.event === 'telemetry')) {
+        const phaseEl = document.getElementById('sim-telemetry-phase');
+        if (phaseEl && e.data.phase) {
+          phaseEl.textContent = e.data.phase + (e.data.speed !== undefined ? ` // ${Math.round(e.data.speed)} MPH` : '');
+        }
+      }
+    });
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

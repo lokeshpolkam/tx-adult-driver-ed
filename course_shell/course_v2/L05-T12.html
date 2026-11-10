@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Circadian Rhythm Fatigue &amp; Highway Hypnosis &mdash; Texas Adult Driver Ed (L05-T12)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration for Lone Star Editorial Transit -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            'valid-light': '#F0FDF4',
+            hazard: '#BA1A1A',
+            'hazard-light': '#FEF2F2',
+            warning: '#D97706',
+            'warning-light': '#FFFBEB',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+
+  <!-- Global Base Styles & Phone Touch Standards -->
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target, button {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      touch-action: manipulation;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.06); }
+    }
+    .animate-aura {
+      animation: pulseAura 2s ease-in-out infinite;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4 overflow-x-hidden">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS (STICKY) -->
+    
+
+    <!-- 02. EDITORIAL HERO TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-surface-sub text-carbon border border-hairline px-2 py-0.5 rounded">MODULE 05</span>
+        <span class="bg-safety-light text-safety border border-safety/30 px-2 py-0.5 rounded">TOPIC 12 OF 18</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 19 MIN READ</span>
+        <span class="bg-neutral-100 text-slate border border-neutral-300 px-2 py-0.5 rounded">TDLR ADE-1317</span>
+      </div>
+
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Circadian Rhythm Fatigue &amp; Highway Hypnosis
+      </h2>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Investigate the neurological science of driver exhaustion, sensory monotony, and involuntary microsleeps under Texas Transportation Code &sect; 545.401 (Reckless Driving). Calculate the terrifying kinetic reality of traveling 308 to 513 feet completely blind at 70 MPH, explore sleep deprivation equivalence to criminal alcohol intoxication, and master TxDOT-mandated rest stop protocols.
+      </p>
+
+      <div class="pt-2 border-t border-hairline flex flex-wrap items-center gap-2 font-mono text-[10px] text-slate">
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-hazard">gavel</span>
+          TTC &sect; 545.401 (Reckless Driving Sanction)
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm text-safety">bedtime</span>
+          NHTSA / TxDOT Rest Standards
+        </span>
+      </div>
+    </section>
+
+    <!-- 03. 3-TIER 3D DRIVING SIMULATOR (L05-T12: MOUNTAIN GRADES & RUNAWAY RAMPS) -->
+    <section class="space-y-3">
+      <!-- Tier 1: Pedagogical Header Above Viewport -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-mono text-xs font-bold text-safety uppercase tracking-wider">
+            3D INTERACTIVE SIMULATION &bull; TTC § 545.302 &sect; 545.351
+          </span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface border border-hairline px-2 py-0.5 rounded">
+          -6% MOUNTAIN GRADE
+        </span>
+      </div>
+
+      <!-- Tier 2: Pure 16:9 Simulation Viewport Container (Zero internal HUD clutter) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-2xl overflow-hidden bg-obsidian border border-obsidian-border shadow-2xl" style="aspect-ratio: 16/9;">
+        <iframe
+          id="sim-iframe"
+          src="../driving_rule_animations_suite/simulations/L05_T12_mountain_grade_runaway_ramps.html?clean=1"
+          class="w-full h-full border-0 select-none block"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope"
+          loading="eager"
+          title="3D Mountain Grade Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock Beneath Viewport (All touch targets >= 48px) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">LOW GEAR STABILIZED</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="setSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Low Gear</span>
+          </button>
+          <button type="button" onclick="setSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Runaway Ramp</span>
+          </button>
+          <button type="button" onclick="setSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Buffer Safe</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PEDAGOGICAL ARTICLE 1: NEUROBIOLOGY OF CIRCADIAN CYCLES -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 01</span>
+        <span class="text-[10px] font-mono text-slate">CHRONOBIOLOGY &amp; COGNITION</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        The Biphasic Human Circadian Clock &amp; Highway Hypnosis Trance Mechanics
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Human alertness is biologically regulated by the suprachiasmatic nucleus, which governs circadian rhythms. Unlike physical fatigue from manual labor, neurological fatigue cannot be overcome through willpower. Sleep scientists identify two acute biological drop-offs in alertness every 24 hours:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="p-3 rounded-xl bg-hazard-light border border-hazard/30 space-y-1">
+          <div class="font-mono text-xs font-bold text-hazard flex items-center justify-between">
+            <span>1. PRIMARY NOCTURNAL NADIR</span>
+            <span>12 AM – 6 AM</span>
+          </div>
+          <p class="text-[11px] text-hazard leading-relaxed">
+            The deepest physiological low point. Melatonin saturation peaks while core body temperature plummets. Fatal drowsy-driving crashes are 4 to 6 times higher during these pre-dawn hours than during daylight.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 space-y-1">
+          <div class="font-mono text-xs font-bold text-amber-800 flex items-center justify-between">
+            <span>2. SECONDARY POST-PRANDIAL DIP</span>
+            <span>2 PM – 4 PM</span>
+          </div>
+          <p class="text-[11px] text-amber-900 leading-relaxed">
+            An inherent mid-afternoon drop in biological alertness. Metabolism, digestion, and a natural drop in body temperature induce heavy eyelids, yawning, and slowed hazard reaction latency.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-1.5 text-xs text-slate leading-relaxed pt-1">
+        <h4 class="font-sans font-bold text-xs text-carbon uppercase tracking-wide">Deconstructing Highway Hypnosis:</h4>
+        <p>
+          Highway hypnosis is a distinct, insidious phenomenon from general drowsiness. It is a trance-like mental state induced by <em>geometric monotony</em>—driving for hours on straight, flat Texas highways (such as I-10 or US-287) with continuous visual repetition, tire hum, engine vibration, and wind rush.
+        </p>
+        <p>
+          During highway hypnosis, the driver’s eyes remain open, but the brain transitions into an alpha-wave trance. The visual field narrows from a normal 180-degree peripheral sweep down to a fixed tunnel directly ahead. The driver suffers from <strong>retrograde driving amnesia</strong>: they may safely navigate curves for miles without any conscious memory of having passed towns or overhead signs. When a sudden obstacle appears (e.g., a stalled truck or stopped traffic), the hypnotized brain requires up to 2.5 seconds to register the threat—far too late to avoid impact.
+        </p>
+      </div>
+    </article>
+
+    <!-- 05. INTERACTIVE CAD ENGINE 01: CIRCADIAN RHYTHM FATIGUE & HUD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>CHRONOBIOLOGY // TTC &sect; 545.401</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          INTERACTIVE CAD
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 01</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Circadian Rhythm Fatigue &amp; Highway Hypnosis Telemetry HUD</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap circadian phases or radar nodes to track biological nadirs, sensory tunnel vision, and rumble strip triggering.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 220) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l12-cad1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="l12-nocturnal-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BA1A1A" stop-opacity="0.35" />
+              <stop offset="100%" stop-color="#7F1D1D" stop-opacity="0.2" />
+            </linearGradient>
+            <linearGradient id="l12-postprandial-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#D97706" stop-opacity="0.3" />
+              <stop offset="100%" stop-color="#B45309" stop-opacity="0.15" />
+            </linearGradient>
+            <radialGradient id="l12-radar-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#10B981" stop-opacity="0.25" />
+              <stop offset="70%" stop-color="#10B981" stop-opacity="0.05" />
+              <stop offset="100%" stop-color="#0E1210" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <!-- Background Canvas -->
+          <rect x="0" y="0" width="340" height="220" rx="10" fill="#0E1210" />
+
+          <!-- Section Title & 24h Chronobiology Track -->
+          <text x="14" y="18" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#94A3B8">24-HOUR CIRCADIAN BIPHASIC ALERTNESS CURVE</text>
+
+          <!-- 24-Hour Time Axis (X: 20 to 320, Y=80) -->
+          <rect x="20" y="24" width="300" height="66" rx="4" fill="#141916" stroke="#232C27" stroke-width="0.8" />
+          
+          <!-- Primary Nocturnal Nadir Zone (12 AM to 6 AM: X: 20 to 95) -->
+          <rect id="l12-band-nocturnal" x="20" y="24" width="75" height="66" rx="3" fill="url(#l12-nocturnal-grad)" stroke="#EF4444" stroke-width="0.8" stroke-dasharray="3 2" />
+          <text x="57" y="34" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FCA5A5" text-anchor="middle">12AM–6AM</text>
+          <text x="57" y="42" font-family="'JetBrains Mono', monospace" font-size="4" fill="#F87171" text-anchor="middle">PRIMARY NADIR</text>
+
+          <!-- Secondary Post-Prandial Dip Zone (2 PM to 4 PM: X: 195 to 220) -->
+          <rect id="l12-band-afternoon" x="195" y="24" width="32" height="66" rx="3" fill="url(#l12-postprandial-grad)" stroke="#F59E0B" stroke-width="0.8" stroke-dasharray="3 2" />
+          <text x="211" y="34" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#FDE68A" text-anchor="middle">2–4PM</text>
+          <text x="211" y="42" font-family="'JetBrains Mono', monospace" font-size="4" fill="#FBBF24" text-anchor="middle">DIP</text>
+
+          <!-- Circadian Baseline Wave Path -->
+          <path d="M 20,72 Q 40,82 60,80 T 120,40 T 180,48 T 210,64 T 255,42 T 320,76" fill="none" stroke="#64748B" stroke-width="1.5" />
+          <path id="l12-active-wave" d="M 20,72 Q 40,82 60,80 T 120,40 T 180,48 T 210,64 T 255,42 T 320,76" fill="none" stroke="#10B981" stroke-width="2.2" />
+
+          <!-- Timeline Hour Markers -->
+          <text x="25" y="86" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">12A</text>
+          <text x="70" y="86" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">4A</text>
+          <text x="120" y="86" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">8A</text>
+          <text x="170" y="86" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">12P</text>
+          <text x="210" y="86" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">4P</text>
+          <text x="260" y="86" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">8P</text>
+          <text x="310" y="86" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">12A</text>
+
+          <!-- Active Marker Cursor (Pulsing Pin on Wave) -->
+          <g id="l12-cursor-pin" transform="translate(145, 42)">
+            <line x1="0" y1="-12" x2="0" y2="44" stroke="#10B981" stroke-width="1" stroke-dasharray="2 2" />
+            <circle cx="0" cy="0" r="5" fill="#10B981" stroke="#FFFFFF" stroke-width="1.5" />
+            <circle cx="0" cy="0" r="10" fill="#10B981" opacity="0.25" class="animate-ping" />
+          </g>
+
+          <!-- Lower Split Area: Left = Gaze Radar HUD; Right = Highway Hypnosis & Rumble Strip -->
+          <g id="l12-radar-panel">
+            <rect x="20" y="98" width="140" height="90" rx="4" fill="#141916" stroke="#232C27" stroke-width="0.8" />
+            <text x="28" y="110" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#94A3B8">OCULAR GAZE RADAR</text>
+            
+            <circle cx="90" cy="146" r="34" fill="none" stroke="#2B3630" stroke-width="0.8" />
+            <circle cx="90" cy="146" r="22" fill="none" stroke="#2B3630" stroke-width="0.8" />
+            <circle cx="90" cy="146" r="10" fill="none" stroke="#2B3630" stroke-width="0.8" />
+            <line x1="56" y1="146" x2="124" y2="146" stroke="#2B3630" stroke-width="0.8" />
+            <line x1="90" y1="112" x2="90" y2="180" stroke="#2B3630" stroke-width="0.8" />
+
+            <path id="l12-vision-cone" d="M 90,146 L 68,118 A 34,34 0 0,1 112,118 Z" fill="url(#l12-radar-grad)" stroke="#10B981" stroke-width="1.2" />
+            <circle id="l12-gaze-point" cx="90" cy="130" r="3.5" fill="#10B981" stroke="#FFFFFF" stroke-width="1" />
+            
+            <text id="l12-radar-caption" x="90" y="184" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#34D399" text-anchor="middle">ACTIVE SCAN: 12-15s (180° CONE)</text>
+          </g>
+
+          <g id="l12-rumble-panel">
+            <rect x="170" y="98" width="150" height="90" rx="4" fill="#141916" stroke="#232C27" stroke-width="0.8" />
+            <text x="178" y="110" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#94A3B8">RUMBLE STRIP / DRIFT HUD</text>
+
+            <line x1="180" y1="130" x2="310" y2="130" stroke="#FFFFFF" stroke-width="1.5" />
+            <g id="l12-rumble-grooves" stroke="#475569" stroke-width="1.5">
+              <line x1="184" y1="133" x2="184" y2="141" />
+              <line x1="194" y1="133" x2="194" y2="141" />
+              <line x1="204" y1="133" x2="204" y2="141" />
+              <line x1="214" y1="133" x2="214" y2="141" />
+              <line x1="224" y1="133" x2="224" y2="141" />
+              <line x1="234" y1="133" x2="234" y2="141" />
+              <line x1="244" y1="133" x2="244" y2="141" />
+              <line x1="254" y1="133" x2="254" y2="141" />
+              <line x1="264" y1="133" x2="264" y2="141" />
+              <line x1="274" y1="133" x2="274" y2="141" />
+              <line x1="284" y1="133" x2="284" y2="141" />
+              <line x1="294" y1="133" x2="294" y2="141" />
+              <line x1="304" y1="133" x2="304" y2="141" />
+            </g>
+
+            <path id="l12-drift-vector" d="M 190,122 L 250,126" stroke="#10B981" stroke-width="2" fill="none" stroke-dasharray="3 2" />
+
+            <rect id="l12-sensor-box" x="180" y="150" width="130" height="28" rx="3" fill="#0A0E0C" stroke="#2B3630" stroke-width="0.8" />
+            <text id="l12-sensor-line1" x="188" y="162" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="700" fill="#10B981">LATERAL STABILITY: 100%</text>
+            <text id="l12-sensor-line2" x="188" y="172" font-family="'JetBrains Mono', monospace" font-size="4" fill="#94A3B8">BLINK FREQ: 18/MIN (NOMINAL)</text>
+          </g>
+
+          <!-- Interactive Clickable Hitbox Nodes (r=28) -->
+          <g id="l12-hit-nocturnal" transform="translate(57, 54)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL12Cad1Phase('nocturnal')" role="button" aria-label="Primary Nocturnal Nadir Node" />
+          </g>
+          <g id="l12-hit-afternoon" transform="translate(211, 54)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL12Cad1Phase('afternoon')" role="button" aria-label="Post-Prandial Afternoon Slump Node" />
+          </g>
+          <g id="l12-hit-morning" transform="translate(145, 42)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL12Cad1Phase('morning')" role="button" aria-label="Peak Alertness Node" />
+          </g>
+          <g id="l12-hit-rest" transform="translate(245, 164)">
+            <circle cx="0" cy="0" r="28" fill="transparent" class="cursor-pointer" onclick="setL12Cad1Phase('rest')" role="button" aria-label="Rest Stop Protocol Node" />
+          </g>
+
+          <!-- Bottom SVG Status Line -->
+          <g transform="translate(10, 194)" pointer-events="none">
+            <rect x="0" y="0" width="320" height="18" rx="4" fill="#060807" stroke="#222B26" stroke-width="0.8" />
+            <circle id="l12-cad1-dot" cx="10" cy="9" r="3.5" fill="#10B981" />
+            <text id="l12-cad1-status" x="20" y="12.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E2E8F0">
+              STATE: 10:00 AM // PEAK CIRCADIAN ALERTNESS // TTC § 545.401 COMPLIANT
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Mode Selector Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <button id="l12-btn-1" onclick="setL12Cad1Phase('morning')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">10:00 AM Peak</span>
+          <span class="text-[9px] text-safety-deep font-normal">Active Scanning</span>
+        </button>
+        <button id="l12-btn-2" onclick="setL12Cad1Phase('afternoon')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">2:00–4:00 PM</span>
+          <span class="text-[9px] text-slate font-normal">Afternoon Dip</span>
+        </button>
+        <button id="l12-btn-3" onclick="setL12Cad1Phase('nocturnal')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">12:00–6:00 AM</span>
+          <span class="text-[9px] text-slate font-normal">Primary Nadir</span>
+        </button>
+        <button id="l12-btn-4" onclick="setL12Cad1Phase('rest')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span class="text-[11px]">Rest Stop Reset</span>
+          <span class="text-[9px] text-slate font-normal">2h / 100 Miles</span>
+        </button>
+      </div>
+
+      <!-- Live Telemetry HUD -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Circadian State</span>
+          <span id="l12-hud-phase" class="text-xs font-bold text-valid">PEAK VIGILANCE</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Perception Lag</span>
+          <span id="l12-hud-lag" class="text-xs font-bold text-valid">NOMINAL (+0ms)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Peripheral Vision</span>
+          <span id="l12-hud-vision" class="text-xs font-bold text-valid">100% (180° ARC)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Crash Multiplier</span>
+          <span id="l12-hud-risk" class="text-xs font-bold text-valid">1.0x BASELINE</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Reactive Explanation Card -->
+      <div id="l12-cad1-card" class="bg-surface-sub border-l-4 border-valid p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l12-card-tag" class="text-[10px] font-mono font-bold text-valid uppercase">PEAK CIRCADIAN VIGILANCE</span>
+          <span id="l12-card-cite" class="text-[10px] font-mono text-slate">NHTSA CHRONOBIOLOGY</span>
+        </div>
+        <h3 id="l12-card-title" class="font-sans font-bold text-sm text-carbon">Optimal Neurological Reflexes &amp; Broad Visual Search</h3>
+        <p id="l12-card-desc" class="text-xs text-slate leading-relaxed">
+          During morning hours (8 AM to 12 PM), core body temperature is elevated and cortisol sustains natural alertness. Eye blink frequency is healthy (15–20 blinks/min) and dynamic scanning keeps the gaze cycling between the 15-second highway horizon, rearview mirror, and dashboard gauges every 2 to 5 seconds. Cognitive perception latency is optimal at approximately 1.5 seconds.
+        </p>
+      </div>
+    </section>
+
+    <!-- 06. PEDAGOGICAL ARTICLE 2: MICROSLEEPS & BAC EQUIVALENCE -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 02</span>
+        <span class="text-[10px] font-mono text-slate">KINETICS &amp; IMPAIRMENT EQUIVALENCE</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        The Fatal Kinetic Distance of Micro-Sleeps &amp; Sleep Debt vs. BAC Equivalence
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        A <strong>microsleep</strong> is an involuntary, momentary episode of sleep lasting between 1.0 and 5.0 seconds. During this window, the cerebral cortex shuts down sensory input processing; the driver is completely unconscious of auditory, visual, and tactile stimuli.
+      </p>
+
+      <div class="bg-surface-sub p-3 rounded-xl border border-hairline space-y-2 font-mono text-xs">
+        <div class="text-[10px] text-safety font-bold uppercase tracking-wider">KINETIC BLIND TRAVEL EQUATION AT 70 MPH:</div>
+        <div class="text-carbon font-extrabold text-sm sm:text-base">d = v \times 1.4667 \times t \implies 70 \times 1.4667 = \mathbf{102.67\text{ FT/SEC}}</div>
+        <div class="space-y-1 text-slate text-[11px] font-sans">
+          <div>&bull; <strong>1.0-Second Nod:</strong> 102.7 Feet traveled without guidance.</div>
+          <div>&bull; <strong>3.0-Second Microsleep:</strong> 308.0 Feet traveled &mdash; exceeding a 300-ft football field.</div>
+          <div>&bull; <strong>5.0-Second Blackout:</strong> 513.3 Feet traveled &mdash; nearly two football fields.</div>
+        </div>
+      </div>
+
+      <!-- Alcohol Equivalence Callout -->
+      <div class="p-3.5 rounded-xl bg-hazard-light border border-hazard/30 space-y-1.5">
+        <div class="flex items-center gap-1.5 font-mono text-xs font-bold text-hazard uppercase">
+          <span class="material-symbols-outlined text-sm">science</span>
+          SLEEP DEPRIVATION VS. CRIMINAL INTOXICATION (TPC &sect; 49.01)
+        </div>
+        <p class="text-xs text-hazard leading-relaxed font-sans">
+          Extensive peer-reviewed research conducted by NHTSA and medical faculties demonstrates that:
+        </p>
+        <ul class="text-xs text-hazard/90 list-disc list-inside space-y-1 font-mono text-[11px]">
+          <li><strong>18 Continuous Hours Awake:</strong> Impairment identical to <strong>0.05% BAC</strong>.</li>
+          <li><strong>21 Continuous Hours Awake:</strong> Impairment identical to <strong>0.08% BAC</strong> (Texas Legal Limit).</li>
+          <li><strong>24 Continuous Hours Awake:</strong> Impairment identical to <strong>0.10% BAC</strong> (Severe DWI).</li>
+        </ul>
+        <p class="text-[11px] text-hazard/90 font-sans pt-1">
+          A driver who operates after being awake for 24 hours has double the reaction time latency, diminished hand-eye coordination, and identical crash risk to an intoxicated motorist. Under <strong>TTC &sect; 545.401</strong>, driving while severely exhausted constitutes willful and wanton disregard for safety, prosecutable as criminal Reckless Driving.
+        </p>
+      </div>
+    </article>
+
+    <!-- 07. INTERACTIVE CAD ENGINE 02: MICROSLEEP LATENCY VS BAC IMPAIRMENT -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3.5 fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>MICROSLEEP MATRIX // TTC &sect; 545.401</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline font-bold">
+          KINETIC MATRIX
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">CAD ENGINE 02</span>
+        <h2 class="font-sans font-bold text-base text-carbon leading-tight">Micro-Sleep Latency vs. BAC Impairment Matrix</h2>
+        <p class="font-sans text-xs text-slate mt-1">Tap sleep deprivation tiers to compare blind distance traveled at 70 MPH (102.6 ft/s) against statutory alcohol intoxication equivalence.</p>
+      </div>
+
+      <!-- SVG Viewport (0 0 340 180) -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex flex-col items-center justify-center">
+        <svg id="l12-cad2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Base -->
+          <rect x="0" y="0" width="340" height="180" rx="10" fill="#101412" />
+
+          <!-- Distance Ruler Scale (0 to 550 FT at 70 MPH) -->
+          <g transform="translate(25, 20)" stroke="#334155" stroke-width="0.8">
+            <line x1="0" y1="12" x2="290" y2="12" />
+            <line x1="0" y1="8" x2="0" y2="16" />
+            <line x1="58" y1="9" x2="58" y2="15" />
+            <line x1="116" y1="8" x2="116" y2="16" />
+            <line x1="174" y1="9" x2="174" y2="15" />
+            <line x1="232" y1="8" x2="232" y2="16" />
+            <line x1="290" y1="8" x2="290" y2="16" />
+          </g>
+          <text x="25" y="40" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">0 FT</text>
+          <text x="83" y="40" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">103 FT</text>
+          <text x="141" y="40" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">205 FT</text>
+          <text x="199" y="40" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">308 FT</text>
+          <text x="257" y="40" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">411 FT</text>
+          <text x="315" y="40" font-family="'JetBrains Mono', monospace" font-size="4" fill="#64748B">513 FT</text>
+
+          <!-- Track 1: 1.0s Microsleep / 18h Awake (~0.05% BAC) -->
+          <g id="l12-track-1" transform="translate(25, 48)">
+            <rect x="0" y="0" width="290" height="22" rx="3" fill="#1E293B" opacity="0.4" />
+            <rect id="l12-bar-1" x="0" y="0" width="58" height="22" rx="3" fill="#D97706" />
+            <text x="8" y="14" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#FFFFFF">1.0s SLEEP = 103 FT BLIND TRAVEL (18H AWAKE &asymp; 0.05% BAC)</text>
+            <circle cx="58" cy="11" r="28" fill="transparent" class="cursor-pointer" onclick="setL12Cad2Preset('tier1')" role="button" aria-label="1.0s Microsleep Node" />
+          </g>
+
+          <!-- Track 2: 3.0s Microsleep / 21h Awake (~0.08% BAC Legal Limit) -->
+          <g id="l12-track-2" transform="translate(25, 78)">
+            <rect x="0" y="0" width="290" height="22" rx="3" fill="#1E293B" opacity="0.4" />
+            <rect id="l12-bar-2" x="0" y="0" width="174" height="22" rx="3" fill="#E87522" />
+            <text x="8" y="14" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#FFFFFF">3.0s SLEEP = 308 FT BLIND TRAVEL (21H AWAKE &asymp; 0.08% BAC LIMIT)</text>
+            <circle cx="174" cy="11" r="28" fill="transparent" class="cursor-pointer" onclick="setL12Cad2Preset('tier2')" role="button" aria-label="3.0s Microsleep Node" />
+          </g>
+
+          <!-- Track 3: 5.0s Microsleep / 24h Awake (~0.10% BAC Severe Intoxication) -->
+          <g id="l12-track-3" transform="translate(25, 108)">
+            <rect x="0" y="0" width="290" height="22" rx="3" fill="#1E293B" opacity="0.4" />
+            <rect id="l12-bar-3" x="0" y="0" width="290" height="22" rx="3" fill="#BA1A1A" />
+            <text x="8" y="14" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700" fill="#FFFFFF">5.0s SLEEP = 513 FT BLIND TRAVEL (24H AWAKE &asymp; 0.10% BAC DWI)</text>
+            <circle cx="290" cy="11" r="28" fill="transparent" class="cursor-pointer" onclick="setL12Cad2Preset('tier3')" role="button" aria-label="5.0s Microsleep Node" />
+          </g>
+
+          <!-- Status Bar Inside SVG -->
+          <g transform="translate(25, 146)" pointer-events="none">
+            <rect x="0" y="0" width="290" height="20" rx="3" fill="#090D0B" stroke="#1F2937" stroke-width="0.8" />
+            <circle id="l12-cad2-dot" cx="12" cy="10" r="3.5" fill="#E87522" />
+            <text id="l12-cad2-status" x="22" y="13.5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FBA524">
+              EQUIVALENCE: 21H AWAKE = 0.08% BAC STATUTORY TEXAS LEGAL INTOXICATION
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Associated Preset Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="l12-pbtn-1" onclick="setL12Cad2Preset('tier1')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>1.0s Microsleep</span>
+          <span class="text-[9px] text-slate font-normal">18h &asymp; 0.05% BAC</span>
+        </button>
+        <button id="l12-pbtn-2" onclick="setL12Cad2Preset('tier2')" class="touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>3.0s Microsleep</span>
+          <span class="text-[9px] text-safety-deep font-normal">21h &asymp; 0.08% BAC</span>
+        </button>
+        <button id="l12-pbtn-3" onclick="setL12Cad2Preset('tier3')" class="touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center">
+          <span>5.0s Microsleep</span>
+          <span class="text-[9px] text-slate font-normal">24h &asymp; 0.10% BAC</span>
+        </button>
+      </div>
+
+      <!-- Tactical HUD Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Blind Travel @ 70</span>
+          <span id="l12-hud2-dist" class="text-xs font-bold text-safety">308 FEET</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">BAC Equivalence</span>
+          <span id="l12-hud2-bac" class="text-xs font-bold text-safety">0.08% (LEGAL LIMIT)</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Football Fields</span>
+          <span id="l12-hud2-field" class="text-xs font-bold text-carbon">1.03 FIELDS</span>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="text-[9px] text-slate uppercase block">Statutory Offense</span>
+          <span id="l12-hud2-charge" class="text-xs font-bold text-hazard">TTC § 545.401 RECKLESS</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Explanation Card -->
+      <div id="l12-cad2-card" class="bg-surface-sub border-l-4 border-safety p-3.5 rounded-xl space-y-1.5 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="l12-card2-tag" class="text-[10px] font-mono font-bold text-safety uppercase">LEGAL INTOXICATION EQUIVALENCE</span>
+          <span id="l12-card2-cite" class="text-[10px] font-mono text-slate">TTC § 545.401 &amp; TPC § 49.01</span>
+        </div>
+        <h3 id="l12-card2-title" class="font-sans font-bold text-sm text-carbon">A 3-Second Shutdown Covers 308 Feet Completely Unguided</h3>
+        <p id="l12-card2-desc" class="text-xs text-slate leading-relaxed">
+          At 70 MPH ($102.67\text{ ft/s}$), closing your eyes for a 3-second microsleep carries your vehicle forward 308 feet—longer than a regulation 300-foot football field—with zero steering correction or hazard detection. Extensive neurological testing proves that 21 hours of sleep deprivation impairs motor coordination and reaction times to the exact same degree as a 0.08% Blood Alcohol Concentration. Operating while severely fatigued is prosecutable as Reckless Driving under TTC § 545.401.
+        </p>
+      </div>
+    </section>
+
+    <!-- 08. PEDAGOGICAL ARTICLE 3: BUSTING MYTHS & GENUINE COUNTERMEASURES -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 03</span>
+        <span class="text-[10px] font-mono text-slate">COUNTERMEASURE DISCIPLINE</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        Fatigue Countermeasure Myths vs. Validated Physiological Recovery
+      </h3>
+
+      <div class="space-y-2 text-xs text-slate leading-relaxed">
+        <p>
+          Generations of drivers have relied on makeshift tricks to stave off exhaustion on long Texas road trips. Modern sleep medicine and the Texas Department of Public Safety unequivocally classify these methods as dangerous fallacies that create a deadly false sense of security:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-hazard font-mono font-bold text-[10px] uppercase">MYTH 1: BLASTING COLD AIR</span>
+          <p class="text-slate leading-relaxed">
+            Opening a window provides a transient sensory shock lasting roughly 10 minutes. The underlying brain stem remains depleted of neurotransmitters, and microsleep will occur despite the cold breeze.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-hazard font-mono font-bold text-[10px] uppercase">MYTH 2: LOUD RADIO / SINGING</span>
+          <p class="text-slate leading-relaxed">
+            Blasting music increases cognitive cognitive load without alleviating fatigue. Drivers frequently nod off while music blares at full volume.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-hazard font-mono font-bold text-[10px] uppercase">MYTH 3: CAFFEINE &amp; ENERGY DRINKS</span>
+          <p class="text-slate leading-relaxed">
+            Caffeine merely blocks adenosine receptors temporarily (30–45 mins). When caffeine metabolizes, a catastrophic "adenosine crash" occurs, causing sudden, uncontrollable sleep onset.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <span class="text-valid font-mono font-bold text-[10px] uppercase">REALITY: SLEEP IS THE ONLY CURE</span>
+          <p class="text-slate leading-relaxed">
+            The only biological mechanism that clears adenosine debt is sleep. A 15-to-20 minute power nap in a safe parking area or rest stop restores neuromuscular reflexes for several hours.
+          </p>
+        </div>
+      </div>
+
+      <!-- TxDOT Mandated Rest Stop Protocol -->
+      <div class="p-3.5 rounded-xl bg-valid-light border border-valid/30 space-y-1.5 font-sans">
+        <div class="flex items-center gap-1.5 font-mono text-xs font-bold text-valid uppercase">
+          <span class="material-symbols-outlined text-sm">local_parking</span>
+          TEXAS DPS REST STOP &amp; DRIVING CEILING PROTOCOLS
+        </div>
+        <ul class="text-xs text-valid/90 list-disc list-inside space-y-1 font-mono text-[11px]">
+          <li><strong>2 Hours or 100 Miles:</strong> Compulsory stop. Exit the car, walk briskly for 5 minutes, stretch, and restore venous circulation.</li>
+          <li><strong>8-Hour Daily Driving Ceiling:</strong> Never operate a motor vehicle for more than 8 total hours in any 24-hour cycle.</li>
+          <li><strong>Dynamic Visual Scanning:</strong> Constantly shift gaze between far horizon (12–15s), side mirrors, rearview mirror, and speedometer to prevent ocular fixation.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 09. PEDAGOGICAL ARTICLE 4: LEGAL RAMIFICATIONS & RUMBLE STRIPS -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold text-safety uppercase">PEDAGOGICAL CORE 04</span>
+        <span class="text-[10px] font-mono text-slate">STATUTORY ENFORCEMENT</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon">
+        Texas Transportation Code Sanctions &amp; Shoulder Rumble Strip Dynamics
+      </h3>
+
+      <div class="space-y-2 text-xs text-slate leading-relaxed">
+        <p>
+          While Texas law does not issue a specific ticket labeled "drowsy driving," an officer who observes a driver weaving, drifting over fog lines, or nodding off will initiate a traffic stop. The statutory consequences escalate rapidly:
+        </p>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-carbon flex items-center justify-between">
+            <span>TTC &sect; 545.060: FAILURE TO DRIVE IN SINGLE MARKED LANE</span>
+            <span class="text-warning">CLASS C MISDEMEANOR</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Failure to maintain a single lane when drifting onto the shoulder or straddling the center line carries a moving violation fine of up to $200 and points on your Texas driver record.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-xs font-bold text-carbon flex items-center justify-between">
+            <span>TTC &sect; 545.401: RECKLESS DRIVING</span>
+            <span class="text-hazard">CLASS B MISDEMEANOR</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Operating a vehicle in willful or wanton disregard for the safety of persons or property. Operating while known to be severely exhausted falls under this statutory umbrella, punishable by up to <strong>30 days in county jail</strong>, a fine of up to <strong>$200</strong>, or both.
+          </p>
+        </div>
+      </div>
+
+      <!-- Continuous Milled Shoulder Rumble Strips -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 font-mono text-xs">
+        <div class="text-safety font-bold text-[10px] uppercase">RUMBLE STRIP ENGINEERING ACOUSTICS:</div>
+        <p class="font-sans text-slate text-xs leading-relaxed">
+          TxDOT installs continuous milled shoulder rumble strips along interstates. When a tire contacts these indentations, it produces a sharp acoustic blast of <strong>84 dBA</strong> and a tactile steering wheel vibration of <strong>2.8g acceleration</strong>. If you hit a rumble strip, treat it as an emergency warning: your brain has already suffered an involuntary microsleep. Pull off at the next exit immediately.
+        </p>
+      </div>
+    </article>
+
+    <!-- 10. INTERACTIVE KNOWLEDGE EVALUATION (3 SCENARIO MCQS) -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-sm text-valid">quiz</span>
+          <span>STATUTORY KNOWLEDGE EVALUATION</span>
+        </div>
+        <span class="font-mono text-[10px] text-valid bg-valid-light px-2 py-0.5 rounded border border-valid/30 font-bold">
+          3 SCENARIOS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L05-T12 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <div class="space-y-1">
+        <h3 class="font-sans font-bold text-base text-carbon">Fatigue &amp; Highway Hypnosis Examination</h3>
+        <p class="text-xs text-slate">Answer all 3 state examination scenarios. Instant feedback cites exact Texas statutes.</p>
+      </div>
+
+      <!-- QUESTION 1 (Option B strictly correct) -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 01 &bull; MICROSLEEP KINETICS</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          At 70 MPH on a Texas interstate, how far does a vehicle travel during an involuntary 3-to-5 second "microsleep" episode while the driver is completely unconscious?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Approximately 45 to 75 feet</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Between 308 and 513 feet &mdash; covering more than the length of an entire football field</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Exactly 120 feet before automated lane centering vibrates the steering column</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Less than 150 feet because rolling friction immediately halts vehicle forward momentum</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 02 &bull; CIRCADIAN NADIRS</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          According to biological chronobiology and Texas crash statistics, during which two time windows is driver fatigue and circadian drowsiness most lethal?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] 7:00 AM to 9:00 AM, and 5:00 PM to 7:00 PM</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Between 12:00 AM and 6:00 AM, and during the afternoon lull between 2:00 PM and 4:00 PM</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] 10:00 AM to 12:00 PM, and 8:00 PM to 10:00 PM</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Drowsiness peaks exclusively on Friday and Saturday evenings regardless of hour</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-2.5">
+        <div class="flex items-center justify-between font-mono text-[10px]">
+          <span class="text-safety font-bold uppercase">QUESTION 03 &bull; RECOVERY REMEDIES</span>
+          <span class="text-slate">SINGLE BEST ANSWER</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          What is the only scientifically validated and statutory remedy when experiencing symptoms of severe driver fatigue or highway hypnosis on a Texas highway?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ A ] Lowering the driver window to let cold air blast the driver's face</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ B ] Turning the audio system volume to maximum and drinking high-caffeine energy drinks</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ C ] Pulling into a designated safety rest area or parking lot to take a 20-minute nap or sleep</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full text-left p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub font-mono text-xs text-carbon transition flex items-center justify-between">
+            <span>[ D ] Chewing gum vigorously while staring intently at the right-hand shoulder fog line</span>
+            <span class="material-symbols-outlined text-sm opacity-0">check_circle</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-lg border font-mono text-xs leading-relaxed"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. NAVIGATION FOOTER -->
+    <footer class="pt-4 pb-8 space-y-3">
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+        <a href="L05-T11.html" class="touch-target min-h-[48px] flex-1 sm:flex-initial min-w-[80px] px-4 py-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-xs">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>TOPIC 11</span>
+        </a>
+        <a href="L05-T13.html" class="touch-target min-h-[48px] flex-1 sm:flex-initial min-w-[80px] px-5 py-2.5 rounded-xl border-2 border-safety bg-safety text-white font-mono text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-xs hover:bg-safety-deep">
+          <span>TOPIC 13: BREAKDOWNS</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 05 Topic 12
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE -->
+  <script>
+    // ==============================================================================
+    // 1. MCQ SCORING ENGINE (QUESTION 1 OPTION [ B ] STRICTLY CORRECT)
+    // ==============================================================================
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+                const TOPIC_ID = 'L05-T12';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TDLR ADE-1317 & TEXAS DRIVER HANDBOOK CH. 5",
+            "statutoryRationale": "At 70 MPH, a vehicle travels 102.67 feet per second (70 × 1.4667 ft/s). During a 3-second microsleep, the vehicle covers 308 feet; in 5 seconds, it travels 513.3 feet completely uncontrolled. Texas Driver Handbook Ch. 5 stresses that microsleeps cause severe off-road and head-on collisions."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "NHTSA & TDLR ADE-1317 CHRONOBIOLOGY",
+            "statutoryRationale": "The human circadian clock undergoes two major physiological drops in alertness: the primary circadian nadir between 12:00 AM and 6:00 AM (melatonin peak), and a secondary afternoon dip between 2:00 PM and 4:00 PM (core body temperature drop). Fatigue-related crashes are statistically concentrated during these hours."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TEXAS DRIVER HANDBOOK CH. 5 (FATIGUE PROTOCOLS)",
+            "statutoryRationale": "As established in the Texas Driver Handbook Ch. 5 and sleep medicine, caffeine, cold air, and loud music provide temporary sensory spikes (10–15 minutes) but do not relieve underlying sleep debt. Sleep is the only biological remedy for fatigue."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // ==============================================================================
+    // 2. PRIMARY CAD STATE ENGINE (L05-T12)
+    // ==============================================================================
+    const l12Cad1State = {
+      phase: 'morning'
+    };
+
+    const l12Cad1Data = {
+      morning: {
+        phase: 'PEAK VIGILANCE',
+        lag: 'NOMINAL (+0ms)',
+        vision: '100% (180° ARC)',
+        risk: '1.0x BASELINE',
+        dot: '#10B981',
+        status: 'STATE: 10:00 AM // PEAK CIRCADIAN ALERTNESS // TTC § 545.401 COMPLIANT',
+        tag: 'PEAK CIRCADIAN VIGILANCE',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: 'Optimal Neurological Reflexes & Broad Visual Search',
+        desc: 'During morning hours (8 AM to 12 PM), core body temperature is elevated and cortisol sustains natural alertness. Eye blink frequency is healthy (15–20 blinks/min) and dynamic scanning keeps the gaze cycling between the 15-second highway horizon, rearview mirror, and dashboard gauges every 2 to 5 seconds. Cognitive perception latency is optimal at approximately 1.5 seconds.',
+        pinX: 145, pinY: 42,
+        radarCone: 'M 90,146 L 68,118 A 34,34 0 0,1 112,118 Z',
+        radarColor: '#10B981',
+        gazeX: 90, gazeY: 130,
+        radarCaption: 'ACTIVE SCAN: 12-15s (180° CONE)',
+        driftD: 'M 190,122 L 250,126',
+        driftColor: '#10B981',
+        line1: 'LATERAL STABILITY: 100%',
+        line1Color: '#10B981',
+        line2: 'BLINK FREQ: 18/MIN (NOMINAL)'
+      },
+      afternoon: {
+        phase: 'POST-PRANDIAL SLUMP',
+        lag: '+250ms LATENCY',
+        vision: '70% (120° ARC)',
+        risk: '2.4x ELEVATED',
+        dot: '#F59E0B',
+        status: 'WARNING: 2:00–4:00 PM AFTERNOON METABOLIC DIP // DROWSINESS ESCALATION',
+        tag: 'SECONDARY CIRCADIAN DIP',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: 'Post-Prandial Drop in Body Temperature & Slowed Reflexes',
+        desc: 'Between 2:00 PM and 4:00 PM, human physiology undergoes a secondary biological nadir. Core body temperature drops slightly, digestive demands slow cerebral perfusion, and eye blink duration lengthens. Peripheral hazard detection narrows by 30%, adding +250ms to stopping latency (25 extra feet at 70 MPH). Open cabin vents and prepare for a rest break.',
+        pinX: 211, pinY: 62,
+        radarCone: 'M 90,146 L 76,122 A 34,34 0 0,1 104,122 Z',
+        radarColor: '#F59E0B',
+        gazeX: 90, gazeY: 136,
+        radarCaption: 'NARROW SCAN: 8-10s (120° CONE)',
+        driftD: 'M 190,124 L 260,131',
+        driftColor: '#F59E0B',
+        line1: 'LATERAL STABILITY: 82% (MILD DRIFT)',
+        line1Color: '#F59E0B',
+        line2: 'BLINK FREQ: 11/MIN (DROWSY)'
+      },
+      nocturnal: {
+        phase: 'CRITICAL NOCTURNAL NADIR',
+        lag: '+650ms LATENCY',
+        vision: '35% (TUNNEL VISION)',
+        risk: '5.8x CRITICAL',
+        dot: '#EF4444',
+        status: 'CRITICAL HAZARD: 12:00–6:00 AM MELATONIN PEAK // HIGHWAY HYPNOSIS LOCK',
+        tag: 'NOCTURNAL DANGER HORIZON',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'Severe Melatonin Surge & Hypnotic Tunnel Fixation',
+        desc: 'From 12:00 AM to 6:00 AM, melatonin reaches peak neurological saturation while core body temperature bottoms out. Drivers develop a trance-like fixed stare (tunnel vision), missing exits and losing memory of the preceding 3 to 5 miles. Vehicle drifts over shoulder rumble strips. Operating in this condition violates TTC § 545.401 (Reckless Driving).',
+        pinX: 57, pinY: 78,
+        radarCone: 'M 90,146 L 85,126 A 34,34 0 0,1 95,126 Z',
+        radarColor: '#EF4444',
+        gazeX: 90, gazeY: 142,
+        radarCaption: 'FIXED TUNNEL GAZE: <5s (35° CONE)',
+        driftD: 'M 190,126 L 270,136',
+        driftColor: '#EF4444',
+        line1: 'RUMBLE STRIP HIT: DRIFTING RIGHT',
+        line1Color: '#EF4444',
+        line2: 'BLINK FREQ: 4/MIN (MICROSLEEP RISK)'
+      },
+      rest: {
+        phase: 'REST STOP RESET',
+        lag: 'RESET TO 1.5s',
+        vision: 'RESTORED 100%',
+        risk: '1.0x NORMALIZED',
+        dot: '#10B981',
+        status: 'RECOVERY: 20-MIN NAP & 2-HOUR REST PROTOCOL CLEARS ADENOSINE DEFICIT',
+        tag: 'TEXAS REST STOP MANDATE',
+        tagClass: 'text-valid',
+        borderClass: 'border-valid',
+        title: '2-Hour / 100-Mile Staging & 20-Minute Power Nap',
+        desc: 'Texas Department of Public Safety guidelines require stopping at least every 2 hours or 100 miles, with an absolute daily driving ceiling of 8 hours. Caffeine only masks adenosine receptors temporarily; the sole biological cure for fatigue is sleep. A 15-to-20 minute power nap in a designated Texas Safety Rest Area fully resets neuromuscular vigilance.',
+        pinX: 180, pinY: 48,
+        radarCone: 'M 90,146 L 68,118 A 34,34 0 0,1 112,118 Z',
+        radarColor: '#10B981',
+        gazeX: 90, gazeY: 130,
+        radarCaption: 'RESET COMPLETE: FULL 180° SCAN',
+        driftD: 'M 190,122 L 250,124',
+        driftColor: '#10B981',
+        line1: 'LATERAL STABILITY: 100% RECOVERED',
+        line1Color: '#10B981',
+        line2: 'CIRCULATION & VIGILANCE RESTORED'
+      }
+    };
+
+    function setL12Cad1Phase(phase) {
+      l12Cad1State.phase = phase;
+      const d = l12Cad1Data[phase];
+
+      ['morning', 'afternoon', 'nocturnal', 'rest'].forEach((p, idx) => {
+        const btn = document.getElementById(`l12-btn-${idx + 1}`);
+        if (btn) {
+          if (p === phase) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l12-cad1-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l12-cad1-status');
+      if (st) st.textContent = d.status;
+
+      const pin = document.getElementById('l12-cursor-pin');
+      if (pin) pin.setAttribute('transform', `translate(${d.pinX}, ${d.pinY})`);
+
+      const cone = document.getElementById('l12-vision-cone');
+      if (cone) {
+        cone.setAttribute('d', d.radarCone);
+        cone.setAttribute('stroke', d.radarColor);
+      }
+      const gazePt = document.getElementById('l12-gaze-point');
+      if (gazePt) {
+        gazePt.setAttribute('cx', d.gazeX);
+        gazePt.setAttribute('cy', d.gazeY);
+        gazePt.setAttribute('fill', d.radarColor);
+      }
+      const caption = document.getElementById('l12-radar-caption');
+      if (caption) {
+        caption.textContent = d.radarCaption;
+        caption.setAttribute('fill', d.radarColor);
+      }
+
+      const drift = document.getElementById('l12-drift-vector');
+      if (drift) {
+        drift.setAttribute('d', d.driftD);
+        drift.setAttribute('stroke', d.driftColor);
+      }
+
+      const l1 = document.getElementById('l12-sensor-line1');
+      if (l1) {
+        l1.textContent = d.line1;
+        l1.setAttribute('fill', d.line1Color);
+      }
+      const l2 = document.getElementById('l12-sensor-line2');
+      if (l2) l2.textContent = d.line2;
+
+      document.getElementById('l12-hud-phase').textContent = d.phase;
+      document.getElementById('l12-hud-lag').textContent = d.lag;
+      document.getElementById('l12-hud-vision').textContent = d.vision;
+      document.getElementById('l12-hud-risk').textContent = d.risk;
+
+      const card = document.getElementById('l12-cad1-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l12-card-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l12-card-title').textContent = d.title;
+      document.getElementById('l12-card-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. SECONDARY CAD STATE ENGINE (L05-T12)
+    // ==============================================================================
+    const l12Cad2State = {
+      preset: 'tier2'
+    };
+
+    const l12Cad2Data = {
+      tier1: {
+        dist: '103 FEET',
+        bac: '0.05% EQUIV',
+        field: '0.34 FIELDS',
+        charge: 'INFRACTION RISK',
+        dot: '#D97706',
+        status: 'EQUIVALENCE: 18H AWAKE = 0.05% BAC IMPAIRMENT // ELEVATED STOPPING LAG',
+        tag: '18 HOURS AWAKE = 0.05% BAC',
+        tagClass: 'text-warning',
+        borderClass: 'border-warning',
+        title: '1.0-Second Micro-Sleep Covers 103 Feet Completely Blind',
+        desc: 'Being awake for 18 continuous hours reduces cognitive reaction speed and motor precision to the exact physiological equivalent of a 0.05% Blood Alcohol Concentration. In a momentary 1-second nod at 70 MPH ($102.67\text{ ft/s}$), the vehicle travels 103 feet with zero human control.',
+        w1: 58, w2: 40, w3: 20
+      },
+      tier2: {
+        dist: '308 FEET',
+        bac: '0.08% (LEGAL LIMIT)',
+        field: '1.03 FIELDS',
+        charge: 'TTC § 545.401 RECKLESS',
+        dot: '#E87522',
+        status: 'EQUIVALENCE: 21H AWAKE = 0.08% BAC STATUTORY TEXAS LEGAL INTOXICATION',
+        tag: 'LEGAL INTOXICATION EQUIVALENCE',
+        tagClass: 'text-safety',
+        borderClass: 'border-safety',
+        title: 'A 3-Second Shutdown Covers 308 Feet Completely Unguided',
+        desc: 'At 70 MPH ($102.67\text{ ft/s}$), closing your eyes for a 3-second microsleep carries your vehicle forward 308 feet—longer than a regulation 300-foot football field—with zero steering correction or hazard detection. Extensive neurological testing proves that 21 hours of sleep deprivation impairs motor coordination and reaction times to the exact same degree as a 0.08% Blood Alcohol Concentration. Operating while severely fatigued is prosecutable as Reckless Driving under TTC § 545.401.',
+        w1: 58, w2: 174, w3: 60
+      },
+      tier3: {
+        dist: '513 FEET',
+        bac: '0.10% (SEVERE DWI)',
+        field: '1.71 FIELDS',
+        charge: 'CLASS B MISDEMEANOR',
+        dot: '#BA1A1A',
+        status: 'CRITICAL DANGER: 24H AWAKE SURPASSES 0.10% BAC // CATASTROPHIC FATALITY RISK',
+        tag: 'SEVERE IMPAIRMENT EQUIVALENCE',
+        tagClass: 'text-hazard',
+        borderClass: 'border-hazard',
+        title: 'A 5-Second Brain Blackout at 70 MPH Traverses 513 Feet',
+        desc: 'A full 5-second microsleep at highway speeds carries the car 513.3 feet—nearly two full football fields. Any slight curvature in the roadway guarantees an off-road rollover or direct head-on collision. Being awake for 24 hours equates to a 0.10% BAC, exceeding the statutory definition of criminal intoxication.',
+        w1: 58, w2: 174, w3: 290
+      }
+    };
+
+    function setL12Cad2Preset(preset) {
+      l12Cad2State.preset = preset;
+      const d = l12Cad2Data[preset];
+
+      ['tier1', 'tier2', 'tier3'].forEach((p, idx) => {
+        const btn = document.getElementById(`l12-pbtn-${idx + 1}`);
+        if (btn) {
+          if (p === preset) {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border-2 border-safety bg-safety/10 text-safety font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          } else {
+            btn.className = 'touch-target min-h-[48px] p-2 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-carbon font-mono text-xs font-bold transition flex flex-col items-center justify-center text-center';
+          }
+        }
+      });
+
+      const dot = document.getElementById('l12-cad2-dot');
+      if (dot) dot.setAttribute('fill', d.dot);
+      const st = document.getElementById('l12-cad2-status');
+      if (st) {
+        st.textContent = d.status;
+        st.setAttribute('fill', d.dot);
+      }
+
+      document.getElementById('l12-hud2-dist').textContent = d.dist;
+      document.getElementById('l12-hud2-bac').textContent = d.bac;
+      document.getElementById('l12-hud2-field').textContent = d.field;
+      document.getElementById('l12-hud2-charge').textContent = d.charge;
+
+      const card = document.getElementById('l12-cad2-card');
+      card.className = `bg-surface-sub border-l-4 ${d.borderClass} p-3.5 rounded-xl space-y-1.5 transition-all`;
+      const tag = document.getElementById('l12-card2-tag');
+      tag.textContent = d.tag;
+      tag.className = `text-[10px] font-mono font-bold ${d.tagClass} uppercase`;
+      document.getElementById('l12-card2-title').textContent = d.title;
+      document.getElementById('l12-card2-desc').textContent = d.desc;
+    }
+
+    // ==============================================================================
+    // 3. EXTERNAL SIMULATION CONTROLLER & TELEMETRY BINDING (L05-T12)
+    // ==============================================================================
+    let isSimPlaying = true;
+    function sendSimCmd(action, payload) {
+      const iframe = document.getElementById('sim-iframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ action, payload }, '*');
+      }
+    }
+    
+      function toggleSimFullscreen() {
+        const frame = document.getElementById('sim-viewport') || document.getElementById('sim-viewport-frame');
+        if (!frame) return;
+        if (!document.fullscreenElement) {
+          if (frame.requestFullscreen) frame.requestFullscreen();
+          else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
+      }
+      function toggleSimPlay() {
+      isSimPlaying = !isSimPlaying;
+      sendSimCmd('togglePlay');
+      const icon = document.getElementById('play-icon');
+      const txt = document.getElementById('play-text');
+      if (icon) icon.textContent = isSimPlaying ? 'pause' : 'play_arrow';
+      if (txt) txt.textContent = isSimPlaying ? 'PAUSE' : 'PLAY';
+    }
+    function restartSim() {
+      sendSimCmd('restart');
+      isSimPlaying = true;
+      const icon = document.getElementById('play-icon');
+      const txt = document.getElementById('play-text');
+      if (icon) icon.textContent = 'pause';
+      if (txt) txt.textContent = 'PAUSE';
+    }
+    function switchSimCam(mode) {
+      sendSimCmd('switchCamera', mode);
+      ['tracking', 'driver', 'drone'].forEach(m => {
+        const btn = (m === 'tracking') ? (document.getElementById('sim-btn-cam') || document.getElementById('cam-btn-tracking')) : document.getElementById(`cam-btn-${m}`);
+        if (btn) {
+          if (m === mode) {
+            btn.className = 'touch-target min-h-[48px] px-2.5 py-1.5 rounded-lg font-mono text-[11px] font-bold transition bg-surface text-carbon shadow-xs select-none';
+          } else {
+            btn.className = 'touch-target min-h-[48px] px-2.5 py-1.5 rounded-lg font-mono text-[11px] font-bold transition text-slate hover:text-carbon select-none';
+          }
+        }
+      });
+    }
+    function setSimScenario(scenNum) {
+      sendSimCmd('setScenario', scenNum);
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+    window.addEventListener('message', (e) => {
+      const d = e.data || {};
+      if (d.type === 'telemetry' || d.event === 'telemetry') {
+        const spd = document.getElementById('telemetry-speed');
+        const tmp = document.getElementById('telemetry-temp');
+        const phs = (document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-phase'));
+        if (spd && d.speed !== undefined) spd.textContent = `${d.speed} MPH`;
+        if (tmp && d.brakeTemp !== undefined) tmp.textContent = `BRAKES: ${d.brakeTemp}°F`;
+        if (phs && d.phase) phs.textContent = d.phase;
+      }
+    });
+
+    // ==============================================================================
+    // 4. DOM INITIALIZATION
+    // ==============================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      setL12Cad1Phase('morning');
+      setL12Cad2Preset('tier2');
+    });
+  </script>
+</body>
+</html>

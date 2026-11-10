@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>From Knowledge to Responsible Decisions — Texas Adult Driver Ed (L04-T03)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D',
+            'on-surface': '#191C1B',
+            secondary: '#5A605C',
+            'primary-container': '#E87522'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target, .tap-target {
+      min-width: 48px;
+      min-height: 48px;
+    }
+    .touch-target, button, a {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+    a.touch-target {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS -->
+    <header class="flex items-center justify-between pb-3 border-b border-hairline">
+      <div class="flex items-center gap-2">
+        <a href="L04-T02.html" class="touch-target flex items-center justify-center p-2 rounded-lg bg-white border border-hairline hover:bg-surface-sub text-slate transition" style="min-height: 48px; min-width: 48px;">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+        </a>
+        <div>
+          <span class="font-mono text-[10px] font-bold text-safety tracking-wider uppercase block">MODULE 04 &bull; TOPIC 03</span>
+          <h1 class="font-mono text-xs font-bold text-carbon">RESPONSIBLE DECISIONS</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="score-display" class="hidden font-mono text-[11px] font-bold text-valid bg-valid/10 border border-valid/30 px-2.5 py-1 rounded-full">
+          SCORE: 0 / 3
+        </span>
+      </div>
+    </header>
+
+    <!-- 02. LESSON TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-safety/10 text-safety border border-safety/30 px-2 py-0.5 rounded">TTC &sect; 545.351</span>
+        <span class="bg-surface-sub text-slate border border-hairline px-2 py-0.5 rounded">TTC &sect; 545.062</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 17 MIN READ</span>
+      </div>
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        From Knowledge to Responsible Decisions
+      </h2>
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Transition from rote recognition of signs and markings into dynamic, proactive defensive driving. Master the Texas Basic Speed Rule (TTC &sect; 545.351), sight-distance compression physics, and the 5 Pillars of Defensive Decision Making.
+      </p>
+    </section>
+
+    <!-- 03. 3D DRIVING SIMULATION: COMPLETE UI SEPARATION (PHONE-FIRST 360px-430px) -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <!-- Tier 1: Scenario Header (Off & Above Viewport) -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-bold text-carbon uppercase tracking-wider">3D DRIVING SIMULATION // EMBEDDED WEBGL</span>
+        </div>
+        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-sub text-safety-deep border border-hairline">
+          TTC § 545.055 &amp; § 545.056 • ADE-1317
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Rural Highway Passing &amp; The 200-Foot Safety Buffer</h2>
+        <p class="text-xs text-slate mt-0.5">Mandatory 200-ft return buffer before approaching vehicles, crest blind curves, and pass-abort decision tree.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L04_T03_pavement_markings_passing.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">EVALUATING SIGHT DISTANCE // BROKEN YELLOW LINE</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>LAWFUL 340-Ft</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>ABORT Defensive</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>HAZARD Double</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY MANDATE // 200-FT RETURN BUFFER</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.055(b) &amp; § 545.056</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Return to Authorized Lane Before 200 Feet</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            Drivers must return to their authorized lane before coming within 200 feet of an approaching vehicle. Passing is prohibited when approaching a crest, curve, or double solid yellow line.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">STATUTORY SANCTION:</span>
+            <span id="sim-card-metric" class="text-hazard font-bold">MOVING VIOLATION // $200–$500 FINE + 2 POINTS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. TEXTBOOK PROSE 1: THE TEXAS BASIC SPEED RULE & SIGHT DISTANCE COMPRESSION -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">speed</span>
+        <span class="font-bold text-carbon">STATUTORY REASONABLENESS &bull; TTC &sect; 545.351</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        The Texas Basic Speed Rule: Posted Limits Are Only For Ideal Conditions
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Under <strong>Texas Transportation Code &sect; 545.351</strong>, an operator may not drive at a speed greater than is reasonable and prudent under the conditions and having regard for actual and potential hazards. Crucially, <strong>a driver must control speed as necessary to avoid colliding</strong> with another person or vehicle that is on or entering the highway in compliance with law and the duty of each person to use due care.
+      </p>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">functions</span>
+          <span>STOPPING SIGHT DISTANCE &amp; BRAKING PHYSICS</span>
+        </div>
+        <ul class="space-y-1.5 text-slate leading-snug">
+          <li>&bull; <strong>Perception-Reaction Distance (d_pr = 1.47 &times; v &times; t):</strong> At 65 mph (95.3 ft/s) with a standard 1.5s reaction time, your vehicle travels <strong>143 feet</strong> before your foot even touches the brake pedal.</li>
+          <li>&bull; <strong>Kinetic Braking Distance (d_b = v&sup2; / (30 &times; f)):</strong> Braking distance scales quadratically with speed. Increasing velocity from 45 mph to 65 mph (+44% speed) more than doubles total kinetic energy (+108%), increasing stopping distance from 196 ft to 345 ft.</li>
+          <li>&bull; <strong>Sight Distance Overrun Hazard:</strong> When horizontal or vertical curvature restricts forward clear view to 220 feet, driving at 65 mph guarantees a blind collision if an obstruction exists in the roadway.</li>
+          <li>&bull; <strong>Pre-Curve Deceleration Mandate:</strong> Braking while turning consumes tire friction required for lateral cornering force. All braking must occur in a straight line BEFORE initiating steering into the curve apex.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 05. SUBAGENT DELIVERED WIDGET 1: CURVE ADVISORY SPEED & SIGHT DISTANCE -->
+    <section class="bg-white border border-[#D9DDD8] rounded-xl p-3 sm:p-5 space-y-3.5 shadow-xs fluid-card" id="sec-curve-advisory-speed">
+  <!-- Section Technical Header -->
+  <div class="border-b border-[#D9DDD8] pb-2 flex items-center justify-between">
+    <div>
+      <span class="font-mono text-[9px] sm:text-xs uppercase text-primary-container font-bold tracking-wider block">
+        STATUTORY DECISION ENGINE // SECTION 02-A
+      </span>
+      <h2 class="text-sm sm:text-lg font-bold text-on-surface mt-0.5">
+        Curve Speed &amp; Sight Distance Compression
+      </h2>
+    </div>
+    <span class="text-[9px] sm:text-[10px] font-mono text-secondary bg-[#F0F2EF] border border-[#D9DDD8] px-2 py-0.5 rounded font-semibold shrink-0">
+      TTC § 545.351
+    </span>
+  </div>
+
+  <p class="text-xs text-secondary leading-relaxed">
+    Under Texas Transportation Code § 545.351 (Basic Speed Rule), speed limits only apply under ideal conditions. When horizontal road geometry compresses visible clear distance, maintaining posted speed causes sight-distance overrun and centrifugal rollover risk.
+  </p>
+
+  <!-- SVG Viewport Container (Locked to max-w-[340px] for 360px phone screens) -->
+  <div class="relative w-full bg-[#101311] border border-[#2B312E] rounded-xl overflow-hidden p-1 shadow-inner select-none flex flex-col items-center justify-center">
+    <!-- Responsive Inline SVG (viewBox 0 0 340 220) -->
+    <svg id="w1-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto mx-auto block select-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Background Grid -->
+        <pattern id="w1-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#222825" stroke-width="0.5"/>
+        </pattern>
+        <!-- Headlight Beam Gradient -->
+        <linearGradient id="w1-headlight" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#FEF08A" stop-opacity="0.0"/>
+        </linearGradient>
+        <!-- Sight Cone Gradient -->
+        <linearGradient id="w1-sight-grad" x1="0" y1="1" x2="0.8" y2="0">
+          <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.05"/>
+        </linearGradient>
+        <!-- Collision Glow -->
+        <radialGradient id="w1-collision-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#EF4444" stop-opacity="0.85"/>
+          <stop offset="60%" stop-color="#DC2626" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#7F1D1D" stop-opacity="0.0"/>
+        </radialGradient>
+        <!-- Safe Stop Glow -->
+        <radialGradient id="w1-safe-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#34D399" stop-opacity="0.85"/>
+          <stop offset="60%" stop-color="#059669" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#064E3B" stop-opacity="0.0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Dark Obsidian Slate Roadway Base -->
+      <rect width="340" height="220" fill="#141816"/>
+      <rect width="340" height="220" fill="url(#w1-grid)"/>
+
+      <!-- Top Telemetry Header Bar -->
+      <rect x="0" y="0" width="340" height="20" fill="#191C1B" stroke="#2B302D" stroke-width="0.8"/>
+      <circle cx="10" cy="10" r="3" fill="#E87522"/>
+      <text x="18" y="13" fill="#E5E7EB" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700">RURAL TX HWY // SIGHT DISTANCE COMPRESSION</text>
+      <rect x="235" y="4" width="98" height="12" rx="3" fill="#2B302D"/>
+      <text x="284" y="12.5" text-anchor="middle" fill="#FBBF24" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700">TTC § 545.351 AUDIT</text>
+
+      <!-- Highway Pavement Asphalt Body -->
+      <path d="M 12 220 C 12 135, 75 50, 220 23 L 340 15 L 340 85 L 275 92 C 145 125, 95 185, 95 220 Z" fill="#1F2421"/>
+
+      <!-- Left Fog Line (White Edge) -->
+      <path d="M 18 220 C 18 138, 78 54, 222 26 L 340 18" fill="none" stroke="#E5E7EB" stroke-width="1.5" stroke-opacity="0.9"/>
+
+      <!-- Double Yellow Centerline (Solid Curve) -->
+      <path d="M 50 220 C 50 152, 106 78, 244 51 L 340 43" fill="none" stroke="#F59E0B" stroke-width="1.8"/>
+      <path d="M 53 220 C 53 154, 109 80, 247 53 L 340 45" fill="none" stroke="#F59E0B" stroke-width="1.8"/>
+
+      <!-- Right Fog Line (White Edge along inside of curve) -->
+      <path d="M 86 220 C 86 170, 138 108, 270 78 L 340 70" fill="none" stroke="#E5E7EB" stroke-width="1.5" stroke-opacity="0.9"/>
+
+      <!-- Blind Rock Bluff / Treeline Obstruction inside the Curve -->
+      <g id="w1-bluff-group">
+        <!-- Bluff Mass -->
+        <path d="M 108 178 C 122 135, 145 116, 185 112 C 220 112, 238 130, 242 165 C 242 195, 195 210, 140 205 Z" fill="#242B27" stroke="#3E4842" stroke-width="1.5"/>
+        <!-- Elevation Ridges -->
+        <path d="M 125 170 C 135 138, 155 124, 185 122 C 212 122, 225 136, 228 162" fill="none" stroke="#4B564F" stroke-width="1" stroke-dasharray="2,2"/>
+        <path d="M 142 165 C 150 144, 165 134, 185 134 C 202 134, 212 144, 215 162" fill="none" stroke="#5E6B62" stroke-width="0.8"/>
+        <!-- Texas Cedar / Brush Foliage Clusters -->
+        <circle cx="140" cy="128" r="9" fill="#193325" stroke="#2D5A42" stroke-width="0.8"/>
+        <circle cx="152" cy="122" r="11" fill="#132B1F" stroke="#254B36" stroke-width="0.8"/>
+        <circle cx="168" cy="118" r="10" fill="#1C3D2C" stroke="#31664A" stroke-width="0.8"/>
+        <circle cx="184" cy="119" r="11" fill="#163123" stroke="#2B573E" stroke-width="0.8"/>
+        <circle cx="198" cy="124" r="9" fill="#1A3828" stroke="#336647" stroke-width="0.8"/>
+        <circle cx="212" cy="135" r="8" fill="#142A1D" stroke="#244732" stroke-width="0.8"/>
+        <circle cx="128" cy="144" r="8" fill="#173022" stroke="#285038" stroke-width="0.8"/>
+        <!-- Bluff Text Telemetry -->
+        <rect x="135" y="148" width="80" height="18" rx="3" fill="#131915" stroke="#3E4842" stroke-width="0.8"/>
+        <text x="175" y="157" text-anchor="middle" fill="#E5E7EB" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700">BLIND CREST / BLUFF</text>
+        <text x="175" y="163" text-anchor="middle" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">BLOCKS SIGHTLINE</text>
+      </g>
+
+      <!-- Clear Sight Horizon Cone (Driver Eye to Road Cutoff at 220 ft) -->
+      <g id="w1-sightcone-group">
+        <!-- Visual Sector Polygon -->
+        <polygon points="68,185 142,122 205,74 135,55 68,185" fill="url(#w1-sight-grad)"/>
+        <!-- Tangent Line of Sight Ray -->
+        <line x1="68" y1="185" x2="218" y2="68" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <!-- Sight Horizon Barrier across Lane -->
+        <line x1="196" y1="84" x2="225" y2="60" stroke="#38BDF8" stroke-width="2"/>
+        <circle cx="210" cy="72" r="3" fill="#38BDF8"/>
+        <rect x="145" y="86" width="76" height="12" rx="2" fill="#0C2638" stroke="#38BDF8" stroke-width="0.8"/>
+        <text x="183" y="94.5" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">MAX VISIBLE: 220 FT</text>
+      </g>
+
+      <!-- Hidden Obstacle Around Curve (Stalled Flatbed Truck at x: 260, y: 60) -->
+      <g id="w1-hazard-group">
+        <!-- Red Hazard Beacon Range Rings -->
+        <circle cx="260" cy="60" r="16" fill="none" stroke="#EF4444" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+        <!-- Stalled Truck Silhouette -->
+        <g transform="translate(252, 51) rotate(18)">
+          <rect x="0" y="0" width="14" height="24" rx="2" fill="#7F1D1D" stroke="#EF4444" stroke-width="1"/>
+          <rect x="2" y="3" width="10" height="7" rx="1" fill="#1F2937"/>
+          <circle cx="3" cy="22" r="1.5" fill="#EF4444"/>
+          <circle cx="11" cy="22" r="1.5" fill="#EF4444"/>
+        </g>
+        <!-- Hazard Warning Flag -->
+        <rect x="238" y="27" width="56" height="15" rx="3" fill="#450A0A" stroke="#EF4444" stroke-width="1"/>
+        <text x="266" y="35" text-anchor="middle" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">HIDDEN HAZARD</text>
+        <text x="266" y="40" text-anchor="middle" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="4.5">STALLED TRUCK // 245 FT</text>
+      </g>
+
+      <!-- W1-2 Curve Warning Sign + W13-1P Advisory Speed Assembly on Right Shoulder -->
+      <g id="w1-sign-assembly" transform="translate(98, 170)">
+        <!-- Sign Post -->
+        <line x1="12" y1="0" x2="12" y2="44" stroke="#9CA3AF" stroke-width="2"/>
+        <!-- Yellow Diamond W1-2 (Rotated Square) -->
+        <g transform="translate(12, 10)">
+          <rect x="-10" y="-10" width="20" height="20" rx="2" fill="#FBBF24" stroke="#18181B" stroke-width="1.2" transform="rotate(45)"/>
+          <!-- Right Curve Arrow -->
+          <path d="M -3 4 L -3 -2 Q -3 -5 1 -5 L 4 -5" fill="none" stroke="#18181B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M 2 -7.5 L 6 -5 L 2 -2.5 Z" fill="#18181B"/>
+        </g>
+        <!-- Advisory Plate W13-1P -->
+        <g transform="translate(12, 29)">
+          <rect x="-11" y="-7" width="22" height="14" rx="2" fill="#FBBF24" stroke="#18181B" stroke-width="1"/>
+          <text x="0" y="-1" text-anchor="middle" fill="#18181B" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="900">45</text>
+          <text x="0" y="5.5" text-anchor="middle" fill="#18181B" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800">MPH</text>
+        </g>
+      </g>
+
+      <!-- Dynamic State Overlay 1: 45 MPH Advisory Speed Safe Stopping Trajectory -->
+      <g id="w1-mode-45" opacity="1.0" class="transition-opacity duration-300">
+        <!-- Green Stopping Path Caliper -->
+        <path d="M 68 185 C 72 158, 112 104, 185 78" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-dasharray="5,3"/>
+        <!-- Safe Stop Halo -->
+        <circle cx="185" cy="78" r="18" fill="url(#w1-safe-glow)"/>
+        <!-- Stopped Vehicle Silhouette at 196 FT -->
+        <g transform="translate(178, 66) rotate(32)">
+          <rect x="0" y="0" width="12" height="22" rx="2" fill="#065F46" stroke="#34D399" stroke-width="1.2"/>
+          <rect x="2" y="4" width="8" height="6" rx="1" fill="#1E293B"/>
+          <circle cx="3" cy="20" r="1.2" fill="#34D399"/>
+          <circle cx="9" cy="20" r="1.2" fill="#34D399"/>
+        </g>
+        <!-- Safe Stop Marker Pill -->
+        <rect x="140" y="48" width="76" height="15" rx="3" fill="#064E3B" stroke="#34D399" stroke-width="1"/>
+        <text x="178" y="56" text-anchor="middle" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">SAFE STOP: 196 FT</text>
+        <text x="178" y="61.5" text-anchor="middle" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="4.5">+24 FT BUFFER BEFORE HAZARD</text>
+
+        <!-- Lateral Centrifugal Force Arrow (Gentle: 0.22g) -->
+        <g transform="translate(135, 110)">
+          <line x1="0" y1="0" x2="-14" y2="-10" stroke="#34D399" stroke-width="1.8" stroke-linecap="round"/>
+          <polygon points="-14,-10 -9,-8 -12,-5" fill="#34D399"/>
+          <text x="-18" y="-12" text-anchor="end" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">0.22g (STABLE)</text>
+        </g>
+      </g>
+
+      <!-- Dynamic State Overlay 2: 65 MPH Overrun Hazard Trajectory -->
+      <g id="w1-mode-65" opacity="0.0" class="transition-opacity duration-300">
+        <!-- Red Stopping Path Caliper (Overrunning into Hazard) -->
+        <path d="M 68 185 C 72 158, 112 104, 255 60" fill="none" stroke="#EF4444" stroke-width="3" stroke-linecap="round" stroke-dasharray="5,3"/>
+        <!-- Collision Blast Starburst at Obstacle -->
+        <circle cx="260" cy="60" r="24" fill="url(#w1-collision-glow)"/>
+        <!-- Collision Warning Box -->
+        <rect x="210" y="78" width="105" height="24" rx="3" fill="#450A0A" stroke="#EF4444" stroke-width="1.2"/>
+        <text x="262.5" y="87" text-anchor="middle" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="900">CRITICAL OVERRUN: 345 FT</text>
+        <text x="262.5" y="94" text-anchor="middle" fill="#F87171" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">+125 FT SIGHT DEFICIT</text>
+        <text x="262.5" y="100" text-anchor="middle" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">IMPACT AT 42 MPH RESIDUAL SPEED</text>
+
+        <!-- Severe Lateral Centrifugal Force Arrow (0.46g - Tire Skid!) -->
+        <g transform="translate(135, 110)">
+          <line x1="0" y1="0" x2="-32" y2="-22" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round"/>
+          <polygon points="-32,-22 -24,-20 -28,-14" fill="#EF4444"/>
+          <text x="-36" y="-22" text-anchor="end" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="900">0.46g SKID FORCE (+108%)</text>
+        </g>
+      </g>
+
+      <!-- Dynamic State Overlay 3: Physics & Straight-Line Braking Analysis -->
+      <g id="w1-mode-physics" opacity="0.0" class="transition-opacity duration-300">
+        <!-- Straight-Line Pre-Braking Zone Indicator on approach -->
+        <rect x="52" y="152" width="30" height="30" rx="3" fill="#047857" fill-opacity="0.3" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,2"/>
+        <text x="67" y="146" text-anchor="middle" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">PRE-BRAKE ZONE</text>
+        <text x="67" y="170" text-anchor="middle" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="4.5">DECELERATE BEFORE APEX</text>
+
+        <!-- Kinetic Energy Telemetry Overlay Box -->
+        <g transform="translate(10, 26)">
+          <rect x="0" y="0" width="125" height="52" rx="4" fill="#141816" stroke="#E87522" stroke-width="1"/>
+          <text x="6" y="10" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">KINETIC ENERGY: Ek = 1/2 mv²</text>
+          <!-- 45 MPH Bar -->
+          <text x="6" y="21" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="5">45 MPH: 275 kJ (1.0x)</text>
+          <rect x="6" y="24" width="48" height="6" rx="1" fill="#10B981"/>
+          <!-- 65 MPH Bar -->
+          <text x="6" y="38" fill="#F87171" font-family="'JetBrains Mono', monospace" font-size="5">65 MPH: 574 kJ (2.08x!)</text>
+          <rect x="6" y="41" width="100" height="6" rx="1" fill="#EF4444"/>
+        </g>
+      </g>
+
+      <!-- Approaching Student Driver Vehicle at Entry (Lane Center at x: 68, y: 195) -->
+      <g id="w1-student-car" transform="translate(68, 195) rotate(-5)">
+        <!-- Vehicle Shadow -->
+        <ellipse cx="0" cy="2" rx="8" ry="14" fill="#000000" opacity="0.6"/>
+        <!-- Headlight Beam Cones projecting forward -->
+        <polygon points="-4,-12 -12,-65 12,-65 4,-12" fill="url(#w1-headlight)"/>
+        <!-- Vehicle Body -->
+        <rect x="-7" y="-13" width="14" height="26" rx="3" fill="#F8FAFC" stroke="#1E293B" stroke-width="1"/>
+        <!-- Windshield & Glass -->
+        <rect x="-5" y="-8" width="10" height="7" rx="1" fill="#0F172A"/>
+        <!-- Headlight Elements -->
+        <rect x="-6" y="-13" width="3" height="1.5" fill="#FEF08A"/>
+        <rect x="3" y="-13" width="3" height="1.5" fill="#FEF08A"/>
+        <!-- Taillights -->
+        <rect x="-6" y="11.5" width="3" height="1.5" fill="#EF4444"/>
+        <rect x="3" y="11.5" width="3" height="1.5" fill="#EF4444"/>
+        <!-- Driver Tag Badge -->
+        <rect x="-18" y="15" width="36" height="8" rx="2" fill="#000000" opacity="0.85"/>
+        <text x="0" y="21" text-anchor="middle" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">YOU (ENTRY)</text>
+      </g>
+
+      <!-- Interactive SVG Inspection Touch Nodes (Clickable with min 44px hit-box) -->
+      <!-- Node 1: Advisory Speed Sign -->
+      <g id="w1-node-sign" onclick="w1_setMode('advisory')" style="cursor: pointer;">
+        <circle cx="110" cy="188" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="110" cy="188" r="7" fill="#10B981" fill-opacity="0.2" stroke="#34D399" stroke-width="1.2"/>
+        <circle cx="110" cy="188" r="2.5" fill="#34D399"/>
+      </g>
+
+      <!-- Node 2: Sight Bluff Apex -->
+      <g id="w1-node-bluff" onclick="w1_setMode('overrun')" style="cursor: pointer;">
+        <circle cx="175" cy="120" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="175" cy="120" r="7" fill="#EF4444" fill-opacity="0.2" stroke="#EF4444" stroke-width="1.2"/>
+        <circle cx="175" cy="120" r="2.5" fill="#EF4444"/>
+      </g>
+
+      <!-- Node 3: Hazard Impact Zone -->
+      <g id="w1-node-hazard" onclick="w1_setMode('physics')" style="cursor: pointer;">
+        <circle cx="260" cy="60" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="260" cy="60" r="7" fill="#E87522" fill-opacity="0.2" stroke="#E87522" stroke-width="1.2"/>
+        <circle cx="260" cy="60" r="2.5" fill="#E87522"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- 3 Ergonomic Interactive Mode Buttons (Calibrated to >= 44px Touch Targets, min-h-[48px]) -->
+  <div class="grid grid-cols-3 gap-2">
+    <button id="w1-btn-advisory" onclick="w1_setMode('advisory')" class="tap-target py-2 px-1.5 rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-bold text-center transition active:scale-95 shadow-xs flex flex-col items-center justify-center">
+      <span class="font-mono text-[9px] uppercase tracking-wider text-emerald-700">NODE 01</span>
+      <span class="text-xs font-bold leading-tight mt-0.5">45 MPH Safe</span>
+    </button>
+
+    <button id="w1-btn-overrun" onclick="w1_setMode('overrun')" class="tap-target py-2 px-1.5 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-center transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col items-center justify-center">
+      <span class="font-mono text-[9px] uppercase tracking-wider text-secondary">NODE 02</span>
+      <span class="text-xs font-bold leading-tight mt-0.5">65 MPH Overrun</span>
+    </button>
+
+    <button id="w1-btn-physics" onclick="w1_setMode('physics')" class="tap-target py-2 px-1.5 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-center transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col items-center justify-center">
+      <span class="font-mono text-[9px] uppercase tracking-wider text-secondary">NODE 03</span>
+      <span class="text-xs font-bold leading-tight mt-0.5">Physics &amp; Braking</span>
+    </button>
+  </div>
+
+  <!-- Live Telemetry KPI Cards -->
+  <div class="grid grid-cols-4 gap-1.5 text-center">
+    <div class="bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg p-2">
+      <span class="font-mono text-[8px] text-secondary block font-bold">ENTRY SPEED</span>
+      <span id="w1-kpi-speed" class="text-xs font-bold font-mono text-emerald-600 block mt-0.5">45 MPH</span>
+    </div>
+    <div class="bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg p-2">
+      <span class="font-mono text-[8px] text-secondary block font-bold">TOTAL STOP</span>
+      <span id="w1-kpi-dist" class="text-xs font-bold font-mono text-emerald-600 block mt-0.5">196 FT</span>
+    </div>
+    <div class="bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg p-2">
+      <span class="font-mono text-[8px] text-secondary block font-bold">SIGHT CUSHION</span>
+      <span id="w1-kpi-margin" class="text-xs font-bold font-mono text-emerald-600 block mt-0.5">+24 FT OK</span>
+    </div>
+    <div class="bg-[#F6F7F5] border border-[#D9DDD8] rounded-lg p-2">
+      <span class="font-mono text-[8px] text-secondary block font-bold">LATERAL LOAD</span>
+      <span id="w1-kpi-force" class="text-xs font-bold font-mono text-emerald-600 block mt-0.5">0.22g OK</span>
+    </div>
+  </div>
+
+  <!-- Statutory Explanatory Card -->
+  <div id="w1-explanation-card" class="p-3 rounded-lg border border-emerald-300 bg-emerald-50 text-on-surface text-xs leading-relaxed transition-all">
+    <div class="flex items-start gap-2">
+      <span id="w1-exp-icon" class="material-symbols-outlined text-emerald-600 text-lg shrink-0 mt-0.5">verified</span>
+      <div class="space-y-1">
+        <strong id="w1-exp-title" class="font-bold text-emerald-950 block">45 MPH Advisory Compliance (MUTCD § 2C.06 &amp; TTC § 545.351):</strong>
+        <p id="w1-exp-desc" class="text-secondary text-[11px] leading-snug">
+          At 45 MPH, total stopping distance is 196 ft (99 ft perception-reaction + 97 ft braking). Because available sight distance is 220 ft, the vehicle halts with +24 ft of safety cushion before reaching the stalled truck. Lateral centrifugal load is gentle at 0.22g, well within tire friction thresholds.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- 06. TEXTBOOK PROSE 2: THE 5 PILLARS OF DEFENSIVE DECISION MAKING -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">security</span>
+        <span class="font-bold text-carbon">DEFENSIVE ARCHITECTURE &bull; TEXAS ADE-1317</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        The 5 Pillars of Defensive Decision Making in Texas Traffic
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Defensive driving is not passive compliance; it is an active risk-management protocol designed to insulate your vehicle from other drivers' statutory errors, mechanical failures, and unpredictable roadway hazards.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-valid block uppercase">1. 360&deg; SPACE CUSHION (TTC &sect; 545.062)</span>
+          <p class="text-[11px] text-slate mt-1">Maintain 3-4 seconds following distance (6+ in rain). Never ride alongside vehicles in blind spots; preserve lateral escape paths.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-sky-600 block uppercase">2. 12-15 SECOND VISUAL HORIZON</span>
+          <p class="text-[11px] text-slate mt-1">Look past the bumper of the car ahead. Scan 500+ feet downfield in cities and 1/4 mile on highways to detect brake clusters early.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-hazard block uppercase">3. ANTICIPATE DRIVER ERRORS</span>
+          <p class="text-[11px] text-slate mt-1">Never assume cross-traffic will stop at a red light or yield sign. Check left, center, right, and left again before entering intersections.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-safety block uppercase">4. 100-FT CONTINUOUS SIGNAL (TTC &sect; 545.104)</span>
+          <p class="text-[11px] text-slate mt-1">Texas law requires continuous signaling for at least 100 feet prior to turning or changing lanes to give surrounding traffic notice.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-purple-50/60 rounded-xl border border-purple-200 text-xs text-slate leading-relaxed">
+        <strong class="text-purple-800 font-bold font-mono">5. EMOTIONAL DE-ESCALATION &amp; COURTESY:</strong>
+        When confronted by aggressive tailgaters or red-light runners, defensive drivers yield the right-of-way. Relinquishing pride preserves life; never brake-check or escalate conflicts on Texas highways.
+      </div>
+    </article>
+
+    <!-- 07. SUBAGENT DELIVERED WIDGET 2: THE 5 PILLARS RADAR HUD -->
+    <section class="bg-white border border-[#D9DDD8] rounded-xl p-3 sm:p-5 space-y-3.5 shadow-xs fluid-card" id="sec-defensive-pillars">
+  <!-- Section Technical Header -->
+  <div class="border-b border-[#D9DDD8] pb-2 flex items-center justify-between">
+    <div>
+      <span class="font-mono text-[9px] sm:text-xs uppercase text-primary-container font-bold tracking-wider block">
+        DEFENSIVE TACTICS // SECTION 02-B
+      </span>
+      <h2 class="text-sm sm:text-lg font-bold text-on-surface mt-0.5">
+        The 5 Pillars of Defensive Decision Making
+      </h2>
+    </div>
+    <span class="text-[9px] sm:text-[10px] font-mono text-secondary bg-[#F0F2EF] border border-[#D9DDD8] px-2 py-0.5 rounded font-semibold shrink-0">
+      5 PILLARS
+    </span>
+  </div>
+
+  <p class="text-xs text-secondary leading-relaxed">
+    Defensive driving synthesizes sign recognition into dynamic spatial protection. Tap the cockpit radar HUD nodes or pillar buttons below to inspect each defensive decision protocol.
+  </p>
+
+  <!-- SVG Viewport Container (Locked to max-w-[340px] for 360px phone screens) -->
+  <div class="relative w-full bg-[#101311] border border-[#2B312E] rounded-xl overflow-hidden p-1 shadow-inner select-none flex flex-col items-center justify-center">
+    <!-- Responsive Inline SVG (viewBox 0 0 340 180) -->
+    <svg id="w2-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto mx-auto block select-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Tactical Radar Grid -->
+        <pattern id="w2-grid" width="15" height="15" patternUnits="userSpaceOnUse">
+          <path d="M 15 0 L 0 0 0 15" fill="none" stroke="#1D2420" stroke-width="0.5"/>
+        </pattern>
+        <!-- Radar Sweep Glow -->
+        <linearGradient id="w2-sweep" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
+        </linearGradient>
+        <!-- Scanning Horizon Beam Gradient -->
+        <linearGradient id="w2-horizon-beam" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.05"/>
+        </linearGradient>
+        <!-- Space Cushion Bubble Gradient -->
+        <radialGradient id="w2-bubble-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#10B981" stop-opacity="0.25"/>
+          <stop offset="70%" stop-color="#059669" stop-opacity="0.1"/>
+          <stop offset="100%" stop-color="#047857" stop-opacity="0.0"/>
+        </radialGradient>
+        <!-- Signaling Amber Glow -->
+        <radialGradient id="w2-signal-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#E87522" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#E87522" stop-opacity="0.0"/>
+        </radialGradient>
+        <!-- Threat Red Glow -->
+        <radialGradient id="w2-threat-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#EF4444" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#EF4444" stop-opacity="0.0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Dark Obsidian Cockpit Canvas Base -->
+      <rect width="340" height="180" fill="#101311"/>
+      <rect width="340" height="180" fill="url(#w2-grid)"/>
+
+      <!-- Top Tactical HUD Status Banner -->
+      <rect x="0" y="0" width="340" height="18" fill="#181C1A" stroke="#2B302D" stroke-width="0.8"/>
+      <circle cx="9" cy="9" r="2.5" fill="#38BDF8"/>
+      <text x="17" y="12" fill="#E5E7EB" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700">COCKPIT RADAR HUD // 5 PILLARS OF DEFENSIVE DECISIONS</text>
+      <rect x="252" y="3" width="82" height="12" rx="2" fill="#2B302D"/>
+      <text x="293" y="11.5" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700">TTC § 544.004 AUDIT</text>
+
+      <!-- Radar Scope Main Display (Centered at 170, 96) -->
+      <g id="w2-radar-bezel">
+        <!-- Outer Scope Boundary (Radius 74) -->
+        <circle cx="170" cy="96" r="74" fill="#131715" stroke="#2E3832" stroke-width="1.5"/>
+        <circle cx="170" cy="96" r="76" fill="none" stroke="#1D2420" stroke-width="1"/>
+
+        <!-- Concentric Range Rings -->
+        <!-- 50 FT Ring (Space Cushion Threshold) -->
+        <circle cx="170" cy="96" r="26" fill="none" stroke="#2A352F" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="172" y="73" fill="#6B7280" font-family="'JetBrains Mono', monospace" font-size="4.5">50 FT</text>
+
+        <!-- 100 FT Ring (Statutory Signal Range TTC § 545.104) -->
+        <circle cx="170" cy="96" r="50" fill="none" stroke="#2A352F" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="172" y="49" fill="#6B7280" font-family="'JetBrains Mono', monospace" font-size="4.5">100 FT</text>
+
+        <!-- 200 FT Ring (Overtaking Buffer TTC § 545.054) -->
+        <circle cx="170" cy="96" r="72" fill="none" stroke="#2A352F" stroke-width="0.8"/>
+        <text x="172" y="27" fill="#6B7280" font-family="'JetBrains Mono', monospace" font-size="4.5">200 FT</text>
+
+        <!-- Crosshair Azimuth Grid Lines -->
+        <line x1="170" y1="22" x2="170" y2="170" stroke="#232C27" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="96" y1="96" x2="244" y2="96" stroke="#232C27" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <!-- Perimeter Azimuth Degree Marks -->
+        <line x1="170" y1="20" x2="170" y2="24" stroke="#4B5563" stroke-width="1.5"/>
+        <line x1="170" y1="168" x2="170" y2="172" stroke="#4B5563" stroke-width="1.5"/>
+        <line x1="94" y1="96" x2="98" y2="96" stroke="#4B5563" stroke-width="1.5"/>
+        <line x1="242" y1="96" x2="246" y2="96" stroke="#4B5563" stroke-width="1.5"/>
+      </g>
+
+      <!-- Lane Markings on Cockpit Road Grid -->
+      <line x1="152" y1="22" x2="152" y2="170" stroke="#F59E0B" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.4"/>
+      <line x1="188" y1="22" x2="188" y2="170" stroke="#E5E7EB" stroke-width="1.2" stroke-dasharray="6,4" opacity="0.4"/>
+
+      <!-- PILLAR 1: SPACE CUSHION (360-DEGREE BUFFER) -->
+      <g id="w2-layer-p1" opacity="1.0" class="transition-opacity duration-300">
+        <!-- 360-Degree Protective Capsule -->
+        <ellipse cx="170" cy="96" rx="34" ry="24" fill="url(#w2-bubble-glow)" stroke="#10B981" stroke-width="1.8" stroke-dasharray="4,2"/>
+        <!-- Directional Buffer Dimension Arrows -->
+        <line x1="170" y1="80" x2="170" y2="70" stroke="#34D399" stroke-width="1.2"/>
+        <text x="170" y="66" text-anchor="middle" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">3-4s LEAD</text>
+        <line x1="170" y1="112" x2="170" y2="122" stroke="#34D399" stroke-width="1.2"/>
+        <line x1="150" y1="96" x2="140" y2="96" stroke="#34D399" stroke-width="1.2"/>
+        <line x1="190" y1="96" x2="200" y2="96" stroke="#34D399" stroke-width="1.2"/>
+        <!-- Telemetry Tag Badge -->
+        <rect x="18" y="24" width="76" height="15" rx="3" fill="#064E3B" stroke="#34D399" stroke-width="1"/>
+        <text x="56" y="31.5" text-anchor="middle" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">PILLAR 1: SPACE CUSHION</text>
+        <text x="56" y="36.5" text-anchor="middle" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="4.5">360° ESCAPE MARGIN</text>
+      </g>
+
+      <!-- PILLAR 2: 12-15s VISUAL SCANNING HORIZON -->
+      <g id="w2-layer-p2" opacity="0.15" class="transition-opacity duration-300">
+        <!-- Visual Sector Radar Fan -->
+        <path d="M 170 90 L 118 24 A 74 74 0 0 1 222 24 Z" fill="url(#w2-horizon-beam)" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <!-- Downfield Horizon Scan Caliper Arc -->
+        <path d="M 125 38 A 62 62 0 0 1 215 38" fill="none" stroke="#38BDF8" stroke-width="1.2"/>
+        <text x="170" y="34" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">12-15s DOWNFIELD (500+ FT)</text>
+        <!-- Scanning Focus Target Reticle -->
+        <circle cx="170" cy="48" r="5" fill="none" stroke="#38BDF8" stroke-width="1.2"/>
+        <circle cx="170" cy="48" r="1.5" fill="#38BDF8"/>
+        <!-- Telemetry Tag Badge -->
+        <rect x="18" y="42" width="76" height="15" rx="3" fill="#0C2638" stroke="#38BDF8" stroke-width="1"/>
+        <text x="56" y="49.5" text-anchor="middle" fill="#BAE6FD" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">PILLAR 2: 12-15s SCAN</text>
+        <text x="56" y="54.5" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="4.5">LOOK PAST LEAD BUMPER</text>
+      </g>
+
+      <!-- PILLAR 3: ANTICIPATION OF MISTAKES -->
+      <g id="w2-layer-p3" opacity="0.15" class="transition-opacity duration-300">
+        <!-- Surrounding Target Threat 1: Oncoming Left Turner -->
+        <g transform="translate(136, 52)">
+          <circle cx="0" cy="0" r="12" fill="url(#w2-threat-glow)"/>
+          <rect x="-8" y="-8" width="16" height="16" fill="none" stroke="#F59E0B" stroke-width="1.2"/>
+          <rect x="-4" y="-6" width="8" height="12" rx="1.5" fill="#78350F" stroke="#FBBF24" stroke-width="0.8"/>
+          <path d="M 0 6 Q 6 16 18 24" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <polygon points="18,24 13,22 16,19" fill="#EF4444"/>
+          <text x="-10" y="-10" fill="#FBBF24" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">[FAIL YIELD]</text>
+        </g>
+
+        <!-- Surrounding Target Threat 2: Creeping Cross Traffic -->
+        <g transform="translate(216, 72)">
+          <circle cx="0" cy="0" r="12" fill="url(#w2-threat-glow)"/>
+          <rect x="-8" y="-8" width="16" height="16" fill="none" stroke="#EF4444" stroke-width="1.2"/>
+          <rect x="-6" y="-4" width="12" height="8" rx="1.5" fill="#7F1D1D" stroke="#EF4444" stroke-width="0.8"/>
+          <text x="-12" y="-10" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">[STOP RUNNER]</text>
+        </g>
+
+        <!-- Telemetry Tag Badge -->
+        <rect x="18" y="60" width="76" height="15" rx="3" fill="#450A0A" stroke="#EF4444" stroke-width="1"/>
+        <text x="56" y="67.5" text-anchor="middle" fill="#FCA5A5" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">PILLAR 3: ANTICIPATE</text>
+        <text x="56" y="72.5" text-anchor="middle" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="4.5">EXPECT DRIVER ERRORS</text>
+      </g>
+
+      <!-- PILLAR 4: 100-FT CONTINUOUS SIGNALING -->
+      <g id="w2-layer-p4" opacity="0.15" class="transition-opacity duration-300">
+        <!-- Amber Signal Blinker Pulse Waves on Right Side -->
+        <circle cx="178" cy="90" r="15" fill="url(#w2-signal-glow)"/>
+        <path d="M 182 86 A 8 8 0 0 1 188 94" fill="none" stroke="#E87522" stroke-width="1.5"/>
+        <path d="M 185 83 A 14 14 0 0 1 193 96" fill="none" stroke="#E87522" stroke-width="1.5"/>
+        <path d="M 188 80 A 20 20 0 0 1 198 98" fill="none" stroke="#E87522" stroke-width="1.5"/>
+
+        <!-- 100-Foot Caliper Ruler Bracket along right edge -->
+        <line x1="206" y1="96" x2="206" y2="46" stroke="#E87522" stroke-width="1.5"/>
+        <line x1="202" y1="96" x2="210" y2="96" stroke="#E87522" stroke-width="1.5"/>
+        <line x1="202" y1="46" x2="210" y2="46" stroke="#E87522" stroke-width="1.5"/>
+        <!-- Dimension Text -->
+        <rect x="212" y="64" width="74" height="14" rx="2" fill="#3D1A04" stroke="#E87522" stroke-width="1"/>
+        <text x="249" y="71" text-anchor="middle" fill="#FDBA74" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">100 FT CONTINUOUS</text>
+        <text x="249" y="76" text-anchor="middle" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="4.5">TTC § 545.104 MANDATE</text>
+
+        <!-- Telemetry Tag Badge -->
+        <rect x="18" y="78" width="76" height="15" rx="3" fill="#3D1A04" stroke="#E87522" stroke-width="1"/>
+        <text x="56" y="85.5" text-anchor="middle" fill="#FDBA74" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">PILLAR 4: 100 FT SIGNAL</text>
+        <text x="56" y="90.5" text-anchor="middle" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="4.5">PRE-SIGNAL LANE CHANGE</text>
+      </g>
+
+      <!-- PILLAR 5: EMOTIONAL DE-ESCALATION & COURTESY -->
+      <g id="w2-layer-p5" opacity="0.15" class="transition-opacity duration-300">
+        <!-- Rear Defensive De-escalation Deflector Arc -->
+        <path d="M 142 122 Q 170 138 198 122" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Defensive Lane Yield Arrow (Sliding right to allow tailgater by) -->
+        <path d="M 170 106 Q 182 120 198 132" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <polygon points="198,132 192,128 194,124" fill="#A78BFA"/>
+        <rect x="135" y="142" width="70" height="13" rx="2" fill="#2E1065" stroke="#A78BFA" stroke-width="0.8"/>
+        <text x="170" y="148.5" text-anchor="middle" fill="#DDD6FE" font-family="'JetBrains Mono', monospace" font-size="5" font-weight="700">YIELD RIGHT-OF-WAY</text>
+        <text x="170" y="153.5" text-anchor="middle" fill="#A78BFA" font-family="'JetBrains Mono', monospace" font-size="4.2">RELINQUISH TO AGGRESSOR</text>
+
+        <!-- Telemetry Tag Badge -->
+        <rect x="18" y="96" width="76" height="15" rx="3" fill="#2E1065" stroke="#A78BFA" stroke-width="1"/>
+        <text x="56" y="103.5" text-anchor="middle" fill="#DDD6FE" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700">PILLAR 5: DE-ESCALATE</text>
+        <text x="56" y="108.5" text-anchor="middle" fill="#A78BFA" font-family="'JetBrains Mono', monospace" font-size="4.5">DEFENSIVE HUMILITY</text>
+      </g>
+
+      <!-- Central Student Vehicle (Top-Down Silhouette at 170, 96) -->
+      <g id="w2-student-veh" transform="translate(170, 96)">
+        <!-- Vehicle Shadow -->
+        <ellipse cx="0" cy="1" rx="8" ry="14" fill="#000000" opacity="0.6"/>
+        <!-- Vehicle Body -->
+        <rect x="-7" y="-13" width="14" height="26" rx="3" fill="#F8FAFC" stroke="#1E293B" stroke-width="1"/>
+        <!-- Windshield & Glass -->
+        <rect x="-5" y="-8" width="10" height="7" rx="1" fill="#0F172A"/>
+        <!-- Side Mirrors -->
+        <rect x="-9" y="-6" width="2" height="3" rx="0.5" fill="#E2E8F0"/>
+        <rect x="7" y="-6" width="2" height="3" rx="0.5" fill="#E2E8F0"/>
+        <!-- Dual Headlights -->
+        <rect x="-6" y="-13" width="3" height="1.5" fill="#FEF08A"/>
+        <rect x="3" y="-13" width="3" height="1.5" fill="#FEF08A"/>
+        <!-- Taillights -->
+        <rect x="-6" y="11.5" width="3" height="1.5" fill="#EF4444"/>
+        <rect x="3" y="11.5" width="3" height="1.5" fill="#EF4444"/>
+        <!-- Cockpit Center Origin Cross -->
+        <circle cx="0" cy="0" r="1.5" fill="#38BDF8"/>
+      </g>
+
+      <!-- Clickable Interactive Nodes on Cockpit HUD (min 44px hit-box) -->
+      <!-- Node P1: Center Space Cushion -->
+      <g id="w2-node-p1" onclick="w2_selectPillar(0)" style="cursor: pointer;">
+        <circle cx="170" cy="96" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="170" cy="96" r="14" fill="none" stroke="#10B981" stroke-width="1" stroke-dasharray="2,2" opacity="0.8"/>
+      </g>
+
+      <!-- Node P2: Forward Scanning Horizon -->
+      <g id="w2-node-p2" onclick="w2_selectPillar(1)" style="cursor: pointer;">
+        <circle cx="170" cy="42" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="170" cy="42" r="7" fill="#0C2638" stroke="#38BDF8" stroke-width="1.2"/>
+        <circle cx="170" cy="42" r="2.5" fill="#38BDF8"/>
+      </g>
+
+      <!-- Node P3: Anticipate Target -->
+      <g id="w2-node-p3" onclick="w2_selectPillar(2)" style="cursor: pointer;">
+        <circle cx="216" cy="72" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="216" cy="72" r="7" fill="#450A0A" stroke="#EF4444" stroke-width="1.2"/>
+        <circle cx="216" cy="72" r="2.5" fill="#EF4444"/>
+      </g>
+
+      <!-- Node P4: 100-Ft Signal -->
+      <g id="w2-node-p4" onclick="w2_selectPillar(3)" style="cursor: pointer;">
+        <circle cx="206" cy="80" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="206" cy="80" r="7" fill="#3D1A04" stroke="#E87522" stroke-width="1.2"/>
+        <circle cx="206" cy="80" r="2.5" fill="#E87522"/>
+      </g>
+
+      <!-- Node P5: De-escalation Shield -->
+      <g id="w2-node-p5" onclick="w2_selectPillar(4)" style="cursor: pointer;">
+        <circle cx="170" cy="138" r="28" fill="#000000" fill-opacity="0.01"/>
+        <circle cx="170" cy="138" r="7" fill="#2E1065" stroke="#A78BFA" stroke-width="1.2"/>
+        <circle cx="170" cy="138" r="2.5" fill="#A78BFA"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- 5 Ergonomic Pillar Buttons (Calibrated to >= 44px Touch Targets, min-h-[48px]) -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <button id="w2-btn-0" onclick="w2_selectPillar(0)" class="tap-target py-2 px-2 rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-bold text-left transition active:scale-95 shadow-xs flex flex-col justify-center">
+      <span class="font-mono text-[8px] uppercase tracking-wider text-emerald-700">PILLAR 01</span>
+      <span class="text-xs font-bold truncate">360° Space Cushion</span>
+    </button>
+
+    <button id="w2-btn-1" onclick="w2_selectPillar(1)" class="tap-target py-2 px-2 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-left transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col justify-center">
+      <span class="font-mono text-[8px] uppercase tracking-wider text-secondary">PILLAR 02</span>
+      <span class="text-xs font-bold truncate">12-15s Scan Horizon</span>
+    </button>
+
+    <button id="w2-btn-2" onclick="w2_selectPillar(2)" class="tap-target py-2 px-2 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-left transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col justify-center">
+      <span class="font-mono text-[8px] uppercase tracking-wider text-secondary">PILLAR 03</span>
+      <span class="text-xs font-bold truncate">Anticipate Errors</span>
+    </button>
+
+    <button id="w2-btn-3" onclick="w2_selectPillar(3)" class="tap-target py-2 px-2 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-left transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col justify-center">
+      <span class="font-mono text-[8px] uppercase tracking-wider text-secondary">PILLAR 04</span>
+      <span class="text-xs font-bold">100-Ft Signaling</span>
+    </button>
+
+    <button id="w2-btn-4" onclick="w2_selectPillar(4)" class="col-span-2 sm:col-span-1 tap-target py-2 px-2 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-left transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col justify-center">
+      <span class="font-mono text-[8px] uppercase tracking-wider text-secondary">PILLAR 05</span>
+      <span class="text-xs font-bold truncate">De-Escalation &amp; Courtesy</span>
+    </button>
+  </div>
+
+  <!-- Dynamic Guidance Telemetry Card -->
+  <div id="w2-guidance-card" class="p-3 sm:p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-on-surface space-y-2 transition-all">
+    <div class="flex items-center justify-between border-b border-emerald-200 pb-1.5">
+      <div class="flex items-center gap-1.5">
+        <span id="w2-card-icon" class="material-symbols-outlined text-emerald-600 text-lg">shield</span>
+        <strong id="w2-card-title" class="font-bold text-xs sm:text-sm text-emerald-950 font-mono">PILLAR 01: 360-DEGREE SPACE CUSHION</strong>
+      </div>
+      <span id="w2-card-statute" class="font-mono text-[8px] sm:text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-1.5 py-0.5 rounded font-bold">
+        TTC § 545.062
+      </span>
+    </div>
+
+    <div class="space-y-1">
+      <span class="font-mono text-[8px] uppercase text-emerald-800 font-bold block">TACTICAL OPERATING PROTOCOL:</span>
+      <p id="w2-card-protocol" class="text-xs text-secondary leading-snug">
+        Maintain a minimum 3 to 4-second following buffer behind lead traffic, expanding to 6+ seconds in rain or dusk. Never drive in adjacent vehicles' blind spots; stagger position to maintain open lateral escape lanes on either the shoulder or adjacent lane.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2 pt-1 border-t border-emerald-200">
+      <div>
+        <span class="font-mono text-[8px] uppercase text-emerald-800 font-bold block">PHYSICS / CRASH MARGIN:</span>
+        <span id="w2-card-physics" class="font-mono text-[10px] text-emerald-950 font-semibold block mt-0.5">
+          Eliminates 92% of rear-end collision vectors.
+        </span>
+      </div>
+      <div>
+        <span class="font-mono text-[8px] uppercase text-emerald-800 font-bold block">TEXAS ROAD MANDATE:</span>
+        <span id="w2-card-mandate" class="font-mono text-[10px] text-emerald-950 font-semibold block mt-0.5">
+          TTC § 545.062: "Prudent Following Distance"
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- 08. THREE STRICT VERIFICATION MCQS -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-valid text-sm">quiz</span>
+          <span class="font-bold text-carbon">STATUTORY VERIFICATION AUDIT</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">
+          3 MANDATORY CHECKS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L04-T03 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- MCQ 1 (Option B MUST be strictly correct!) -->
+      <div class="space-y-2.5" id="mcq-container-1">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 01 // BASIC SPEED RULE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 545.351, when approaching a blind horizontal curve with an advisory speed plate of 45 MPH on a highway with a 65 MPH regulatory speed limit, what is your statutory legal duty?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] You may maintain the 65 MPH regulatory speed limit unless a police officer is actively running radar.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] You MUST reduce speed to a reasonable and prudent level (45 MPH or lower) so you can stop safely within the compressed forward sight distance.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] You must bring the vehicle to a complete stop prior to entering the curve to check for oncoming traffic.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Advisory speed plates are purely recommendations for commercial trucks and do not apply to passenger cars.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 2 -->
+      <div class="space-y-2.5" id="mcq-container-2">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 02 // TURN SIGNAL STATUTE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          According to Texas Transportation Code &sect; 545.104, for what minimum continuous distance must a driver signal their intention to turn or change lanes before executing the maneuver?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] At least 50 feet prior to the turn or lane change.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Continuously for at least 100 feet immediately before the turn or lane change.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] For at least 3 seconds on city streets and 10 seconds on freeways.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Signaling is only required if other vehicles are visibly within 200 feet.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 3 -->
+      <div class="space-y-2.5" id="mcq-container-3">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 03 // FOLLOWING DISTANCE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 545.062, what is the legal standard for maintaining a following distance behind another vehicle?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] One car length for every 20 MPH of speed, regardless of weather.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] A fixed distance of exactly 75 feet at all times.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] An assured clear distance that is reasonable and prudent, considering speed, traffic, and roadway conditions (recommended 3 to 4 seconds).</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Following distance is only regulated for commercial semi-trucks, not passenger vehicles.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. NEXT LESSON NAVIGATION FOOTER -->
+    <footer class="pt-2 pb-6 space-y-3">
+      <div class="flex items-center justify-between gap-3">
+        <a href="L04-T02.html" class="touch-target flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-white border border-hairline hover:bg-surface-sub text-xs font-bold text-carbon transition" style="min-height: 48px; min-width: 120px;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREVIOUS TOPIC</span>
+        </a>
+        <a href="L04-T04.html" class="touch-target flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-safety text-white hover:bg-safety-deep text-xs font-bold transition shadow-sm" style="min-height: 48px; min-width: 120px;">
+          <span>NEXT: TRAFFIC INTERSECTIONS</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 04 Topic 03
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE: MCQS & SUBAGENT WIDGET LOGIC -->
+  <script>
+    // -------------------------------------------------------------------------
+    // MCQ STATE ENGINE (Dynamic Score Increment & Audit Compliance)
+    // -------------------------------------------------------------------------
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+                const TOPIC_ID = 'L04-T03';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.351 BASIC SPEED RULE & MUTCD § 2C.06",
+            "statutoryRationale": "Correct! Texas Transportation Code § 545.351 dictates that speed must be reduced to a reasonable and prudent level when special hazards exist, such as horizontal curvature and obstructed sight distance. 65 MPH overruns the sight horizon by +125 ft!"
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TTC § 545.104 SIGNALING TURNS",
+            "statutoryRationale": "Correct! Under TTC § 545.104, an operator intending to turn a vehicle right or left shall signal continuously for not less than the last 100 feet of movement before the turn."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 545.062 FOLLOWING DISTANCE",
+            "statutoryRationale": "Correct! Texas law requires an operator to maintain an assured clear distance between vehicles so that the operator can safely stop without colliding with the preceding vehicle or veering into another vehicle."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // SUBAGENT DELIVERED WIDGET LOGIC
+    // -------------------------------------------------------------------------
+    
+  // ==========================================
+  // WIDGET 1 JAVASCRIPT: CURVE ADVISORY & SIGHT
+  // ==========================================
+  const w1Modes = {
+    advisory: {
+      layer45: 1.0,
+      layer65: 0.0,
+      layerPhysics: 0.0,
+      speed: "45 MPH",
+      dist: "196 FT",
+      margin: "+24 FT SAFE",
+      force: "0.22g OK",
+      speedColor: "text-emerald-600",
+      distColor: "text-emerald-600",
+      marginColor: "text-emerald-600",
+      forceColor: "text-emerald-600",
+      cardBorder: "border-emerald-300",
+      cardBg: "bg-emerald-50",
+      icon: "verified",
+      iconColor: "text-emerald-600",
+      title: "45 MPH Advisory Compliance (MUTCD § 2C.06 & TTC § 545.351):",
+      titleColor: "text-emerald-950",
+      desc: "At 45 MPH, total stopping distance is 196 ft (99 ft perception-reaction + 97 ft braking). Because available sight distance is 220 ft, the vehicle halts with +24 ft of safety cushion before reaching the stalled truck. Lateral centrifugal load is gentle at 0.22g, well within tire friction thresholds."
+    },
+    overrun: {
+      layer45: 0.0,
+      layer65: 1.0,
+      layerPhysics: 0.0,
+      speed: "65 MPH",
+      dist: "345 FT",
+      margin: "-125 FT DEFICIT",
+      force: "0.46g SKID",
+      speedColor: "text-red-600",
+      distColor: "text-red-600",
+      marginColor: "text-red-600",
+      forceColor: "text-red-600",
+      cardBorder: "border-red-300",
+      cardBg: "bg-red-50",
+      icon: "dangerous",
+      iconColor: "text-red-600",
+      title: "65 MPH Sight Distance Overrun (Fatal Collision Vector):",
+      titleColor: "text-red-950",
+      desc: "Maintaining the 65 MPH rural speed limit into the blind curve requires 345 ft to stop (143 ft reaction + 202 ft braking). The vehicle barrels past the 220 ft sight horizon by +125 ft, violently slamming into the stalled truck at 42 MPH residual velocity. Centrifugal lateral force jumps +108% to 0.46g, breaking tire grip."
+    },
+    physics: {
+      layer45: 0.0,
+      layer65: 0.0,
+      layerPhysics: 1.0,
+      speed: "Δ +44% V",
+      dist: "2.08x ENERGY",
+      margin: "PRE-BRAKE",
+      force: "Fc = mv²/r",
+      speedColor: "text-amber-600",
+      distColor: "text-amber-600",
+      marginColor: "text-amber-600",
+      forceColor: "text-amber-600",
+      cardBorder: "border-amber-300",
+      cardBg: "bg-amber-50",
+      icon: "speed",
+      iconColor: "text-amber-600",
+      title: "Kinetic Energy & Pre-Curve Braking Law (MUTCD § 2C.05):",
+      titleColor: "text-amber-950",
+      desc: "Kinetic energy scales quadratically: Ek = 1/2 mv². Increasing velocity from 45 to 65 MPH (+44%) increases kinetic energy by +108% (from 275 kJ to 574 kJ). Deceleration MUST occur in a straight line BEFORE turning the steering wheel. Heavy mid-curve braking overloads lateral tire adhesion, provoking unrecoverable skids."
+    }
+  };
+
+  function w1_setMode(modeKey) {
+    const data = w1Modes[modeKey];
+    if (!data) return;
+
+    // Update SVG layer opacities
+    const el45 = document.getElementById('w1-mode-45');
+    const el65 = document.getElementById('w1-mode-65');
+    const elPhys = document.getElementById('w1-mode-physics');
+    if (el45) el45.setAttribute('opacity', data.layer45);
+    if (el65) el65.setAttribute('opacity', data.layer65);
+    if (elPhys) elPhys.setAttribute('opacity', data.layerPhysics);
+
+    // Update KPI text and colors
+    const speedEl = document.getElementById('w1-kpi-speed');
+    const distEl = document.getElementById('w1-kpi-dist');
+    const marginEl = document.getElementById('w1-kpi-margin');
+    const forceEl = document.getElementById('w1-kpi-force');
+
+    if (speedEl) {
+      speedEl.textContent = data.speed;
+      speedEl.className = `text-xs font-bold font-mono block mt-0.5 ${data.speedColor}`;
+    }
+    if (distEl) {
+      distEl.textContent = data.dist;
+      distEl.className = `text-xs font-bold font-mono block mt-0.5 ${data.distColor}`;
+    }
+    if (marginEl) {
+      marginEl.textContent = data.margin;
+      marginEl.className = `text-xs font-bold font-mono block mt-0.5 ${data.marginColor}`;
+    }
+    if (forceEl) {
+      forceEl.textContent = data.force;
+      forceEl.className = `text-xs font-bold font-mono block mt-0.5 ${data.forceColor}`;
+    }
+
+    // Update Explanation Card
+    const card = document.getElementById('w1-explanation-card');
+    if (card) {
+      card.className = `p-3 rounded-lg border ${data.cardBorder} ${data.cardBg} text-on-surface text-xs leading-relaxed transition-all`;
+    }
+
+    const icon = document.getElementById('w1-exp-icon');
+    if (icon) {
+      icon.textContent = data.icon;
+      icon.className = `material-symbols-outlined ${data.iconColor} text-lg shrink-0 mt-0.5`;
+    }
+
+    const title = document.getElementById('w1-exp-title');
+    if (title) {
+      title.textContent = data.title;
+      title.className = `font-bold ${data.titleColor} block`;
+    }
+
+    const desc = document.getElementById('w1-exp-desc');
+    if (desc) {
+      desc.textContent = data.desc;
+    }
+
+    // Update Button Highlight Styles
+    const buttons = ['advisory', 'overrun', 'physics'];
+    buttons.forEach(k => {
+      const btn = document.getElementById('w1-btn-' + k);
+      if (!btn) return;
+      const tag = btn.querySelector('span:first-child');
+      if (k === modeKey) {
+        if (k === 'advisory') {
+          btn.className = "tap-target py-2 px-1.5 rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-bold text-center transition active:scale-95 shadow-xs flex flex-col items-center justify-center";
+          if (tag) tag.className = "font-mono text-[9px] uppercase tracking-wider text-emerald-700";
+        } else if (k === 'overrun') {
+          btn.className = "tap-target py-2 px-1.5 rounded-lg border-2 border-red-500 bg-red-50 text-red-950 font-bold text-center transition active:scale-95 shadow-xs flex flex-col items-center justify-center";
+          if (tag) tag.className = "font-mono text-[9px] uppercase tracking-wider text-red-700";
+        } else {
+          btn.className = "tap-target py-2 px-1.5 rounded-lg border-2 border-amber-500 bg-amber-50 text-amber-950 font-bold text-center transition active:scale-95 shadow-xs flex flex-col items-center justify-center";
+          if (tag) tag.className = "font-mono text-[9px] uppercase tracking-wider text-amber-700";
+        }
+      } else {
+        btn.className = "tap-target py-2 px-1.5 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-center transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col items-center justify-center";
+        if (tag) tag.className = "font-mono text-[9px] uppercase tracking-wider text-secondary";
+      }
+    });
+  }
+
+  // ==========================================
+  // WIDGET 2 JAVASCRIPT: 5 PILLARS RADAR HUD
+  // ==========================================
+  const w2Pillars = [
+    {
+      id: 0,
+      title: "PILLAR 01: 360-DEGREE SPACE CUSHION",
+      statute: "TTC § 545.062",
+      icon: "shield",
+      protocol: "Maintain an uninterrupted 3 to 4-second following buffer behind lead vehicles, expanding to 6+ seconds in rain, fog, or high-speed traffic. Never linger in adjacent vehicles' blind spots; proactively stagger position to preserve an immediate steering escape path.",
+      physics: "Eliminates 92% of rear-end collision vectors.",
+      mandate: "TTC § 545.062: 'Prudent Following Distance'",
+      themeBorder: "border-emerald-300",
+      themeBg: "bg-emerald-50",
+      themeText: "text-emerald-950",
+      themeSubtext: "text-emerald-800",
+      badgeBorder: "border-emerald-300",
+      badgeBg: "bg-emerald-100",
+      badgeText: "text-emerald-800",
+      iconColor: "text-emerald-600",
+      activeBtnClass: "border-emerald-500 bg-emerald-50 text-emerald-950"
+    },
+    {
+      id: 1,
+      title: "PILLAR 02: 12-15s VISUAL SCANNING HORIZON",
+      statute: "TTC § 544.004",
+      icon: "visibility",
+      protocol: "Fix sightline 12 to 15 seconds downfield (roughly 1 city block ahead in urban driving, or 1/4 to 1/2 mile ahead at highway speeds). Look past the lead vehicle's glass to detect brake lights, stalled traffic, lane closures, and changing signal aspects early.",
+      physics: "Multiplies reaction window by 400% vs lead-bumper fixating.",
+      mandate: "MUTCD § 2C: Advance Hazard Identification",
+      themeBorder: "border-cyan-300",
+      themeBg: "bg-cyan-50",
+      themeText: "text-cyan-950",
+      themeSubtext: "text-cyan-800",
+      badgeBorder: "border-cyan-300",
+      badgeBg: "bg-cyan-100",
+      badgeText: "text-cyan-800",
+      iconColor: "text-cyan-600",
+      activeBtnClass: "border-cyan-500 bg-cyan-50 text-cyan-950"
+    },
+    {
+      id: 2,
+      title: "PILLAR 03: ANTICIPATION OF DRIVER MISTAKES",
+      statute: "TTC § 544.007",
+      icon: "warning",
+      protocol: "Operate under defensive presumption: assume other drivers may run fresh red lights, fail to yield on permissive turns, or change lanes without checking blind spots. Hover your foot over the brake (covering the brake) when entering intersections or passing queued traffic.",
+      physics: "Reduces perception-reaction delay from 1.5s to 0.7s (-53%).",
+      mandate: "TTC § 544.004: Intersection Hazard Duty",
+      themeBorder: "border-red-300",
+      themeBg: "bg-red-50",
+      themeText: "text-red-950",
+      themeSubtext: "text-red-800",
+      badgeBorder: "border-red-300",
+      badgeBg: "bg-red-100",
+      badgeText: "text-red-800",
+      iconColor: "text-red-600",
+      activeBtnClass: "border-red-500 bg-red-50 text-red-950"
+    },
+    {
+      id: 3,
+      title: "PILLAR 04: 100-FT CONTINUOUS SIGNALING",
+      statute: "TTC § 545.104",
+      icon: "turn_slight_right",
+      protocol: "Texas Transportation Code § 545.104 mandates continuous signal activation for at least 100 feet before executing any turn or lane change. Signaling communicates driver intent to following and approaching traffic before deceleration or steering angle begins.",
+      physics: "Gives surrounding drivers 100 ft of optical lead time.",
+      mandate: "TTC § 545.104: 100-Ft Statutory Mandate",
+      themeBorder: "border-amber-300",
+      themeBg: "bg-amber-50",
+      themeText: "text-amber-950",
+      themeSubtext: "text-amber-800",
+      badgeBorder: "border-amber-300",
+      badgeBg: "bg-amber-100",
+      badgeText: "text-amber-800",
+      iconColor: "text-amber-600",
+      activeBtnClass: "border-amber-500 bg-amber-50 text-amber-950"
+    },
+    {
+      id: 4,
+      title: "PILLAR 05: EMOTIONAL DE-ESCALATION & COURTESY",
+      statute: "TDLR ADE-1317",
+      icon: "handshake",
+      protocol: "Relinquish the right-of-way when confronted with aggressive tailgaters or red-light challengers. Move to the right lane, ignore provocation, and never engage in retaliatory braking or speed matching. Defensive maturity neutralizes high-risk confrontations.",
+      physics: "Reduces road-rage collision and assault vectors to zero.",
+      mandate: "Texas Vision Zero: Human Life Precedence",
+      themeBorder: "border-purple-300",
+      themeBg: "bg-purple-50",
+      themeText: "text-purple-950",
+      themeSubtext: "text-purple-800",
+      badgeBorder: "border-purple-300",
+      badgeBg: "bg-purple-100",
+      badgeText: "text-purple-800",
+      iconColor: "text-purple-600",
+      activeBtnClass: "border-purple-500 bg-purple-50 text-purple-950"
+    }
+  ];
+
+  function w2_selectPillar(idx) {
+    const p = w2Pillars[idx];
+    if (!p) return;
+
+    // Update Radar SVG Layer opacities
+    for (let i = 1; i <= 5; i++) {
+      const layer = document.getElementById('w2-layer-p' + i);
+      if (layer) {
+        layer.setAttribute('opacity', (i - 1 === idx) ? '1.0' : '0.15');
+      }
+    }
+
+    // Update Guidance Card
+    const card = document.getElementById('w2-guidance-card');
+    if (card) {
+      card.className = `p-3 sm:p-4 rounded-xl border ${p.themeBorder} ${p.themeBg} text-on-surface space-y-2 transition-all`;
+    }
+
+    const icon = document.getElementById('w2-card-icon');
+    if (icon) {
+      icon.textContent = p.icon;
+      icon.className = `material-symbols-outlined ${p.iconColor} text-lg`;
+    }
+
+    const title = document.getElementById('w2-card-title');
+    if (title) {
+      title.textContent = p.title;
+      title.className = `font-bold text-xs sm:text-sm ${p.themeText} font-mono`;
+    }
+
+    const statBadge = document.getElementById('w2-card-statute');
+    if (statBadge) {
+      statBadge.textContent = p.statute;
+      statBadge.className = `font-mono text-[8px] sm:text-[9px] ${p.badgeBg} ${p.badgeText} border ${p.badgeBorder} px-1.5 py-0.5 rounded font-bold`;
+    }
+
+    const proto = document.getElementById('w2-card-protocol');
+    if (proto) proto.textContent = p.protocol;
+
+    const phys = document.getElementById('w2-card-physics');
+    if (phys) phys.textContent = p.physics;
+
+    const mand = document.getElementById('w2-card-mandate');
+    if (mand) mand.textContent = p.mandate;
+
+    // Update 5 Button Styles
+    for (let i = 0; i < 5; i++) {
+      const btn = document.getElementById('w2-btn-' + i);
+      if (!btn) continue;
+      const tag = btn.querySelector('span:first-child');
+      const isCurrent = (i === idx);
+      const isSpan2 = (i === 4);
+      const baseSpan = isSpan2 ? 'col-span-2 sm:col-span-1 ' : '';
+
+      if (isCurrent) {
+        btn.className = `${baseSpan}tap-target py-2 px-2 rounded-lg border-2 ${p.activeBtnClass} font-bold text-left transition active:scale-95 shadow-xs flex flex-col justify-center`;
+        if (tag) tag.className = `font-mono text-[8px] uppercase tracking-wider ${p.themeSubtext}`;
+      } else {
+        btn.className = `${baseSpan}tap-target py-2 px-2 rounded-lg border-2 border-[#D9DDD8] bg-white text-on-surface font-semibold text-left transition active:scale-95 hover:bg-[#F0F2EF] flex flex-col justify-center`;
+        if (tag) tag.className = "font-mono text-[8px] uppercase tracking-wider text-secondary";
+      }
+    }
+  }
+
+  // Auto-initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      w1_setMode('advisory');
+      w2_selectPillar(0);
+    });
+  } else {
+    w1_setMode('advisory');
+    w2_selectPillar(0);
+  }
+
+  // -------------------------------------------------------------
+  // HOST-TO-IFRAME 3D SIMULATION POSTMESSAGE CONTROLLER (R3 COMPLIANT)
+  // -------------------------------------------------------------
+  const simScenarios_L04T03 = {
+    1: {
+      badge: "STATUTORY MANDATE // 200-FT RETURN BUFFER",
+      statute: "TTC § 545.055(b) & § 545.056",
+      title: "Return to Authorized Lane Before 200 Feet",
+      desc: "Drivers must return to their authorized lane before coming within 200 feet of an approaching vehicle. Passing is prohibited when approaching a crest, curve, or double solid yellow line.",
+      metric: "MOVING VIOLATION // $200–$500 FINE + 2 POINTS",
+      phase: "EVALUATING SIGHT DISTANCE // BROKEN YELLOW LINE"
+    },
+    2: {
+      badge: "DEFENSIVE DECISION // PASS-ABORT DOCTRINE",
+      statute: "TTC § 545.351 REASONABLENESS",
+      title: "Defensive Abort & Fall-Back Procedure",
+      desc: "When an oncoming vehicle appears sooner than expected or closing speed is miscalculated, immediately brake, drop back, and re-enter the right lane safely behind the lead vehicle.",
+      metric: "LIFE-SAVING ACTION // AVERT HEAD-ON IMPACT",
+      phase: "DEFENSIVE ABORT: BRAKING FIRMLY // DROPPING BEHIND TRACTOR"
+    },
+    3: {
+      badge: "HAZARD DEMO // DOUBLE SOLID OVERRUN",
+      statute: "TTC § 545.055 & § 545.056 PROHIBITION",
+      title: "Illegal Passing Over Crest Vertical Curve",
+      desc: "Passing on a double solid yellow line when approaching a blind hill is strictly prohibited. Closing speeds can exceed 176 feet per second (120 mph combined).",
+      metric: "CRITICAL FAILURE // CRIMINAL RECKLESSNESS",
+      phase: "CRITICAL VIOLATION: PASSING ON DOUBLE SOLID YELLOW"
+    }
+  };
+
+  function selectSimScenario(scId) {
+    const data = simScenarios_L04T03[scId];
+    if (!data) return;
+    const bEl = document.getElementById('sim-card-badge');
+    const sEl = document.getElementById('sim-card-statute');
+    const tEl = document.getElementById('sim-card-title');
+    const dEl = document.getElementById('sim-card-desc');
+    const mEl = document.getElementById('sim-card-metric');
+    const pEl = document.getElementById('sim-telemetry-phase');
+    if (bEl) bEl.textContent = data.badge;
+    if (sEl) sEl.textContent = data.statute;
+    if (tEl) tEl.textContent = data.title;
+    if (dEl) dEl.textContent = data.desc;
+    if (mEl) mEl.textContent = data.metric;
+    if (pEl) pEl.textContent = data.phase;
+
+    const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    dispatchSimAction('setScenario', { scenario: scId });
+  }
+
+  function dispatchSimAction(actionName, payload = {}) {
+    const frame = document.getElementById('sim-viewport-frame');
+    if (frame && frame.contentWindow) {
+      frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+    }
+    if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+  }
+
+  function openSimFullscreen() {
+    const frame = document.getElementById('sim-viewport-frame');
+    if (frame) {
+      if (frame.requestFullscreen) frame.requestFullscreen();
+      else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+    }
+  }
+
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.event !== 'telemetry') return;
+    const pEl = document.getElementById('sim-telemetry-phase');
+    if (pEl && e.data.phase) {
+      pEl.textContent = e.data.phase;
+    }
+  });
+
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

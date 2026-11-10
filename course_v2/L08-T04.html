@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Distraction Triad &amp; Blind Flight — Texas Adult Driver Ed (L08-T04)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+        .touch-target { min-height: 48px; min-width: 48px; }
+    a.touch-target, a {
+      display: inline-flex;
+      min-height: 48px;
+      min-width: 48px;
+      align-items: center;
+      justify-content: center;
+    }
+    button.touch-target, button {
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .cad-btn { min-height: 48px; min-width: 48px; padding: 0.5rem; border-radius: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: all 0.15s ease; }
+    .cad-btn-active { border: 2px solid #E87522; background: rgba(232, 117, 34, 0.1); color: #E87522; }
+    .cad-btn-inactive { border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; }
+    .cad-btn-inactive:hover { background: #F3F4F2; }
+    .mcq-btn { min-height: 48px; width: 100%; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #D9DDD8; background: #FFFFFF; color: #191C1B; display: flex; align-items: flex-start; justify-content: space-between; transition: all 0.15s ease; text-align: left; }
+    .mcq-btn:hover { background: #F8F9F8; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto min-h-screen px-3.5 py-4 space-y-4 pb-12 overflow-x-hidden">
+
+    
+
+    <!-- 02. HERO / PEDAGOGICAL INTRODUCTION CARD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 bg-tech-grid fluid-card">
+      <div class="flex items-center justify-between">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-safety px-2 py-0.5 bg-safety/10 rounded">
+          MODULE 8 // DISTRACTION MITIGATION
+        </span>
+        <span class="text-[10px] font-mono text-slate">TOPIC 04 OF 10</span>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-carbon leading-snug">
+          Triple Threat Distraction HUD &amp; Blind Flight Physics
+        </h1>
+        <p class="text-xs text-slate mt-1 leading-relaxed">
+          Distracted driving combines visual detachment, manual release, and cognitive processing suppression. Analyze Texas cellular statutes, under-18 absolute bans, and the physical reality of traveling 500+ feet completely blind.
+        </p>
+      </div>
+
+      <!-- Blind Flight Stat Grid -->
+      <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">70 MPH 5s Glance Distance</div>
+          <div class="font-bold text-hazard text-sm">513.5 Feet</div>
+          <div class="text-[9px] text-slate mt-0.5">&gt; 1.5 Football Fields Blind</div>
+        </div>
+        <div class="bg-surface-sub p-2 rounded-lg border border-hairline">
+          <div class="text-slate uppercase tracking-wider text-[9px]">Cognitive Processing Loss</div>
+          <div class="font-bold text-safety text-sm">-37% Brain Activity</div>
+          <div class="text-[9px] text-slate mt-0.5">Parietal Lobe Suppression</div>
+        </div>
+      </div>
+
+      <!-- Statutory Ban Banner -->
+      <div class="flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/70 border border-orange-200 text-orange-950 text-xs">
+        <span class="material-symbols-outlined text-safety text-base flex-shrink-0">phonelink_lock</span>
+        <span class="leading-tight"><strong>TTC § 545.424 Mandate:</strong> Drivers under 18 years of age are statutorily prohibited from using any wireless communication device entirely—including all hands-free and Bluetooth accessories.</span>
+      </div>
+    </section>
+
+    <!-- 03. PRIMARY INTERACTIVE TOOL: TRIPLE THREAT DISTRACTION HUD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">dashboard_customize</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Triple Threat Distraction HUD
+          </h2>
+        </div>
+        <span id="d-indicator" class="text-[10px] font-mono font-bold text-safety bg-safety/10 px-2 py-0.5 rounded">
+          VECTOR 1 OF 4
+        </span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Select a distraction vector to examine its physiological classification (Visual, Manual, Cognitive), crash multiplier, and kinetic blind distance.
+      </p>
+
+      <!-- 4 Vector Selection Buttons (min-h-[48px]) -->
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button id="d-btn-phone" onclick="switchDistraction('phone')" class="cad-btn cad-btn-active touch-target">
+          <span class="text-xs font-mono font-bold">1. PHONE &amp; TEXTING</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">23x Crash Odds // Triad</span>
+        </button>
+        <button id="d-btn-pax" onclick="switchDistraction('pax')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-mono font-bold">2. PASSENGERS &amp; PETS</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">Emotional Interference</span>
+        </button>
+        <button id="d-btn-dash" onclick="switchDistraction('dash')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-mono font-bold">3. IN-CABIN CONSOLE</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">Infotainment Menus</span>
+        </button>
+        <button id="d-btn-ext" onclick="switchDistraction('ext')" class="cad-btn cad-btn-inactive touch-target">
+          <span class="text-xs font-mono font-bold">4. RUBBERNECKING</span>
+          <span class="text-[9px] text-slate font-normal mt-0.5">Roadside Crash Gazing</span>
+        </button>
+      </div>
+
+      <!-- Reactive Detail Panel -->
+      <div id="d-panel" class="bg-surface-sub border border-hairline rounded-xl p-3.5 space-y-3">
+        <div class="flex items-center justify-between border-b border-hairline/80 pb-2">
+          <div>
+            <span id="d-tag" class="text-[9px] font-mono font-bold uppercase text-safety tracking-wider">
+              CRITICAL THREAT // COMPLETE TRIAD
+            </span>
+            <h3 id="d-title" class="text-sm font-bold text-carbon">
+              Cellular Devices &amp; Text Messaging
+            </h3>
+          </div>
+          <span id="d-icon-box" class="w-8 h-8 rounded-lg bg-safety/10 text-safety flex items-center justify-center">
+            <span id="d-icon" class="material-symbols-outlined text-lg">sms</span>
+          </span>
+        </div>
+
+        <p id="d-desc" class="text-xs text-slate leading-relaxed">
+          Texting is the single most lethal distraction because it simultaneously demands visual gaze redirection, manual fingertip manipulation, and intensive cognitive linguistic synthesis. Brain fMRI scans show spatial parietal activity drops by 37%, producing complete inattention blindness to vehicle brake lights directly ahead.
+        </p>
+
+        <!-- Blind Flight Distance Dynamic Interactive Engine -->
+        <div class="bg-white border border-hairline rounded-lg p-3 space-y-2.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="font-bold text-carbon">5-SECOND GLANCE BLIND FLIGHT:</span>
+            <span id="calc-d-mph" class="font-bold text-safety text-sm">70 MPH</span>
+          </div>
+
+          <!-- Speed Selection Buttons (min-h-[48px]) -->
+          <div class="grid grid-cols-5 gap-1 pt-1 font-mono text-[10px]">
+            <button onclick="setBlindSpeed(30)" id="b-btn-30" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">30</button>
+            <button onclick="setBlindSpeed(45)" id="b-btn-45" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">45</button>
+            <button onclick="setBlindSpeed(60)" id="b-btn-60" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">60</button>
+            <button onclick="setBlindSpeed(70)" id="b-btn-70" class="py-2.5 rounded border-2 border-safety bg-safety/10 font-bold text-safety touch-target">70</button>
+            <button onclick="setBlindSpeed(85)" id="b-btn-85" class="py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target">85</button>
+          </div>
+
+          <!-- Metric Breakdown Table -->
+          <div class="grid grid-cols-3 gap-1.5 pt-1 text-center font-mono text-[10px]">
+            <div class="p-2 rounded bg-surface-sub border border-hairline">
+              <div class="text-slate text-[8px] uppercase">Feet Per Second</div>
+              <div id="stat-fps" class="font-bold text-carbon text-xs mt-0.5">102.7 FT/S</div>
+            </div>
+            <div class="p-2 rounded bg-surface-sub border border-hairline">
+              <div class="text-slate text-[8px] uppercase">Glance Duration</div>
+              <div class="font-bold text-carbon text-xs mt-0.5">5.0 SEC</div>
+            </div>
+            <div class="p-2 rounded bg-safety-light border border-safety/30">
+              <div class="text-safety-deep text-[8px] uppercase font-bold">Blind Flight</div>
+              <div id="stat-blind-dist" class="font-bold text-hazard text-xs mt-0.5">513.5 FT</div>
+            </div>
+          </div>
+
+          <!-- Visual Scale Bar: Football Field Graphic (360 ft) -->
+          <div class="space-y-1 pt-1">
+            <div class="flex justify-between text-[9px] font-mono text-slate">
+              <span>0 FT</span>
+              <span class="text-emerald-700 font-bold">1 FOOTBALL FIELD (360 FT)</span>
+              <span>650 FT</span>
+            </div>
+            <div class="w-full bg-zinc-200 h-3 rounded-full relative overflow-hidden">
+              <div class="absolute left-[55.4%] top-0 bottom-0 w-0.5 bg-emerald-600 z-10" title="360 ft Football Field"></div>
+              <div id="blind-bar" class="bg-hazard h-full rounded-full transition-all duration-300" style="width: 79.0%;"></div>
+            </div>
+            <div id="blind-annotation" class="text-[9px] font-mono text-hazard font-bold text-right">
+              513.5 FT: TRAVELING COMPLETELY BLIND FOR 1.4 FOOTBALL FIELDS!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PRIMARY CAD SVG DIAGRAM: THE 5-SECOND BLIND FLIGHT DISTANCE CAD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">flight_takeoff</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: 5-Second Blind Flight
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-hazard font-bold">513 FT AT 70 MPH</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Glancing down at a phone for 5 seconds at 70 MPH is kinetically identical to driving blindfolded across an entire football field and past the far goalpost.
+      </p>
+
+      <!-- SVG 1: Primary CAD Vector Viewport (340x220) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[220px]" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-blind" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="220" fill="url(#cad-grid-blind)" />
+
+          <!-- Title inside SVG -->
+          <text x="15" y="18" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="bold">BLIND FLIGHT KINETIC TRAJECTORY (70 MPH // 5.0 SEC)</text>
+
+          <!-- Football Field Landmark Benchmark (Top Graphic) -->
+          <g transform="translate(15, 28)">
+            <!-- Field Background (Green) -->
+            <rect x="0" y="0" width="220" height="35" rx="3" fill="#064E3B" stroke="#047857" stroke-width="1"/>
+            <!-- Endzones -->
+            <rect x="0" y="0" width="20" height="35" fill="#065F46"/>
+            <text x="10" y="21" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">END</text>
+            <rect x="200" y="0" width="20" height="35" fill="#065F46"/>
+            <text x="210" y="21" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">END</text>
+            <!-- 50-Yard Line -->
+            <line x1="110" y1="0" x2="110" y2="35" stroke="#FFFFFF" stroke-width="1"/>
+            <text x="110" y="14" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6.5" text-anchor="middle">50 YD</text>
+            <!-- Field dimension label -->
+            <text x="110" y="28" fill="#D1FAE5" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="bold" text-anchor="middle">REGULATION FOOTBALL FIELD: 360 FT</text>
+          </g>
+
+          <!-- Vehicle Trajectory Corridor (Bottom Graphic) -->
+          <g transform="translate(15, 80)">
+            <!-- Highway Lane Surface -->
+            <rect x="0" y="10" width="310" height="40" fill="#1C1F1E" stroke="#2F3532" stroke-width="1"/>
+            <line x1="0" y1="30" x2="310" y2="30" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6,6"/>
+
+            <!-- Initial Position: Eyes Off Road at t = 0.0s -->
+            <rect x="5" y="16" width="28" height="18" rx="3" fill="#E87522" stroke="#FFFFFF" stroke-width="1"/>
+            <circle cx="28" cy="25" r="2" fill="#FBBF24"/>
+            <text x="19" y="44" fill="#E87522" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">t = 0.0s</text>
+
+            <!-- 513 Ft Blind Vector Path (Red Dash) -->
+            <path d="M 33 25 L 290 25" stroke="#EF4444" stroke-width="2.5" stroke-dasharray="4,2"/>
+            <polygon points="295,25 288,20 288,30" fill="#EF4444"/>
+
+            <!-- Ghost Vehicle Position at t = 5.0s (513.5 ft later) -->
+            <rect x="275" y="16" width="28" height="18" rx="3" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.5"/>
+            <text x="289" y="44" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">t = 5.0s</text>
+
+            <!-- Blind Zone Dimension Marker -->
+            <line x1="33" y1="52" x2="295" y2="52" stroke="#EF4444" stroke-width="1"/>
+            <line x1="33" y1="48" x2="33" y2="56" stroke="#EF4444" stroke-width="1"/>
+            <line x1="295" y1="48" x2="295" y2="56" stroke="#EF4444" stroke-width="1"/>
+            <text x="164" y="62" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="bold" text-anchor="middle">513.5 FEET BLIND TRAVEL (ZERO OPERATOR BRAKING)</text>
+          </g>
+
+          <!-- Hazard Obstacle: Stationary Stopped Vehicle at x: 235 (180 ft ahead of start) -->
+          <g transform="translate(15, 80)">
+            <rect x="180" y="16" width="24" height="18" rx="3" fill="#B91C1C" stroke="#FFFFFF" stroke-width="1"/>
+            <circle cx="182" cy="18" r="3" fill="#EF4444" class="animate-ping"/>
+            <text x="192" y="10" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="bold" text-anchor="middle">COLLISION IMPENDING</text>
+          </g>
+
+          <!-- Takeaway Label -->
+          <text x="170" y="205" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="7.5" text-anchor="middle">DRIVER DETECTS COLLISION ONLY AFTER 513 FT IMPACT</text>
+        </svg>
+      </div>
+
+      <!-- Tactical Feedback Callout -->
+      <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline text-xs text-slate leading-relaxed">
+        <strong>Kinetic Reality:</strong> Looking down to check a single text message is not a "quick peek." At 70 MPH, your vehicle travels <strong>more than 100 feet every second</strong>. Five seconds of inattention covers an immense distance with zero steering inputs or collision avoidance.
+      </div>
+    </section>
+
+    <!-- 05. SECONDARY CAD SVG DIAGRAM: TRIPLE THREAT DISTRACTION TRIAD -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">change_history</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            CAD Diagram: Triple Threat Triad
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono text-safety font-bold">THE 3 VECTORS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Driver distractions fall into three distinct functional categories. Activities that overlap all three vectors—such as texting—multiply collision probability by 23 times.
+      </p>
+
+      <!-- SVG 2: Secondary CAD Vector Viewport (340x180) -->
+      <div class="w-full bg-[#141615] rounded-xl p-2.5 border border-hairline flex flex-col items-center justify-center overflow-hidden">
+        <svg class="w-full max-w-[340px] h-[180px]" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid-triad" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#252A28" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" fill="url(#cad-grid-triad)" />
+
+          <!-- Venn Triad Overlap Circles -->
+          <!-- Visual Circle (Top: cx 170, cy 60, r 45) -->
+          <circle cx="170" cy="65" r="45" fill="#3B82F6" fill-opacity="0.2" stroke="#3B82F6" stroke-width="1.5"/>
+          <text x="170" y="38" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold" text-anchor="middle">VISUAL</text>
+          <text x="170" y="48" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">(Eyes Off Road)</text>
+
+          <!-- Manual Circle (Bottom-Left: cx 135, cy 115, r 45) -->
+          <circle cx="135" cy="115" r="45" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="1.5"/>
+          <text x="110" y="130" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold" text-anchor="middle">MANUAL</text>
+          <text x="110" y="140" fill="#A7F3D0" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">(Hands Off Wheel)</text>
+
+          <!-- Cognitive Circle (Bottom-Right: cx 205, cy 115, r 45) -->
+          <circle cx="205" cy="115" r="45" fill="#E87522" fill-opacity="0.2" stroke="#E87522" stroke-width="1.5"/>
+          <text x="230" y="130" fill="#FDBA74" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold" text-anchor="middle">COGNITIVE</text>
+          <text x="230" y="140" fill="#FDBA74" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">(Mind Off Road)</text>
+
+          <!-- Center Intersection: The Lethal Epicenter (cx 170, cy 100) -->
+          <circle cx="170" cy="100" r="14" fill="#EF4444" fill-opacity="0.8" stroke="#FFFFFF" stroke-width="1.5"/>
+          <text x="170" y="98" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="bold" text-anchor="middle">TEXTING</text>
+          <text x="170" y="106" fill="#FEE2E2" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="bold" text-anchor="middle">23x RISK</text>
+
+          <text x="170" y="172" fill="#9CA3AF" font-family="'JetBrains Mono', monospace" font-size="7" text-anchor="middle">TEXTING DEMANDS ALL THREE CAPACITIES SIMULTANEOUSLY</text>
+        </svg>
+      </div>
+
+      <!-- Vector Definitions Breakdown -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1 font-mono text-[9px] text-center">
+        <div class="p-2 rounded bg-surface-sub border border-hairline">
+          <div class="font-bold text-blue-700 uppercase">Visual</div>
+          <div class="text-slate mt-0.5">Glancing at screens, mirrors, maps, billboards.</div>
+        </div>
+        <div class="p-2 rounded bg-surface-sub border border-hairline">
+          <div class="font-bold text-emerald-700 uppercase">Manual</div>
+          <div class="text-slate mt-0.5">Holding drinks, tuning knobs, reaching into bags.</div>
+        </div>
+        <div class="p-2 rounded bg-surface-sub border border-hairline">
+          <div class="font-bold text-safety uppercase">Cognitive</div>
+          <div class="text-slate mt-0.5">Phone calls, heated debates, internal stress.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. TEXAS STATUTORY WIRELESS FRAMEWORK (TTC § 545.424 & § 545.4251) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">gavel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Texas Wireless Communication Statutes
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Texas has enacted comprehensive statutory prohibitions against mobile device operation to eliminate distracted driving casualties on public roadways.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>TTC § 545.424: Absolute Prohibition for Drivers Under 18</span>
+            <span class="text-hazard font-bold uppercase">ZERO TOLERANCE</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            A person under 18 years of age may <strong>not operate a motor vehicle while using a wireless communication device</strong> in any capacity. This absolute ban prohibits handheld phones, hands-free accessories, Bluetooth earpieces, speakerphones, and smart watches. The only exception is contacting emergency police or fire personnel.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>TTC § 545.4251: Statewide Electronic Messaging Ban</span>
+            <span class="text-safety-deep font-bold uppercase">TEXTING BAN</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            All motorists across Texas are prohibited from using a portable wireless communication device to read, write, or send an electronic message (text, email, social media, web browsing) while operating a motor vehicle unless the vehicle is stopped outside a lane of travel. Base fines range from $25 to $99 (first offense) and $100 to $200 (repeat offenses).
+          </p>
+          <div class="mt-1 p-2 rounded bg-white/80 border border-hairline text-[10px] text-slate font-mono leading-relaxed">
+            <strong>Statutory Affirmative Defenses (TTC § 545.4251(c)):</strong> It is an affirmative defense to prosecution if the device was used strictly to navigate with a GPS system, report illegal activity or summon emergency medical assistance, or activate music playback through hands-free integration.
+          </div>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>TTC § 545.425: Active School Crossing Zones</span>
+            <span class="text-hazard font-bold uppercase">HANDHELD BAN</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            An operator may not use a handheld wireless communication device while operating a motor vehicle within a school crossing zone when reduced speed limits are active, unless the vehicle is stopped or the operator uses hands-free equipment. Fines in school zones reach up to $200.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. PASSENGER & PET MANAGEMENT DEFENSIVE PROTOCOLS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">pets</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          In-Cabin Distraction: Passengers &amp; Pets
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Distractions within the vehicle cabin frequently cause severe collisions. Unrestrained animals and boisterous passengers demand strict pre-trip boundary management.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Unrestrained Domestic Pets</span>
+            <span class="text-hazard font-bold uppercase">PROJECTILE HAZARD</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Never allow pets to sit in the driver's lap or roam freely across vehicle seats. An unrestrained 15-pound dog in a 35 MPH collision generates over <strong>400 pounds of projectile impact force</strong>. Secure all animals in crash-tested carriers or vehicle harness tethers in the rear seat.
+          </p>
+        </div>
+
+        <div class="p-3 bg-surface-sub border border-hairline rounded-lg space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Passenger Conflict &amp; Escalation</span>
+            <span class="text-emerald-700 font-bold uppercase">SAFE PULLOVER</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Engaging in emotional debates or turning your head around to discipline children in the back seat creates extreme visual and cognitive detachment. If cabin conditions become disruptive, activate your right turn signal (Key 6), pull completely off the roadway into a safe parking area, and resolve the dispute while parked.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. INFOTAINMENT & TELEMATICS INTERFACE MANAGEMENT -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">tune</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          In-Cabin Console &amp; GPS Telematics Safety
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Modern touchscreens and complicated multi-layered infotainment menus take driver eyes off the road for an average of <strong>4.6 seconds per task</strong>. Establish pre-trip vehicle habits:
+      </p>
+
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">navigation</span>
+            1. Pre-Program Navigation Routes Before Moving
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Enter your destination into the GPS before shifting out of Park. Never attempt to type street addresses or change routes while in motion. If a detour is required, have a passenger make the change or pull into a parking area.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">thermostat</span>
+            2. Preset Climate Controls &amp; Audio Volume
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Adjust air conditioning, cabin temperature, defrost fan speed, and radio presets prior to pulling into roadway traffic. Rely on steering wheel tactile switches rather than looking down at center console displays.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. COGNITIVE NEUROSCIENCE: THE 37% BRAIN PROCESSING DEFICIT -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">psychology</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Neuroscience: The 37% Cognitive Deficit
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Neuroimaging research by Carnegie Mellon University and the National Highway Traffic Safety Administration reveals that human brain processing is strictly bottlenecked. Driving is a high-bandwidth task requiring simultaneous visual, spatial, and motor processing.
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Parietal Lobe Spatial Suppression</span>
+            <span class="text-hazard font-bold uppercase">-37% ACTIVITY</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            When a driver engages in a phone conversation—even completely hands-free via Bluetooth—brain resources are diverted away from the parietal and occipital lobes toward the temporal and prefrontal cortex. As a result, the brain's <strong>spatial processing capacity drops by 37%</strong>. Drivers fail to notice traffic lights changing color, brake lights ahead, or pedestrians stepping into crosswalks.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Looked But Failed to See (LBFTS) Crashes</span>
+            <span class="text-hazard font-bold uppercase">INATTENTION BLINDNESS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Inattention blindness occurs when a driver looks directly through the windshield at an upcoming hazard but fails to process it mentally. Eye-tracking cameras reveal that distracted drivers "see" objects in their central field of vision, but their cognitive processing bottleneck prevents the brain from triggering braking reflexes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. THE "HANDS-FREE" MYTH & THE 27-SECOND COGNITIVE HANGOVER -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">headset_off</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          The Hands-Free Myth &amp; 27s Cognitive Lag
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Many motorists mistakenly believe that hands-free headsets, Bluetooth car stereos, and dashboard voice-to-text assistants eliminate distraction risk. Peer-reviewed research disproves this assumption:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>The AAA Foundation 27-Second Latency Study</span>
+            <span class="text-hazard font-bold uppercase">RESIDUAL DISTRACTION</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Research conducted by the AAA Foundation for Traffic Safety discovered that after an operator finishes sending a voice-to-text message, dictating an email, or concluding a hands-free phone conversation, significant <strong>cognitive distraction persists for up to 27 seconds</strong>.
+          </p>
+          <div class="p-2 rounded bg-white/80 border border-hairline text-[10px] text-slate font-mono mt-1">
+            <strong>Kinetic Impact:</strong> At 60 MPH (88 ft/sec), a 27-second cognitive hangover means you travel <strong>2,376 feet (nearly half a mile!)</strong> with impaired hazard detection and delayed reaction speeds after you hang up!
+          </div>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Passenger Conversations vs Phone Calls</span>
+            <span class="text-emerald-700 font-bold uppercase">SITUATIONAL AWARENESS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Talking to an adult passenger inside the vehicle is vastly safer than talking on a phone. In-cabin passengers observe roadway conditions directly; they naturally pause conversations when traffic merges, bad weather arises, or an emergency maneuver is required. A caller on the other end of a phone line has zero awareness of highway hazards and demands continuous cognitive attention.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. TEXAS MUNICIPAL ORDINANCES & COMMERCIAL VEHICLE BANS -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">location_city</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Municipal Ordinances &amp; Commercial Federal Bans
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        While Texas state law bans electronic messaging (texting) statewide under TTC § 545.4251, numerous Texas municipalities enforce even stricter total handheld device prohibitions:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Municipal Total Hands-Free Ordinances</span>
+            <span class="text-safety font-bold uppercase">LOCAL JURISDICTIONS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Major Texas cities—including <strong>Austin, San Antonio, Denton, El Paso, and Corpus Christi</strong>—have passed municipal ordinances that strictly prohibit holding a cellular device for <em>any</em> reason while driving (including talking, holding the phone to your ear, or holding it for speakerphone). Violations carry local municipal court fines up to <strong>$500</strong>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Federal CMV Handheld Prohibition (49 CFR § 392.80)</span>
+            <span class="text-hazard font-bold uppercase">COMMERCIAL DRIVERS</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Federal Motor Carrier Safety Regulations strictly prohibit commercial motor vehicle (CMV) operators from using any handheld mobile telephone or texting while driving on public highways. Convictions result in federal civil penalties up to <strong>$2,750 for drivers</strong>, up to <strong>$11,000 for motor carriers</strong>, and mandatory commercial driver license (CDL) disqualifications.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. PRE-TRIP COCKPIT PROTOCOLS FOR DISTRACTION ELIMINATION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">checklist_rtl</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Pre-Trip Distraction Elimination Protocol
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Adopt these four mandatory habits before putting your transmission in Drive:
+      </p>
+
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">do_not_disturb_on</span>
+            1. Enable "Driving Focus" / Auto-Reply Mode
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Configure iOS "Driving Focus" or Android "Do Not Disturb While Driving" to activate automatically when connected to vehicle Bluetooth. The system mutes incoming text notifications and sends an automated reply: "I'm driving right now; I'll get back to you when I arrive safely."
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">lock_clock</span>
+            2. Stash Device Completely Out of Physical Reach
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Eliminate temptation by placing your phone in the glove compartment, center console storage bin, or rear seat. If you cannot touch or see the device, the urge to check notifications during red lights is eradicated.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-surface-sub border border-hairline space-y-0.5">
+          <div class="font-mono text-[10px] font-bold text-carbon flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-safety text-xs">map</span>
+            3. Lock In Destination GPS Prior to Departure
+          </div>
+          <p class="text-slate text-[11px] leading-relaxed">
+            Mount your phone securely in a dashboard cradle if using GPS, and program your entire turn-by-turn route before departure. Enable voice navigation instructions so you can listen to upcoming highway merges without diverting your eyes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. ANATOMY OF A DISTRACTED CRASH: DRIFT & PANIC OVERCORRECTION -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">car_crash</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          Anatomy of a Distracted Crash
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        TxDOT crash investigation records show that distracted driving crashes follow an identical, tragic sequence of mechanical and psychological events:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Phase 1: Visual Decoupling &amp; Horizon Loss</span>
+            <span class="text-slate font-bold uppercase">t = 0.0s – 2.0s</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            The driver hears a notification chime, shifts gaze down to the illuminated screen, and attempts to read or dictate a message. Central visual horizon collapses from 1,000+ feet down to the 6-inch cockpit screen. Forward hazard monitoring ceases entirely.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Phase 2: Inadvertent Trajectory Drift</span>
+            <span class="text-safety font-bold uppercase">t = 2.0s – 4.5s</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Without visual feedback, human drivers sub-consciously pull the steering wheel slightly in the direction of their dominant hand. The vehicle drifts across the white fog line onto the shoulder or crosses the yellow center stripe into oncoming traffic at 100+ feet per second.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Phase 3: Visual Shock &amp; Panic Overcorrection</span>
+            <span class="text-hazard font-bold uppercase">t = 4.5s – 5.0s</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            The driver finally looks up, experiences sensory shock upon realizing an imminent collision or road departure, and violently jerks the steering wheel in panic. This violent overcorrection breaks tire friction traction, inducing a sideways skid, devastating rollover, or head-on collision.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. ENHANCED TEXAS CRIMINAL & CIVIL PENALTIES (TTC § 545.4251(e)) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3 fluid-card">
+      <div class="flex items-center gap-2 border-b border-hairline pb-2">
+        <span class="material-symbols-outlined text-safety">gavel</span>
+        <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+          TTC § 545.4251(e): Enhanced Penalties &amp; Civil Tort
+        </h2>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        While simple texting is a misdemeanor traffic citation, Texas law drastically elevates criminal and civil liability when distracted driving causes physical harm:
+      </p>
+
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Class A Misdemeanor Elevation (Serious Injury or Death)</span>
+            <span class="text-hazard font-bold uppercase">UP TO 1 YR JAIL</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            Under TTC § 545.4251(e), if it is shown at the trial of an offense that the defendant was operating an electronic messaging device and caused <strong>death or serious bodily injury to another</strong>, the offense escalates immediately to a <strong>Class A Misdemeanor</strong>, punishable by a fine up to <strong>$4,000</strong> and confinement in county jail for up to <strong>one full year</strong>.
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-surface-sub border border-hairline space-y-1">
+          <div class="font-mono text-[11px] font-bold text-carbon flex items-center justify-between">
+            <span>Civil Tort Liability &amp; Gross Negligence Damages</span>
+            <span class="text-safety-deep font-bold uppercase">PUNITIVE DAMAGES</span>
+          </div>
+          <p class="text-slate leading-relaxed">
+            In Texas civil litigation, operating an electronic messaging device while driving is considered <em>negligence per se</em>. Subpoenaed cellular tower records and forensic phone extractions provide undeniable timestamp evidence of active texting during crash moments, exposing distracted drivers to catastrophic personal financial ruin and uninsurable punitive damage awards.
+          </p>
+          <div class="mt-1 p-2 rounded bg-white/80 border border-hairline text-[10px] text-slate font-mono leading-relaxed">
+            <strong>Forensic Event Data Recorders (EDRs):</strong> Modern vehicles preserve pre-crash vehicle speed, braking throttle percentage, and steering angle data alongside synced Bluetooth telemetry. Texas DPS crash reconstruction teams cross-examine vehicle black boxes with cell provider call detail records (CDRs) to prove exact inattention timing down to the millisecond.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. AUTHORITATIVE 3D SIMULATION CONTAINER (L08-T04) -->
+    <section class="bg-surface border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>PHYSICS SIMULATOR // DISTRACTED DRIVING</span>
+        </div>
+        <span class="font-mono text-[10px] text-safety bg-safety-light px-2 py-0.5 rounded border border-safety/30 font-bold">
+          TTC § 545.4251 • CLASS C
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Distracted Driving &amp; The 5-Second Blind Horizon</h2>
+        <p class="text-xs text-slate mt-0.5">3D kinematic simulation of perception-reaction latency, 360-foot blind horizon at 55 MPH under TTC § 545.4251, emergency shoulder evasion, and rear-end crash dynamics.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L08_T04_distractions.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+            <!-- External Mobile Control Dock -->
+            <!-- External Mobile Control Dock -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">ATTENTIVE AT 55 MPH // PHONE NOTIFICATION IGNORED</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>ATTENTIVE Zero D</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>5s BLIND</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="btn-scenario-3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Text Crash</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY PROTOCOL 01 // ZERO DEVICE INTERACTION</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.4251 &amp; § 545.425</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Eyes on the Road: Controlled Stopping Before Lead Obstacle</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            Under Texas Transportation Code § 545.4251, using a wireless communication device to read, write, or send messages while operating a motor vehicle is illegal. By keeping visual attention focused on the highway, the driver detects stopped traffic ahead in 0.85 seconds, stopping safely with a 50-foot safety buffer.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">ATTENTION STANDARD:</span>
+            <span id="sim-card-metric" class="text-valid font-bold">100% COMPLIANT // ZERO DISTRACTION</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FORMATIVE ASSESSMENT (STRICT 3 SCENARIO MCQS // Q1 OPTION B STRICTLY CORRECT) -->
+    <section class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-4 fluid-card">
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-safety">quiz</span>
+          <h2 class="text-sm font-bold tracking-tight text-carbon uppercase">
+            Topic Formative Assessment
+          </h2>
+        </div>
+        <span class="text-[10px] font-mono font-bold text-slate">3 SCENARIO QUESTIONS</span>
+      </div>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Test your knowledge of Texas wireless device statutes, blind flight physics, and in-cabin distraction management.
+      </p>
+
+      <!-- QUESTION 1: QUESTION 1 OPTION B STRICTLY CORRECT (TEST RUNNER MANDATE) -->
+      <div class="space-y-2 pt-2 border-t border-hairline" <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L08-T04 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      id="q1-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 01 // TEXAS WIRELESS RESTRICTION</span>
+          <span>TTC § 545.424</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          Under Texas law (TTC § 545.424 / § 545.425), which statement accurately reflects the statutory wireless device restrictions for a driver under 18 years of age?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q1-opt-A" onclick="checkAnswer(1, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Minors may text as long as their vehicle is stopped at a red traffic light.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B: STRICTLY CORRECT -->
+          <button id="q1-opt-B" onclick="checkAnswer(1, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> Minors under 18 are statutorily prohibited from using any wireless communication device entirely—including all hands-free attachments, Bluetooth earpieces, and speakerphones.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q1-opt-C" onclick="checkAnswer(1, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Minors may use handheld cell phones outside of active school crossing zones.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q1-opt-D" onclick="checkAnswer(1, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Minors may use voice-to-text messaging if accompanied by a licensed parent.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q1-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 2 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q2-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 02 // KINETIC TRAVEL DISTANCE</span>
+          <span>PHYSICS OF SPEED</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          At a standard Texas highway speed of 70 MPH, approximately how far does a passenger vehicle travel during a typical 5-second glance at a smartphone or in-cabin telematics screen?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q2-opt-A" onclick="checkAnswer(2, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Approximately 120 to 150 feet (the length of three passenger cars).</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B: CORRECT -->
+          <button id="q2-opt-B" onclick="checkAnswer(2, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> 513 feet (spanning nearly two full regulation football fields completely blind).</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C -->
+          <button id="q2-opt-C" onclick="checkAnswer(2, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Exactly 250 feet under ideal asphalt conditions.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q2-opt-D" onclick="checkAnswer(2, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Less than 75 feet because modern vehicle aerodynamic drag slows velocity.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q2-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+
+      <!-- QUESTION 3 -->
+      <div class="space-y-2 pt-3 border-t border-hairline" id="q3-container">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">QUESTION 03 // PASSENGER &amp; PET MANAGEMENT</span>
+          <span>DEFENSIVE PROTOCOL</span>
+        </div>
+        <p class="text-xs font-bold text-carbon leading-snug">
+          What is the legally sound and defensively responsible protocol when transporting unrestrained pets or passengers engaged in heated emotional conflict?
+        </p>
+
+        <div class="space-y-1.5 pt-1">
+          <!-- Option A -->
+          <button id="q3-opt-A" onclick="checkAnswer(3, 'A')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ A ]</strong> Turn up the radio volume to suppress vocal distraction while accelerating.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option B -->
+          <button id="q3-opt-B" onclick="checkAnswer(3, 'B')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ B ]</strong> Allow pets to sit in the driver's lap where they can be held firmly by one hand.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option C: CORRECT -->
+          <button id="q3-opt-C" onclick="checkAnswer(3, 'C')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ C ]</strong> Secure pets in crash-tested carriers or harnesses, and pull completely off the roadway into a safe parking area before managing disputes.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+          <!-- Option D -->
+          <button id="q3-opt-D" onclick="checkAnswer(3, 'D')" class="mcq-btn touch-target">
+            <span class="text-xs leading-tight pr-2"><strong>[ D ]</strong> Drive with hazard lights flashing while turning around to discipline children.</span>
+            <span class="material-symbols-outlined text-slate text-sm flex-shrink-0 mt-0.5">radio_button_unchecked</span>
+          </button>
+        </div>
+
+        <div id="q3-feedback" class="hidden p-3 rounded-lg text-xs leading-relaxed font-mono"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 11. LESSON COMPLETION & TOPIC NAVIGATION FOOTER -->
+    <footer class="bg-white border border-hairline rounded-xl p-4 shadow-xs space-y-3">
+      <div class="flex items-center justify-between text-xs text-slate">
+        <span class="font-mono">MODULE 08: TOPIC 04 / 10</span>
+        <span class="font-mono text-safety font-bold">NEXT: L08-T05</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="L08-T05.html" class="flex-1 min-h-[48px] px-4 py-3 rounded-xl bg-carbon hover:bg-carbon/90 text-white font-mono text-xs font-bold flex items-center justify-center gap-2 touch-target shadow-xs" style="min-height: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">
+          <span>ADVANCE TO L08-T05</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT REACTIVE LOGIC ENGINE -->
+  <script>
+    // Distraction Vector Data Store
+    const distractionData = {
+      phone: {
+        indicator: "VECTOR 1 OF 4",
+        tag: "CRITICAL THREAT // COMPLETE TRIAD",
+        title: "Cellular Devices & Text Messaging",
+        icon: "sms",
+        desc: "Texting is the single most lethal distraction because it simultaneously demands visual gaze redirection, manual fingertip manipulation, and intensive cognitive linguistic synthesis. Brain fMRI scans show spatial parietal activity drops by 37%, producing complete inattention blindness to vehicle brake lights directly ahead."
+      },
+      pax: {
+        indicator: "VECTOR 2 OF 4",
+        tag: "SOCIAL & EMOTIONAL DIVERGENCE",
+        title: "Passengers & Unrestrained Animals",
+        icon: "people",
+        desc: "Boisterous passengers and unrestrained pets demand emotional and physical attention. Turning your head to referee passenger disputes or petting an animal on your lap diverts hands and gaze from critical crash avoidance maneuvers."
+      },
+      dash: {
+        indicator: "VECTOR 3 OF 4",
+        tag: "COCKPIT INTERFACE SATURATION",
+        title: "Infotainment Displays & Telematics",
+        icon: "touch_app",
+        desc: "Complex digital dashboards, Bluetooth pairing menus, and climate screens require multi-level menu navigation. AAA foundation research proves drivers look away from the road for an average of 4.6 seconds when entering navigation data."
+      },
+      ext: {
+        indicator: "VECTOR 4 OF 4",
+        tag: "EXTERNAL SENSORY HIJACKING",
+        title: "Rubbernecking & Roadside Gazing",
+        icon: "farsight_digital",
+        desc: "Gazing at roadside collisions, billboards, police traffic stops, or scenic views pulls eyes and focus away from forward travel flow. Rubbernecking is a leading cause of chain-reaction secondary rear-end crashes."
+      }
+    };
+
+    function switchDistraction(vec) {
+      const data = distractionData[vec];
+      document.getElementById('d-indicator').textContent = data.indicator;
+      document.getElementById('d-tag').textContent = data.tag;
+      document.getElementById('d-title').textContent = data.title;
+      document.getElementById('d-icon').textContent = data.icon;
+      document.getElementById('d-desc').textContent = data.desc;
+
+      const keys = ['phone', 'pax', 'dash', 'ext'];
+      keys.forEach(k => {
+        const btn = document.getElementById('d-btn-' + k);
+        if (k === vec) {
+          btn.className = 'cad-btn cad-btn-active touch-target';
+        } else {
+          btn.className = 'cad-btn cad-btn-inactive touch-target';
+        }
+      });
+    }
+
+    // Blind Flight Speed Engine
+    // feet per second = mph * 1.467. 5s travel = fps * 5
+    const blindMetrics = {
+      30: { fps: "44.0 FT/S", dist: "220.0 FT", pct: 33.8, text: "220.0 FT: COVERS OVER HALF A FOOTBALL FIELD BLIND!" },
+      45: { fps: "66.0 FT/S", dist: "330.0 FT", pct: 50.8, text: "330.0 FT: EQUALS NEARLY AN ENTIRE 360-FT FOOTBALL FIELD!" },
+      60: { fps: "88.0 FT/S", dist: "440.0 FT", pct: 67.7, text: "440.0 FT: COVERS OVER 140 YARDS OF HIGHWAY COMPLETELY BLIND!" },
+      70: { fps: "102.7 FT/S", dist: "513.5 FT", pct: 79.0, text: "513.5 FT: TRAVELING COMPLETELY BLIND FOR 1.4 FOOTBALL FIELDS!" },
+      85: { fps: "124.7 FT/S", dist: "623.5 FT", pct: 95.9, text: "623.5 FT: CRITICAL MASS — OVER TWO FULL FOOTBALL FIELDS BLIND!" }
+    };
+
+    function setBlindSpeed(mph) {
+      document.getElementById('calc-d-mph').textContent = mph + " MPH";
+      const m = blindMetrics[mph];
+      document.getElementById('stat-fps').textContent = m.fps;
+      document.getElementById('stat-blind-dist').textContent = m.dist;
+
+      const bar = document.getElementById('blind-bar');
+      bar.style.width = m.pct + "%";
+      document.getElementById('blind-annotation').textContent = m.text;
+
+      const speeds = [30, 45, 60, 70, 85];
+      speeds.forEach(s => {
+        const btn = document.getElementById('b-btn-' + s);
+        if (s === mph) {
+          btn.className = 'py-2.5 rounded border-2 border-safety bg-safety/10 font-bold text-safety touch-target';
+        } else {
+          btn.className = 'py-2.5 rounded border border-hairline bg-surface-sub font-bold text-carbon hover:bg-zinc-200 touch-target';
+        }
+      });
+    }
+
+    // Formative MCQ Logic with Live Score Tracking
+    let answeredQuestions = {};
+                const TOPIC_ID = 'L08-T04';
+    
+    let correctCount = 0;
+
+    
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.424",
+            "statutoryRationale": "Under Texas Transportation Code § 545.424, drivers under 18 years of age are completely prohibited from using any wireless communication device whatsoever—including hands-free attachments, Bluetooth earpieces, and speakerphones."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "TTC § 545.4251",
+            "statutoryRationale": "At 70 MPH (102.7 ft/sec), taking your eyes off the road for 5 seconds means traveling 513.5 feet completely blind—spanning nearly two regulation football fields."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 545.401",
+            "statutoryRationale": "Pets must be secured in crash-tested carriers or harnesses in the rear seat, and drivers must pull completely off the roadway into a safe parking area before managing passenger conflict."
+      }
+};
+
+    function checkAnswer(qNum, selected) {
+      if (answeredQuestions[qNum]) return;
+      answeredQuestions[qNum] = true;
+
+      const feedback = document.getElementById(`q${qNum}-feedback`);
+      if (feedback) feedback.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      const options = ['A', 'B', 'C', 'D'];
+      options.forEach(opt => {
+        const btn = document.getElementById(`q${qNum}-opt-${opt}`) || document.getElementById(`q${qNum}-opt-${opt.toLowerCase()}`);
+        if (!btn) return;
+        btn.disabled = true;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (opt === correctOpt) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-valid', 'bg-valid/10', 'text-valid', 'font-bold');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-valid text-sm flex-shrink-0 mt-0.5';
+          }
+        } else if (opt === chosenStr && !isCorrect) {
+          btn.classList.remove('border-hairline', 'bg-white');
+          btn.classList.add('border-hazard', 'bg-rose-50', 'text-hazard', 'line-through');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-hazard text-sm flex-shrink-0 mt-0.5';
+          }
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-valid/10 border border-valid/30 text-valid mt-2';
+          feedback.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (feedback) {
+          feedback.className = 'p-3 rounded-lg text-xs leading-relaxed font-mono bg-rose-50 border border-rose-300 text-rose-900 mt-2';
+          feedback.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      updateScoreBadge();
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredQuestions).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: correctCount,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+
+    function updateScoreBadge() {
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      if (scoreBadge) scoreBadge.textContent = `SCORE: ${correctCount} / 3`;
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${correctCount} / 3`;
+    }
+  
+    // ==============================================================================
+    // SIMULATION CONTROLLER (L08-T04 Distracted Driving & 5-Second Blindness)
+    // ==============================================================================
+    const simScenarios = {
+      1: {
+        badge: 'STATUTORY PROTOCOL 01 // ZERO DEVICE INTERACTION',
+        statute: 'TTC § 545.4251 & § 545.425',
+        title: 'Eyes on the Road: Controlled Stopping Before Lead Obstacle',
+        desc: 'Under Texas Transportation Code § 545.4251, using a wireless communication device to read, write, or send messages while operating a motor vehicle is illegal. By keeping visual attention focused on the highway, the driver detects stopped traffic ahead in 0.85 seconds, stopping safely with a 50-foot safety buffer.',
+        metric: '100% COMPLIANT // ZERO DISTRACTION',
+        phase: 'ATTENTIVE AT 55 MPH // PHONE NOTIFICATION IGNORED'
+      },
+      2: {
+        badge: 'CRITICAL HAZARD // 5-SECOND BLIND WINDOW EVASION',
+        statute: 'TTC § 545.4251 VIOLATION',
+        title: '5 Seconds at 55 MPH = 360 Feet Traveled Completely Blind',
+        desc: 'Glancing at a text message for five seconds at 55 MPH means traveling 360 feet—the entire length of a football field—blind. In this emergency scenario, the driver looks up with only 28 feet remaining, forcing an emergency shoulder dive to evade fatal impact.',
+        metric: 'NEAR MISS // 360-FT BLIND HORIZON',
+        phase: 'CRITICAL: EYES OFF ROAD FOR 5.0 SECONDS // 360 FT BLIND'
+      },
+      3: {
+        badge: 'CRITICAL HAZARD // FATAL REAR-END COLLISION',
+        statute: 'TTC § 545.4251 & TPC § 19.05',
+        title: 'Texting While Driving Causes High-Speed Underride Crash',
+        desc: 'Failing to look up in time results in an unabated 55 MPH rear-end impact into stopped vehicles, causing catastrophic intrusion, severe injuries, and potential criminal charges under Texas Penal Code § 19.05 (Criminally Negligent Homicide).',
+        metric: 'FATAL COLLISION IMPACT // CATASTROPHIC UNDERRIDE',
+        phase: 'FATAL COLLISION IMPACT AT 55 MPH // CATASTROPHIC UNDERRIDE'
+      }
+    };
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function selectSimScenario(scenNum) {
+      dispatchSimAction('setScenario', { scenario: scenNum, value: scenNum });
+      const scen = simScenarios[scenNum];
+      if (!scen) return;
+
+      const badgeEl = document.getElementById('sim-card-badge');
+      const statuteEl = document.getElementById('sim-card-statute');
+      const titleEl = document.getElementById('sim-card-title');
+      const descEl = document.getElementById('sim-card-desc');
+      const metricEl = document.getElementById('sim-card-metric');
+      const phaseEl = document.getElementById('sim-telemetry-phase');
+
+      if (badgeEl) badgeEl.textContent = scen.badge;
+      if (statuteEl) statuteEl.textContent = scen.statute;
+      if (titleEl) titleEl.textContent = scen.title;
+      if (descEl) descEl.textContent = scen.desc;
+      if (metricEl) metricEl.textContent = scen.metric;
+      if (phaseEl) phaseEl.textContent = scen.phase;
+
+      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
+      tabBtns.forEach((btn, idx) => {
+        const idNum = idx + 1;
+        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
+        const active = (idNum === curScen || btn.id.endsWith(String(curScen)));
+        if (active) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data) {
+        if (e.data.event === 'telemetry') {
+          if (e.data.phase) {
+            const phaseEl = document.getElementById('sim-telemetry-phase');
+            if (phaseEl) phaseEl.textContent = e.data.phase;
+          }
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      selectSimScenario(1);
+    });
+
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      if (typeof dispatchSimAction === 'function') {
+        dispatchSimAction('seek', { time: seekTime });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>
