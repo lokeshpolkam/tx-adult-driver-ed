@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#87CEEB] text-gray-100 antialiased">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Texas DMV 3D Simulator — L01-T01 DPS Road Examination Track (TTC § 521.1601)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js + OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; overflow: hidden; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+
+  <!-- ZERO-FOUC INSTANT EMBED GUARD (Strict Screen Rule) -->
+  <script>
+    (function() {
+      var q = window.location.search || '';
+      if (window.self !== window.top || q.indexOf('embed=1') !== -1 || q.indexOf('clean=1') !== -1) {
+        document.documentElement.classList.add('embed-clean');
+      }
+    })();
+  </script>
+  <style id="tx-dmv-clean-embed-style">
+    /* Universal Pre-DOM Instant Suppression: Hides ALL headers, buttons, camera pills, and HUDs inside iframe */
+    html.embed-clean header,
+    html.embed-clean footer,
+    html.embed-clean nav,
+    html.embed-clean aside,
+    html.embed-clean button,
+    html.embed-clean input,
+    html.embed-clean label,
+    html.embed-clean select,
+    html.embed-clean [id*="controls"],
+    html.embed-clean [id*="hud"],
+    html.embed-clean [class*="hud"],
+    html.embed-clean [id*="statute"],
+    html.embed-clean [id*="telemetry"] {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
+    html.embed-clean, html.embed-clean body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      overflow: hidden !important;
+      background: #87CEEB !important;
+    }
+    html.embed-clean #threejs-container {
+      width: 100% !important;
+      height: 100% !important;
+      position: absolute !important;
+      inset: 0 !important;
+    }
+  </style>
+</head>
+<body class="flex flex-col h-full overflow-hidden select-none bg-[#0D121B]">
+  <!-- TOP HEADER (Suppressed in clean embed mode) -->
+  <header class="bg-[#0D121B] border-b border-[#1A222F] px-4 py-2 flex items-center justify-between z-30 shrink-0">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-extrabold text-sm shadow-inner">
+        TX
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mono">TDLR ADE-1317</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-500/10 text-orange-400 border border-orange-500/20 mono">MODULE 01</span>
+          <h1 class="text-xs font-bold text-white tracking-wide">DPS ROAD TEST SIMULATOR</h1>
+        </div>
+        <p class="text-[11px] text-gray-400 mt-0.5">Lesson L01-T01: 4 Core Driving Capabilities (TTC § 521.1601)</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN 3D WEBGL VIEWPORT (PURE CANVAS RECTANGLE) -->
+  <main class="flex-1 relative w-full h-full overflow-hidden">
+    <div id="threejs-container" class="w-full h-full"></div>
+  </main>
+
+  <script>
+  (function() {
+    'use strict';
+
+    const container = document.getElementById('threejs-container');
+
+    // -------------------------------------------------------------
+    // 1. SCENE, CAMERA, RENDERER & DAYLIGHT ENVIRONMENT
+    // -------------------------------------------------------------
+    const scene = new THREE.Scene();
+    // Warm Texas Summer Sky
+    scene.background = new THREE.Color(0x7EB6E8);
+    scene.fog = new THREE.FogExp2(0xB3D4F5, 0.005);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.5, 1000);
+    camera.position.set(0, 24, 38);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth || window.innerWidth, container.clientHeight || window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.18;
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.maxPolarAngle = Math.PI / 2 - 0.04;
+    controls.minDistance = 8;
+    controls.maxDistance = 180;
+    controls.target.set(0, 1.2, 0);
+
+    // Hemispheric Ambient Light (Sky Blue top + Green Turf bounce)
+    const hemiLight = new THREE.HemisphereLight(0xC6E2FF, 0x4B6043, 0.75);
+    scene.add(hemiLight);
+
+    // Strong Texas Sun Directional Light
+    const sunLight = new THREE.DirectionalLight(0xFFF9E8, 1.55);
+    sunLight.position.set(50, 80, 45);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.width = 2048;
+    sunLight.shadow.mapSize.height = 2048;
+    sunLight.shadow.camera.left = -60;
+    sunLight.shadow.camera.right = 60;
+    sunLight.shadow.camera.top = 60;
+    sunLight.shadow.camera.bottom = -60;
+    sunLight.shadow.camera.near = 10;
+    sunLight.shadow.camera.far = 200;
+    sunLight.shadow.bias = -0.0003;
+    scene.add(sunLight);
+
+    // Soft Fill Light from opposite direction
+    const fillLight = new THREE.DirectionalLight(0x93C5FD, 0.35);
+    fillLight.position.set(-40, 30, -30);
+    scene.add(fillLight);
+
+    // -------------------------------------------------------------
+    // 2. PROCEDURAL HIGH-RESOLUTION ASPHALT TEXTURE
+    // -------------------------------------------------------------
+    function createAggregateAsphaltTexture() {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 1024;
+      const ctx = c.getContext('2d');
+      // Dark slate asphalt base
+      ctx.fillStyle = '#1D232C';
+      ctx.fillRect(0, 0, 1024, 1024);
+      // 35,000 multi-tone aggregate stone flecks
+      for (let i = 0; i < 35000; i++) {
+        const x = Math.random() * 1024;
+        const y = Math.random() * 1024;
+        const v = Math.floor(Math.random() * 32);
+        ctx.fillStyle = `rgba(${v + 28}, ${v + 34}, ${v + 44}, 0.22)`;
+        ctx.fillRect(x, y, 2, 2);
+      }
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(6, 6);
+      return tex;
+    }
+    const asphaltTex = createAggregateAsphaltTexture();
+
+    // -------------------------------------------------------------
+    // 3. WORLD GEOMETRY: ROADS, CURBS, SIDEWALKS & GRASS
+    // -------------------------------------------------------------
+    const ROAD_WIDTH = 14.0;
+    const STOP_BAR_Z = -15.0;
+
+    const asphaltMat = new THREE.MeshStandardMaterial({ map: asphaltTex, roughness: 0.85, metalness: 0.1 });
+    const concreteMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.72, metalness: 0.15 });
+    const sidewalkMat = new THREE.MeshStandardMaterial({ color: 0x64748B, roughness: 0.8, metalness: 0.1 });
+    const grassMat = new THREE.MeshStandardMaterial({ color: 0x2D5A27, roughness: 0.95 });
+    const whitePaintMat = new THREE.MeshStandardMaterial({ color: 0xF1F5F9, roughness: 0.35 });
+    const yellowPaintMat = new THREE.MeshStandardMaterial({ color: 0xF59E0B, roughness: 0.35 });
+
+    // Wide Terrain / Bermuda Grass Ground Plane
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(380, 380), grassMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // Main North-South Evaluation Corridor
+    const roadNS = new THREE.Mesh(new THREE.PlaneGeometry(ROAD_WIDTH, 240), asphaltMat);
+    roadNS.rotation.x = -Math.PI / 2;
+    roadNS.position.set(0, 0.02, 0);
+    roadNS.receiveShadow = true;
+    scene.add(roadNS);
+
+    // East-West Testing Cross Street
+    const roadEW = new THREE.Mesh(new THREE.PlaneGeometry(240, ROAD_WIDTH), asphaltMat);
+    roadEW.rotation.x = -Math.PI / 2;
+    roadEW.position.set(0, 0.02, -50);
+    roadEW.receiveShadow = true;
+    scene.add(roadEW);
+
+    // Staging / Parallel Parking Bay (Right side, East of North-South road)
+    const parkBay = new THREE.Mesh(new THREE.PlaneGeometry(8.0, 60), asphaltMat);
+    parkBay.rotation.x = -Math.PI / 2;
+    parkBay.position.set(ROAD_WIDTH / 2 + 4.0, 0.02, 10);
+    parkBay.receiveShadow = true;
+    scene.add(parkBay);
+
+    // 3D Extruded Concrete Curbs (Height 0.38m)
+    function addExtrudedCurb(x, z, w, d) {
+      const curbGeo = new THREE.BoxGeometry(w, 0.38, d);
+      const curb = new THREE.Mesh(curbGeo, concreteMat);
+      curb.position.set(x, 0.19, z);
+      curb.castShadow = true;
+      curb.receiveShadow = true;
+      scene.add(curb);
+      return curb;
+    }
+
+    // Sidewalk Paving Slabs
+    function addSidewalk(x, z, w, d) {
+      const swGeo = new THREE.BoxGeometry(w, 0.36, d);
+      const sw = new THREE.Mesh(swGeo, sidewalkMat);
+      sw.position.set(x, 0.18, z);
+      sw.receiveShadow = true;
+      scene.add(sw);
+      return sw;
+    }
+
+    // Curbs along West edge of Road
+    addExtrudedCurb(-ROAD_WIDTH / 2 - 0.25, 0, 0.5, 240);
+    addSidewalk(-ROAD_WIDTH / 2 - 2.5, 0, 4.0, 240);
+
+    // Curbs along East edge (before and after parking bay)
+    addExtrudedCurb(ROAD_WIDTH / 2 + 0.25, 65, 0.5, 50);
+    addSidewalk(ROAD_WIDTH / 2 + 2.5, 65, 4.0, 50);
+
+    addExtrudedCurb(ROAD_WIDTH / 2 + 8.25, 10, 0.5, 60); // Outer edge of parking bay
+    addSidewalk(ROAD_WIDTH / 2 + 10.5, 10, 4.0, 60);
+
+    addExtrudedCurb(ROAD_WIDTH / 2 + 0.25, -20, 0.5, 40);
+    addSidewalk(ROAD_WIDTH / 2 + 2.5, -20, 4.0, 40);
+
+    // -------------------------------------------------------------
+    // 4. CRISP ROAD MARKINGS & TEXAS MUTCD DETAILS
+    // -------------------------------------------------------------
+    function addRoadMarking(w, d, x, z, mat) {
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat);
+      m.rotation.x = -Math.PI / 2;
+      m.position.set(x, 0.04, z);
+      scene.add(m);
+      return m;
+    }
+
+    // Double Solid Yellow Centerline
+    addRoadMarking(0.15, 220, -0.15, 0, yellowPaintMat);
+    addRoadMarking(0.15, 220, 0.15, 0, yellowPaintMat);
+
+    // White Edge Fog Lines
+    addRoadMarking(0.15, 220, -ROAD_WIDTH / 2 + 0.4, 0, whitePaintMat);
+    addRoadMarking(0.15, 220, ROAD_WIDTH / 2 - 0.4, 0, whitePaintMat);
+
+    // Solid White Stop Bar (TTC § 544.010, Width 0.8m)
+    addRoadMarking(ROAD_WIDTH / 2 - 0.6, 0.8, ROAD_WIDTH / 4, STOP_BAR_Z, whitePaintMat);
+    addRoadMarking(ROAD_WIDTH / 2 - 0.6, 0.8, -ROAD_WIDTH / 4, STOP_BAR_Z, whitePaintMat);
+
+    // Continental High-Visibility Zebra Crosswalk (Z = -17 to -20)
+    for (let x = -ROAD_WIDTH / 2 + 0.8; x <= ROAD_WIDTH / 2 - 0.8; x += 1.3) {
+      addRoadMarking(0.65, 3.2, x, -18.5, whitePaintMat);
+    }
+
+    // 100-Foot Advance Signaling Marker Line (Z = 15.48m)
+    addRoadMarking(ROAD_WIDTH / 2 - 0.6, 0.35, ROAD_WIDTH / 4, 15.48, yellowPaintMat);
+
+    // Parallel Parking Stall (6 ft x 25 ft = 1.8m x 7.6m)
+    const STALL_X = ROAD_WIDTH / 2 + 3.8;
+    const STALL_Z = 10.0;
+    const STALL_W = 2.4;
+    const STALL_L = 7.6;
+
+    // Stall Painted Perimeter
+    addRoadMarking(STALL_W, 0.15, STALL_X, STALL_Z - STALL_L / 2, whitePaintMat);
+    addRoadMarking(STALL_W, 0.15, STALL_X, STALL_Z + STALL_L / 2, whitePaintMat);
+    addRoadMarking(0.15, STALL_L, STALL_X - STALL_W / 2, STALL_Z, whitePaintMat);
+
+    // 4 High-Detail 3D Traffic Cones with Weighted Bases
+    function buildTrafficCone(x, z) {
+      const coneGroup = new THREE.Group();
+      // Weighted rubber square base
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.9 });
+      const base = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.08, 0.7), baseMat);
+      base.position.y = 0.04;
+      base.castShadow = true;
+      coneGroup.add(base);
+
+      // Fluorescent Orange Cone Body
+      const orangeMat = new THREE.MeshStandardMaterial({ color: 0xEA580C, roughness: 0.35, metalness: 0.1 });
+      const cone = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.95, 16), orangeMat);
+      cone.position.y = 0.52;
+      cone.castShadow = true;
+      coneGroup.add(cone);
+
+      // White Retroreflective Band
+      const bandMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.2, metalness: 0.3 });
+      const band = new THREE.Mesh(new THREE.CylinderGeometry(0.21, 0.24, 0.22, 16), bandMat);
+      band.position.y = 0.50;
+      coneGroup.add(band);
+
+      coneGroup.position.set(x, 0, z);
+      scene.add(coneGroup);
+      return coneGroup;
+    }
+    buildTrafficCone(STALL_X - STALL_W / 2 + 0.3, STALL_Z - STALL_L / 2);
+    buildTrafficCone(STALL_X + STALL_W / 2 - 0.3, STALL_Z - STALL_L / 2);
+    buildTrafficCone(STALL_X - STALL_W / 2 + 0.3, STALL_Z + STALL_L / 2);
+    buildTrafficCone(STALL_X + STALL_W / 2 - 0.3, STALL_Z + STALL_L / 2);
+
+    // -------------------------------------------------------------
+    // 5. 3D BUILDINGS, DPS MEGA CENTER & STREET INFRASTRUCTURE
+    // -------------------------------------------------------------
+    // Two-Story Texas DPS Mega Center Administration Building
+    function buildDPSMegaCenter(x, z) {
+      const bldgGroup = new THREE.Group();
+      
+      // Main Limestone Facade Block
+      const wallMat = new THREE.MeshStandardMaterial({ color: 0xD1D5DB, roughness: 0.75, metalness: 0.1 });
+      const mainBlock = new THREE.Mesh(new THREE.BoxGeometry(38, 9.0, 20), wallMat);
+      mainBlock.position.set(0, 4.5, 0);
+      mainBlock.castShadow = true;
+      mainBlock.receiveShadow = true;
+      bldgGroup.add(mainBlock);
+
+      // Dark Slate Architectural Portico
+      const porticoMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, roughness: 0.5 });
+      const portico = new THREE.Mesh(new THREE.BoxGeometry(16, 8.5, 3.5), porticoMat);
+      portico.position.set(0, 4.25, 9.5);
+      portico.castShadow = true;
+      bldgGroup.add(portico);
+
+      // Glass Curtain Wall Windows (Array of reflective glass panes)
+      const glassMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, roughness: 0.08, metalness: 0.92 });
+      for (let f = 0; f < 2; f++) {
+        for (let w = -4; w <= 4; w++) {
+          if (Math.abs(w) > 1) { // Skip behind portico
+            const win = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.6), glassMat);
+            win.position.set(w * 3.8, 2.5 + f * 4.0, 10.05);
+            bldgGroup.add(win);
+          }
+        }
+      }
+
+      // Entrance Double Glass Doors
+      const door = new THREE.Mesh(new THREE.PlaneGeometry(4.0, 3.2), glassMat);
+      door.position.set(0, 1.6, 11.3);
+      bldgGroup.add(door);
+
+      // Large 3D Texas DPS Signage
+      const signCanvas = document.createElement('canvas');
+      signCanvas.width = 512; signCanvas.height = 128;
+      const sctx = signCanvas.getContext('2d');
+      sctx.fillStyle = '#1E293B'; sctx.fillRect(0, 0, 512, 128);
+      sctx.strokeStyle = '#E87522'; sctx.lineWidth = 6; sctx.strokeRect(4, 4, 504, 120);
+      sctx.fillStyle = '#FFFFFF'; sctx.font = 'bold 28px sans-serif'; sctx.textAlign = 'center';
+      sctx.fillText('TEXAS DPS TESTING CENTER', 256, 48);
+      sctx.fillStyle = '#F59E0B'; sctx.font = 'bold 20px monospace';
+      sctx.fillText('DRIVER LICENSE DIVISION', 256, 88);
+
+      const signTex = new THREE.CanvasTexture(signCanvas);
+      const signMesh = new THREE.Mesh(new THREE.PlaneGeometry(12, 3.0), new THREE.MeshStandardMaterial({ map: signTex, roughness: 0.3 }));
+      signMesh.position.set(0, 7.5, 11.35);
+      bldgGroup.add(signMesh);
+
+      bldgGroup.position.set(x, 0, z);
+      scene.add(bldgGroup);
+      return bldgGroup;
+    }
+    buildDPSMegaCenter(-ROAD_WIDTH / 2 - 25, 10);
+
+    // DPS Vehicle Inspection Garage
+    function buildInspectionGarage(x, z) {
+      const gGroup = new THREE.Group();
+      const bMat = new THREE.MeshStandardMaterial({ color: 0x94A3B8, roughness: 0.65 });
+      const garage = new THREE.Mesh(new THREE.BoxGeometry(22, 6.5, 16), bMat);
+      garage.position.set(0, 3.25, 0);
+      garage.castShadow = true;
+      garage.receiveShadow = true;
+      gGroup.add(garage);
+
+      // Roll-up Bay Doors
+      const rollMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.4, metalness: 0.5 });
+      const door1 = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 4.2), rollMat);
+      door1.position.set(-6, 2.1, 8.05);
+      const door2 = door1.clone();
+      door2.position.x = 6;
+      gGroup.add(door1, door2);
+
+      gGroup.position.set(x, 0, z);
+      scene.add(gGroup);
+    }
+    buildInspectionGarage(-ROAD_WIDTH / 2 - 20, -50);
+
+    // Surrounding Commercial Office Blocks to frame track
+    function buildCommercialBlock(x, z, w, h, d, color) {
+      const bg = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshStandardMaterial({ color: color, roughness: 0.7 }));
+      bg.position.set(x, h / 2, z);
+      bg.castShadow = true;
+      bg.receiveShadow = true;
+      scene.add(bg);
+    }
+    buildCommercialBlock(ROAD_WIDTH / 2 + 35, -40, 26, 12, 30, 0x334155);
+    buildCommercialBlock(ROAD_WIDTH / 2 + 38, 45, 28, 14, 32, 0x1E293B);
+
+    // Procedural 3D Shade Trees (Bark trunk + layered foliage)
+    function addTree(x, z) {
+      const treeGroup = new THREE.Group();
+      const trunkMat = new THREE.MeshStandardMaterial({ color: 0x4A3728, roughness: 0.9 });
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 3.2, 8), trunkMat);
+      trunk.position.y = 1.6;
+      trunk.castShadow = true;
+      treeGroup.add(trunk);
+
+      const leafMat = new THREE.MeshStandardMaterial({ color: 0x1E4620, roughness: 0.85 });
+      const c1 = new THREE.Mesh(new THREE.DodecahedronGeometry(1.6), leafMat); c1.position.y = 3.6; c1.castShadow = true;
+      const c2 = new THREE.Mesh(new THREE.DodecahedronGeometry(1.2), leafMat); c2.position.set(0.6, 4.2, -0.4); c2.castShadow = true;
+      treeGroup.add(c1, c2);
+
+      treeGroup.position.set(x, 0, z);
+      scene.add(treeGroup);
+    }
+    for (let tz = -80; tz <= 90; tz += 25) {
+      addTree(-ROAD_WIDTH / 2 - 6.5, tz);
+      addTree(ROAD_WIDTH / 2 + 16.0, tz);
+    }
+
+    // High-Mast Floodlight Towers on Galvanized Lattice Poles
+    function addFloodlightTower(x, z) {
+      const tg = new THREE.Group();
+      const steelMat = new THREE.MeshStandardMaterial({ color: 0x94A3B8, metalness: 0.8, roughness: 0.3 });
+      const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.35, 14, 8), steelMat);
+      mast.position.y = 7;
+      mast.castShadow = true;
+      tg.add(mast);
+
+      // Head bracket with light lamps
+      const head = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.8, 0.6), steelMat);
+      head.position.set(0, 14, 0);
+      tg.add(head);
+
+      tg.position.set(x, 0, z);
+      scene.add(tg);
+    }
+    addFloodlightTower(-ROAD_WIDTH / 2 - 8, -10);
+    addFloodlightTower(-ROAD_WIDTH / 2 - 8, 40);
+    addFloodlightTower(ROAD_WIDTH / 2 + 18, -10);
+    addFloodlightTower(ROAD_WIDTH / 2 + 18, 40);
+
+    // -------------------------------------------------------------
+    // 6. GOOD TRAFFIC LIGHTS & MUTCD REGULATORY SIGNS
+    // -------------------------------------------------------------
+    // Cantilevered Steel Mast-Arm Signal at Cross Street
+    const mastGroup = new THREE.Group();
+    const steelMat = new THREE.MeshStandardMaterial({ color: 0x94A3B8, metalness: 0.85, roughness: 0.25 });
+    
+    // Vertical pole at East curb (Z = -22m)
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 7.5, 16), steelMat);
+    pole.position.set(ROAD_WIDTH / 2 + 0.8, 3.75, -20);
+    pole.castShadow = true;
+    mastGroup.add(pole);
+
+    // Cantilever arm reaching over lanes
+    const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.22, 12, 16), steelMat);
+    arm.rotation.z = Math.PI / 2;
+    arm.position.set(1.5, 6.8, -20);
+    arm.castShadow = true;
+    mastGroup.add(arm);
+
+    // 3-Section Signal Head Housing with Hood Visors
+    const sigHead = new THREE.Mesh(new THREE.BoxGeometry(0.65, 1.8, 0.45), new THREE.MeshStandardMaterial({ color: 0x1E293B }));
+    sigHead.position.set(ROAD_WIDTH / 4, 5.8, -20);
+    mastGroup.add(sigHead);
+
+    // Yellow retroreflective backplate border
+    const border = new THREE.Mesh(new THREE.BoxGeometry(0.85, 2.0, 0.05), new THREE.MeshStandardMaterial({ color: 0xFACC15 }));
+    border.position.set(ROAD_WIDTH / 4, 5.8, -20.25);
+    mastGroup.add(border);
+
+    // Red, Yellow, Green Lenses
+    const redLens = new THREE.Mesh(new THREE.CircleGeometry(0.2, 16), new THREE.MeshStandardMaterial({ color: 0xEF4444, emissive: 0xEF4444, emissiveIntensity: 2.2 }));
+    redLens.position.set(ROAD_WIDTH / 4, 6.35, -19.76);
+    mastGroup.add(redLens);
+
+    const redLight = new THREE.PointLight(0xEF4444, 1.5, 20);
+    redLight.position.set(ROAD_WIDTH / 4, 6.35, -18.5);
+    mastGroup.add(redLight);
+
+    const yelLens = new THREE.Mesh(new THREE.CircleGeometry(0.2, 16), new THREE.MeshBasicMaterial({ color: 0x451A03 }));
+    yelLens.position.set(ROAD_WIDTH / 4, 5.8, -19.76);
+    mastGroup.add(yelLens);
+
+    const grnLens = new THREE.Mesh(new THREE.CircleGeometry(0.2, 16), new THREE.MeshBasicMaterial({ color: 0x064E3B }));
+    grnLens.position.set(ROAD_WIDTH / 4, 5.25, -19.76);
+    mastGroup.add(grnLens);
+
+    scene.add(mastGroup);
+
+    // MUTCD R1-1 Octagonal STOP Sign at White Stop Bar
+    function buildStopSign(x, z) {
+      const sg = new THREE.Group();
+      const p = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 3.2, 8), steelMat);
+      p.position.y = 1.6;
+      p.castShadow = true;
+      sg.add(p);
+
+      // Stop Octagon Canvas Texture
+      const sc = document.createElement('canvas');
+      sc.width = 256; sc.height = 256;
+      const sctx = sc.getContext('2d');
+      sctx.fillStyle = '#DC2626';
+      sctx.beginPath();
+      const r = 110, cx = 128, cy = 128;
+      for (let i = 0; i < 8; i++) {
+        const a = (i * Math.PI) / 4 + Math.PI / 8;
+        const px = cx + r * Math.cos(a);
+        const py = cy + r * Math.sin(a);
+        if (i === 0) sctx.moveTo(px, py); else sctx.lineTo(px, py);
+      }
+      sctx.closePath();
+      sctx.fill();
+      sctx.strokeStyle = '#FFFFFF'; sctx.lineWidth = 8; sctx.stroke();
+      sctx.fillStyle = '#FFFFFF'; sctx.font = 'bold 58px sans-serif'; sctx.textAlign = 'center';
+      sctx.fillText('STOP', 128, 148);
+
+      const signTex = new THREE.CanvasTexture(sc);
+      const signMesh = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.2), new THREE.MeshStandardMaterial({ map: signTex, roughness: 0.3 }));
+      signMesh.position.set(0, 2.6, 0.08);
+      sg.add(signMesh);
+
+      sg.position.set(x, 0, z);
+      scene.add(sg);
+    }
+    buildStopSign(ROAD_WIDTH / 2 + 0.8, STOP_BAR_Z);
+
+    // -------------------------------------------------------------
+    // 7. PROPERLY SHAPED CAR (MASTER-CRAFTED HIGH-POLY PBR VEHICLE)
+    // -------------------------------------------------------------
+    function buildDetailedVehicle(paintColorHex) {
+      const carGroup = new THREE.Group();
+
+      // Materials
+      const bodyPaintMat = new THREE.MeshStandardMaterial({
+        color: paintColorHex,
+        roughness: 0.22,
+        metalness: 0.78
+      });
+      const darkTrimMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.6 });
+      const glassMat = new THREE.MeshStandardMaterial({
+        color: 0x0F172A,
+        roughness: 0.06,
+        metalness: 0.94
+      });
+      const chromeMat = new THREE.MeshStandardMaterial({ color: 0xE2E8F0, roughness: 0.15, metalness: 0.95 });
+      const brakeLightMat = new THREE.MeshStandardMaterial({
+        color: 0xDC2626,
+        emissive: 0x991B1B,
+        emissiveIntensity: 0.45
+      });
+      const turnSignalMat = new THREE.MeshStandardMaterial({
+        color: 0xF59E0B,
+        emissive: 0x000000,
+        emissiveIntensity: 0.0
+      });
+
+      // 1. Lower Sculpted Chassis
+      const chassisGeo = new THREE.BoxGeometry(2.1, 0.55, 4.7);
+      const chassis = new THREE.Mesh(chassisGeo, bodyPaintMat);
+      chassis.position.y = 0.55;
+      chassis.castShadow = true;
+      chassis.receiveShadow = true;
+      carGroup.add(chassis);
+
+      // 2. Beveled Hood Slope
+      const hoodGeo = new THREE.BoxGeometry(2.0, 0.22, 1.4);
+      const hood = new THREE.Mesh(hoodGeo, bodyPaintMat);
+      hood.position.set(0, 0.82, -1.45);
+      hood.rotation.x = 0.08;
+      hood.castShadow = true;
+      carGroup.add(hood);
+
+      // 3. Passenger Cabin Greenhouse (Tapered)
+      const cabinGeo = new THREE.BoxGeometry(1.85, 0.68, 2.4);
+      const cabin = new THREE.Mesh(cabinGeo, bodyPaintMat);
+      cabin.position.set(0, 1.15, 0.1);
+      cabin.castShadow = true;
+      carGroup.add(cabin);
+
+      // 4. Sloped Windshield (Front)
+      const frontWinGeo = new THREE.PlaneGeometry(1.75, 0.85);
+      const frontWin = new THREE.Mesh(frontWinGeo, glassMat);
+      frontWin.position.set(0, 1.15, -1.05);
+      frontWin.rotation.x = -Math.PI / 3.4;
+      carGroup.add(frontWin);
+
+      // 5. Sloped Rear Window
+      const rearWinGeo = new THREE.PlaneGeometry(1.75, 0.75);
+      const rearWin = new THREE.Mesh(rearWinGeo, glassMat);
+      rearWin.position.set(0, 1.18, 1.25);
+      rearWin.rotation.x = Math.PI / 3.8;
+      carGroup.add(rearWin);
+
+      // 6. Side Glass Windows
+      const sideWinGeo = new THREE.PlaneGeometry(2.2, 0.5);
+      const leftWin = new THREE.Mesh(sideWinGeo, glassMat);
+      leftWin.position.set(-0.93, 1.15, 0.1);
+      leftWin.rotation.y = -Math.PI / 2;
+      const rightWin = leftWin.clone();
+      rightWin.position.x = 0.93;
+      rightWin.rotation.y = Math.PI / 2;
+      carGroup.add(leftWin, rightWin);
+
+      // 7. Front Fascia Grille & Chrome Texas License Plate
+      const grille = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.25, 0.1), darkTrimMat);
+      grille.position.set(0, 0.5, -2.36);
+      carGroup.add(grille);
+
+      const plateMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.3 });
+      const plate = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.22, 0.04), plateMat);
+      plate.position.set(0, 0.35, -2.38);
+      carGroup.add(plate);
+
+      // 8. Dual Projector Headlights with SpotLight Beams
+      const hlCover = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.18, 0.1), new THREE.MeshBasicMaterial({ color: 0xFFFBEB }));
+      hlCover.position.set(-0.75, 0.58, -2.35);
+      const hrCover = hlCover.clone();
+      hrCover.position.x = 0.75;
+      carGroup.add(hlCover, hrCover);
+
+      const headlightSpot = new THREE.SpotLight(0xFFFDE7, 1.9, 45, Math.PI / 7, 0.35, 1);
+      headlightSpot.position.set(0, 0.58, -2.3);
+      const spotTarget = new THREE.Object3D();
+      spotTarget.position.set(0, 0, -25);
+      carGroup.add(spotTarget);
+      headlightSpot.target = spotTarget;
+      carGroup.add(headlightSpot);
+
+      // 9. Rear LED Taillight Lightbars (Dynamic Brake Emissive)
+      const tlLeft = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.18, 0.1), brakeLightMat);
+      tlLeft.position.set(-0.75, 0.65, 2.36);
+      const tlRight = tlLeft.clone();
+      tlRight.position.x = 0.75;
+      carGroup.add(tlLeft, tlRight);
+
+      // Active Brake PointLight
+      const brakePointLight = new THREE.PointLight(0xEF4444, 0.0, 10);
+      brakePointLight.position.set(0, 0.65, 2.8);
+      carGroup.add(brakePointLight);
+
+      // 10. Amber Turn Signals (Front & Rear)
+      const sigFR = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.12, 0.08), turnSignalMat);
+      sigFR.position.set(0.98, 0.58, -2.32);
+      const sigRR = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.12, 0.08), turnSignalMat);
+      sigRR.position.set(0.98, 0.65, 2.34);
+      carGroup.add(sigFR, sigRR);
+
+      // 11. Side Mirrors
+      const mirrorMat = new THREE.MeshStandardMaterial({ color: paintColorHex, roughness: 0.3 });
+      const mirrorLeft = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.14, 0.22), mirrorMat);
+      mirrorLeft.position.set(-1.05, 0.95, -0.6);
+      const mirrorRight = mirrorLeft.clone();
+      mirrorRight.position.x = 1.05;
+      carGroup.add(mirrorLeft, mirrorRight);
+
+      // 12. Four Detailed 3D Wheels with Rubber Tread & Alloy 5-Spoke Rims
+      const wheels = [];
+      const frontSteerGroups = [];
+
+      function createWheelMesh(isFront, x, z) {
+        const steerGroup = new THREE.Group();
+        steerGroup.position.set(x, 0.38, z);
+
+        const wheelGroup = new THREE.Group();
+
+        // Rubber Tire (Charcoal with treads)
+        const tireMat = new THREE.MeshStandardMaterial({ color: 0x1E2530, roughness: 0.85 });
+        const tire = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.28, 20), tireMat);
+        tire.rotation.z = Math.PI / 2;
+        tire.castShadow = true;
+        wheelGroup.add(tire);
+
+        // Alloy 5-Spoke Rim
+        const rimMat = new THREE.MeshStandardMaterial({ color: 0xCBD5E1, metalness: 0.88, roughness: 0.22 });
+        const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.29, 16), rimMat);
+        hub.rotation.z = Math.PI / 2;
+        wheelGroup.add(hub);
+
+        // Disc Brake Rotor & Red Caliper
+        const rotorMat = new THREE.MeshStandardMaterial({ color: 0x94A3B8, metalness: 0.9, roughness: 0.2 });
+        const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.15, 16), rotorMat);
+        rotor.rotation.z = Math.PI / 2;
+        wheelGroup.add(rotor);
+
+        const caliperMat = new THREE.MeshStandardMaterial({ color: 0xDC2626, roughness: 0.3 });
+        const caliper = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.12, 0.14), caliperMat);
+        caliper.position.set(0, 0.12, 0);
+        wheelGroup.add(caliper);
+
+        steerGroup.add(wheelGroup);
+        carGroup.add(steerGroup);
+
+        wheels.push(wheelGroup);
+        if (isFront) frontSteerGroups.push(steerGroup);
+      }
+
+      // Front Wheels (Steerable)
+      createWheelMesh(true, -1.05, -1.45);
+      createWheelMesh(true, 1.05, -1.45);
+      // Rear Wheels
+      createWheelMesh(false, -1.05, 1.45);
+      createWheelMesh(false, 1.05, 1.45);
+
+      // Contact Drop Shadow
+      const shadowMat = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.5 });
+      const contactShadow = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 4.8), shadowMat);
+      contactShadow.rotation.x = -Math.PI / 2;
+      contactShadow.position.y = 0.03;
+      carGroup.add(contactShadow);
+
+      return {
+        group: carGroup,
+        brakeLightMat,
+        brakePointLight,
+        turnSignalMat,
+        wheels,
+        frontSteerGroups
+      };
+    }
+
+    // Student Hero Car (Texas Royal Blue Sedan)
+    const egoCar = buildDetailedVehicle(0x1E3A8A);
+    scene.add(egoCar.group);
+
+    // Dynamic 3D Volumetric Observation Scan Cone
+    const scanConeGeo = new THREE.ConeGeometry(7, 22, 16, 1, true);
+    scanConeGeo.rotateX(Math.PI / 2);
+    const scanConeMat = new THREE.MeshBasicMaterial({
+      color: 0xE87522,
+      transparent: true,
+      opacity: 0.22,
+      wireframe: true
+    });
+    const scanCone = new THREE.Mesh(scanConeGeo, scanConeMat);
+    scanCone.position.set(0, 0.8, -12);
+    scanCone.visible = false;
+    egoCar.group.add(scanCone);
+
+    // -------------------------------------------------------------
+    // 8. CHOREOGRAPHY, SCENARIOS & VEHICLE KINEMATICS
+    // -------------------------------------------------------------
+    let activeScenario = 'control';
+    let isPlaying = true;
+    let simTime = 0.0;
+    const duration = 6.0;
+
+    function resetSimulation() {
+      simTime = 0.0;
+      egoCar.frontSteerGroups.forEach(g => g.rotation.y = 0);
+      egoCar.brakeLightMat.emissiveIntensity = 0.45;
+      egoCar.brakePointLight.intensity = 0.0;
+      egoCar.turnSignalMat.emissiveIntensity = 0.0;
+    }
+
+    function updateSimulation(dt) {
+      if (!isPlaying) return;
+      simTime = (simTime + dt) % duration;
+      const progress = simTime / duration;
+
+      const LANE_X = ROAD_WIDTH / 4; // 3.5m center of right lane
+
+      if (activeScenario === 'control') {
+        // Capability 1: Threshold Braking (20 MPH to zero at stop bar Z = -15)
+        scanCone.visible = false;
+        egoCar.frontSteerGroups.forEach(g => g.rotation.y = 0);
+        egoCar.turnSignalMat.emissiveIntensity = 0.0;
+
+        // TEXAS STATUTORY COMPLIANCE (TTC § 544.010 & § 521.1601):
+        // Front bumper MUST come to a full stop BEFORE the solid white stop bar line.
+        // STOP_BAR_Z = -15.0m; Stop bar front edge = -14.6m.
+        // Front bumper offset = 2.35m in front of vehicle center.
+        // Target bumper stop = -13.8m (clean 0.8m / 2.6 ft cushion before line).
+        // Target vehicle center stop = -13.8m + 2.35m = -11.45m.
+        const LEGAL_STOP_CENTER_Z = -11.45;
+
+        if (progress < 0.55) {
+          // Decelerating smoothly into legal stop zone
+          const zPos = 24.0 - (progress / 0.55) * (24.0 - LEGAL_STOP_CENTER_Z);
+          egoCar.group.position.set(LANE_X, 0, zPos);
+          if (progress > 0.28) {
+            egoCar.brakeLightMat.emissiveIntensity = 3.5;
+            egoCar.brakePointLight.intensity = 2.2;
+          } else {
+            egoCar.brakeLightMat.emissiveIntensity = 0.45;
+            egoCar.brakePointLight.intensity = 0.0;
+          }
+        } else {
+          // Complete statutory halt safely BEHIND the stop line (0 ft overhang)
+          egoCar.group.position.set(LANE_X, 0, LEGAL_STOP_CENTER_Z);
+          egoCar.brakeLightMat.emissiveIntensity = 2.4;
+          egoCar.brakePointLight.intensity = 1.5;
+        }
+
+      } else if (activeScenario === 'observation') {
+        // Capability 2: 12-15s Scan Cone Hazard Sweep
+        scanCone.visible = true;
+        egoCar.frontSteerGroups.forEach(g => g.rotation.y = 0);
+        egoCar.group.position.set(LANE_X, 0, 15.0 - progress * 25.0);
+        scanCone.rotation.y = Math.sin(simTime * 2.8) * 0.35;
+        egoCar.brakeLightMat.emissiveIntensity = 0.45;
+        egoCar.brakePointLight.intensity = 0.0;
+        egoCar.turnSignalMat.emissiveIntensity = 0.0;
+
+      } else if (activeScenario === 'positioning') {
+        // Capability 3: 6x25 ft Parallel Parking Maneuver
+        scanCone.visible = false;
+        const STALL_CENTER_X = ROAD_WIDTH / 2 + 3.8;
+        const STALL_CENTER_Z = 10.0;
+
+        if (progress < 0.25) {
+          // Pull alongside stall
+          const t = progress / 0.25;
+          egoCar.group.position.set(LANE_X, 0, 18.0 - t * 8.0);
+          egoCar.group.rotation.y = 0;
+          egoCar.frontSteerGroups.forEach(g => g.rotation.y = 0);
+          egoCar.brakeLightMat.emissiveIntensity = 0.45;
+        } else if (progress < 0.65) {
+          // Reverse S-curve into stall
+          const t = (progress - 0.25) / 0.40;
+          const steerAngle = Math.sin(t * Math.PI * 2) * 0.45;
+          egoCar.frontSteerGroups.forEach(g => g.rotation.y = -steerAngle);
+          
+          egoCar.group.position.set(
+            LANE_X + t * (STALL_CENTER_X - LANE_X),
+            0,
+            10.0 + (1 - t) * 2.0
+          );
+          egoCar.group.rotation.y = -Math.sin(t * Math.PI) * 0.32;
+          egoCar.brakeLightMat.emissiveIntensity = 1.8;
+        } else {
+          // Final rest parallel to curb within 12 inches
+          egoCar.group.position.set(STALL_CENTER_X, 0, STALL_CENTER_Z);
+          egoCar.group.rotation.y = 0;
+          egoCar.frontSteerGroups.forEach(g => g.rotation.y = 0);
+          egoCar.brakeLightMat.emissiveIntensity = 2.0;
+        }
+
+      } else if (activeScenario === 'signaling') {
+        // Capability 4: 100-Ft Advance Continuous Turn Signal (TTC § 545.104)
+        scanCone.visible = false;
+        egoCar.frontSteerGroups.forEach(g => g.rotation.y = 0);
+        egoCar.group.position.set(LANE_X, 0, 32.0 - progress * 45.0);
+        
+        // Continuous 1.5 Hz Amber Blinker
+        const isBlinking = Math.floor(simTime * 3.0) % 2 === 0;
+        egoCar.turnSignalMat.emissiveIntensity = isBlinking ? 3.5 : 0.0;
+        egoCar.brakeLightMat.emissiveIntensity = (progress > 0.6) ? 3.0 : 0.45;
+      }
+
+      // Rotate all 4 wheels with forward/backward velocity
+      const wheelSpeed = dt * 10;
+      egoCar.wheels.forEach(w => w.rotation.x -= wheelSpeed);
+
+      // Broadcast time update to host lesson dock
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          event: 'timeUpdate',
+          currentTime: simTime,
+          scenario: activeScenario
+        }, '*');
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 9. CINEMATIC CAMERA CHOREOGRAPHY
+    // -------------------------------------------------------------
+    let currentCamIndex = 0;
+    const camPresets = [
+      { name: 'Director Drone', pos: [0, 24, 38], target: [0, 1.2, 0] },
+      { name: 'Tactical Chase', pos: [ROAD_WIDTH / 4, 3.8, 12], target: [ROAD_WIDTH / 4, 1.2, -8] },
+      { name: 'Isometric Track', pos: [26, 20, 20], target: [0, 1.2, 0] },
+      { name: 'Top-Down Proving', pos: [0, 60, 0], target: [0, 0, 0] }
+    ];
+
+    function switchCamera() {
+      currentCamIndex = (currentCamIndex + 1) % camPresets.length;
+      const p = camPresets[currentCamIndex];
+      camera.position.set(p.pos[0], p.pos[1], p.pos[2]);
+      controls.target.set(p.target[0], p.target[1], p.target[2]);
+      controls.update();
+    }
+
+    // -------------------------------------------------------------
+    // 10. POSTMESSAGE INTERFACE (HOST LESSON DOCK INTEGRATION)
+    // -------------------------------------------------------------
+    window.addEventListener('message', function(e) {
+      if (!e.data) return;
+      if (e.data.action === 'seek') {
+        simTime = Math.max(0, Math.min(duration, Number(e.data.time || 0)));
+      } else if (e.data.action === 'togglePlay') {
+        isPlaying = !isPlaying;
+      } else if (e.data.action === 'restart') {
+        resetSimulation();
+        isPlaying = true;
+      } else if (e.data.action === 'switchCamera') {
+        switchCamera();
+      } else if (e.data.action === 'setScenario') {
+        activeScenario = e.data.scenario || 'control';
+        resetSimulation();
+        isPlaying = true;
+      }
+    });
+
+    // -------------------------------------------------------------
+    // 11. ANIMATION RENDER LOOP & RESIZE HANDLING
+    // -------------------------------------------------------------
+    let lastTime = performance.now();
+    function animate() {
+      requestAnimationFrame(animate);
+      const now = performance.now();
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      controls.update();
+      updateSimulation(dt);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', function() {
+      const w = container.clientWidth || window.innerWidth;
+      const h = container.clientHeight || window.innerHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+
+    // Notify host container of successful initialization
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ event: 'simLoaded', duration: duration }, '*');
+    }
+  })();
+  </script>
+</body>
+</html>

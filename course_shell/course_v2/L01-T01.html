@@ -58,6 +58,17 @@
       --card-px: clamp(6px, 1.8vw, 10px);
       --card-py: clamp(8px, 2.2vw, 14px);
     }
+    
+    .compact-media-btn {
+      position: relative;
+      touch-action: manipulation;
+    }
+    .compact-media-btn::after {
+      content: '';
+      position: absolute;
+      inset: -7px;
+    }
+
     body {
       padding-left: var(--phone-gutter) !important;
       padding-right: var(--phone-gutter) !important;
@@ -248,15 +259,65 @@
         <p class="text-xs text-slate mt-0.5">Austin North Mega Center 4-Skill Graded Capabilities: Control, Observation, Positioning, and Signaling.</p>
       </div>
 
-      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
-      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+      <!-- Tier 2: 3D Simulation Viewport with Compact In-Screen Media Player HUD -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md select-none group">
         <iframe 
           id="sim-viewport-frame"
           src="../driving_rule_animations_suite/simulations/sim_l01_t01_dps_track.html?clean=1" 
-          class="w-full h-full border-0 block" 
+          class="w-full h-full border-0 block pointer-events-auto" 
           loading="lazy"
           title="3D DPS Road Test Track Viewport">
         </iframe>
+
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Progress Bar Track -->
+          <div 
+            id="media-progress-track" 
+            onclick="seekSimProgress(event)" 
+            title="Click or Tap to Scrub Timeline"
+            class="flex-1 relative h-1.5 bg-white/20 hover:bg-white/30 rounded-full overflow-hidden cursor-pointer py-1 -my-1">
+            <div class="h-1.5 bg-white/20 rounded-full overflow-hidden w-full">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 transition-all duration-75"></div>
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
       </div>
 
       <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
@@ -971,12 +1032,10 @@
         frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
       }
       if (actionName === 'togglePlay') {
-        const textEl = document.getElementById('sim-play-text');
-        const iconEl = document.getElementById('sim-play-icon');
-        if (textEl && iconEl) {
-          const isPaused = textEl.textContent.trim() === 'PAUSE';
-          textEl.textContent = isPaused ? 'PLAY' : 'PAUSE';
-          iconEl.textContent = isPaused ? 'play_arrow' : 'pause';
+        const mediaIcon = document.getElementById('media-play-icon');
+        if (mediaIcon) {
+          const isPaused = mediaIcon.textContent.trim() === 'play_arrow';
+          mediaIcon.textContent = isPaused ? 'pause' : 'play_arrow';
         }
       }
     }
@@ -1014,11 +1073,33 @@
       }
     }
 
+    function seekSimProgress(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+      const seekSec = ratio * 6.0;
+      dispatchSimAction('seek', { time: seekSec });
+    }
+
     window.addEventListener('message', (e) => {
       if (e.data && e.data.event === 'timeUpdate') {
         if (e.data.phase) {
           const phaseEl = document.getElementById('sim-telemetry-phase');
           if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (typeof e.data.currentTime === 'number') {
+          const cur = e.data.currentTime;
+          const dur = 6.0;
+          const pct = Math.min((cur / dur) * 100, 100);
+          const fill = document.getElementById('media-progress-fill');
+          const timeEl = document.getElementById('media-time-display');
+          if (fill) fill.style.width = pct + '%';
+          if (timeEl) {
+            const sec = Math.floor(cur);
+            timeEl.textContent = `0:0${sec} / 0:06`;
+          }
         }
       }
     });
