@@ -774,9 +774,11 @@
       egoCar.turnSignalMat.emissiveIntensity = 0.0;
     }
 
-    function updateSimulation(dt) {
-      if (!isPlaying) return;
-      simTime = (simTime + dt) % duration;
+    function updateSimulation(dt, force = false) {
+      if (!isPlaying && !force) return;
+      if (isPlaying && dt > 0) {
+        simTime = (simTime + dt) % duration;
+      }
       const progress = simTime / duration;
 
       const LANE_X = ROAD_WIDTH / 4; // 3.5m center of right lane
@@ -870,8 +872,10 @@
       }
 
       // Rotate all 4 wheels with forward/backward velocity
-      const wheelSpeed = dt * 10;
-      egoCar.wheels.forEach(w => w.rotation.x -= wheelSpeed);
+      if (isPlaying && dt > 0) {
+        const wheelSpeed = dt * 10;
+        egoCar.wheels.forEach(w => w.rotation.x -= wheelSpeed);
+      }
 
       // Broadcast time update to host lesson dock
       if (window.parent && window.parent !== window) {
@@ -909,6 +913,9 @@
       if (!e.data) return;
       if (e.data.action === 'seek') {
         simTime = Math.max(0, Math.min(duration, Number(e.data.time || 0)));
+        updateSimulation(0, true);
+        controls.update();
+        renderer.render(scene, camera);
       } else if (e.data.action === 'togglePlay') {
         isPlaying = !isPlaying;
       } else if (e.data.action === 'restart') {

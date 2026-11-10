@@ -293,14 +293,24 @@
             <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
           </button>
 
-          <!-- Interactive Progress Bar Track -->
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
           <div 
             id="media-progress-track" 
-            onclick="seekSimProgress(event)" 
-            title="Click or Tap to Scrub Timeline"
-            class="flex-1 relative h-1.5 bg-white/20 hover:bg-white/30 rounded-full overflow-hidden cursor-pointer py-1 -my-1">
-            <div class="h-1.5 bg-white/20 rounded-full overflow-hidden w-full">
-              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 transition-all duration-75"></div>
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
             </div>
           </div>
 
@@ -1034,15 +1044,62 @@
       }
     }
 
-    function seekSimProgress(e) {
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function updateScrubberUI(curSec, durSec = 6.0) {
+      const pct = Math.max(0, Math.min(100, (curSec / durSec) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeEl = document.getElementById('media-time-display');
+      const track = document.getElementById('media-progress-track');
+
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (track) track.setAttribute('aria-valuenow', curSec.toFixed(1));
+      if (timeEl) {
+        const sec = Math.min(6, Math.floor(curSec));
+        timeEl.textContent = `0:0${sec} / 0:06`;
+      }
+    }
+
+    function handleScrubberPointer(e) {
       const track = document.getElementById('media-progress-track');
       if (!track) return;
       const rect = track.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+      const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const offsetX = clientX - rect.left;
+      const ratio = Math.max(0, Math.min(1, offsetX / rect.width));
       const seekSec = ratio * 6.0;
+
+      updateScrubberUI(seekSec, 6.0);
       dispatchSimAction('seek', { time: seekSec });
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          handleScrubberPointer(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) {
+            handleScrubberPointer(e);
+          }
+        });
+        track.addEventListener('pointerup', (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch (_) {}
+          }
+        });
+        track.addEventListener('pointercancel', (e) => {
+          isScrubbing = false;
+        });
+      }
+    });
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.event === 'timeUpdate') {
@@ -1050,17 +1107,9 @@
           const phaseEl = document.getElementById('sim-telemetry-phase');
           if (phaseEl) phaseEl.textContent = e.data.phase;
         }
-        if (typeof e.data.currentTime === 'number') {
-          const cur = e.data.currentTime;
-          const dur = 6.0;
-          const pct = Math.min((cur / dur) * 100, 100);
-          const fill = document.getElementById('media-progress-fill');
-          const timeEl = document.getElementById('media-time-display');
-          if (fill) fill.style.width = pct + '%';
-          if (timeEl) {
-            const sec = Math.floor(cur);
-            timeEl.textContent = `0:0${sec} / 0:06`;
-          }
+        // Only update UI from simulation if user is NOT actively dragging scrubber
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
         }
       }
     });
