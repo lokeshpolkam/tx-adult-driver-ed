@@ -1047,17 +1047,7 @@
         }
       });
     
-      const tabBtns = document.querySelectorAll('#sim-scenario-tabs .scenario-tab');
-      tabBtns.forEach((btn, idx) => {
-        const idNum = idx + 1;
-        const curScen = (typeof scId !== 'undefined') ? scId : ((typeof scenNum !== 'undefined') ? scenNum : ((typeof scenario !== 'undefined') ? scenario : 1));
-        const active = (idNum === curScen || btn.id.endsWith(String(curScen)) || (typeof curScen === 'string' && btn.id.toLowerCase().includes(curScen.toLowerCase())));
-        if (active) {
-          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
-        } else {
-          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
-        }
-      });
+
     }
 
     function openSimFullscreen() {
