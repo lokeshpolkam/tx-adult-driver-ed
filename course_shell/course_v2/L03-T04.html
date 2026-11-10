@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Texas Prima Facie Speed Limits &amp; Stopping Distance Physics — Texas Adult Driver Ed (L03-T04)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF5EE',
+            'obsidian-bg': '#101311',
+            'obsidian-surface': '#171B19',
+            'obsidian-border': '#222724',
+            'obsidian-grid': '#1F2622',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A'
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'Consolas', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(217, 221, 216, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(217, 221, 216, 0.45) 1px, transparent 1px);
+    }
+    .bg-obsidian-grid {
+      background-size: 1.5rem 1.5rem;
+      background-image: 
+        linear-gradient(to right, #1F2622 1px, transparent 1px),
+        linear-gradient(to bottom, #1F2622 1px, transparent 1px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .touch-target {
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .touch-target, button, a {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+    a.touch-target {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      min-width: 48px;
+      box-sizing: border-box;
+    }
+
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      background: #D9DDD8;
+      border-radius: 4px;
+    }
+    input[type=range]::-moz-range-track {
+      width: 100%;
+      height: 8px;
+      background: #D9DDD8;
+      border-radius: 4px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+      background: #E87522;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    input[type=range]::-moz-range-thumb {
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+      background: #E87522;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="min-h-screen py-3 px-[var(--phone-gutter)] sm:px-[var(--phone-gutter)]">
+  <div class="max-w-md mx-auto space-y-2.5">
+
+    <!-- ========================================================= -->
+    <!-- 01. STICKY TOP TECHNICAL STATUS BAR                       -->
+    <!-- ========================================================= -->
+    
+
+    <!-- ========================================================= -->
+    <!-- 02. EDITORIAL HERO & STATUTORY FOUNDATION                 -->
+    <!-- ========================================================= -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 relative overflow-hidden bg-tech-grid fluid-card">
+      <!-- Engineering Corner Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <span>REF // ADE-L03-T04-SPEED-PHYSICS</span>
+        <span class="bg-surface-sub px-1.5 py-0.5 rounded border border-hairline">TDLR VALIDATED FRAMEWORK</span>
+      </div>
+
+      <!-- Statutory Subtitle & Chapter Badges -->
+      <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono uppercase text-slate">
+        <span class="text-safety font-bold">TTC &sect; 545.351</span>
+        <span>&bull;</span>
+        <span>TTC &sect; 545.352</span>
+        <span>&bull;</span>
+        <span>TTC &sect; 542.404</span>
+        <span>&bull;</span>
+        <span>16 TAC &sect; 84.500</span>
+      </div>
+
+      <h1 class="text-2xl font-bold text-carbon tracking-tight leading-tight">
+        Texas Prima Facie Speed Limits &amp; Stopping Distance Physics
+      </h1>
+      <p class="text-xs font-medium text-safety-deep font-mono tracking-wide uppercase">
+        Statutory Maximum Caps, The Basic Speed Rule &amp; AASHTO Braking Dynamics
+      </p>
+
+      <p class="text-xs text-slate leading-relaxed">
+        Under Texas law, statutory speed limits are <em>prima facie</em>—operating above them constitutes immediate legal evidence of an unlawful speed. Crucially, posted signs never grant an absolute right to travel at that speed: <strong>The Basic Speed Rule (TTC &sect; 545.351)</strong> mandates that your velocity must always be reasonable and prudent for existing weather, traffic, and road hazards. Understanding vehicle kinetic energy scaling is critical: because kinetic energy scales with the square of velocity (<span class="font-mono font-bold text-carbon">E<sub>k</sub> &prop; V<sup>2</sup></span>), doubling your speed quadruples your required braking distance.
+      </p>
+
+      <!-- Statutory Compact Callout Box -->
+      <div class="p-3 bg-safety-light border-l-4 border-safety rounded-r-xl space-y-1 text-xs">
+        <div class="flex items-center gap-1 text-[11px] font-mono font-bold text-safety uppercase tracking-wide">
+          <span class="material-symbols-outlined text-[15px]">verified_user</span>
+          <span>Texas Statutory Standard (The Basic Speed Rule — TTC &sect; 545.351):</span>
+        </div>
+        <p class="text-carbon leading-relaxed text-[11px] font-medium">
+          <em>&ldquo;An operator may not drive at a speed greater than is reasonable and prudent under the circumstances then existing.&rdquo;</em> A driver must control speed to avoid a collision with any person, vehicle, or conveyance on or entering the roadway. Driving 70 mph in torrential rain or blinding fog on a 70-mph highway is a criminal moving violation under Texas law.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 03. 3D DRIVING SIMULATION CONTAINER                       -->
+    <!-- ========================================================= -->
+        <!-- 03. 3D DRIVING SIMULATION: COMPLETE UI SEPARATION (PHONE-FIRST 360px-430px) -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <!-- Tier 1: Scenario Header (Off & Above Viewport) -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-bold text-carbon uppercase tracking-wider">3D DRIVING SIMULATION // EMBEDDED WEBGL</span>
+        </div>
+        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-sub text-safety-deep border border-hairline">
+          TTC § 545.157 • ADE-1317
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Texas Move Over & Slow Down Law // Highway Emergency Corridor</h2>
+        <p class="text-xs text-slate mt-0.5">Mandatory lane vacation and 20 MPH speed reduction approaching stopped emergency vehicles.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-[16/9] rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L03_T04_3d_city_simulation.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">LANE 2 VACATED // 12-FT SAFETY CUSHION</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-2 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="btn-scenario-1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Vacate Lane</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="btn-scenario-2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Slow 20 MPH</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY RULE 01 // VACATE ADJACENT LANE</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 545.157</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Vacate Lane Closest to Emergency Vehicle</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            On highways with two or more lanes in the same direction, operators approaching a stopped emergency vehicle with flashing lights must vacate the closest lane when safe.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">STATUTORY SANCTION:</span>
+            <span id="sim-card-metric" class="text-hazard font-bold">CLASS B MISDEMEANOR IF CRASH WITH INJURY</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 04. INTERACTIVE WIDGET 1: SPEED LIMIT & CAP CODEX SVG     -->
+    <!-- ========================================================= -->
+    <div class="bg-white border border-[#D9DDD8] rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3">
+      <!-- Technical Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-[#D9DDD8]">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-[#5A605C]">
+          <span class="w-2 h-2 rounded-full bg-[#E87522] animate-pulse"></span>
+          <span>CALIBRATION // PRIMA-FACIE-CODEX</span>
+        </div>
+        <span class="font-mono text-[10px] text-[#5A605C] bg-[#F6F7F5] px-2 py-0.5 rounded border border-[#D9DDD8]">
+          TTC &sect; 545.351 &bull; &sect; 545.352 &bull; &sect; 542.404
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-[#E87522] uppercase">INTERACTIVE CAD 01</span>
+        <h3 class="font-sans font-bold text-base text-[#191C1B] leading-tight">Texas Prima Facie Speed Limit &amp; Absolute Cap Codex</h3>
+        <p class="font-sans text-xs text-[#5A605C] mt-0.5">Select a Texas roadway classification or tap the dial ticks to inspect statutory speed caps and energy dissipation.</p>
+      </div>
+
+      <!-- SVG Speedometer Arc Dial Canvas -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex items-center justify-center">
+        <svg viewBox="0 0 360 250" class="w-full h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg" class="select-none pointer-events-none">
+          <!-- Dark Obsidian Instrument Bezel -->
+          <rect x="15" y="10" width="330" height="230" rx="14" fill="#101311" stroke="#222724" stroke-width="2" />
+          
+          <!-- Speedometer Outer Dial Arc -->
+          <path d="M 50 190 A 130 130 0 1 1 310 190" fill="none" stroke="#222724" stroke-width="16" stroke-linecap="round" />
+          
+          <!-- Active Gauge Color Arc (Dynamic) -->
+          <path id="gauge-active-arc" d="M 50 190 A 130 130 0 0 1 125 75" fill="none" stroke="#E87522" stroke-width="16" stroke-linecap="round" />
+
+          <!-- Speed Ticks & Numbers with Invisible Touch Envelopes -->
+          <!-- 0 mph -->
+          <text x="65" y="195" font-family="'JetBrains Mono', monospace" font-size="9" fill="#5A605C">0</text>
+
+          <!-- 15 (Alley) -->
+          <g class="cursor-pointer" onclick="selectSpeedCap('alley')">
+            <circle cx="62" cy="146" r="24" fill="transparent" />
+            <text x="58" y="150" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#D9DDD8">15</text>
+          </g>
+
+          <!-- 20 (School) -->
+          <g class="cursor-pointer" onclick="selectSpeedCap('school')">
+            <circle cx="80" cy="106" r="24" fill="transparent" />
+            <text x="75" y="110" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#BA1A1A">20</text>
+          </g>
+
+          <!-- 30 (Urban) -->
+          <g class="cursor-pointer" onclick="selectSpeedCap('urban')">
+            <circle cx="116" cy="68" r="24" fill="transparent" />
+            <text x="110" y="70" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#E87522">30</text>
+          </g>
+
+          <!-- 50 mph guide -->
+          <text x="175" y="55" font-family="'JetBrains Mono', monospace" font-size="9" fill="#5A605C">50</text>
+
+          <!-- 70 (Hwy) -->
+          <g class="cursor-pointer" onclick="selectSpeedCap('highway')">
+            <circle cx="250" cy="73" r="24" fill="transparent" />
+            <text x="245" y="75" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#D9DDD8">70</text>
+          </g>
+
+          <!-- 85 (SH 130) -->
+          <g class="cursor-pointer" onclick="selectSpeedCap('tollway')">
+            <circle cx="290" cy="126" r="24" fill="transparent" />
+            <text x="285" y="130" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#BA1A1A">85</text>
+          </g>
+
+          <!-- Center Digital Speed Readout -->
+          <circle cx="180" cy="155" r="45" fill="#171B19" stroke="#E87522" stroke-width="2" />
+          <text id="gauge-speed-num" x="180" y="158" font-family="'JetBrains Mono', monospace" font-size="30" font-weight="900" fill="#FFFFFF" text-anchor="middle">30</text>
+          <text x="180" y="174" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#E87522" text-anchor="middle">MPH</text>
+
+          <!-- Dynamic Gauge Needle (Pivot at 180, 155) -->
+          <g id="gauge-needle" transform="rotate(-65 180 155)" class="transition-transform duration-300">
+            <polygon points="177,155 183,155 180,50" fill="#E87522" />
+            <circle cx="180" cy="155" r="6" fill="#FFFFFF" />
+          </g>
+
+          <!-- Road Type Signboard Badge (In-Canvas Bottom Center) -->
+          <rect x="70" y="205" width="220" height="26" rx="6" fill="#171B19" stroke="#222724" stroke-width="1.5" />
+          <text id="gauge-zone-label" x="180" y="222" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#E87522" text-anchor="middle">URBAN DISTRICT STREET // 30 MPH</text>
+        </svg>
+      </div>
+
+      <!-- Speed Cap Selector Buttons (Guaranteed min-h-[48px] touch envelope) -->
+      <div class="grid grid-cols-5 gap-1.5 pt-2 border-t border-[#D9DDD8]">
+        <button type="button" onclick="selectSpeedCap('alley')" id="btn-speed-alley" class="touch-target min-h-[48px] px-1 py-1 rounded-lg border border-[#D9DDD8] bg-white text-center flex flex-col items-center justify-center transition-all">
+          <span class="font-mono text-xs font-bold text-[#191C1B]">15</span>
+          <span class="font-sans text-[9px] text-[#5A605C] leading-none mt-0.5">Alley/Beach</span>
+        </button>
+        <button type="button" onclick="selectSpeedCap('school')" id="btn-speed-school" class="touch-target min-h-[48px] px-1 py-1 rounded-lg border border-[#D9DDD8] bg-white text-center flex flex-col items-center justify-center transition-all">
+          <span class="font-mono text-xs font-bold text-[#BA1A1A]">20</span>
+          <span class="font-sans text-[9px] text-[#5A605C] leading-none mt-0.5">School Zone</span>
+        </button>
+        <button type="button" onclick="selectSpeedCap('urban')" id="btn-speed-urban" class="touch-target min-h-[48px] px-1 py-1 rounded-lg border-2 border-[#E87522] bg-[#FFF8F3] text-center flex flex-col items-center justify-center transition-all">
+          <span class="font-mono text-xs font-bold text-[#E87522]">30</span>
+          <span class="font-sans text-[9px] text-[#191C1B] font-semibold leading-none mt-0.5">Urban Dist</span>
+        </button>
+        <button type="button" onclick="selectSpeedCap('highway')" id="btn-speed-highway" class="touch-target min-h-[48px] px-1 py-1 rounded-lg border border-[#D9DDD8] bg-white text-center flex flex-col items-center justify-center transition-all">
+          <span class="font-mono text-xs font-bold text-[#191C1B]">70</span>
+          <span class="font-sans text-[9px] text-[#5A605C] leading-none mt-0.5">US/TX Hwy</span>
+        </button>
+        <button type="button" onclick="selectSpeedCap('tollway')" id="btn-speed-tollway" class="touch-target min-h-[48px] px-1 py-1 rounded-lg border border-[#D9DDD8] bg-white text-center flex flex-col items-center justify-center transition-all">
+          <span class="font-mono text-xs font-bold text-[#BA1A1A]">85</span>
+          <span class="font-sans text-[9px] text-[#5A605C] leading-none mt-0.5">SH 130 Toll</span>
+        </button>
+      </div>
+
+      <!-- Reactive Detail Panel -->
+      <div id="speed-detail-card" class="p-3.5 rounded-lg bg-[#F9FAF8] border border-[#D9DDD8] space-y-2">
+        <div class="flex items-center justify-between border-b border-[#D9DDD8] pb-1.5">
+          <span id="speed-badge" class="font-mono text-[11px] font-bold text-[#E87522] uppercase">URBAN DISTRICT // 30 MPH</span>
+          <span id="speed-statute" class="font-mono text-[10px] text-[#5A605C]">TTC &sect; 545.352(b)(1)</span>
+        </div>
+        <h4 id="speed-title" class="font-sans font-bold text-sm text-[#191C1B]">Unposted Prima Facie Urban Default</h4>
+        <p id="speed-desc" class="font-sans text-xs text-[#5A605C] leading-relaxed">
+          Applies to any street in an urban district (residential or business neighborhood) unless a different limit is officially signposted. Operating above 30 mph is prima facie evidence that the speed is not reasonable and prudent.
+        </p>
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-[#D9DDD8] text-[11px] font-mono">
+          <div class="bg-white p-2 rounded border border-[#D9DDD8]">
+            <div class="text-[#5A605C] text-[9px] uppercase">VELOCITY FOOT/SEC</div>
+            <div id="speed-m1" class="font-bold text-[#191C1B]">44.0 FT / SEC</div>
+          </div>
+          <div class="bg-white p-2 rounded border border-[#D9DDD8]">
+            <div class="text-[#5A605C] text-[9px] uppercase">KINETIC ENERGY FACTOR</div>
+            <div id="speed-m2" class="font-bold text-[#E87522]">1.0X BASELINE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- 05. STATUTORY DEEP DIVE: PRIMA FACIE VS BASIC SPEED RULE  -->
+    <!-- ========================================================= -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <div class="border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">LEGAL ARCHITECTURE</span>
+        <h2 class="text-base font-bold text-carbon leading-tight">Prima Facie Mechanics &amp; Statutory Enhancements</h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-2.5 text-xs text-slate">
+        <!-- Card 1: Meaning of Prima Facie -->
+        <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span class="font-bold text-carbon uppercase">PRIMA FACIE EVIDENCE</span>
+            <span class="text-safety font-bold">TTC &sect; 545.352</span>
+          </div>
+          <p class="text-carbon font-semibold text-xs leading-snug">Legal Presumption of Unlawfulness</p>
+          <p class="leading-relaxed">
+            In Texas, &ldquo;prima facie&rdquo; translates from Latin as &ldquo;at first face.&rdquo; Speeds exceeding the statutory or posted limit are legally presumed to be unreasonable and unlawful. The burden of proof shifts to the driver in municipal or county court to prove with clear evidence that the speed was safe given weather, visibility, and pavement conditions.
+          </p>
+        </div>
+
+        <!-- Card 2: 2011 HB 1353 Day/Night Parity -->
+        <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span class="font-bold text-carbon uppercase">DAY / NIGHT PARITY</span>
+            <span class="text-safety font-bold">TEXAS HB 1353 (2011)</span>
+          </div>
+          <p class="text-carbon font-semibold text-xs leading-snug">Abolition of Nighttime Speed Reductions</p>
+          <p class="leading-relaxed">
+            Prior to September 1, 2011, Texas enforced a 65-mph nighttime limit on rural numbered highways. House Bill 1353 repealed the night differential; the 70-mph speed limit applies uniformly day and night across passenger vehicles on numbered highways, unless altered by TxDOT minute order.
+          </p>
+        </div>
+
+        <!-- Card 3: School & Work Zone Doubled Fines -->
+        <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span class="font-bold text-hazard uppercase">PENALTY ENHANCEMENT</span>
+            <span class="text-hazard font-bold">TTC &sect; 542.404 &amp; &sect; 545.425</span>
+          </div>
+          <p class="text-carbon font-semibold text-xs leading-snug">Mandatory Doubled Fines &amp; Cell Phone Ban</p>
+          <p class="leading-relaxed">
+            Fines for speeding in an active school crossing zone or highway construction work zone with workers present are automatically <strong>DOUBLED</strong> by statute. Furthermore, TTC &sect; 545.425 prohibits using a portable wireless communication device in an active school zone unless the vehicle is completely stopped or an emergency hands-free device is employed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 06. INTERACTIVE WIDGET 2: STOPPING DISTANCE CALCULATOR    -->
+    <!-- ========================================================= -->
+    <div class="bg-white border border-[#D9DDD8] rounded-2xl p-4 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3">
+      <!-- Technical Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-[#D9DDD8]">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-[#5A605C]">
+          <span class="w-2 h-2 rounded-full bg-[#E87522] animate-pulse"></span>
+          <span>PHYSICS // STOPPING-DISTANCE-CALCULATOR</span>
+        </div>
+        <span class="font-mono text-[10px] text-[#5A605C] bg-[#F6F7F5] px-2 py-0.5 rounded border border-[#D9DDD8]">
+          AASHTO FORMULA &bull; TTC &sect; 545.062
+        </span>
+      </div>
+
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-[#E87522] uppercase">INTERACTIVE CAD 02</span>
+        <h3 class="font-sans font-bold text-base text-[#191C1B] leading-tight">Stopping Distance &amp; Weather Friction Calculator</h3>
+        <p class="font-sans text-xs text-[#5A605C] mt-0.5">Adjust vehicular speed and surface friction to calculate total stopping distance vs a 360-ft football field.</p>
+      </div>
+
+      <!-- SVG Physics Distance Telemetry Canvas -->
+      <div class="relative w-full max-w-[340px] mx-auto py-1 flex items-center justify-center">
+        <svg viewBox="0 0 360 260" class="w-full h-auto drop-shadow-sm select-none" xmlns="http://www.w3.org/2000/svg" class="select-none pointer-events-none">
+          <!-- Dark Technical Housing -->
+          <rect x="15" y="10" width="330" height="240" rx="12" fill="#171B19" stroke="#222724" stroke-width="1.5" />
+
+          <!-- Perception-Reaction Bar Header -->
+          <text x="30" y="32" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill="#E87522">PERCEPTION-REACTION (1.5s):</text>
+          <text id="svg-stop-pr-num" x="330" y="32" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#E87522" text-anchor="end">132 FT</text>
+          <!-- PR Distance Bar -->
+          <rect x="30" y="38" width="300" height="14" rx="4" fill="#222724" />
+          <rect id="svg-stop-pr-bar" x="30" y="38" width="100" height="14" rx="4" fill="#E87522" class="transition-all duration-200" />
+
+          <!-- Braking Distance Bar Header -->
+          <text x="30" y="74" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill="#BA1A1A">BRAKING DISTANCE (&mu;):</text>
+          <text id="svg-stop-brake-num" x="330" y="74" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#BA1A1A" text-anchor="end">160 FT</text>
+          <!-- Braking Distance Bar -->
+          <rect x="30" y="80" width="300" height="14" rx="4" fill="#222724" />
+          <rect id="svg-stop-brake-bar" x="30" y="80" width="120" height="14" rx="4" fill="#BA1A1A" class="transition-all duration-200" />
+
+          <!-- Total Stopping Distance Combined Bar -->
+          <text x="30" y="116" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill="#FFFFFF">TOTAL STOPPING DISTANCE:</text>
+          <text id="svg-stop-total-num" x="330" y="116" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="900" fill="#FFFFFF" text-anchor="end">292 FT</text>
+          <rect x="30" y="122" width="300" height="18" rx="5" fill="#222724" />
+          <rect id="svg-stop-total-bar" x="30" y="122" width="220" height="18" rx="5" fill="#1F6F43" class="transition-all duration-200" />
+
+          <!-- Football Field 360-Foot Benchmark Graphic -->
+          <rect x="30" y="165" width="300" height="42" rx="4" fill="#1C3827" stroke="#2ECC71" stroke-width="1.5" />
+          <!-- Field Yard Markings -->
+          <line x1="60" y1="165" x2="60" y2="207" stroke="#FFFFFF" stroke-width="1" opacity="0.6" />
+          <line x1="120" y1="165" x2="120" y2="207" stroke="#FFFFFF" stroke-width="1" opacity="0.4" />
+          <line x1="180" y1="165" x2="180" y2="207" stroke="#FFFFFF" stroke-width="1.5" />
+          <line x1="240" y1="165" x2="240" y2="207" stroke="#FFFFFF" stroke-width="1" opacity="0.4" />
+          <line x1="300" y1="165" x2="300" y2="207" stroke="#FFFFFF" stroke-width="1" opacity="0.6" />
+          <!-- Endzones -->
+          <rect x="30" y="165" width="30" height="42" fill="#BA1A1A" opacity="0.3" />
+          <rect x="300" y="165" width="30" height="42" fill="#3B82F6" opacity="0.3" />
+          <text x="180" y="190" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle">AMERICAN FOOTBALL FIELD (360 FT TOTAL)</text>
+
+          <!-- Vehicle Stopping Indicator Marker -->
+          <line id="svg-stop-marker-line" x1="250" y1="140" x2="250" y2="165" stroke="#F1C40F" stroke-width="2" stroke-dasharray="2 2" class="transition-all duration-200" />
+          <rect id="svg-stop-car-glyph" x="240" y="148" width="20" height="12" rx="2" fill="#E87522" stroke="#FFFFFF" stroke-width="1" class="transition-all duration-200" />
+
+          <!-- Status Comparison Banner -->
+          <text id="svg-stop-verdict" x="180" y="234" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#2ECC71" text-anchor="middle">FITS WITHIN 1 FOOTBALL FIELD (81%)</text>
+        </svg>
+      </div>
+
+      <!-- Interactive Controls: Speed Slider & Surface Selector Buttons -->
+      <div class="space-y-3 pt-2 border-t border-[#D9DDD8]">
+        <!-- Speed Range Slider -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-[#5A605C] uppercase font-bold">VEHICULAR SPEED:</span>
+            <span id="slider-speed-val" class="font-bold text-[#E87522] text-sm">60 MPH</span>
+          </div>
+          <div class="py-1">
+            <input type="range" id="speed-range-slider" min="20" max="70" step="10" value="60" oninput="updateStoppingCalc()" class="touch-target min-h-[48px] h-12 w-full bg-transparent appearance-none cursor-pointer accent-[#E87522]" />
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-[#5A605C]">
+            <span>20 mph</span>
+            <span>30 mph</span>
+            <span>40 mph</span>
+            <span>50 mph</span>
+            <span>60 mph</span>
+            <span>70 mph</span>
+          </div>
+        </div>
+
+        <!-- Road Surface Friction Toggle Buttons (Guaranteed min-h-[48px]) -->
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="selectFriction(0.75, 'dry')" id="btn-fric-dry" class="touch-target min-h-[48px] px-2 py-1.5 rounded-lg border-2 border-[#E87522] bg-[#FFF8F3] text-left flex items-center gap-1.5 transition-all">
+            <span class="w-5 h-5 rounded-full bg-[#1F6F43] text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">&check;</span>
+            <div>
+              <div class="font-sans font-bold text-xs text-[#191C1B]">Dry Asphalt</div>
+              <div class="font-mono text-[9px] text-[#5A605C]">&mu; = 0.75</div>
+            </div>
+          </button>
+          <button type="button" onclick="selectFriction(0.40, 'wet')" id="btn-fric-wet" class="touch-target min-h-[48px] px-2 py-1.5 rounded-lg border border-[#D9DDD8] bg-white text-left flex items-center gap-1.5 transition-all">
+            <span class="w-5 h-5 rounded-full bg-[#E87522] text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">~</span>
+            <div>
+              <div class="font-sans font-bold text-xs text-[#191C1B]">Wet Rain</div>
+              <div class="font-mono text-[9px] text-[#5A605C]">&mu; = 0.40</div>
+            </div>
+          </button>
+          <button type="button" onclick="selectFriction(0.10, 'ice')" id="btn-fric-ice" class="touch-target min-h-[48px] px-2 py-1.5 rounded-lg border border-[#D9DDD8] bg-white text-left flex items-center gap-1.5 transition-all">
+            <span class="w-5 h-5 rounded-full bg-[#BA1A1A] text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">!</span>
+            <div>
+              <div class="font-sans font-bold text-xs text-[#191C1B]">Black Ice</div>
+              <div class="font-mono text-[9px] text-[#5A605C]">&mu; = 0.10</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reactive Detail Panel -->
+      <div id="stopping-detail-card" class="p-3.5 rounded-lg bg-[#F9FAF8] border border-[#D9DDD8] space-y-2">
+        <div class="flex items-center justify-between border-b border-[#D9DDD8] pb-1.5">
+          <span id="stopping-badge" class="font-mono text-[11px] font-bold text-[#E87522] uppercase">PHYSICS TELEMETRY // 60 MPH (DRY)</span>
+          <span id="stopping-statute" class="font-mono text-[10px] text-[#5A605C]">AASHTO / TTC &sect; 545.062</span>
+        </div>
+        <h4 id="stopping-title" class="font-sans font-bold text-sm text-[#191C1B]">Total Stopping Distance Breakdown at 60 MPH</h4>
+        <p id="stopping-desc" class="font-sans text-xs text-[#5A605C] leading-relaxed">
+          At 60 mph, you cover 88.0 ft every second. During the standard 1.5-second perception-reaction interval, your car rolls <strong>132 feet</strong> before brakes engage. On dry pavement (&mu;=0.75), braking requires another <strong>160 feet</strong>, for a total stopping distance of <strong>292 feet</strong>.
+        </p>
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-[#D9DDD8] text-[11px] font-mono">
+          <div class="bg-white p-2 rounded border border-[#D9DDD8]">
+            <div class="text-[#5A605C] text-[9px] uppercase">TOTAL STOPPING DISTANCE</div>
+            <div id="stopping-m1" class="font-bold text-[#1F6F43]">292 FT (81% FIELD)</div>
+          </div>
+          <div class="bg-white p-2 rounded border border-[#D9DDD8]">
+            <div class="text-[#5A605C] text-[9px] uppercase">QUADRATIC INCREASE LAW</div>
+            <div id="stopping-m2" class="font-bold text-[#191C1B]">2X SPEED = 4X BRAKE DIST</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- 07. MASTER STOPPING DISTANCE & KINETIC PHYSICS TABLE      -->
+    <!-- ========================================================= -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <div class="border-b border-hairline pb-2">
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">MATHEMATICAL PHYSICS</span>
+        <h2 class="text-base font-bold text-carbon leading-tight">Master Stopping Distance &amp; Friction Matrix</h2>
+        <p class="text-xs text-slate mt-0.5">Calculated using standard AASHTO benchmark (t<sub>pr</sub> = 1.5s, D<sub>pr</sub> = 2.20V) and Newtonian friction drag formulas.</p>
+      </div>
+
+      <!-- Friction Work-Energy Formula Card -->
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-1 font-mono text-xs">
+        <div class="text-[10px] text-slate uppercase font-bold">Newtonian Braking Formulation:</div>
+        <div class="text-carbon font-bold text-[11px]">D<sub>total</sub> = D<sub>pr</sub> + D<sub>b</sub> = (2.20 &times; V) + [ V<sup>2</sup> / (30 &times; &mu;) ]</div>
+        <p class="text-slate font-sans text-[11px] pt-1 leading-snug">
+          Where <span class="font-mono">V</span> = velocity in mph, and <span class="font-mono">&mu;</span> = tire-road friction drag factor (Dry: 0.75, Wet: 0.40, Glare Ice: 0.10).
+        </p>
+      </div>
+
+      <!-- Compact Mobile Data Matrix -->
+      <div class="overflow-x-auto no-scrollbar border border-hairline rounded-xl">
+        <table class="w-full text-left font-mono text-[10px] sm:text-[11px]">
+          <thead class="bg-surface-sub border-b border-hairline text-slate">
+            <tr>
+              <th class="p-2 font-bold text-carbon">SPEED</th>
+              <th class="p-2">REACT (1.5s)</th>
+              <th class="p-2 text-valid">DRY (0.75)</th>
+              <th class="p-2 text-safety">WET (0.40)</th>
+              <th class="p-2 text-hazard">ICE (0.10)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 font-bold text-carbon">20 mph</td>
+              <td class="p-2 text-slate">44 ft</td>
+              <td class="p-2 font-semibold text-valid">62 ft</td>
+              <td class="p-2 text-slate">77 ft</td>
+              <td class="p-2 text-hazard">177 ft</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 font-bold text-carbon">30 mph</td>
+              <td class="p-2 text-slate">66 ft</td>
+              <td class="p-2 font-semibold text-valid">106 ft</td>
+              <td class="p-2 text-slate">141 ft</td>
+              <td class="p-2 text-hazard">366 ft</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 font-bold text-carbon">40 mph</td>
+              <td class="p-2 text-slate">88 ft</td>
+              <td class="p-2 font-semibold text-valid">159 ft</td>
+              <td class="p-2 text-slate">221 ft</td>
+              <td class="p-2 text-hazard">621 ft</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+              <td class="p-2 font-bold text-carbon">50 mph</td>
+              <td class="p-2 text-slate">110 ft</td>
+              <td class="p-2 font-semibold text-valid">221 ft</td>
+              <td class="p-2 text-slate">318 ft</td>
+              <td class="p-2 text-hazard">943 ft</td>
+            </tr>
+            <tr class="hover:bg-neutral-50 bg-safety-light/30">
+              <td class="p-2 font-bold text-carbon">60 mph</td>
+              <td class="p-2 text-slate">132 ft</td>
+              <td class="p-2 font-semibold text-valid">292 ft</td>
+              <td class="p-2 font-bold text-safety">432 ft</td>
+              <td class="p-2 font-bold text-hazard">1,332 ft</td>
+            </tr>
+            <tr class="hover:bg-neutral-50 bg-neutral-100/60">
+              <td class="p-2 font-bold text-carbon">70 mph</td>
+              <td class="p-2 text-slate">154 ft</td>
+              <td class="p-2 font-bold text-hazard">372 ft*</td>
+              <td class="p-2 font-bold text-hazard">562 ft</td>
+              <td class="p-2 font-bold text-hazard">1,787 ft</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-[10px] font-mono text-slate leading-tight">
+        *Note on 70 mph: At 70 mph on clean dry pavement, your stopping distance (372 ft) is longer than an entire 360-foot American football field (including endzones). On icy roadways, stopping requires over one-third of a mile (1,787 ft).
+      </p>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 08. KNOWLEDGE EVALUATION (3 SCENARIO MCQS)                -->
+    <!-- ========================================================= -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-4 fluid-card">
+      <div class="border-b border-hairline pb-2.5">
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">KNOWLEDGE EVALUATION</span>
+        <h2 class="text-base font-bold text-carbon leading-tight">Statutory Scenario Assessments</h2>
+        <p class="text-xs text-slate mt-0.5">Evaluate each scenario under the Texas Transportation Code. Immediate feedback and statutory citations follow each selection.</p>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L03-T04 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- SCENARIO 1 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">SCENARIO 01 // URBAN DISTRICT LIMIT</span>
+          <span>TTC &sect; 545.352(b)(1)</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 545.352, what is the lawful prima facie speed limit in an urban district street (residential or commercial neighborhood) if no speed limit signs are posted?
+        </p>
+        <div class="space-y-1.5 font-mono text-xs">
+          <button onclick="handleMCQ(1, 'A', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ A ] 20 miles per hour</span>
+            <span class="text-[10px] text-slate font-sans">Option A</span>
+          </button>
+          <button onclick="handleMCQ(1, 'B', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ B ] 30 miles per hour</span>
+            <span class="text-[10px] text-slate font-sans">Option B</span>
+          </button>
+          <button onclick="handleMCQ(1, 'C', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ C ] 35 miles per hour</span>
+            <span class="text-[10px] text-slate font-sans">Option C</span>
+          </button>
+          <button onclick="handleMCQ(1, 'D', this)" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ D ] 45 miles per hour</span>
+            <span class="text-[10px] text-slate font-sans">Option D</span>
+          </button>
+        </div>
+        <div id="mcqFeedback1" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </div>
+
+      <!-- SCENARIO 2 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">SCENARIO 02 // QUADRATIC KINETIC ENERGY</span>
+          <span>AASHTO PHYSICS / TTC &sect; 545.351</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          If a passenger car traveling at 30 mph requires approximately 40 feet of braking distance to come to a stop on dry pavement, approximately how much braking distance will it require at 60 mph?
+        </p>
+        <div class="space-y-1.5 font-mono text-xs">
+          <button onclick="handleMCQ(2, 'A', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ A ] Approx 80 feet (double distance)</span>
+            <span class="text-[10px] text-slate font-sans">Option A</span>
+          </button>
+          <button onclick="handleMCQ(2, 'B', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ B ] Approx 160 feet (four times distance)</span>
+            <span class="text-[10px] text-slate font-sans">Option B</span>
+          </button>
+          <button onclick="handleMCQ(2, 'C', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ C ] Approx 240 feet (six times distance)</span>
+            <span class="text-[10px] text-slate font-sans">Option C</span>
+          </button>
+          <button onclick="handleMCQ(2, 'D', this)" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ D ] Exactly 40 feet due to ABS systems</span>
+            <span class="text-[10px] text-slate font-sans">Option D</span>
+          </button>
+        </div>
+        <div id="mcqFeedback2" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </div>
+
+      <!-- SCENARIO 3 -->
+      <div class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-3">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate">
+          <span class="font-bold text-safety uppercase">SCENARIO 03 // WET WEATHER FRICTION</span>
+          <span>TTC &sect; 545.351 &bull; &sect; 545.062</span>
+        </div>
+        <p class="text-xs font-semibold text-carbon leading-snug">
+          How does heavy rainfall affecting road pavement impact your vehicle's braking distance compared to clean dry asphalt?
+        </p>
+        <div class="space-y-1.5 font-mono text-xs">
+          <button onclick="handleMCQ(3, 'A', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ A ] Rainfall has no effect because tire treads eliminate all moisture</span>
+            <span class="text-[10px] text-slate font-sans">Option A</span>
+          </button>
+          <button onclick="handleMCQ(3, 'B', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ B ] Wet pavement drops friction (&mu; &approx; 0.40), roughly doubling braking distance</span>
+            <span class="text-[10px] text-slate font-sans">Option B</span>
+          </button>
+          <button onclick="handleMCQ(3, 'C', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ C ] Braking distance is reduced because rainwater cools brake calipers</span>
+            <span class="text-[10px] text-slate font-sans">Option C</span>
+          </button>
+          <button onclick="handleMCQ(3, 'D', this)" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-lg border border-hairline bg-white text-carbon text-left flex items-center justify-between hover:bg-neutral-50 transition-all">
+            <span>[ D ] Braking distance increases by exactly 10% regardless of vehicular speed</span>
+            <span class="text-[10px] text-slate font-sans">Option D</span>
+          </button>
+        </div>
+        <div id="mcqFeedback3" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 09. BOTTOM NAVIGATION FOOTER (AUDITED >= 48PX COMPLIANT)  -->
+    <!-- ========================================================= -->
+        <!-- 09. BOTTOM NAVIGATION FOOTER -->
+    <footer class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-4">
+      <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+        <!-- PREV BUTTON -->
+        <a href="L03-T03.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] px-3 py-2.5 inline-flex items-center justify-center rounded-xl border border-hairline bg-surface-sub hover:bg-neutral-100 text-carbon font-mono text-xs font-semibold gap-1.5 transition-all">
+          <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+          <span>PREV: L03-T03</span>
+        </a>
+
+        <!-- HUB BUTTON -->
+        <a href="index.html" class="touch-target min-h-[48px] w-auto shrink-0 px-3 py-2.5 inline-flex items-center justify-center rounded-xl border border-hairline bg-surface-sub hover:bg-neutral-100 text-slate font-mono text-xs font-semibold gap-1 transition-all">
+          <span class="material-symbols-outlined text-[16px]">grid_view</span>
+          <span>HUB</span>
+        </a>
+
+        <!-- NEXT BUTTON -->
+        <a href="L03-T05.html" class="touch-target min-h-[48px] flex-1 min-w-[80px] px-3 py-2.5 inline-flex items-center justify-center rounded-xl border-2 border-safety bg-safety text-white hover:bg-safety-deep font-mono text-xs font-bold gap-1.5 transition-all shadow-xs">
+          <span>NEXT: L03-T05</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="pt-3 border-t border-hairline text-center space-y-1">
+        <div class="flex items-center justify-center gap-2 text-[10px] font-mono text-slate">
+          <span>TEXAS ADE-1317</span>
+          <span>&bull;</span>
+          <span>16 TAC § 84.500</span>
+          <span>&bull;</span>
+          <span>TDLR CERTIFIED</span>
+        </div>
+        <p class="text-[9px] font-mono text-slate">
+          Strict Screen Rule UI Separation Standard • High-Contrast Lone Star Transit Palette
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 10. JAVASCRIPT STATE MACHINES & CONTROLLERS               -->
+  <!-- ========================================================= -->
+  <script>
+    // -------------------------------------------------------------
+    // WIDGET 1: TEXAS SPEED CAP CODEX STATE MACHINE
+    // -------------------------------------------------------------
+    const speedCapData = {
+      alley: {
+        speed: 15,
+        angle: -98,
+        arcPath: "M 50 190 A 130 130 0 0 1 80 120",
+        badge: "ALLEY & BEACH // 15 MPH",
+        statute: "TTC § 545.352(b)(2)",
+        label: "ALLEY / BEACH ROADWAY // 15 MPH",
+        title: "Narrow Alleys & Public Beaches (15 mph)",
+        desc: "Strict 15 mph prima facie cap. Applies to alleys behind homes/businesses and public vehicular beaches. Calibrated for extreme blind corners, crossing pedestrians, and immediate stopping requirements.",
+        m1: "22.0 FT / SEC",
+        m2: "0.25X ENERGY (MINIMAL)"
+      },
+      school: {
+        speed: 20,
+        angle: -88,
+        arcPath: "M 50 190 A 130 130 0 0 1 95 95",
+        badge: "SCHOOL ZONE // 20 MPH",
+        statute: "TTC § 545.352(b)(3)",
+        label: "ACTIVE SCHOOL ZONE // 20 MPH",
+        title: "School Zone with Active Flashing Beacons",
+        desc: "Enforced during arrival/dismissal hours or when amber beacons are flashing. Fines double automatically under TTC § 542.404. Drivers may not use handheld mobile phones in active school zones under TTC § 545.425.",
+        m1: "29.3 FT / SEC",
+        m2: "FINES DOUBLE AUTOMATICALLY"
+      },
+      urban: {
+        speed: 30,
+        angle: -65,
+        arcPath: "M 50 190 A 130 130 0 0 1 125 75",
+        badge: "URBAN DISTRICT // 30 MPH",
+        statute: "TTC § 545.352(b)(1)",
+        label: "URBAN DISTRICT STREET // 30 MPH",
+        title: "Unposted Prima Facie Urban Default (30 mph)",
+        desc: "Standard statutory speed cap for residential and business streets in any city. Applies automatically without signs. Governed by the Basic Speed Rule (TTC § 545.351): you must slow down in rain, fog, or heavy traffic.",
+        m1: "44.0 FT / SEC",
+        m2: "1.0X BASELINE (40 FT BRAKE)"
+      },
+      highway: {
+        speed: 70,
+        angle: 35,
+        arcPath: "M 50 190 A 130 130 0 0 1 245 80",
+        badge: "STATE & US HIGHWAY // 70 MPH",
+        statute: "TTC § 545.352(b)(2) (HB 1353)",
+        label: "NUMBERED STATE/US HIGHWAY // 70 MPH",
+        title: "Numbered Highway Rural Limit — Day/Night Uniform",
+        desc: "Standard 70 mph cap on Texas and US numbered highways outside urban districts. Day and night limits are uniform (abolished 65 mph night differential in 2011 HB 1353). Total stopping distance at 70 mph exceeds an entire football field (372 ft).",
+        m1: "102.7 FT / SEC",
+        m2: "5.4X KINETIC ENERGY"
+      },
+      tollway: {
+        speed: 85,
+        angle: 75,
+        arcPath: "M 50 190 A 130 130 0 0 1 285 130",
+        badge: "SH 130 TOLLWAY // 85 MPH",
+        statute: "TxDOT COMMISSION MINUTE",
+        label: "SH 130 TOLLWAY // 85 MPH (MAX IN USA)",
+        title: "High-Speed Toll Corridor SH 130 (85 mph)",
+        desc: "The highest lawful posted speed limit in the Western Hemisphere. At 85 mph, a vehicle travels 124.7 feet every single second. Perception-reaction distance alone consumes 187 feet before brakes are even touched.",
+        m1: "124.7 FT / SEC",
+        m2: "8.0X KINETIC ENERGY"
+      }
+    };
+
+    function selectSpeedCap(zoneKey) {
+      const data = speedCapData[zoneKey];
+      if (!data) return;
+
+      // 1. Update Reactive Card Content
+      document.getElementById('speed-badge').textContent = data.badge;
+      document.getElementById('speed-statute').textContent = data.statute;
+      document.getElementById('speed-title').textContent = data.title;
+      document.getElementById('speed-desc').innerHTML = data.desc;
+      document.getElementById('speed-m1').textContent = data.m1;
+      document.getElementById('speed-m2').textContent = data.m2;
+
+      // 2. Animate In-Canvas Speedometer Needle, Numbers & Arc
+      document.getElementById('gauge-speed-num').textContent = data.speed;
+      document.getElementById('gauge-zone-label').textContent = data.label;
+      
+      const needle = document.getElementById('gauge-needle');
+      if (needle) {
+        needle.setAttribute('transform', `rotate(${data.angle} 180 155)`);
+      }
+
+      const activeArc = document.getElementById('gauge-active-arc');
+      if (activeArc && data.arcPath) {
+        activeArc.setAttribute('d', data.arcPath);
+      }
+
+      // 3. Update Button Styles
+      const zones = ['alley', 'school', 'urban', 'highway', 'tollway'];
+      zones.forEach(z => {
+        const btn = document.getElementById('btn-speed-' + z);
+        if (!btn) return;
+        if (z === zoneKey) {
+          btn.className = "touch-target min-h-[48px] px-1 py-1 rounded-lg border-2 border-[#E87522] bg-[#FFF8F3] text-center flex flex-col items-center justify-center transition-all";
+          const sub = btn.querySelector('span:last-child');
+          if (sub) { sub.className = "font-sans text-[9px] text-[#191C1B] font-semibold leading-none mt-0.5"; }
+        } else {
+          btn.className = "touch-target min-h-[48px] px-1 py-1 rounded-lg border border-[#D9DDD8] bg-white text-center flex flex-col items-center justify-center transition-all";
+          const sub = btn.querySelector('span:last-child');
+          if (sub) { sub.className = "font-sans text-[9px] text-[#5A605C] leading-none mt-0.5"; }
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // WIDGET 2: STOPPING DISTANCE & FRICTION CALCULATOR
+    // -------------------------------------------------------------
+    let currentFriction = 0.75;
+    let currentFrictionKey = 'dry';
+
+    function selectFriction(mu, key) {
+      currentFriction = mu;
+      currentFrictionKey = key;
+
+      const btnKeys = ['dry', 'wet', 'ice'];
+      btnKeys.forEach(k => {
+        const btn = document.getElementById('btn-fric-' + k);
+        if (!btn) return;
+        if (k === key) {
+          btn.className = "touch-target min-h-[48px] px-2 py-1.5 rounded-lg border-2 border-[#E87522] bg-[#FFF8F3] text-left flex items-center gap-1.5 transition-all";
+        } else {
+          btn.className = "touch-target min-h-[48px] px-2 py-1.5 rounded-lg border border-[#D9DDD8] bg-white text-left flex items-center gap-1.5 transition-all";
+        }
+      });
+
+      updateStoppingCalc();
+    }
+
+    function updateStoppingCalc() {
+      const slider = document.getElementById('speed-range-slider');
+      const speed = parseInt(slider.value, 10);
+      document.getElementById('slider-speed-val').textContent = speed + " MPH";
+
+      // Physics calculation (AASHTO / TDLR standard)
+      const prDist = Math.round(2.20 * speed);
+      const brakeDist = Math.round((speed * speed) / (30 * currentFriction));
+      const totalDist = prDist + brakeDist;
+
+      // Update In-Canvas Text
+      document.getElementById('svg-stop-pr-num').textContent = prDist + " FT";
+      document.getElementById('svg-stop-brake-num').textContent = brakeDist + " FT";
+      document.getElementById('svg-stop-total-num').textContent = totalDist + " FT";
+
+      // Scale bars (300px max in SVG canvas represents 600 ft scale, or clamped)
+      // Max scale reference = 500 ft -> 300px (1 ft = 0.6px)
+      const pxPerFt = 0.6;
+      const prPx = Math.min(300, Math.round(prDist * pxPerFt));
+      const brakePx = Math.min(300, Math.round(brakeDist * pxPerFt));
+      const totalPx = Math.min(300, Math.round(totalDist * pxPerFt));
+
+      document.getElementById('svg-stop-pr-bar').setAttribute('width', prPx);
+      document.getElementById('svg-stop-brake-bar').setAttribute('width', brakePx);
+      
+      const totalBar = document.getElementById('svg-stop-total-bar');
+      totalBar.setAttribute('width', totalPx);
+      totalBar.setAttribute('fill', totalDist > 360 ? '#BA1A1A' : '#1F6F43');
+
+      // Move marker line & car glyph
+      const markerX = 30 + Math.min(290, totalPx);
+      document.getElementById('svg-stop-marker-line').setAttribute('x1', markerX);
+      document.getElementById('svg-stop-marker-line').setAttribute('x2', markerX);
+      document.getElementById('svg-stop-car-glyph').setAttribute('x', markerX - 10);
+
+      // Verdict vs 360-ft football field
+      const pct = Math.round((totalDist / 360) * 100);
+      const verdict = document.getElementById('svg-stop-verdict');
+      if (totalDist > 360) {
+        verdict.textContent = `EXCEEDS ENTIRE FOOTBALL FIELD (${pct}% — ${totalDist} FT!)`;
+        verdict.setAttribute('fill', '#BA1A1A');
+      } else {
+        verdict.textContent = `FITS WITHIN 1 FOOTBALL FIELD (${pct}% — ${totalDist} FT)`;
+        verdict.setAttribute('fill', '#2ECC71');
+      }
+
+      // Update Reactive Card
+      document.getElementById('stopping-badge').textContent = `PHYSICS TELEMETRY // ${speed} MPH (${currentFrictionKey.toUpperCase()})`;
+      document.getElementById('stopping-title').textContent = `Stopping Distance at ${speed} MPH on ${currentFrictionKey === 'dry' ? 'Dry Road' : currentFrictionKey === 'wet' ? 'Wet Asphalt' : 'Glare Ice'}`;
+      document.getElementById('stopping-desc').innerHTML = `At ${speed} mph, vehicle moves ${(1.467 * speed).toFixed(1)} ft/s. Perception-reaction time (1.5s) consumes <strong>${prDist} ft</strong> before braking starts. Braking friction (μ = ${currentFriction.toFixed(2)}) requires <strong>${brakeDist} ft</strong>, yielding a total stopping distance of <strong>${totalDist} feet</strong>.`;
+      document.getElementById('stopping-m1').textContent = `${totalDist} FT (${pct}% FIELD)`;
+      document.getElementById('stopping-m1').style.color = totalDist > 360 ? '#BA1A1A' : '#1F6F43';
+    }
+
+    // -------------------------------------------------------------
+    // KNOWLEDGE EVALUATION & ANTI-CHEATING MCQ SCORING LOGIC
+    // -------------------------------------------------------------
+    let currentScore = 0;
+    const answeredScenarios = {};
+
+            const TOPIC_ID = 'L03-T04';
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 545.352(b)(1)",
+            "statutoryRationale": "Texas Transportation Code § 545.352(b)(1) establishes an unposted prima facie speed cap of 30 mph for any street in an urban district. Traveling faster is prima facie evidence that the speed is unlawful."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "AASHTO Physics & TTC § 545.351",
+            "statutoryRationale": "Braking distance increases with the square of speed (V 2 ). Doubling speed from 30 mph to 60 mph multiplies kinetic energy by (2) 2 = 4×. Therefore, 40 ft × 4 ≈ 160 feet of braking distance is required."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "B",
+            "statute": "TTC § 545.351 & § 545.062",
+            "statutoryRationale": "Wet pavement drops the friction coefficient (μ) from ≈ 0.75 down to ≈ 0.40, roughly doubling braking distance and requiring significantly greater following distance under the Basic Speed Rule."
+      }
+};
+
+    function handleMCQ(qNum, selectedOption, btn) {
+      if (answeredScenarios[qNum]) return;
+      answeredScenarios[qNum] = true;
+
+      const buttons = document.querySelectorAll('.mcq-btn-' + qNum);
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-neutral-50');
+      });
+
+      const fb = document.getElementById('mcqFeedback' + qNum);
+      if (fb) fb.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selectedOption || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      if (isCorrect) {
+        currentScore++;
+        if (btn) {
+          btn.classList.remove('bg-white', 'border-hairline');
+          btn.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+        }
+        if (fb) {
+          fb.className = 'p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1 bg-valid/10 border border-valid/30 text-valid';
+          fb.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (btn) {
+          btn.classList.remove('bg-white', 'border-hairline');
+          btn.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+        }
+        if (fb) {
+          fb.className = 'p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1 bg-hazard/10 border border-hazard/30 text-hazard';
+          fb.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+        buttons.forEach(b => {
+          if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+            b.classList.remove('bg-white', 'border-hairline');
+            b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          }
+        });
+      }
+
+      const scoreBadge = document.getElementById('quiz-score');
+      const scoreDisplay = document.getElementById('score-display');
+      const scoreBadgeEl = document.getElementById('scoreBadge');
+      if (scoreBadge) scoreBadge.innerText = 'SCORE: ' + currentScore + ' / 3';
+      if (scoreDisplay) scoreDisplay.innerText = 'SCORE: ' + currentScore + ' / 3';
+      if (scoreBadgeEl) scoreBadgeEl.innerText = 'SCORE: ' + currentScore + ' / 3';
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        if (Object.keys(answeredScenarios).length === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
+    // INITIALIZATION ON DOM CONTENT LOADED
+    // -------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      selectSpeedCap('urban');
+      updateStoppingCalc();
+      selectSimScenario(1);
+    });
+  
+    // -------------------------------------------------------------
+    // HOST-TO-IFRAME 3D SIMULATION POSTMESSAGE CONTROLLER (R3 COMPLIANT)
+    // -------------------------------------------------------------
+    const simScenarios_L03T04 = {
+      1: {
+        badge: "STATUTORY RULE 01 // VACATE ADJACENT LANE",
+        statute: "TTC § 545.157",
+        title: "Vacate Lane Closest to Emergency Vehicle",
+        desc: "On highways with two or more lanes in the same direction, operators approaching a stopped emergency vehicle with flashing lights must vacate the closest lane when safe.",
+        metric: "CLASS B MISDEMEANOR IF CRASH WITH INJURY",
+        phase: "LANE 2 VACATED // 12-FT SAFETY CUSHION"
+      },
+      2: {
+        badge: "STATUTORY RULE 02 // SLOW DOWN 20 MPH BELOW LIMIT",
+        statute: "TTC § 545.157(a)(2)",
+        title: "Decelerate When Lane Change Is Impossible",
+        desc: "If dense traffic prevents moving over, drivers must slow to 20 MPH below the posted speed limit (or 5 MPH if the limit is under 25 MPH).",
+        metric: "$200 TO $500 FINE // 20 MPH SPEED DROP",
+        phase: "TRAFFIC HEAVY: SLOWING TO 45 MPH IN 65 ZONE"
+      }
+    };
+
+    function selectSimScenario(scId) {
+      const data = simScenarios_L03T04[scId];
+      if (!data) return;
+      const bEl = document.getElementById('sim-card-badge');
+      const sEl = document.getElementById('sim-card-statute');
+      const tEl = document.getElementById('sim-card-title');
+      const dEl = document.getElementById('sim-card-desc');
+      const mEl = document.getElementById('sim-card-metric');
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (bEl) bEl.textContent = data.badge;
+      if (sEl) sEl.textContent = data.statute;
+      if (tEl) tEl.textContent = data.title;
+      if (dEl) dEl.textContent = data.desc;
+      if (mEl) mEl.textContent = data.metric;
+      if (pEl) pEl.textContent = data.phase;
+
+      const btn1 = document.getElementById('btn-scenario-1');
+      const btn2 = document.getElementById('btn-scenario-2');
+      [1, 2].forEach(num => {
+        const btn = document.getElementById(`btn-scenario-${num}`);
+        if (!btn) return;
+        const activeId = (typeof scenNum !== 'undefined') ? scenNum : ((typeof scId !== 'undefined') ? scId : 1);
+        if (num === activeId) {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        } else {
+          btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+        }
+      });
+      dispatchSimAction('setScenario', { scenario: scId });
+    }
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.event === 'telemetry' || e.data.event === 'timeUpdate')) {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+      }
+    });
+
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      dispatchSimAction('seek', { time: seekTime });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>

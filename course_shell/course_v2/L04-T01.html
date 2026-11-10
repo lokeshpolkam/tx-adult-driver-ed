@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Standard Traffic Control Devices: Signs, Signals, and Markings — Texas Adult Driver Ed (L04-T01)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Geist, JetBrains Mono, Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F6F7F5',
+            surface: '#FFFFFF',
+            'surface-sub': '#F3F4F2',
+            carbon: '#191C1B',
+            slate: '#5A605C',
+            hairline: '#D9DDD8',
+            safety: '#E87522',
+            'safety-deep': '#9A4600',
+            'safety-light': '#FFF0E5',
+            valid: '#1F6F43',
+            hazard: '#BA1A1A',
+            obsidian: '#101311',
+            'obsidian-border': '#2B302D'
+          },
+          fontFamily: {
+            sans: ['Geist', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    .aspect-video {
+      aspect-ratio: 16 / 9 !important;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #F6F7F5;
+      color: #191C1B;
+      font-family: 'Geist', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .touch-target, button {
+      min-height: 48px;
+    }
+    .touch-target {
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      touch-action: manipulation;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+    }
+    @keyframes fya-pulse {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px rgba(241, 196, 15, 0.9)); }
+      50% { opacity: 0.15; filter: none; }
+    }
+    .animate-fya {
+      animation: fya-pulse 1s infinite ease-in-out;
+    }
+  
+    :root {
+      --phone-gutter: clamp(3px, 1.2vw, 8px);
+      --card-px: clamp(6px, 1.8vw, 10px);
+      --card-py: clamp(8px, 2.2vw, 14px);
+    }
+    .fluid-card {
+      padding-left: var(--card-px) !important;
+      padding-right: var(--card-px) !important;
+    }
+  </style>
+  <!-- Tactile Web Audio Synthesizer -->
+  <script src="./assets/tactile_audio.js?v=20261110_instant"></script>
+</head>
+<body class="bg-canvas text-carbon antialiased selection:bg-safety/20">
+
+  <!-- PHONE CONTAINER: Strictly portrait viewport 360px - 430px -->
+  <main class="w-full max-w-md mx-auto px-3.5 py-4 sm:px-5 sm:py-6 space-y-4">
+
+    <!-- 01. NAVIGATION BREADCRUMB & METRICS -->
+    <header class="flex items-center justify-between pb-3 border-b border-hairline">
+      <div class="flex items-center gap-2">
+        <a href="L03-T07.html" style="display: inline-flex; min-height: 48px; min-width: 44px;" class="touch-target flex items-center justify-center p-2 rounded-lg bg-white border border-hairline hover:bg-surface-sub text-slate transition">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+        </a>
+        <div>
+          <span class="font-mono text-[10px] font-bold text-safety tracking-wider uppercase block">MODULE 04 &bull; TOPIC 01</span>
+          <h1 class="font-mono text-xs font-bold text-carbon">TRAFFIC CONTROL DEVICES</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="score-display" class="hidden font-mono text-[11px] font-bold text-valid bg-valid/10 border border-valid/30 px-2.5 py-1 rounded-full">
+          SCORE: 0 / 3
+        </span>
+      </div>
+    </header>
+
+    <!-- 02. LESSON TITLE CARD -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 relative overflow-hidden shadow-xs space-y-2 fluid-card">
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[9px] font-bold">
+        <span class="bg-safety/10 text-safety border border-safety/30 px-2 py-0.5 rounded">TTC &sect; 544.007</span>
+        <span class="bg-surface-sub text-slate border border-hairline px-2 py-0.5 rounded">23 CFR &sect; 655 MUTCD</span>
+        <span class="bg-valid/10 text-valid border border-valid/30 px-2 py-0.5 rounded">EST. 18 MIN READ</span>
+      </div>
+      <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-carbon tracking-tight leading-snug">
+        Standard Traffic Control Devices: Signs, Signals, and Markings
+      </h2>
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Master statutory traffic-control mandates under Texas Transportation Code Chapter 544 and the Texas Manual on Uniform Traffic Control Devices (TMUTCD). Learn strict compliance duties, Flashing Yellow Arrow (FYA) geometry, signal phase transitions, and the 6 foundational MUTCD geometric shapes.
+      </p>
+    </section>
+
+    <!-- 03. 3D DRIVING SIMULATION: COMPLETE UI SEPARATION (PHONE-FIRST 360px-430px) -->
+    <section class="bg-white rounded-2xl border border-hairline p-4 sm:p-5 shadow-xs space-y-3 fluid-card">
+      <!-- Tier 1: Scenario Header (Off & Above Viewport) -->
+      <div class="flex items-center justify-between border-b border-hairline pb-2">
+        <div class="flex items-center gap-1.5 font-mono text-[11px] text-slate">
+          <span class="w-2.5 h-2.5 rounded-full bg-safety animate-pulse"></span>
+          <span class="font-bold text-carbon uppercase tracking-wider">3D DRIVING SIMULATION // EMBEDDED WEBGL</span>
+        </div>
+        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-sub text-safety-deep border border-hairline">
+          TTC § 544.007 &amp; TMUTCD Ch. 4D &bull; ADE-1317
+        </span>
+      </div>
+
+      <div>
+        <h2 class="text-base font-bold text-carbon leading-tight">Traffic Signals, Signal Phasing &amp; Clearance Intervals</h2>
+        <p class="text-xs text-slate mt-0.5">Mast-arm signal indications, 4.2s yellow dilemma clearance, 1.8s all-red, and dark signal all-way stop rules.</p>
+      </div>
+
+      <!-- Tier 2: Pure Visual Simulation Viewport (Strictly Isolated Rectangle // ZERO buttons or HUD inside) -->
+      <div id="sim-viewport-container" class="relative w-full aspect-video rounded-xl border border-neutral-800 overflow-hidden bg-black shadow-md" style="aspect-ratio: 16 / 9;">
+        <iframe 
+          id="sim-viewport-frame"
+          src="../driving_rule_animations_suite/simulations/L04_T01_traffic_signals_phasing.html?clean=1" 
+          class="w-full h-full border-0 block" 
+          loading="lazy"
+          title="3D Driving Simulation Viewport">
+        </iframe>
+        <!-- Top-Right: Transparent Red Camera Button (Compact & Noticeable) -->
+        <button 
+          type="button" 
+          id="btn-media-camera"
+          onclick="dispatchSimAction('switchCamera')"
+          title="Switch Camera View"
+          aria-label="Switch Camera View"
+          class="compact-media-btn absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shadow-md active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[17px] text-red-100">videocam</span>
+        </button>
+
+        <!-- Bottom Overlay Bar: Compact In-Screen Media Player -->
+        <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-2.5 py-2 flex items-center gap-2">
+          <!-- Play / Pause Circle (Compact & High Contrast) -->
+          <button 
+            type="button" 
+            id="btn-media-play"
+            onclick="dispatchSimAction('togglePlay')"
+            title="Play / Pause Simulation"
+            aria-label="Play or Pause Simulation"
+            class="compact-media-btn w-7 h-7 rounded-full bg-safety hover:bg-safety-deep active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md transition-all">
+            <span id="media-play-icon" class="material-symbols-outlined text-[17px]">pause</span>
+          </button>
+
+          <!-- Interactive Scrubbable Timeline Track (Mobile Touch-Optimized) -->
+          <div 
+            id="media-progress-track" 
+            role="slider"
+            aria-label="Simulation Timeline Scrubber"
+            aria-valuemin="0"
+            aria-valuemax="6"
+            aria-valuenow="0"
+            class="flex-1 relative h-7 flex items-center cursor-pointer select-none touch-none">
+            <!-- Background Groove -->
+            <div class="w-full h-1.5 bg-white/25 rounded-full overflow-hidden relative">
+              <div id="media-progress-fill" class="h-full bg-safety rounded-full w-0 will-change-[width]"></div>
+            </div>
+            <!-- Scrubber Thumb / Knob -->
+            <div 
+              id="media-progress-thumb" 
+              class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-safety shadow-md pointer-events-none will-change-[left]"
+              style="left: 0%;">
+            </div>
+          </div>
+
+          <!-- Time Display (Compact Monospace) -->
+          <span id="media-time-display" class="font-mono text-[9.5px] text-white/90 shrink-0 font-medium select-none tabular-nums">0:00 / 0:06</span>
+
+          <!-- Fullscreen Button: Transparent Red (Compact & Noticeable) -->
+          <button 
+            type="button" 
+            id="btn-media-fullscreen"
+            onclick="openSimFullscreen()"
+            title="Fullscreen Simulation"
+            aria-label="Toggle Fullscreen"
+            class="compact-media-btn w-7 h-7 rounded-full bg-red-600/30 hover:bg-red-600/50 active:bg-red-600/70 border border-red-500/50 backdrop-blur-md text-white flex items-center justify-center shrink-0 shadow-md active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-red-100">fullscreen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tier 3: External Mobile Control Dock (Strictly Outside & Completely Beneath Rectangle) -->
+      <div id="sim-controls-dock" class="space-y-2 pt-1">
+        <!-- Clean 1-Line Status Pill -->
+        <div id="sim-telemetry-pill" class="w-full px-3 py-1.5 rounded-lg bg-surface-sub border border-hairline flex items-center gap-2 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-valid animate-pulse shrink-0"></span>
+          <span id="sim-telemetry-phase" class="text-carbon font-bold uppercase truncate">APPROACHING 45 MPH // STEADY GREEN</span>
+        </div>
+        <!-- Clean Segmented Scenario Selector Tabs -->
+        <div id="sim-scenario-tabs" class="grid grid-cols-3 gap-1 p-1 bg-surface-sub rounded-xl border border-hairline">
+          <button type="button" onclick="selectSimScenario(1)" id="sim-tab-scen1" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Yellow Dilemma</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(2)" id="sim-tab-scen2" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Flashing Arrow</span>
+          </button>
+          <button type="button" onclick="selectSimScenario(3)" id="sim-tab-scen3" 
+            class="scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs">
+            <span>Dark Signal</span>
+          </button>
+        </div>
+
+        <!-- 3D. Reactive Statutory Detail Card -->
+        <div id="sim-scenario-card" class="p-3.5 rounded-xl bg-surface-sub border border-hairline space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[10px]">
+            <span id="sim-card-badge" class="font-bold text-valid uppercase">STATUTORY RULE 01 // YELLOW CLEARANCE &amp; ALL-RED</span>
+            <span id="sim-card-statute" class="text-slate">TTC § 544.007(e) &amp; TMUTCD § 4D.26</span>
+          </div>
+          <h4 id="sim-card-title" class="font-sans font-bold text-carbon">Yellow Clearance Interval &amp; Dilemma Zone Threshold Braking</h4>
+          <p id="sim-card-desc" class="font-sans text-slate text-xs leading-relaxed">
+            At 45 mph, a 4.2-second steady yellow clearance interval permits drivers unable to stop safely to clear the intersection. If stopping can be accomplished safely, the driver must apply threshold braking, stopping 3 feet before the marked stop bar before the 1.8-second all-red phase.
+          </p>
+          <div class="pt-1.5 border-t border-hairline flex items-center justify-between font-mono text-[10px]">
+            <span class="text-slate">CLEARANCE TIMING:</span>
+            <span id="sim-card-metric" class="text-safety font-bold">4.2s YELLOW + 1.8s ALL-RED // ZERO DILEMMA ZONE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. TEXTBOOK PROSE 1: TEXAS STATUTORY AUTHORITY & TRAFFIC SIGNAL MANDATES -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">gavel</span>
+        <span class="font-bold text-carbon">STATUTORY FOUNDATION &bull; TTC &sect; 544.004</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Mandatory Compliance Duty &amp; Official Traffic Signal Indication Rules
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        Under <strong>Texas Transportation Code &sect; 544.004</strong>, the operator of a vehicle <em>shall comply</em> with an official traffic-control device placed in accordance with state law unless directed otherwise by a police officer. Failure to obey is a Class C misdemeanor infraction carrying fines up to $200 and points on your Texas driver record.
+      </p>
+
+      <div class="p-3 bg-surface-sub rounded-xl border border-hairline space-y-2 text-xs">
+        <div class="font-mono font-bold text-safety text-[11px] flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">traffic</span>
+          <span>TTC &sect; 544.007 SIGNAL INDICATION MATRIX</span>
+        </div>
+        <ul class="space-y-1.5 text-slate leading-snug">
+          <li>&bull; <strong>Steady Red Signal (&sect; 544.007(d)):</strong> Operators must stop completely prior to the marked crosswalk or stop line. Right turn on red is permitted only AFTER a complete stop, yielding to all cross traffic and pedestrians, unless prohibited by an official sign.</li>
+          <li>&bull; <strong>Steady Yellow Signal (&sect; 544.007(e)):</strong> Warns that the green movement is being terminated and a red indication will immediately exhibit. If you can stop safely before entering the intersection, you MUST stop; entering on yellow is legal only if stopping would cause a rear-end collision.</li>
+          <li>&bull; <strong>Flashing Yellow Arrow (FYA - TMUTCD &sect; 4D.17):</strong> Permissive left turn. You may cautiously enter the intersection, but you <em>unconditionally must yield</em> to oncoming traffic and pedestrians before executing the turn.</li>
+          <li>&bull; <strong>Steady Green Arrow (&sect; 544.007(c)):</strong> Protected movement. Conflicting traffic is held by red signals. You have absolute right-of-way over all other movements.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 05. SUBAGENT DELIVERED WIDGET 1: SIGNAL LENS & FLASHING YELLOW ARROW -->
+    <section class="bg-white border border-hairline rounded-2xl p-3.5 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <!-- Corner Engineering Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>OPTICS // TTC § 544.007</span>
+        </div>
+        <span class="bg-surface-sub px-1.5 py-0.5 rounded border border-hairline font-bold">
+          4-SECTION VERTICAL HEAD
+        </span>
+      </div>
+
+      <!-- Title & Pedagogical Premise -->
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">INTERACTIVE CAD 01</span>
+        <h2 class="font-bold text-base text-carbon leading-tight">Texas Traffic Signal Lens &amp; Permissive Flashing Yellow Arrow</h2>
+        <p class="text-xs text-slate mt-0.5 leading-relaxed">
+          Tap the signal phase tabs below to inspect Texas Transportation Code obligations, protected vs. permissive turn phases, and right-of-way hierarchies.
+        </p>
+      </div>
+
+      <!-- Phone-Optimized Responsive SVG Canvas (viewBox='0 0 340 220') -->
+      <div class="relative w-full max-w-[340px] mx-auto flex items-center justify-center">
+        <svg id="signal-svg" viewBox="0 0 340 220" class="w-full max-w-[340px] h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Glow Filters for Active Lenses -->
+            <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-yellow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          <!-- Outer Technical Border Frame -->
+          <rect x="2" y="2" width="336" height="216" rx="8" fill="#141816" stroke="#252D28" stroke-width="1.5" />
+
+          <!-- ======================================================= -->
+          <!-- LEFT: 4-SECTION VERTICAL SIGNAL HEAD HOUSING -->
+          <!-- ======================================================= -->
+          <!-- TxDOT Conspicuity Backplate with 2" Yellow Retroreflective Border Trim -->
+          <rect x="10" y="8" width="58" height="204" rx="8" fill="#0A0D0C" stroke="#F1C40F" stroke-width="1.8" />
+          <!-- Signal Housing Body -->
+          <rect x="14" y="12" width="50" height="196" rx="5" fill="#181D1A" stroke="#2D3530" stroke-width="1" />
+
+          <!-- Tunnel Hoods / Sun Visors Above Each Lens -->
+          <path d="M 23 36 C 23 20 55 20 55 36" fill="none" stroke="#2D3530" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 23 84 C 23 68 55 68 55 84" fill="none" stroke="#2D3530" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 23 132 C 23 116 55 116 55 132" fill="none" stroke="#2D3530" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 23 180 C 23 164 55 164 55 180" fill="none" stroke="#2D3530" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- 4 LENSES GRAPHICS -->
+          <!-- Lens 1: Solid Red (cx=39, cy=36, r=15) -->
+          <circle id="svg-lens-red" cx="39" cy="36" r="15" fill="#2B0E0E" stroke="#451616" stroke-width="1.2" />
+          <circle cx="39" cy="36" r="8" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8" />
+
+          <!-- Lens 2: Solid Yellow (cx=39, cy=84, r=15) -->
+          <circle id="svg-lens-yellow" cx="39" cy="84" r="15" fill="#2D2408" stroke="#45380C" stroke-width="1.2" />
+          <circle cx="39" cy="84" r="8" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8" />
+
+          <!-- Lens 3: Flashing Yellow Arrow (cx=39, cy=132, r=15) -->
+          <circle id="svg-lens-fya" cx="39" cy="132" r="15" fill="#F1C40F" stroke="#FFF275" stroke-width="2" class="animate-fya" />
+          <g id="svg-lens-fya-arrow" class="animate-fya">
+            <!-- Left-turn arrow glyph -->
+            <path d="M 45 132 L 32 132 M 37 127 L 32 132 L 37 137" fill="none" stroke="#141816" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+
+          <!-- Lens 4: Solid Green Arrow (cx=39, cy=180, r=15) -->
+          <circle id="svg-lens-ga" cx="39" cy="180" r="15" fill="#0B2615" stroke="#123B21" stroke-width="1.2" />
+          <g id="svg-lens-ga-arrow" opacity="0.3">
+            <path d="M 45 180 L 32 180 M 37 175 L 32 180 L 37 185" fill="none" stroke="#4AE088" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+
+          <!-- SIGNAL LENS GRAPHIC HOUSING (Controlled via synced tabs below) -->
+          <!-- In-SVG rects de-registered as button roles to prevent sub-43px touch target violations on mobile scaling; controlled via dedicated >= 48px buttons below -->
+          <rect id="hit-lens-red" x="8" y="8" width="62" height="50" rx="6" fill="transparent" pointer-events="none"/>
+          <rect id="hit-lens-yellow" x="8" y="58" width="62" height="50" rx="6" fill="transparent" pointer-events="none"/>
+          <rect id="hit-lens-fya" x="8" y="108" width="62" height="50" rx="6" fill="transparent" pointer-events="none"/>
+          <rect id="hit-lens-ga" x="8" y="158" width="62" height="52" rx="6" fill="transparent" pointer-events="none"/>
+
+          <!-- Selection Indicator Ring on Active Lens -->
+          <circle id="svg-lens-ring" cx="39" cy="132" r="18" fill="none" stroke="#E87522" stroke-width="2" stroke-dasharray="3 2" />
+
+          <!-- ======================================================= -->
+          <!-- RIGHT: TEXAS INTERSECTION ROADWAY & TELEMETRY CAD -->
+          <!-- ======================================================= -->
+          <!-- Roadway Canvas Surface -->
+          <rect x="74" y="8" width="258" height="204" rx="7" fill="#181D1A" stroke="#252D28" stroke-width="1" />
+
+          <!-- Cross Street / East-West Highway (y=8 to 68) -->
+          <rect x="74" y="8" width="258" height="58" fill="#141816" />
+          <!-- Opposing Flow Centerline (Double Solid Yellow) -->
+          <line x1="74" y1="36" x2="332" y2="36" stroke="#F1C40F" stroke-width="1.5" stroke-dasharray="6 4" />
+
+          <!-- Crosswalk Zebra Stripes -->
+          <g stroke="rgba(255,255,255,0.4)" stroke-width="2.5">
+            <line x1="172" y1="12" x2="172" y2="62" />
+            <line x1="180" y1="12" x2="180" y2="62" />
+            <line x1="188" y1="12" x2="188" y2="62" />
+            <line x1="196" y1="12" x2="196" y2="62" />
+            <line x1="204" y1="12" x2="204" y2="62" />
+          </g>
+
+          <!-- Northbound Left Turn Bay (x=130 to 184, y=66 to 212) -->
+          <line x1="130" y1="66" x2="130" y2="170" stroke="#F1C40F" stroke-width="2" />
+          <line x1="184" y1="66" x2="184" y2="170" stroke="#FFFFFF" stroke-width="1.8" stroke-dasharray="6 6" />
+          <!-- White Limit / Stop Bar -->
+          <line x1="130" y1="66" x2="184" y2="66" stroke="#FFFFFF" stroke-width="3" />
+
+          <!-- Painted Left Turn Pavement Arrow inside Bay -->
+          <path d="M 157 140 L 157 122 Q 157 114 147 114 L 142 114 M 146 110 L 140 114 L 146 118" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+          <!-- Subject Vehicle (Your Car) in Left Turn Bay -->
+          <g id="svg-subject-car" transform="translate(145, 78)">
+            <!-- Car Silhouette (Width 24, Length 36) -->
+            <rect x="0" y="0" width="24" height="34" rx="4" fill="#0077C8" stroke="#FFFFFF" stroke-width="1" />
+            <!-- Windshield -->
+            <rect x="3" y="6" width="18" height="6" rx="1.5" fill="#E0F2FE" />
+            <!-- Rear Window -->
+            <rect x="4" y="24" width="16" height="4" rx="1" fill="#94A3B8" />
+            <!-- Headlights -->
+            <circle cx="4" cy="2" r="1.5" fill="#FEF08A" />
+            <circle cx="20" cy="2" r="1.5" fill="#FEF08A" />
+            <text x="12" y="20" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FFFFFF" text-anchor="middle">YOU</text>
+          </g>
+
+          <!-- Opposing Vehicle (Oncoming Traffic traveling straight Westbound) -->
+          <g id="svg-opposing-car" transform="translate(265, 18)">
+            <rect x="0" y="0" width="34" height="18" rx="3.5" fill="#334155" stroke="#94A3B8" stroke-width="1" />
+            <!-- Windshield -->
+            <rect x="6" y="2" width="6" height="14" rx="1" fill="#CBD5E1" />
+            <!-- Headlights facing West (left) -->
+            <circle cx="2" cy="4" r="1.5" fill="#FEF08A" />
+            <circle cx="2" cy="14" r="1.5" fill="#FEF08A" />
+            <text x="18" y="12" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">ONCOMING</text>
+          </g>
+
+          <!-- Pedestrian Silhouette in Crosswalk -->
+          <g id="svg-pedestrian" transform="translate(186, 42)">
+            <circle cx="4" cy="0" r="2.5" fill="#F87171" />
+            <line x1="4" y1="2.5" x2="4" y2="10" stroke="#F87171" stroke-width="1.8" />
+            <line x1="1" y1="6" x2="7" y2="6" stroke="#F87171" stroke-width="1.4" />
+            <line x1="4" y1="10" x2="2" y2="16" stroke="#F87171" stroke-width="1.4" />
+            <line x1="4" y1="10" x2="6" y2="16" stroke="#F87171" stroke-width="1.4" />
+          </g>
+
+          <!-- ======================================================= -->
+          <!-- DYNAMIC KINETIC VECTOR OVERLAYS BY PHASE -->
+          <!-- ======================================================= -->
+          <!-- PHASE 1: SOLID RED LAYER -->
+          <g id="layer-phase-red" class="hidden">
+            <!-- Pulsing Stop Line Barrier -->
+            <line x1="130" y1="66" x2="184" y2="66" stroke="#BA1A1A" stroke-width="4.5" />
+            <rect x="130" y="52" width="54" height="14" fill="rgba(186, 26, 26, 0.25)" stroke="#BA1A1A" stroke-width="0.8" stroke-dasharray="3 2" />
+            <text x="157" y="62" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="800" fill="#FF5C5C" text-anchor="middle">STOP LIMIT LINE</text>
+            <!-- Prohibited Turn Arc -->
+            <path d="M 157 78 Q 157 26 100 26" fill="none" stroke="#BA1A1A" stroke-width="2" stroke-dasharray="4 3" opacity="0.6"/>
+            <text x="126" y="38" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="900" fill="#BA1A1A" text-anchor="middle">⛔</text>
+          </g>
+
+          <!-- PHASE 2: SOLID YELLOW LAYER -->
+          <g id="layer-phase-yellow" class="hidden">
+            <!-- Yellow Clearance Stopping Distance Bar -->
+            <rect x="130" y="66" width="54" height="42" fill="rgba(241, 196, 15, 0.15)" stroke="#F1C40F" stroke-width="1.2" stroke-dasharray="4 2" />
+            <text x="157" y="86" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="800" fill="#F1C40F" text-anchor="middle">CLEARANCE ZONE</text>
+            <text x="157" y="96" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="600" fill="#E2E8F0" text-anchor="middle">DO NOT ACCELERATE</text>
+            <text x="157" y="44" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="800" fill="#F1C40F" text-anchor="middle">RED LIGHT IMMINENT</text>
+          </g>
+
+          <!-- PHASE 3: FLASHING YELLOW ARROW (DEFAULT ACTIVE) -->
+          <g id="layer-phase-fya">
+            <!-- Permissive Turning Trajectory Arc (Dashed Amber) -->
+            <path d="M 157 76 Q 157 26 95 26" fill="none" stroke="#F1C40F" stroke-width="2.5" stroke-dasharray="5 3" />
+            <!-- Conflict Point 1: Oncoming Traffic Yield Callout -->
+            <circle cx="248" cy="27" r="11" fill="rgba(241, 196, 15, 0.25)" stroke="#F1C40F" stroke-width="1.5" class="animate-pulse" />
+            <text x="248" y="30.5" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="900" fill="#F1C40F" text-anchor="middle">!</text>
+            <text x="248" y="46" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#F1C40F" text-anchor="middle">YIELD ONCOMING</text>
+            <!-- Conflict Point 2: Pedestrian Yield Callout -->
+            <circle cx="190" cy="48" r="9" fill="rgba(232, 117, 34, 0.25)" stroke="#E87522" stroke-width="1.2" />
+            <text x="190" y="62" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#E87522" text-anchor="middle">YIELD PED</text>
+          </g>
+
+          <!-- PHASE 4: SOLID GREEN ARROW LAYER -->
+          <g id="layer-phase-ga" class="hidden">
+            <!-- Protected Turning Trajectory Arc (Solid Green) -->
+            <path d="M 157 76 Q 157 26 92 26" fill="none" stroke="#1F6F43" stroke-width="3.5" />
+            <polygon points="90,26 98,22 98,30" fill="#1F6F43" />
+            <!-- Opposing Traffic Red Stop Bar -->
+            <rect x="244" y="16" width="3.5" height="22" fill="#BA1A1A" stroke="#FF5C5C" stroke-width="0.8" />
+            <text x="246" y="46" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#FF5C5C" text-anchor="middle">OPPOSING RED</text>
+            <!-- Pedestrian Crosswalk Don't Walk Red Hand -->
+            <rect x="183" y="38" width="14" height="14" rx="2" fill="#BA1A1A" />
+            <text x="190" y="48" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="900" fill="#FFFFFF" text-anchor="middle">✋</text>
+            <text x="190" y="60" font-family="'JetBrains Mono', monospace" font-size="5.5" font-weight="700" fill="#FF5C5C" text-anchor="middle">DONT WALK</text>
+          </g>
+
+          <!-- IN-CANVAS HUD TELEMETRY DOCK (BOTTOM DOCK) -->
+          <rect x="78" y="172" width="250" height="36" rx="5" fill="#0C0F0E" stroke="#252D28" stroke-width="1" />
+          <text id="sig-hud-title" x="86" y="186" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="800" fill="#F1C40F">TTC § 544.007(g) // FLASHING YELLOW ARROW</text>
+          <text id="sig-hud-action" x="86" y="199" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="600" fill="#E2E8F0">PERMISSIVE TURN // YIELD TO ONCOMING &amp; PEDS</text>
+        </svg>
+      </div>
+
+      <!-- 4 Synced Control Tabs (min-h-[48px], touch-target) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        <!-- Tab 0: Solid Red -->
+        <button id="btn-sig-red" onclick="setSignalPhase('red')" class="touch-target p-2 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-hazard shrink-0"></span>
+            <span class="font-mono text-[9px] font-bold text-slate">SOLID RED</span>
+          </div>
+          <span class="text-[8px] font-mono text-slate mt-0.5 truncate">Full Stop Required</span>
+        </button>
+
+        <!-- Tab 1: Solid Yellow -->
+        <button id="btn-sig-yellow" onclick="setSignalPhase('yellow')" class="touch-target p-2 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
+            <span class="font-mono text-[9px] font-bold text-slate">SOLID YELLOW</span>
+          </div>
+          <span class="text-[8px] font-mono text-slate mt-0.5 truncate">Clearance Interval</span>
+        </button>
+
+        <!-- Tab 2: Flashing Yellow Arrow (Default Active) -->
+        <button id="btn-sig-fya" onclick="setSignalPhase('fya')" class="touch-target p-2 rounded-xl border-2 border-safety bg-safety-light text-left flex flex-col justify-center transition-all">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping shrink-0"></span>
+            <span class="font-mono text-[9px] font-bold text-safety">FLASH YELLOW ➔</span>
+          </div>
+          <span class="text-[8px] font-mono text-slate mt-0.5 truncate">Permissive Left Turn</span>
+        </button>
+
+        <!-- Tab 3: Solid Green Arrow -->
+        <button id="btn-sig-ga" onclick="setSignalPhase('ga')" class="touch-target p-2 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-valid shrink-0"></span>
+            <span class="font-mono text-[9px] font-bold text-slate">GREEN ARROW ➔</span>
+          </div>
+          <span class="text-[8px] font-mono text-slate mt-0.5 truncate">Protected Left Turn</span>
+        </button>
+      </div>
+
+      <!-- Reactive Detailed Telemetry Panel -->
+      <div id="sig-detail-card" class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between border-b border-hairline pb-1.5">
+          <span id="sig-detail-badge" class="font-mono text-[10px] font-bold text-safety uppercase">PHASE: FLASHING YELLOW ARROW // PERMISSIVE</span>
+          <span id="sig-detail-statute" class="font-mono text-[10px] text-slate bg-white px-1.5 py-0.5 rounded border border-hairline">TTC § 544.007(g)</span>
+        </div>
+        
+        <div>
+          <h4 id="sig-detail-title" class="font-sans font-bold text-xs text-carbon">Permissive Left Turn: Unconditional Yield Requirement</h4>
+          <p id="sig-detail-desc" class="font-sans text-xs text-slate mt-0.5 leading-relaxed">
+            Under Texas Transportation Code § 544.007(g), an operator facing a flashing yellow arrow may cautiously enter the intersection to turn left, but <strong>MUST yield the right-of-way</strong> to oncoming vehicular traffic and pedestrians within the crosswalk. Oncoming traffic faces a steady green light and has absolute priority.
+          </p>
+        </div>
+
+        <!-- 2 Metric Stat Blocks -->
+        <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">RIGHT-OF-WAY STATUS</span>
+            <span id="sig-detail-row" class="font-bold text-amber-600">YIELD MANDATORY</span>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline">
+            <span class="text-slate block text-[8px] uppercase">COLLISION LIABILITY</span>
+            <span id="sig-detail-penalty" class="font-bold text-hazard">100% FAULT IF T-BONE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. TEXTBOOK PROSE 2: THE MUTCD 6-SHAPE TAXONOMY & COLOR CODE -->
+    <article class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs">
+      <div class="flex items-center gap-2 font-mono text-[11px] text-slate pb-2 border-b border-hairline">
+        <span class="material-symbols-outlined text-safety text-sm">category</span>
+        <span class="font-bold text-carbon">FEDERAL MUTCD TAXONOMY &bull; 23 CFR &sect; 655</span>
+      </div>
+
+      <h3 class="font-sans font-bold text-base text-carbon leading-snug">
+        Sign Recognition Through Geometry Before Legibility
+      </h3>
+
+      <p class="font-sans text-xs text-slate leading-relaxed">
+        The Federal Manual on Uniform Traffic Control Devices (MUTCD) dictates that drivers must recognize sign instructions by silhouette and color long before lettering becomes readable. High speeds (70+ mph on Texas highways) demand instantaneous instinctual recognition.
+      </p>
+
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-hazard block uppercase">OCTAGON &bull; RED</span>
+          <p class="text-[11px] text-slate mt-1">Exclusively STOP. Complete wheel stop required. Zero exceptions.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-safety block uppercase">TRIANGLE &bull; RED/WHITE</span>
+          <p class="text-[11px] text-slate mt-1">Exclusively YIELD. Slow down and grant right-of-way to all cross traffic.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-amber-600 block uppercase">DIAMOND &bull; YELLOW</span>
+          <p class="text-[11px] text-slate mt-1">Warning / Hazards ahead. Sharp curves, merging lanes, signal ahead.</p>
+        </div>
+        <div class="bg-surface-sub p-2.5 rounded-xl border border-hairline">
+          <span class="font-mono font-bold text-[10px] text-amber-600 block uppercase">PENNANT &bull; YELLOW</span>
+          <p class="text-[11px] text-slate mt-1">NO PASSING ZONE. Placed strictly on LEFT side of road facing oncoming traffic.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-red-50/50 rounded-xl border border-red-200 text-xs text-slate leading-relaxed">
+        <strong class="text-hazard font-bold font-mono">TEXAS WORK ZONE RULE (TTC &sect; 472.022):</strong>
+        Orange diamond or rectangular signs mark construction corridors. Fines are strictly <strong>DOUBLED</strong> when workers are present and signs are posted.
+      </div>
+    </article>
+
+    <!-- 07. SUBAGENT DELIVERED WIDGET 2: MUTCD SHAPES & TAXONOMY -->
+    <section class="bg-white border border-hairline rounded-2xl p-3.5 sm:p-5 relative bg-tech-grid overflow-hidden shadow-xs space-y-3 fluid-card">
+      <!-- Corner Engineering Marks -->
+      <div class="flex items-center justify-between pb-2 border-b border-hairline text-[10px] font-mono text-slate">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+          <span>TAXONOMY // MUTCD 6-SHAPE MATRIX</span>
+        </div>
+        <span class="bg-surface-sub px-1.5 py-0.5 rounded border border-hairline font-bold">
+          23 CFR § 655
+        </span>
+      </div>
+
+      <!-- Title & Pedagogical Premise -->
+      <div>
+        <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">INTERACTIVE CAD 02</span>
+        <h2 class="font-bold text-base text-carbon leading-tight">MUTCD Geometric Shapes &amp; Statutory Color Taxonomy</h2>
+        <p class="text-xs text-slate mt-0.5 leading-relaxed">
+          In poor visibility, geometric silhouette communicates statutory mandate before text resolves. Tap each standard shape node to inspect purpose, placement, and penalties.
+        </p>
+      </div>
+
+      <!-- Phone-Optimized Responsive SVG Canvas (viewBox='0 0 340 180') -->
+      <div class="relative w-full max-w-[340px] mx-auto flex items-center justify-center">
+        <svg id="mutcd-shapes-svg" viewBox="0 0 340 180" class="w-full max-w-[340px] h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Canvas Blueprint Background -->
+          <rect x="2" y="2" width="336" height="176" rx="8" fill="#141816" stroke="#252D28" stroke-width="1.5" />
+
+          <!-- ======================================================= -->
+          <!-- 6 INTERACTIVE SHAPE NODES (GRID: 3 COLS x 2 ROWS) -->
+          <!-- Touch targets: each cell is 100px x 78px >= 44px x 44px -->
+          <!-- ======================================================= -->
+
+          <!-- 1. OCTAGON TILE (Col 1, Row 1: x=8, y=8, w=100, h=78) -->
+          <g id="shape-node-octagon" class="cursor-pointer" onclick="selectShapeNode('octagon')" role="button" aria-label="Octagon Shape Stop Sign" tabindex="0">
+            <rect id="tile-bg-octagon" x="8" y="8" width="100" height="78" rx="6" fill="#FFF8F3" stroke="#E87522" stroke-width="2" />
+            <!-- Octagon SVG Polygon (Center cx=58, cy=38) -->
+            <polygon points="43,26 51,18 65,18 73,26 73,40 65,48 51,48 43,40" fill="#BA1A1A" stroke="#FFFFFF" stroke-width="1.5" />
+            <text x="58" y="35" font-family="'Geist', 'Arial Black', sans-serif" font-size="7.5" font-weight="900" fill="#FFFFFF" text-anchor="middle">STOP</text>
+            <text x="58" y="61" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800" fill="#191C1B" text-anchor="middle">OCTAGON</text>
+            <text x="58" y="72" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#BA1A1A" text-anchor="middle">EXCLUSIVE STOP</text>
+          </g>
+
+          <!-- 2. TRIANGLE TILE (Col 2, Row 1: x=120, y=8, w=100, h=78) -->
+          <g id="shape-node-triangle" class="cursor-pointer" onclick="selectShapeNode('triangle')" role="button" aria-label="Triangle Shape Yield Sign" tabindex="0">
+            <rect id="tile-bg-triangle" x="120" y="8" width="100" height="78" rx="6" fill="#FFFFFF" stroke="#D9DDD8" stroke-width="1.2" />
+            <!-- Equilateral Triangle Pointing Downward (Center cx=170, cy=38) -->
+            <polygon points="152,24 188,24 170,52" fill="#FFFFFF" stroke="#BA1A1A" stroke-width="3" />
+            <text x="170" y="34" font-family="'Geist', 'Arial Black', sans-serif" font-size="6" font-weight="900" fill="#BA1A1A" text-anchor="middle">YIELD</text>
+            <text x="170" y="61" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800" fill="#191C1B" text-anchor="middle">TRIANGLE ∇</text>
+            <text x="170" y="72" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#E87522" text-anchor="middle">EXCLUSIVE YIELD</text>
+          </g>
+
+          <!-- 3. DIAMOND TILE (Col 3, Row 1: x=232, y=8, w=100, h=78) -->
+          <g id="shape-node-diamond" class="cursor-pointer" onclick="selectShapeNode('diamond')" role="button" aria-label="Diamond Shape Hazard Warning" tabindex="0">
+            <rect id="tile-bg-diamond" x="232" y="8" width="100" height="78" rx="6" fill="#FFFFFF" stroke="#D9DDD8" stroke-width="1.2" />
+            <!-- Diamond (Center cx=282, cy=38, 45-deg square) -->
+            <rect x="-13" y="-13" width="26" height="26" rx="2" transform="translate(282, 34) rotate(45)" fill="#F1C40F" stroke="#191C1B" stroke-width="1.5" />
+            <!-- Curve Hazard Symbol -->
+            <path d="M 280 40 L 280 34 Q 280 29 285 29 L 287 29 M 284 26 L 288 29 L 284 32" fill="none" stroke="#191C1B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            <text x="282" y="61" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800" fill="#191C1B" text-anchor="middle">DIAMOND</text>
+            <text x="282" y="72" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#D97706" text-anchor="middle">HAZARD WARNING</text>
+          </g>
+
+          <!-- 4. PENNANT TILE (Col 1, Row 2: x=8, y=94, w=100, h=78) -->
+          <g id="shape-node-pennant" class="cursor-pointer" onclick="selectShapeNode('pennant')" role="button" aria-label="Pennant Shape No Passing Zone" tabindex="0">
+            <rect id="tile-bg-pennant" x="8" y="94" width="100" height="78" rx="6" fill="#FFFFFF" stroke="#D9DDD8" stroke-width="1.2" />
+            <!-- Pennant Pointing Right (Center cx=58, cy=120) -->
+            <polygon points="42,107 74,120 42,133" fill="#F1C40F" stroke="#191C1B" stroke-width="1.5" />
+            <text x="50" y="117" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#191C1B" text-anchor="middle">NO</text>
+            <text x="50" y="125" font-family="'JetBrains Mono', monospace" font-size="4.5" font-weight="800" fill="#191C1B" text-anchor="middle">PASS</text>
+            <text x="58" y="147" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800" fill="#191C1B" text-anchor="middle">PENNANT ▶</text>
+            <text x="58" y="158" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#D97706" text-anchor="middle">NO PASSING ZONE</text>
+          </g>
+
+          <!-- 5. PENTAGON TILE (Col 2, Row 2: x=120, y=94, w=100, h=78) -->
+          <g id="shape-node-pentagon" class="cursor-pointer" onclick="selectShapeNode('pentagon')" role="button" aria-label="Pentagon Shape School Zone" tabindex="0">
+            <rect id="tile-bg-pentagon" x="120" y="94" width="100" height="78" rx="6" fill="#FFFFFF" stroke="#D9DDD8" stroke-width="1.2" />
+            <!-- Pentagon Pointing Up (Center cx=170, cy=120) -->
+            <polygon points="170,105 186,117 182,133 158,133 154,117" fill="#CCFF00" stroke="#191C1B" stroke-width="1.5" />
+            <!-- School Children Silhouettes -->
+            <circle cx="166" cy="116" r="1.8" fill="#191C1B" />
+            <line x1="166" y1="118" x2="166" y2="126" stroke="#191C1B" stroke-width="1.5" />
+            <circle cx="174" cy="119" r="1.5" fill="#191C1B" />
+            <line x1="174" y1="121" x2="174" y2="128" stroke="#191C1B" stroke-width="1.3" />
+            <text x="170" y="147" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800" fill="#191C1B" text-anchor="middle">PENTAGON ⬟</text>
+            <text x="170" y="158" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#65A30D" text-anchor="middle">SCHOOL ZONE</text>
+          </g>
+
+          <!-- 6. VERTICAL RECTANGLE TILE (Col 3, Row 2: x=232, y=94, w=100, h=78) -->
+          <g id="shape-node-rectangle" class="cursor-pointer" onclick="selectShapeNode('rectangle')" role="button" aria-label="Vertical Rectangle Regulatory Sign" tabindex="0">
+            <rect id="tile-bg-rectangle" x="232" y="94" width="100" height="78" rx="6" fill="#FFFFFF" stroke="#D9DDD8" stroke-width="1.2" />
+            <!-- Vertical Rectangle (Center cx=282, cy=120) -->
+            <rect x="270" y="105" width="24" height="30" rx="2" fill="#FFFFFF" stroke="#191C1B" stroke-width="1.5" />
+            <text x="282" y="113" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#191C1B" text-anchor="middle">SPEED</text>
+            <text x="282" y="119" font-family="'JetBrains Mono', monospace" font-size="4" font-weight="800" fill="#191C1B" text-anchor="middle">LIMIT</text>
+            <text x="282" y="131" font-family="'Geist', 'Arial Black', sans-serif" font-size="8.5" font-weight="900" fill="#191C1B" text-anchor="middle">70</text>
+            <text x="282" y="147" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800" fill="#191C1B" text-anchor="middle">RECTANGLE</text>
+            <text x="282" y="158" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#191C1B" text-anchor="middle">REGULATORY LAW</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 6 Synced Selector Tabs (grid-cols-3, min-h-[48px], touch-target) -->
+      <div class="grid grid-cols-3 gap-1.5 pt-1">
+        <button id="btn-shape-octagon" onclick="selectShapeNode('octagon')" class="touch-target p-1.5 rounded-lg border-2 border-[#BA1A1A] bg-red-50/50 text-center flex flex-col justify-center transition-all">
+          <span class="font-mono text-[9px] font-bold text-hazard">OCTAGON</span>
+          <span class="text-[8px] font-mono text-slate">STOP MANDATE</span>
+        </button>
+
+        <button id="btn-shape-triangle" onclick="selectShapeNode('triangle')" class="touch-target p-1.5 rounded-lg border border-hairline bg-white text-center flex flex-col justify-center transition-all">
+          <span class="font-mono text-[9px] font-bold text-slate">TRIANGLE ∇</span>
+          <span class="text-[8px] font-mono text-slate">YIELD MANDATE</span>
+        </button>
+
+        <button id="btn-shape-diamond" onclick="selectShapeNode('diamond')" class="touch-target p-1.5 rounded-lg border border-hairline bg-white text-center flex flex-col justify-center transition-all">
+          <span class="font-mono text-[9px] font-bold text-slate">DIAMOND</span>
+          <span class="text-[8px] font-mono text-slate">HAZARD WARNING</span>
+        </button>
+
+        <button id="btn-shape-pennant" onclick="selectShapeNode('pennant')" class="touch-target p-1.5 rounded-lg border border-hairline bg-white text-center flex flex-col justify-center transition-all">
+          <span class="font-mono text-[9px] font-bold text-slate">PENNANT ▶</span>
+          <span class="text-[8px] font-mono text-slate">NO PASSING</span>
+        </button>
+
+        <button id="btn-shape-pentagon" onclick="selectShapeNode('pentagon')" class="touch-target p-1.5 rounded-lg border border-hairline bg-white text-center flex flex-col justify-center transition-all">
+          <span class="font-mono text-[9px] font-bold text-slate">PENTAGON ⬟</span>
+          <span class="text-[8px] font-mono text-slate">SCHOOL ZONE</span>
+        </button>
+
+        <button id="btn-shape-rectangle" onclick="selectShapeNode('rectangle')" class="touch-target p-1.5 rounded-lg border border-hairline bg-white text-center flex flex-col justify-center transition-all">
+          <span class="font-mono text-[9px] font-bold text-slate">RECTANGLE</span>
+          <span class="text-[8px] font-mono text-slate">REGULATORY</span>
+        </button>
+      </div>
+
+      <!-- Reactive Detailed Shape Telemetry Card -->
+      <div id="shape-detail-card" class="bg-surface-sub p-3.5 rounded-xl border border-hairline space-y-2">
+        <div class="flex items-center justify-between border-b border-hairline pb-1.5">
+          <span id="shape-card-badge" class="font-mono text-[10px] font-bold text-hazard uppercase">OCTAGON // EXCLUSIVE STOP</span>
+          <span id="shape-card-mutcd" class="font-mono text-[10px] text-slate bg-white px-1.5 py-0.5 rounded border border-hairline">MUTCD R1-1</span>
+        </div>
+
+        <div>
+          <h4 id="shape-card-title" class="font-sans font-bold text-xs text-carbon">Full Stop Mandatory Prior to Stop Line or Crosswalk</h4>
+          <p id="shape-card-desc" class="font-sans text-xs text-slate mt-0.5 leading-relaxed">
+            The eight-sided octagon is reserved exclusively for STOP signs under Texas MUTCD and TTC § 544.010. Drivers must come to a complete operational cessation of vehicular motion before the marked stop line, crosswalk, or entering the intersecting roadway.
+          </p>
+        </div>
+
+        <!-- Statutory Placement & Penalties Data Grid -->
+        <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[10px]">
+          <div class="bg-white p-2 rounded-lg border border-hairline space-y-0.5">
+            <span class="text-slate block text-[8px] uppercase">TYPICAL PLACEMENT</span>
+            <span id="shape-card-placement" class="font-bold text-carbon text-[9px] block">Right shoulder at intersection limit line</span>
+          </div>
+          <div class="bg-white p-2 rounded-lg border border-hairline space-y-0.5">
+            <span class="text-slate block text-[8px] uppercase">TEXAS LEGAL PENALTY</span>
+            <span id="shape-card-penalty" class="font-bold text-hazard text-[9px] block">Class C Misdemeanor ($1–$200) + 2 DPS Pts</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. THREE STRICT VERIFICATION MCQS -->
+    <section class="bg-white border border-hairline rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs fluid-card">
+      <div class="flex items-center justify-between pb-2 border-b border-hairline">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-slate">
+          <span class="material-symbols-outlined text-valid text-sm">quiz</span>
+          <span class="font-bold text-carbon">STATUTORY VERIFICATION AUDIT</span>
+        </div>
+        <span class="font-mono text-[10px] text-slate bg-surface-sub px-2 py-0.5 rounded border border-hairline">
+          3 MANDATORY CHECKS
+        </span>
+      </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3 mt-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">L04-T01 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-2">
+      <!-- MCQ 1 (Option B MUST be strictly correct!) -->
+      <div class="space-y-2.5" id="mcq-container-1">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 01 // SIGNAL JURISPRUDENCE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          When approaching an intersection displaying a Flashing Yellow Arrow (FYA) for the left-turn lane, what is your statutory legal duty under Texas Transportation Code &sect; 544.007?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(1, 'A')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Come to a mandatory complete stop at the stop line, wait 3 seconds, then turn.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'B')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] You may cautiously enter the intersection, but you MUST unconditionally yield to oncoming traffic and crossing pedestrians before completing the turn.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'C')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] You possess protected right-of-way over oncoming traffic because the flashing yellow overrides oncoming green signals.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(1, 'D')" class="mcq-btn-1 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Left turns are strictly prohibited during a flashing yellow phase; only U-turns are permitted.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-1" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 2 -->
+      <div class="space-y-2.5" id="mcq-container-2">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 02 // MUTCD SHAPE CLASSIFICATION</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Where is an official pennant-shaped traffic sign (pointing horizontally to the right) legally positioned on a Texas roadway, and what does it designate?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(2, 'A')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Placed on the right shoulder to indicate an upcoming highway weigh station.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'B')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] Placed on the left side of the roadway facing oncoming traffic to mark the exact beginning of a NO PASSING ZONE.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'C')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Mounted overhead above the right lane to denote an exit-only acceleration lane.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(2, 'D')" class="mcq-btn-2 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Placed exclusively at school crosswalks to warn drivers of children crossing.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-2" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+
+      <div class="border-t border-hairline pt-3"></div>
+
+      <!-- MCQ 3 -->
+      <div class="space-y-2.5" id="mcq-container-3">
+        <span class="font-mono text-[10px] font-bold text-safety uppercase block">QUESTION 03 // WORK ZONE STATUTE</span>
+        <h4 class="font-sans font-bold text-xs sm:text-sm text-carbon leading-snug">
+          Under Texas Transportation Code &sect; 472.022, what statutory penalty applies when a driver commits a moving violation in a marked construction or work zone?
+        </h4>
+
+        <div class="space-y-1.5">
+          <button onclick="checkMCQ(3, 'A')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ A ] Fines are tripled and the driver's vehicle is subject to immediate impoundment.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'B')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ B ] The driver is required to perform 40 hours of community service on highway maintenance crews.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'C')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ C ] Fines are strictly doubled when workers are present and official warning signs are posted.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+          <button onclick="checkMCQ(3, 'D')" class="mcq-btn-3 touch-target min-h-[48px] w-full p-2.5 rounded-xl border border-hairline bg-surface hover:bg-surface-sub text-left text-xs text-carbon flex items-center justify-between transition">
+            <span>[ D ] Moving violations are automatically converted into Class B misdemeanor criminal offenses.</span>
+            <span class="material-symbols-outlined text-sm opacity-0 shrink-0 ml-1">check</span>
+          </button>
+        </div>
+
+        <div id="mcq-exp-3" class="hidden p-3 rounded-xl text-xs leading-relaxed border transition-all"></div>
+      </div>
+    
+      </div> <!-- End #mini-quiz-questions -->
+    </section>
+
+    <!-- 09. NEXT LESSON NAVIGATION FOOTER -->
+    <footer class="pt-2 pb-6 space-y-3">
+      <div class="flex items-center justify-between gap-3">
+        <a href="L03-T07.html" class="touch-target flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-white border border-hairline hover:bg-surface-sub text-xs font-bold text-carbon transition" style="display: inline-flex; min-height: 48px; min-width: 120px;">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>PREVIOUS TOPIC</span>
+        </a>
+        <a href="L04-T02.html" class="touch-target flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-safety text-white hover:bg-safety-deep text-xs font-bold transition shadow-sm" style="display: inline-flex; min-height: 48px; min-width: 120px;">
+          <span>NEXT: PAVEMENT MARKINGS</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <p class="text-center font-mono text-[10px] text-slate">
+        Texas Adult Driver Education (ADE-1317) &bull; Module 04 Topic 01
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT STATE ENGINE: MCQS & SUBAGENT WIDGET LOGIC -->
+  <script>
+    // -------------------------------------------------------------------------
+    // MCQ STATE ENGINE (Dynamic Score Increment & Audit Compliance)
+    // -------------------------------------------------------------------------
+    let currentScore = 0;
+    const answered = { 1: false, 2: false, 3: false };
+                const TOPIC_ID = 'L04-T01';
+    
+    
+
+    const TOPIC_SCENARIOS = {
+      "1": {
+            "scenarioNumber": 1,
+            "correctOption": "B",
+            "statute": "TTC § 544.007(e-1) & TMUTCD § 4D.17",
+            "statutoryRationale": "Correct! The Flashing Yellow Arrow (FYA) permits a left turn only after yielding unconditionally to all oncoming traffic and crossing pedestrians. Oncoming traffic has a steady green light."
+      },
+      "2": {
+            "scenarioNumber": 2,
+            "correctOption": "B",
+            "statute": "23 CFR § 655 MUTCD § 2C.06 & TTC § 545.055",
+            "statutoryRationale": "Correct! The pennant-shaped warning sign is uniquely placed on the LEFT side of two-lane highways facing oncoming drivers to mark the statutory beginning of a No Passing Zone."
+      },
+      "3": {
+            "scenarioNumber": 3,
+            "correctOption": "C",
+            "statute": "TTC § 472.022 WORK ZONE FINES",
+            "statutoryRationale": "Correct! Under Texas Transportation Code § 472.022, fines for moving violations committed in a designated construction or maintenance work zone are doubled when workers are present."
+      }
+};
+
+    function checkMCQ(qNum, selected, btn) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const expBox = document.getElementById(`mcq-exp-${qNum}`) || document.getElementById(`q${qNum}-feedback`);
+      const buttons = document.querySelectorAll(`.mcq-btn-${qNum}`);
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-surface-sub');
+      });
+
+      if (expBox) expBox.classList.remove('hidden');
+
+      const qKeyStr = String(qNum);
+      const qData = (TOPIC_SCENARIOS && TOPIC_SCENARIOS[qKeyStr]) ||
+                    (window.FORMATIVE_SCENARIO_KEYS && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID] && window.FORMATIVE_SCENARIO_KEYS[TOPIC_ID][qKeyStr]) || {};
+      const correctOpt = (qData.correctOption || 'B').toUpperCase().trim();
+      const chosenStr = String(selected || '').toUpperCase().trim();
+      const isCorrect = (chosenStr === correctOpt);
+      const statute = qData.statute || 'Texas Transportation Code';
+      const rationale = qData.statutoryRationale || 'Under Texas statutory driving rules, this selection represents the required safe operating procedure.';
+
+      buttons.forEach(b => {
+        if (b.innerText.includes(`[ ${correctOpt} ]`)) {
+          b.classList.add('bg-valid/10', 'border-2', 'border-valid', 'text-valid', 'font-bold');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'check_circle';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-valid');
+          }
+        } else if (b.innerText.includes(`[ ${selected} ]`) && !isCorrect) {
+          b.classList.add('bg-hazard/10', 'border-2', 'border-hazard', 'text-hazard', 'line-through');
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = 'cancel';
+            icon.classList.remove('opacity-0');
+            icon.classList.add('text-hazard');
+          }
+        }
+      });
+
+      if (isCorrect) {
+        currentScore++;
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-valid/10 border-valid/30 text-valid';
+          expBox.innerHTML = `<strong>&check; CORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(880, 'sine', 0.15);
+      } else {
+        if (expBox) {
+          expBox.className = 'p-3 rounded-xl text-xs leading-relaxed border transition-all bg-hazard/10 border-hazard/30 text-hazard';
+          expBox.innerHTML = `<strong>&cross; INCORRECT (${statute}):</strong> ${rationale}`;
+        }
+        if (typeof playAudioTone === 'function') playAudioTone(240, 'sawtooth', 0.2);
+      }
+
+      const scoreEl = document.getElementById('score-display') || document.getElementById('quiz-score');
+      if (scoreEl) scoreEl.textContent = `SCORE: ${currentScore} / 3`;
+
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'TEST_QUESTION_STATE',
+          topicId: TOPIC_ID,
+          scenarioNumber: qNum,
+          isCorrect: isCorrect
+        }, '*');
+
+        const answeredCount = Object.values(answered).filter(Boolean).length;
+        if (answeredCount === 3) {
+          window.parent.postMessage({
+            type: 'TOPIC_COMPLETE',
+            topicId: TOPIC_ID,
+            score: currentScore,
+            maxScore: 3
+          }, '*');
+        }
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // SUBAGENT DELIVERED WIDGET LOGIC
+    // -------------------------------------------------------------------------
+    
+    // ===================================================================
+    // WIDGET 1: TEXAS 4-SECTION SIGNAL STATE ENGINE (TTC § 544.007)
+    // ===================================================================
+    const signalPhases = {
+      red: {
+        badge: "PHASE: SOLID RED // FULL STOP MANDATORY",
+        statute: "TTC § 544.007(d)",
+        title: "Solid Red: Complete Vehicular Cessation",
+        desc: "An operator facing a steady circular red signal alone shall stop at a clearly marked stop line, or before entering the crosswalk. Left turns are strictly prohibited. Right turn on red is permitted only after a complete stop and yielding to all oncoming traffic and pedestrians.",
+        rowStatus: "ZERO RIGHT-OF-WAY",
+        rowColor: "text-hazard",
+        penalty: "CLASS C // $1–$200 + 2 PTS",
+        hudTitle: "TTC § 544.007(d) // STEADY RED LIGHT",
+        hudAction: "FULL STOP REQUIRED PRIOR TO LIMIT LINE",
+        hudColor: "#FF5C5C",
+        lensRingY: 36,
+        activeLens: "red"
+      },
+      yellow: {
+        badge: "PHASE: SOLID YELLOW // CLEARANCE INTERVAL",
+        statute: "TTC § 544.007(e)",
+        title: "Solid Yellow: Warning of Imminent Red Phase",
+        desc: "A steady yellow signal warns that the related green movement is being terminated or that a red light will immediately follow. An operator may not enter the intersection unless the vehicle cannot safely be brought to a stop before the stop line.",
+        rowStatus: "DECELERATE / STOP",
+        rowColor: "text-amber-600",
+        penalty: "RUNNING RED = MOVING VIOLATION",
+        hudTitle: "TTC § 544.007(e) // STEADY YELLOW CLEARANCE",
+        hudAction: "STOP IF SAFE // DO NOT ACCELERATE",
+        hudColor: "#F1C40F",
+        lensRingY: 84,
+        activeLens: "yellow"
+      },
+      fya: {
+        badge: "PHASE: FLASHING YELLOW ARROW // PERMISSIVE",
+        statute: "TTC § 544.007(g)",
+        title: "Permissive Left Turn: Unconditional Yield Obligation",
+        desc: "Under Texas Transportation Code § 544.007(g), an operator facing a flashing yellow arrow may cautiously enter the intersection to turn left, but MUST yield the right-of-way to oncoming vehicular traffic and pedestrians lawfully within the intersection.",
+        rowStatus: "YIELD MANDATORY",
+        rowColor: "text-amber-600",
+        penalty: "100% FAULT IF T-BONE IMPACT",
+        hudTitle: "TTC § 544.007(g) // FLASHING YELLOW ARROW",
+        hudAction: "PERMISSIVE TURN // YIELD TO ONCOMING & PEDS",
+        hudColor: "#F1C40F",
+        lensRingY: 132,
+        activeLens: "fya"
+      },
+      ga: {
+        badge: "PHASE: SOLID GREEN ARROW // PROTECTED TURN",
+        statute: "TTC § 544.007(c)",
+        title: "Protected Left Turn: Exclusive Right-of-Way",
+        desc: "A green arrow signal grants protected movement. Opposing straight-through traffic and conflicting crosswalks face a circular red indication. Operators may proceed cautiously in the direction indicated by the arrow with full right-of-way priority.",
+        rowStatus: "PROTECTED ROW",
+        rowColor: "text-valid",
+        penalty: "OPPOSING TRAFFIC MUST YIELD",
+        hudTitle: "TTC § 544.007(c) // SOLID GREEN ARROW",
+        hudAction: "PROTECTED TURN // ONCOMING FLOW FACES RED",
+        hudColor: "#4AE088",
+        lensRingY: 180,
+        activeLens: "ga"
+      }
+    };
+
+    function setSignalPhase(phaseKey) {
+      const data = signalPhases[phaseKey];
+      if (!data) return;
+
+      // Update Detail Card Content
+      document.getElementById('sig-detail-badge').textContent = data.badge;
+      document.getElementById('sig-detail-statute').textContent = data.statute;
+      document.getElementById('sig-detail-title').textContent = data.title;
+      document.getElementById('sig-detail-desc').innerHTML = data.desc;
+      
+      const rowElem = document.getElementById('sig-detail-row');
+      rowElem.textContent = data.rowStatus;
+      rowElem.className = "font-bold text-[9px] " + data.rowColor;
+
+      document.getElementById('sig-detail-penalty').textContent = data.penalty;
+
+      // Update In-Canvas HUD
+      const hudTitle = document.getElementById('sig-hud-title');
+      const hudAction = document.getElementById('sig-hud-action');
+      hudTitle.textContent = data.hudTitle;
+      hudTitle.setAttribute('fill', data.hudColor);
+      hudAction.textContent = data.hudAction;
+
+      // Update Lens Aesthetics
+      const lensRed = document.getElementById('svg-lens-red');
+      const lensYellow = document.getElementById('svg-lens-yellow');
+      const lensFya = document.getElementById('svg-lens-fya');
+      const lensFyaArrow = document.getElementById('svg-lens-fya-arrow');
+      const lensGa = document.getElementById('svg-lens-ga');
+      const lensGaArrow = document.getElementById('svg-lens-ga-arrow');
+
+      // Reset all lenses to inactive
+      lensRed.setAttribute('fill', '#2B0E0E');
+      lensRed.setAttribute('stroke', '#451616');
+      lensRed.removeAttribute('filter');
+
+      lensYellow.setAttribute('fill', '#2D2408');
+      lensYellow.setAttribute('stroke', '#45380C');
+      lensYellow.removeAttribute('filter');
+
+      lensFya.setAttribute('fill', '#2D2408');
+      lensFya.setAttribute('stroke', '#45380C');
+      lensFya.classList.remove('animate-fya');
+      lensFyaArrow.classList.remove('animate-fya');
+      lensFyaArrow.setAttribute('opacity', '0.25');
+
+      lensGa.setAttribute('fill', '#0B2615');
+      lensGa.setAttribute('stroke', '#123B21');
+      lensGa.removeAttribute('filter');
+      lensGaArrow.setAttribute('opacity', '0.25');
+
+      // Activate selected lens
+      if (phaseKey === 'red') {
+        lensRed.setAttribute('fill', '#BA1A1A');
+        lensRed.setAttribute('stroke', '#FF5C5C');
+        lensRed.setAttribute('filter', 'url(#glow-red)');
+      } else if (phaseKey === 'yellow') {
+        lensYellow.setAttribute('fill', '#F1C40F');
+        lensYellow.setAttribute('stroke', '#FFF275');
+        lensYellow.setAttribute('filter', 'url(#glow-yellow)');
+      } else if (phaseKey === 'fya') {
+        lensFya.setAttribute('fill', '#F1C40F');
+        lensFya.setAttribute('stroke', '#FFF275');
+        lensFya.classList.add('animate-fya');
+        lensFyaArrow.classList.add('animate-fya');
+        lensFyaArrow.setAttribute('opacity', '1');
+      } else if (phaseKey === 'ga') {
+        lensGa.setAttribute('fill', '#1F6F43');
+        lensGa.setAttribute('stroke', '#4AE088');
+        lensGa.setAttribute('filter', 'url(#glow-green)');
+        lensGaArrow.setAttribute('opacity', '1');
+      }
+
+      // Move Selection Ring on SVG
+      const ring = document.getElementById('svg-lens-ring');
+      ring.setAttribute('cy', data.lensRingY);
+
+      // Toggle Vector Overlay Layers
+      ['red', 'yellow', 'fya', 'ga'].forEach(p => {
+        const layer = document.getElementById('layer-phase-' + p);
+        if (layer) {
+          if (p === phaseKey) {
+            layer.classList.remove('hidden');
+          } else {
+            layer.classList.add('hidden');
+          }
+        }
+      });
+
+      // Synchronize Button Styles
+      ['red', 'yellow', 'fya', 'ga'].forEach(p => {
+        const btn = document.getElementById('btn-sig-' + p);
+        if (!btn) return;
+        const spanLabel = btn.querySelector('span.font-mono');
+        if (p === phaseKey) {
+          btn.className = "touch-target p-2 rounded-xl border-2 border-safety bg-safety-light text-left flex flex-col justify-center transition-all";
+          if (spanLabel) spanLabel.className = "font-mono text-[9px] font-bold text-safety";
+        } else {
+          btn.className = "touch-target p-2 rounded-xl border border-hairline bg-white text-left flex flex-col justify-center transition-all";
+          if (spanLabel) spanLabel.className = "font-mono text-[9px] font-bold text-slate";
+        }
+      });
+    }
+
+    // ===================================================================
+    // WIDGET 2: MUTCD 6-SHAPE TAXONOMY ENGINE
+    // ===================================================================
+    const shapeTaxonomy = {
+      octagon: {
+        badge: "OCTAGON // EXCLUSIVE STOP",
+        mutcd: "MUTCD R1-1",
+        title: "Full Stop Mandatory Prior to Stop Line or Crosswalk",
+        desc: "The eight-sided octagon is reserved exclusively for STOP signs under Texas MUTCD and TTC § 544.010. Drivers must come to a complete operational cessation of vehicular motion before the marked stop line, crosswalk, or entering the intersecting roadway.",
+        placement: "Right shoulder at intersection limit line; multi-way stop installations.",
+        penalty: "Class C Misdemeanor ($1–$200) + 2 DPS Record Points"
+      },
+      triangle: {
+        badge: "EQUILATERAL TRIANGLE // EXCLUSIVE YIELD",
+        mutcd: "MUTCD R1-2",
+        title: "Equilateral Triangle Pointing Downward (∇)",
+        desc: "Reserved exclusively for YIELD signs under Texas MUTCD and TTC § 545.151. Requires an operator to slow down to a safe speed and yield the right-of-way to all vehicles and pedestrians within the intersecting stream. Stopping is mandatory if safety requires.",
+        placement: "Roundabout entries, channelized right-turn slip ramps, and minor road approaches.",
+        penalty: "Class C Misdemeanor ($1–$200); enhanced penalties if accident results."
+      },
+      diamond: {
+        badge: "DIAMOND // GENERAL HAZARD WARNING",
+        mutcd: "MUTCD W-SERIES",
+        title: "Advance Warning of Roadway Conditions & Hazards",
+        desc: "Four-corner diamond sign warns drivers of upcoming physical road hazards, curves, merging lanes, divided highway terminations, or low clearances. Prompts speed modulation under the Texas Basic Speed Rule (TTC § 545.351).",
+        placement: "Posted 250–750 ft in advance of hazard based on highway approach speed.",
+        penalty: "Contributory moving violation: Failure to Control Speed (TTC § 545.351)."
+      },
+      pennant: {
+        badge: "PENNANT // NO PASSING ZONE ADVANCE",
+        mutcd: "MUTCD W14-3",
+        title: "Isosceles Pennant Pointing Right (▶)",
+        desc: "Under TTC § 545.055, an isosceles pennant sign is posted exclusively on the LEFT side of two-lane, two-way roads. It gives advance notice of a no-passing zone where sight distances are restricted by hill crests, curves, or bridges.",
+        placement: "Posted on the LEFT-hand shoulder at the exact origin of no-passing zone.",
+        penalty: "Illegal Passing (TTC § 545.055) — Class C Misdemeanor ($1–$200) + 2 DPS Pts"
+      },
+      pentagon: {
+        badge: "PENTAGON // SCHOOL ZONE ADVANCE",
+        mutcd: "MUTCD S-SERIES",
+        title: "Five-Sided Pentagon Pointing Upward (⬟)",
+        desc: "Reserved exclusively for School Advance and School Crosswalk warnings. Features fluorescent yellow-green retroreflective sheeting for high twilight contrast. Requires reducing speed to posted school limit (typically 20 mph) during operational hours.",
+        placement: "Posted 150–500 ft prior to school grounds and designated crosswalks.",
+        penalty: "School Zone Speeding fines are DOUBLED under TTC § 542.401 (up to $400+)."
+      },
+      rectangle: {
+        badge: "VERTICAL RECTANGLE // REGULATORY LAW",
+        mutcd: "MUTCD R-SERIES",
+        title: "Regulatory Mandates, Speed Limits & Lane Controls",
+        desc: "Vertical rectangles communicate enforceable statutory rules, absolute speed limits (TTC § 545.351), one-way directions, and lane use requirements. Unlike diamond warning signs, rectangular regulatory signs carry direct criminal sanctions.",
+        placement: "Right shoulder and overhead cantilever structures along travel path.",
+        penalty: "Moving violation under TTC § 544.004 ($1–$200 fine) + 2 DPS Record Points"
+      }
+    };
+
+    function selectShapeNode(shapeKey) {
+      const data = shapeTaxonomy[shapeKey];
+      if (!data) return;
+
+      // Update Reactive Detail Card
+      document.getElementById('shape-card-badge').textContent = data.badge;
+      document.getElementById('shape-card-mutcd').textContent = data.mutcd;
+      document.getElementById('shape-card-title').textContent = data.title;
+      document.getElementById('shape-card-desc').innerHTML = data.desc;
+      document.getElementById('shape-card-placement').textContent = data.placement;
+      document.getElementById('shape-card-penalty').textContent = data.penalty;
+
+      // Update SVG Tiles (Highlight Active Tile)
+      const shapes = ['octagon', 'triangle', 'diamond', 'pennant', 'pentagon', 'rectangle'];
+      shapes.forEach(s => {
+        const tileBg = document.getElementById('tile-bg-' + s);
+        if (tileBg) {
+          if (s === shapeKey) {
+            tileBg.setAttribute('fill', '#FFF8F3');
+            tileBg.setAttribute('stroke', '#E87522');
+            tileBg.setAttribute('stroke-width', '2');
+          } else {
+            tileBg.setAttribute('fill', '#FFFFFF');
+            tileBg.setAttribute('stroke', '#D9DDD8');
+            tileBg.setAttribute('stroke-width', '1.2');
+          }
+        }
+
+        // Update Synced HTML Buttons
+        const btn = document.getElementById('btn-shape-' + s);
+        if (btn) {
+          const spanLabel = btn.querySelector('span.font-mono');
+          if (s === shapeKey) {
+            btn.className = "touch-target p-1.5 rounded-lg border-2 border-safety bg-safety-light text-center flex flex-col justify-center transition-all";
+            if (spanLabel) spanLabel.className = "font-mono text-[9px] font-bold text-safety";
+          } else {
+            btn.className = "touch-target p-1.5 rounded-lg border border-hairline bg-white text-center flex flex-col justify-center transition-all";
+            if (spanLabel) spanLabel.className = "font-mono text-[9px] font-bold text-slate";
+          }
+        }
+      });
+    }
+
+    // =========================================================================
+    // 3D SIMULATION INTERACTION & CONTROLLER ENGINE (L04-T01)
+    // =========================================================================
+    const simScenarios_L04T01 = {
+      1: {
+        badge: "STATUTORY RULE 01 // YELLOW CLEARANCE & ALL-RED",
+        statute: "TTC § 544.007(e) & TMUTCD § 4D.26",
+        title: "Yellow Clearance Interval & Dilemma Zone Threshold Braking",
+        desc: "At 45 mph, a 4.2-second steady yellow clearance interval permits drivers unable to stop safely to clear the intersection. If stopping can be accomplished safely, the driver must apply threshold braking, stopping 3 feet before the marked stop bar before the 1.8-second all-red phase.",
+        metric: "4.2s YELLOW + 1.8s ALL-RED // ZERO DILEMMA ZONE",
+        phase: "APPROACHING 45 MPH // STEADY GREEN"
+      },
+      2: {
+        badge: "STATUTORY RULE 02 // FLASHING YELLOW ARROW",
+        statute: "TTC § 544.007(b) & TMUTCD § 4D.20",
+        title: "Permissive Left Turn: Yield Mandate & 0° Wheel Alignment",
+        desc: "Under a flashing yellow arrow, turns are permitted only after yielding to all oncoming traffic and pedestrians within the intersection. Front wheels must remain pointed dead straight (0°) while waiting for a safe 5.5s+ gap.",
+        metric: "PERMISSIVE MOVEMENT // MANDATORY ONCOMING YIELD",
+        phase: "FYA PERMISSIVE PHASE // STOP AT LINE // WHEELS 0° STRAIGHT"
+      },
+      3: {
+        badge: "STATUTORY MANDATE 03 // INOPERATIVE / DARK SIGNAL",
+        statute: "TTC § 544.007(i)",
+        title: "All-Way Stop Protocol at Inoperative Signalized Intersections",
+        desc: "Under Texas Transportation Code § 544.007(i), an operator approaching an intersection with an inoperative or dark traffic-control signal SHALL stop as at an all-way stop intersection. Right-of-Way is governed by order of arrival (TTC § 545.151).",
+        metric: "MANDATORY FULL STOP // FIRST-IN, FIRST-OUT RIGHT-OF-WAY",
+        phase: "DARK SIGNAL DETECTED // TREATED AS ALL-WAY STOP"
+      }
+    };
+
+    function selectSimScenario(scId) {
+      const data = simScenarios_L04T01[scId];
+      if (!data) return;
+      const bEl = document.getElementById('sim-card-badge');
+      const sEl = document.getElementById('sim-card-statute');
+      const tEl = document.getElementById('sim-card-title');
+      const dEl = document.getElementById('sim-card-desc');
+      const mEl = document.getElementById('sim-card-metric');
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (bEl) bEl.textContent = data.badge;
+      if (sEl) sEl.textContent = data.statute;
+      if (tEl) tEl.textContent = data.title;
+      if (dEl) dEl.textContent = data.desc;
+      if (mEl) mEl.textContent = data.metric;
+      if (pEl) pEl.textContent = data.phase;
+
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('sim-tab-scen' + i) || document.getElementById('btn-scenario-' + i);
+        if (btn) {
+          const activeId = (typeof scenNum !== 'undefined') ? scenNum : ((typeof scId !== 'undefined') ? scId : 1);
+          if (i === activeId) {
+            btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-safety text-white shadow-xs text-center border border-safety transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+          } else {
+            btn.className = "scenario-tab py-2.5 px-1 rounded-lg bg-white border border-hairline text-carbon hover:bg-neutral-50 text-center transition-all min-h-[44px] flex items-center justify-center font-bold text-xs";
+          }
+        }
+      }
+      dispatchSimAction('setScenario', { scenario: scId });
+    }
+
+    function dispatchSimAction(actionName, payload = {}) {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ action: actionName, ...payload }, '*');
+      }
+      if (actionName === 'togglePlay') {
+        const iconEl = document.getElementById('media-play-icon');
+        if (iconEl) {
+          const isPaused = iconEl.textContent.trim() === 'play_arrow';
+          iconEl.textContent = isPaused ? 'pause' : 'play_arrow';
+        }
+      }
+    }
+
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    window.addEventListener('message', function(e) {
+      if (!e.data || (e.data.event !== 'telemetry' && e.data.type !== 'telemetry')) return;
+      const pEl = document.getElementById('sim-telemetry-phase');
+      if (pEl && e.data.phase) {
+        pEl.textContent = e.data.phase;
+      }
+    });
+
+    // Initialize Default Active States on DOM Ready
+    document.addEventListener('DOMContentLoaded', () => {
+      selectSimScenario(1);
+      setSignalPhase('fya');
+      selectShapeNode('octagon');
+    });
+  
+  
+
+    // Mini Quiz Formative Check Controller
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('scoreBadge') || document.getElementById('quiz-score') || document.getElementById('score-display');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
+
+    // Fullscreen Viewport Controller
+    function openSimFullscreen() {
+      const frame = document.getElementById('sim-viewport-frame');
+      if (frame) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+        else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+      }
+    }
+
+    // Smooth Touch & Pointer Scrubber Controller
+    let isScrubbing = false;
+
+    function formatTime(sec) {
+      sec = Math.max(0, sec || 0);
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateScrubberUI(currentTime, duration = 6.0) {
+      duration = duration || 6.0;
+      const pct = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+      const fill = document.getElementById('media-progress-fill');
+      const thumb = document.getElementById('media-progress-thumb');
+      const timeLabel = document.getElementById('media-time-display');
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeLabel) timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    function seekFromEvent(e) {
+      const track = document.getElementById('media-progress-track');
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const seekTime = pct * 6.0;
+      updateScrubberUI(seekTime, 6.0);
+      dispatchSimAction('seek', { time: seekTime });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('media-progress-track');
+      if (track) {
+        track.addEventListener('pointerdown', (e) => {
+          isScrubbing = true;
+          track.setPointerCapture(e.pointerId);
+          seekFromEvent(e);
+        });
+        track.addEventListener('pointermove', (e) => {
+          if (isScrubbing) seekFromEvent(e);
+        });
+        const stopScrub = (e) => {
+          if (isScrubbing) {
+            isScrubbing = false;
+            try { track.releasePointerCapture(e.pointerId); } catch(_) {}
+          }
+        };
+        track.addEventListener('pointerup', stopScrub);
+        track.addEventListener('pointercancel', stopScrub);
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.event === 'timeUpdate') {
+        if (e.data.phase) {
+          const phaseEl = document.getElementById('sim-telemetry-phase') || document.getElementById('telemetry-status-display');
+          if (phaseEl) phaseEl.textContent = e.data.phase;
+        }
+        if (!isScrubbing && typeof e.data.currentTime === 'number') {
+          updateScrubberUI(e.data.currentTime, 6.0);
+        }
+      }
+    });
+</script>
+</body>
+</html>
