@@ -820,22 +820,45 @@
       </div>
     </section>
 
-    <!-- 09. INTERACTIVE SCENARIO MCQS (EXACTLY 3 SCENARIOS WITH TEXAS STATUTORY CITATIONS) -->
+    <!-- 09. INTERACTIVE SCENARIO MCQS (COLLAPSIBLE MINI QUIZ) -->
     <section class="bg-white rounded-xl border border-hairline p-3 sm:p-4 shadow-2xs space-y-3 fluid-card">
       <div class="border-b border-hairline pb-2 flex items-center justify-between gap-2">
         <div>
           <span class="text-[10px] font-mono font-bold tracking-wider text-safety uppercase">KNOWLEDGE EVALUATION</span>
-          <h2 class="font-bold text-base text-carbon leading-tight">Statutory Scenarios (3 Scenarios)</h2>
+          <h2 class="font-bold text-base text-carbon leading-tight">Statutory Knowledge Check</h2>
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
-          <span id="quiz-score" class="text-[10px] font-mono font-bold px-2 py-0.5 bg-carbon text-white rounded shadow-2xs">
+          <span id="quiz-score" class="hidden text-[10px] font-mono font-bold px-2 py-0.5 bg-carbon text-white rounded shadow-2xs">
             SCORE: 0 / 3
           </span>
           <span class="text-[10px] font-mono text-slate bg-surface-sub px-1.5 py-0.5 rounded border border-hairline">
-            PASS: 100%
+            3 SCENARIOS
           </span>
         </div>
       </div>
+
+      <!-- Mini Quiz Trigger Launcher -->
+      <div id="mini-quiz-launcher" class="p-3 bg-surface-sub border border-hairline rounded-xl flex items-center justify-between gap-3">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold text-safety uppercase">
+            <span class="w-2 h-2 rounded-full bg-safety animate-pulse"></span>
+            <span>FORMATIVE CHECK</span>
+          </div>
+          <h3 class="font-bold text-xs sm:text-sm text-carbon leading-tight">Topic 01 Mastery Challenge</h3>
+          <p class="text-[10.5px] text-slate">3 Texas statutory scenarios with instant rationale</p>
+        </div>
+        <button 
+          type="button" 
+          onclick="openMiniQuiz()" 
+          id="btn-open-mini-quiz"
+          class="touch-target px-3.5 py-2.5 bg-safety hover:bg-safety-deep active:scale-95 text-white font-mono font-bold text-xs rounded-xl shadow-xs transition shrink-0 flex items-center gap-1.5">
+          <span>TAKE MINI QUIZ</span>
+          <span class="material-symbols-outlined text-[16px]">quiz</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Container Holding the 3 MCQs -->
+      <div id="mini-quiz-questions" class="hidden space-y-3 pt-1">
 
       <!-- SCENARIO 1: UNCONTROLLED INTERSECTION -->
       <div id="mcqContainer1" class="p-2.5 sm:p-3 rounded-lg bg-surface-sub border border-hairline space-y-2.5">
@@ -932,6 +955,9 @@
 
         <div id="mcqFeedback3" class="hidden p-3 rounded-lg text-xs leading-relaxed font-sans space-y-1"></div>
       </div>
+    </section>
+
+      </div> <!-- End #mini-quiz-questions -->
     </section>
 
     <!-- 10. LESSON FOOTER & NAVIGATION -->
@@ -1392,6 +1418,19 @@
             "statutoryRationale": "Wet road surfaces drastically reduce tire friction coefficient, dramatically extending braking distances and introducing severe hydroplaning hazard. Expanding the following cushion to 5–6 seconds provides the necessary margin for human reaction time and extended stopping distances."
       }
 };
+
+    
+    function openMiniQuiz() {
+      const launcher = document.getElementById('mini-quiz-launcher');
+      const questions = document.getElementById('mini-quiz-questions');
+      const scoreBadge = document.getElementById('quiz-score');
+      if (launcher) launcher.classList.add('hidden');
+      if (questions) {
+        questions.classList.remove('hidden');
+        questions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (scoreBadge) scoreBadge.classList.remove('hidden');
+    }
 
     function handleMCQ(qNum, selectedOption, btn) {
       if (answeredScenarios[qNum]) return;
